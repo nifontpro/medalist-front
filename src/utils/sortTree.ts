@@ -1,7 +1,6 @@
 import { IDept } from '@/app/model/dept/dept';
-import { NewTree } from '@/app/model/dept/NewTree';
 
-export const sortTree = (tree: IDept[]): NewTree[] => {
+export const sortTree = (tree: IDept[]) => {
   const childs = (id: any): any =>
     tree
       .filter((item) => item.parent_id === id)
