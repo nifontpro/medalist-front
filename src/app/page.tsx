@@ -3,8 +3,10 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  return <main>
-    <div>Hello world
-    </div>
-  </main>;
+
+  return (
+    <main>
+      <div>ROOT PAGE</div>
+    </main>
+  );
 }

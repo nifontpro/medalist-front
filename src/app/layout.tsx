@@ -1,6 +1,5 @@
-import Header from '@/components/MainLayout/Header/Header';
-import Sidebar from '@/components/MainLayout/Sidebar/Sidebar';
 import '@/styles/globals.scss';
+import MainLayout from './components/MainLayout/MainLayout';
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,11 +14,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <div className='wrapperMainLayout'>
-          <Header className='header'/>
-          <Sidebar className='sidebar'/>
-          <div className='content'>{children}</div>
-        </div>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );

@@ -23,6 +23,9 @@
       "@/*": ["./src/*"],
       "@/styles/*": [
         "./src/styles/*"
+      ],
+      "@/icons/*": [
+        "./public/icons/*"
       ]
     }
   },
