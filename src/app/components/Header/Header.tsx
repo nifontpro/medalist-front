@@ -7,11 +7,8 @@ const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <Link href='/' className={styles.item}>
-        Лого
+        Главная
       </Link>
-      <div className={styles.item}>Сотрудники</div>
-      <div className={styles.item}>Награды</div>
-      <div className={styles.item}>Статистика</div>
       <div className={styles.item}>Выход/Вход</div>
     </div>
   );

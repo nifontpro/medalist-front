@@ -56,12 +56,21 @@ const deptData: IDept[] = [
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const treeData: NewTree[] = sortTree(deptData);
 
+  // const toggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
+  //   console.log('toggle');
+  // };
+  // const select = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
+  //   console.log(nodeIds);
+  // };
+
   return (
     <div className={className} {...props}>
       <TreeView
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
+        // onNodeToggle={toggle} // Когда открываешь 
+        // onNodeSelect={select} // Когда выбираешь, срабатывает когда открываешь и когда выбираешь
         sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
       >
         <Tree treeData={treeData} />
