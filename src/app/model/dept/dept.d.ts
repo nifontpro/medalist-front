@@ -1,6 +1,6 @@
 export interface IDept {
     id: number
-    parent_id: number | null
+    parent_id: number
     name: string
     code: string
     createdAt?: number
