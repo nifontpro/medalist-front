@@ -6,9 +6,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SidebarProps } from './Sidebar.props';
 import { sortTree } from '@/utils/sortTree';
 import Tree from './Tree/Tree';
-import { NewTree } from '@/app/model/dept/NewTree';
-import { IDept } from '@/app/model/dept/dept';
 import { SvgIcon, SvgIconProps } from '@mui/material';
+import { IDept } from '@/app/_model/dept/dept';
+import { NewTree } from '@/app/_model/dept/newTree';
 
 const deptData: IDept[] = [
   // Корень
@@ -53,7 +53,10 @@ const deptData: IDept[] = [
   { id: 23, parent_id: 12, name: 'Ops', code: 'D' },
 ];
 
-const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
+const Sidebar = (
+  { className, ...props }: SidebarProps,
+  { params }: { params: { id: string } }
+): JSX.Element => {
   const treeData: NewTree[] = sortTree(deptData);
 
   // const toggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
@@ -69,7 +72,8 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
-        // onNodeToggle={toggle} // Когда открываешь 
+        defaultExpanded={['1']} // Сразу открытый путь
+        // onNodeToggle={toggle} // Когда открываешь
         // onNodeSelect={select} // Когда выбираешь, срабатывает когда открываешь и когда выбираешь
         sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
       >

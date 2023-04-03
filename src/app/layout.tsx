@@ -1,5 +1,5 @@
 import '@/styles/globals.scss';
-import MainLayout from './components/MainLayout/MainLayout';
+import MainLayout from './_components/MainLayout/MainLayout';
 
 export const metadata = {
   title: 'Create Next App',

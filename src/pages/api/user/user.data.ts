@@ -1,4 +1,4 @@
-import {IUser} from "@/app/model/user/user";
+import {IUser} from "@/app/_model/user/user";
 
 export const userData: IUser[] = [
     {id: 1, deptId: 2, firstname: "Денис", lastname: "Шапкарин", email: "dshapk@mail.ru"},
