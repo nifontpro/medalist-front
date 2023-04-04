@@ -6,4 +6,5 @@ export type UsersProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   users: IUser[]
+  id: string
 };

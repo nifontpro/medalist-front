@@ -1,5 +1,6 @@
 import '@/styles/globals.scss';
 import MainLayout from './_components/MainLayout/MainLayout';
+import { Providers } from '@/redux/provider';
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <MainLayout>{children}</MainLayout>
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+        </Providers>
       </body>
     </html>
   );

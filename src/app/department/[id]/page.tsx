@@ -37,7 +37,7 @@ export const SingleDepartment = ({ params }: { params: { id: string } }) => {
       </ToggleButtonGroup>
 
       {alignment === 'Users' ? (
-        <Users users={users} />
+        <Users users={users} id={params.id} />
       ) : alignment === 'Medals' ? (
         <Medals id={params.id} />
       ) : alignment === 'Statistic' ? (
