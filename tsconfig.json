@@ -24,6 +24,9 @@
       "@/styles/*": [
         "./src/styles/*"
       ],
+      "@/ui/*": [
+        "./src/ui/*"
+      ],
       "@/icons/*": [
         "./public/icons/*"
       ]

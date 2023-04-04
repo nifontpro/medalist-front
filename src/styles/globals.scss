@@ -4,12 +4,46 @@
 
 * {
   box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html,
+body {
   padding: 0;
   margin: 0;
+  //font-family: 'Comfortaa', sans-serif !important;
+  //font-family: 'Philosopher', sans-serif !important;
+  font-family: 'Manrope', sans-serif !important;
+  // background: var(--gray);
+  @apply text-black;
 }
 
 :root {
   --black: #101010;
   --white: #ffffff;
   --gray: #d8d8d8;
+  --gray96: #969696;
+  --grayF8: #f0f4f8;
+  --graySilver: #d9e2ec;
+  --backgroundMain: #f0f4f8;
+  --gray-light: #f6f6f6;
+  --gray-light05: #f6f6f680;
+  --gray-middle: #f1f1f1;
+  --gray-dark: #101010;
+  --gray-dark-hover: rgba(16, 16, 16, 0.8);
+  --gray-dark-015: #10101015;
+  --red: #ff2600;
+  --lime: #e5f23b;
+  --lime-dark: #d9e62e;
+  --yellow: #e5d833;
+  --yellow-dark: #d3c72a;
+  --orange: #edc34c;
+  --orange-dark: #d9ae36;
+
+  --font-family: 'Manrope', sans-serif;
+  --primary-color: #22eaef;
 }

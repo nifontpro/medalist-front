@@ -1,4 +1,4 @@
-import { NewTree } from '@/app/model/dept/NewTree';
+import { NewTree } from '@/app/_model/newTree';
 
 export type TreeProps = {
   treeData: NewTree[]

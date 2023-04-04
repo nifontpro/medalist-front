@@ -1,4 +1,4 @@
-import { IUser } from '@/app/_model/user/user';
+import { IUser } from '@/app/user/_model/user';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type UsersProps = DetailedHTMLProps<

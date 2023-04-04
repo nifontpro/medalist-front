@@ -1,4 +1,4 @@
-import { IDept } from '@/app/_model/dept/dept';
+import { IDept } from '@/app/_model/dept';
 
 export const sortTree = (tree: IDept[]) => {
   const childs = (id: any): any =>

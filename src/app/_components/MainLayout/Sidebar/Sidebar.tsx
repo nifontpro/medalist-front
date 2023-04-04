@@ -6,12 +6,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SidebarProps } from './Sidebar.props';
 import { sortTree } from '@/utils/sortTree';
 import Tree from './Tree/Tree';
-import { NewTree } from '@/app/_model/dept/newTree';
 import { usePathname } from 'next/navigation';
 import { cookieOnStringArray } from '@/utils/openTreeIdNumber';
 import { getCookie, setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
-import { deptData } from '@/pages/api/dept/dept.data';
+import { deptData } from '@/app/_api/dept.data';
+import { NewTree } from '@/app/_model/newTree';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const pathName = usePathname();

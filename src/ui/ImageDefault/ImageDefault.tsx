@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { ImageProps, StaticImageData } from 'next/dist/client/image';
 import Image from 'next/image';
+import DefaultImage from './imageDefault.png';
 
 type ImageDefaultProps = Omit<ImageProps, 'src'> & {
   src?: string | StaticImageData;
@@ -9,25 +10,31 @@ type ImageDefaultProps = Omit<ImageProps, 'src'> & {
 export const ImageDefault: FC<ImageDefaultProps> = ({
   src,
   alt,
-  layout,
   draggable,
   priority,
   width,
   height,
-  objectFit,
   className,
 }) => {
   return src ? (
     <Image
       className={className}
       src={src}
-      alt={alt}
+      alt={alt ? alt : ''}
       width={width}
       height={height}
-      layout={layout}
       draggable={draggable}
       priority={priority}
-      objectFit={objectFit}
     />
-  ) : null
+  ) : (
+    <Image
+      className={className}
+      src={DefaultImage}
+      alt={alt ? alt : ''}
+      width={width}
+      height={height}
+      draggable={draggable}
+      priority={priority}
+    />
+  );
 };

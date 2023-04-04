@@ -12,6 +12,9 @@ import { SyntheticEvent, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
+import { getDepartmentUrlWithUsers } from '@/config/api.config';
+import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import EditIcon from '@/icons/edit.svg';
 
 const CustomContent = forwardRef(function CustomContent(
   props: TreeItemContentProps,
@@ -49,7 +52,7 @@ const CustomContent = forwardRef(function CustomContent(
   };
   const handleSelectionClick = (event: SyntheticEvent<Element, Event>) => {
     handleSelection(event);
-    push(`/department/${nodeId}`);
+    push(getDepartmentUrlWithUsers(`${nodeId}`));
   };
 
   return (
@@ -65,24 +68,24 @@ const CustomContent = forwardRef(function CustomContent(
       ref={ref as React.Ref<HTMLDivElement>}
     >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={handleExpansionClick} className={classes.iconContainer}>
+      <div onClick={handleExpansionClick} className={clsx(classes.iconContainer, '@apply text-white')}>
         {icon}
       </div>
       <Typography
         onClick={handleSelectionClick}
         component='div'
-        className={classes.label}
+        className={clsx(classes.label, '@apply text-white')}
       >
         {label}
       </Typography>
-      <Typography
-        className='ml-2'
-        variant='caption'
-        color='inherit'
-        onClick={() => console.log('Edit department')}
-      >
-        edit
-      </Typography>
+      <ImageDefault
+        src={EditIcon}
+        width={20}
+        height={20}
+        alt={''}
+        className='rounded-xl h-[24px]'
+        priority={true}
+      />
     </div>
   );
 });
@@ -97,18 +100,16 @@ const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
       <CustomTreeItem
         nodeId={String(node.id)}
         label={
-          // node.name
           <Box sx={{ display: 'flex', alignItems: 'center', p: 0.5, pr: 0 }}>
-            {/* <Box component={'1'} color='inherit' sx={{ mr: 1 }} /> */}
             <Typography
               variant='body2'
               sx={{ fontWeight: 'inherit', flexGrow: 1 }}
             >
               {node.name}
             </Typography>
-            <Typography variant='caption' color='inherit'>
+            {/* <Typography variant='caption' color='inherit'>
               {node.children?.length}
-            </Typography>
+            </Typography> */}
           </Box>
         }
       >

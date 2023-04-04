@@ -1,4 +1,4 @@
-import { IDept } from '@/app/_model/dept/dept';
+import { IDept } from '@/app/_model/dept';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(

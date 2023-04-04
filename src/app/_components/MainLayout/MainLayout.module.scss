@@ -1,21 +1,37 @@
 .wrapperMainLayout {
-    display: grid;
-    grid-template-columns: 300px 1fr 300px;
-    grid-template-areas:
-      'header header header'
-      'sidebar content content';
-  
-    .header {
-      grid-area: header;
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-template-areas:
+    'header header header'
+    'sidebar content content';
+
+  .header {
+    grid-area: header;
+  }
+  .sidebar {
+    grid-area: sidebar;
+    padding: 25px 10px 25px 10px;
+    background-color: var(--black);
+    height: 100vh;
+  }
+  .content {
+    grid-area: content;
+    padding: 50px 50px 0px 50px;
+    background: var(--backgroundMain);
+    border-radius: 15px 0px 0px 0px;
+    overflow: hidden;
+
+    @media screen and (max-width: 1700px) {
+      border-radius: 0px;
     }
-    .sidebar {
-      grid-area: sidebar;
-      padding: 25px 10px 25px 10px;
-      border-right: 1px solid var(--black);
-      height: 100vh;
+    @media screen and (max-width: 1280px) {
+      padding: 40px 40px 0px 40px;
     }
-    .content {
-      grid-area: content;
-      padding: 1rem 2rem;
+    @media screen and (max-width: 768px) {
+      padding: 30px 20px 0px 20px;
+    }
+    @media screen and (max-width: 400px) {
+      padding: 30px 10px 0px 10px;
     }
   }
+}

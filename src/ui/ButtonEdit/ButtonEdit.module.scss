@@ -1,0 +1,46 @@
+.wrapper {
+  .buttonEdit,
+  .buttonRefresh,
+  .buttonRemove {
+    width: 56px;
+    height: 56px;
+  }
+
+  svg {
+    path {
+      @apply duration-200;
+    }
+    rect {
+      @apply duration-200;
+    }
+  }
+
+  &:hover {
+    .buttonEdit svg {
+      path {
+        stroke: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
+
+    .buttonRemove svg {
+      path {
+        fill: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
+
+    .buttonRefresh svg {
+      path {
+        stroke: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
+  }
+}
