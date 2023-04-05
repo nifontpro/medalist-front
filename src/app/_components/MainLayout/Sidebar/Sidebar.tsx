@@ -40,7 +40,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         defaultExpandIcon={<ChevronRightIcon />}
         expanded={state} // Сразу открытый путь
         onNodeToggle={toggle} // Когда открываешь
-        sx={{ flexGrow: 1, maxWidth: 300, overflowY: 'auto' }}
+        sx={{ flexGrow: 1, maxWidth: 300, height: '100%', overflowY: 'auto' }}
       >
         <Tree treeData={treeData} />
       </TreeView>

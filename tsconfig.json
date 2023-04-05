@@ -29,6 +29,9 @@
       ],
       "@/icons/*": [
         "./public/icons/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
       ]
     }
   },

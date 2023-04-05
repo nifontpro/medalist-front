@@ -18,7 +18,7 @@ body {
   //font-family: 'Comfortaa', sans-serif !important;
   //font-family: 'Philosopher', sans-serif !important;
   font-family: 'Manrope', sans-serif !important;
-  // background: var(--gray);
+  background: var(--black);
   @apply text-black;
 }
 
@@ -47,3 +47,18 @@ body {
   --font-family: 'Manrope', sans-serif;
   --primary-color: #22eaef;
 }
+
+
+// Стилизацаия sidebar слева
+.MuiTreeItem-content:hover {
+  background: var(--gray96);
+  @apply duration-200
+}
+
+.Mui-selected {
+  background: var(--white) !important;
+  > .MuiTreeItem-label {
+    color: var(--black);
+  }
+}
+
