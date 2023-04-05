@@ -2,14 +2,15 @@ import Link from 'next/link';
 import styles from './Header.module.scss';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
+import LogoIcon from '@/icons/logo.svg';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
-      <Link href='/' className={styles.item}>
-        Главная
+      <Link href='/' className={styles.logo}>
+        <LogoIcon className='w-[200px]'/>
       </Link>
-      <div className={styles.item}>Выход/Вход</div>
+      <div className={styles.sign}>Выход/Вход</div>
     </div>
   );
 };

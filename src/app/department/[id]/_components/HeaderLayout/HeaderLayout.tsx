@@ -38,6 +38,7 @@ const HeaderLayout = () => {
       exclusive
       onChange={handleChange}
       aria-label='Platform'
+      className='mb-5 w-full justify-center'
     >
       <ToggleButton value='users'>Сотрудники</ToggleButton>
       <ToggleButton value='medals'>Медали</ToggleButton>

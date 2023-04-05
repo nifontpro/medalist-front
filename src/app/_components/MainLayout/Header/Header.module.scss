@@ -1,16 +1,17 @@
 .wrapper {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 300px 1fr;
   align-items: center;
   background: var(--black);
   color: var(--white);
   height: 100px;
   padding: 1rem 2rem;
 
-  .item {
-    margin-right: 15px;
-    &:last-child {
-      margin-right: 0;
-    }
+  .logo {
+    justify-self: center;
+  }
+
+  .sign {
+    justify-self: flex-end;
   }
 }

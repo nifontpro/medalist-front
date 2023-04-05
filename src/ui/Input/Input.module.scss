@@ -1,0 +1,47 @@
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  padding: 17px 30px;
+  width: 100%;
+  color: var(--black);
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15.2338px;
+  line-height: 21px;
+  font-family: var(--font-family);
+
+  @media screen and (max-width: 768px) { 
+    padding: 12px 20px;
+  }
+}
+
+.gray {
+  background: var(--gray-light);
+  border: none;
+}
+
+.white {
+  background: var(--white);
+  border: 1px solid #00000020;
+}
+
+.search {
+  padding-left: 70px;
+}
+
+.input ::placeholder {
+  color: var(--gray);
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  color: red;
+}

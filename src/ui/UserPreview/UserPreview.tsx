@@ -27,10 +27,10 @@ const UserPreview = ({
 
       <div className={styles.info}>
         <P size='m' fontstyle='bold'>
-          {user.lastname} {user.name}
+          {user.lastname} {user.firstname}
         </P>
         <P color='gray' size='m' fontstyle='thin'>
-          {user.post}
+          {user.post}Пост сотрудника
         </P>
       </div>
       {forWhat == 'user' && (

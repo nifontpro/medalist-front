@@ -2,7 +2,6 @@ import styles from './ButtonEdit.module.scss';
 import cn from 'classnames';
 import { ButtonEditProps, icons } from './ButtonEdit.props';
 import { ForwardedRef, forwardRef } from 'react';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
 
 const ButtonEdit = forwardRef(
   (
@@ -15,38 +14,17 @@ const ButtonEdit = forwardRef(
       <div className={cn(styles.wrapper)} {...props} ref={ref}>
         {icon == 'edit' && (
           <button className={cn(styles.buttonEdit, className)}>
-            <ImageDefault
-              src={IconComp}
-              width={76}
-              height={76}
-              alt=''
-              objectFit='cover'
-              // className='rounded-xl'
-            />
+            <IconComp/>
           </button>
         )}{' '}
         {icon == 'remove' && (
           <button className={cn(styles.buttonRemove, className)}>
-            <ImageDefault
-              src={IconComp}
-              width={76}
-              height={76}
-              alt=''
-              objectFit='cover'
-              // className='rounded-xl'
-            />
+            <IconComp />
           </button>
         )}
         {icon == 'refresh' && (
           <button className={cn(styles.buttonRefresh, className)}>
-            <ImageDefault
-              src={IconComp}
-              width={76}
-              height={76}
-              alt=''
-              objectFit='cover'
-              // className='rounded-xl'
-            />
+            <IconComp />
           </button>
         )}
       </div>

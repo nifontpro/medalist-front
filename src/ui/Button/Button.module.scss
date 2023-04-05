@@ -1,0 +1,83 @@
+.button {
+  @apply py-[18px] h-fit cursor-pointer text-[15px] font-bold leading-[20px] rounded-[12px] border-none text-center box-border inline-block;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.white {
+  border: 1px solid #000000;
+  color: var(--gray-dark);
+  background: var(--white);
+  opacity: 0.3;
+}
+
+.whiteBlack {
+  border: 1px solid var(--graySilver);
+  color: var(--gray-dark);
+  background: var(--white);
+  @apply duration-200;
+
+  &:hover {
+    border: 1px solid var(--gray-dark);
+  }
+
+  &:disabled {
+    border: 1px solid var(--graySilver);
+    color: var(--graySilver);
+    cursor: default;
+  }
+}
+
+.gray {
+  color: var(--gray-light);
+  background: var(--gray-dark);
+  opacity: 0.3;
+}
+
+.blackWhite {
+  color: var(--gray-light);
+  background: var(--gray-dark);
+  @apply duration-200;
+
+  &:hover {
+    background: var(--gray-dark-hover);
+  }
+
+  &:disabled {
+    background: var(--grayF8);
+    color: var(--gray);
+    cursor: default;
+  }
+}
+
+.blackGray {
+  color: var(--gray-light);
+  background: var(--gray-dark);
+  border: 1px solid #F6F6F6;
+}
+
+.s {
+  @apply px-[30px] py-[8px] rounded-[10px];
+}
+
+.s {
+  @apply px-[40px];
+}
+
+.m {
+  @apply px-[50px];
+
+  @media screen and (max-width: 768px) {
+  @apply px-[20px];
+  }
+}
+
+.l {
+  @apply px-[80px];
+}
+
+.x {
+  @apply px-[110px];
+}

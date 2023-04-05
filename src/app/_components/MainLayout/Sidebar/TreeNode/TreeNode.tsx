@@ -13,8 +13,7 @@ import { useRouter } from 'next/navigation';
 import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { getDepartmentUrlWithUsers } from '@/config/api.config';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
-import EditIcon from '@/icons/edit.svg';
+import ParamsIcon from '@/icons/paramsEdit.svg';
 
 const CustomContent = forwardRef(function CustomContent(
   props: TreeItemContentProps,
@@ -68,7 +67,10 @@ const CustomContent = forwardRef(function CustomContent(
       ref={ref as React.Ref<HTMLDivElement>}
     >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={handleExpansionClick} className={clsx(classes.iconContainer, '@apply text-white')}>
+      <div
+        onClick={handleExpansionClick}
+        className={clsx(classes.iconContainer, '@apply text-white')}
+      >
         {icon}
       </div>
       <Typography
@@ -78,14 +80,7 @@ const CustomContent = forwardRef(function CustomContent(
       >
         {label}
       </Typography>
-      <ImageDefault
-        src={EditIcon}
-        width={20}
-        height={20}
-        alt={''}
-        className='rounded-xl h-[24px]'
-        priority={true}
-      />
+      <ParamsIcon className='w-[20px] h-[20px]' />
     </div>
   );
 });

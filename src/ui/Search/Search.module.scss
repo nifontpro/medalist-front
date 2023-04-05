@@ -1,0 +1,28 @@
+.search {
+  grid-template-columns: 1fr auto;
+  @apply grid relative gap-[30px] items-center;
+}
+
+.searchWithoutBtn {
+  gap: 0;
+}
+
+ .window {
+  position: relative;
+
+  > .input {
+    padding-left: 70px;
+  }
+}
+
+.svg {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 17px;
+  left: 30px;
+}
+
+.buttonHidden {
+  display: none !important;
+}
