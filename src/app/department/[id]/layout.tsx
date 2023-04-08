@@ -5,9 +5,11 @@ export const metadata = {
   description: 'Review department',
 };
 
-export default function DepartmentLayout(
-  { children }: { children: React.ReactNode },
-) {
+export default function DepartmentLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <section>
       <HeaderLayout />

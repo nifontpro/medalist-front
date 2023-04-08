@@ -2,13 +2,13 @@
 
 import uniqid from 'uniqid';
 import { UsersProps } from './Users.props';
-import UserList from '@/ui/UserList/UserList';
 import styles from './Users.module.scss';
 import Htag from '@/ui/Htag/Htag';
 import SortButton from '@/ui/SortButton/SortButton';
 import cn from 'classnames';
 import { useState } from 'react';
 import Search from '@/ui/Search/Search';
+import UserList from '@/ui/UserList/UserList';
 
 const Users = ({ users, id, className, ...props }: UsersProps) => {
   //Сотртировка по фамилии

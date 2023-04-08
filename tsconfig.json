@@ -21,8 +21,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/app/*": ["./src/app/*"],
       "@/styles/*": [
-        "./src/styles/*"
+        "./src/assets/*"
       ],
       "@/ui/*": [
         "./src/ui/*"

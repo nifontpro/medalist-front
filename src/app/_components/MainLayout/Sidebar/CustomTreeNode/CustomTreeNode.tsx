@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { getDepartmentUrlWithUsers } from '@/config/api.config';
+import { getDepartmentUrl } from '@/config/api.config';
 // import ParamsIcon from '@/icons/paramsEdit.svg';
 import TreeItem, {
   TreeItemContentProps,
@@ -11,15 +11,18 @@ import TreeItem, {
 import { SyntheticEvent, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Typography } from '@mui/material';
-import styles from './CustomTreeNode.module.scss';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getDepartmentEditUrl } from '@/config/api.config';
+import { useAppDispatch } from '@/redux/hooks';
+import { setSelectedTreeId } from '../sidebarTree.slice';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
   ref
 ) {
   const deleteAsync = (id: string) => {};
+  const dispatch = useAppDispatch();
+
   const {
     classes,
     className,
@@ -52,18 +55,24 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
   };
   const handleSelectionClick = (event: SyntheticEvent<Element, Event>) => {
     handleSelection(event);
-    push(getDepartmentUrlWithUsers(`${nodeId}`));
+    dispatch(setSelectedTreeId(nodeId));
+    push(getDepartmentUrl(`${nodeId}`));
   };
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-      className={clsx( className, classes.root, {
-        [classes.expanded]: expanded,
-        [classes.selected]: selected,
-        [classes.focused]: focused,
-        [classes.disabled]: disabled,
-      }, '@apply relative rounded-[12px] py-[10px]') }
+      className={clsx(
+        className,
+        classes.root,
+        {
+          [classes.expanded]: expanded,
+          [classes.selected]: selected,
+          [classes.focused]: focused,
+          [classes.disabled]: disabled,
+        },
+        '@apply relative rounded-[12px] py-[10px]'
+      )}
       onMouseDown={handleMouseDown}
       ref={ref as React.Ref<HTMLDivElement>}
     >

@@ -52,12 +52,15 @@ body {
 // Стилизацаия sidebar слева
 .MuiTreeItem-content:hover {
   background: var(--gray96);
-  @apply duration-200
+  @apply duration-200 
 }
 
-.Mui-selected {
+.Mui-selected { // поправить стиль т.к. он влияет на ToggleButton в layout department
   background: var(--white) !important;
   > .MuiTreeItem-label {
+    color: var(--black);
+  }
+  > .MuiTreeItem-iconContainer {
     color: var(--black);
   }
 }

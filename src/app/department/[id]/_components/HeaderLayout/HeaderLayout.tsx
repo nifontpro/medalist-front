@@ -3,9 +3,7 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
-import { HeaderLayoutProps } from './HeaderLayout.props';
 import { usePathname, useRouter } from 'next/navigation';
-import path from 'path';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
@@ -19,16 +17,19 @@ const HeaderLayout = () => {
     } else return '';
   };
 
-  const [alignment, setAlignment] = useState<'users' | 'medals' | 'statistic' | '' >(
-    convertPathName(pathName)
-  );
+  const [alignment, setAlignment] = useState<
+    'users' | 'medals' | 'statistic' | ''
+  >(convertPathName(pathName));
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: 'users' | 'medals' | 'statistic' | ''
   ) => {
-    ``;
-    push(`${pathName.replace(alignment, newAlignment)}`);
+    if (convertPathName(pathName) !== '') {
+      push(`${pathName.replace(alignment, newAlignment)}`);
+    } else {
+      push(`${pathName}/${newAlignment}`);
+    }
     setAlignment(newAlignment);
   };
   return (

@@ -1,0 +1,35 @@
+.wrapper {
+  display: none;
+
+  @media screen and (max-width: 1280px) {
+    display: block;
+    margin-bottom: 60px;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    svg path {
+      stroke: var(--white)
+    };
+
+    .icon {
+      margin-left: 10px;
+    }
+  }
+}
+
+.visible {
+  display: block;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+}
+
+.hidden {
+  display: none;
+}

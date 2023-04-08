@@ -7,29 +7,37 @@ import { SidebarProps } from './Sidebar.props';
 import { sortTree } from '@/utils/sortTree';
 import Tree from './Tree/Tree';
 import { usePathname } from 'next/navigation';
-import { cookieOnStringArray } from '@/utils/openTreeIdNumber';
-import { getCookie, setCookie } from 'cookies-next';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { deptData } from '@/app/_api/dept.data';
 import { NewTree } from '@/app/_model/newTree';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setArrayIds, setSelectedTreeId } from './sidebarTree.slice';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const pathName = usePathname();
-  const [state, setState] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (pathName == '/') {
-      setState([]);
-    } else {
-      setState(cookieOnStringArray(getCookie('nodeIds')));
-    }
-  }, [pathName]);
-
   const treeData: NewTree[] = sortTree(deptData);
 
+  const { expandedIds, selectedIds } = useAppSelector(
+    (state) => state.sidebarTree
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let localStorageTreeIds = localStorage.getItem('expandedIds');
+    let localStorageSelectedId = localStorage.getItem('selectedIds');
+    if (localStorageSelectedId) {
+      dispatch(setSelectedTreeId(localStorageSelectedId));
+    }
+    if (pathName == '/') {
+      dispatch(setArrayIds(['0']));
+    } else {
+      if (localStorageTreeIds)
+        dispatch(setArrayIds(JSON.parse(localStorageTreeIds)));
+    }
+  }, [pathName, dispatch]);
+
   const toggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
-    setCookie('nodeIds', nodeIds);
-    setState(nodeIds);
+    dispatch(setArrayIds(nodeIds));
   };
 
   return (
@@ -38,7 +46,8 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
-        expanded={state} // Сразу открытый путь
+        expanded={expandedIds} // Сразу открытый путь
+        selected={selectedIds}
         onNodeToggle={toggle} // Когда открываешь
         sx={{ flexGrow: 1, maxWidth: 300, height: '100%', overflowY: 'auto' }}
       >
