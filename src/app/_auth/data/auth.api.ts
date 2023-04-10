@@ -1,11 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { authActions } from '@/app/_auth/data/auth.slice';
 import * as process from 'process';
-
-export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/protocol/openid-connect`;
-export const CLIENT_ID = 'medalist-client';
-export const APP_URI = process.env.APP_URL;
-export const AUTH_CODE_REDIRECT_URI = APP_URI + '/login/redirect';
+import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
 
 export interface IAuthResponse {
   access_token: string;
@@ -53,7 +49,7 @@ export const authApi = createApi({
     logout: build.mutation<void, string>({
       query: (id_token) => ({
         method: 'GET',
-        url: 'logout',
+        url: 'logout', 
         params: {
           id_token,
           // post_logout_redirect_uri: APP_URI,

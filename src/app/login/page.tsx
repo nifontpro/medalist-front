@@ -6,7 +6,7 @@ import {
   AUTH_CODE_REDIRECT_URI,
   CLIENT_ID,
   KEYCLOAK_URI,
-} from '@/app/_auth/data/auth.api';
+} from '@/app/_auth/data/data.api';
 
 const LoginPage = () => {
   useEffect(() => {

@@ -6,12 +6,12 @@ import {
 } from '@reduxjs/toolkit/query';
 import {
   CLIENT_ID,
-  IAuthResponse,
   KEYCLOAK_URI,
-} from '@/app/_auth/data/auth.api';
+} from '@/app/_auth/data/data.api';
 import { authActions } from '@/app/_auth/data/auth.slice';
 import process from 'process';
 import { TypeRootState } from '@/redux/store';
+import { IAuthResponse } from '@/app/_auth/data/auth.api';
 
 const API_SERVER_URL = process.env.API_SERVER_URL;
 

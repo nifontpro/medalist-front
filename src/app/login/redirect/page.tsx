@@ -1,12 +1,14 @@
-import { useRouter } from 'next/router';
+'use client'
+
+import { useRouter } from 'next/router'; //import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { authApi } from '@/app/_auth/data/auth.api';
 
 const RedirectPage = () => {
   const router = useRouter();
   const push = router.push;
-  const query = router.query;
-  const pathname = router.pathname;
+  const query = router.query; //  const query = useSearchParams();
+  const pathname = router.pathname; //   const pathname = usePathname();
 
   const [getLoginData] = authApi.useGetLoginDataMutation();
 
