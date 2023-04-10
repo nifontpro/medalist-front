@@ -1,13 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-// Define a type for the slice state
 interface TreeIdsState {
   expandedIds: string[];
   selectedIds: string;
 }
 
-// Define the initial state using that type
 const initialState: TreeIdsState = {
   expandedIds: ['0'],
   selectedIds: '0',
@@ -15,16 +13,15 @@ const initialState: TreeIdsState = {
 
 export const sidebarTreeSlice = createSlice({
   name: 'sidebarTree',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     setArrayIds: (state, action: PayloadAction<string[]>) => {
       state.expandedIds = action.payload;
-      localStorage.setItem('expandedIds', JSON.stringify(action.payload));
+      // localStorage.setItem('expandedIds', JSON.stringify(action.payload));
     },
     setSelectedTreeId: (state, action: PayloadAction<string>) => {
       state.selectedIds = action.payload;
-      localStorage.setItem('selectedIds', action.payload);
+      // localStorage.setItem('selectedIds', action.payload);
     },
   },
 });

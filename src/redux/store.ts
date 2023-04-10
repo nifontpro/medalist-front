@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-// import {authApi} from '@/auth/data/auth.api';
+import { authApi } from '@/app/_auth/data/auth.api';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import {
   FLUSH,
@@ -12,12 +12,11 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-// import {resourceApi} from "@/app/resource/data/resource.api";
-// import {testApi} from "@/app/resource/data/test.api";
-// import {authSlice} from "@/auth/data/auth.slice";
-
+import { resourceApi } from '@/app/_resource/data/resource.api';
+import { testApi } from '@/app/_resource/data/test.api';
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 import { sidebarTreeSlice } from '@/app/_components/MainLayout/Sidebar/sidebarTree.slice';
+import { authSlice } from '@/app/_auth/data/auth.slice';
 
 const createNoopStorage = () => {
   return {
@@ -41,15 +40,17 @@ const storage =
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
+  // whitelist: ['auth'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
+  // blacklist: ['auth'], // то что не хотим сохранять в localstorage
 };
 
 const rootReducer = combineReducers({
-  // auth: authSlice.reducer,
   sidebarTree: sidebarTreeSlice.reducer,
-  // [authApi.reducerPath]: authApi.reducer,
-  // [resourceApi.reducerPath]: resourceApi.reducer,
-  // [testApi.reducerPath]: testApi.reducer,
+  auth: authSlice.reducer,
+  [authApi.reducerPath]: authApi.reducer,
+  [resourceApi.reducerPath]: resourceApi.reducer,
+  [testApi.reducerPath]: testApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -62,13 +63,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    })
-      .concat
-
-      // authApi.middleware,
-      // resourceApi.middleware,
-      // testApi.middleware,
-      (),
+    }).concat(authApi.middleware, resourceApi.middleware, testApi.middleware),
 });
 
 export const persistor = persistStore(store);

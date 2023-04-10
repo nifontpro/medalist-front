@@ -1,6 +1,7 @@
 import '@/styles/globals.scss';
 import MainLayout from './_components/MainLayout/MainLayout';
-import { Providers } from '@/redux/provider';
+import { Providers } from '@/redux/Providers';
+// import AuthProvider from './_auth/provider/AuthProvider'; 
 
 export const metadata = {
   title: 'Medalist',
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className='bg-black'>
         <Providers>
+          {/* <AuthProvider> */}
           <MainLayout>{children}</MainLayout>
+          {/* </AuthProvider> */}
         </Providers>
       </body>
     </html>
