@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { authActions } from '@/app/_auth/data/auth.slice';
-import * as process from 'process';
+import { authActions } from '@/auth/data/auth.slice';
 import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
 
 export interface IAuthResponse {

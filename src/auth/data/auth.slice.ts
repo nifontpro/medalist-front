@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAuthResponse } from '@/app/_auth/data/auth.api';
+import { IAuthResponse } from '@/auth/data/auth.api';
 import { TypeRootState, useTypedSelector } from '@/redux/store';
 
 interface IAuthState {
@@ -43,5 +43,5 @@ export const authSlice = createSlice({
 
 export const authActions = authSlice.actions;
 
-export const useAuthState = () =>
-  useTypedSelector((state: TypeRootState) => state.auth);
+// export const useAuthState = () =>
+//   useTypedSelector((state: TypeRootState) => state.auth);

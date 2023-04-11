@@ -1,12 +1,10 @@
+'use client'
+
 import '@/styles/globals.scss';
 import MainLayout from './_components/MainLayout/MainLayout';
-import { Providers } from '@/redux/Providers';
-// import AuthProvider from './_auth/provider/AuthProvider'; 
-
-export const metadata = {
-  title: 'Medalist',
-  description: 'Motivation App',
-};
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '@/redux/store';
 
 export default function RootLayout({
   children,
@@ -16,11 +14,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='bg-black'>
-        <Providers>
-          {/* <AuthProvider> */}
-          <MainLayout>{children}</MainLayout>
-          {/* </AuthProvider> */}
-        </Providers>
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <MainLayout>{children}</MainLayout>
+          </PersistGate>
+        </Provider>
       </body>
     </html>
   );

@@ -1,14 +1,17 @@
 'use client'
 
-import { useRouter } from 'next/router'; //import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation'; //import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { authApi } from '@/app/_auth/data/auth.api';
+import { authApi } from '@/auth/data/auth.api';
+import { usePathname } from 'next/navigation';
 
 const RedirectPage = () => {
   const router = useRouter();
   const push = router.push;
-  const query = router.query; //  const query = useSearchParams();
-  const pathname = router.pathname; //   const pathname = usePathname();
+  // const query = router.query; 
+   const query = useSearchParams();
+  // const pathname = router.pathname; 
+    const pathname = usePathname();
 
   const [getLoginData] = authApi.useGetLoginDataMutation();
 
@@ -18,14 +21,14 @@ const RedirectPage = () => {
 
   useEffect(() => {
     const state = localStorage.getItem('state');
-    const queryCode = query.code;
+    const queryCode = query.get('code');
 
     if (queryCode == undefined) {
       return;
     }
 
     if (
-      state != query.state ||
+      state != query.get('state') ||
       codeVerifier == null ||
       typeof queryCode != 'string'
     ) {
@@ -44,8 +47,7 @@ const RedirectPage = () => {
     getLoginData,
     pathname,
     push,
-    query.code,
-    query.state,
+    query,
     router,
   ]);
 
