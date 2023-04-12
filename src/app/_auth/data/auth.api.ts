@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { authActions } from '@/auth/data/auth.slice';
+import { authActions } from '@/app/_auth/data/auth.slice';
 import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
 
 export interface IAuthResponse {
@@ -20,7 +20,10 @@ export const authApi = createApi({
   }),
   tagTypes: ['Auth'],
   endpoints: (build) => ({
-    getLoginData: build.mutation<IAuthResponse, { code: string; codeVerifier: string }>({
+    getLoginData: build.mutation<
+      IAuthResponse,
+      { code: string; codeVerifier: string }
+    >({
       query: (params) => {
         const formData = new URLSearchParams();
         formData.append('grant_type', 'authorization_code');
@@ -37,6 +40,8 @@ export const authApi = createApi({
       invalidatesTags: ['Auth'],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
+          // console.log('Auth Api LogData');
+          dispatch(authActions.setIsAuth(true));
           const { data } = await queryFulfilled;
           await dispatch(authActions.setAuthData(data));
         } catch (error) {
@@ -48,7 +53,7 @@ export const authApi = createApi({
     logout: build.mutation<void, string>({
       query: (id_token) => ({
         method: 'GET',
-        url: 'logout', 
+        url: 'logout',
         params: {
           id_token,
           // post_logout_redirect_uri: APP_URI,
@@ -58,6 +63,7 @@ export const authApi = createApi({
       invalidatesTags: ['Auth'],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
+          console.log('Auth Api LogoutData');
           await queryFulfilled;
           await dispatch(authActions.setNoAuth());
         } catch (error) {

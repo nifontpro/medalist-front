@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { authApi } from '@/auth/data/auth.api';
+import { authApi } from '@/app/_auth/data/auth.api';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 // import storage from 'redux-persist/lib/storage'
 import {
@@ -16,7 +16,7 @@ import {
 import { resourceApi } from '@/app/_resource/data/resource.api';
 import { testApi } from '@/app/_resource/data/test.api';
 import { sidebarTreeSlice } from '@/app/_components/MainLayout/Sidebar/sidebarTree.slice';
-import { authSlice } from '@/auth/data/auth.slice';
+import { authSlice } from '@/app/_auth/data/auth.slice';
 
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 

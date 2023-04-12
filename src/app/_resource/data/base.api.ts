@@ -4,10 +4,10 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
-import { CLIENT_ID, KEYCLOAK_URI } from '@/auth/data/data.api';
-import { IAuthResponse } from '@/auth/data/auth.api';
+import { CLIENT_ID, KEYCLOAK_URI } from '@/app/_auth/data/data.api';
+import { IAuthResponse } from '@/app/_auth/data/auth.api';
 import { TypeRootState } from '@/redux/store';
-import { authActions } from '@/auth/data/auth.slice';
+import { authActions } from '@/app/_auth/data/auth.slice';
 import process from 'process';
 
 const API_SERVER_URL = process.env.API_SERVER_URL;
