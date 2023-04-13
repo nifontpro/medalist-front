@@ -1,14 +1,56 @@
 'use client';
+
 import Link from 'next/link';
 import styles from './Header.module.scss';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import LogoIcon from '@/icons/logo.svg';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSelectedTreeId } from '../Sidebar/sidebarTree.slice';
+import { useRouter } from 'next/navigation';
+import { useJwt } from 'react-jwt';
+import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/app/_auth/data/data.api';
+import { IPayload } from '@/app/_resource/model/idToken';
+import { resourceApi } from '@/app/_resource/data/resource.api';
+import { authActions } from '@/app/_auth/data/auth.slice';
+
+
+function logoutWin(it: string) {
+  console.log(it);
+  const params = [
+    'post_logout_redirect_uri=' + APP_URI,
+    'id_token=' + it,
+    'client_id=' + CLIENT_ID,
+  ];
+  const url = KEYCLOAK_URI + '/logout' + '?' + params.join('&');
+  window.open(url, '_self');
+}
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const dispatch = useAppDispatch();
+  const { isAuth, idToken } = useAppSelector((state) => state.auth);
+  const { push } = useRouter();
+  const { decodedToken, isExpired } = useJwt(idToken || '');
+  const payload = decodedToken as IPayload | undefined;
+
+  const { data: getInfo } = resourceApi.useGetTestDataQuery(undefined, {
+    skip: !isAuth,
+  });
+
+  const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const it = localStorage.getItem('it');
+    if (it != undefined && !isExpired) {
+      logoutWin(it);
+    }
+    await dispatch(authActions.setNoAccess());
+    // await push("/login")
+  };
+
+  const handleLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await push('/login');
+  };
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -19,9 +61,15 @@ const Header = ({ className, ...props }: HeaderProps) => {
       >
         <LogoIcon className='w-[200px]' />
       </Link>
-      <div className={styles.sign}>Выход/Вход</div>
+      <ul className={styles.sign}>{isAuth ? 
+      (<button onClick={handleLogoutClick}>Выход</button>)
+       : 
+       (<button onClick={handleLoginClick}>Вход</button>)
+       }</ul>
     </div>
   );
 };
+
+
 
 export default Header;

@@ -8,13 +8,8 @@ import {
   KEYCLOAK_URI,
 } from '@/app/_auth/data/data.api';
 import Spinner from '@/ui/Spinner/Spinner';
-import { authActions } from '@/app/_auth/data/auth.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
-  const { push } = useRouter();
-  const { isAuth } = useAppSelector((state) => state.auth);
   // https://github.com/crouchcd/pkce-challenge
   const pkceChallenge = require('pkce-challenge').default;
 
@@ -27,12 +22,7 @@ const LoginPage = () => {
     localStorage.setItem('state', tmpState);
 
     let url = requestAuthCode(tmpState, challenge.code_challenge);
-    // if (isAuth === true) {
-    //   push('/');
-    //   console.log('REDIRECT ON MAIN');
-    // } else {
-      window.open(url, '_self');
-    // }
+    window.open(url, '_self');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

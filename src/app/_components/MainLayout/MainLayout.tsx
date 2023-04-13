@@ -6,8 +6,7 @@ import { useAppSelector } from '@/redux/hooks';
 import Spinner from '@/ui/Spinner/Spinner';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
-  const { isAuth, loading } = useAppSelector((state) => state.auth);
-  const state = localStorage.getItem('state');
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   if (isAuth !== false) {
     return (
