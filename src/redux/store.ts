@@ -45,11 +45,11 @@ const persistConfig = {
   storage,
   // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
   whitelist: ['auth', 'sidebarTree'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
-  // blacklist: [
-  //   authApi.reducerPath,
-  //   resourceApi.reducerPath,
-  //   testApi.reducerPath,
-  // ], // то что не хотим сохранять в localstorage
+  blacklist: [
+    authApi.reducerPath,
+    resourceApi.reducerPath,
+    testApi.reducerPath,
+  ], // то что не хотим сохранять в localstorage
 };
 
 const rootReducer = combineReducers({
