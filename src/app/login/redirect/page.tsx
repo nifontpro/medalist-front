@@ -40,14 +40,15 @@ const RedirectPage = () => {
       .then(async (data) => {
         // console.log(data)
         await push('/');
+        console.log('Redirect on Main')
       });
   }, [codeVerifier, getLoginData, pathname, query, push, back]);
 
   return (
     <>
-      <div className='flex flex-col m-2 text-3xl break-all'>
+      {/* <div className='flex flex-col m-2 text-3xl break-all'>
         <div>{info}</div>
-      </div>
+      </div> */}
       <Spinner />
     </>
   );

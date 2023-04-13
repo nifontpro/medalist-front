@@ -40,7 +40,7 @@ export const authApi = createApi({
       invalidatesTags: ['Auth'],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          // console.log('Auth Api LogData');
+          console.log('Auth Api LogData');
           dispatch(authActions.setIsAuth(true));
           const { data } = await queryFulfilled;
           await dispatch(authActions.setAuthData(data));

@@ -23,6 +23,7 @@ const LoginPage = () => {
 
     let url = requestAuthCode(tmpState, challenge.code_challenge);
     window.open(url, '_self');
+    console.log('Redirect on RedirectPage')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
