@@ -6,7 +6,7 @@ import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import LogoIcon from '@/icons/logo.svg';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setSelectedTreeId } from '../Sidebar/sidebarTree.slice';
+import { setSelectedTreeId, setArrayIds } from '../Sidebar/sidebarTree.slice';
 import { useRouter } from 'next/navigation';
 import { useJwt } from 'react-jwt';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/app/_auth/data/data.api';
@@ -42,8 +42,11 @@ const Header = ({ className, ...props }: HeaderProps) => {
     const it = localStorage.getItem('it');
     if (it != undefined && !isExpired) {
       logoutWin(it);
+      dispatch(setSelectedTreeId('0'))
+      dispatch(setArrayIds(['0']))
     }
     await dispatch(authActions.setNoAccess());
+    console.log('не понятно что это')
     // await push("/login")
   };
 
