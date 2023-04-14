@@ -12,13 +12,13 @@ export const REFRESH_TOKEN_LIFE = 30; // Время жизни локально�
 export const getDepartmentUrl = (string: string = '') =>
   `/department/${string}`;
 export const getDepartmentUrlWithUsers = (string: string = '') =>
-  `/department/${string}/users`;
-// export const getDepartmentCreateUrl = (string: string = '') => `/department/create${string}`
+  `/department/${string}/users`; 
+export const getDepartmentCreateUrl = (string: string = '') => `/create/department${string}`
 export const getDepartmentEditUrl = (string: string = '') =>
   `/department/${string}/edit`;
 export const getUserUrl = (string: string = '') => `/user${string}`;
-// export const getUserCreateUrl = (string: string = '') => `/user/create${string}`
-// export const getUserEditUrl = (string: string = '') => `/user/edit${string}`
+export const getUserCreateUrl = (string: string = '') => `/create/user${string}`
+export const getUserEditUrl = (string: string = '') => `/user/${string}/edit`
 // export const getUserEditPasswordUrl = (string: string = '') => `/user/edit_password${string}`
 // export const getAwardUrl = (string: string = '') => `/award${string}`
 // export const getAwardCreateUrl = (string: string = '') => `/award/create${string}`

@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { getDepartmentUrl } from '@/config/api.config';
+import { getDepartmentCreateUrl, getDepartmentUrl } from '@/config/api.config';
 // import ParamsIcon from '@/icons/paramsEdit.svg';
 import TreeItem, {
   TreeItemContentProps,
@@ -91,10 +91,11 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
         {label}
       </Typography>
       <EditPanelAuthBtn
-        onlyRemove={false}
+        onlyRemove={false} 
         handleRemove={deleteAsync}
         id={nodeId}
-        getUrl={getDepartmentEditUrl(nodeId)}
+        getUrlEdit={getDepartmentEditUrl}
+        getUrlCreate={getDepartmentCreateUrl}
       />
       {/* <ParamsIcon className={styles.editIcon} /> */}
     </div>

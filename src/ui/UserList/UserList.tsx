@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { ForwardedRef, forwardRef } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import UserPreview from '@/ui/UserPreview/UserPreview';
-import { getUserUrl } from '@/config/api.config';
+import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 
 const UserList = motion(
   forwardRef(
@@ -33,7 +33,7 @@ const UserList = motion(
             <div className={styles.editPanel} {...props}>
               <div
                 className={styles.wrapperIcon}
-                // onClick={() => push(getUserEditUrl(`/${user.id}`))}
+                onClick={() => push(getUserEditUrl(`/${user.id}`))}
               >
                 <ButtonEdit icon='edit' className={styles.edit} />
               </div>

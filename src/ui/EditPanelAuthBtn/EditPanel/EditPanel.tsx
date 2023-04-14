@@ -9,7 +9,8 @@ import { ForwardedRef, forwardRef } from 'react';
 const EditPanel = forwardRef(
   (
     {
-      getUrl,
+      getUrlEdit,
+      getUrlCreate,
       id,
       // deleteAsync,
       children,
@@ -27,7 +28,7 @@ const EditPanel = forwardRef(
     const variants = {
       visible: {
         opacity: 1,
-        height: !onlyRemove ? '230px' : 'auto',
+        height: !onlyRemove ? '180px' : 'auto',
         padding: '20px',
       },
       hidden: {
@@ -71,11 +72,11 @@ const EditPanel = forwardRef(
           ref={ref}
           {...props}
         >
-          {getUrl && (
+          {getUrlEdit && (
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => push(getUrl(`/${id}`))}
+              onClick={() => push(getUrlEdit(`/${id}`))}
               className={styles.item}
             >
               Редактировать
@@ -91,23 +92,22 @@ const EditPanel = forwardRef(
               Удалить
             </P>
           )}
-
           <P
             size='xs'
             fontstyle='thin'
-            // onClick={() => deleteAsync(id)}
+            onClick={() => push(getUrlCreate())}
             className={styles.item}
           >
             Создать отдел
           </P>
-          <P
+          {/* <P
             size='xs'
             fontstyle='thin'
             // onClick={() => deleteAsync(id)}
             className={styles.item}
           >
             Добавть сотрудника
-          </P>
+          </P> */}
         </motion.div>
       );
     }

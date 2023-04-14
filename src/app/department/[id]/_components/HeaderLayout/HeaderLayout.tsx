@@ -17,6 +17,14 @@ const HeaderLayout = () => {
     } else return '';
   };
 
+  const getLastUrl = (string: string) => {
+    const arr = pathName.split('/');
+    const link = arr[arr.length - 1];
+    if (link == 'edit') {
+      return link;
+    } else return '';
+  };
+
   const [alignment, setAlignment] = useState<
     'users' | 'medals' | 'statistic' | ''
   >(convertPathName(pathName));
@@ -32,19 +40,24 @@ const HeaderLayout = () => {
     }
     setAlignment(newAlignment);
   };
+
   return (
-    <ToggleButtonGroup
-      color='primary'
-      value={alignment}
-      exclusive
-      onChange={handleChange}
-      aria-label='Platform'
-      className='mb-5 w-full justify-center'
-    >
-      <ToggleButton value='users'>Сотрудники</ToggleButton>
-      <ToggleButton value='medals'>Медали</ToggleButton>
-      <ToggleButton value='statistic'>Статистика</ToggleButton>
-    </ToggleButtonGroup>
+    <>
+      {getLastUrl(pathName) === 'edit' ? null : (
+        <ToggleButtonGroup
+          color='primary'
+          value={alignment}
+          exclusive
+          onChange={handleChange}
+          aria-label='Platform'
+          className='mb-5 w-full justify-center'
+        >
+          <ToggleButton value='users'>Сотрудники</ToggleButton>
+          <ToggleButton value='medals'>Медали</ToggleButton>
+          <ToggleButton value='statistic'>Статистика</ToggleButton>
+        </ToggleButtonGroup>
+      )}
+    </>
   );
 };
 

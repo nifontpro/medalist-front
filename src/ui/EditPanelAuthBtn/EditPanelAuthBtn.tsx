@@ -10,7 +10,8 @@ import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
 const EditPanelAuthBtn = ({
   handleRemove,
   onlyRemove,
-  getUrl,
+  getUrlEdit,
+  getUrlCreate,
   id,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
@@ -30,11 +31,13 @@ const EditPanelAuthBtn = ({
         onClick={() => setVisible(!visible)}
         icon='dots'
         appearance={color}
+        classNameForIcon='@apply w-[10px] h-[10px]'
         className={styles.dots}
         ref={refOpen}
       />
       <EditPanel
-        getUrl={getUrl}
+        getUrlEdit={getUrlEdit}
+        getUrlCreate={getUrlCreate}
         onMouseLeave={() => setVisible(!visible)}
         id={id}
         // deleteAsync={handleRemove}
@@ -43,7 +46,7 @@ const EditPanelAuthBtn = ({
         onlyRemove={onlyRemove}
       />
       <FilterEditPanel
-        getUrl={getUrl}
+        getUrl={getUrlEdit}
         setVisible={setVisible}
         id={id}
         // deleteAsync={handleRemove}

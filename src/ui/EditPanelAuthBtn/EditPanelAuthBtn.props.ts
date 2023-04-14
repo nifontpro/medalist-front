@@ -5,7 +5,8 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElem
     children?: ReactNode;
     handleRemove: (id: string) => void
     id: string
-    getUrl: (string?: string) => string
+    getUrlEdit: (string?: string) => string
+    getUrlCreate: (string?: string) => string
     onlyRemove: boolean
     color?: 'white' | 'transparent'
 }
