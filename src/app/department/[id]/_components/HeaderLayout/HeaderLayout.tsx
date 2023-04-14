@@ -33,6 +33,9 @@ const HeaderLayout = () => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: 'users' | 'medals' | 'statistic' | ''
   ) => {
+    if (newAlignment === null) {
+      push(pathName);
+    }
     if (convertPathName(pathName) !== '') {
       push(`${pathName.replace(alignment, newAlignment)}`);
     } else {
