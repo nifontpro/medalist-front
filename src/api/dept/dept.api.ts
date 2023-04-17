@@ -1,10 +1,10 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {baseQueryWithReauth} from "@/app/api/base/base.api";
-import {UserDetails} from "@/app/domain/model/user/userDetails";
-import {CreateOwnerRequest} from "@/app/api/user/request/CreateOwnerRequest";
-import {Dept} from "@/app/domain/model/dept/dept";
-import {DeptDetails} from "@/app/domain/model/dept/deptDetails";
-import {CreateDeptRequest} from "@/app/api/dept/request/createDeptRequest";
+import { baseQueryWithReauth } from '../base/base.api';
+import { Dept } from '@/domain/model/dept/dept';
+import { DeptDetails } from '@/domain/model/dept/deptDetails';
+import { CreateDeptRequest } from './request/createDeptRequest';
+import { UserDetails } from '@/domain/model/user/userDetails';
+import { CreateOwnerRequest } from '../user/request/CreateOwnerRequest';
 
 export const deptApi = createApi({
     reducerPath: 'DeptApi',

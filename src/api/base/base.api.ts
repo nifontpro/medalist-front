@@ -1,8 +1,8 @@
+import { TypeRootState } from '@/store/storage/store';
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query";
-import {CLIENT_ID, IAuthResponse, KEYCLOAK_URI} from "@/app/api/auth/auth.api";
-import {TypeRootState} from "@/app/store/storage/store";
-import {authActions} from "@/app/store/storage/auth/auth.slice";
 import process from "process";
+import { CLIENT_ID, IAuthResponse, KEYCLOAK_URI } from '../auth/auth.api';
+import { authActions } from '@/store/features/auth/auth.slice';
 
 const API_SERVER_URL = process.env.API_SERVER_URL
 

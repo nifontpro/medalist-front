@@ -1,8 +1,8 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {baseQueryWithReauth} from "@/app/api/base/base.api";
-import {User} from "@/app/domain/model/user/user";
-import {UserDetails} from "@/app/domain/model/user/userDetails";
-import {CreateOwnerRequest} from "@/app/api/user/request/CreateOwnerRequest";
+import { baseQueryWithReauth } from '../base/base.api';
+import { User } from '@/domain/model/user/user';
+import { UserDetails } from '@/domain/model/user/userDetails';
+import { CreateOwnerRequest } from './request/CreateOwnerRequest';
 
 export const userApi = createApi({
     reducerPath: 'UserApi',
