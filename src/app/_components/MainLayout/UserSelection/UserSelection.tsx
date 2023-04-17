@@ -11,8 +11,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   // if (isAuth === true) {
-    const { data } = userApi.useGetProfilesQuery(undefined,{skip: !isAuth});
-    console.log(data);
+    const { data: rolesUser } = userApi.useGetProfilesQuery(undefined,{skip: !isAuth});
+    console.log(rolesUser);
   // }
 
   return (
