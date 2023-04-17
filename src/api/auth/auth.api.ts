@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { authActions } from '@/store/features/auth/auth.slice';
-// import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
 import * as process from 'process';
 
 export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/protocol/openid-connect`;

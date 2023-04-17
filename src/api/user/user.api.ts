@@ -23,7 +23,7 @@ export const userApi = createApi({
 
         /**
          * Возвращает профили вошедшего в систему пользователя
-         */
+         */ 
         getProfiles: build.query<User[], void>({
             query: () => {
                 return {

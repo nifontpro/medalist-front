@@ -13,10 +13,12 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
+import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 import { sidebarTreeSlice } from '@/store/features/sidebar/sidebarTree.slice';
 import { authSlice } from '@/store/features/auth/auth.slice';
-
-import createWebStorage from 'redux-persist/es/storage/createWebStorage';
+import { userSelectionSlice } from '../features/userSelection/userSelection';
+import { userApi } from '@/api/user/user.api';
+import { deptApi } from '@/api/dept/dept.api';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -42,16 +44,17 @@ const persistConfig = {
   key: 'root',
   storage,
   // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
-  whitelist: ['auth', 'sidebarTree'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
-  blacklist: [
-    authApi.reducerPath,
-  ], // то что не хотим сохранять в localstorage
+  whitelist: ['auth', 'sidebarTree', 'userSelection'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
+  blacklist: [authApi.reducerPath, userApi.reducerPath, deptApi.reducerPath], // то что не хотим сохранять в localstorage
 };
 
 const rootReducer = combineReducers({
   sidebarTree: sidebarTreeSlice.reducer,
+  userSelection: userSelectionSlice.reducer,
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [deptApi.reducerPath]: deptApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -64,7 +67,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware ),
+    }).concat(authApi.middleware, userApi.middleware, deptApi.middleware),
 });
 
 export const persistor = persistStore(store);
