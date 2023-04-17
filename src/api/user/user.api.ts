@@ -3,6 +3,7 @@ import { baseQueryWithReauth } from '../base/base.api';
 import { User } from '@/domain/model/user/user';
 import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
+import { BaseResponse } from '@/domain/model/base/baseResponse';
 
 export const userApi = createApi({
     reducerPath: 'UserApi',
@@ -24,7 +25,7 @@ export const userApi = createApi({
         /**
          * Возвращает профили вошедшего в систему пользователя
          */ 
-        getProfiles: build.query<User[], void>({
+        getProfiles: build.query<BaseResponse<User[]>, void>({
             query: () => {
                 return {
                     method: 'POST',
@@ -34,7 +35,7 @@ export const userApi = createApi({
             providesTags: ['User']
         }),
 
-        createOwner: build.mutation<UserDetails, CreateOwnerRequest>({
+        createOwner: build.mutation<BaseResponse<UserDetails>, CreateOwnerRequest>({
             query: (request) => {
                 return {
                     method: 'POST',
@@ -45,5 +46,18 @@ export const userApi = createApi({
             invalidatesTags: ['User']
         }),
 
+        /**
+         * Получение сотрудников отдела
+         */
+        getUsersByDept: build.query<BaseResponse<User[]>, { authId: number, deptId: number }>({
+            query: (request) => {
+                return {
+                    method: 'POST',
+                    url: '/user/get_by_dept',
+                    body: request
+                }
+            },
+            providesTags: ['User']
+        }),
     })
 })

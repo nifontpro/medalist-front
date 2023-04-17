@@ -10,11 +10,14 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
-  const {data} = userApi.useGetProfilesQuery();
-  console.log(data)
+  if (isAuth === true) {
+    const { data } = userApi.useGetProfilesQuery();
+    console.log(data);
+  }
+
   return (
     <>
-      {isAuth === true && typeOfUser.length ==  0 ? null : (
+      {isAuth === true && typeOfUser.length == 0 ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
           <div className={styles.window}>Выберите пользователя</div>
         </div>

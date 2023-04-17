@@ -38,9 +38,10 @@ const Header = ({ className, ...props }: HeaderProps) => {
       logoutWin(it);
       dispatch(setSelectedTreeId('0'))
       dispatch(setArrayIds(['0']))
-      dispatch(authActions.setIsAuth(false))
+      // dispatch(authActions.setIsAuth(false))
     }
     await dispatch(authActions.setNoAccess());
+    // await dispatch(authActions.setIsAuth(false))
     console.log('не понятно что это')
     // await push("/login")
   };
