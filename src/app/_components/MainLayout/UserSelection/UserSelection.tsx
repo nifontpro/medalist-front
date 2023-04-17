@@ -10,10 +10,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
-  if (isAuth === true) {
-    const { data } = userApi.useGetProfilesQuery();
+  // if (isAuth === true) {
+    const { data } = userApi.useGetProfilesQuery(undefined,{skip: !isAuth});
     console.log(data);
-  }
+  // }
 
   return (
     <>
