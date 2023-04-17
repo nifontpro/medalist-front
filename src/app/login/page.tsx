@@ -2,12 +2,9 @@
 
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import {
-  AUTH_CODE_REDIRECT_URI,
-  CLIENT_ID,
-  KEYCLOAK_URI,
-} from '@/app/_auth/data/data.api';
 import Spinner from '@/ui/Spinner/Spinner';
+import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+// import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/data.api';
 
 const LoginPage = () => {
   // https://github.com/crouchcd/pkce-challenge

@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { usePathname, useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect } from 'react';
 

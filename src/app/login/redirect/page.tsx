@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'; //import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { authApi } from '@/app/_auth/data/auth.api';
+import { authApi } from '@/api/auth/auth.api';
 import { usePathname } from 'next/navigation';
 import Spinner from '@/ui/Spinner/Spinner';
 

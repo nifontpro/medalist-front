@@ -9,9 +9,9 @@ import Tree from './Tree/Tree';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { deptData } from '@/app/_api/dept.data';
-import { NewTree } from '@/app/_model/newTree';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setArrayIds, setSelectedTreeId } from './sidebarTree.slice';
+import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { setArrayIds, setSelectedTreeId } from '../../../../store/features/sidebar/sidebarTree.slice';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const pathName = usePathname();

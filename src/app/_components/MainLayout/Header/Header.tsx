@@ -5,14 +5,13 @@ import styles from './Header.module.scss';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import LogoIcon from '@/icons/logo.svg';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setSelectedTreeId, setArrayIds } from '../Sidebar/sidebarTree.slice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { setSelectedTreeId, setArrayIds } from '../../../../store/features/sidebar/sidebarTree.slice';
 import { useRouter } from 'next/navigation';
 import { useJwt } from 'react-jwt';
-import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/app/_auth/data/data.api';
-import { IPayload } from '@/app/_resource/model/idToken';
-import { resourceApi } from '@/app/_resource/data/resource.api';
-import { authActions } from '@/app/_auth/data/auth.slice';
+import { authActions } from '@/store/features/auth/auth.slice';
+import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+// import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/data.api';
 
 
 function logoutWin(it: string) {
@@ -31,11 +30,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
   const { isAuth, idToken } = useAppSelector((state) => state.auth);
   const { push } = useRouter();
   const { decodedToken, isExpired } = useJwt(idToken || '');
-  const payload = decodedToken as IPayload | undefined;
-
-  const { data: getInfo } = resourceApi.useGetTestDataQuery(undefined, {
-    skip: !isAuth,
-  });
 
   const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -44,6 +38,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
       logoutWin(it);
       dispatch(setSelectedTreeId('0'))
       dispatch(setArrayIds(['0']))
+      dispatch(authActions.setIsAuth(false))
     }
     await dispatch(authActions.setNoAccess());
     console.log('не понятно что это')

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { authApi } from '@/app/_auth/data/auth.api';
+import { authApi } from '@/api/auth/auth.api';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 // import storage from 'redux-persist/lib/storage'
 import {
@@ -13,10 +13,8 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import { resourceApi } from '@/app/_resource/data/resource.api';
-import { testApi } from '@/app/_resource/data/test.api';
-import { sidebarTreeSlice } from '@/app/_components/MainLayout/Sidebar/sidebarTree.slice';
-import { authSlice } from '@/app/_auth/data/auth.slice';
+import { sidebarTreeSlice } from '@/store/features/sidebar/sidebarTree.slice';
+import { authSlice } from '@/store/features/auth/auth.slice';
 
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 
@@ -47,8 +45,6 @@ const persistConfig = {
   whitelist: ['auth', 'sidebarTree'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
   blacklist: [
     authApi.reducerPath,
-    resourceApi.reducerPath,
-    testApi.reducerPath,
   ], // то что не хотим сохранять в localstorage
 };
 
@@ -56,8 +52,6 @@ const rootReducer = combineReducers({
   sidebarTree: sidebarTreeSlice.reducer,
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
-  [resourceApi.reducerPath]: resourceApi.reducer,
-  [testApi.reducerPath]: testApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -70,7 +64,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, resourceApi.middleware, testApi.middleware),
+    }).concat(authApi.middleware ),
 });
 
 export const persistor = persistStore(store);

@@ -1,4 +1,4 @@
-import { NewTree } from '@/app/_model/newTree';
+import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
 
 export type TreeProps = {
   treeData: NewTree[]

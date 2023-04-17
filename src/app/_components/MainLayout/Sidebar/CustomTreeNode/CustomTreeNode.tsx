@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation';
 import { Typography } from '@mui/material';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getDepartmentEditUrl } from '@/config/api.config';
-import { useAppDispatch } from '@/redux/hooks';
-import { setSelectedTreeId } from '../sidebarTree.slice';
+import { useAppDispatch } from '@/store/hooks/hooks';
+import { setSelectedTreeId } from '../../../../../store/features/sidebar/sidebarTree.slice';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,

@@ -4,8 +4,8 @@ import '@/styles/globals.scss';
 import MainLayout from './_components/MainLayout/MainLayout';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from '@/redux/store';
-import AuthProvider from '@/app/_auth/provider/AuthProvider';
+import { persistor, store } from '@/store/storage/store';
+import AuthProvider from '@/store/providers/AuthProvider';
 
 export default function RootLayout({
   children,

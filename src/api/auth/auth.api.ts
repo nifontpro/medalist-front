@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { authActions } from '@/app/_auth/data/auth.slice';
-import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
+import { authActions } from '@/store/features/auth/auth.slice';
+// import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from './data.api';
+import * as process from 'process';
+
+export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/protocol/openid-connect`;
+export const CLIENT_ID = 'medalist-client';
+export const APP_URI = process.env.APP_URL;
+export const AUTH_CODE_REDIRECT_URI = APP_URI + '/login/redirect';
 
 export interface IAuthResponse {
   access_token: string;
