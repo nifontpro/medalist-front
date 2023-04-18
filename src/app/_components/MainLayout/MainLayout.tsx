@@ -3,7 +3,6 @@ import Sidebar from './Sidebar/Sidebar';
 import { MainLayoutProps } from './MainLayout.props';
 import styles from './MainLayout.module.scss';
 import { useAppSelector } from '@/store/hooks/hooks';
-import Spinner from '@/ui/Spinner/Spinner';
 import UserSelection from './UserSelection/UserSelection';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
