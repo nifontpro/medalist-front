@@ -3,29 +3,22 @@
 import styles from './UserSelection.module.scss';
 import cn from 'classnames';
 import { UserSelectionProps } from './UserSelection.props';
-import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import { userApi } from '@/api/user/user.api';
 import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
-import {
-  setIsOpen,
-  setTypeOfUser_IsOpen,
-} from '@/store/features/userSelection/userSelection.slice';
-import { usePathname } from 'next/navigation';
+import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
+import { useUserSelection } from './useUserSelection';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
-  const dispatch = useAppDispatch();
-  const pathName = usePathname();
-
-  const { isAuth } = useAppSelector((state) => state.auth);
-  const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
-
-  const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
-    undefined,
-    {
-      skip: !isAuth,
-    }
-  );
+  const {
+    isAuth,
+    typeOfUser,
+    isOpen,
+    pathName,
+    rolesUser,
+    handleChangeRole,
+    isLoading,
+    dispatch,
+  } = useUserSelection();
 
   return (
     <>
@@ -43,7 +36,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                     <div
                       key={uniqid()}
                       className={styles.role}
-                      onClick={() => dispatch(setTypeOfUser_IsOpen(role))}
+                      onClick={() => handleChangeRole(role)}
                     >
                       id: {role.id} <br />
                       {role.dept.name}
