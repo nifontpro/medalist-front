@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/store/hooks/hooks';
 import { usePathname, useRouter } from 'next/navigation';
-import { FC, PropsWithChildren, useEffect } from 'react';
+import { FC, PropsWithChildren, useEffect, useLayoutEffect } from 'react';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { isAuth, loading } = useAppSelector((state) => state.auth);
@@ -8,7 +8,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { push } = useRouter();
   const pathName = usePathname();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isAuth === false && pathName !== '/login') {
       console.log(`AuthProvider: isAuth ${isAuth}`)
       push('/login');

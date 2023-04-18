@@ -12,7 +12,6 @@ import { useJwt } from 'react-jwt';
 import { authActions } from '@/store/features/auth/auth.slice';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
 import { setIsOpen, setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
-// import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/data.api';
 
 
 function logoutWin(it: string) {

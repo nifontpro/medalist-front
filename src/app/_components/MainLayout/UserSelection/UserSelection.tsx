@@ -12,12 +12,10 @@ import {
   setTypeOfUser_IsOpen,
 } from '@/store/features/userSelection/userSelection.slice';
 import { usePathname } from 'next/navigation';
-import Spinner from '@/ui/Spinner/Spinner';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const dispatch = useAppDispatch();
   const pathName = usePathname();
-  console.log(pathName);
 
   const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
@@ -33,12 +31,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     <>
       {isAuth &&
       typeOfUser != undefined &&
-      !isOpen &&
-      pathName != '/login' ? null : (
+      !isOpen ||
+      pathName == '/login' ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
-          {isLoading ? (
-            <Spinner />
-          ) : (
+          {!isLoading && (
             <div className={styles.window}>
               <Htag tag='h2' className={styles.header}>
                 Выберите профиль
