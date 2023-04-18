@@ -15,7 +15,7 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
       <>
         <div className={styles.wrapperMainLayout} {...props}>
           <Header className={styles.header} />
-          {typeOfUser.length && <Sidebar className={styles.sidebar} />}
+          {typeOfUser && <Sidebar className={styles.sidebar} />}
 
           <div className={styles.content}>{children}</div>
         </div>

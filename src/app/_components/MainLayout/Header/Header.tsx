@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useJwt } from 'react-jwt';
 import { authActions } from '@/store/features/auth/auth.slice';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+import { setIsOpen, setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
 // import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/data.api';
 
 
@@ -28,6 +29,8 @@ function logoutWin(it: string) {
 const Header = ({ className, ...props }: HeaderProps) => {
   const dispatch = useAppDispatch();
   const { isAuth, idToken } = useAppSelector((state) => state.auth);
+  const { typeOfUser } = useAppSelector((state) => state.userSelection);
+
   const { push } = useRouter();
   const { decodedToken, isExpired } = useJwt(idToken || '');
 
@@ -38,6 +41,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
       logoutWin(it);
       dispatch(setSelectedTreeId('0'))
       dispatch(setArrayIds(['0']))
+      dispatch(setTypeOfUserUndefined())
       // dispatch(authActions.setIsAuth(false))
     }
     await dispatch(authActions.setNoAccess());
@@ -60,6 +64,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
       >
         <LogoIcon className='w-[200px]' />
       </Link>
+      <div className={styles.role} onClick={() => dispatch(setIsOpen(true))}>{typeOfUser?.firstname} {typeOfUser?.lastname}</div>
       <ul className={styles.sign}>{isAuth ? 
       (<button onClick={handleLogoutClick}>Выход</button>)
        : 

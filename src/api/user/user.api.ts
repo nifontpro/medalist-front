@@ -29,6 +29,7 @@ export const userApi = createApi({
         return {
           method: 'POST',
           url: '/user/profiles',
+          body: {}
         };
       },
       providesTags: ['User'],

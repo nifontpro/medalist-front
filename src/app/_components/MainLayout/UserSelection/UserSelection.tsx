@@ -3,23 +3,49 @@
 import styles from './UserSelection.module.scss';
 import cn from 'classnames';
 import { UserSelectionProps } from './UserSelection.props';
-import { useAppSelector } from '@/store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
+import uniqid from 'uniqid';
+import Htag from '@/ui/Htag/Htag';
+import { setIsOpen, setTypeOfUser_IsOpen } from '@/store/features/userSelection/userSelection.slice';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
-  const { isAuth } = useAppSelector((state) => state.auth);
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
+  const dispatch = useAppDispatch();
 
-  // if (isAuth === true) {
-    const { data: rolesUser } = userApi.useGetProfilesQuery(undefined,{skip: !isAuth});
-    console.log(rolesUser);
-  // }
+  const { isAuth } = useAppSelector((state) => state.auth);
+  const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
+
+  const { data: rolesUser } = userApi.useGetProfilesQuery(undefined, {
+    skip: !isAuth,
+  });
 
   return (
     <>
-      {isAuth === true && typeOfUser.length == 0 ? null : (
+      {isAuth && typeOfUser != undefined && !isOpen ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
-          <div className={styles.window}>Выберите пользователя</div>
+          <div className={styles.window}>
+            <Htag tag='h2' className={styles.header}>
+              Выберите профиль
+            </Htag>
+            {rolesUser ? (
+              rolesUser.data!.map((role) => {
+                return (
+                  <div
+                    key={uniqid()}
+                    className={styles.role}
+                    onClick={() => dispatch(setTypeOfUser_IsOpen(role))}
+                  >
+                    {role.id}
+                  </div>
+                );
+              })
+            ) : (
+              <div className='text-center'>Нет аккаунтов</div>
+            )}
+            <Htag tag='h3' className={styles.create} onClick={() => dispatch(setIsOpen(false))}>
+              Создать аккаунт
+            </Htag>
+          </div>
         </div>
       )}
     </>

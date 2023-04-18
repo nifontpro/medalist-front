@@ -16,7 +16,7 @@ import {
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 import { sidebarTreeSlice } from '@/store/features/sidebar/sidebarTree.slice';
 import { authSlice } from '@/store/features/auth/auth.slice';
-import { userSelectionSlice } from '../features/userSelection/userSelection';
+import { userSelectionSlice } from '../features/userSelection/userSelection.slice';
 import { userApi } from '@/api/user/user.api';
 import { deptApi } from '@/api/dept/dept.api';
 

@@ -1,11 +1,15 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px auto 1fr;
   align-items: center;
   background: var(--black);
   color: var(--white);
   height: 100px;
   padding: 1rem 2rem;
+
+  .role {
+    cursor: pointer;
+  }
 
   .logo {
     justify-self: center;
