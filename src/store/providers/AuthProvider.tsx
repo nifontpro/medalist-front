@@ -1,15 +1,17 @@
 import { useAppSelector } from '@/store/hooks/hooks';
 import { usePathname, useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect, useLayoutEffect } from 'react';
+import { RootState } from '../storage/store';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { isAuth, loading } = useAppSelector((state) => state.auth);
+  const { isAuth, loading } = useAppSelector((state: RootState) => state.auth);
 
   const { push } = useRouter();
   const pathName = usePathname();
+  const refresh = localStorage.getItem('refresh');
 
   useLayoutEffect(() => {
-    if (isAuth === false && pathName !== '/login') {
+    if (!isAuth && pathName.slice(0,6) !== '/login') {
       console.log(`AuthProvider: isAuth ${isAuth}`)
       push('/login');
       console.log('Redirect on LoginPage') 

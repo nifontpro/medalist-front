@@ -29,9 +29,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
 
   return (
     <>
-      {isAuth &&
-      typeOfUser != undefined &&
-      !isOpen ||
+      {(isAuth && typeOfUser != undefined && !isOpen) ||
       pathName == '/login' ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
           {!isLoading && (
@@ -47,7 +45,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                       className={styles.role}
                       onClick={() => dispatch(setTypeOfUser_IsOpen(role))}
                     >
-                      {role.id}
+                      id: {role.id} <br />
+                      {role.dept.name}
                     </div>
                   );
                 })
@@ -59,7 +58,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                 className={styles.create}
                 onClick={() => dispatch(setIsOpen(false))}
               >
-                Создать аккаунт
+                Зарегестрироваться как владелец
               </Htag>
             </div>
           )}

@@ -5,6 +5,7 @@ import { DeptDetails } from '@/domain/model/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
 import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from '../user/request/CreateOwnerRequest';
+import { BaseResponse } from '@/domain/model/base/baseResponse';
 
 export const deptApi = createApi({
     reducerPath: 'DeptApi',
@@ -15,11 +16,12 @@ export const deptApi = createApi({
         /**
          * Получение поддерева отделов текущего пользователя
          */
-        getAuthSubtree: build.query<Dept[], void>({
-            query: () => {
+        getAuthSubtree: build.query<BaseResponse<Dept[]>, {authId: number | undefined}>({
+            query: (authId) => {
                 return {
                     method: 'POST',
                     url: '/dept/auth_subtree',
+                    body: authId
                 }
             },
             providesTags: ['Dept']
@@ -33,6 +35,7 @@ export const deptApi = createApi({
                 return {
                     method: 'POST',
                     url: '/dept/create',
+                    body: {}
                 }
             },
             invalidatesTags: ['Dept']

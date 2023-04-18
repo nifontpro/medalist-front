@@ -12,9 +12,9 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   const pathName = usePathname();
-  // console.log(pathName.indexOf('/login', 0))
+  const refresh = localStorage.getItem('refresh');
 
-  if (isAuth !== false) {
+  if (isAuth && refresh) {
     return (
       <>
         <div className={styles.wrapperMainLayout} {...props}>
@@ -26,8 +26,7 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
         <UserSelection />
       </>
     );
-  } 
-  else if (pathName.indexOf('/login', 0) == 0) {
+  } else if (pathName.slice(0,6) === '/login') {
     return <>{children}</>;
   } else {
     return <Spinner />;

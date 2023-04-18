@@ -4,7 +4,7 @@ import { TreeProps } from './Tree.props';
 const Tree = ({ treeData }: TreeProps): JSX.Element => {
   return (
     <>
-      {treeData.map((node) => {
+      {treeData?.map((node) => {
         return <TreeNode key={node.id} node={node} />;
       })}
     </>

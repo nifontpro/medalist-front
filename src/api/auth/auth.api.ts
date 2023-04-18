@@ -69,6 +69,7 @@ export const authApi = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           console.log('Auth Api LogoutData');
+          dispatch(authActions.setIsAuth(false));
           await queryFulfilled;
           await dispatch(authActions.setNoAuth());
         } catch (error) {

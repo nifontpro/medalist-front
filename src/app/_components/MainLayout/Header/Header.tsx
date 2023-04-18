@@ -6,13 +6,19 @@ import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import LogoIcon from '@/icons/logo.svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import { setSelectedTreeId, setArrayIds } from '../../../../store/features/sidebar/sidebarTree.slice';
+import {
+  setSelectedTreeId,
+  setArrayIds,
+} from '../../../../store/features/sidebar/sidebarTree.slice';
 import { useRouter } from 'next/navigation';
 import { useJwt } from 'react-jwt';
 import { authActions } from '@/store/features/auth/auth.slice';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
-import { setIsOpen, setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
-
+import {
+  setIsOpen,
+  setTypeOfUserUndefined,
+} from '@/store/features/userSelection/userSelection.slice';
+import { RootState } from '@/store/storage/store';
 
 function logoutWin(it: string) {
   console.log(it);
@@ -27,29 +33,33 @@ function logoutWin(it: string) {
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const dispatch = useAppDispatch();
-  const { isAuth, idToken } = useAppSelector((state) => state.auth);
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
+  const { isAuth, idToken } = useAppSelector((state: RootState) => state.auth);
+  const { typeOfUser } = useAppSelector((state: RootState) => state.userSelection);
 
   const { push } = useRouter();
   const { decodedToken, isExpired } = useJwt(idToken || '');
 
-  const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogoutClick = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
     const it = localStorage.getItem('it');
     if (it != undefined && !isExpired) {
       logoutWin(it);
-      dispatch(setSelectedTreeId('0'))
-      dispatch(setArrayIds(['0']))
-      dispatch(setTypeOfUserUndefined())
+      dispatch(setSelectedTreeId('0'));
+      dispatch(setArrayIds(['0']));
       // dispatch(authActions.setIsAuth(false))
+      dispatch(setTypeOfUserUndefined()); 
     }
     await dispatch(authActions.setNoAccess());
-    // await dispatch(authActions.setIsAuth(false))
-    console.log('не понятно что это')
+
+    console.log('не понятно что это');
     // await push("/login")
   };
 
-  const handleLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLoginClick = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
     await push('/login');
   };
@@ -63,16 +73,18 @@ const Header = ({ className, ...props }: HeaderProps) => {
       >
         <LogoIcon className='w-[200px]' />
       </Link>
-      <div className={styles.role} onClick={() => dispatch(setIsOpen(true))}>{typeOfUser?.firstname} {typeOfUser?.lastname}</div>
-      <ul className={styles.sign}>{isAuth ? 
-      (<button onClick={handleLogoutClick}>Выход</button>)
-       : 
-       (<button onClick={handleLoginClick}>Вход</button>)
-       }</ul>
+      <div className={styles.role} onClick={() => dispatch(setIsOpen(true))}>
+        {typeOfUser?.firstname} {typeOfUser?.lastname}
+      </div>
+      <ul className={styles.sign}>
+        {isAuth ? (
+          <button onClick={handleLogoutClick}>Выход</button>
+        ) : (
+          <button onClick={handleLoginClick}>Вход</button>
+        )}
+      </ul>
     </div>
   );
 };
-
-
 
 export default Header;
