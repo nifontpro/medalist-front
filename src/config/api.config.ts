@@ -18,6 +18,7 @@ export const getDepartmentEditUrl = (string: string = '') =>
   `/department/${string}/edit`;
 export const getUserUrl = (string: string = '') => `/user${string}`;
 export const getUserCreateUrl = (string: string = '') => `/create/user${string}`
+export const getOwnerCreateUrl = (string: string = '') => `/create/owner${string}`
 export const getUserEditUrl = (string: string = '') => `/user/${string}/edit`
 // export const getUserEditPasswordUrl = (string: string = '') => `/user/edit_password${string}`
 // export const getAwardUrl = (string: string = '') => `/award${string}`

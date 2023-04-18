@@ -42,7 +42,7 @@ export const useHeader = () => {
         logoutWin(it);
         dispatch(setSelectedTreeId('0'));
         dispatch(setArrayIds(['0']));
-        // dispatch(authActions.setIsAuth(false))
+        dispatch(authActions.setIsAuth(false))
         dispatch(setTypeOfUserUndefined());
       }
       await dispatch(authActions.setNoAccess());

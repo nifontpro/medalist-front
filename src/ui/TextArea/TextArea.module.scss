@@ -1,0 +1,45 @@
+.textarea {
+  padding: 17px 30px;
+  width: 100%;
+  min-height: 230px;
+  resize: none;
+
+  @media screen and (max-width: 768px) { 
+    padding: 12px 20px;
+  }
+
+  color: var(--black);
+  border: 1px solid #00000020;
+  outline-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: var(--font-family);
+}
+
+.placeholder {
+  margin-bottom: 20px !important;
+}
+
+.textarea ::placeholder {
+  color: var(--gray);
+}
+
+.error {
+  border: 1px solid var(--red);
+}
+
+.textareaWrapper {
+  position: relative;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: var(--red);
+}

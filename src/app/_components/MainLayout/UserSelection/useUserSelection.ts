@@ -6,10 +6,11 @@ import {
   setArrayIds,
   setSelectedTreeId,
 } from '@/store/features/sidebar/sidebarTree.slice';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { User } from '@/domain/model/user/user';
 
 export const useUserSelection = () => {
+  const { push } = useRouter();
   const dispatch = useAppDispatch();
   const pathName = usePathname();
 
@@ -39,6 +40,16 @@ export const useUserSelection = () => {
       handleChangeRole,
       isLoading,
       dispatch,
+      push,
     };
-  }, [isAuth, typeOfUser, isOpen, pathName, rolesUser, isLoading, dispatch]);
+  }, [
+    isAuth,
+    typeOfUser,
+    isOpen,
+    pathName,
+    rolesUser,
+    isLoading,
+    dispatch,
+    push,
+  ]);
 };

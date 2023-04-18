@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/store/hooks/hooks';
 import { usePathname, useRouter } from 'next/navigation';
-import { FC, PropsWithChildren, useEffect, useLayoutEffect } from 'react';
+import { FC, PropsWithChildren, useLayoutEffect } from 'react';
 import { RootState } from '../storage/store';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {

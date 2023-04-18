@@ -7,6 +7,7 @@ import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
 import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import { useUserSelection } from './useUserSelection';
+import { getOwnerCreateUrl, getUserCreateUrl } from '@/config/api.config';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const {
@@ -18,12 +19,13 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     handleChangeRole,
     isLoading,
     dispatch,
+    push
   } = useUserSelection();
 
   return (
     <>
       {(isAuth && typeOfUser != undefined && !isOpen) ||
-      pathName == '/login' ? null : (
+      pathName == '/login' || pathName == '/create/owner' ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
           {!isLoading && (
             <div className={styles.window}>
@@ -49,7 +51,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
               <Htag
                 tag='h3'
                 className={styles.create}
-                onClick={() => dispatch(setIsOpen(false))}
+                onClick={() => push(getOwnerCreateUrl())}
               >
                 Зарегестрироваться как владелец
               </Htag>

@@ -29,7 +29,7 @@ export const userApi = createApi({
         return {
           method: 'POST',
           url: '/user/profiles',
-          body: {}
+          body: {},
         };
       },
       providesTags: ['User'],
@@ -61,6 +61,20 @@ export const userApi = createApi({
         };
       },
       providesTags: ['User'],
+    }),
+
+    delete: build.mutation<
+      BaseResponse<UserDetails>,
+      { authId: number; userId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/user/delete',
+          body: request,
+        };
+      },
+      invalidatesTags: ['User'],
     }),
   }),
 });
