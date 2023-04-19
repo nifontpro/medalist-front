@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { sortTree } from '@/utils/sortTree';
 import { usePathname } from 'next/navigation';
 import { useLayoutEffect, useState } from 'react';
@@ -31,7 +31,7 @@ export const useSidebar = () => {
 
   const dispatch = useAppDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (subTree && subTree.data) {
       setTreeData(sortTree(subTree.data, subTree.data[0].parentId));
     }

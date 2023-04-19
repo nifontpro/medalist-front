@@ -31,7 +31,7 @@ export const deptApi = createApi({
     /**
      * Создание нового отдела
      */
-    getProfiles: build.mutation<DeptDetails, CreateDeptRequest>({
+    getProfiles: build.mutation<BaseResponse<DeptDetails>, CreateDeptRequest>({
       query: (request: CreateDeptRequest) => {
         return {
           method: 'POST',

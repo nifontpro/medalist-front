@@ -35,12 +35,12 @@ export const useDepartmentCreate = (
     if (parentId) {
       await create({ ...data })
         .unwrap()
-        // .then((res) => {
-        //   if (res.success == false) {
-        //     toastError(res.errors[0].message);
-        //     isError = true;
-        //   }
-        // })
+        .then((res) => {
+          if (res.success == false) {
+            toastError(res.errors[0].message);
+            isError = true;
+          }
+        })
         .catch((e) => {
           isError = true;
           toastError(e, 'Ошибка создания отдела');
