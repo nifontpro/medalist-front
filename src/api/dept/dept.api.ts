@@ -31,12 +31,12 @@ export const deptApi = createApi({
     /**
      * Создание нового отдела
      */
-    getProfiles: build.mutation<DeptDetails, CreateDeptRequest>({
-      query: () => {
+    create: build.mutation<DeptDetails, CreateDeptRequest>({
+      query: (request) => {
         return {
           method: 'POST',
           url: '/dept/create',
-          body: {},
+          body: request,
         };
       },
       invalidatesTags: ['Dept'],
