@@ -35,6 +35,9 @@ export const userApi = createApi({
       providesTags: ['User'],
     }),
 
+    /**
+     * Создание владельца
+     */
     createOwner: build.mutation<BaseResponse<UserDetails>, CreateOwnerRequest>({
       query: (request) => {
         return {
@@ -77,6 +80,9 @@ export const userApi = createApi({
       providesTags: ['User'],
     }),
 
+    /**
+     * Удаление сотрудника по id
+     */
     delete: build.mutation<
       BaseResponse<UserDetails>,
       { authId: number; userId: number }

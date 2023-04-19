@@ -15,41 +15,15 @@ import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getDepartmentEditUrl } from '@/config/api.config';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
-import { toastError } from '@/utils/toast-error';
-import { toast } from 'react-toastify';
-import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
+import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
   ref
 ) {
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-  const [deleteDepartment] = deptApi.useDeleteMutation();
+  const { deleteAsync } = useDepartmentAdmin();
 
-  const deleteAsync = async (id: number) => {
-    if (typeOfUser && typeOfUser.id) {
-      await deleteDepartment({
-        authId: typeOfUser.id,
-        deptId: id,
-      })
-        .unwrap()
-        .then((res) => {
-          if (res.success == false) {
-            toastError(res.errors[0].message);
-          } else {
-            toast.success('Отдел успешно удален');
-          }
-        })
-        .catch((e) => {
-          toastError(e, 'Ошибка при удалении отдела');
-        });
-    } else {
-      toastError('Ошибка удаления т.к. не удалось получить id пользователя');
-    }
-  };
   const dispatch = useAppDispatch();
 
   const {

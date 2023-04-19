@@ -11,6 +11,9 @@ import { ForwardedRef, forwardRef } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
+import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const UserList = motion(
   forwardRef(
@@ -18,8 +21,11 @@ const UserList = motion(
       { user, className, children, ...props }: UserListProps,
       ref: ForwardedRef<HTMLDivElement>
     ): JSX.Element => {
+      const { typeOfUser } = useAppSelector(
+        (state: RootState) => state.userSelection
+      );
       const { push } = useRouter();
-      // const { deleteAsync } = useUserAdmin();
+      const { deleteAsync } = useUserAdmin();
 
       return (
         <div ref={ref} className={cn(className, styles.container)} {...props}>
@@ -30,20 +36,24 @@ const UserList = motion(
             onClick={() => push(getUserUrl(`/${user.id}`))}
           />
           {/* <AuthComponent minRole={'director'}> */}
-            <div className={styles.editPanel} {...props}>
-              <div
-                className={styles.wrapperIcon}
-                onClick={() => push(getUserEditUrl(`/${user.id}`))}
-              >
-                <ButtonEdit icon='edit' className={styles.edit} />
-              </div>
-              <div
-                className={styles.wrapperIcon}
-                // onClick={() => deleteAsync(user.id)}
-              >
-                <ButtonEdit icon='remove' className={styles.remove} />
-              </div>
+          <div className={styles.editPanel} {...props}>
+            <div
+              className={styles.wrapperIcon}
+              onClick={() => push(getUserEditUrl(`/${user.id}`))}
+            >
+              <ButtonEdit icon='edit' className={styles.edit} />
             </div>
+            <div
+              className={styles.wrapperIcon}
+              onClick={() =>
+                user?.id &&
+                typeOfUser?.id &&
+                deleteAsync(user.id, typeOfUser.id)
+              }
+            >
+              <ButtonEdit icon='remove' className={styles.remove} />
+            </div>
+          </div>
           {/* </AuthComponent> */}
         </div>
       );

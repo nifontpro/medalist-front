@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const EditPanel = forwardRef(
   (
@@ -21,6 +23,9 @@ const EditPanel = forwardRef(
     }: EditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const { typeOfUser } = useAppSelector(
+      (state: RootState) => state.userSelection
+    );
     const { push } = useRouter();
 
     const option = {
@@ -57,7 +62,11 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(Number(id))}
+              onClick={() =>
+                typeOfUser &&
+                typeOfUser.id &&
+                deleteAsync(Number(id), typeOfUser.id)
+              }
               className={styles.item}
             >
               Удалить
@@ -90,7 +99,11 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(Number(id))}
+              onClick={() =>
+                typeOfUser &&
+                typeOfUser.id &&
+                deleteAsync(Number(id), typeOfUser.id)
+              }
               className={styles.item}
             >
               Удалить
