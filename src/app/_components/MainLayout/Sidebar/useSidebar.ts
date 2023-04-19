@@ -26,7 +26,6 @@ export const useSidebar = () => {
       skip: !typeOfUser,
     }
   );
-  console.log(subTree)
 
   const [treeData, setTreeData] = useState<NewTree[]>([]);
 

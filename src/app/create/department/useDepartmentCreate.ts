@@ -8,7 +8,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 
 export const useDepartmentCreate = (
-  setValue: UseFormSetValue<CreateDeptRequest>,
+  setValue: UseFormSetValue<CreateDeptRequest>
 ) => {
   const searchParams = useSearchParams();
   const parentId = Number(searchParams.get('id'));
@@ -32,22 +32,24 @@ export const useDepartmentCreate = (
   const onSubmit: SubmitHandler<CreateDeptRequest> = async (data) => {
     let isError = false;
     console.log(data);
-    // if (parentId) {
-    //   await create({ ...data })
-    //     .unwrap()
-    //     .catch((e) => {
-    //       isError = true;
-    //       toastError(e, 'Ошибка создания отдела');
-    //     });
-    // } else {
-    //   isError = true;
-    //   toast.error('Необходимо выбрать родительский отдел');
-    // }
-    // if (!isError) {
-    //   toast.success('Отдел успешно создан');
-    //   // push('/company/' + companyId).then();
-    //   back();
-    // }
+    if (parentId) {
+      await create({ ...data })
+        .unwrap()
+        .catch((e) => {
+          isError = true;
+          toastError(e, 'Ошибка создания отдела');
+          console.log('Ошибка');
+        });
+    } else {
+      isError = true;
+      toast.error('Необходимо выбрать родительский отдел');
+      console.log('Ошибка');
+    }
+    if (!isError) {
+      toast.success('Отдел успешно создан');
+      console.log('Отдел успешно создан');
+      back();
+    }
   };
 
   return { onSubmit, handleClick, back };
