@@ -4,7 +4,6 @@ import {Dept} from '@/domain/model/dept/dept';
 import {DeptDetails} from '@/domain/model/dept/deptDetails';
 import {CreateDeptRequest} from './request/createDeptRequest';
 import {BaseResponse} from '@/domain/model/base/baseResponse';
-import {UserDetails} from "@/domain/model/user/userDetails";
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -66,7 +65,6 @@ export const deptApi = createApi({
       },
       invalidatesTags: ['Dept'],
     }),
-
 
   }),
 });

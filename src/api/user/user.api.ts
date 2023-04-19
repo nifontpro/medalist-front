@@ -66,7 +66,7 @@ export const userApi = createApi({
     /**
      * Получение сотрудника по id
      */
-    getById: build.query<UserDetails, {authId: number, userId: number}>({
+    getById: build.query<BaseResponse<UserDetails>, {authId: number, userId: number}>({
       query: () => {
         return {
           method: 'POST',
