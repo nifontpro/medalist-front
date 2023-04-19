@@ -8,4 +8,7 @@ export interface CreateDeptRequest {
     phone?: string
     description?: string
 
+    // Добавлять ли тестовых сотрудников, по умолчанию - нет
+    addTestUser: boolean
+
 }
