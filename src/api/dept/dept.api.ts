@@ -31,7 +31,7 @@ export const deptApi = createApi({
     /**
      * Создание нового отдела
      */
-    create: build.mutation<DeptDetails, CreateDeptRequest>({
+    create: build.mutation<BaseResponse<DeptDetails>, CreateDeptRequest>({
       query: (request) => {
         return {
           method: 'POST',
@@ -45,7 +45,7 @@ export const deptApi = createApi({
     /**
      * Получение отдела по id
      */
-    getById: build.query<DeptDetails, {authId: number, deptId: number}>({
+    getById: build.query<BaseResponse<DeptDetails>, {authId: number, deptId: number}>({
       query: (request) => {
         return {
           method: 'POST',
@@ -56,7 +56,7 @@ export const deptApi = createApi({
       providesTags: ['Dept'],
     }),
 
-    delete: build.mutation<BaseResponse<UserDetails>, { authId: number; deptId: number }>({
+    delete: build.mutation<BaseResponse<DeptDetails>, { authId: number; deptId: number }>({
       query: (request) => {
         return {
           method: 'POST',
