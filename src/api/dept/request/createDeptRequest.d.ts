@@ -7,5 +7,4 @@ export interface CreateDeptRequest {
     email?: string
     phone?: string
     description?: string
-
 }

@@ -23,6 +23,12 @@ const EditPanel = forwardRef(
   ): JSX.Element => {
     const { push } = useRouter();
 
+    const option = {
+      state: {
+        id: '1',
+      },
+    };
+
     const deleteAsync = (id: string) => {};
 
     const variants = {
@@ -95,7 +101,7 @@ const EditPanel = forwardRef(
           <P
             size='xs'
             fontstyle='thin'
-            onClick={() => push(getUrlCreate())}
+            onClick={() => push(getUrlCreate(`?id=${id}`))}
             className={styles.item}
           >
             Создать отдел

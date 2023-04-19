@@ -30,14 +30,12 @@ export const useOwnerCreate = (
     if (active != undefined) {
       data.gender = active;
     }
-
     await create({ ...data })
       .unwrap()
       .catch((e) => {
         isError = true;
         toastError(e, 'Ошибка создания профиля владельца');
       });
-
     if (!isError) {
       toast.success('Профиль владельца успешно создан');
       back();
