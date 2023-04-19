@@ -63,10 +63,21 @@ export const userApi = createApi({
       providesTags: ['User'],
     }),
 
-    delete: build.mutation<
-      BaseResponse<UserDetails>,
-      { authId: number; userId: number }
-    >({
+    /**
+     * Получение сотрудника по id
+     */
+    getById: build.query<UserDetails, {authId: number, userId: number}>({
+      query: () => {
+        return {
+          method: 'POST',
+          url: '/user/get_id',
+          body: {},
+        };
+      },
+      providesTags: ['User'],
+    }),
+
+    delete: build.mutation<BaseResponse<UserDetails>, { authId: number; userId: number }>({
       query: (request) => {
         return {
           method: 'POST',
