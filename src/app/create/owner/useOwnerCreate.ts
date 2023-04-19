@@ -32,6 +32,12 @@ export const useOwnerCreate = (
     }
     await create({ ...data })
       .unwrap()
+      .then((res) => {
+        if (res.success == false) {
+          toastError(res.errors[0].message);
+          isError = true;
+        }
+      })
       .catch((e) => {
         isError = true;
         toastError(e, 'Ошибка создания профиля владельца');

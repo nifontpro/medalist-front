@@ -12,7 +12,7 @@ const EditPanel = forwardRef(
       getUrlEdit,
       getUrlCreate,
       id,
-      // deleteAsync,
+      deleteAsync,
       children,
       visible,
       className,
@@ -28,8 +28,6 @@ const EditPanel = forwardRef(
         id: '1',
       },
     };
-
-    const deleteAsync = (id: string) => {};
 
     const variants = {
       visible: {
@@ -59,7 +57,7 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(id)}
+              onClick={() => deleteAsync(Number(id))}
               className={styles.item}
             >
               Удалить
@@ -92,7 +90,7 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(id)}
+              onClick={() => deleteAsync(Number(id))}
               className={styles.item}
             >
               Удалить

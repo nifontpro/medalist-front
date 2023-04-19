@@ -40,7 +40,7 @@ const EditPanelAuthBtn = ({
         getUrlCreate={getUrlCreate}
         onMouseLeave={() => setVisible(!visible)}
         id={id}
-        // deleteAsync={handleRemove}
+        deleteAsync={handleRemove}
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
