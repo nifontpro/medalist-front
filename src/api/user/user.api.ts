@@ -69,12 +69,15 @@ export const userApi = createApi({
     /**
      * Получение сотрудника по id
      */
-    getById: build.query<UserDetails, { authId: number; userId: number }>({
-      query: () => {
+    getById: build.query<
+      BaseResponse<UserDetails>,
+      { authId: number; userId: number }
+    >({
+      query: (request) => {
         return {
           method: 'POST',
           url: '/user/get_id',
-          body: {},
+          body: request,
         };
       },
       providesTags: ['User'],

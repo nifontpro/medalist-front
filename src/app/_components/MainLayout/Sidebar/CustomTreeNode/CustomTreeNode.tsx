@@ -22,7 +22,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
   ref
 ) {
-  const { deleteAsync } = useDepartmentAdmin();
+  const { deleteDepartmentAsync } = useDepartmentAdmin();
 
   const dispatch = useAppDispatch();
 
@@ -95,7 +95,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
       </Typography>
       <EditPanelAuthBtn
         onlyRemove={false}
-        handleRemove={deleteAsync}
+        handleRemove={deleteDepartmentAsync}
         id={nodeId}
         getUrlEdit={getDepartmentEditUrl}
         getUrlCreate={getDepartmentCreateUrl}

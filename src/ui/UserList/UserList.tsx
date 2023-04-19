@@ -25,7 +25,7 @@ const UserList = motion(
         (state: RootState) => state.userSelection
       );
       const { push } = useRouter();
-      const { deleteAsync } = useUserAdmin();
+      const { deleteUserAsync } = useUserAdmin();
 
       return (
         <div ref={ref} className={cn(className, styles.container)} {...props}>
@@ -48,7 +48,7 @@ const UserList = motion(
               onClick={() =>
                 user?.id &&
                 typeOfUser?.id &&
-                deleteAsync(user.id, typeOfUser.id)
+                deleteUserAsync(user.id, typeOfUser.id)
               }
             >
               <ButtonEdit icon='remove' className={styles.remove} />

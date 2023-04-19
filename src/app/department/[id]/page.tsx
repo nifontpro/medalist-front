@@ -1,42 +1,28 @@
 'use client';
 
-import { deptApi } from '@/api/dept/dept.api';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
 import P from '@/ui/P/P';
+import { useDepartmentAdmin } from '../useDepartmentAdmin';
 
 export const SingleDepartment = ({ params }: { params: { id: string } }) => {
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
-  const { data: department } = deptApi.useGetByIdQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(params.id),
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  const { singleDepartment } = useDepartmentAdmin(params.id);
 
   return (
     <div>
       Department {params.id}
       <P size='xs' fontstyle='thin'>
-        Название: {department?.data?.dept.name}
+        Название: {singleDepartment?.data?.dept.name}
       </P>
       <P size='xs' fontstyle='thin'>
-        Адрес: {department?.data?.address}
+        Адрес: {singleDepartment?.data?.address}
       </P>
       <P size='xs' fontstyle='thin'>
-        Email: {department?.data?.email}
+        Email: {singleDepartment?.data?.email}
       </P>
       <P size='xs' fontstyle='thin'>
-        Телефон: {department?.data?.phone}
+        Телефон: {singleDepartment?.data?.phone}
       </P>
       <P size='xs' fontstyle='thin'>
-        Описание: {department?.data?.description}
+        Описание: {singleDepartment?.data?.description}
       </P>
     </div>
   );
