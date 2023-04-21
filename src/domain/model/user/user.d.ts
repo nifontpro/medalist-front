@@ -1,4 +1,5 @@
 import {Dept} from "@/app/domain/model/dept/dept";
+import {BaseImage} from "@/domain/model/base/image/baseImage";
 
 export interface User {
     id?: number
@@ -10,6 +11,7 @@ export interface User {
     gender: Gender
     post?: string
     roles: RoleUser[]
+    images: BaseImage[]
 }
 
 export type Gender = "MALE" | "FEMALE" | "UNDEF"
