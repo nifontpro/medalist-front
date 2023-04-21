@@ -4,12 +4,14 @@ import { BaseResponse } from '@/domain/model/base/baseResponse';
 import { User } from '@/domain/model/user/user';
 import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
+import {CreateUserRequest} from "@/api/user/request/CreateUserRequest";
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['User'],
   endpoints: (build) => ({
+
     getTestData: build.query<{ res: string }, void>({
       query: () => {
         return {
@@ -40,6 +42,17 @@ export const userApi = createApi({
         return {
           method: 'POST',
           url: '/user/create_owner',
+          body: request,
+        };
+      },
+      invalidatesTags: ['User'],
+    }),
+
+    createUser: build.mutation<BaseResponse<UserDetails>, CreateUserRequest>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/user/create',
           body: request,
         };
       },
