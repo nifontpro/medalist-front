@@ -1,9 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/baseResponse';
-import { User } from '@/domain/model/user/user';
-import { UserDetails } from '@/domain/model/user/userDetails';
-import { CreateOwnerRequest } from './request/CreateOwnerRequest';
+import {createApi} from '@reduxjs/toolkit/dist/query/react';
+import {baseQueryWithReauth} from '../base/base.api';
+import {BaseResponse} from '@/domain/model/base/baseResponse';
+import {User} from '@/domain/model/user/user';
+import {UserDetails} from '@/domain/model/user/userDetails';
+import {CreateOwnerRequest} from './request/CreateOwnerRequest';
 import {CreateUserRequest} from "@/api/user/request/CreateUserRequest";
 
 export const userApi = createApi({
@@ -100,5 +100,45 @@ export const userApi = createApi({
       },
       invalidatesTags: ['User'],
     }),
+
+    /**
+     * Добавление изображения
+     * @param: formData: [file]:file, [userId]
+     */
+    imageAdd: build.mutation<void, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/user/img_add',
+        body: formData,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Обновление изображения
+     * @param: formData: [file]:file, [userId], [imageId]
+     */
+    imageUpdate: build.mutation<void, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/user/img_update',
+        body: formData,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Удаление изображения
+     * @param: userId, imageId
+     */
+    imageDelete: build.mutation<void, { userId: number; imageId: number }>({
+      query: (body) => ({
+        method: 'POST',
+        url: '/user/img_delete',
+        body: body,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
   }),
 });
