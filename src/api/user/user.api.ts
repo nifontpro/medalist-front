@@ -4,6 +4,8 @@ import { BaseResponse } from '@/domain/model/base/baseResponse';
 import { User } from '@/domain/model/user/user';
 import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
+import { CreateUserRequest } from './request/CreateUserRequest';
+import { UpdateUserRequest } from './request/UpdateUserRequest';
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
@@ -43,6 +45,34 @@ export const userApi = createApi({
         return {
           method: 'POST',
           url: '/user/create_owner',
+          body: request,
+        };
+      },
+      invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Создание пользователя
+     */
+    createUser: build.mutation<BaseResponse<UserDetails>, CreateUserRequest>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/user/create',
+          body: request,
+        };
+      },
+      invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Обновление профиля сотрудника
+     */
+    update: build.mutation<BaseResponse<UserDetails>, UpdateUserRequest>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/user/update',
           body: request,
         };
       },
