@@ -1,6 +1,13 @@
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
@@ -17,12 +24,14 @@ export const useUserEdit = (
   active: Gender,
   singleUser: BaseResponse<UserDetails> | undefined
 ) => {
+  const [img, setImg] = useState<string | undefined>(undefined);
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const { back } = useRouter();
   const [update] = userApi.useUpdateMutation();
+  const [addImages] = userApi.useImageAddMutation();
 
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {
@@ -50,6 +59,50 @@ export const useUserEdit = (
     back();
   };
 
+  const addPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+    let isError = false;
+
+    if (event.target.files !== null && singleUser) {
+      // setImg(URL.createObjectURL(event.target.files[0]));
+      const file = new FormData();
+      file.append('imageUrl', event.target.files[0]);
+      await addImages({file, userId: singleUser.data?.user.id})
+        .unwrap()
+        // .then((res) => {
+        //   if (!res.success) {
+        //     toastError(res.errors[0].message);
+        //     isError = true;
+        //   }
+        // })
+        .catch(() => {
+          isError = true;
+          toast.error('Ошибка обновления фотографии');
+        });
+      if (!isError) {
+        toast.success('Фото успешно обновлен');
+      }
+    }
+  };
+
+  const removePhoto = async (
+    e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+  ) => {
+    e.preventDefault();
+    let isError = false;
+    console.log('Remove photo');
+    // if (user != undefined) {
+    //   await removeImg(user.id)
+    //     .unwrap()
+    //     .catch(() => {
+    //       isError = true;
+    //       toast.error('Ошибка удаления фотографии');
+    //     });
+    //   if (!isError) {
+    //     toast.success('Фото успешно удалено');
+    //   }
+    // }
+  };
+
   const onSubmit: SubmitHandler<UpdateUserRequest> = async (data) => {
     let isError = false;
 
@@ -74,5 +127,5 @@ export const useUserEdit = (
     }
   };
 
-  return { onSubmit, handleClick };
+  return { onSubmit, handleClick, addPhoto, removePhoto };
 };

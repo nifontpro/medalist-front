@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 
-export const SingleUser = ({ params }: { params: { id: string } }) => {
+export default function SingleUser({ params }: { params: { id: string } }) {
   const { back } = useRouter();
   const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
   if (isLoadingSingleUser) return <Spinner />;
@@ -43,6 +43,4 @@ export const SingleUser = ({ params }: { params: { id: string } }) => {
       </div>
     </>
   );
-};
-
-export default SingleUser;
+}

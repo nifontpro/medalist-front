@@ -7,20 +7,27 @@ import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import { useRouter } from 'next/navigation';
 import P from '../P/P';
 
-const NoAccess = ({ className, ...props }: NoAccessProps): JSX.Element => {
+const NoAccess = ({
+  button = true,
+  className,
+  ...props
+}: NoAccessProps): JSX.Element => {
   const { back } = useRouter();
   return (
     <div className={cn(className, styles.wrapper)} {...props}>
-      <ButtonCircleIcon
-        onClick={back}
-        classNameForIcon=''
-        appearance='black'
-        icon='down'
-      >
-        Вернуться назад
-      </ButtonCircleIcon>
+      {button && (
+        <ButtonCircleIcon
+          onClick={back}
+          classNameForIcon=''
+          appearance='black'
+          icon='down'
+        >
+          Вернуться назад
+        </ButtonCircleIcon>
+      )}
       <P fontstyle='thin' className={styles.text}>
-        Не достаточно прав доступа. Уточните информацию у администратора.
+        Не достаточно прав доступа или такой страницы не существует. Уточните
+        информацию у администратора.
       </P>
     </div>
   );

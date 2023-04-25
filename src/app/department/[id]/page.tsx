@@ -3,12 +3,17 @@
 import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '../useDepartmentAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 
-export const SingleDepartment = ({ params }: { params: { id: string } }) => {
+export default function SingleDepartment({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { singleDepartment, isLoadingByIdDept } = useDepartmentAdmin(params.id);
   if (isLoadingByIdDept) return <Spinner />;
   if (!singleDepartment?.success) {
-    return <div>Произошла ошибка запроса - обновите, пожалуйста, страницу</div>;
+    return <NoAccess button={false} />;
   }
 
   return (
@@ -31,6 +36,4 @@ export const SingleDepartment = ({ params }: { params: { id: string } }) => {
       </P>
     </div>
   );
-};
-
-export default SingleDepartment;
+}

@@ -9,6 +9,47 @@
     grid-template-columns: 1fr;
   }
 
+  .uploadField {
+    overflow: hidden;
+    border-radius: 27px;
+    width: 250px;
+    height: fit-content;
+    background: var(--white);
+
+    // @media screen and (max-width: 1280px) {
+    //   display: none;
+    // }
+
+    .images {
+      height: 250px;
+      // border-bottom: 1px solid var(--gray);
+    }
+
+    .editPanel {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 20px;
+
+      .input {
+        width: fit-content;
+        height: fit-content;
+        margin-right: 10px;
+        cursor: pointer;
+
+        &:hover svg {
+          path {
+            stroke: var(--gray-dark);
+          }
+          rect {
+            stroke: var(--gray-dark);
+          }
+        }
+      }
+    }
+  }
+
   .fields {
     padding: 80px;
     background: var(--white);

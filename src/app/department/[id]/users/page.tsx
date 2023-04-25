@@ -2,13 +2,17 @@
 
 import Users from './_components/Users/Users';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 import Spinner from '@/ui/Spinner/Spinner';
 
-export const DepartmentUsers = ({ params }: { params: { id: string } }) => {
+export default function DepartmentUsers({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { usersOnDepartment, isLoadingUsersOnDept } = useUserAdmin(params.id);
   if (isLoadingUsersOnDept) return <Spinner />;
-  if (!usersOnDepartment?.success)
-    return <div>Произошла ошибка запроса - обновите, пожалуйста, страницу</div>;
+  if (!usersOnDepartment?.success) return <NoAccess button={false} />;
 
   if (usersOnDepartment && usersOnDepartment.data) {
     return (
@@ -19,6 +23,4 @@ export const DepartmentUsers = ({ params }: { params: { id: string } }) => {
   } else {
     return null;
   }
-};
-
-export default DepartmentUsers;
+}

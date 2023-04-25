@@ -9,7 +9,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 
-export const useUserCreate = (
+export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
   active: Gender
 ) => {

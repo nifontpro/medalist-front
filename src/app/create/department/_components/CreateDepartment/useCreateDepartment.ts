@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 
-export const useDepartmentCreate = (
+export const useCreateDepartment = (
   setValue: UseFormSetValue<CreateDeptRequest>
 ) => {
   const searchParams = useSearchParams();

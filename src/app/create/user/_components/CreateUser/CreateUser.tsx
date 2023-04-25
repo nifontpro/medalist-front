@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './UserEdit.module.scss';
+import styles from './CreateUser.module.scss';
 import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
+import { useCreateUser } from './useCreateUser';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
@@ -12,17 +13,9 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { Gender } from '@/domain/model/user/user';
 import { withHookFormMask } from 'use-mask-input';
+import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 import SelectArtem from '@/ui/SelectArtem/SelectArtem';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
-import { useUserEdit } from './useUserEdit';
-import { useUserAdmin } from '../../useUserAdmin';
-import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
-import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
-import cn from 'classnames';
-import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
-import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 
 const roles: IOption[] = [
   {
@@ -32,9 +25,7 @@ const roles: IOption[] = [
   { label: 'Пользователь', value: 'USER' },
 ];
 
-export default function EditUser({ params }: { params: { id: string } }) {
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
-
+const CreateUser = () => {
   const [active, setActive] = useState<Gender>('MALE');
   const { back } = useRouter();
 
@@ -44,18 +35,9 @@ export default function EditUser({ params }: { params: { id: string } }) {
     register,
     formState: { errors, isDirty, isValid },
     setValue,
-  } = useForm<UpdateUserRequest>({ mode: 'onChange' });
+  } = useForm<CreateUserRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, addPhoto, removePhoto } = useUserEdit(
-    setValue,
-    setActive,
-    active,
-    singleUser
-  );
-
-  if (isLoadingSingleUser) return <Spinner />;
-
-  if (!singleUser?.success) return <NoAccess />;
+  const { onSubmit, handleClick } = useCreateUser(setValue, active);
 
   return (
     <>
@@ -71,37 +53,8 @@ export default function EditUser({ params }: { params: { id: string } }) {
       <form className={styles.form}>
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>
-            Редактирование сотрудника
+            Новый сотрудник
           </Htag>
-
-          <div className='flex justify-center items-center'>
-            <div
-              className={cn(
-                styles.field,
-                styles.uploadField,
-                styles.mediaVisible
-              )}
-            >
-              <div className={styles.images}>
-                <ImageDefault
-                  src={singleUser.data?.user.images[0]}
-                  width={250}
-                  height={250}
-                  alt='preview image'
-                  objectFit='cover'
-                  // priority={true}
-                  // className='rounded-[10px]'
-                />
-              </div>
-
-              <div className={styles.editPanel}>
-                <InputPhotoAdd onChange={addPhoto} className={styles.input}>
-                  <ButtonEdit icon='refresh' />
-                </InputPhotoAdd>
-                <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
-              </div>
-            </div>
-          </div>
 
           <div className={styles.groupGender}>
             <Field
@@ -155,7 +108,7 @@ export default function EditUser({ params }: { params: { id: string } }) {
           </div>
 
           <div className={styles.group}>
-            {/* <Controller
+            <Controller
               name='roles'
               control={control}
               rules={{
@@ -168,10 +121,10 @@ export default function EditUser({ params }: { params: { id: string } }) {
                   placeholder='Роль пользователя'
                   options={roles || []}
                   isLoading={false}
-                  isMulti={false}
+                  isMulti={true}
                 />
               )}
-            /> */}
+            />
             <Field
               {...register('authEmail', {
                 required: 'required',
@@ -218,11 +171,13 @@ export default function EditUser({ params }: { params: { id: string } }) {
               className={styles.confirm}
               disabled={!isDirty || !isValid}
             >
-              Изменить
+              Создать
             </Button>
           </div>
         </div>
       </form>
     </>
   );
-}
+};
+
+export default CreateUser;

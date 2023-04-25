@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './UserEdit.module.scss';
+import styles from './CreateOwner.module.scss';
 import { useRouter } from 'next/navigation';
-import { Controller, useForm } from 'react-hook-form';
+import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
+import { useForm } from 'react-hook-form';
+import { useCreateOwner } from './useCreateOwner';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
@@ -12,50 +14,19 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { Gender } from '@/domain/model/user/user';
 import { withHookFormMask } from 'use-mask-input';
-import SelectArtem from '@/ui/SelectArtem/SelectArtem';
-import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
-import { useUserEdit } from './useUserEdit';
-import { useUserAdmin } from '../../useUserAdmin';
-import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
-import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
-import cn from 'classnames';
-import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
-import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 
-const roles: IOption[] = [
-  {
-    label: 'Администратор',
-    value: 'ADMIN',
-  },
-  { label: 'Пользователь', value: 'USER' },
-];
-
-export default function EditUser({ params }: { params: { id: string } }) {
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
-
+const CreateOwner = () => {
   const [active, setActive] = useState<Gender>('MALE');
   const { back } = useRouter();
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
-  } = useForm<UpdateUserRequest>({ mode: 'onChange' });
+  } = useForm<CreateOwnerRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, addPhoto, removePhoto } = useUserEdit(
-    setValue,
-    setActive,
-    active,
-    singleUser
-  );
-
-  if (isLoadingSingleUser) return <Spinner />;
-
-  if (!singleUser?.success) return <NoAccess />;
+  const { onSubmit, handleClick } = useCreateOwner(setValue, active);
 
   return (
     <>
@@ -71,37 +42,8 @@ export default function EditUser({ params }: { params: { id: string } }) {
       <form className={styles.form}>
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>
-            Редактирование сотрудника
+            Новый владелец
           </Htag>
-
-          <div className='flex justify-center items-center'>
-            <div
-              className={cn(
-                styles.field,
-                styles.uploadField,
-                styles.mediaVisible
-              )}
-            >
-              <div className={styles.images}>
-                <ImageDefault
-                  src={singleUser.data?.user.images[0]}
-                  width={250}
-                  height={250}
-                  alt='preview image'
-                  objectFit='cover'
-                  // priority={true}
-                  // className='rounded-[10px]'
-                />
-              </div>
-
-              <div className={styles.editPanel}>
-                <InputPhotoAdd onChange={addPhoto} className={styles.input}>
-                  <ButtonEdit icon='refresh' />
-                </InputPhotoAdd>
-                <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
-              </div>
-            </div>
-          </div>
 
           <div className={styles.groupGender}>
             <Field
@@ -154,38 +96,6 @@ export default function EditUser({ params }: { params: { id: string } }) {
             />
           </div>
 
-          <div className={styles.group}>
-            {/* <Controller
-              name='roles'
-              control={control}
-              rules={{
-                required: 'Необходимо выбрать роль!',
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <SelectArtem
-                  error={error}
-                  field={field}
-                  placeholder='Роль пользователя'
-                  options={roles || []}
-                  isLoading={false}
-                  isMulti={false}
-                />
-              )}
-            /> */}
-            <Field
-              {...register('authEmail', {
-                required: 'required',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Entered value does not match email format',
-                },
-              })}
-              title='Email'
-              placeholder='Введите свой email'
-              error={errors.authEmail}
-            />
-          </div>
-
           <Field
             {...register('address', { required: 'Адрес необходим!' })}
             title='Адрес'
@@ -218,7 +128,7 @@ export default function EditUser({ params }: { params: { id: string } }) {
               className={styles.confirm}
               disabled={!isDirty || !isValid}
             >
-              Изменить
+              Добавить
             </Button>
           </div>
         </div>
@@ -226,3 +136,5 @@ export default function EditUser({ params }: { params: { id: string } }) {
     </>
   );
 }
+
+export default CreateOwner

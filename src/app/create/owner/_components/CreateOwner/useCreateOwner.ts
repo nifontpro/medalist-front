@@ -7,7 +7,7 @@ import { userApi } from '@/api/user/user.api';
 import { Gender } from '@/domain/model/user/user';
 import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
 
-export const useOwnerCreate = (
+export const useCreateOwner = (
   setValue: UseFormSetValue<CreateOwnerRequest>,
   active: Gender
 ) => {
