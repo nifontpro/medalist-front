@@ -17,6 +17,8 @@ import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 import { useUserEdit } from './useUserEdit';
 import { useUserAdmin } from '../../useUserAdmin';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 
 const roles: IOption[] = [
   {
@@ -27,7 +29,7 @@ const roles: IOption[] = [
 ];
 
 export const EditUser = ({ params }: { params: { id: string } }) => {
-  const { singleUser } = useUserAdmin(params.id);
+  const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
 
   const [active, setActive] = useState<Gender>('MALE');
   const { back } = useRouter();
@@ -46,6 +48,10 @@ export const EditUser = ({ params }: { params: { id: string } }) => {
     active,
     singleUser
   );
+
+  if (isLoadingSingleUser) return <Spinner />;
+
+  if (!singleUser?.success) return <NoAccess />;
 
   return (
     <>

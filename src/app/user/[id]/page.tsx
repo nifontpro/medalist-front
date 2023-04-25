@@ -4,11 +4,14 @@ import P from '@/ui/P/P';
 import { useUserAdmin } from '../useUserAdmin';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 
 export const SingleUser = ({ params }: { params: { id: string } }) => {
   const { back } = useRouter();
-  const { singleUser } = useUserAdmin(params.id);
-  console.log(singleUser?.data);
+  const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
+  if (isLoadingSingleUser) return <Spinner />;
+  if (!singleUser?.success) return <NoAccess />;
 
   return (
     <>

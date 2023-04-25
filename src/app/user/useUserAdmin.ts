@@ -10,25 +10,27 @@ export const useUserAdmin = (id?: string) => {
     (state: RootState) => state.userSelection
   );
 
-  const { data: singleUser } = userApi.useGetByIdQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      userId: id ? Number(id) : 0,
-    },
-    {
-      skip: !typeOfUser && !id,
-    }
-  );
+  const { data: singleUser, isLoading: isLoadingSingleUser } =
+    userApi.useGetByIdQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        userId: id ? Number(id) : 0,
+      },
+      {
+        skip: !typeOfUser && !id,
+      }
+    );
 
-  const { data: usersOnDepartment } = userApi.useGetUsersByDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(id),
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDept } =
+    userApi.useGetUsersByDeptQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: Number(id),
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const [deleteUser] = userApi.useDeleteMutation();
 
@@ -51,7 +53,15 @@ export const useUserAdmin = (id?: string) => {
     return {
       deleteUserAsync,
       singleUser,
+      isLoadingSingleUser,
       usersOnDepartment,
+      isLoadingUsersOnDept,
     };
-  }, [deleteUser, singleUser, usersOnDepartment]);
+  }, [
+    deleteUser,
+    singleUser,
+    usersOnDepartment,
+    isLoadingSingleUser,
+    isLoadingUsersOnDept,
+  ]);
 };

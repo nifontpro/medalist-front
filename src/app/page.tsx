@@ -9,8 +9,8 @@ export default function Home() {
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   return (
-    <div className='flex flex-col m-2 break-all'>
+    <main className='flex flex-col m-2 break-all'>
       Главная страница для пользователя с id {typeOfUser?.id}
-    </div>
+    </main>
   );
 }

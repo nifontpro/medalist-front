@@ -10,15 +10,16 @@ export const useDepartmentAdmin = (id?: string) => {
     (state: RootState) => state.userSelection
   );
 
-  const { data: singleDepartment } = deptApi.useGetByIdQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: id ? Number(id) : 0,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  const { data: singleDepartment, isLoading: isLoadingByIdDept } =
+    deptApi.useGetByIdQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: id ? Number(id) : 0,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const [deleteDepartment] = deptApi.useDeleteMutation();
 
@@ -41,6 +42,7 @@ export const useDepartmentAdmin = (id?: string) => {
     return {
       deleteDepartmentAsync,
       singleDepartment,
+      isLoadingByIdDept,
     };
-  }, [deleteDepartment, singleDepartment]);
+  }, [deleteDepartment, singleDepartment, isLoadingByIdDept]);
 };

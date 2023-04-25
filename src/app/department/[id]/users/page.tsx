@@ -1,13 +1,14 @@
 'use client';
 
-import { useAppSelector } from '@/store/hooks/hooks';
 import Users from './_components/Users/Users';
-import { RootState } from '@/store/storage/store';
-import { userApi } from '@/api/user/user.api';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
+import Spinner from '@/ui/Spinner/Spinner';
 
 export const DepartmentUsers = ({ params }: { params: { id: string } }) => {
-  const { usersOnDepartment } = useUserAdmin(params.id);
+  const { usersOnDepartment, isLoadingUsersOnDept } = useUserAdmin(params.id);
+  if (isLoadingUsersOnDept) return <Spinner />;
+  if (!usersOnDepartment?.success)
+    return <div>Произошла ошибка запроса - обновите, пожалуйста, страницу</div>;
 
   if (usersOnDepartment && usersOnDepartment.data) {
     return (

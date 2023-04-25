@@ -2,9 +2,14 @@
 
 import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '../useDepartmentAdmin';
+import Spinner from '@/ui/Spinner/Spinner';
 
 export const SingleDepartment = ({ params }: { params: { id: string } }) => {
-  const { singleDepartment } = useDepartmentAdmin(params.id);
+  const { singleDepartment, isLoadingByIdDept } = useDepartmentAdmin(params.id);
+  if (isLoadingByIdDept) return <Spinner />;
+  if (!singleDepartment?.success) {
+    return <div>Произошла ошибка запроса - обновите, пожалуйста, страницу</div>;
+  }
 
   return (
     <div>
