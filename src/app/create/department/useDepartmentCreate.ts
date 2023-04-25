@@ -15,7 +15,7 @@ export const useDepartmentCreate = (
 
   const { back } = useRouter();
   const [create] = deptApi.useGetProfilesMutation();
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
+  const { typeOfUser } = useAppSelector((state) => state.userSelection); 
 
   useEffect(() => {
     if (parentId && typeOfUser && typeOfUser.id) {

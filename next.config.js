@@ -10,7 +10,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['courses-top.ru'],
+    domains: ['courses-top.ru', 'md-c.storage.yandexcloud.net'],
   },
   webpack(config, options) {
     config.module.rules.push({

@@ -48,14 +48,14 @@ body {
   --primary-color: #22eaef;
 }
 
-
 // Стилизацаия sidebar слева
 .MuiTreeItem-content:hover {
   background: var(--gray96);
-  @apply duration-200 
+  @apply duration-200;
 }
 
-.Mui-selected { // поправить стиль т.к. он влияет на ToggleButton в layout department
+.Mui-selected {
+  // поправить стиль т.к. он влияет на ToggleButton в layout department
   background: var(--white) !important;
   > .MuiTreeItem-label {
     color: var(--black);
@@ -65,3 +65,106 @@ body {
   }
 }
 
+/* React Select */
+.custom-select {
+  &__control {
+    padding: 9.5px 21px !important;
+    background-color: var(--white) !important;
+    border: 1px solid #00000020 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+
+    // &--menu-is-open {
+    //   border-color: var(--primary-color) !important;
+    // }
+  }
+
+  &__value-container {
+    padding: 0 !important;
+    cursor: text !important;
+  }
+
+  &__input-container {
+    color: #999aa5 !important;
+  }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__indicators {
+    cursor: pointer !important;
+  }
+
+  &__indicator {
+    color: #66676e !important;
+
+    &:hover {
+      color: #999aa5 !important;
+    }
+  }
+
+  &__multi-value {
+    background-color: rgba(#999aa5, 0.6) !important;
+    border-radius: 0.5rem !important;
+  }
+
+  &__multi-value__label {
+    font-size: 80% !important;
+    color: rgba(white, 0.7) !important;
+  }
+
+  &__multi-value__remove {
+    color: rgba(white, 0.8) !important;
+
+    &:hover {
+      background-color: transparent !important;
+      color: rgba(white, 1) !important;
+    }
+  }
+
+  &__menu {
+    padding: 20px;
+    color: var(--gray-dark) !important;
+    box-shadow: 0px 6px 50px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+  }
+
+  &__option {
+    cursor: pointer !important;
+    &--is-focused {
+      background-color: var(--grayF8) !important;
+      border-radius: 4px;
+    }
+    &--is-selected {
+      border-radius: 4px;
+      background-color: var(--gray) !important;
+    }
+  }
+
+  &-container {
+    > div {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .form-control__control {
+      @apply outline-none border-none transition-all;
+      border-color: #ced4da !important;
+      box-shadow: none !important;
+    }
+
+    &:hover,
+    &--menu-is-open {
+      border-color: #ced4da !important;
+    }
+
+    .form-control__indicators {
+      @apply cursor-pointer;
+    }
+  }
+
+  &__menu {
+    @apply animate-scaleIn;
+  }
+}

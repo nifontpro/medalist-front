@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { UserSelectionProps } from './UserSelection.props';
 import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
-import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import { useUserSelection } from './useUserSelection';
 import { getOwnerCreateUrl, getUserCreateUrl } from '@/config/api.config';
 
@@ -18,14 +17,14 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     rolesUser,
     handleChangeRole,
     isLoading,
-    dispatch,
-    push
+    push,
   } = useUserSelection();
 
   return (
     <>
       {(isAuth && typeOfUser != undefined && !isOpen) ||
-      pathName == '/login' || pathName == '/create/owner' ? null : (
+      pathName == '/login' ||
+      pathName == '/create/owner' ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
           {!isLoading && (
             <div className={styles.window}>

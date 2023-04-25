@@ -2,30 +2,43 @@
 
 import P from '@/ui/P/P';
 import { useUserAdmin } from '../useUserAdmin';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import { useRouter } from 'next/navigation';
 
 export const SingleUser = ({ params }: { params: { id: string } }) => {
+  const { back } = useRouter();
   const { singleUser } = useUserAdmin(params.id);
   console.log(singleUser?.data);
 
   return (
-    <div>
-      Пользватель {params.id}
-      <P size='xs' fontstyle='thin'>
-        Фамилия: {singleUser?.data?.user.firstname}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Имя: {singleUser?.data?.user.lastname}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Отчество: {singleUser?.data?.user.patronymic}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Телефон: {singleUser?.data?.phone}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Описание: {singleUser?.data?.description}
-      </P>
-    </div>
+    <>
+      <ButtonCircleIcon
+        onClick={back}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        Вернуться назад
+      </ButtonCircleIcon>
+      <div className='mt-10'>
+        Пользватель {params.id}
+        <P size='xs' fontstyle='thin'>
+          Фамилия: {singleUser?.data?.user.firstname}
+        </P>
+        <P size='xs' fontstyle='thin'>
+          Имя: {singleUser?.data?.user.lastname}
+        </P>
+        <P size='xs' fontstyle='thin'>
+          Отчество: {singleUser?.data?.user.patronymic}
+        </P>
+        <P size='xs' fontstyle='thin'>
+          Телефон: {singleUser?.data?.phone}
+        </P>
+        <P size='xs' fontstyle='thin'>
+          Описание: {singleUser?.data?.description}
+        </P>
+      </div>
+    </>
   );
 };
 

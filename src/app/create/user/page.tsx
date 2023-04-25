@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './OwnerCreate.module.scss';
+import styles from './UserCreate.module.scss';
 import { useRouter } from 'next/navigation';
-import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
-import { useForm } from 'react-hook-form';
-import { useOwnerCreate } from './useOwnerCreate';
+import { Controller, useForm } from 'react-hook-form';
+import { useUserCreate } from './useUserCreate';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
@@ -14,19 +13,31 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { Gender } from '@/domain/model/user/user';
 import { withHookFormMask } from 'use-mask-input';
+import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
+import SelectArtem from '@/ui/SelectArtem/SelectArtem';
+import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 
-export const CreateOwner = () => {
+const roles: IOption[] = [
+  {
+    label: 'Администратор',
+    value: 'ADMIN',
+  },
+  { label: 'Пользователь', value: 'USER' },
+];
+
+export const CreateUser = () => {
   const [active, setActive] = useState<Gender>('MALE');
   const { back } = useRouter();
 
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
-  } = useForm<CreateOwnerRequest>({ mode: 'onChange' });
+  } = useForm<CreateUserRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick } = useOwnerCreate(setValue, active);
+  const { onSubmit, handleClick } = useUserCreate(setValue, active);
 
   return (
     <>
@@ -42,7 +53,7 @@ export const CreateOwner = () => {
       <form className={styles.form}>
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>
-            Новый владелец
+            Новый сотрудник
           </Htag>
 
           <div className={styles.groupGender}>
@@ -96,6 +107,38 @@ export const CreateOwner = () => {
             />
           </div>
 
+          <div className={styles.group}>
+            <Controller
+              name='roles'
+              control={control}
+              rules={{
+                required: 'Необходимо выбрать роль!',
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <SelectArtem
+                  error={error}
+                  field={field}
+                  placeholder='Роль пользователя'
+                  options={roles || []}
+                  isLoading={false}
+                  isMulti={true}
+                />
+              )}
+            />
+            <Field
+              {...register('authEmail', {
+                required: 'required',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Entered value does not match email format',
+                },
+              })}
+              title='Email'
+              placeholder='Введите свой email'
+              error={errors.authEmail}
+            />
+          </div>
+
           <Field
             {...register('address', { required: 'Адрес необходим!' })}
             title='Адрес'
@@ -128,7 +171,7 @@ export const CreateOwner = () => {
               className={styles.confirm}
               disabled={!isDirty || !isValid}
             >
-              Добавить
+              Создать
             </Button>
           </div>
         </div>
@@ -137,4 +180,4 @@ export const CreateOwner = () => {
   );
 };
 
-export default CreateOwner;
+export default CreateUser;

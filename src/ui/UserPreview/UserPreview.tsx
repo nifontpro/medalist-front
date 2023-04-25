@@ -15,10 +15,10 @@ const UserPreview = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.images}>
         <ImageDefault
-          src={user.imageUrl}
+          src={user.images.length > 0 ? user.images[0].imageUrl : undefined}
           width={76}
           height={76}
-          alt={user.name}
+          alt={user.firstname}
           objectFit='cover'
           className='rounded-xl w-[76px] h-[76px]'
           priority={true}
@@ -30,12 +30,12 @@ const UserPreview = ({
           {user.lastname} {user.firstname}
         </P>
         <P color='gray' size='m' fontstyle='thin'>
-          {user.post}Пост сотрудника
+          {user.post}
         </P>
       </div>
       {forWhat == 'user' && (
         <P size='xs' fontstyle='thin' className={styles.departName}>
-          Depart{user.departmentName}
+          {user.dept.name}
         </P>
       )}
     </div>

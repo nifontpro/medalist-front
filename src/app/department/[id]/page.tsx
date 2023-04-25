@@ -8,7 +8,7 @@ export const SingleDepartment = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      Department {params.id}
+      Department: {params.id}
       <P size='xs' fontstyle='thin'>
         Название: {singleDepartment?.data?.dept.name}
       </P>

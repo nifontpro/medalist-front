@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { sortTree } from '@/utils/sortTree';
 import { usePathname } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import {

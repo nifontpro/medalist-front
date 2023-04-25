@@ -1,62 +1,61 @@
 .container {
-    background: var(--white);
-    padding: 80px 95px;
-    border-radius: 27px;
-    margin-bottom: 30px;
-  
-    @media screen and (max-width: 1170px) {
-      padding: 60px 40px;
-    }
-    @media screen and (max-width: 768px) {
-      border-radius: 16px;
-      padding: 40px 20px;
-    }
-    .filterMedia {
-      display: none;
-      @media screen and (max-width: 768px) {
-        display: flex;
-        margin-top: 15px;
-        margin-bottom: 40px;
-        cursor: pointer;
-      }
-    }
-  
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-  
-      > .filter {
-        width: fit-content;
-        cursor: pointer;
-  
-        @media screen and (max-width: 768px) {
-          display: none;
-        }
-      }
-    }
+  background: var(--white);
+  padding: 80px 95px;
+  border-radius: 27px;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 1170px) {
+    padding: 60px 40px;
   }
-  
-  .newUser {
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+    padding: 40px 20px;
+  }
+  .filterMedia {
     display: none;
-    @media screen and (min-width: 620px) {
+    @media screen and (max-width: 768px) {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 0px;
-      border: 2px solid var(--graySilver);
-      border-radius: 16px;
-      margin-bottom: 15px;
+      margin-top: 15px;
+      margin-bottom: 40px;
       cursor: pointer;
     }
-  
-    .newUserBtn {
-      justify-content: center;
-      > div {
-        width: 100%;
-        justify-content: center;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    > .filter {
+      width: fit-content;
+      cursor: pointer;
+
+      @media screen and (max-width: 768px) {
+        display: none;
       }
     }
   }
-  
+}
+
+.newUser {
+  display: none;
+  @media screen and (min-width: 620px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    border: 2px solid var(--graySilver);
+    border-radius: 16px;
+    margin-bottom: 15px;
+    // cursor: pointer;
+  }
+
+  .newUserBtn {
+    justify-content: center;
+    > div {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

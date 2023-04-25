@@ -31,7 +31,7 @@ const Users = ({ users, id, className, ...props }: UsersProps) => {
     <>
       <div className={styles.newUser}>
         <ButtonCircleIcon
-          onClick={() => push(getUserCreateUrl())}
+          onClick={() => push(getUserCreateUrl(`?deptId=${id}`))}
           classNameForIcon='@apply w-[12px] h-[12px]'
           icon='plus'
           appearance='black'
@@ -58,7 +58,7 @@ const Users = ({ users, id, className, ...props }: UsersProps) => {
           color='white'
           search={true}
           button={false}
-          placeholder='Сотрудник сотрудника ...'
+          placeholder='Поиск сотрудника...'
         />
         <SortButton
           state={state}
@@ -67,7 +67,6 @@ const Users = ({ users, id, className, ...props }: UsersProps) => {
         >
           По алфавиту {state == 1 ? 'А -- Я' : 'Я -- А'}
         </SortButton>
-
         {users.length > 1 ? (
           users.map((user) => (
             <UserList user={user} key={uniqid()} className={styles.userList} />

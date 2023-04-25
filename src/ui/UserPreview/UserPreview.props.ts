@@ -1,7 +1,10 @@
-import { IUser } from '@/user/model/user.types'
-import { DetailedHTMLProps, HTMLAttributes } from "react"
+import { User } from '@/domain/model/user/user';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export type UserPreviewProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
-    user: IUser
-    forWhat: string
-}
+export type UserPreviewProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> & {
+  user: User;
+  forWhat: string;
+};

@@ -5,5 +5,5 @@ import {CreateOwnerRequest} from "@/api/user/request/CreateOwnerRequest";
      authId: number
      deptId: number
      authEmail?: string // Почта по которой будет входить новый сотрудник
-     roles: RoleUser[] // допустимые роли: ADMIN, USER
+     roles: RoleUser[] // допустимые роли: ADMIN, USER 
  }
