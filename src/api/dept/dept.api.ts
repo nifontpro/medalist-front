@@ -66,5 +66,18 @@ export const deptApi = createApi({
       invalidatesTags: ['Dept'],
     }),
 
+    /**
+     * Добавление изображения
+     * @param: formData: [file]:file, [authId], [deptId]
+     */
+    imageAdd: build.mutation<void, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/dept/img_add',
+        body: formData,
+      }),
+      invalidatesTags: ['Dept'],
+    }),
+
   }),
 });
