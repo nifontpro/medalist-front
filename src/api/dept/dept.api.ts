@@ -108,5 +108,18 @@ export const deptApi = createApi({
       invalidatesTags: ['Dept'],
     }),
 
+    /**
+     * Удаление изображения
+     * @param: authId, deptId, imageId
+     */
+    imageDelete: build.mutation<BaseResponse<BaseImage>, { authId: number, deptId: number; imageId: number }>({
+      query: (body) => ({
+        method: 'POST',
+        url: '/dept/img_delete',
+        body: body,
+      }),
+      invalidatesTags: ['Dept'],
+    }),
+
   }),
 });
