@@ -5,6 +5,7 @@ import {DeptDetails} from '@/domain/model/dept/deptDetails';
 import {CreateDeptRequest} from './request/createDeptRequest';
 import {BaseResponse} from '@/domain/model/base/baseResponse';
 import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
+import {BaseImage} from "@/domain/model/base/image/baseImage";
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -85,10 +86,23 @@ export const deptApi = createApi({
      * Добавление изображения
      * @param: formData: [file]:file, [authId], [deptId]
      */
-    imageAdd: build.mutation<void, FormData>({
+    imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
         url: '/dept/img_add',
+        body: formData,
+      }),
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
+     * Обновление изображения
+     * @param: formData: [file]:file, [authId], [deptId], [imageId]
+     */
+    imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/dept/img_update',
         body: formData,
       }),
       invalidatesTags: ['Dept'],

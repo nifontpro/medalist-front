@@ -6,6 +6,7 @@ import {UserDetails} from '@/domain/model/user/userDetails';
 import {CreateOwnerRequest} from './request/CreateOwnerRequest';
 import {CreateUserRequest} from "@/api/user/request/CreateUserRequest";
 import {UpdateUserRequest} from "@/api/user/request/UpdateUserRequest";
+import {BaseImage} from "@/domain/model/base/image/baseImage";
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
@@ -120,7 +121,7 @@ export const userApi = createApi({
      * Добавление изображения
      * @param: formData: [file]:file, [userId]
      */
-    imageAdd: build.mutation<void, FormData>({
+    imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
         url: '/user/img_add',
@@ -133,7 +134,7 @@ export const userApi = createApi({
      * Обновление изображения
      * @param: formData: [file]:file, [userId], [imageId]
      */
-    imageUpdate: build.mutation<void, FormData>({
+    imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
         url: '/user/img_update',
@@ -146,7 +147,7 @@ export const userApi = createApi({
      * Удаление изображения
      * @param: userId, imageId
      */
-    imageDelete: build.mutation<void, { userId: number; imageId: number }>({
+    imageDelete: build.mutation<BaseResponse<BaseImage>, { userId: number; imageId: number }>({
       query: (body) => ({
         method: 'POST',
         url: '/user/img_delete',

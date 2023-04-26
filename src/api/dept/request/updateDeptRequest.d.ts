@@ -1,5 +1,5 @@
-import {CreateDeptRequest} from "@/api/dept/request/createDeptRequest";
+import {BaseDeptRequest} from "@/api/dept/request/createDeptRequest";
 
-export interface UpdateDeptRequest extends Omit<CreateDeptRequest, 'parentId'> {
+export interface UpdateDeptRequest extends BaseDeptRequest {
     deptId: number
 }
