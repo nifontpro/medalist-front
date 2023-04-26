@@ -22,16 +22,19 @@ export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
   setActive: Dispatch<SetStateAction<Gender>>,
   active: Gender,
-  singleUser: BaseResponse<UserDetails> | undefined
+  singleUser: BaseResponse<UserDetails> | undefined,
+  imageNum: number | undefined,
+  setImageNum: Dispatch<SetStateAction<number>>
 ) => {
-  const [img, setImg] = useState<string | undefined>(undefined);
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const { back } = useRouter();
   const [update] = userApi.useUpdateMutation();
-  const [addImages] = userApi.useImageAddMutation();
+  const [addImage] = userApi.useImageAddMutation();
+  const [removeImage] = userApi.useImageDeleteMutation();
+  const [refreshImage] = userApi.useImageUpdateMutation();
 
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {
@@ -63,23 +66,25 @@ export const useUserEdit = (
     let isError = false;
 
     if (event.target.files !== null && singleUser) {
-      // setImg(URL.createObjectURL(event.target.files[0]));
       const file = new FormData();
-      file.append('imageUrl', event.target.files[0]);
-      await addImages({file, userId: singleUser.data?.user.id})
+      file.append('file', event.target.files[0]);
+      file.append('userId', singleUser.data?.user.id);
+
+      await addImage(file)
         .unwrap()
-        // .then((res) => {
-        //   if (!res.success) {
-        //     toastError(res.errors[0].message);
-        //     isError = true;
-        //   }
-        // })
+        .then((res) => {
+          if (res.success == false) {
+            toastError(res.errors[0].message);
+            isError = true;
+          }
+        })
         .catch(() => {
           isError = true;
-          toast.error('Ошибка обновления фотографии');
+          toast.error('Ошибка добавления фотографии');
         });
       if (!isError) {
-        toast.success('Фото успешно обновлен');
+        toast.success('Фото успешно добавлено');
+        setImageNum(0);
       }
     }
   };
@@ -89,18 +94,54 @@ export const useUserEdit = (
   ) => {
     e.preventDefault();
     let isError = false;
-    console.log('Remove photo');
-    // if (user != undefined) {
-    //   await removeImg(user.id)
-    //     .unwrap()
-    //     .catch(() => {
-    //       isError = true;
-    //       toast.error('Ошибка удаления фотографии');
-    //     });
-    //   if (!isError) {
-    //     toast.success('Фото успешно удалено');
-    //   }
-    // }
+    if (singleUser && imageNum != undefined) {
+      await removeImage({
+        userId: singleUser.data?.user.id,
+        imageId: singleUser?.data?.user.images[imageNum].id,
+      })
+        .unwrap()
+        .then((res) => {
+          if (res.success == false) {
+            toastError(res.errors[0].message);
+            isError = true;
+          }
+        })
+        .catch(() => {
+          isError = true;
+          toast.error('Ошибка удаления фотографии');
+        });
+      if (!isError) {
+        toast.success('Фото успешно удалено');
+        setImageNum(0);
+      }
+    }
+  };
+
+  const refreshPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+    let isError = false;
+
+    if (event.target.files !== null && singleUser && imageNum != undefined) {
+      const file = new FormData();
+      file.append('file', event.target.files[0]);
+      file.append('userId', singleUser.data?.user.id);
+      file.append('imageId', singleUser?.data?.user.images[imageNum].id);
+
+      await refreshImage(file)
+        .unwrap()
+        .then((res) => {
+          if (res.success == false) {
+            toastError(res.errors[0].message);
+            isError = true;
+          }
+        })
+        .catch(() => {
+          isError = true;
+          toast.error('Ошибка обновления фотографии');
+        });
+      if (!isError) {
+        toast.success('Фото успешно обновлено');
+      }
+    }
   };
 
   const onSubmit: SubmitHandler<UpdateUserRequest> = async (data) => {
@@ -127,5 +168,5 @@ export const useUserEdit = (
     }
   };
 
-  return { onSubmit, handleClick, addPhoto, removePhoto };
+  return { onSubmit, handleClick, addPhoto, removePhoto, refreshPhoto };
 };

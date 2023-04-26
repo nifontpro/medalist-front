@@ -3,19 +3,46 @@
   grid-template-columns: 300px auto 1fr;
   align-items: center;
   background: var(--black);
-  color: var(--white);
+
   height: 100px;
   padding: 1rem 2rem;
 
   .role {
     cursor: pointer;
+    color: var(--white);
   }
 
   .logo {
     justify-self: center;
   }
 
-  .sign {
-    justify-self: flex-end;
+  .user {
+    grid-column: startUser / endUser;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    @media screen and (max-width: 500px) {
+      grid-template-columns: 40px 40px;
+    }
+
+    .userImg {
+      cursor: pointer;
+      height: 64px;
+      width: 64px;
+      @apply duration-200;
+      @media screen and (max-width: 500px) {
+        height: 40px;
+        width: 40px;
+      }
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
+
+  // .sign {
+  //   justify-self: flex-end;
+  // }
 }

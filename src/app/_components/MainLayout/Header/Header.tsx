@@ -7,11 +7,17 @@ import cn from 'classnames';
 import LogoIcon from '@/icons/logo.svg';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
-import { useHeader } from './useHeader';
+import UserLogo from './UserLogo/UserLogo';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { useUserAdmin } from '@/app/user/useUserAdmin';
 
 const Header = ({ className, ...props }: HeaderProps) => {
-  const { dispatch, typeOfUser, isAuth, handleLogoutClick, handleLoginClick } =
-    useHeader();
+  const dispatch = useAppDispatch();
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+  const { singleUser } = useUserAdmin(String(typeOfUser?.id));
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -23,15 +29,13 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <LogoIcon className='w-[200px]' />
       </Link>
       <div className={styles.role} onClick={() => dispatch(setIsOpen(true))}>
-        {typeOfUser?.firstname} {typeOfUser?.lastname}
+        {singleUser?.data?.user.firstname} {singleUser?.data?.user.lastname}
       </div>
-      <ul className={styles.sign}>
-        {isAuth ? (
-          <button onClick={handleLogoutClick}>Выход</button>
-        ) : (
-          <button onClick={handleLoginClick}>Вход</button>
-        )}
-      </ul>
+      <div className={styles.user}>
+        <div></div>
+        {/* <Notification allMessage={allMessage} /> */}
+        <UserLogo user={singleUser?.data?.user} className={styles.userImg} />
+      </div>
     </div>
   );
 };

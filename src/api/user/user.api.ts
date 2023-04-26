@@ -134,12 +134,11 @@ export const userApi = createApi({
      * Добавление изображения
      * @param: formData: [file]:file, [userId]
      */
-    imageAdd: build.mutation<void, { file: FormData; userId: number }>({
+    imageAdd: build.mutation<BaseResponse<void>, FormData>({
       query: (body) => ({
         method: 'POST',
         url: '/user/img_add',
-        params: { userId: body.userId },
-        body: body.file,
+        body: body,
       }),
       invalidatesTags: ['User'],
     }),
@@ -148,7 +147,7 @@ export const userApi = createApi({
      * Обновление изображения
      * @param: formData: [file]:file, [userId], [imageId]
      */
-    imageUpdate: build.mutation<void, FormData>({
+    imageUpdate: build.mutation<BaseResponse<void>, FormData>({
       query: (formData) => ({
         method: 'POST',
         url: '/user/img_update',
@@ -161,7 +160,10 @@ export const userApi = createApi({
      * Удаление изображения
      * @param: userId, imageId
      */
-    imageDelete: build.mutation<void, { userId: number; imageId: number }>({
+    imageDelete: build.mutation<
+      BaseResponse<void>,
+      { userId: number; imageId: number }
+    >({
       query: (body) => ({
         method: 'POST',
         url: '/user/img_delete',

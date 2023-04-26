@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import styles from './UserList.module.scss';
 import cn from 'classnames';
-import { UserListProps } from './UserListprops';
+import { UserListProps } from './UserList.props';
 // import { useUserAdmin } from '../admin/useUserAdmin';
 import { useRouter } from 'next/navigation';
 // import { getUserEditUrl, getUserUrl } from '@/core/config/api.config';

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './UserEdit.module.scss';
 import { useRouter } from 'next/navigation';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
@@ -12,46 +12,40 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { Gender } from '@/domain/model/user/user';
 import { withHookFormMask } from 'use-mask-input';
-import SelectArtem from '@/ui/SelectArtem/SelectArtem';
-import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 import { useUserEdit } from './useUserEdit';
 import { useUserAdmin } from '../../useUserAdmin';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
 import cn from 'classnames';
 import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
+import { BaseImage } from '@/domain/model/base/image/baseImage';
 
-const roles: IOption[] = [
-  {
-    label: 'Администратор',
-    value: 'ADMIN',
-  },
-  { label: 'Пользователь', value: 'USER' },
-];
+import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 
 export default function EditUser({ params }: { params: { id: string } }) {
   const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
 
-  const [active, setActive] = useState<Gender>('MALE');
+  const [imageNum, setImageNum] = useState<number>(0);
+  const [images, setImages] = useState<BaseImage[]>();
+
+  useEffect(() => {
+    setImages(singleUser?.data?.user.images);
+  }, [singleUser]);
+
+  const [active, setActive] = useState<Gender>('UNDEF');
   const { back } = useRouter();
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
   } = useForm<UpdateUserRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, addPhoto, removePhoto } = useUserEdit(
-    setValue,
-    setActive,
-    active,
-    singleUser
-  );
+  const { onSubmit, handleClick, addPhoto, removePhoto, refreshPhoto } =
+    useUserEdit(setValue, setActive, active, singleUser, imageNum, setImageNum);
 
   if (isLoadingSingleUser) return <Spinner />;
 
@@ -82,23 +76,29 @@ export default function EditUser({ params }: { params: { id: string } }) {
                 styles.mediaVisible
               )}
             >
-              <div className={styles.images}>
-                <ImageDefault
-                  src={singleUser.data?.user.images[0]}
-                  width={250}
-                  height={250}
-                  alt='preview image'
-                  objectFit='cover'
-                  // priority={true}
-                  // className='rounded-[10px]'
-                />
-              </div>
+              <ImagesCarousel
+                singleUser={singleUser}
+                imageNum={imageNum}
+                setImageNum={setImageNum}
+                images={images}
+              />
 
               <div className={styles.editPanel}>
                 <InputPhotoAdd onChange={addPhoto} className={styles.input}>
-                  <ButtonEdit icon='refresh' />
+                  <ButtonEdit icon='edit' />
                 </InputPhotoAdd>
-                <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
+                {singleUser.data?.user.images.length > 0 && (
+                  <>
+                    <InputPhotoAdd
+                      onChange={refreshPhoto}
+                      className={styles.input}
+                    >
+                      <ButtonEdit icon='refresh' />
+                    </InputPhotoAdd>
+
+                    <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -155,23 +155,6 @@ export default function EditUser({ params }: { params: { id: string } }) {
           </div>
 
           <div className={styles.group}>
-            {/* <Controller
-              name='roles'
-              control={control}
-              rules={{
-                required: 'Необходимо выбрать роль!',
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <SelectArtem
-                  error={error}
-                  field={field}
-                  placeholder='Роль пользователя'
-                  options={roles || []}
-                  isLoading={false}
-                  isMulti={false}
-                />
-              )}
-            /> */}
             <Field
               {...register('authEmail', {
                 required: 'required',
