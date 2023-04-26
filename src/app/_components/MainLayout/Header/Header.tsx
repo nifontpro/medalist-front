@@ -29,7 +29,9 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <LogoIcon className='w-[200px]' />
       </Link>
       <div className={styles.role} onClick={() => dispatch(setIsOpen(true))}>
-        {singleUser?.data?.user.firstname} {singleUser?.data?.user.lastname}
+        {singleUser?.success == false
+          ? `Выберете пользователя`
+          : `${singleUser?.data?.user.firstname} ${singleUser?.data?.user.lastname}`}
       </div>
       <div className={styles.user}>
         <div></div>

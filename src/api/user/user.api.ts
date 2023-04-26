@@ -77,7 +77,7 @@ export const userApi = createApi({
           body: request,
         };
       },
-      invalidatesTags: ['User'],
+      invalidatesTags: (result) => [{type: 'User', id: result?.data?.user.id}]
     }),
 
     /**
@@ -129,6 +129,7 @@ export const userApi = createApi({
         };
       },
       invalidatesTags: ['User'],
+      // invalidatesTags: (result) => [{type: 'User', id: result?.data?.user.id}]
     }),
 
     /**

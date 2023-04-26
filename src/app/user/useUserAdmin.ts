@@ -45,8 +45,6 @@ export const useUserAdmin = (id?: string) => {
           if (res.success == false) {
             isError = true;
             errorMessageParse(res.errors);
-          } else {
-            toast.success('Профиль сотрудника успешно удален');
           }
         })
         .catch((e) => {
@@ -54,7 +52,7 @@ export const useUserAdmin = (id?: string) => {
           toastError(e, 'Ошибка при удалении профиля сотрудника');
         });
       if (!isError) {
-        toast.success('Профиль успешно удален');
+        toast.success('Профиль сотрудника успешно удален');
       }
     };
 

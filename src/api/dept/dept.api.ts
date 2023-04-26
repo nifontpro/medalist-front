@@ -4,7 +4,6 @@ import { Dept } from '@/domain/model/dept/dept';
 import { DeptDetails } from '@/domain/model/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
 import { BaseResponse } from '@/domain/model/base/baseResponse';
-import { UserDetails } from '@/domain/model/user/userDetails';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
 
@@ -41,6 +40,7 @@ export const deptApi = createApi({
           body: request,
         };
       },
+      // invalidatesTags: ['Dept'],
       invalidatesTags: ['Dept'],
     }),
 
@@ -79,7 +79,7 @@ export const deptApi = createApi({
      * Удаление отдела по id
      */
     delete: build.mutation<
-      BaseResponse<UserDetails>,
+      BaseResponse<DeptDetails>,
       { authId: number; deptId: number }
     >({
       query: (request) => {

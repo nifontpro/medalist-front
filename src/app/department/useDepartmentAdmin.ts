@@ -34,8 +34,6 @@ export const useDepartmentAdmin = (id?: string) => {
           if (res.success == false) {
             isError = true;
             errorMessageParse(res.errors);
-          } else {
-            toast.success('Отдел успешно удален');
           }
         })
         .catch((e) => {
