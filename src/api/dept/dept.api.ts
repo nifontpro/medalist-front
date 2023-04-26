@@ -4,6 +4,7 @@ import {Dept} from '@/domain/model/dept/dept';
 import {DeptDetails} from '@/domain/model/dept/deptDetails';
 import {CreateDeptRequest} from './request/createDeptRequest';
 import {BaseResponse} from '@/domain/model/base/baseResponse';
+import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -35,6 +36,20 @@ export const deptApi = createApi({
         return {
           method: 'POST',
           url: '/dept/create',
+          body: request,
+        };
+      },
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
+     * Обновление профиля отдела
+     */
+    update: build.mutation<BaseResponse<DeptDetails>, UpdateDeptRequest>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/dept/update',
           body: request,
         };
       },
