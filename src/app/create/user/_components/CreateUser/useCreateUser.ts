@@ -8,6 +8,7 @@ import { Gender } from '@/domain/model/user/user';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
+import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
@@ -48,7 +49,7 @@ export const useCreateUser = (
       .unwrap()
       .then((res) => {
         if (res.success == false) {
-          toastError(res.errors[0].message);
+          errorMessageParse(res.errors);
           isError = true;
         }
       })

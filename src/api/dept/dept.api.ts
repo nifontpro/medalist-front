@@ -5,6 +5,8 @@ import { DeptDetails } from '@/domain/model/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
 import { BaseResponse } from '@/domain/model/base/baseResponse';
 import { UserDetails } from '@/domain/model/user/userDetails';
+import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { UpdateDeptRequest } from './request/updateDeptRequest';
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -43,6 +45,20 @@ export const deptApi = createApi({
     }),
 
     /**
+     * Обновление профиля отдела
+     */
+    update: build.mutation<BaseResponse<DeptDetails>, UpdateDeptRequest>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/dept/update',
+          body: request,
+        };
+      },
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
      * Получение отдела по id
      */
     getById: build.query<
@@ -73,6 +89,32 @@ export const deptApi = createApi({
           body: request,
         };
       },
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
+     * Добавление изображения
+     * @param: formData: [file]:file, [authId], [deptId]
+     */
+    imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/dept/img_add',
+        body: formData,
+      }),
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
+     * Обновление изображения
+     * @param: formData: [file]:file, [authId], [deptId], [imageId]
+     */
+    imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
+      query: (formData) => ({
+        method: 'POST',
+        url: '/dept/img_update',
+        body: formData,
+      }),
       invalidatesTags: ['Dept'],
     }),
   }),

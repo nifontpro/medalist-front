@@ -6,6 +6,7 @@ import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
 import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
+import { BaseImage } from '@/domain/model/base/image/baseImage';
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
@@ -134,7 +135,7 @@ export const userApi = createApi({
      * Добавление изображения
      * @param: formData: [file]:file, [userId]
      */
-    imageAdd: build.mutation<BaseResponse<void>, FormData>({
+    imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (body) => ({
         method: 'POST',
         url: '/user/img_add',
@@ -147,7 +148,7 @@ export const userApi = createApi({
      * Обновление изображения
      * @param: formData: [file]:file, [userId], [imageId]
      */
-    imageUpdate: build.mutation<BaseResponse<void>, FormData>({
+    imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
         url: '/user/img_update',
@@ -161,7 +162,7 @@ export const userApi = createApi({
      * @param: userId, imageId
      */
     imageDelete: build.mutation<
-      BaseResponse<void>,
+      BaseResponse<BaseImage>,
       { userId: number; imageId: number }
     >({
       query: (body) => ({

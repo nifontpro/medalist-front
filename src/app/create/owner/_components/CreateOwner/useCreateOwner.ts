@@ -6,6 +6,7 @@ import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
 import { Gender } from '@/domain/model/user/user';
 import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
+import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateOwner = (
   setValue: UseFormSetValue<CreateOwnerRequest>,
@@ -34,7 +35,7 @@ export const useCreateOwner = (
       .unwrap()
       .then((res) => {
         if (res.success == false) {
-          toastError(res.errors[0].message);
+          errorMessageParse(res.errors);
           isError = true;
         }
       })

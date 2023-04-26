@@ -89,7 +89,7 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => push(getUrlEdit(`/${id}`))}
+              onClick={() => push(getUrlEdit(`${id}`))}
               className={styles.item}
             >
               Редактировать

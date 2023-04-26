@@ -1,0 +1,124 @@
+.form {
+  background: var(--white);
+  max-width: 980px;
+  padding: 60px 85px;
+  border-radius: 27px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  // @apply animate-fade;
+
+  @media screen and (max-width: 1280px) {
+    padding: 60px 50px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 60px 40px;
+    border-radius: 16px;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 30px 15px;
+  }
+
+  .uploadField {
+    overflow: hidden;
+    border-radius: 27px;
+    width: 250px;
+    height: fit-content;
+    background: var(--white);
+
+    // @media screen and (max-width: 1280px) {
+    //   display: none;
+    // }
+
+    .images {
+      height: 250px;
+      // border-bottom: 1px solid var(--gray);
+    }
+
+    .editPanel {
+      margin-top: 25px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 20px;
+
+      .input {
+        width: fit-content;
+        height: fit-content;
+        margin-right: 10px;
+        cursor: pointer;
+
+        &:hover svg {
+          path {
+            stroke: var(--gray-dark);
+          }
+          rect {
+            stroke: var(--gray-dark);
+          }
+        }
+      }
+    }
+  }
+
+  .field {
+    margin-bottom: 60px;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  > .title {
+    margin-bottom: 50px;
+    @media screen and (max-width: 1280px) {
+      margin-bottom: 40px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 60px;
+    align-items: flex-end;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .fixedCompanyName {
+      font-weight: 500;
+      font-size: 16.5269px;
+      opacity: 0.4;
+      color: var(--gray-dark);
+      padding: 17px 30px;
+      font-family: var(--font-family);
+      border: 1px solid #00000020;
+      border-radius: 12px;
+    }
+  }
+
+  > .btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 90px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      margin-top: 60px;
+    }
+
+    .confirm {
+      margin-left: 15px;
+
+      @media screen and (max-width: 768px) {
+        margin-left: 0px;
+        margin-top: 15px;
+      }
+    }
+  }
+}
