@@ -6,6 +6,7 @@ import {CreateDeptRequest} from './request/createDeptRequest';
 import {BaseResponse} from '@/domain/model/base/baseResponse';
 import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
+import {BaseOrder} from "@/domain/model/base/sort/BaseOrder";
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -14,10 +15,12 @@ export const deptApi = createApi({
   endpoints: (build) => ({
     /**
      * Получение поддерева отделов текущего пользователя
+     * orders: массив полей для сортировки в заданном направлении, например
+     * Java: [BaseOrder(field = "parentId"), BaseOrder(field = "name", direction = "DESC"] - переведи в js
      */
     getAuthSubtree: build.query<
       BaseResponse<Dept[]>,
-      { authId: number | undefined }
+      { authId: number | undefined, orders: BaseOrder[] | undefined}
     >({
       query: (authId) => {
         return {
