@@ -10,6 +10,7 @@ import {
 } from '@/store/features/sidebar/sidebarTree.slice';
 import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
+import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 
 export const useSidebar = () => {
   const pathName = usePathname();
@@ -33,7 +34,7 @@ export const useSidebar = () => {
 
   useEffect(() => {
     if (subTree && subTree.data) {
-      setTreeData(sortTree(subTree.data, subTree.data[0].parentId));
+      setTreeData(sortTree(subTree.data, subTree.data[findMinParentIdOnTree(subTree.data)].parentId));
     }
 
     let localStorageTreeIds = localStorage.getItem('expandedIds');

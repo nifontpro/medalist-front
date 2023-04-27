@@ -67,7 +67,7 @@ const Users = ({ users, id, className, ...props }: UsersProps) => {
         >
           По алфавиту {state == 1 ? 'А -- Я' : 'Я -- А'}
         </SortButton>
-        {users.length > 1 ? (
+        {users.length >= 1 ? (
           users.map((user) => (
             <UserList user={user} key={uniqid()} className={styles.userList} />
           ))

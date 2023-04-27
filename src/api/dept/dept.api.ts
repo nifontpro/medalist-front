@@ -55,7 +55,9 @@ export const deptApi = createApi({
           body: request,
         };
       },
-      invalidatesTags: ['Dept'],
+      invalidatesTags: (result) => [
+        { type: 'Dept', id: result?.data?.dept.id },
+      ],
     }),
 
     /**

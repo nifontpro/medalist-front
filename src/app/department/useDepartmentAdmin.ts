@@ -25,12 +25,12 @@ export const useDepartmentAdmin = (id?: string) => {
   const [deleteDepartment] = deptApi.useDeleteMutation();
 
   return useMemo(() => {
-    let isError = false;
-
     const deleteDepartmentAsync = async (id: number, authId: number) => {
+      let isError = false;
+
       await deleteDepartment({ authId, deptId: id })
         .unwrap()
-        .then((res) => {
+        .then((res) => { 
           if (res.success == false) {
             isError = true;
             errorMessageParse(res.errors);
