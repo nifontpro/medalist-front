@@ -3,27 +3,39 @@ import {baseQueryWithReauth} from '../base/base.api';
 import {BaseResponse} from '@/domain/model/base/baseResponse';
 import {AwardDetails} from "@/domain/model/award/AwardDetails";
 import {CreateAwardRequest} from "@/api/award/request/CreateAwardRequest";
+import {UpdateAwardRequest} from "@/api/award/request/UpdateAwardRequest";
 
 export const awardApi = createApi({
-  reducerPath: 'AwardApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Award'],
-  endpoints: (build) => ({
+	reducerPath: 'AwardApi',
+	baseQuery: baseQueryWithReauth,
+	tagTypes: ['Award'],
+	endpoints: (build) => ({
 
 
-    /**
-     * Создание новой награды
-     */
-    create: build.mutation<BaseResponse<AwardDetails>, CreateAwardRequest>({
-      query: (request) => {
-        return {
-          method: 'POST',
-          url: '/award/create',
-          body: request,
-        };
-      },
-      invalidatesTags: ['Award'],
-    }),
+		/**
+		 * Создание новой награды
+		 */
+		create: build.mutation<BaseResponse<AwardDetails>, CreateAwardRequest>({
+			query: (request) => {
+				return {
+					method: 'POST',
+					url: '/award/create',
+					body: request,
+				};
+			},
+			invalidatesTags: ['Award'],
+		}),
 
-  }),
+		update: build.mutation<BaseResponse<AwardDetails>, UpdateAwardRequest>({
+			query: (request) => {
+				return {
+					method: 'POST',
+					url: '/award/update',
+					body: request,
+				};
+			},
+			invalidatesTags: ['Award'],
+		}),
+
+	}),
 });
