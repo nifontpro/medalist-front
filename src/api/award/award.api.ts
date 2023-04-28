@@ -4,6 +4,7 @@ import {BaseResponse} from '@/domain/model/base/baseResponse';
 import {AwardDetails} from "@/domain/model/award/AwardDetails";
 import {CreateAwardRequest} from "@/api/award/request/CreateAwardRequest";
 import {UpdateAwardRequest} from "@/api/award/request/UpdateAwardRequest";
+import {BaseImage} from "@/domain/model/base/image/baseImage";
 
 export const awardApi = createApi({
 	reducerPath: 'AwardApi',
@@ -34,6 +35,19 @@ export const awardApi = createApi({
 					body: request,
 				};
 			},
+			invalidatesTags: ['Award'],
+		}),
+
+		/**
+		 * Добавление изображения
+		 * @param: formData: [file]:file, [authId], [awardId]
+		 */
+		imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
+			query: (formData) => ({
+				method: 'POST',
+				url: '/award/img_add',
+				body: formData,
+			}),
 			invalidatesTags: ['Award'],
 		}),
 
