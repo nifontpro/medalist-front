@@ -51,5 +51,18 @@ export const awardApi = createApi({
 			invalidatesTags: ['Award'],
 		}),
 
+		/**
+		 * Удаление изображения
+		 * @param: authId, awardId, imageId
+		 */
+		imageDelete: build.mutation<BaseResponse<BaseImage>, { authId: number, awardId: number; imageId: number }>({
+			query: (body) => ({
+				method: 'POST',
+				url: '/award/img_delete',
+				body: body,
+			}),
+			invalidatesTags: ['Award'],
+		}),
+
 	}),
 });
