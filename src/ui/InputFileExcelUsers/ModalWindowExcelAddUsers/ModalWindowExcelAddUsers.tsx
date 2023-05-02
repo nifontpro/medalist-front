@@ -91,9 +91,9 @@ const ModalWindowExcelAddUsers = forwardRef(
                 <P size='s' className={styles.fileName}>
                   {fileName}
                 </P>
-                <div className={styles.header}>
+                {/* <div className={styles.header}>
                   <P size='s'>{department.dept.name}</P>
-                </div>
+                </div> */}
 
                 {data ? (
                   <ul>

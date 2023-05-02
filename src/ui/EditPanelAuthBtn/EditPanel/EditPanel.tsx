@@ -115,7 +115,7 @@ const EditPanel = forwardRef(
             onClick={() => push(getUrlCreate(`?id=${id}`))}
             className={styles.item}
           >
-            Создать отдел
+            Создать
           </P>
           {/* <P
             size='xs'

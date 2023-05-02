@@ -29,17 +29,18 @@ const TitleSingleDepartment = ({
       />
 
       <div className={styles.companyDescription}>
+        <EditPanelAuthBtn
+          onlyRemove={false}
+          handleRemove={deleteDepartmentAsync}
+          id={department.dept.id}
+          getUrlEdit={getDepartmentEditUrl}
+          getUrlCreate={getDepartmentCreateUrl}
+          className={styles.dots}
+        />
         <div className={styles.title}>
           <Htag tag='h1' className={styles.header}>
             {department.dept.name}
           </Htag>
-          <EditPanelAuthBtn
-            onlyRemove={false}
-            handleRemove={deleteDepartmentAsync}
-            id={department.dept.id}
-            getUrlEdit={getDepartmentEditUrl}
-            getUrlCreate={getDepartmentCreateUrl}
-          />
         </div>
         <div className={styles.address}>
           <GpsIcon className='mr-[10px]' />
@@ -61,7 +62,9 @@ const TitleSingleDepartment = ({
           <a href={`mailto:${department.email}`}>Почта: {department.email}</a>
         </div>
 
-        <InputFileExcelUsers department={department}>Добавить сотрудников из EXCEL</InputFileExcelUsers>
+        <InputFileExcelUsers department={department}>
+          Добавить сотрудников из EXCEL
+        </InputFileExcelUsers>
 
         {/* <div className={styles.colUsers}>
           <CountUsersPreview

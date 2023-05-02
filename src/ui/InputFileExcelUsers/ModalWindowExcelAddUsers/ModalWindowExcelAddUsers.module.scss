@@ -96,18 +96,18 @@
       margin-bottom: 20px;
     }
 
-    .header {
-      padding: 15px 20px;
-      border-radius: 27px;
-      border: 1px solid var(--gray);
-      margin-bottom: 20px;
-      @media screen and (max-width: 1280px) {
-        border-radius: 16px;
-      }
-      @media screen and (max-width: 768px) {
-        border: none;
-      }
-    }
+    // .header {
+    //   padding: 15px 20px;
+    //   border-radius: 27px;
+    //   border: 1px solid var(--gray);
+    //   margin-bottom: 20px;
+    //   @media screen and (max-width: 1280px) {
+    //     border-radius: 16px;
+    //   }
+    //   @media screen and (max-width: 768px) {
+    //     border: none;
+    //   }
+    // }
 
     .item {
       margin-bottom: 15px;

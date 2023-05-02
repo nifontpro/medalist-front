@@ -80,7 +80,7 @@ const ImagesCarousel = ({
                   width={400}
                   height={400}
                   alt='preview image'
-                  objectFit='cover'
+                  className={styles.imageCard}
                   // priority={true}
                 />
               );
@@ -92,7 +92,6 @@ const ImagesCarousel = ({
             width={250}
             height={250}
             alt='preview image'
-            objectFit='cover'
             className={className}
           />
         )}

@@ -5,6 +5,7 @@ import Tree from '../Tree/Tree';
 import styles from './TreeNode.module.scss';
 import { Box, Typography } from '@mui/material';
 import CustomTreeItem from '../CustomTreeNode/CustomTreeNode';
+import React from 'react';
 
 const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
   return (
@@ -31,4 +32,4 @@ const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
   );
 };
 
-export default TreeNode;
+export default React.memo(TreeNode);
