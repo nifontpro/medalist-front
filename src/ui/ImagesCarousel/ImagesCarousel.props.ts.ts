@@ -7,7 +7,8 @@ export type ImagesCarouselProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   data: BaseImage[]
-  imageNum: number | undefined
-  setImageNum: Dispatch<SetStateAction<number>>
-  images: BaseImage[] | undefined
+  imageNum?: number | undefined
+  setImageNum?: Dispatch<SetStateAction<number>>
+  images?: BaseImage[] | undefined
+  edit: boolean
 };

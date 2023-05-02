@@ -72,6 +72,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
               imageNum={imageNum}
               setImageNum={setImageNum}
               images={images}
+              edit={true}
             />
 
             <div className={styles.editPanel}>
@@ -80,12 +81,12 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
               </InputPhotoAdd>
               {singleDepartment.data?.dept.images.length > 0 && (
                 <>
-                  <InputPhotoAdd
+                  {/* <InputPhotoAdd
                     onChange={refreshPhoto}
                     className={styles.input}
                   >
                     <ButtonEdit icon='refresh' />
-                  </InputPhotoAdd>
+                  </InputPhotoAdd> */}
 
                   <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
                 </>

@@ -22,7 +22,7 @@ export const useSidebar = () => {
   );
 
   const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
-    { authId: typeOfUser?.id },
+    { authId: typeOfUser?.id, orders: undefined},
     {
       skip: !typeOfUser,
     }
@@ -34,7 +34,12 @@ export const useSidebar = () => {
 
   useEffect(() => {
     if (subTree && subTree.data) {
-      setTreeData(sortTree(subTree.data, subTree.data[findMinParentIdOnTree(subTree.data)].parentId));
+      setTreeData(
+        sortTree(
+          subTree.data,
+          subTree.data[findMinParentIdOnTree(subTree.data)].parentId
+        )
+      );
     }
 
     let localStorageTreeIds = localStorage.getItem('expandedIds');

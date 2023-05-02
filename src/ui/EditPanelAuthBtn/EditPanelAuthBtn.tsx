@@ -6,12 +6,14 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import { useRef, useState } from 'react';
 import EditPanel from './EditPanel/EditPanel';
 import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
+import cn from 'classnames';
 
 const EditPanelAuthBtn = ({
   handleRemove,
   onlyRemove,
   getUrlEdit,
   getUrlCreate,
+  className,
   id,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
@@ -32,7 +34,7 @@ const EditPanelAuthBtn = ({
         icon='dots'
         appearance={color}
         classNameForIcon='@apply w-[10px] h-[10px]'
-        className={styles.dots}
+        className={cn(styles.dots, className)}
         ref={refOpen}
       />
       <EditPanel

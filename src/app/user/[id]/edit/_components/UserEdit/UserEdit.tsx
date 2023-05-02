@@ -77,6 +77,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 imageNum={imageNum}
                 setImageNum={setImageNum}
                 images={images}
+                edit={true}
               />
 
               <div className={styles.editPanel}>
@@ -85,12 +86,12 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 </InputPhotoAdd>
                 {singleUser.data?.user.images.length > 0 && (
                   <>
-                    <InputPhotoAdd
+                    {/* <InputPhotoAdd
                       onChange={refreshPhoto}
                       className={styles.input}
                     >
                       <ButtonEdit icon='refresh' />
-                    </InputPhotoAdd>
+                    </InputPhotoAdd> */}
 
                     <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
                   </>

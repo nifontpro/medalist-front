@@ -1,9 +1,9 @@
 'use client';
 
-import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '../useDepartmentAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
+import TitleSingleDepartment from './_components/TitleSingleDepartment/TitleSingleDepartment';
 
 export default function SingleDepartment({
   params,
@@ -18,22 +18,9 @@ export default function SingleDepartment({
 
   return (
     <div>
-      Department: {params.id}
-      <P size='xs' fontstyle='thin'>
-        Название: {singleDepartment?.data?.dept.name}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Адрес: {singleDepartment?.data?.address}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Email: {singleDepartment?.data?.email}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Телефон: {singleDepartment?.data?.phone}
-      </P>
-      <P size='xs' fontstyle='thin'>
-        Описание: {singleDepartment?.data?.description}
-      </P>
+      {singleDepartment.data && (
+        <TitleSingleDepartment department={singleDepartment.data} />
+      )}
     </div>
   );
 }

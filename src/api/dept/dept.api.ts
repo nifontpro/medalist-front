@@ -6,6 +6,7 @@ import { CreateDeptRequest } from './request/createDeptRequest';
 import { BaseResponse } from '@/domain/model/base/baseResponse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
+import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -14,10 +15,12 @@ export const deptApi = createApi({
   endpoints: (build) => ({
     /**
      * Получение поддерева отделов текущего пользователя
+     * orders: массив полей для сортировки в заданном направлении, например
+     * Java: [BaseOrder(field = "parentId"), BaseOrder(field = "name", direction = "DESC"] - переведи в js
      */
     getAuthSubtree: build.query<
       BaseResponse<Dept[]>,
-      { authId: number | undefined }
+      { authId: number | undefined; orders: BaseOrder[] | undefined }
     >({
       query: (authId) => {
         return {
@@ -116,6 +119,22 @@ export const deptApi = createApi({
         method: 'POST',
         url: '/dept/img_update',
         body: formData,
+      }),
+      invalidatesTags: ['Dept'],
+    }),
+
+    /**
+     * Удаление изображения
+     * @param: authId, deptId, imageId
+     */
+    imageDelete: build.mutation<
+      BaseResponse<BaseImage>,
+      { authId: number; deptId: number; imageId: number }
+    >({
+      query: (body) => ({
+        method: 'POST',
+        url: '/dept/img_delete',
+        body: body,
       }),
       invalidatesTags: ['Dept'],
     }),

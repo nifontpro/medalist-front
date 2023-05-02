@@ -4,10 +4,11 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
-  const { push } = useRouter();
+  const { push, back } = useRouter();
 
   const convertPathName = (pathName: string) => {
     const arr = pathName.split('/');
@@ -46,6 +47,14 @@ const HeaderLayout = () => {
 
   return (
     <>
+          <ButtonCircleIcon
+        onClick={back}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        Вернуться назад
+      </ButtonCircleIcon>
       {getLastUrl(pathName) === 'edit' ? null : (
         <ToggleButtonGroup
           color='primary'

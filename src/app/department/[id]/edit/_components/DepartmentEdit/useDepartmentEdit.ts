@@ -2,21 +2,11 @@ import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { deptApi } from '@/api/dept/dept.api';
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEvent,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
-import { BaseResponse } from '@/domain/model/base/baseResponse';
-import { DeptDetails } from '@/domain/model/dept/deptDetails';
 import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 
@@ -37,6 +27,7 @@ export const useDepartmentEdit = (
   const [update] = deptApi.useUpdateMutation();
   const [addImage] = deptApi.useImageAddMutation();
   const [refreshImage] = deptApi.useImageUpdateMutation();
+  const [removeImage] = deptApi.useImageDeleteMutation();
 
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
@@ -95,27 +86,33 @@ export const useDepartmentEdit = (
     ) => {
       e.preventDefault();
       let isError = false;
-      // if (singleUser && imageNum != undefined) {
-      //   await removeImage({
-      //     userId: singleUser.data?.user.id,
-      //     imageId: singleUser?.data?.user.images[imageNum].id,
-      //   })
-      //     .unwrap()
-      //     .then((res) => {
-      //       if (res.success == false) {
-      //         errorMessageParse(res.errors);
-      //         isError = true;
-      //       }
-      //     })
-      //     .catch(() => {
-      //       isError = true;
-      //       toast.error('Ошибка удаления фотографии');
-      //     });
-      //   if (!isError) {
-      //     toast.success('Фото успешно удалено');
-      //     setImageNum(0);
-      //   }
-      // }
+      if (
+        singleDepartment &&
+        imageNum != undefined &&
+        typeOfUser &&
+        typeOfUser.id
+      ) {
+        await removeImage({
+          authId: typeOfUser?.id,
+          deptId: singleDepartment.data?.dept.id,
+          imageId: singleDepartment?.data?.dept.images[imageNum].id,
+        })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              errorMessageParse(res.errors);
+              isError = true;
+            }
+          })
+          .catch(() => {
+            isError = true;
+            toast.error('Ошибка удаления фотографии');
+          });
+        if (!isError) {
+          toast.success('Фото успешно удалено');
+          setImageNum(0);
+        }
+      }
     };
 
     const refreshPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -201,5 +198,6 @@ export const useDepartmentEdit = (
     typeOfUser,
     isLoadingByIdDept,
     images,
+    removeImage,
   ]);
 };

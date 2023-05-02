@@ -43,7 +43,8 @@
     "styled-components": "^5.3.9",
     "typescript": "5.0.2",
     "uniqid": "^5.4.0",
-    "use-mask-input": "^3.0.6"
+    "use-mask-input": "^3.0.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",

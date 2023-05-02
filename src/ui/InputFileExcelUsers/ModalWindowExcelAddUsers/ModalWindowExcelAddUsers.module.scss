@@ -1,0 +1,159 @@
+.modalWindow {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  top: 0;
+  left: 0;
+  background: #00000052;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    display: block;
+    top: auto;
+    bottom: 0;
+    background: none;
+    width: 100%;
+    height: auto;
+    padding: 60px 10px 0px 10px;
+    background: var(--white);
+    border-radius: 16px;
+  }
+
+  .slash {
+    display: none;
+    @media screen and (max-width: 768px) {
+      display: block;
+      position: fixed;
+      cursor: pointer;
+      bottom: 560px;
+      left: calc(50vw - 50px);
+      width: 100px;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--graySilver);
+      @apply duration-300;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .exit {
+    position: fixed;
+    top: 125px;
+    right: 50px;
+    cursor: pointer;
+    &:hover {
+      path {
+        stroke: var(--gray-dark);
+      }
+    }
+    @media screen and (max-width: 1280px) {
+      top: 125px;
+      right: 50px;
+    }
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .module {
+    margin-top: 10%;
+    padding: 85px;
+    position: relative;
+    border-radius: 27px;
+    min-width: 980px;
+    max-width: 90%;
+    overflow-x: scroll;
+    max-height: 60%;
+    overflow-y: scroll;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media screen and (max-width: 1280px) {
+      min-width: auto;
+      margin-top: 150px;
+      padding: 40px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-top: 0px;
+      padding: 0px 10px;
+      height: 500px;
+      overflow-y: scroll;
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .fileName {
+      margin-bottom: 20px;
+    }
+
+    .header {
+      padding: 15px 20px;
+      border-radius: 27px;
+      border: 1px solid var(--gray);
+      margin-bottom: 20px;
+      @media screen and (max-width: 1280px) {
+        border-radius: 16px;
+      }
+      @media screen and (max-width: 768px) {
+        border: none;
+      }
+    }
+
+    .item {
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .itemProps {
+        display: grid;
+        grid-template-columns: 110px auto;
+        @media screen and (max-width: 768px) {
+          grid-template-columns: 90px auto;
+        }
+      }
+    }
+
+    .mediaVisible {
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
+
+    .title {
+      margin-bottom: 40px;
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 50px;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .confirm {
+        margin-left: 15px;
+
+        @media screen and (max-width: 768px) {
+          margin-left: 0px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
