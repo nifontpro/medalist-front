@@ -18,10 +18,7 @@ export const deptApi = createApi({
      * orders: массив полей для сортировки в заданном направлении, например
      * Java: [BaseOrder(field = "parentId"), BaseOrder(field = "name", direction = "DESC"] - переведи в js
      */
-    getAuthSubtree: build.query<
-      BaseResponse<Dept[]>,
-      { authId: number | undefined, orders: BaseOrder[] | undefined}
-    >({
+    getAuthSubtree: build.query<BaseResponse<Dept[]>, { authId: number, orders: BaseOrder[] | undefined} >({
       query: (authId) => {
         return {
           method: 'POST',

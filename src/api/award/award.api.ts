@@ -5,6 +5,7 @@ import {AwardDetails} from "@/domain/model/award/AwardDetails";
 import {CreateAwardRequest} from "@/api/award/request/CreateAwardRequest";
 import {UpdateAwardRequest} from "@/api/award/request/UpdateAwardRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
+import {BaseOrder} from "@/domain/model/base/sort/BaseOrder";
 
 export const awardApi = createApi({
 	reducerPath: 'AwardApi',
@@ -36,6 +37,36 @@ export const awardApi = createApi({
 				};
 			},
 			invalidatesTags: ['Award'],
+		}),
+
+		getById: build.query<BaseResponse<AwardDetails>, { authId: number, awardId: number }>({
+			query: (request) => {
+				return {
+					method: 'POST',
+					url: '/award/get_id',
+					body: request,
+				};
+			},
+			providesTags: ['Award'],
+		}),
+
+		/**
+		 * Получение наград из отдела [deptId]
+		 * Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
+		 */
+		getByDept: build.query<BaseResponse<AwardDetails>, {
+			authId: number,
+			deptId: number,
+			orders: BaseOrder[] | undefined
+		}>({
+			query: (request) => {
+				return {
+					method: 'POST',
+					url: '/award/get_dept',
+					body: request,
+				};
+			},
+			providesTags: ['Award'],
 		}),
 
 		/**
