@@ -12,6 +12,7 @@ import UserList from '@/ui/UserList/UserList';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { getUserCreateUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const Users = ({ users, id, className, ...props }: UsersProps) => {
   const { push } = useRouter();
@@ -29,16 +30,18 @@ const Users = ({ users, id, className, ...props }: UsersProps) => {
 
   return (
     <>
-      <div className={styles.newUser}>
-        <ButtonCircleIcon
-          onClick={() => push(getUserCreateUrl(`?deptId=${id}`))}
-          classNameForIcon='@apply w-[12px] h-[12px]'
-          icon='plus'
-          appearance='black'
-        >
-          Сотрудник
-        </ButtonCircleIcon>
-      </div>
+      <AuthComponent minRole='ADMIN'>
+        <div className={styles.newUser}>
+          <ButtonCircleIcon
+            onClick={() => push(getUserCreateUrl(`?deptId=${id}`))}
+            classNameForIcon='@apply w-[12px] h-[12px]'
+            icon='plus'
+            appearance='black'
+          >
+            Сотрудник
+          </ButtonCircleIcon>
+        </div>
+      </AuthComponent>
       <div className={styles.container}>
         <div className={styles.header}>
           <Htag tag='h3' className={cn(styles.choices)}>

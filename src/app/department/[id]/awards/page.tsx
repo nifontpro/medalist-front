@@ -1,11 +1,11 @@
 'use client';
 
-import Users from './_components/Users/Users';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import Spinner from '@/ui/Spinner/Spinner';
+import Awards from './_components/Awards/Awards';
 
-export default function DepartmentUsers({
+export default function DepartmentAwards({
   params,
 }: {
   params: { id: string };
@@ -17,7 +17,7 @@ export default function DepartmentUsers({
   if (usersOnDepartment && usersOnDepartment.data) {
     return (
       <main>
-        <Users users={usersOnDepartment.data} id={params.id} />
+        <Awards users={usersOnDepartment.data} id={params.id} />
       </main>
     );
   } else {

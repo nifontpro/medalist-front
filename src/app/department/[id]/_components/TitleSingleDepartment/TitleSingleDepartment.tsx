@@ -11,6 +11,7 @@ import {
 } from '@/config/api.config';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const TitleSingleDepartment = ({
   department,
@@ -29,14 +30,17 @@ const TitleSingleDepartment = ({
       />
 
       <div className={styles.companyDescription}>
-        <EditPanelAuthBtn
-          onlyRemove={false}
-          handleRemove={deleteDepartmentAsync}
-          id={department.dept.id}
-          getUrlEdit={getDepartmentEditUrl}
-          getUrlCreate={getDepartmentCreateUrl}
-          className={styles.dots}
-        />
+        <AuthComponent minRole='ADMIN'>
+          <EditPanelAuthBtn
+            onlyRemove={false}
+            handleRemove={deleteDepartmentAsync}
+            id={department.dept.id}
+            getUrlEdit={getDepartmentEditUrl}
+            getUrlCreate={getDepartmentCreateUrl}
+            className={styles.dots}
+          />
+        </AuthComponent>
+
         <div className={styles.title}>
           <Htag tag='h1' className={styles.header}>
             {department.dept.name}

@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
+  console.log(typeOfUser)
 
   return (
     <main className='flex flex-col m-2 break-all'>

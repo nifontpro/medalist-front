@@ -17,10 +17,10 @@ export default function SingleDepartment({
   }
 
   return (
-    <div>
+    <main>
       {singleDepartment.data && (
         <TitleSingleDepartment department={singleDepartment.data} />
       )}
-    </div>
+    </main>
   );
 }

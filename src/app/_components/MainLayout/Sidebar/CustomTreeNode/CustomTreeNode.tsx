@@ -16,6 +16,7 @@ import { getDepartmentEditUrl } from '@/config/api.config';
 import { useAppDispatch } from '@/store/hooks/hooks';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
@@ -92,14 +93,15 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
       >
         {label}
       </Typography>
-      <EditPanelAuthBtn
-        onlyRemove={false}
-        handleRemove={deleteDepartmentAsync}
-        id={nodeId}
-        getUrlEdit={getDepartmentEditUrl}
-        getUrlCreate={getDepartmentCreateUrl}
-      />
-      {/* <ParamsIcon className={styles.editIcon} /> */}
+      <AuthComponent minRole='ADMIN'>
+        <EditPanelAuthBtn
+          onlyRemove={false}
+          handleRemove={deleteDepartmentAsync}
+          id={nodeId}
+          getUrlEdit={getDepartmentEditUrl}
+          getUrlCreate={getDepartmentCreateUrl}
+        />
+      </AuthComponent>
     </div>
   );
 });

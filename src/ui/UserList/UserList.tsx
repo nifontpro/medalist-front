@@ -2,10 +2,7 @@
 import styles from './UserList.module.scss';
 import cn from 'classnames';
 import { UserListProps } from './UserList.props';
-// import { useUserAdmin } from '../admin/useUserAdmin';
 import { useRouter } from 'next/navigation';
-// import { getUserEditUrl, getUserUrl } from '@/core/config/api.config';
-// import AuthComponent from '@/core/providers/AuthProvider/AuthComponent';
 import { motion } from 'framer-motion';
 import { ForwardedRef, forwardRef } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
@@ -14,6 +11,7 @@ import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const UserList = motion(
   forwardRef(
@@ -35,26 +33,26 @@ const UserList = motion(
             forWhat='user'
             onClick={() => push(getUserUrl(`/${user.id}`))}
           />
-          {/* <AuthComponent minRole={'director'}> */}
-          <div className={styles.editPanel} {...props}>
-            <div
-              className={styles.wrapperIcon}
-              onClick={() => push(getUserEditUrl(`/${user.id}`))}
-            >
-              <ButtonEdit icon='edit' className={styles.edit} />
+          <AuthComponent minRole={'ADMIN'}>
+            <div className={styles.editPanel} {...props}>
+              <div
+                className={styles.wrapperIcon}
+                onClick={() => push(getUserEditUrl(`/${user.id}`))}
+              >
+                <ButtonEdit icon='edit' className={styles.edit} />
+              </div>
+              <div
+                className={styles.wrapperIcon}
+                onClick={() =>
+                  user?.id &&
+                  typeOfUser?.id &&
+                  deleteUserAsync(user.id, typeOfUser.id)
+                }
+              >
+                <ButtonEdit icon='remove' className={styles.remove} />
+              </div>
             </div>
-            <div
-              className={styles.wrapperIcon}
-              onClick={() =>
-                user?.id &&
-                typeOfUser?.id &&
-                deleteUserAsync(user.id, typeOfUser.id)
-              }
-            >
-              <ButtonEdit icon='remove' className={styles.remove} />
-            </div>
-          </div>
-          {/* </AuthComponent> */}
+          </AuthComponent>
         </div>
       );
     }
