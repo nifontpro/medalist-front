@@ -1,29 +1,30 @@
 'use client';
 
 import uniqid from 'uniqid';
-import cn from 'classnames';
 import { AwardsProps } from './Awards.props';
 import { useRouter } from 'next/navigation';
 import { useAwards } from './useAwards';
-import styles from './Awards.module.scss'
+import styles from './Awards.module.scss';
 import Htag from '@/ui/Htag/Htag';
 import AuthComponent from '@/store/providers/AuthComponent';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import { getAwardCreateUrl } from '@/config/api.config';
+import TabTitle from '@/ui/TabTitle/TabTitle';
+import SortButton from '@/ui/SortButton/SortButton';
+import Link from 'next/link';
+import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 
-const Awards = ({ users, id, className, ...props }: AwardsProps) => {
+const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
   const { push } = useRouter();
   const {
-    awardsFull,
-    isFetching,
     allAwards,
     allNominee,
     active,
     setActive,
     state,
     setState,
-    arr,
     filteredValue,
-    handleNextPage,
-  } = useAwards();
+  } = useAwards(awards);
 
   return (
     <div {...props} className={styles.wrapper}>
@@ -32,7 +33,8 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
         <AuthComponent minRole={'ADMIN'}>
           <div className={styles.createAwardAdaptive}>
             <ButtonCircleIcon
-              onClick={() => push(getAwardCreateUrl())}
+              onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
+              classNameForIcon='@apply w-[12px] h-[12px]'
               appearance='black'
               icon='plus'
             >
@@ -42,12 +44,12 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
         </AuthComponent>
       </div>
 
-      {awardsFull && allAwards && allNominee && (
+      {awards && allAwards && allNominee && (
         <div className={styles.header}>
           <TabTitle
             active={active}
             setActive={setActive}
-            count={arr.length}
+            count={awards.length}
             onClickActive={''}
             className={styles.all}
           >
@@ -57,7 +59,7 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
             active={active}
             setActive={setActive}
             count={allAwards.length}
-            onClickActive={'AWARD'}
+            onClickActive={'SIMPLE'}
             className={styles.award}
           >
             Награды
@@ -79,10 +81,11 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
             Сначала новые
           </SortButton>
 
-          <AuthComponent minRole={'director'}>
+          <AuthComponent minRole={'ADMIN'}>
             <div className={styles.createAward}>
               <ButtonCircleIcon
-                onClick={() => push(getAwardCreateUrl())}
+                onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
+                classNameForIcon='@apply w-[12px] h-[12px]'
                 appearance='black'
                 icon='plus'
               >
@@ -93,7 +96,7 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
         </div>
       )}
 
-      <FilterAwards
+      {/* <FilterAwards
         state={state}
         setState={setState}
         active={active}
@@ -101,20 +104,18 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
         allNominee={allNominee}
         allAwards={allAwards}
         awardsFull={arr}
-      />
+      /> */}
 
       <div className={styles.cards}>
         {filteredValue?.map((item) => {
           return (
-            <Link key={uniqid()} href={'/award/' + item.id}>
-              <a>
-                <SingleAward layout award={item} />
-              </a>
+            <Link key={uniqid()} href={'/award/' + item.award.id}>
+              <a>{/* <SingleAward layout award={item} /> */}</a>
             </Link>
           );
         })}
       </div>
-      <SpinnerSmallBtnPagination
+      {/* <SpinnerSmallBtnPagination
         isFetching={isFetching}
         handleNextPage={handleNextPage}
         content={awardsFull}
@@ -124,7 +125,7 @@ const Awards = ({ users, id, className, ...props }: AwardsProps) => {
         btnSubmitTitle={'Показать еще'}
         btnEndTitle={'Показаны все награды'}
         className={styles.spinnerSmallBtnPagination}
-      />
+      /> */}
 
       <ButtonScrollUp />
     </div>

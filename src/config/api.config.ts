@@ -22,7 +22,7 @@ export const getOwnerCreateUrl = (string: string = '') => `/create/owner${string
 export const getUserEditUrl = (string: string = '') => `/user/${string}/edit`
 // export const getUserEditPasswordUrl = (string: string = '') => `/user/edit_password${string}`
 // export const getAwardUrl = (string: string = '') => `/award${string}`
-// export const getAwardCreateUrl = (string: string = '') => `/award/create${string}`
+export const getAwardCreateUrl = (string: string = '') => `/award/create${string}`
 // export const getAwardEditUrl = (string: string = '') => `/award/edit${string}`
 // export const getMessageUrl = (string: string = '') => `/message${string}`
 // export const getActivityUrl = (string: string = '') => `/activity${string}`

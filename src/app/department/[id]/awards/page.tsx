@@ -1,23 +1,26 @@
 'use client';
 
-import { useUserAdmin } from '@/app/user/useUserAdmin';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import Spinner from '@/ui/Spinner/Spinner';
 import Awards from './_components/Awards/Awards';
+import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 
 export default function DepartmentAwards({
   params,
 }: {
   params: { id: string };
 }) {
-  const { usersOnDepartment, isLoadingUsersOnDept } = useUserAdmin(params.id);
-  if (isLoadingUsersOnDept) return <Spinner />;
-  if (!usersOnDepartment?.success) return <NoAccess button={false} />;
+  const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(
+    params.id
+  );
+  if (isLoadingAwardsOnDept) return <Spinner />;
+  if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 
-  if (usersOnDepartment && usersOnDepartment.data) {
+  if (awardsOnDepartment && awardsOnDepartment.data) {
+    console.log(awardsOnDepartment.data);
     return (
       <main>
-        <Awards users={usersOnDepartment.data} id={params.id} />
+        <Awards awards={awardsOnDepartment.data} id={params.id} />
       </main>
     );
   } else {

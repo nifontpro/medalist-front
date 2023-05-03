@@ -22,6 +22,11 @@ body {
   @apply text-black;
 }
 
+body[data-theme='dark'] {
+  --black: #ffffff;
+  --white: #101010;
+}
+
 :root {
   --black: #101010;
   --white: #ffffff;

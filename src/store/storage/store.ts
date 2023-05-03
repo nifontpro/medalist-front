@@ -20,6 +20,8 @@ import { userSelectionSlice } from '../features/userSelection/userSelection.slic
 import { userApi } from '@/api/user/user.api';
 import { deptApi } from '@/api/dept/dept.api';
 import { headerSlice } from '../features/header/header.slice';
+import { awardApi } from '@/api/award/award.api';
+import { themeSlice } from '../features/theme/theme.slice';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -45,8 +47,13 @@ const persistConfig = {
   key: 'root',
   storage,
   // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
-  whitelist: ['auth', 'sidebarTree', 'userSelection'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
-  blacklist: [authApi.reducerPath, userApi.reducerPath, deptApi.reducerPath], // то что не хотим сохранять в localstorage
+  whitelist: ['auth', 'sidebarTree', 'userSelection', 'header', 'theme'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
+  blacklist: [
+    authApi.reducerPath,
+    userApi.reducerPath,
+    deptApi.reducerPath,
+    awardApi.reducerPath,
+  ], // то что не хотим сохранять в localstorage
 };
 
 const rootReducer = combineReducers({
@@ -54,9 +61,11 @@ const rootReducer = combineReducers({
   userSelection: userSelectionSlice.reducer,
   header: headerSlice.reducer,
   auth: authSlice.reducer,
+  theme: themeSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [deptApi.reducerPath]: deptApi.reducer,
+  [awardApi.reducerPath]: awardApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -69,7 +78,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, userApi.middleware, deptApi.middleware),
+    }).concat(
+      authApi.middleware,
+      userApi.middleware,
+      deptApi.middleware,
+      awardApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);

@@ -1,6 +1,6 @@
 import styles from './ButtonScrollUp.module.scss';
 import cn from 'classnames';
-import UpIcon from '@/core/presenter/images/up.svg';
+import UpIcon from '@/icons/up.svg';
 import { ButtonScrollUp } from './ButtonScrollUp.props';
 import Button from '../Button/Button';
 import { useEffect, useState } from 'react';
