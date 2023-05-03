@@ -13,7 +13,6 @@ export default function Home() {
   return (
     <main className='flex flex-col m-2 break-all'>
       Главная страница для пользователя с id {typeOfUser?.id}
-      <ThemeSwitcher />
     </main>
   );
 }

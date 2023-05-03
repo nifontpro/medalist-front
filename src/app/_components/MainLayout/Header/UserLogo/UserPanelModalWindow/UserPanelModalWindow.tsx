@@ -11,6 +11,7 @@ import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
+import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
 
 const UserPanelModalWindow = forwardRef(
   (
@@ -80,6 +81,9 @@ const UserPanelModalWindow = forwardRef(
               {user.authEmail}
             </Htag>
             <ul className={styles.list}>
+              <li className={styles.itemAbsolute}>
+                <ThemeSwitcher />
+              </li>
               <li className={styles.item} onClick={handleClickProfile}>
                 <ProfileIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>

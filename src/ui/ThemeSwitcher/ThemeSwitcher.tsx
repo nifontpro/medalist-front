@@ -12,7 +12,7 @@ const ThemeSwitcher = () => {
       ) : (
         <IoMoon size='14px' />
       )}
-      <span style={{ marginLeft: '0.75rem' }}>{theme} Theme</span>
+      <span style={{ marginLeft: '0.75rem' }}>{theme}</span>
     </div>
   );
 };
