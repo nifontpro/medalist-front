@@ -5,10 +5,13 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
   const { push, back } = useRouter();
+
+  const { windowSize } = useWindowSize();
 
   const convertPathName = (pathName: string) => {
     const arr = pathName.split('/');
@@ -47,7 +50,7 @@ const HeaderLayout = () => {
 
   return (
     <>
-          <ButtonCircleIcon
+      <ButtonCircleIcon
         onClick={back}
         classNameForIcon=''
         appearance='black'
@@ -62,7 +65,8 @@ const HeaderLayout = () => {
           exclusive
           onChange={handleChange}
           aria-label='Platform'
-          className='mb-5 w-full justify-center'
+          className='my-5 w-full justify-center'
+          orientation={windowSize.winWidth < 400 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value='users'>Сотрудники</ToggleButton>
           <ToggleButton value='medals'>Медали</ToggleButton>

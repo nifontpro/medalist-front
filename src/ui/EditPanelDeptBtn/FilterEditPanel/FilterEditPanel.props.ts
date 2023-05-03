@@ -4,8 +4,9 @@ import { DetailedHTMLProps, Dispatch, HTMLAttributes, ReactNode, RefAttributes, 
 export type FilterEditPanelProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & MotionProps & RefAttributes<HTMLDivElement> & {
     children?: ReactNode;
     visible: boolean
-    // deleteAsync:(id: string) => void
-    getUrl?: (string?: string) => string
+    deleteAsync: (id: number, authId: number) => Promise<void>
+    getUrlEdit: (string?: string) => string
+    getUrlCreate: (string?: string) => string
     onlyRemove?: boolean 
     setVisible: Dispatch<SetStateAction<boolean>>
 }

@@ -19,6 +19,36 @@
     padding: 30px 50px;
     position: relative;
 
+    @media screen and (max-width: 768px) {
+      display: block;
+      padding: 50px 0px 0px 0px;
+      position: fixed;
+      border-radius: 16px 16px 0 0;
+      top: calc(100vh - 460px);
+      left: 0;
+      width: 100%;
+      height: 460px;
+    }
+
+    .slash {
+      display: none;
+      @media screen and (max-width: 768px) {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        top: 20px;
+        left: calc(50vw - 50px);
+        width: 100px;
+        height: 5px;
+        border-radius: 3px;
+        background: var(--graySilver);
+        @apply duration-300;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+
     .exit {
       position: absolute;
       top: 25px;
@@ -33,46 +63,57 @@
           stroke: var(--gray-dark);
         }
       }
-      @media screen and (max-width: 1280px) {
-        top: 125px;
-        right: 50px;
-      }
       @media screen and (max-width: 768px) {
         display: none;
       }
     }
 
-    .header {
-      margin-bottom: 30px;
-      text-align: center;
-    }
+    .moduleContent {
+      @media screen and (max-width: 768px) {
+        position: relative;
+        min-height: fit-content;
 
-    .create {
-      text-align: center;
-      margin-top: 20px;
-      color: var(--gray);
-      cursor: pointer;
-      @apply duration-200;
-
-      &:hover {
-        color: var(--black);
-      }
-    }
-
-    .role {
-      text-align: center;
-      padding: 5px 15px;
-      margin-bottom: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      @apply duration-200;
-
-      &:hover {
-        background: var(--gray);
+        margin-top: 0px;
+        padding: 0px 0px 50px 0px;
+        height: 410px;
+        overflow-y: scroll;
+        width: 100%;
+        border-radius: 16px;
+        // margin-bottom: 20px;
       }
 
-      &:last-child {
-        margin-bottom: 0px;
+      .header {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .create {
+        text-align: center;
+        margin-top: 20px;
+        color: var(--gray);
+        cursor: pointer;
+        @apply duration-200;
+
+        &:hover {
+          color: var(--black);
+        }
+      }
+
+      .role {
+        text-align: center;
+        padding: 5px 15px;
+        margin-bottom: 5px;
+        border-radius: 6px;
+        cursor: pointer;
+        @apply duration-200;
+
+        &:hover {
+          background: var(--gray);
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
       }
     }
   }

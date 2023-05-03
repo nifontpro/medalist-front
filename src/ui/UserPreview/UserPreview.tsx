@@ -20,7 +20,6 @@ const UserPreview = ({
           height={76}
           alt={user.firstname}
           objectFit='cover'
-          className='rounded-xl w-[76px] h-[76px]'
           priority={true}
         />
       </div>

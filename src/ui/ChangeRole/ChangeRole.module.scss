@@ -1,0 +1,12 @@
+.role {
+  padding-left: 50px;
+  cursor: pointer;
+  color: var(--white);
+
+  @media screen and (max-width: 1000px) {
+    padding-left: 0px;
+  }
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}

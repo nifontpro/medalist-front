@@ -1,14 +1,25 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 300px auto 1fr;
+  grid-template-columns: 250px auto 1fr;
   align-items: center;
   background: var(--black);
 
   height: 100px;
-  padding: 1rem 2rem;
+  padding: 0px 40px 0px 40px;
 
   @media screen and (max-width: 1500px) {
     grid-template-columns: 50px 250px auto 1fr;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0px 20px 0px 20px;
+    height: 75px;
+  }
+  @media screen and (max-width: 514px) {
+    grid-template-columns: 40px 200px 5px 1fr;
+  }
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 40px 1fr;
+    padding: 0px 10px 0px 10px;
   }
 
   .menu {
@@ -23,13 +34,11 @@
     }
   }
 
-  .role {
-    cursor: pointer;
-    color: var(--white);
-  }
-
   .logo {
     justify-self: center;
+    @media screen and (max-width: 400px) {
+      display: none;
+    }
   }
 
   .user {
@@ -61,18 +70,18 @@
   // .sign {
   //   justify-self: flex-end;
   // }
+}
 
-  .navigation {
-    padding-top: 150px;
-    // z-index: 100;
-    background-color: var(--gray-dark);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 375px;
-    height: 100%;
-    @media screen and (max-width: 500px) {
-      width: 320px;
-    }
+.navigation {
+  padding-top: 150px;
+  // z-index: 100;
+  background-color: var(--gray-dark);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 100%;
+  @media screen and (max-width: 500px) {
+    width: 320px;
   }
 }

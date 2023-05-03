@@ -1,12 +1,35 @@
 .wrapper {
   position: relative;
+
+  .logo {
+    display: none;
+    @media screen and (max-width: 400px) {
+      display: block;
+      position: absolute;
+      top: 50px;
+      right: 60px;
+      cursor: pointer;
+    }
+  }
+
+  .role {
+    display: none;
+    @media screen and (max-width: 600px) {
+      display: block;
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      cursor: pointer;
+    }
+  }
+
   .exit {
     display: none;
     @media screen and (max-width: 1500px) {
       display: block;
       position: absolute;
-      top: 120px;
-      right: 40px;
+      top: 25px;
+      right: 20px;
       cursor: pointer;
 
       path {

@@ -39,12 +39,14 @@ const UserLogo = ({
           priority={true}
         />
       </div>
-      <UserPanelModalWindow
-        visibleModal={visibleModal}
-        setVisibleModal={setVisibleModal}
-        user={user}
-        ref={ref}
-      />
+      {user && (
+        <UserPanelModalWindow
+          visibleModal={visibleModal}
+          setVisibleModal={setVisibleModal}
+          user={user}
+          ref={ref}
+        />
+      )}
     </>
   );
 };

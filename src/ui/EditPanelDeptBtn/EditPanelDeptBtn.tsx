@@ -1,5 +1,5 @@
-import styles from './EditPanelAuthBtn.module.scss';
-import { EditPanelAuthBtnProps } from './EditPanelAuthBtn.props';
+import styles from './EditPanelDeptBtn.module.scss';
+import { EditPanelDeptBtnProps } from './EditPanelDeptBtn.props';
 // import AuthComponent from '@/core/providers/AuthProvider/AuthComponent';
 import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import useOutsideClick from '@/hooks/useOutsideClick';
@@ -8,7 +8,7 @@ import EditPanel from './EditPanel/EditPanel';
 import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
 import cn from 'classnames';
 
-const EditPanelAuthBtn = ({
+const EditPanelDeptBtn = ({
   handleRemove,
   onlyRemove,
   getUrlEdit,
@@ -16,7 +16,7 @@ const EditPanelAuthBtn = ({
   className,
   id,
   color = 'transparent',
-}: EditPanelAuthBtnProps): JSX.Element => {
+}: EditPanelDeptBtnProps): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
   //Закрытие модального окна нажатием вне его
   const ref = useRef(null);
@@ -48,10 +48,11 @@ const EditPanelAuthBtn = ({
         onlyRemove={onlyRemove}
       />
       <FilterEditPanel
-        getUrl={getUrlEdit}
+        getUrlEdit={getUrlEdit}
+        getUrlCreate={getUrlCreate}
         setVisible={setVisible}
         id={id}
-        // deleteAsync={handleRemove}
+        deleteAsync={handleRemove}
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
@@ -62,4 +63,4 @@ const EditPanelAuthBtn = ({
   );
 };
 
-export default EditPanelAuthBtn;
+export default EditPanelDeptBtn;

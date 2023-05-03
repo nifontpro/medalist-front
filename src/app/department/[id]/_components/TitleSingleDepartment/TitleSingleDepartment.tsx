@@ -1,7 +1,7 @@
 import styles from './TitleSingleDepartment.module.scss';
 import { TitleSingleDepartmentProps } from './TitleSingleDepartment.props';
 import Htag from '@/ui/Htag/Htag';
-import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
+import EditPanelAuthBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import GpsIcon from './gps.svg';
 import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
