@@ -11,6 +11,11 @@ import UserLogo from './UserLogo/UserLogo';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
+import MenuIcon from '@/icons/menu.svg';
+import { useHeader } from './useHeader';
+import { useWindowSize } from '@/hooks/useWindowSize';
+import { AnimatePresence, motion } from 'framer-motion';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const dispatch = useAppDispatch();
@@ -19,8 +24,24 @@ const Header = ({ className, ...props }: HeaderProps) => {
   );
   const { singleUser } = useUserAdmin(String(typeOfUser?.id));
 
+  const { windowSize } = useWindowSize();
+  const { close, open, navigationVisible } = useHeader();
+
+  const variants = {
+    visible: {
+      opacity: 1,
+    },
+    hidden: {
+      opacity: 0,
+    },
+    exit: {
+      opacity: 0,
+    },
+  };
+
   return (
-    <div className={cn(styles.wrapper, className)} {...props}>
+    <header className={cn(styles.wrapper, className)} {...props}>
+      <MenuIcon className={styles.menu} onClick={open} />
       <Link
         href='/'
         className={styles.logo}
@@ -38,7 +59,23 @@ const Header = ({ className, ...props }: HeaderProps) => {
         {/* <Notification allMessage={allMessage} /> */}
         <UserLogo user={singleUser?.data?.user} className={styles.userImg} />
       </div>
-    </div>
+      <AnimatePresence mode='wait'>
+        {navigationVisible && windowSize.winWidth < 1500 ? (
+          <motion.div
+            initial='hidden'
+            animate='visible'
+            exit='exit'
+            variants={variants}
+            transition={{ duration: 0.4 }}
+            className='z-[100]'
+          >
+            <Sidebar className={styles.navigation} />
+          </motion.div>
+        ) : (
+          ''
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 

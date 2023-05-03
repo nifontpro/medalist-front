@@ -7,6 +7,22 @@
   height: 100px;
   padding: 1rem 2rem;
 
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 50px 250px auto 1fr;
+  }
+
+  .menu {
+    display: none;
+    cursor: pointer;
+    @media screen and (max-width: 1500px) {
+      width: 40px;
+      display: block;
+    }
+    @media screen and (max-width: 1000px) {
+      width: 30px;
+    }
+  }
+
   .role {
     cursor: pointer;
     color: var(--white);
@@ -45,4 +61,18 @@
   // .sign {
   //   justify-self: flex-end;
   // }
+
+  .navigation {
+    padding-top: 150px;
+    // z-index: 100;
+    background-color: var(--gray-dark);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 375px;
+    height: 100%;
+    @media screen and (max-width: 500px) {
+      width: 320px;
+    }
+  }
 }

@@ -19,6 +19,7 @@ import { authSlice } from '@/store/features/auth/auth.slice';
 import { userSelectionSlice } from '../features/userSelection/userSelection.slice';
 import { userApi } from '@/api/user/user.api';
 import { deptApi } from '@/api/dept/dept.api';
+import { headerSlice } from '../features/header/header.slice';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -51,6 +52,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   sidebarTree: sidebarTreeSlice.reducer,
   userSelection: userSelectionSlice.reducer,
+  header: headerSlice.reducer,
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

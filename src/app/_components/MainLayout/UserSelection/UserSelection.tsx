@@ -7,6 +7,7 @@ import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
 import { useUserSelection } from './useUserSelection';
 import { getOwnerCreateUrl, getUserCreateUrl } from '@/config/api.config';
+import ExitIcon from '@/icons/close.svg';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const {
@@ -18,6 +19,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     handleChangeRole,
     isLoading,
     push,
+    dispatch,
+    setIsOpen
   } = useUserSelection();
 
   return (
@@ -28,6 +31,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
         <div className={cn(styles.wrapper, className)} {...props}>
           {!isLoading && (
             <div className={styles.window}>
+              <ExitIcon onClick={() => dispatch(setIsOpen(false))} className={styles.exit} />
               <Htag tag='h2' className={styles.header}>
                 Выберите профиль
               </Htag>

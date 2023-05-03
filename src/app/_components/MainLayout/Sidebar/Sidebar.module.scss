@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+  .exit {
+    display: none;
+    @media screen and (max-width: 1500px) {
+      display: block;
+      position: absolute;
+      top: 120px;
+      right: 40px;
+      cursor: pointer;
+
+      path {
+        stroke: var(--white);
+      }
+      &:hover {
+        path {
+          stroke: var(--gray);
+        }
+      }
+    }
+  }
+}
