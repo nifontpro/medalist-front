@@ -123,8 +123,17 @@ export const awardApi = createApi({
 
 		/**
 		 * Получить активные награждения сотрудника [userId]
+		 * Допустимые поля для сортировки:
+		 *      "date",
+		 * 			"actionType",
+		 * 			"award.name",
+		 * 			"award.type"
 		 */
-		getActivAwardByUser: build.query<BaseResponse<Activity>, { authId: number, userId: number }>({
+		getActivAwardByUser: build.query<BaseResponse<Activity>, {
+			authId: number,
+			userId: number,
+			orders: BaseOrder[] | undefined
+		}>({
 			query: (body) => ({
 				method: 'POST',
 				url: '/award/act_user',
@@ -134,9 +143,22 @@ export const awardApi = createApi({
 		}),
 
 		/**
-		 * Получить активные награждения в отделе [userId]
+		 * Получить активные награждения в отделе [deptId]
+		 * Допустимые поля для сортировки:
+		 *      "date",
+		 * 			"actionType",
+		 * 			"user.firstname",
+		 * 			"user.lastname",
+		 * 			"user.patronymic",
+		 * 			"user.post",
+		 * 			"award.name",
+		 * 			"award.type"
 		 */
-		getActivAwardByDept: build.query<BaseResponse<Activity>, { authId: number, deptId: number }>({
+		getActivAwardByDept: build.query<BaseResponse<Activity>, {
+			authId: number,
+			deptId: number,
+			orders: BaseOrder[] | undefined
+		}>({
 			query: (body) => ({
 				method: 'POST',
 				url: '/award/act_dept',
