@@ -13,12 +13,11 @@ export default function DepartmentAwards({
   const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(
     params.id
   );
-  console.log(awardsOnDepartment?.data)
+
   if (isLoadingAwardsOnDept) return <Spinner />;
   if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 
   if (awardsOnDepartment && awardsOnDepartment.data) {
-    console.log(awardsOnDepartment);
     return (
       <main>
         <Awards awards={awardsOnDepartment.data} id={params.id} />
