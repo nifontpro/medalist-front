@@ -127,7 +127,19 @@ export const awardApi = createApi({
 		getActivAwardByUser: build.query<BaseResponse<Activity>, { authId: number, userId: number }>({
 			query: (body) => ({
 				method: 'POST',
-				url: '/award/get_user',
+				url: '/award/act_user',
+				body: body,
+			}),
+			providesTags: ['Action'],
+		}),
+
+		/**
+		 * Получить активные награждения в отделе [userId]
+		 */
+		getActivAwardByDept: build.query<BaseResponse<Activity>, { authId: number, deptId: number }>({
+			query: (body) => ({
+				method: 'POST',
+				url: '/award/act_dept',
 				body: body,
 			}),
 			providesTags: ['Action'],
