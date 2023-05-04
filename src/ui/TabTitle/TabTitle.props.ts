@@ -7,12 +7,12 @@ import {
 } from 'react';
 
 export type TabTitleProps = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
+  ButtonHTMLAttributes<HTMLHeadingElement>,
+  HTMLHeadingElement
 > & {
   children?: ReactNode;
   count: number;
-  onClickActive: SetStateAction<'' | 'SIMPLE' | 'NOMINEE' | 'UNDEF'>;
-  active: '' | 'SIMPLE' | 'NOMINEE' | 'UNDEF';
-  setActive: Dispatch<SetStateAction<'' | 'SIMPLE' | 'NOMINEE' | 'UNDEF'>>;
+  onClickActive: SetStateAction<'' | 'PERIOD' | 'SIMPLE' | 'UNDEF'>;
+  active: '' | 'PERIOD' | 'SIMPLE' | 'UNDEF';
+  setActive: Dispatch<SetStateAction<'' | 'PERIOD' | 'SIMPLE' | 'UNDEF'>>;
 };

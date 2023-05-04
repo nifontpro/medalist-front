@@ -1,12 +1,10 @@
-
-import { AwardDetails } from '@/domain/model/award/AwardDetails';
-import { User } from '@/domain/model/user/user';
+import { Award } from '@/domain/model/award/Award';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type AwardsProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  awards: AwardDetails[]
-  id: string
+  awards: Award[];
+  id: string;
 };

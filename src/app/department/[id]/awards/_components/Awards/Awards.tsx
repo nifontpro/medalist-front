@@ -13,6 +13,7 @@ import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
+import SingleAward from './SingleAward/SingleAward';
 
 const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
   const { push } = useRouter();
@@ -68,7 +69,7 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
             active={active}
             setActive={setActive}
             count={allNominee.length}
-            onClickActive={'NOMINEE'}
+            onClickActive={'PERIOD'}
             className={styles.nominee}
           >
             Номинации
@@ -109,8 +110,8 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
       <div className={styles.cards}>
         {filteredValue?.map((item) => {
           return (
-            <Link key={uniqid()} href={'/award/' + item.award.id}>
-              <a>{/* <SingleAward layout award={item} /> */}</a>
+            <Link key={uniqid()} href={'/award/' + item.id}>
+              <SingleAward layout award={item} />
             </Link>
           );
         })}

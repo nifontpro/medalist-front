@@ -1,3 +1,5 @@
-export default function CreateAward({ params }: { params: { id: string } }) {
-  return <div>Создание компании</div>;
+import CreateAward from './_components/CreateAward/CreateAward';
+
+export default function CreateAwardPage() {
+  return <CreateAward />;
 }

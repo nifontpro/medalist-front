@@ -1,0 +1,100 @@
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  @apply animate-fade;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: 1fr;
+  }
+
+  .field {
+    margin-bottom: 60px;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  > .fields {
+    padding: 80px;
+    background: var(--white);
+    border-radius: 27px;
+    margin-bottom: 30px;
+
+    @media screen and (max-width: 1280px) {
+      padding: 60px;
+      border-radius: 16px;
+    }
+    @media screen and (max-width: 768px) {
+      padding: 60px 40px;
+    }
+    @media screen and (max-width: 400px) {
+      padding: 30px 15px;
+    }
+
+    .mediaVisible {
+      display: none;
+      @media screen and (max-width: 1280px) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      @media screen and (max-width: 700px) {
+        flex-direction: column;
+        margin-bottom: 40px;
+      }
+    }
+
+    > .title {
+      margin-bottom: 80px;
+
+      @media screen and (max-width: 650px) {
+        margin-bottom: 40px;
+      }
+    }
+
+    > .group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 60px;
+      align-items: flex-end;
+
+      @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+      }
+    }
+
+    > .buttons {
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+
+      @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 60px;
+      }
+    }
+  }
+}
+
+.fixedCompanyName {
+  font-weight: 500;
+  font-size: 16.5269px;
+  opacity: 0.4;
+  color: var(--gray-dark);
+  padding: 17px 30px;
+  font-family: var(--font-family);
+  border: 1px solid #00000020;
+  border-radius: 12px;
+}

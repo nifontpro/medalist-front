@@ -8,6 +8,8 @@ import { persistor, store } from '@/store/storage/store';
 import AuthProvider from '@/store/providers/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LocalizationProvider, ruRU } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function RootLayout({
   children,
@@ -17,14 +19,21 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='bg-black'>
-        <ToastContainer position='bottom-right' newestOnTop />
-        <Provider store={store}>
-          <PersistGate persistor={persistor} loading={null}>
-            <AuthProvider>
-              <MainLayout>{children}</MainLayout>
-            </AuthProvider>
-          </PersistGate>
-        </Provider>
+        <LocalizationProvider
+          dateAdapter={AdapterDayjs}
+          localeText={
+            ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+          }
+        >
+          <ToastContainer position='bottom-right' newestOnTop />
+          <Provider store={store}>
+            <PersistGate persistor={persistor} loading={null}>
+              <AuthProvider>
+                <MainLayout>{children}</MainLayout>
+              </AuthProvider>
+            </PersistGate>
+          </Provider>
+        </LocalizationProvider>
       </body>
     </html>
   );

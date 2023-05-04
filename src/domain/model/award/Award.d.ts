@@ -11,4 +11,4 @@ export interface Award {
   images: BaseImage[];
 }
 
-export type AwardType = 'NOMINEE' | 'SIMPLE' | 'UNDEF';
+export type AwardType = "PERIOD" | "SIMPLE" | "UNDEF"

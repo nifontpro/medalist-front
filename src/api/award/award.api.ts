@@ -6,11 +6,14 @@ import { CreateAwardRequest } from './request/CreateAwardRequest';
 import { UpdateAwardRequest } from './request/UpdateAwardRequest';
 import { AwardDetails } from '@/domain/model/award/AwardDetails';
 import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
+import { Activity } from '@/domain/model/award/Activity';
+import { SendActionRequest } from './request/SendActionRequest';
+import { Award } from '@/domain/model/award/Award';
 
 export const awardApi = createApi({
   reducerPath: 'AwardApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Award'],
+  tagTypes: ['Award', 'Action'],
   endpoints: (build) => ({
     /**
      * Создание новой награды
@@ -20,6 +23,23 @@ export const awardApi = createApi({
         return {
           method: 'POST',
           url: '/award/create',
+          body: request,
+        };
+      },
+      invalidatesTags: ['Award'],
+    }),
+
+    /**
+     * Удаление награды
+     */
+    delete: build.mutation<
+      BaseResponse<AwardDetails>,
+      { authId: number; awardId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/award/delete',
           body: request,
         };
       },
@@ -62,7 +82,7 @@ export const awardApi = createApi({
      * Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
      */
     getByDept: build.query<
-      BaseResponse<AwardDetails>,
+      BaseResponse<Award[]>,
       {
         authId: number;
         deptId: number;
@@ -106,6 +126,34 @@ export const awardApi = createApi({
         body: body,
       }),
       invalidatesTags: ['Award'],
+    }),
+
+    /**
+     * Отправить действие [actionType] с определенно наградой [awardId]
+     * для сотрудника [userId]
+     */
+    sendAction: build.mutation<BaseResponse<Activity>, SendActionRequest>({
+      query: (body) => ({
+        method: 'POST',
+        url: '/award/action',
+        body: body,
+      }),
+      invalidatesTags: ['Action'],
+    }),
+
+    /**
+     * Получить активные награждения сотрудника [userId]
+     */
+    getActivAwardByUser: build.query<
+      BaseResponse<Activity>,
+      { authId: number; userId: number }
+    >({
+      query: (body) => ({
+        method: 'POST',
+        url: '/award/get_user',
+        body: body,
+      }),
+      providesTags: ['Action'],
     }),
   }),
 });

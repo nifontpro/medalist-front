@@ -11,7 +11,6 @@ const TabTitle = ({
   onClickActive,
   className,
   children,
-  ...props
 }: TabTitleProps): JSX.Element => {
   return (
     <Htag

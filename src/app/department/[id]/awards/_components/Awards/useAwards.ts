@@ -1,34 +1,28 @@
 
-import { AwardDetails } from '@/domain/model/award/AwardDetails';
+import { Award } from '@/domain/model/award/Award';
 import { useMemo, useState } from 'react';
 
-export const useAwards = (awards: AwardDetails[]) => {
+export const useAwards = (awards: Award[]) => {
   const [state, setState] = useState<1 | -1>(-1);
 
-  let allAwards = awards.filter((award) => award.award.type == 'SIMPLE');
-  let allNominee = awards.filter((award) => award.award.type == 'NOMINEE');
+  let allAwards = awards.filter((award) => award.type == 'SIMPLE');
+  let allNominee = awards.filter((award) => award.type == 'PERIOD');
 
   const [active, setActive] = useState<
-    '' | 'NOMINEE' | 'SIMPLE' | 'UNDEF'
+    '' | "PERIOD" | "SIMPLE" | "UNDEF"
   >('');
 
   // Сотртировка по startDate
-  const filteredValue = awards?.filter((item) => item.award.type?.includes(active));
+  const filteredValue = awards?.filter((item) => item.type?.includes(active));
 
   if (filteredValue) {
     filteredValue.sort((prev, next): number => {
-      if (prev.award.startDate !== undefined && next.award.startDate !== undefined) {
-        if (prev?.award.startDate > next?.award.startDate) return state; //(-1)
+      if (prev.startDate !== undefined && next.startDate !== undefined) {
+        if (prev?.startDate > next?.startDate) return state; //(-1)
       }
       return state;
     });
   }
-
-  // const handleNextPage = () => {
-  //   if (awardsFull && awardsFull.length > 0) {
-  //     setCurrentPage((prev) => prev + 1);
-  //   }
-  // };
 
   return useMemo(() => {
     return {
