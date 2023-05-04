@@ -1,8 +1,8 @@
 import styles from './TabTitle.module.scss';
 import cn from 'classnames';
 import { TabTitleProps } from './TabTitle.props';
-import Htag from '../Htag/Htag';
-import P from '../P/P';
+import Htag from '@/ui/Htag/Htag';
+import P from '@/ui/P/P';
 
 const TabTitle = ({
   setActive,

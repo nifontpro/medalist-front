@@ -37,8 +37,8 @@ const ImagesCarousel = ({
                 <ImageDefault
                   key={item.id}
                   src={item.imageUrl}
-                  width={250}
-                  height={250}
+                  width={400}
+                  height={400}
                   alt='preview image'
                   objectFit='cover'
                   // priority={true}
@@ -50,8 +50,8 @@ const ImagesCarousel = ({
         ) : (
           <ImageDefault
             src={undefined}
-            width={250}
-            height={250}
+            width={400}
+            height={400}
             alt='preview image'
             objectFit='cover'
           />

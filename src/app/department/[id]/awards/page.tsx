@@ -18,7 +18,7 @@ export default function DepartmentAwards({
   if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 
   if (awardsOnDepartment && awardsOnDepartment.data) {
-    console.log(awardsOnDepartment.data);
+    console.log(awardsOnDepartment);
     return (
       <main>
         <Awards awards={awardsOnDepartment.data} id={params.id} />

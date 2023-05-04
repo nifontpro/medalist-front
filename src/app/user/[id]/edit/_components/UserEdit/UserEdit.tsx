@@ -18,6 +18,7 @@ import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import { UserEditProps } from './UserEdit.props';
+import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -57,152 +58,134 @@ export const UserEdit = ({ id }: UserEditProps) => {
       >
         Вернуться назад
       </ButtonCircleIcon>
+      <div className={styles.wrapper}>
+        <EditImagesComponent
+          imageNum={imageNum}
+          setImageNum={setImageNum}
+          images={images}
+          addPhoto={addPhoto}
+          removePhoto={removePhoto}
+          className={styles.desktop}
+        />
+        <form className={styles.form}>
+          <div className={styles.fields}>
+            <Htag tag='h2' className={styles.title}>
+              Редактирование сотрудника
+            </Htag>
 
-      <form className={styles.form}>
-        <div className={styles.fields}>
-          <Htag tag='h2' className={styles.title}>
-            Редактирование сотрудника
-          </Htag>
+            <EditImagesComponent
+              imageNum={imageNum}
+              setImageNum={setImageNum}
+              images={images}
+              addPhoto={addPhoto}
+              removePhoto={removePhoto}
+              className={styles.mobile}
+            />
 
-          <div className='flex justify-center items-center'>
-            <div
-              className={cn(
-                styles.field,
-                styles.uploadField,
-                styles.mediaVisible
-              )}
-            >
-              <ImagesCarousel
-                data={singleUser.data?.user.images}
-                imageNum={imageNum}
-                setImageNum={setImageNum}
-                images={images}
-                edit={true}
+            <div className={styles.groupGender}>
+              <Field
+                {...register('lastname', { required: 'Фамилия необходима!' })}
+                title='Фамилия'
+                placeholder='Введите Фамилию'
+                error={errors.lastname}
+              />
+              <InputRadio
+                active={active}
+                setActive={setActive}
+                className={styles.gender}
+              />
+            </div>
+
+            <div className={styles.group}>
+              <Field
+                {...register('firstname', { required: 'Имя обязательно!' })}
+                title='Имя'
+                placeholder='Введите имя'
+                error={errors.firstname}
               />
 
-              <div className={styles.editPanel}>
-                <InputPhotoAdd onChange={addPhoto} className={styles.input}>
-                  <ButtonEdit icon='edit' />
-                </InputPhotoAdd>
-                {singleUser.data?.user.images.length > 0 && (
-                  <>
-                    {/* <InputPhotoAdd
-                      onChange={refreshPhoto}
-                      className={styles.input}
-                    >
-                      <ButtonEdit icon='refresh' />
-                    </InputPhotoAdd> */}
+              <Field
+                {...register('patronymic', {
+                  required: 'Отчество обязательно!',
+                  minLength: 6,
+                })}
+                title='Отчество'
+                placeholder='Отчество пароль'
+                error={errors.patronymic}
+              />
+            </div>
 
-                    <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
-                  </>
-                )}
-              </div>
+            <div className={styles.group}>
+              <Field
+                {...register('post', { required: 'Пост обязательно!' })}
+                title='Пост'
+                placeholder='Введите свой пост'
+                error={errors.post}
+              />
+              <Field
+                {...register('phone', { required: 'Сотовый обязательно!' })}
+                title='Сотовый'
+                placeholder='Введите свой сотовый'
+                error={errors.phone}
+                type='tel'
+                className={styles.phone}
+                {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
+              />
+            </div>
+
+            <div className={styles.group}>
+              <Field
+                {...register('authEmail', {
+                  required: 'required',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Entered value does not match email format',
+                  },
+                })}
+                title='Email'
+                placeholder='Введите свой email'
+                error={errors.authEmail}
+              />
+            </div>
+
+            <Field
+              {...register('address', { required: 'Адрес необходим!' })}
+              title='Адрес'
+              placeholder='Напишите адрес'
+              error={errors.address}
+              className={styles.field}
+            />
+
+            <TextArea
+              {...register('description', { required: 'Описание необходимо!' })}
+              title='О сотруднике'
+              placeholder='Введите информацию о владельце'
+              error={errors.description}
+              className={styles.field}
+            />
+
+            <div className={styles.buttons}>
+              <Button
+                onClick={handleClick}
+                appearance='whiteBlack'
+                size='l'
+                className={styles.cancel}
+              >
+                Отменить
+              </Button>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                appearance='blackWhite'
+                size='l'
+                className={styles.confirm}
+                disabled={!isDirty || !isValid}
+              >
+                Изменить
+              </Button>
             </div>
           </div>
-
-          <div className={styles.groupGender}>
-            <Field
-              {...register('lastname', { required: 'Фамилия необходима!' })}
-              title='Фамилия'
-              placeholder='Введите Фамилию'
-              error={errors.lastname}
-            />
-            <InputRadio
-              active={active}
-              setActive={setActive}
-              className={styles.gender}
-            />
-          </div>
-
-          <div className={styles.group}>
-            <Field
-              {...register('firstname', { required: 'Имя обязательно!' })}
-              title='Имя'
-              placeholder='Введите имя'
-              error={errors.firstname}
-            />
-
-            <Field
-              {...register('patronymic', {
-                required: 'Отчество обязательно!',
-                minLength: 6,
-              })}
-              title='Отчество'
-              placeholder='Отчество пароль'
-              error={errors.patronymic}
-            />
-          </div>
-
-          <div className={styles.group}>
-            <Field
-              {...register('post', { required: 'Пост обязательно!' })}
-              title='Пост'
-              placeholder='Введите свой пост'
-              error={errors.post}
-            />
-            <Field
-              {...register('phone', { required: 'Сотовый обязательно!' })}
-              title='Сотовый'
-              placeholder='Введите свой сотовый'
-              error={errors.phone}
-              type='tel'
-              className={styles.phone}
-              {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
-            />
-          </div>
-
-          <div className={styles.group}>
-            <Field
-              {...register('authEmail', {
-                required: 'required',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Entered value does not match email format',
-                },
-              })}
-              title='Email'
-              placeholder='Введите свой email'
-              error={errors.authEmail}
-            />
-          </div>
-
-          <Field
-            {...register('address', { required: 'Адрес необходим!' })}
-            title='Адрес'
-            placeholder='Напишите адрес'
-            error={errors.address}
-            className={styles.field}
-          />
-
-          <TextArea
-            {...register('description', { required: 'Описание необходимо!' })}
-            title='О сотруднике'
-            placeholder='Введите информацию о владельце'
-            error={errors.description}
-            className={styles.field}
-          />
-
-          <div className={styles.buttons}>
-            <Button
-              onClick={handleClick}
-              appearance='whiteBlack'
-              size='l'
-              className={styles.cancel}
-            >
-              Отменить
-            </Button>
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              appearance='blackWhite'
-              size='l'
-              className={styles.confirm}
-              disabled={!isDirty || !isValid}
-            >
-              Изменить
-            </Button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 };

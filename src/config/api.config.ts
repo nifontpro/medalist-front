@@ -23,7 +23,7 @@ export const getUserEditUrl = (string: string = '') => `/user/${string}/edit`
 // export const getUserEditPasswordUrl = (string: string = '') => `/user/edit_password${string}`
 // export const getAwardUrl = (string: string = '') => `/award${string}`
 export const getAwardCreateUrl = (string: string = '') => `/create/award${string}`
-// export const getAwardEditUrl = (string: string = '') => `/award/edit${string}`
+export const getAwardEditUrl = (string: string = '') => `/award/${string}/edit`
 // export const getMessageUrl = (string: string = '') => `/message${string}`
 // export const getActivityUrl = (string: string = '') => `/activity${string}`
 // export const getGalleryUrl = (string: string = '') => `/gallery${string}`

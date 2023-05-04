@@ -13,7 +13,7 @@ import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
-import SingleAward from './SingleAward/SingleAward';
+import SingleAward from './Award/Award';
 
 const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
   const { push } = useRouter();
@@ -63,7 +63,7 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
             onClickActive={'SIMPLE'}
             className={styles.award}
           >
-            Награды
+            Завершенные
           </TabTitle>
           <TabTitle
             active={active}

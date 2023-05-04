@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
-'use client'
+'use client';
 
 import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
-import styles from './SingleAward.module.scss';
-import { SingleAwardProps } from './SingleAward.props';
+import styles from './Award.module.scss';
+import { AwardProps } from './Award.props';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 import { ForwardedRef, forwardRef } from 'react';
@@ -11,10 +11,10 @@ import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 
-const SingleAward = motion(
+const Award = motion(
   forwardRef(
     (
-      { award, className, ...props }: SingleAwardProps,
+      { award, className, ...props }: AwardProps,
       ref: ForwardedRef<HTMLDivElement>
     ): JSX.Element => {
       let currentDate = +new Date();
@@ -28,7 +28,7 @@ const SingleAward = motion(
           >
             <div className={styles.img}>
               <ImageDefault
-                src={undefined}
+                src={award.images.length > 0 ? award.images[0].imageUrl : undefined}
                 width={165}
                 height={165}
                 alt={award.name}
@@ -59,14 +59,14 @@ const SingleAward = motion(
             <div className={styles.nominee}>Номинация</div>
             <div className={styles.imgNominee}>
               <ImageDefault
-                src={undefined}
+                src={award.images.length > 0 ? award.images[0].imageUrl : undefined}
                 width={165}
                 height={165}
                 alt={award.name}
                 objectFit='cover'
                 className='rounded-full'
                 // priority={true}
-              />
+              />Ï
             </div>
             <div>
               <div className={styles.nomineeAdaptive}>Номинация</div>
@@ -102,5 +102,5 @@ const SingleAward = motion(
   )
 );
 
-SingleAward.displayName = 'SingleAward';
-export default SingleAward;
+Award.displayName = 'Award';
+export default Award;

@@ -1,148 +1,116 @@
-.form {
+.wrapper {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 30px;
-  margin-top: 50px;
-  // @apply animate-fade;
-
   @media screen and (max-width: 1280px) {
     grid-template-columns: 1fr;
+    gap: 0px;
   }
-
-  .uploadField {
-    overflow: hidden;
-    border-radius: 27px;
-    width: 250px;
-    height: fit-content;
-    background: var(--white);
-
-    // @media screen and (max-width: 1280px) {
-    //   display: none;
-    // }
-
-    .images {
-      height: 250px;
-      // border-bottom: 1px solid var(--gray);
-    }
-
-    .editPanel {
-      margin-top: 25px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding-right: 20px;
-
-      .input {
-        width: fit-content;
-        height: fit-content;
-        margin-right: 10px;
-        cursor: pointer;
-
-        &:hover svg {
-          path {
-            stroke: var(--gray-dark);
-          }
-          rect {
-            stroke: var(--gray-dark);
-          }
-        }
-      }
-    }
-  }
-
-  .fields {
-    padding: 80px;
-    background: var(--white);
-    border-radius: 27px;
-    margin-bottom: 30px;
+  .form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+    // @apply animate-fade;
 
     @media screen and (max-width: 1280px) {
-      padding: 60px 50px;
-    }
-    @media screen and (max-width: 768px) {
-      padding: 60px 40px;
-      border-radius: 16px;
-    }
-    @media screen and (max-width: 500px) {
-      padding: 30px 15px;
+      grid-template-columns: 1fr;
     }
 
-    .field {
-      margin-bottom: 60px;
+    .fields {
+      padding: 80px;
+      background: var(--white);
+      border-radius: 27px;
+      margin-bottom: 30px;
 
-      @media screen and (max-width: 768px) {
-        margin-bottom: 30px;
+      @media screen and (max-width: 1280px) {
+        padding: 60px 50px;
       }
-    }
-
-    .title {
-      margin-bottom: 80px;
-
       @media screen and (max-width: 768px) {
-        margin-bottom: 40px;
+        padding: 60px 40px;
+        border-radius: 16px;
       }
-    }
-
-    .groupGender {
-      margin-bottom: 60px;
-      position: relative;
-
-      @media screen and (max-width: 768px) {
-        margin-bottom: 30px;
+      @media screen and (max-width: 500px) {
+        padding: 30px 15px;
       }
 
-      .gender {
-        position: absolute;
-        bottom: 6.3px;
-        right: 10px;
+      .field {
+        margin-bottom: 60px;
 
         @media screen and (max-width: 768px) {
-          bottom: 11px;
-          right: 5px;
+          margin-bottom: 30px;
         }
       }
-    }
 
-    .group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 60px;
-      align-items: flex-end;
-
-      @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        margin-bottom: 30px;
-      }
-
-      .fixedCompanyName {
-        font-weight: 500;
-        font-size: 16.5269px;
-        opacity: 0.4;
-        color: var(--gray-dark);
-        padding: 17px 30px;
-        font-family: var(--font-family);
-        border: 1px solid #00000020;
-        border-radius: 12px;
-      }
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: flex-end;
-
-      @media screen and (max-width: 768px) {
-        flex-direction: column;
-        margin-top: 60px;
-      }
-
-      .confirm {
-        margin-left: 15px;
+      .title {
+        margin-bottom: 80px;
 
         @media screen and (max-width: 768px) {
-          margin-left: 0px;
-          margin-top: 15px;
+          margin-bottom: 40px;
+        }
+      }
+
+      .groupGender {
+        margin-bottom: 60px;
+        position: relative;
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 30px;
+        }
+
+        .gender {
+          position: absolute;
+          bottom: 6.3px;
+          right: 10px;
+
+          @media screen and (max-width: 768px) {
+            bottom: 11px;
+            right: 5px;
+          }
+        }
+      }
+
+      .group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 60px;
+        align-items: flex-end;
+
+        @media screen and (max-width: 768px) {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          margin-bottom: 30px;
+        }
+
+        .fixedCompanyName {
+          font-weight: 500;
+          font-size: 16.5269px;
+          opacity: 0.4;
+          color: var(--gray-dark);
+          padding: 17px 30px;
+          font-family: var(--font-family);
+          border: 1px solid #00000020;
+          border-radius: 12px;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          margin-top: 60px;
+        }
+
+        .confirm {
+          margin-left: 15px;
+
+          @media screen and (max-width: 768px) {
+            margin-left: 0px;
+            margin-top: 15px;
+          }
         }
       }
     }
@@ -176,4 +144,20 @@
 /* Hover */
 .radioButton label:hover {
   color: red;
+}
+
+.desktop {
+  margin-top: 50px;
+  align-items: flex-start;
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+  @media screen and (max-width: 1280px) {
+    display: flex;
+  }
 }

@@ -1,5 +1,5 @@
 export interface BaseImage {
-    id?: number
+    id: number
     imageUrl: string
     type: ImageType
     main: boolean
