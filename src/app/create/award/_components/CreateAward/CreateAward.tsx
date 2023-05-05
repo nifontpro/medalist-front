@@ -9,21 +9,20 @@ import TextArea from '@/ui/TextArea/TextArea';
 import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
-import { useAppDispatch } from '@/store/hooks/hooks';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
-import SelectCalendar from '@/app/create/department/_components/SelectCalendar/SelectCalendar';
-import { DatePickerProps, DateValidationError } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import { PickerChangeHandlerContext } from '@mui/x-date-pickers/internals/hooks/usePicker/usePickerValue.types';
-import { setEndDate, setStartDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
+import {
+  setEndDate,
+  setStartDate,
+} from '@/store/features/awardCreateDate/awardCreateDate.slice';
+import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
+import useOutsideClick from '@/hooks/useOutsideClick';
+import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
+import UsersPreviewCreateAward from './UsersPreviewCreateAward/UsersPreviewCreateAward';
 
 const CreateAward = () => {
-
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
-  const { usersOnDepartment: users } = useUserAdmin('');
-
   // const [images, setImg] = useState<IGalleryObject | undefined>(undefined);
 
   const {
@@ -34,29 +33,32 @@ const CreateAward = () => {
     reset,
   } = useForm<CreateAwardRequest>({ mode: 'onChange' });
 
-  const { onSubmitReward, onSubmitNominee, dispatch, back } = useCreateAward(
-    setValue,
-    reset,
-    // images,
-    // currentCompany?.id,
-    // arrChoiceUser
-  );
+  const { onSubmitReward, onSubmitNominee, dispatch, back, deptId } =
+    useCreateAward(
+      setValue,
+      reset,
+      // images,
+      // currentCompany?.id,
+      arrChoiceUser
+    );
+
+  const { usersOnDepartment: users } = useUserAdmin(deptId.toString());
 
   const onChangeStart = (value: string | null) => {
-    dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')))
+    dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')));
   };
   const onChangeEnd = (value: string | null) => {
-    dispatch(setEndDate(dayjs(value).format('DD.MM.YYYY')))
+    dispatch(setEndDate(dayjs(value).format('DD.MM.YYYY')));
   };
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
-  // const ref = useRef(null);
-  // const refOpen = useRef(null);
-  // const handleClickOutside = () => {
-  //   setVisibleModal(false);
-  // };
-  // useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
+  const ref = useRef(null);
+  const refOpen = useRef(null);
+  const handleClickOutside = () => {
+    setVisibleModal(false);
+  };
+  useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
 
   return (
     <>
@@ -123,17 +125,21 @@ const CreateAward = () => {
             />
           </div>
 
-          {/* <UsersPreview
-            arrChoiceUser={arrChoiceUser}
-            users={users}
-            setArrChoiceUser={setArrChoiceUser}
-          />
+          {users && users.data && (
+            <UsersPreviewCreateAward
+              arrChoiceUser={arrChoiceUser}
+              users={users?.data}
+              setArrChoiceUser={setArrChoiceUser}
+            />
+          )}
 
-          <ChoiceUsers
-            users={users}
-            arrChoiceUser={arrChoiceUser}
-            setArrChoiceUser={setArrChoiceUser}
-          /> */}
+          {users && users.data && (
+            <ChoiceUsers
+              users={users?.data}
+              arrChoiceUser={arrChoiceUser}
+              setArrChoiceUser={setArrChoiceUser}
+            />
+          )}
 
           <div className={styles.buttons}>
             <Button

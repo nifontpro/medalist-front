@@ -16,6 +16,7 @@ export default function SingleAwardPage({
   if (!singleActivAward?.success || !singleAward?.success) return <NoAccess />;
 
   console.log(singleAward)
+  console.log(singleActivAward)
 
   return (
     <>

@@ -1,8 +1,6 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { CreateDeptRequest } from '@/api/dept/request/createDeptRequest';
-import { deptApi } from '@/api/dept/dept.api';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
@@ -15,16 +13,18 @@ import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slic
 
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,
-  reset: UseFormReset<CreateAwardRequest>
+  reset: UseFormReset<CreateAwardRequest>,
   // images: IGalleryObject | undefined,
   // companyId?: string,
-  // arrChoiceUser?: string[]
+  arrChoiceUser?: string[]
 ) => {
   const dispatch = useAppDispatch();
-  const { push, back } = useRouter();
+  const { back } = useRouter();
   const searchParams = useSearchParams();
   const deptId = Number(searchParams.get('deptId'));
-  const [create] = awardApi.useCreateMutation();
+  const [createAward] = awardApi.useCreateMutation();
+  const [rewardUser] = awardApi.useSendActionMutation();
+
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
   const startDateSelect = useAppSelector(
     (state) => state.dataCreateAward.startDate
@@ -50,50 +50,53 @@ export const useCreateAward = (
     const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
       console.log('AWARD');
 
-      data.endDate = Math.floor(new Date().getTime()) ;
-      data.startDate = Math.floor(new Date().getTime()) ;
+      data.endDate = Math.floor(new Date().getTime());
+      data.startDate = Math.floor(new Date().getTime());
 
       let isError = false;
       data.type = 'SIMPLE';
 
-      console.log(data)
+      console.log(data);
 
       if (typeOfUser && typeOfUser.id && deptId) {
-        await create({ ...data })
+        await createAward({ ...data })
           .unwrap()
           .then((res) => {
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
             }
+            // if (images) {
+            //   await setImage({ awardId: award.id, galleryItemId: images.id })
+            //     .unwrap()
+            //     .catch(() => {
+            //       isError = true;
+            //       toast.error('Ошибка добавления фото награды');
+            //     });
+            // }
+            if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
+              arrChoiceUser.forEach((user) => {
+                if (typeOfUser && typeOfUser.id && res.data)
+                  rewardUser({
+                    authId: typeOfUser.id,
+                    awardId: res.data?.award.id,
+                    userId: Number(user),
+                    actionType: 'AWARD',
+                  })
+                    .unwrap()
+                    .then((res) => {
+                      if (res.success == false) {
+                        errorMessageParse(res.errors);
+                        isError = true;
+                      }
+                    })
+                    .catch((e) => {
+                      isError = true;
+                      toastError(e, 'Ошибка награждения');
+                    });
+              });
+            }
           })
-          // .then(async (award: IAward) => {
-          //   if (images) {
-          //     await setImage({ awardId: award.id, galleryItemId: images.id })
-          //       .unwrap()
-          //       .catch(() => {
-          //         isError = true;
-          //         toast.error('Ошибка добавления фото награды');
-          //       });
-          //   }
-          //   if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-          //     arrChoiceUser.forEach((user) => {
-          //       reward({
-          //         awardId: award.id,
-          //         userId: user,
-          //         awardState: 'AWARD',
-          //       })
-          //         .unwrap()
-          //         .catch(() => {
-          //           isError = true;
-          //           toast.error(`Ошибка награждения ${user}`);
-          //         });
-          //     });
-          //   }
-          //   if (!isError) {
-          //     push(`/award/${award.id}`);
-          //   }
-          // })
           .catch((e) => {
             isError = true;
             toastError(e, 'Ошибка создания награды');
@@ -137,7 +140,7 @@ export const useCreateAward = (
         }
       }
 
-      console.log(data)
+      console.log(data);
 
       if (
         typeOfUser &&
@@ -147,38 +150,46 @@ export const useCreateAward = (
         data.startDate != undefined &&
         data.endDate > data.startDate
       ) {
-        await create({ ...data })
+        await createAward({ ...data })
           .unwrap()
           .then((res) => {
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
             }
+
+            //   if (images) {
+            //     await setImage({ awardId: award.id, galleryItemId: images.id })
+            //       .unwrap()
+            //       .catch(() => {
+            //         isError = true;
+            //         toast.error('Ошибка добавления фото награды');
+            //       });
+            //   }
+
+            if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
+              arrChoiceUser.forEach((user) => {
+                if (typeOfUser && typeOfUser.id && res.data)
+                  rewardUser({
+                    authId: typeOfUser.id,
+                    awardId: res.data?.award.id,
+                    userId: Number(user),
+                    actionType: 'NOMINEE',
+                  })
+                    .unwrap()
+                    .then((res) => {
+                      if (res.success == false) {
+                        errorMessageParse(res.errors);
+                        isError = true;
+                      }
+                    })
+                    .catch((e) => {
+                      isError = true;
+                      toastError(e, 'Ошибка награждения');
+                    });
+              });
+            }
           })
-          // .then(async (award: IAward) => {
-          //   if (images) {
-          //     await setImage({ awardId: award.id, galleryItemId: images.id })
-          //       .unwrap()
-          //       .catch(() => {
-          //         isError = true;
-          //         toast.error('Ошибка добавления фото награды');
-          //       });
-          //   }
-          //   if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-          //     arrChoiceUser.forEach((user) => {
-          //       reward({
-          //         awardId: award.id,
-          //         userId: user,
-          //         awardState: 'NOMINEE',
-          //       })
-          //         .unwrap()
-          //         .catch(() => {
-          //           isError = true;
-          //           toast.error(`Ошибка награждения ${user}`);
-          //         });
-          //     });
-          //   }
-          // })
           .catch((e) => {
             isError = true;
             toastError(e, 'Ошибка создания награды');
@@ -195,15 +206,18 @@ export const useCreateAward = (
       back,
       handleClick,
       dispatch,
+      deptId,
     };
   }, [
     back,
     dispatch,
     startDateSelect,
     endDateSelect,
-    create,
+    rewardUser,
     deptId,
     reset,
     typeOfUser,
+    arrChoiceUser,
+    createAward,
   ]);
 };
