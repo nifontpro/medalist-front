@@ -1,7 +1,9 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import { IMessage } from '../../Notification.props';
 
-import { IMessage } from 'message/model/message.types'
-import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, ReactNode, SetStateAction } from "react"
-
-export type NotificationItemProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLLIElement>, HTMLLIElement> & {
-    notification: IMessage
-}
+export type NotificationItemProps = DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLLIElement>,
+  HTMLLIElement
+> & {
+  notification: IMessage;
+};

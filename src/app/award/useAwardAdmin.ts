@@ -3,10 +3,12 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
+import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useAwardAdmin = (id?: string) => {
+  const { back } = useRouter()
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -16,6 +18,18 @@ export const useAwardAdmin = (id?: string) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         awardId: id ? Number(id) : 0,
+      },
+      {
+        skip: !typeOfUser && !id,
+      }
+    );
+
+  const { data: singleActivAward, isLoading: isLoadingSingleActivAward } =
+    awardApi.useGetUsersByActivAwardQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        awardId: id ? Number(id) : 0,
+        orders: undefined,
       },
       {
         skip: !typeOfUser && !id,
@@ -52,6 +66,7 @@ export const useAwardAdmin = (id?: string) => {
           toastError(e, 'Ошибка при удалении награды');
         });
       if (!isError) {
+        back()
         toast.success('Награда успешно удалена');
       }
     };
@@ -62,6 +77,8 @@ export const useAwardAdmin = (id?: string) => {
       isLoadingSingleAward,
       awardsOnDepartment,
       isLoadingAwardsOnDept,
+      singleActivAward,
+      isLoadingSingleActivAward,
     };
   }, [
     deleteAward,
@@ -69,5 +86,8 @@ export const useAwardAdmin = (id?: string) => {
     isLoadingSingleAward,
     awardsOnDepartment,
     isLoadingAwardsOnDept,
+    singleActivAward,
+    isLoadingSingleActivAward,
+    back
   ]);
 };

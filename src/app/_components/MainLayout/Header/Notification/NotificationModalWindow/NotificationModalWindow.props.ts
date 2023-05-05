@@ -1,8 +1,7 @@
 
-import { IUser } from '@/user/model/user.types'
 import { MotionProps } from 'framer-motion'
-import { IMessage } from 'message/model/message.types'
 import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, ReactNode, RefAttributes, SetStateAction } from "react"
+import { IMessage } from '../Notification.props'
 
 export type NotificationModalWindowProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> & MotionProps & RefAttributes<HTMLDivElement> & {
     visibleModal: boolean

@@ -13,7 +13,8 @@ import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
-import SingleAward from './Award/Award';
+import Award from './Award/Award';
+import FilterAwards from './FilterAwards/FilterAwards';
 
 const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
   const { push } = useRouter();
@@ -60,7 +61,7 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
             active={active}
             setActive={setActive}
             count={allAwards.length}
-            onClickActive={'SIMPLE'}
+            onClickActive={'FINISH'}
             className={styles.award}
           >
             Завершенные
@@ -69,7 +70,7 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
             active={active}
             setActive={setActive}
             count={allNominee.length}
-            onClickActive={'PERIOD'}
+            onClickActive={'NOMINEE'}
             className={styles.nominee}
           >
             Номинации
@@ -97,21 +98,21 @@ const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
         </div>
       )}
 
-      {/* <FilterAwards
+      <FilterAwards
         state={state}
         setState={setState}
         active={active}
         setActive={setActive}
         allNominee={allNominee}
         allAwards={allAwards}
-        awardsFull={arr}
-      /> */}
+        awardsFull={awards}
+      />
 
       <div className={styles.cards}>
         {filteredValue?.map((item) => {
           return (
             <Link key={uniqid()} href={'/award/' + item.id}>
-              <SingleAward layout award={item} />
+              <Award layout award={item} />
             </Link>
           );
         })}

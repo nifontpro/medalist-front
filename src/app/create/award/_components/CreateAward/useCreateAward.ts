@@ -50,11 +50,13 @@ export const useCreateAward = (
     const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
       console.log('AWARD');
 
-      data.endDate = Math.floor(new Date().getTime()) * 1000;
-      data.startDate = Math.floor(new Date().getTime()) * 1000;
+      data.endDate = Math.floor(new Date().getTime()) ;
+      data.startDate = Math.floor(new Date().getTime()) ;
 
       let isError = false;
       data.type = 'SIMPLE';
+
+      console.log(data)
 
       if (typeOfUser && typeOfUser.id && deptId) {
         await create({ ...data })
@@ -134,6 +136,8 @@ export const useCreateAward = (
           toast.error('Дата начала больше чем дата окончания');
         }
       }
+
+      console.log(data)
 
       if (
         typeOfUser &&

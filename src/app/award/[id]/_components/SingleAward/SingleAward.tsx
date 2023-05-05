@@ -13,24 +13,56 @@ import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { getAwardEditUrl, getUserCreateUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
 import AuthComponent from '@/store/providers/AuthComponent';
+import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
+import AwardTitle from './AwardTitle/AwardTitle';
+import AwardWasAwarded from './AwardWasAwarded/AwardWasAwarded';
+import AwardWasNominee from './AwardWasNominee/AwardWasNominee';
+import AwardNominee from './AwardNominee/AwardNominee';
 
-const SingleAward = ({ award, className, ...props }: SingleAwardProps) => {
+const SingleAward = ({
+  awardActiv,
+  award,
+  className,
+  ...props
+}: SingleAwardProps) => {
   const { back, push } = useRouter();
-  return (
-    <div {...props}>
-      <ButtonCircleIcon
-        onClick={back}
-        classNameForIcon=''
-        appearance='black'
-        icon='down'
-      >
-        Вернуться назад
-      </ButtonCircleIcon>
-      <div onClick={() => push(getAwardEditUrl(award?.award.id.toString()))}>
-        Редактировать награду
+
+  if (award?.award.state == 'FINISH' || award?.award.state == 'ERROR') {
+    return (
+      <div {...props} className={cn(className)}>
+        <ButtonCircleIcon
+          onClick={back}
+          classNameForIcon=''
+          appearance='black'
+          icon='down'
+        >
+          Вернуться назад
+        </ButtonCircleIcon>
+
+        <AwardTitle award={award} />
+        <AwardWasAwarded award={award} awardActiv={awardActiv}/>
+        <AwardWasNominee award={award} awardActiv={awardActiv} className='mb-[50px]' />
+        <ButtonScrollUp />
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div {...props} className={cn(className)}>
+        <ButtonCircleIcon
+          onClick={back}
+          classNameForIcon=''
+          appearance='black'
+          icon='down'
+        >
+          Вернуться назад
+        </ButtonCircleIcon>
+
+        <AwardTitle award={award} />
+        <AwardNominee award={award} awardActiv={awardActiv}/>
+        <ButtonScrollUp />
+      </div>
+    );
+  }
 };
 
 export default SingleAward;

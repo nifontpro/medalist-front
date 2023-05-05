@@ -19,7 +19,9 @@ const Award = motion(
     ): JSX.Element => {
       let currentDate = +new Date();
 
-      if (award.type == 'SIMPLE' || award.type == 'UNDEF') {
+      console.log(award)
+
+      if (award.state == 'FINISH' || award.state == 'ERROR') {
         return (
           <div
             ref={ref}
@@ -28,12 +30,14 @@ const Award = motion(
           >
             <div className={styles.img}>
               <ImageDefault
-                src={award.images.length > 0 ? award.images[0].imageUrl : undefined}
+                src={
+                  award.images.length > 0 ? award.images[0].imageUrl : undefined
+                }
                 width={165}
                 height={165}
                 alt={award.name}
                 objectFit='cover'
-                className='rounded-full'
+                className='rounded-full '
                 // priority={true}
               />
             </div>
@@ -49,7 +53,7 @@ const Award = motion(
             </div>
           </div>
         );
-      } else if (award.type == 'PERIOD') {
+      } else if (award.state == 'NOMINEE' || award.state == 'FUTURE') {
         return (
           <div
             ref={ref}
@@ -59,39 +63,70 @@ const Award = motion(
             <div className={styles.nominee}>Номинация</div>
             <div className={styles.imgNominee}>
               <ImageDefault
-                src={award.images.length > 0 ? award.images[0].imageUrl : undefined}
+                src={
+                  award.images.length > 0 ? award.images[0].imageUrl : undefined
+                }
                 width={165}
                 height={165}
                 alt={award.name}
                 objectFit='cover'
                 className='rounded-full'
                 // priority={true}
-              />Ï
+              />
+              Ï
             </div>
             <div>
               <div className={styles.nomineeAdaptive}>Номинация</div>
               <P size='m' color='white' className={styles.name}>
                 {award.name}
               </P>
-              <P
-                size='xs'
-                color='gray96'
-                fontstyle='thin'
-                className={styles.date}
-              >
-                Награждение через
-                <ButtonIcon className={styles.btnIcon} appearance='whiteBlack'>
-                  {Math.floor(
-                    (award.endDate - currentDate) / 1000 / 60 / 60 / 24
-                  )}{' '}
-                  {declOfNum(
-                    Math.floor(
+              {award.state == 'NOMINEE' ? (
+                <P
+                  size='xs'
+                  color='gray96'
+                  fontstyle='thin'
+                  className={styles.date}
+                >
+                  Награждение через
+                  <ButtonIcon
+                    className={styles.btnIcon}
+                    appearance='whiteBlack'
+                  >
+                    {Math.floor(
                       (award.endDate - currentDate) / 1000 / 60 / 60 / 24
-                    ),
-                    ['день', 'дня', 'дней']
-                  )}
-                </ButtonIcon>
-              </P>
+                    )}{' '}
+                    {declOfNum(
+                      Math.floor(
+                        (award.endDate - currentDate) / 1000 / 60 / 60 / 24
+                      ),
+                      ['день', 'дня', 'дней']
+                    )}
+                  </ButtonIcon>
+                </P>
+              ) : (
+                <P
+                  size='xs'
+                  color='gray96'
+                  fontstyle='thin'
+                  className={styles.date}
+                >
+                  Начнется через
+                  <ButtonIcon
+                    className={styles.btnIcon}
+                    appearance='whiteBlack'
+                  >
+                    {Math.floor(
+                      (award.startDate - currentDate) / 1000 / 60 / 60 / 24
+                    )}{' '}
+                    {declOfNum(
+                      Math.floor(
+                        (award.startDate - currentDate) / 1000 / 60 / 60 / 24
+                      ),
+                      ['день', 'дня', 'дней']
+                    )}
+                  </ButtonIcon>
+                </P>
+              )}
             </div>
           </div>
         );

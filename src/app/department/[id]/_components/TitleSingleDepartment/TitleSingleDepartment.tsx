@@ -1,7 +1,6 @@
 import styles from './TitleSingleDepartment.module.scss';
 import { TitleSingleDepartmentProps } from './TitleSingleDepartment.props';
 import Htag from '@/ui/Htag/Htag';
-import EditPanelAuthBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import GpsIcon from './gps.svg';
 import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
@@ -11,7 +10,7 @@ import {
 } from '@/config/api.config';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
-import AuthComponent from '@/store/providers/AuthComponent';
+import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 
 const TitleSingleDepartment = ({
   department,
@@ -30,16 +29,14 @@ const TitleSingleDepartment = ({
       />
 
       <div className={styles.companyDescription}>
-        <AuthComponent minRole='ADMIN'>
-          <EditPanelAuthBtn
-            onlyRemove={false}
-            handleRemove={deleteDepartmentAsync}
-            id={department.dept.id}
-            getUrlEdit={getDepartmentEditUrl}
-            getUrlCreate={getDepartmentCreateUrl}
-            className={styles.dots}
-          />
-        </AuthComponent>
+        <EditPanelDeptBtn
+          onlyRemove={false}
+          handleRemove={deleteDepartmentAsync}
+          id={department.dept.id}
+          getUrlEdit={getDepartmentEditUrl}
+          getUrlCreate={getDepartmentCreateUrl}
+          className={styles.dots}
+        />
 
         <div className={styles.title}>
           <Htag tag='h1' className={styles.header}>

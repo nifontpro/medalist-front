@@ -7,8 +7,10 @@ export interface Award {
   type: AwardType;
   startDate: number;
   endDate: number;
+  state: AwardState;
   dept: Dept;
   images: BaseImage[];
 }
 
-export type AwardType = "PERIOD" | "SIMPLE" | "UNDEF"
+export type AwardType = 'PERIOD' | 'SIMPLE' | 'UNDEF';
+export type AwardState = 'FUTURE' | 'NOMINEE' | 'FINISH' | 'ERROR';

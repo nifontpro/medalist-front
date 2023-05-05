@@ -10,13 +10,16 @@ export default function SingleAwardPage({
 }: {
   params: { id: string };
 }) {
-  const { singleAward, isLoadingSingleAward } = useAwardAdmin(params.id);
-  if (isLoadingSingleAward) return <Spinner />;
-  if (!singleAward?.success) return <NoAccess />;
+  const { singleActivAward, singleAward, isLoadingSingleActivAward, isLoadingSingleAward } =
+    useAwardAdmin(params.id);
+  if (isLoadingSingleActivAward || isLoadingSingleAward) return <Spinner />;
+  if (!singleActivAward?.success || !singleAward?.success) return <NoAccess />;
+
+  console.log(singleAward)
 
   return (
     <>
-      <SingleAward award={singleAward.data} />
+      <SingleAward awardActiv={singleActivAward.data} award={singleAward.data}/>
     </>
   );
 }
