@@ -5,9 +5,9 @@ import {AwardDetails} from "@/domain/model/award/AwardDetails";
 import {CreateAwardRequest} from "@/api/award/request/CreateAwardRequest";
 import {UpdateAwardRequest} from "@/api/award/request/UpdateAwardRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
-import {BaseOrder} from "@/domain/model/base/sort/BaseOrder";
 import {Activity} from "@/domain/model/award/Activity";
 import {SendActionRequest} from "@/api/award/request/SendActionRequest";
+import {BaseRequest} from "@/domain/model/base/BaseRequest";
 
 export const awardApi = createApi({
 	reducerPath: 'AwardApi',
@@ -70,7 +70,7 @@ export const awardApi = createApi({
 		getByDept: build.query<BaseResponse<AwardDetails>, {
 			authId: number,
 			deptId: number,
-			orders: BaseOrder[] | undefined
+			baseRequest: BaseRequest | undefined
 		}>({
 			query: (request) => {
 				return {
@@ -123,6 +123,7 @@ export const awardApi = createApi({
 
 		/**
 		 * Получить активные награждения сотрудника [userId]
+		 * [baseRequest]:
 		 * Допустимые поля для сортировки:
 		 *      "date",
 		 * 			"actionType",
@@ -132,7 +133,7 @@ export const awardApi = createApi({
 		getActivAwardByUser: build.query<BaseResponse<Activity>, {
 			authId: number,
 			userId: number,
-			orders: BaseOrder[] | undefined
+			baseRequest: BaseRequest | undefined
 		}>({
 			query: (body) => ({
 				method: 'POST',
@@ -144,6 +145,7 @@ export const awardApi = createApi({
 
 		/**
 		 * Получить активные награждения в отделе [deptId]
+		 * [baseRequest]:
 		 * Допустимые поля для сортировки:
 		 *      "date",
 		 * 			"actionType",
@@ -153,11 +155,13 @@ export const awardApi = createApi({
 		 * 			"user.post",
 		 * 			"award.name",
 		 * 			"award.type"
+		 *
+		 *  minDate, maxDate - ограничения по дате событий, необязательны
 		 */
 		getActivAwardByDept: build.query<BaseResponse<Activity>, {
 			authId: number,
 			deptId: number,
-			orders: BaseOrder[] | undefined
+			baseRequest: BaseRequest | undefined
 		}>({
 			query: (body) => ({
 				method: 'POST',
@@ -169,6 +173,7 @@ export const awardApi = createApi({
 
 		/**
 		 * Получить сотрудников, награжденных наградой [awardId]
+		 * [baseRequest]:
 		 * Допустимые поля для сортировки:
 		 *      "date",
 		 * 			"actionType",
@@ -180,7 +185,7 @@ export const awardApi = createApi({
 		getUsersByActivAward: build.query<BaseResponse<Activity>, {
 			authId: number,
 			awardId: number,
-			orders: BaseOrder[] | undefined
+			baseRequest: BaseRequest | undefined
 		}>({
 			query: (body) => ({
 				method: 'POST',
