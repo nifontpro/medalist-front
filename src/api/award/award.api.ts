@@ -1,6 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {baseQueryWithReauth} from '../base/base.api';
-import {BaseResponse} from '@/domain/model/base/baseResponse';
+import {BaseResponse} from '@/domain/model/base/BaseResponse';
 import {AwardDetails} from "@/domain/model/award/AwardDetails";
 import {CreateAwardRequest} from "@/api/award/request/CreateAwardRequest";
 import {UpdateAwardRequest} from "@/api/award/request/UpdateAwardRequest";

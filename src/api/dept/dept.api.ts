@@ -3,7 +3,7 @@ import {baseQueryWithReauth} from '../base/base.api';
 import {Dept} from '@/domain/model/dept/dept';
 import {DeptDetails} from '@/domain/model/dept/deptDetails';
 import {CreateDeptRequest} from './request/createDeptRequest';
-import {BaseResponse} from '@/domain/model/base/baseResponse';
+import {BaseResponse} from '@/domain/model/base/BaseResponse';
 import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
 import {BaseRequest} from "@/domain/model/base/BaseRequest";
