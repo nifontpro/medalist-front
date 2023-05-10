@@ -77,11 +77,20 @@ export const userApi = createApi({
 		}),
 
 		/**
-		 * Получение сотрудников отдела
+		 * Получение сотрудников отдела [deptId]
+		 * [baseRequest]:
+		 *    Параметры пагинации [page], [pageSize] - обязательны!!!
+		 *    Параметр [filter] - фильтрация по Фамилии сотрудника
+		 *    Допустимые поля для сортировки:
+		 *          "firstname",
+		 *    			"patronymic",
+		 *    			"lastname",
+		 *    			"authEmail",
+		 *    			"post",
 		 */
 		getUsersByDept: build.query<
 				BaseResponse<User[]>,
-				{ authId: number; deptId: number }
+				{ authId: number; deptId: number; baseRequest: BaseRequest }
 		>({
 			query: (request) => {
 				return {
@@ -94,7 +103,7 @@ export const userApi = createApi({
 		}),
 
 		/**
-		 * Получение сотрудников всех подотделов
+		 * Получение сотрудников всех подотделов вместе с текущим [deptId]
 		 * [baseRequest]:
 		 *    Параметры пагинации [page], [pageSize] - обязательны!!!
 		 *    Параметр [filter] - фильтрация по Фамилии сотрудника
