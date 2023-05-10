@@ -201,6 +201,7 @@ export const awardApi = createApi({
 		 * отделы наград берутся из поддерева отделов авторизованного пользователя
 		 * Для наград типа AwardType.PERIOD - выводятся только попадающие в период номинации (state=NOMINEE)
 		 * [baseRequest]:
+		 *  filter - фильтрация по имени награды (необязателен)
 		 *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
 		 *  minDate <= award.startDate (отсутствует - без min ограничения)
 		 *  maxDate >= award.endDate (отсутствует - без max ограничения)
@@ -211,7 +212,6 @@ export const awardApi = createApi({
 		 *  			"endDate",
 		 *  			"dept.name",
 		 *  			"dept.classname",
-		 *
 		 */
 		getAvailableBySubDepts: build.query<BaseResponse<AwardDetails>, {
 			authId: number,
