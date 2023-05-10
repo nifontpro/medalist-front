@@ -5,7 +5,7 @@ import { ForwardedRef, forwardRef } from 'react';
 
 const ButtonEdit = forwardRef(
   (
-    { icon, className, children, ...props }: ButtonEditProps,
+    { icon, disable = false, className, children, ...props }: ButtonEditProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const IconComp = icons[icon];
@@ -14,7 +14,7 @@ const ButtonEdit = forwardRef(
       <div className={cn(styles.wrapper)} {...props} ref={ref}>
         {icon == 'edit' && (
           <button className={cn(styles.buttonEdit, className)}>
-            <IconComp/>
+            <IconComp />
           </button>
         )}{' '}
         {icon == 'remove' && (
@@ -24,6 +24,20 @@ const ButtonEdit = forwardRef(
         )}
         {icon == 'refresh' && (
           <button className={cn(styles.buttonRefresh, className)}>
+            <IconComp />
+          </button>
+        )}
+        {icon == 'next' && (
+          <button
+            className={cn(
+              styles.buttonNext,
+              {
+                [styles.disable]: disable,
+                [styles.buttonNextActive]: !disable,
+              },
+              className
+            )}
+          >
             <IconComp />
           </button>
         )}

@@ -69,7 +69,7 @@ const FilterEditPanel = forwardRef(
                 onClick={() =>
                   typeOfUser &&
                   typeOfUser.id &&
-                  deleteAsync(Number(id), typeOfUser.id)
+                  deleteAsync(Number(id))
                 }
                 className={styles.item}
               >
@@ -110,7 +110,7 @@ const FilterEditPanel = forwardRef(
                 onClick={() =>
                   typeOfUser &&
                   typeOfUser.id &&
-                  deleteAsync(Number(id), typeOfUser.id)
+                  deleteAsync(Number(id))
                 }
                 className={styles.item}
               >

@@ -177,37 +177,37 @@ const FilterAwards = ({
                   Сортировать
                 </P>
                 <ul className={styles.list}>
-                  <li className={styles.listItem} onClick={() => setState(1)}>
+                  <li className={styles.listItem} onClick={() => setState('ASC')}>
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: state == 1,
-                        [styles.hidden]: state == -1,
+                        [styles.visible]: state == 'ASC',
+                        [styles.hidden]: state == 'DESC',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: state == -1,
+                        [styles.disabled]: state == 'DESC',
                       })}
                     >
                       Cначала новые
                     </P>
                   </li>
-                  <li className={styles.listItem} onClick={() => setState(-1)}>
+                  <li className={styles.listItem} onClick={() => setState('DESC')}>
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: state == -1,
-                        [styles.hidden]: state == 1,
+                        [styles.visible]: state == 'DESC',
+                        [styles.hidden]: state == 'ASC',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: state == 1,
+                        [styles.disabled]: state == 'ASC',
                       })}
                     >
                       Cначала старые

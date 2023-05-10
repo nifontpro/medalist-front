@@ -25,21 +25,21 @@ export const useDepartmentAdmin = (id?: string) => {
   const [deleteDepartment] = deptApi.useDeleteMutation();
 
   return useMemo(() => {
-    const deleteDepartmentAsync = async (id: number, authId: number) => {
+    const deleteDepartmentAsync = async (id: number) => {
       let isError = false;
-
-      await deleteDepartment({ authId, deptId: id })
-        .unwrap()
-        .then((res) => { 
-          if (res.success == false) {
+      if (typeOfUser && typeOfUser.id)
+        await deleteDepartment({ authId: typeOfUser.id, deptId: id })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              isError = true;
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
             isError = true;
-            errorMessageParse(res.errors);
-          }
-        })
-        .catch((e) => {
-          isError = true;
-          toastError(e, 'Ошибка при удалении отдела');
-        });
+            toastError(e, 'Ошибка при удалении отдела');
+          });
       if (!isError) {
         toast.success('Отдел успешно удален');
       }
@@ -50,5 +50,5 @@ export const useDepartmentAdmin = (id?: string) => {
       singleDepartment,
       isLoadingByIdDept,
     };
-  }, [deleteDepartment, singleDepartment, isLoadingByIdDept]);
+  }, [deleteDepartment, singleDepartment, isLoadingByIdDept, typeOfUser]);
 };

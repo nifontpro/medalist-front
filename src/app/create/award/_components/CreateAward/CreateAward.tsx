@@ -20,6 +20,8 @@ import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
 import UsersPreviewCreateAward from './UsersPreviewCreateAward/UsersPreviewCreateAward';
+import { useFetchParams } from '@/hooks/useFetchParams';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const CreateAward = () => {
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
@@ -38,11 +40,27 @@ const CreateAward = () => {
       setValue,
       reset,
       // images,
-      // currentCompany?.id,
       arrChoiceUser
     );
 
-  const { usersOnDepartment: users } = useUserAdmin(deptId.toString());
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
+
+  const { usersOnSubDepartment: users } = useUserAdmin(deptId.toString(), {
+    page: page,
+    pageSize: 100,
+    filter: searchValue,
+    orders: [{ field: 'lastname', direction: state }],
+  });
+  const totalPage = users?.pageInfo?.totalPages;
 
   const onChangeStart = (value: string | null) => {
     dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')));
@@ -127,17 +145,32 @@ const CreateAward = () => {
 
           {users && users.data && (
             <UsersPreviewCreateAward
+              setSearchValue={setSearchValue}
               arrChoiceUser={arrChoiceUser}
-              users={users?.data}
+              users={users.data}
               setArrChoiceUser={setArrChoiceUser}
+              startPage={page}
+              endPage={totalPage}
+              handleNextClick={() => nextPage(users)}
+              handlePrevClick={prevPage}
             />
           )}
 
           {users && users.data && (
             <ChoiceUsers
+              setSearchValue={setSearchValue}
               users={users?.data}
               arrChoiceUser={arrChoiceUser}
               setArrChoiceUser={setArrChoiceUser}
+            />
+          )}
+          {totalPage && (
+            <PrevNextPages
+              startPage={page + 1}
+              endPage={totalPage}
+              handleNextClick={() => nextPage(users)}
+              handlePrevClick={prevPage}
+              className={styles.nextPrevPage}
             />
           )}
 

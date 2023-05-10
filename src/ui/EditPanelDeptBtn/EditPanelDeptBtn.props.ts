@@ -3,7 +3,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode, RefAttributes } from "rea
 
 export type EditPanelDeptBtnProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & MotionProps & RefAttributes<HTMLDivElement> & {
     children?: ReactNode;
-    handleRemove: (id: number, authId: number) => Promise<void>
+    handleRemove: (id: number) => Promise<void>
     id: string
     getUrlEdit: (string?: string) => string
     getUrlCreate: (string?: string) => string

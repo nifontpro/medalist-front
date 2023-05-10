@@ -1,55 +1,70 @@
+import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { Award } from '@/domain/model/award/Award';
 import { useMemo, useState } from 'react';
 
 export type SortAwardsType = '' | 'FUTURE' | 'NOMINEE' | 'FINISH' | 'ERROR';
 
-export const useAwards = (awards: Award[]) => {
-  const [state, setState] = useState<1 | -1>(-1);
-
-  let allAwards = awards.filter(
-    (award) => award.state == 'FINISH' || award.state == 'ERROR'
-  );
-  let allNominee = awards.filter(
-    (award) => award.state == 'NOMINEE' || award.state == 'FUTURE'
-  );
-
+export const useAwards = (id: string) => {
+  const [page, setPage] = useState<number>(0);
+  const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
   const [active, setActive] = useState<SortAwardsType>('');
 
-  // Сотртировка по startDate
-  const filteredValue = awards?.filter((item) => {
-    if (active == 'NOMINEE') {
-      return item.state?.includes('FUTURE') || item.state?.includes(active);
-    } else {
-      return item.state?.includes(active);
-    }
+  const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(id, {
+    page: page,
+    pageSize: 5,
+    // orders: [{ field: 'FUTURE', direction: state }],
   });
 
-  if (filteredValue) {
-    filteredValue.sort((prev, next): number => {
-      if (prev.startDate !== undefined && next.startDate !== undefined) {
-        if (prev?.startDate > next?.startDate) return state; //(-1)
-      }
-      return state;
-    });
-  }
+  console.log(awardsOnDepartment)
+
+  // let allAwards = awards?.filter(
+  //   (award) => award.state == 'FINISH' || award.state == 'ERROR'
+  // );
+  // let allNominee = awards?.filter(
+  //   (award) => award.state == 'NOMINEE' || award.state == 'FUTURE'
+  // );
+
+
+
+  // // Сотртировка по startDate
+  // const filteredValue = awards?.filter((item) => {
+  //   if (active == 'NOMINEE') {
+  //     return item.state?.includes('FUTURE') || item.state?.includes(active);
+  //   } else {
+  //     return item.state?.includes(active);
+  //   }
+  // });
+
+  // if (filteredValue) {
+  //   filteredValue.sort((prev, next): number => {
+  //     if (prev.startDate !== undefined && next.startDate !== undefined) {
+  //       if (prev?.startDate > next?.startDate) return state; //(-1)
+  //     }
+  //     return state;
+  //   });
+  // }
 
   return useMemo(() => {
     return {
-      allAwards,
-      allNominee,
+      // allAwards,
+      // allNominee,
       active,
       setActive,
       state,
       setState,
-      filteredValue,
+      // filteredValue,
+      awardsOnDepartment,
+      isLoadingAwardsOnDept,
     };
   }, [
-    allAwards,
-    allNominee,
+    // allAwards,
+    // allNominee,
     active,
     setActive,
     state,
     setState,
-    filteredValue,
+    // filteredValue,
+    awardsOnDepartment,
+    isLoadingAwardsOnDept,
   ]);
 };

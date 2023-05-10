@@ -34,7 +34,7 @@ const UserPreview = ({
       </div>
       {forWhat == 'user' && (
         <P size='xs' fontstyle='thin' className={styles.departName}>
-          {user.dept.name}
+          {user.dept?.name}
         </P>
       )}
     </div>

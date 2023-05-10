@@ -13,7 +13,7 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<
   MotionProps &
   RefAttributes<HTMLDivElement> & {
     children?: ReactNode;
-    handleRemove: (id: number, authId: number) => Promise<void>;
+    handleRemove: (id: number) => Promise<void>;
     id: string;
     getUrlEdit: (string?: string) => string;
     onlyRemove: boolean;

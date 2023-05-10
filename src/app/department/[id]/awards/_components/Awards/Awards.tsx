@@ -15,123 +15,132 @@ import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Award from './Award/Award';
 import FilterAwards from './FilterAwards/FilterAwards';
+import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 
-const Awards = ({ awards, id, className, ...props }: AwardsProps) => {
+const Awards = ({ id, className, ...props }: AwardsProps) => {
+
+
   const { push } = useRouter();
   const {
-    allAwards,
-    allNominee,
+    // allAwards,
+    // allNominee,
     active,
     setActive,
     state,
     setState,
-    filteredValue,
-  } = useAwards(awards);
+    // filteredValue,
+    isLoadingAwardsOnDept,
+    awardsOnDepartment
+  } = useAwards(id);
 
-  return (
-    <div {...props} className={styles.wrapper}>
-      <div className={styles.headerTitle}>
-        <Htag tag='h2' className={styles.headTitle}>{`Награды`}</Htag>
-        <AuthComponent minRole={'ADMIN'}>
-          <div className={styles.createAwardAdaptive}>
-            <ButtonCircleIcon
-              onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
-              classNameForIcon='@apply w-[12px] h-[12px]'
-              appearance='black'
-              icon='plus'
-            >
-              Создать
-            </ButtonCircleIcon>
-          </div>
-        </AuthComponent>
-      </div>
+  console.log(awardsOnDepartment)
 
-      {awards && allAwards && allNominee && (
-        <div className={styles.header}>
-          <TabTitle
-            active={active}
-            setActive={setActive}
-            count={awards.length}
-            onClickActive={''}
-            className={styles.all}
-          >
-            Все
-          </TabTitle>
-          <TabTitle
-            active={active}
-            setActive={setActive}
-            count={allAwards.length}
-            onClickActive={'FINISH'}
-            className={styles.award}
-          >
-            Завершенные
-          </TabTitle>
-          <TabTitle
-            active={active}
-            setActive={setActive}
-            count={allNominee.length}
-            onClickActive={'NOMINEE'}
-            className={styles.nominee}
-          >
-            Номинации
-          </TabTitle>
-          <SortButton
-            state={state}
-            onClick={() => (state == 1 ? setState(-1) : setState(1))}
-            className={styles.sort}
-          >
-            Сначала новые
-          </SortButton>
+  if (isLoadingAwardsOnDept) return <Spinner />;
+  if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 
+  if (awardsOnDepartment && awardsOnDepartment.data) {
+    return (
+      <div {...props} className={styles.wrapper}>
+        <div className={styles.headerTitle}>
+          <Htag tag='h2' className={styles.headTitle}>{`Награды`}</Htag>
           <AuthComponent minRole={'ADMIN'}>
-            <div className={styles.createAward}>
+            <div className={styles.createAwardAdaptive}>
               <ButtonCircleIcon
                 onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
                 classNameForIcon='@apply w-[12px] h-[12px]'
                 appearance='black'
                 icon='plus'
               >
-                Создать награду
+                Создать
               </ButtonCircleIcon>
             </div>
           </AuthComponent>
         </div>
-      )}
 
-      <FilterAwards
-        state={state}
-        setState={setState}
-        active={active}
-        setActive={setActive}
-        allNominee={allNominee}
-        allAwards={allAwards}
-        awardsFull={awards}
-      />
+        {awardsOnDepartment.data && (
+          <div className={styles.header}>
+            <TabTitle
+              active={active}
+              setActive={setActive}
+              count={awardsOnDepartment.data.length}
+              onClickActive={''}
+              className={styles.all}
+            >
+              Все
+            </TabTitle>
+            <TabTitle
+              active={active}
+              setActive={setActive}
+              count={awardsOnDepartment.data.length}
+              // count={allAwards.length}
+              onClickActive={'FINISH'}
+              className={styles.award}
+            >
+              Завершенные
+            </TabTitle>
+            <TabTitle
+              active={active}
+              setActive={setActive}
+              // count={allNominee.length}
+              count={awardsOnDepartment.data.length}
+              onClickActive={'NOMINEE'}
+              className={styles.nominee}
+            >
+              Номинации
+            </TabTitle>
+            <SortButton
+              state={state}
+              onClick={() =>
+                state == 'ASC' ? setState('DESC') : setState('ASC')
+              }
+              className={styles.sort}
+            >
+              Сначала новые
+            </SortButton>
 
-      <div className={styles.cards}>
-        {filteredValue?.map((item) => {
-          return (
-            <Link key={uniqid()} href={'/award/' + item.id}>
-              <Award layout award={item} />
-            </Link>
-          );
-        })}
+            <AuthComponent minRole={'ADMIN'}>
+              <div className={styles.createAward}>
+                <ButtonCircleIcon
+                  onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
+                  classNameForIcon='@apply w-[12px] h-[12px]'
+                  appearance='black'
+                  icon='plus'
+                >
+                  Создать награду
+                </ButtonCircleIcon>
+              </div>
+            </AuthComponent>
+          </div>
+        )}
+
+        {/* <FilterAwards
+          state={state}
+          setState={setState}
+          active={active}
+          setActive={setActive}
+          allNominee={allNominee}
+          allAwards={allAwards}
+          awardsFull={awardsOnDepartment.data}
+        /> */}
+
+        <div className={styles.cards}>
+          {awardsOnDepartment.data?.map((item) => {
+            return (
+              <Link key={uniqid()} href={'/award/' + item.id}>
+                <Award layout award={item} />
+              </Link>
+            );
+          })}
+        </div>
+
+        <ButtonScrollUp />
       </div>
-      {/* <SpinnerSmallBtnPagination
-        isFetching={isFetching}
-        handleNextPage={handleNextPage}
-        content={awardsFull}
-        startDate={10000000}
-        endDate={16732673054000}
-        searchValue={''}
-        btnSubmitTitle={'Показать еще'}
-        btnEndTitle={'Показаны все награды'}
-        className={styles.spinnerSmallBtnPagination}
-      /> */}
-
-      <ButtonScrollUp />
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Awards;

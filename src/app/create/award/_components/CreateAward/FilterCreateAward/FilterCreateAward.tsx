@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styles from './FilterCreateAward.module.scss';
 import cn from 'classnames';
@@ -9,11 +9,17 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '@/ui/Button/Button';
 import Htag from '@/ui/Htag/Htag';
 import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const FilterCreateAward = ({
   users,
   arrChoiceUser,
   setArrChoiceUser,
+  setSearchValue,
+  startPage,
+  endPage,
+  handleNextClick,
+  handlePrevClick,
   className,
   ...props
 }: FilterCreateAwardProps): JSX.Element => {
@@ -48,6 +54,7 @@ const FilterCreateAward = ({
   ) => {
     e.preventDefault();
     setVisibleFilter(!visibleFilter);
+    setSearchValue('');
   };
 
   //Закрытие модального окна уведомлений нажатием вне
@@ -98,11 +105,21 @@ const FilterCreateAward = ({
                 Сотрудники <span>{arrChoiceUser.length}</span>
               </Htag>
               <ChoiceUsers
+                setSearchValue={setSearchValue}
                 className={styles.mediaVisible}
                 users={users}
                 arrChoiceUser={arrChoiceUser}
                 setArrChoiceUser={setArrChoiceUser}
               />
+              {endPage && (
+                <PrevNextPages
+                  startPage={startPage + 1}
+                  endPage={endPage}
+                  handleNextClick={handleNextClick}
+                  handlePrevClick={handlePrevClick}
+                  className={styles.nextPrevPage}
+                />
+              )}
               <Button
                 size='m'
                 appearance='blackWhite'

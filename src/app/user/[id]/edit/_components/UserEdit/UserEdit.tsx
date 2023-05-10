@@ -49,7 +49,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
   if (!singleUser?.success) return <NoAccess />;
 
   return (
-    <>
+    <main>
       <ButtonCircleIcon
         onClick={back}
         classNameForIcon=''
@@ -171,7 +171,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 size='l'
                 className={styles.cancel}
               >
-                Отменить
+                Назад
               </Button>
               <Button
                 onClick={handleSubmit(onSubmit)}
@@ -186,7 +186,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
           </div>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

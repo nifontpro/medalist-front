@@ -42,6 +42,8 @@ export const useCreateUser = (
   const onSubmit: SubmitHandler<CreateUserRequest> = async (data) => {
     let isError = false;
 
+    console.log(data);
+
     if (active != undefined) {
       data.gender = active;
     }

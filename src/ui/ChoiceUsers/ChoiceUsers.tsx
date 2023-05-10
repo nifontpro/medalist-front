@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styles from './ChoiceUsers.module.scss';
 import { ChoiceUsersProps } from './ChoiceUsers.props';
@@ -14,17 +14,12 @@ const ChoiceUsers = ({
   users,
   arrChoiceUser,
   setArrChoiceUser,
+  setSearchValue,
   className,
   ...props
 }: ChoiceUsersProps): JSX.Element => {
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [visibleCheckbox, setVisibleCheckbox] = useState<boolean>(false);
-
-  const [searchValue, setSearchValue] = useState<string>('');
-
-  const filteredValue = users.filter((item) =>
-    item.lastname?.toLowerCase().includes(searchValue)
-  );
 
   const handleChoiceAllUsers = () => {
     setAllChecked(!allChecked);
@@ -42,7 +37,11 @@ const ChoiceUsers = ({
   };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setSearchValue(event.currentTarget.value);
+    if (event.currentTarget.value.length == 0) {
+      setSearchValue('');
+    } else {
+      setSearchValue(event.currentTarget.value);
+    }
   };
 
   return (
@@ -76,7 +75,7 @@ const ChoiceUsers = ({
         </Checkbox>
       </div>
       <div className={styles.searchUsers}>
-        {filteredValue?.map((user) => {
+        {users?.map((user) => {
           return (
             <UserList
               arrChoiceUser={arrChoiceUser}

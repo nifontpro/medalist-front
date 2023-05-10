@@ -11,6 +11,11 @@ const UsersPreviewCreateAward = ({
   users,
   arrChoiceUser,
   setArrChoiceUser,
+  setSearchValue,
+  startPage,
+  endPage,
+  handleNextClick,
+  handlePrevClick,
   className,
   ...props
 }: UsersPreviewCreateAwardProps): JSX.Element => {
@@ -46,9 +51,14 @@ const UsersPreviewCreateAward = ({
       })}
 
       <FilterCreateAward
+        setSearchValue={setSearchValue}
         users={users}
         arrChoiceUser={arrChoiceUser}
         setArrChoiceUser={setArrChoiceUser}
+        startPage={startPage}
+        endPage={endPage}
+        handleNextClick={handleNextClick}
+        handlePrevClick={handlePrevClick}
       />
     </div>
   );

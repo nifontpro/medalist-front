@@ -27,7 +27,6 @@ const UserPanelModalWindow = forwardRef(
     const {
       handleClickProfile,
       handleClickEditProfile,
-      handleClickEditPassword,
       handleLogoutClick,
     } = useUserPanelModalWindow(setVisibleModal, user);
 
@@ -94,12 +93,6 @@ const UserPanelModalWindow = forwardRef(
                 <EditIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>
                   Редактировать
-                </P>
-              </li>
-              <li className={styles.item} onClick={handleClickEditPassword}>
-                <ChangePasswordIcon />
-                <P size='xs' fontstyle='thin' className={styles.link}>
-                  Сменить пароль
                 </P>
               </li>
               <li className={styles.item} onClick={handleLogoutClick}>

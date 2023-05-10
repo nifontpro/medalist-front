@@ -30,7 +30,7 @@ const UserList = motion(
           <UserPreview
             user={user}
             className={styles.user}
-            forWhat='user'
+            forWhat='dept'
             onClick={() => push(getUserUrl(`/${user.id}`))}
           />
           <AuthComponent minRole={'ADMIN'}>
@@ -46,7 +46,7 @@ const UserList = motion(
                 onClick={() =>
                   user?.id &&
                   typeOfUser?.id &&
-                  deleteUserAsync(user.id, typeOfUser.id)
+                  deleteUserAsync(user.id)
                 }
               >
                 <ButtonEdit icon='remove' className={styles.remove} />

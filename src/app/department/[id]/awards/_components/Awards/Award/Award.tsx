@@ -6,10 +6,11 @@ import styles from './Award.module.scss';
 import { AwardProps } from './Award.props';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
-import { ForwardedRef, forwardRef } from 'react';
+import React, { ForwardedRef, forwardRef, memo } from 'react';
 import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
+import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
 
 const Award = motion(
   forwardRef(
@@ -18,8 +19,6 @@ const Award = motion(
       ref: ForwardedRef<HTMLDivElement>
     ): JSX.Element => {
       let currentDate = +new Date();
-
-      console.log(award)
 
       if (award.state == 'FINISH' || award.state == 'ERROR') {
         return (
@@ -45,11 +44,11 @@ const Award = motion(
               <P size='m' color='white' className={styles.name}>
                 {award.name}
               </P>
-              {/* <CountUsersPreview
+              <CountUsersPreview
                 appearanceBtn='black'
-                usersAwards={award.relateUsers}
+                usersAwards={undefined}
                 className={styles.default}
-              /> */}
+              />
             </div>
           </div>
         );

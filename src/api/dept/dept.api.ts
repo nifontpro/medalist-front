@@ -3,10 +3,11 @@ import { baseQueryWithReauth } from '../base/base.api';
 import { Dept } from '@/domain/model/dept/dept';
 import { DeptDetails } from '@/domain/model/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
-import { BaseResponse } from '@/domain/model/base/baseResponse';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
 import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
+import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -15,12 +16,13 @@ export const deptApi = createApi({
   endpoints: (build) => ({
     /**
      * Получение поддерева отделов текущего пользователя
-     * orders: массив полей для сортировки в заданном направлении, например
-     * Java: [BaseOrder(field = "parentId"), BaseOrder(field = "name", direction = "DESC"] - переведи в js
+     * [baseRequest]:
+     * orders: массив полей для сортировки в заданном направлении
+     * допустимые поля для сортировки: "parentId", "name", "classname"
      */
     getAuthSubtree: build.query<
       BaseResponse<Dept[]>,
-      { authId: number | undefined; orders: BaseOrder[] | undefined }
+      { authId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (authId) => {
         return {

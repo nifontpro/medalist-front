@@ -13,7 +13,8 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import CardUserAwarded from './CardUserAwarded/CardUserAwarded';
 import { User } from '@/domain/model/user/user';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
-import ModalWindowWithAddUsers from '@/ui/ModalWindowWithAddUsers/ModalWindowWithAddUsers';
+import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';
+import { useFetchParams } from '@/hooks/useFetchParams';
 
 const AwardWasAwarded = ({
   award,
@@ -21,7 +22,44 @@ const AwardWasAwarded = ({
   className,
   ...props
 }: AwardWasAwardedProps): JSX.Element => {
-  const { usersOnDepartment } = useUserAdmin(award?.award.dept.id?.toString());
+  // const [page, setPage] = useState<number>(0);
+  // const [searchValue, setSearchValue] = useState<string>('');
+  // const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
+  // const nextPage = () => {
+  //   if (
+  //     usersOnSubDepartment?.pageInfo?.totalPages &&
+  //     usersOnSubDepartment?.pageInfo?.totalPages > page + 1
+  //   ) {
+  //     setPage((prev) => prev + 1);
+  //   }
+  // };
+  // const prevPage = () => {
+  //   if (page > 0) {
+  //     setPage((prev) => prev - 1);
+  //   }
+  // };
+
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
+
+  const { usersOnSubDepartment } = useUserAdmin(
+    award?.award.dept.id?.toString(),
+    {
+      page: page,
+      pageSize: 100,
+      filter: searchValue,
+      orders: [{ field: 'lastname', direction: state }],
+    }
+  );
+  const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
 
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   //Закрытие модального окна нажатием вне его
@@ -39,8 +77,8 @@ const AwardWasAwarded = ({
       arrIdUserRewarded.push(user.user.id.toString());
   });
   let arrUserNotAwarded: User[] = [];
-  usersOnDepartment &&
-    usersOnDepartment.data!.forEach((user) => {
+  usersOnSubDepartment &&
+    usersOnSubDepartment.data?.forEach((user) => {
       if (
         arrIdUserRewarded.find((item) => item == user.id?.toString()) ==
         undefined
@@ -91,6 +129,14 @@ const AwardWasAwarded = ({
       </div>
       {award?.award.id && (
         <ModalWindowWithAddUsers
+          totalPage={totalPage}
+          nextPage={() =>
+            usersOnSubDepartment && nextPage(usersOnSubDepartment)
+          }
+          prevPage={prevPage}
+          page={page}
+          setPage={setPage}
+          setSearchValue={setSearchValue}
           awardState='AWARD'
           awardId={award.award.id.toString()}
           users={arrUserNotAwarded}

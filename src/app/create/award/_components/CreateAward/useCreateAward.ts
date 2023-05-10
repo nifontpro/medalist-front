@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 import { awardApi } from '@/api/award/award.api';
 import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
+import { RootState } from '@/store/storage/store';
 
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,
@@ -25,12 +26,12 @@ export const useCreateAward = (
   const [createAward] = awardApi.useCreateMutation();
   const [rewardUser] = awardApi.useSendActionMutation();
 
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
+  const { typeOfUser } = useAppSelector((state: RootState) => state.userSelection);
   const startDateSelect = useAppSelector(
-    (state) => state.dataCreateAward.startDate
+    (state: RootState) => state.dataCreateAward.startDate
   );
   const endDateSelect = useAppSelector(
-    (state) => state.dataCreateAward.endDate
+    (state: RootState) => state.dataCreateAward.endDate
   );
 
   useEffect(() => {

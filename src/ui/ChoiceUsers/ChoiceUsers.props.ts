@@ -12,5 +12,6 @@ export type ChoiceUsersProps = DetailedHTMLProps<
 > & {
   arrChoiceUser: string[];
   setArrChoiceUser: Dispatch<SetStateAction<string[]>>;
+  setSearchValue: Dispatch<SetStateAction<string>>;
   users: User[];
 };

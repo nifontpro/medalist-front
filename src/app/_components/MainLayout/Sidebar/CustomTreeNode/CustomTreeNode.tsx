@@ -16,12 +16,15 @@ import { useAppDispatch } from '@/store/hooks/hooks';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
+import { useHeader } from '../../Header/useHeader';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
   ref
 ) {
   const { deleteDepartmentAsync } = useDepartmentAdmin();
+
+  const { close } = useHeader()
 
   const dispatch = useAppDispatch();
 
@@ -59,6 +62,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
     handleSelection(event);
     dispatch(setSelectedTreeId(nodeId));
     push(getDepartmentUrl(`${nodeId}`));
+    close()
   };
 
   return (

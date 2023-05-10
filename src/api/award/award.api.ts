@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/baseResponse';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { CreateAwardRequest } from './request/CreateAwardRequest';
 import { UpdateAwardRequest } from './request/UpdateAwardRequest';
@@ -9,6 +9,7 @@ import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
 import { Activity } from '@/domain/model/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
 import { Award } from '@/domain/model/award/Award';
+import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export const awardApi = createApi({
   reducerPath: 'AwardApi',
@@ -86,7 +87,7 @@ export const awardApi = createApi({
       {
         authId: number;
         deptId: number;
-        orders: BaseOrder[] | undefined;
+        baseRequest: BaseRequest | undefined;
       }
     >({
       query: (request) => {
@@ -143,6 +144,7 @@ export const awardApi = createApi({
 
     /**
      * Получить активные награждения сотрудника [userId]
+     * [baseRequest]:
      * Допустимые поля для сортировки:
      *      "date",
      * 			"actionType",
@@ -154,7 +156,7 @@ export const awardApi = createApi({
       {
         authId: number;
         userId: number;
-        orders: BaseOrder[] | undefined;
+        baseRequest: BaseRequest | undefined;
       }
     >({
       query: (body) => ({
@@ -167,6 +169,7 @@ export const awardApi = createApi({
 
     /**
      * Получить активные награждения в отделе [deptId]
+     * [baseRequest]:
      * Допустимые поля для сортировки:
      *      "date",
      * 			"actionType",
@@ -176,13 +179,14 @@ export const awardApi = createApi({
      * 			"user.post",
      * 			"award.name",
      * 			"award.type"
+     * minDate, maxDate - ограничения по дате событий, необязательны
      */
     getActivAwardByDept: build.query<
       BaseResponse<Activity[]>,
       {
         authId: number;
         deptId: number;
-        orders: BaseOrder[] | undefined;
+        baseRequest: BaseRequest | undefined;
       }
     >({
       query: (body) => ({
@@ -195,6 +199,7 @@ export const awardApi = createApi({
 
     /**
      * Получить сотрудников, награжденных наградой [awardId]
+     * [baseRequest]:
      * Допустимые поля для сортировки:
      *      "date",
      * 			"actionType",
@@ -208,7 +213,7 @@ export const awardApi = createApi({
       {
         authId: number;
         awardId: number;
-        orders: BaseOrder[] | undefined;
+        baseRequest: BaseRequest | undefined;
       }
     >({
       query: (body) => ({

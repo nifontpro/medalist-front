@@ -13,7 +13,7 @@ const SortButton = ({
     <div className={cn(className, styles.container)} {...props}>
       <SortIcon
         className={cn({
-          [styles.rotate]: state == -1,
+          [styles.rotate]: state == 'DESC',
         })}
       />
       <span className={styles.title}>{children}</span>

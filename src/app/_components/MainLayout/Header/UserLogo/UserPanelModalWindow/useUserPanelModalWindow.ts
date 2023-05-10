@@ -46,12 +46,6 @@ export const useUserPanelModalWindow = (
       setVisibleModal(false);
     };
 
-    const handleClickEditPassword = () => {
-      console.log('Edit password');
-      // push(getUserEditPasswordUrl(`/${user?.id}`));
-      // setVisibleModal(false);
-    };
-
     const handleLogoutClick = async () => {
       const it = localStorage.getItem('it');
       if (it != undefined && !isExpired) {
@@ -72,7 +66,6 @@ export const useUserPanelModalWindow = (
     return {
       handleClickProfile,
       handleClickEditProfile,
-      handleClickEditPassword,
       handleLogoutClick,
     };
   }, [dispatch, isExpired, push, setVisibleModal, user]);

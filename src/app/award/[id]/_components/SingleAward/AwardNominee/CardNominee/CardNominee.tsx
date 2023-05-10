@@ -19,9 +19,8 @@ const CardNominee = ({
   ...props
 }: CardNomineeProps): JSX.Element => {
   let userId = user.user?.id;
-  console.log(user)
 
-  const { handleReward, handleRemove, typeOfUser } = useCardNominee(
+  const { userRewardAsync, handleRemove, typeOfUser } = useCardNominee(
     userId,
     awardId
   );
@@ -60,7 +59,7 @@ const CardNominee = ({
       {checkRole(typeOfUser, 'ADMIN') ? (
         <div className={styles.buttons}>
           {user.actionType === 'NOMINEE' && (
-            <Button onClick={handleReward} size='m' appearance='blackWhite'>
+            <Button onClick={() => userId && userRewardAsync(awardId, 'AWARD', userId)} size='m' appearance='blackWhite'>
               Наградить
             </Button>
           )}

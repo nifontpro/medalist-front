@@ -4,11 +4,11 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, SetStateAction } fro
 import { SortAwardsType } from '../useAwards'
 
 export type FilterAwardsProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
-    state: 1 | -1
-    setState: Dispatch<SetStateAction<1 | -1>>
+    state: "ASC" | "DESC"
+    setState: Dispatch<SetStateAction<"ASC" | "DESC">>
     active: SortAwardsType
     setActive: Dispatch<SetStateAction<SortAwardsType>>
-    allNominee: Award[]
-    allAwards: Award[]
+    allNominee: Award[] | undefined
+    allAwards: Award[] | undefined
     awardsFull: Award[]
 }

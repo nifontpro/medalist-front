@@ -46,7 +46,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   if (!singleDepartment?.success) return <NoAccess />;
 
   return (
-    <div className={styles.wrapper}>
+    <main className={styles.wrapper}>
       <EditImagesComponent
         imageNum={imageNum}
         setImageNum={setImageNum}
@@ -56,7 +56,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
         className={styles.desktop}
       />
       <form className={styles.form}>
-        <Htag tag='h2' className={styles.title}> 
+        <Htag tag='h2' className={styles.title}>
           Редактирование отдела
         </Htag>
 
@@ -150,7 +150,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
             size='l'
             className={styles.cancel}
           >
-            Отменить
+            Назад
           </Button>
           <Button
             onClick={handleSubmit(onSubmit)}
@@ -163,7 +163,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           </Button>
         </div>
       </form>
-    </div>
+    </main>
   );
 };
 

@@ -7,6 +7,7 @@ import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
 
 const FilterEditPanel = forwardRef(
   (
@@ -24,6 +25,7 @@ const FilterEditPanel = forwardRef(
     }: FilterEditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const { close } = useHeader();
     const { push } = useRouter();
 
     const { typeOfUser } = useAppSelector(
@@ -70,7 +72,7 @@ const FilterEditPanel = forwardRef(
                 onClick={() =>
                   typeOfUser &&
                   typeOfUser.id &&
-                  deleteAsync(Number(id), typeOfUser.id)
+                  deleteAsync(Number(id))
                 }
                 className={styles.item}
               >
@@ -98,7 +100,10 @@ const FilterEditPanel = forwardRef(
               <P
                 size='xs'
                 fontstyle='thin'
-                onClick={() => push(getUrlEdit(`${id}`))}
+                onClick={() => {
+                  push(getUrlEdit(`${id}`));
+                  close();
+                }}
                 className={styles.item}
               >
                 Редактировать
@@ -111,7 +116,7 @@ const FilterEditPanel = forwardRef(
                 onClick={() =>
                   typeOfUser &&
                   typeOfUser.id &&
-                  deleteAsync(Number(id), typeOfUser.id)
+                  deleteAsync(Number(id))
                 }
                 className={styles.item}
               >
@@ -121,7 +126,10 @@ const FilterEditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => push(getUrlCreate(`?id=${id}`))}
+              onClick={() => {
+                push(getUrlCreate(`?id=${id}`));
+                close();
+              }}
               className={styles.item}
             >
               Создать отдел

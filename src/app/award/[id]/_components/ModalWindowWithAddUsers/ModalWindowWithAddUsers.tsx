@@ -1,14 +1,15 @@
 import styles from './ModalWindowWithAddUsers.module.scss';
 import { ModalWindowWithAddUsersProps } from './ModalWindowWithAddUsers.props';
 import cn from 'classnames';
-import Htag from '../Htag/Htag';
 import ExitIcon from '@/icons/close.svg';
 import { ForwardedRef, forwardRef } from 'react';
-import Button from '../Button/Button';
 import { useModalWindowWithAddUsers } from './useModalWindowWithAddUsers';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
-import ChoiceUsers from '../ChoiceUsers/ChoiceUsers';
+import Htag from '@/ui/Htag/Htag';
+import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
+import Button from '@/ui/Button/Button';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const ModalWindowWithAddUsers = forwardRef(
   (
@@ -19,6 +20,12 @@ const ModalWindowWithAddUsers = forwardRef(
       users,
       visibleModal,
       setVisibleModal,
+      setSearchValue,
+      page,
+      setPage,
+      prevPage,
+      nextPage,
+      totalPage,
       className,
       ...props
     }: ModalWindowWithAddUsersProps,
@@ -91,11 +98,20 @@ const ModalWindowWithAddUsers = forwardRef(
                 <span className={styles.count}>{arrChoiceUser.length}</span>
               </Htag>
               <ChoiceUsers
+                setSearchValue={setSearchValue}
                 users={users}
                 arrChoiceUser={arrChoiceUser}
                 setArrChoiceUser={setArrChoiceUser}
                 className={styles.mediaVisible}
               />
+              {totalPage && (
+                <PrevNextPages
+                  startPage={page + 1}
+                  endPage={totalPage}
+                  handleNextClick={nextPage}
+                  handlePrevClick={prevPage}
+                />
+              )}
               <div className={styles.buttons}>
                 <Button
                   onClick={handleCancel}

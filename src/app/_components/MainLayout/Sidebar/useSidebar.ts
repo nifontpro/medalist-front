@@ -14,15 +14,20 @@ import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 
 export const useSidebar = () => {
   const pathName = usePathname();
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
   const { expandedIds, selectedIds } = useAppSelector(
     (state: RootState) => state.sidebarTree
   );
 
   const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
-    { authId: typeOfUser?.id, orders: undefined},
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser?.id : 0,
+      baseRequest: undefined,
+    },
     {
       skip: !typeOfUser,
     }

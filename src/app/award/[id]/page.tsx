@@ -10,17 +10,30 @@ export default function SingleAwardPage({
 }: {
   params: { id: string };
 }) {
-  const { singleActivAward, singleAward, isLoadingSingleActivAward, isLoadingSingleAward } =
-    useAwardAdmin(params.id);
+  const {
+    singleActivAward,
+    singleAward,
+    isLoadingSingleActivAward,
+    isLoadingSingleAward,
+  } = useAwardAdmin(params.id);
   if (isLoadingSingleActivAward || isLoadingSingleAward) return <Spinner />;
   if (!singleActivAward?.success || !singleAward?.success) return <NoAccess />;
 
-  console.log(singleAward)
-  console.log(singleActivAward)
-
-  return (
-    <>
-      <SingleAward awardActiv={singleActivAward.data} award={singleAward.data}/>
-    </>
-  );
+  if (
+    singleActivAward &&
+    singleAward &&
+    singleActivAward.data &&
+    singleAward.data
+  ) {
+    return (
+      <main>
+        <SingleAward
+          awardActiv={singleActivAward.data}
+          award={singleAward.data}
+        />
+      </main>
+    );
+  } else {
+    return null;
+  }
 }

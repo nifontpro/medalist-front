@@ -1,7 +1,6 @@
 import styles from './CardUserAwarded.module.scss';
 import { CardUserAwardedProps } from './CardUserAwarded.props';
 import cn from 'classnames';
-import { toast } from 'react-toastify';
 import { useRef, useState } from 'react';
 import { timeConverterUser } from '@/utils/timeConverterUser';
 import useOutsideClick from '@/hooks/useOutsideClick';
@@ -10,9 +9,7 @@ import P from '@/ui/P/P';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import AwardIcon from '@/icons/union.svg';
-import { awardApi } from '@/api/award/award.api';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
+import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 
 const CardUserAwarded = ({
   award,
@@ -22,9 +19,7 @@ const CardUserAwarded = ({
 }: CardUserAwardedProps): JSX.Element => {
   let convertDate = timeConverterUser(user.date);
 
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
+  const userId = user.user?.id;
 
   const [visible, setVisible] = useState<boolean>(false);
   //Закрытие модального окна нажатием вне его
@@ -35,29 +30,7 @@ const CardUserAwarded = ({
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
-  const [deleteUserReward] = awardApi.useSendActionMutation();
-
-  const handleRemove = async () => {
-    let isError = false;
-
-    if (award && user.user && user.user.id && typeOfUser && typeOfUser.id) {
-      await deleteUserReward({
-        authId: typeOfUser.id,
-        awardId: award.award.id,
-        userId: user.user.id,
-        actionType: 'DELETE',
-      })
-        .unwrap()
-        .catch(() => {
-          isError = true;
-          toast.error('Ошибка удаления');
-        });
-
-      if (!isError) {
-        toast.success('Удаление успешно');
-      }
-    }
-  };
+  const { userRewardAsync } = useAwardAdmin();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -93,10 +66,10 @@ const CardUserAwarded = ({
         </P>
       </div>
 
-      {award && (
+      {award && userId && (
         <EditPanelAuthBtn
           onlyRemove={true}
-          handleRemove={handleRemove}
+          handleRemove={() => userRewardAsync(award.award.id, 'DELETE', userId)}
           id={award.award.id.toString()}
           getUrlEdit={getUserEditUrl}
           className={styles.dots}

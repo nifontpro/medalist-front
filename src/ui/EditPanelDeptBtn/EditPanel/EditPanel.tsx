@@ -7,6 +7,7 @@ import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
 
 const EditPanel = forwardRef(
   (
@@ -23,6 +24,7 @@ const EditPanel = forwardRef(
     }: EditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const { close } = useHeader();
     const { typeOfUser } = useAppSelector(
       (state: RootState) => state.userSelection
     );
@@ -65,7 +67,7 @@ const EditPanel = forwardRef(
               onClick={() =>
                 typeOfUser &&
                 typeOfUser.id &&
-                deleteAsync(Number(id), typeOfUser.id)
+                deleteAsync(Number(id))
               }
               className={styles.item}
             >
@@ -89,7 +91,10 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => push(getUrlEdit(`${id}`))}
+              onClick={() => {
+                push(getUrlEdit(`${id}`));
+                close();
+              }}
               className={styles.item}
             >
               Редактировать
@@ -102,7 +107,7 @@ const EditPanel = forwardRef(
               onClick={() =>
                 typeOfUser &&
                 typeOfUser.id &&
-                deleteAsync(Number(id), typeOfUser.id)
+                deleteAsync(Number(id))
               }
               className={styles.item}
             >
@@ -112,19 +117,14 @@ const EditPanel = forwardRef(
           <P
             size='xs'
             fontstyle='thin'
-            onClick={() => push(getUrlCreate(`?id=${id}`))}
+            onClick={() => {
+              push(getUrlCreate(`?id=${id}`));
+              close();
+            }}
             className={styles.item}
           >
             Создать отдел
           </P>
-          {/* <P
-            size='xs'
-            fontstyle='thin'
-            // onClick={() => deleteAsync(id)}
-            className={styles.item}
-          >
-            Добавть сотрудника
-          </P> */}
         </motion.div>
       );
     }

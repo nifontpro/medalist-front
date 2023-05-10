@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styles from './AwardNominee.module.scss';
 import { AwardNomineeProps } from './AwardNominee.props';
@@ -12,8 +12,9 @@ import P from '@/ui/P/P';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import { User } from '@/domain/model/user/user';
 import AuthComponent from '@/store/providers/AuthComponent';
-import ModalWindowWithAddUsers from '@/ui/ModalWindowWithAddUsers/ModalWindowWithAddUsers';
 import CardNominee from './CardNominee/CardNominee';
+import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';
+import { useFetchParams } from '@/hooks/useFetchParams';
 
 const AwardNominee = ({
   award,
@@ -21,7 +22,27 @@ const AwardNominee = ({
   className,
   ...props
 }: AwardNomineeProps): JSX.Element => {
-  const { usersOnDepartment } = useUserAdmin(award?.award.dept.id?.toString());
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
+
+  const { usersOnSubDepartment } = useUserAdmin(
+    award?.award.dept.id?.toString(),
+    {
+      page: page,
+      pageSize: 100,
+      filter: searchValue,
+      orders: [{ field: 'lastname', direction: state }],
+    }
+  );
+  const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -40,8 +61,8 @@ const AwardNominee = ({
   });
 
   let arrUserNotNominee: User[] = []; // Те кто не наминирован
-  usersOnDepartment &&
-    usersOnDepartment.data!.forEach((user) => {
+  usersOnSubDepartment &&
+    usersOnSubDepartment.data?.forEach((user) => {
       if (
         arrIdUserNominee.find((item) => item == user.id?.toString()) ==
         undefined
@@ -80,7 +101,7 @@ const AwardNominee = ({
 
         <div
           className={cn(styles.usersAwarded, {
-            [styles.hidden]: arrUserNominee.length == 0,
+            [styles.hidden]: awardActiv?.length == 0,
           })}
         >
           {awardActiv?.map((item) => {
@@ -96,24 +117,30 @@ const AwardNominee = ({
           })}
         </div>
 
-        {arrUserNominee.length == 0 ? (
+        {awardActiv!.length == 0 ? (
           <P className={styles.none} fontstyle='thin' size='m'>
             Нет участников
           </P>
-        ) : (
-          null
-        )}
+        ) : null}
       </div>
 
       {award?.award.id && (
         <ModalWindowWithAddUsers
-          awardState='NOMINEE'
-          awardId={award.award.id.toString()}
-          users={arrUserNotNominee}
-          visibleModal={visibleModal}
-          setVisibleModal={setVisibleModal}
-          textBtn='Номинировать'
-          ref={ref}
+        totalPage={totalPage}
+        nextPage={() =>
+          usersOnSubDepartment && nextPage(usersOnSubDepartment)
+        }
+        prevPage={prevPage}
+        page={page}
+        setPage={setPage}
+        setSearchValue={setSearchValue}
+        awardState='NOMINEE'
+        awardId={award.award.id.toString()}
+        users={arrUserNotNominee}
+        visibleModal={visibleModal}
+        setVisibleModal={setVisibleModal}
+        textBtn='Номинировать'
+        ref={ref}
         />
       )}
     </div>

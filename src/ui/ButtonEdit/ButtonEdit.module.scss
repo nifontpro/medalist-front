@@ -1,7 +1,8 @@
 .wrapper {
   .buttonEdit,
   .buttonRefresh,
-  .buttonRemove {
+  .buttonRemove,
+  .buttonNext {
     width: 56px;
     height: 56px;
   }
@@ -17,6 +18,15 @@
 
   &:hover {
     .buttonEdit svg {
+      path {
+        stroke: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
+
+    .buttonNextActive svg {
       path {
         stroke: var(--gray-dark);
       }
@@ -43,4 +53,9 @@
       }
     }
   }
+}
+
+.disable {
+  opacity: .5;
+  cursor: default;
 }

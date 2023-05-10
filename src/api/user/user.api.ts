@@ -1,12 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/baseResponse';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
 import { User } from '@/domain/model/user/user';
 import { UserDetails } from '@/domain/model/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
 import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
@@ -77,20 +78,59 @@ export const userApi = createApi({
           body: request,
         };
       },
-      invalidatesTags: (result) => [{type: 'User', id: result?.data?.user.id}]
+      invalidatesTags: (result) => [
+        { type: 'User', id: result?.data?.user.id },
+      ],
     }),
 
     /**
-     * Получение сотрудников отдела
+     * Получение сотрудников отдела [deptId]
+     * [baseRequest]:
+     *    Параметры пагинации [page], [pageSize] - обязательны!!!
+     *    Параметр [filter] - фильтрация по Фамилии сотрудника
+     *    Допустимые поля для сортировки:
+     *          "firstname",
+     *    			"patronymic",
+     *    			"lastname",
+     *    			"authEmail",
+     *    			"post",
      */
     getUsersByDept: build.query<
       BaseResponse<User[]>,
-      { authId: number; deptId: number }
+      { authId: number; deptId: number; baseRequest: BaseRequest }
     >({
       query: (request) => {
         return {
           method: 'POST',
           url: '/user/get_by_dept',
+          body: request,
+        };
+      },
+      providesTags: ['User'],
+    }),
+
+    /**
+     * Получение сотрудников всех подотделов вместе с текущим [deptId]
+     * [baseRequest]:
+     *    Параметры пагинации [page], [pageSize] - обязательны!!!
+     *    Параметр [filter] - фильтрация по Фамилии сотрудника
+     *    Допустимые поля для сортировки:
+     *          "firstname",
+     *    			"patronymic",
+     *    			"lastname",
+     *    			"authEmail",
+     *    			"post",
+     *    			"dept.name", - Первым рекомендую его установить
+     *    			"dept.classname",
+     */
+    getUsersBySubDept: build.query<
+      BaseResponse<User[]>,
+      { authId: number; deptId: number; baseRequest: BaseRequest }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/user/get_by_subdepts',
           body: request,
         };
       },

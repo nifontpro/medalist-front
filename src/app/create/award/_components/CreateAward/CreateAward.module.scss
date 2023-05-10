@@ -98,3 +98,9 @@
   border: 1px solid #00000020;
   border-radius: 12px;
 }
+
+.nextPrevPage {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
