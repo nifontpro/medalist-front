@@ -7,6 +7,7 @@ import {CreateOwnerRequest} from './request/CreateOwnerRequest';
 import {CreateUserRequest} from "@/api/user/request/CreateUserRequest";
 import {UpdateUserRequest} from "@/api/user/request/UpdateUserRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
+import {BaseRequest} from "@/domain/model/base/BaseRequest";
 
 export const userApi = createApi({
 	reducerPath: 'UserApi',
@@ -108,12 +109,12 @@ export const userApi = createApi({
 		 */
 		getUsersBySubDept: build.query<
 				BaseResponse<User[]>,
-				{ authId: number; deptId: number }
+				{ authId: number; deptId: number; baseRequest: BaseRequest }
 		>({
 			query: (request) => {
 				return {
 					method: 'POST',
-					url: '/user/get_by_dept',
+					url: '/user/get_by_subdepts',
 					body: request,
 				};
 			},
