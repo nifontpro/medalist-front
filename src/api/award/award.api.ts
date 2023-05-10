@@ -196,5 +196,37 @@ export const awardApi = createApi({
 			providesTags: ['Action'],
 		}),
 
+		/**
+		 * Получение наград доступных для награждения сотрудников текущим админом
+		 * отделы наград берутся из поддерева отделов авторизованного пользователя
+		 * Для наград типа AwardType.PERIOD - выводятся только попадающие в период номинации (state=NOMINEE)
+		 * [baseRequest]:
+		 *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+		 *  minDate <= award.startDate (отсутствует - без min ограничения)
+		 *  maxDate >= award.endDate (отсутствует - без max ограничения)
+		 *  Допустимые поля для сортировки:
+		 *  			"name",
+		 *  			"type",
+		 *  			"startDate",
+		 *  			"endDate",
+		 *  			"dept.name",
+		 *  			"dept.classname",
+		 *
+		 */
+		getAvailableBySubDepts: build.query<BaseResponse<AwardDetails>, {
+			authId: number,
+			deptId: number,
+			baseRequest: BaseRequest | undefined
+		}>({
+			query: (request) => {
+				return {
+					method: 'POST',
+					url: '/award/get_dept',
+					body: request,
+				};
+			},
+			providesTags: ['Award'],
+		}),
+
 	}),
 });
