@@ -134,7 +134,7 @@ export const awardApi = createApi({
 		 * 			"award.name",
 		 * 			"award.type"
 		 */
-		getActivAwardByUser: build.query<BaseResponse<Activity>, {
+		getActivAwardByUser: build.query<BaseResponse<Activity[]>, {
 			authId: number,
 			userId: number,
 			baseRequest: BaseRequest | undefined
@@ -163,7 +163,7 @@ export const awardApi = createApi({
 		 *
 		 *  minDate, maxDate - ограничения по дате событий, необязательны
 		 */
-		getActivAwardByDept: build.query<BaseResponse<Activity>, {
+		getActivAwardByDept: build.query<BaseResponse<Activity[]>, {
 			authId: number,
 			deptId: number,
 			baseRequest: BaseRequest | undefined
@@ -187,7 +187,7 @@ export const awardApi = createApi({
 		 * 			"user.patronymic",
 		 * 			"user.post",
 		 */
-		getUsersByActivAward: build.query<BaseResponse<Activity>, {
+		getUsersByActivAward: build.query<BaseResponse<Activity[]>, {
 			authId: number,
 			awardId: number,
 			baseRequest: BaseRequest | undefined
