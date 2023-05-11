@@ -8,7 +8,7 @@ import {BaseImage} from "@/domain/model/base/image/baseImage";
 import {Activity} from "@/domain/model/award/Activity";
 import {SendActionRequest} from "@/api/award/request/SendActionRequest";
 import {BaseRequest} from "@/domain/model/base/BaseRequest";
-import {Award} from "@/domain/model/award/Award";
+import {Award, AwardState} from "@/domain/model/award/Award";
 
 export const awardApi = createApi({
 	reducerPath: 'AwardApi',
@@ -66,6 +66,7 @@ export const awardApi = createApi({
 
 		/**
 		 * Получение наград из отдела [deptId]
+		 * [state] - фильтрация по состоянию (необязательна)
 		 * [baseRequest]:
 		 *  Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
 		 *  Пагинация.
@@ -74,6 +75,7 @@ export const awardApi = createApi({
 		getByDept: build.query<BaseResponse<Award[]>, {
 			authId: number,
 			deptId: number,
+			state: AwardState | undefined,
 			baseRequest: BaseRequest | undefined
 		}>({
 			query: (request) => {
