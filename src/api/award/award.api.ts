@@ -8,6 +8,7 @@ import {BaseImage} from "@/domain/model/base/image/baseImage";
 import {Activity} from "@/domain/model/award/Activity";
 import {SendActionRequest} from "@/api/award/request/SendActionRequest";
 import {BaseRequest} from "@/domain/model/base/BaseRequest";
+import {Award} from "@/domain/model/award/Award";
 
 export const awardApi = createApi({
 	reducerPath: 'AwardApi',
@@ -70,7 +71,7 @@ export const awardApi = createApi({
 		 *  Пагинация.
 		 *  filter - фильтрация по названию (name)
 		 */
-		getByDept: build.query<BaseResponse<AwardDetails>, {
+		getByDept: build.query<BaseResponse<Award[]>, {
 			authId: number,
 			deptId: number,
 			baseRequest: BaseRequest | undefined
@@ -216,7 +217,7 @@ export const awardApi = createApi({
 		 *  			"dept.name",
 		 *  			"dept.classname",
 		 */
-		getAvailableBySubDepts: build.query<BaseResponse<AwardDetails>, {
+		getAvailableBySubDepts: build.query<BaseResponse<Award[]>, {
 			authId: number,
 			deptId: number,
 			baseRequest: BaseRequest | undefined
