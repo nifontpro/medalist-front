@@ -1,5 +1,6 @@
 import { awardApi } from '@/api/award/award.api';
 import { ActionType } from '@/domain/model/award/Activity';
+import { AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
@@ -9,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
-export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
+export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, active?: AwardState) => {
   const { back } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -60,6 +61,7 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(awardId),
+        state: active ? active : undefined,
         baseRequest: baseRequest ? baseRequest : undefined,
       },
       {

@@ -14,25 +14,25 @@ import SortButton from '@/ui/SortButton/SortButton';
 import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Award from './Award/Award';
-import FilterAwards from './FilterAwards/FilterAwards';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import FilterAwards from './FilterAwards/FilterAwards';
 
 const Awards = ({ id, className, ...props }: AwardsProps) => {
-
-
   const { push } = useRouter();
   const {
-    // allAwards,
-    // allNominee,
     active,
     setActive,
     state,
     setState,
-    // filteredValue,
     isLoadingAwardsOnDept,
-    awardsOnDepartment
+    awardsOnDepartment,
+    totalPage,
+    page,
+    setPage,
+    nextPage,
+    prevPage,
   } = useAwards(id);
 
   if (isLoadingAwardsOnDept) return <Spinner />;
@@ -60,15 +60,17 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
         {awardsOnDepartment.data && (
           <div className={styles.header}>
             <TabTitle
+              setPage={setPage}
               active={active}
               setActive={setActive}
               count={awardsOnDepartment.data.length}
-              onClickActive={''}
+              onClickActive={undefined}
               className={styles.all}
             >
               Все
             </TabTitle>
             <TabTitle
+              setPage={setPage}
               active={active}
               setActive={setActive}
               count={awardsOnDepartment.data.length}
@@ -79,6 +81,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
               Завершенные
             </TabTitle>
             <TabTitle
+              setPage={setPage}
               active={active}
               setActive={setActive}
               // count={allNominee.length}
@@ -113,15 +116,15 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
           </div>
         )}
 
-        {/* <FilterAwards
+        <FilterAwards
           state={state}
           setState={setState}
           active={active}
           setActive={setActive}
-          allNominee={allNominee}
-          allAwards={allAwards}
+          // allNominee={allNominee}
+          // allAwards={allAwards}
           awardsFull={awardsOnDepartment.data}
-        /> */}
+        />
 
         <div className={styles.cards}>
           {awardsOnDepartment.data?.map((item) => {
@@ -132,6 +135,16 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             );
           })}
         </div>
+        {totalPage && (
+          <PrevNextPages
+            startPage={page + 1}
+            endPage={totalPage}
+            handleNextClick={() =>
+              awardsOnDepartment && nextPage(awardsOnDepartment)
+            }
+            handlePrevClick={prevPage}
+          />
+        )}
 
         <ButtonScrollUp />
       </div>

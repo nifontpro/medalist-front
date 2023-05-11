@@ -14,8 +14,8 @@ const FilterAwards = ({
   setState,
   active,
   setActive,
-  allNominee,
-  allAwards,
+  // allNominee,
+  // allAwards,
   awardsFull,
   className,
   ...props
@@ -100,23 +100,23 @@ const FilterAwards = ({
                   Показать
                 </P>
                 <ul className={styles.list}>
-                  <li className={styles.listItem} onClick={() => setActive('')}>
+                  <li className={styles.listItem} onClick={() => setActive(undefined)}>
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: active == '',
-                        [styles.hidden]: active != '',
+                        [styles.visible]: active == undefined,
+                        [styles.hidden]: active != undefined,
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: active != '',
+                        [styles.disabled]: active != undefined,
                       })}
                     >
                       Все награды
-                      <span className={styles.count}>{awardsFull?.length}</span>
+                      {/* <span className={styles.count}>{awardsFull?.length}</span> */}
                     </P>
                   </li>
                   <li
@@ -138,7 +138,7 @@ const FilterAwards = ({
                       })}
                     >
                       Завершенные
-                      <span className={styles.count}>{allAwards?.length}</span>
+                      {/* <span className={styles.count}>{allAwards?.length}</span> */}
                     </P>
                   </li>
                   <li
@@ -160,7 +160,7 @@ const FilterAwards = ({
                       })}
                     >
                       Номинации
-                      <span className={styles.count}>{allNominee?.length}</span>
+                      {/* <span className={styles.count}>{allNominee?.length}</span> */}
                     </P>
                   </li>
                 </ul>

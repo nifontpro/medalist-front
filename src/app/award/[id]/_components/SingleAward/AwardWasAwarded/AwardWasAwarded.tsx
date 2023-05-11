@@ -22,23 +22,6 @@ const AwardWasAwarded = ({
   className,
   ...props
 }: AwardWasAwardedProps): JSX.Element => {
-  // const [page, setPage] = useState<number>(0);
-  // const [searchValue, setSearchValue] = useState<string>('');
-  // const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
-  // const nextPage = () => {
-  //   if (
-  //     usersOnSubDepartment?.pageInfo?.totalPages &&
-  //     usersOnSubDepartment?.pageInfo?.totalPages > page + 1
-  //   ) {
-  //     setPage((prev) => prev + 1);
-  //   }
-  // };
-  // const prevPage = () => {
-  //   if (page > 0) {
-  //     setPage((prev) => prev - 1);
-  //   }
-  // };
-
   const {
     page,
     setPage,

@@ -1,4 +1,4 @@
-import { SortAwardsType } from '@/app/department/[id]/awards/_components/Awards/useAwards';
+import { AwardState } from '@/domain/model/award/Award';
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
@@ -13,7 +13,8 @@ export type TabTitleProps = DetailedHTMLProps<
 > & {
   children?: ReactNode;
   count: number;
-  onClickActive: SetStateAction<SortAwardsType>;
-  active: SortAwardsType;
-  setActive: Dispatch<SetStateAction<SortAwardsType>>;
+  onClickActive: SetStateAction<AwardState | undefined>;
+  active: AwardState | undefined;
+  setActive: Dispatch<SetStateAction<AwardState | undefined>>;
+  setPage: Dispatch<SetStateAction<number>>
 };

@@ -6,7 +6,6 @@ import styles from './Users.module.scss';
 import Htag from '@/ui/Htag/Htag';
 import SortButton from '@/ui/SortButton/SortButton';
 import cn from 'classnames';
-import { useState } from 'react';
 import Search from '@/ui/Search/Search';
 import UserList from '@/ui/UserList/UserList';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
@@ -17,11 +16,19 @@ import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
+import { useFetchParams } from '@/hooks/useFetchParams';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
-  const [page, setPage] = useState<number>(0);
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
 
   const { usersOnDepartment, isLoadingUsersOnDept } = useUserAdmin(id, {
     page: page,
@@ -32,24 +39,11 @@ const Users = ({ id, className, ...props }: UsersProps) => {
 
   const totalPage = usersOnDepartment?.pageInfo?.totalPages;
 
-  const nextPage = () => {
-    if (
-      usersOnDepartment?.pageInfo?.totalPages &&
-      usersOnDepartment?.pageInfo?.totalPages > page + 1
-    ) {
-      setPage((prev) => prev + 1);
-    }
-  };
-  const prevPage = () => {
-    if (page > 0) {
-      setPage((prev) => prev - 1);
-    }
-  };
-
   const { push } = useRouter();
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
+    setPage(0);
   };
 
   if (isLoadingUsersOnDept) return <Spinner />;
@@ -117,7 +111,9 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
-              handleNextClick={nextPage}
+              handleNextClick={() =>
+                usersOnDepartment && nextPage(usersOnDepartment)
+              }
               handlePrevClick={prevPage}
             />
           )}

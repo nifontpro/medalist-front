@@ -7,7 +7,7 @@ import { UpdateAwardRequest } from './request/UpdateAwardRequest';
 import { AwardDetails } from '@/domain/model/award/AwardDetails';
 import { Activity } from '@/domain/model/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
-import { Award } from '@/domain/model/award/Award';
+import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export const awardApi = createApi({
@@ -79,6 +79,7 @@ export const awardApi = createApi({
 
     /**
      * Получение наград из отдела [deptId]
+     * [state] - фильтрация по состоянию (необязательна)
      * [baseRequest]:
      *  Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
      *  Пагинация.
@@ -89,6 +90,7 @@ export const awardApi = createApi({
       {
         authId: number;
         deptId: number;
+        state: AwardState | undefined,
         baseRequest: BaseRequest | undefined;
       }
     >({

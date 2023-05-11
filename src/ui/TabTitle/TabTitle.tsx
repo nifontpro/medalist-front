@@ -8,6 +8,7 @@ const TabTitle = ({
   setActive,
   active,
   count,
+  setPage,
   onClickActive,
   className,
   children,
@@ -16,7 +17,10 @@ const TabTitle = ({
     <Htag
       tag='h3'
       color='gray'
-      onClick={() => setActive(onClickActive)}
+      onClick={() => {
+        setActive(onClickActive);
+        setPage(0);
+      }}
       className={cn(
         styles.award,
         {
@@ -26,13 +30,13 @@ const TabTitle = ({
       )}
     >
       {children}
-      <P
+      {/* <P
         size='s'
         color={active == onClickActive ? 'black' : 'gray96'}
         className={styles.awardsCount}
       >
         {count}
-      </P>
+      </P> */}
     </Htag>
   );
 };
