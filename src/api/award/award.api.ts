@@ -225,7 +225,7 @@ export const awardApi = createApi({
 			query: (request) => {
 				return {
 					method: 'POST',
-					url: '/award/get_dept',
+					url: '/award/get_subdepts',
 					body: request,
 				};
 			},
