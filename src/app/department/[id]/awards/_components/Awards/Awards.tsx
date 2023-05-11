@@ -127,13 +127,17 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
         />
 
         <div className={styles.cards}>
-          {awardsOnDepartment.data?.map((item) => {
-            return (
-              <Link key={uniqid()} href={'/award/' + item.id}>
-                <Award layout award={item} />
-              </Link>
-            );
-          })}
+          {awardsOnDepartment.data.length > 0 ? (
+            awardsOnDepartment.data?.map((item) => {
+              return (
+                <Link key={uniqid()} href={'/award/' + item.id}>
+                  <Award layout award={item} />
+                </Link>
+              );
+            })
+          ) : (
+            <div>Еще нет наград</div>
+          )}
         </div>
         {totalPage ? (
           <PrevNextPages
