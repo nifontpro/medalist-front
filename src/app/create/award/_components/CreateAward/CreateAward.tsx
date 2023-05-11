@@ -164,7 +164,7 @@ const CreateAward = () => {
               setArrChoiceUser={setArrChoiceUser}
             />
           )}
-          {totalPage && (
+          {totalPage ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
@@ -172,7 +172,7 @@ const CreateAward = () => {
               handlePrevClick={prevPage}
               className={styles.nextPrevPage}
             />
-          )}
+          ) : null}
 
           <div className={styles.buttons}>
             <Button

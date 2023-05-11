@@ -32,7 +32,12 @@ const ModalWindowWithAddAwards = forwardRef(
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const { arrChoiceAward, setArrChoiceAward, handleCancel, onSubmitNominee } =
-      useModalWindowWithAddAwards(setVisibleModal, userId, awardState, setSearchValue);
+      useModalWindowWithAddAwards(
+        setVisibleModal,
+        userId,
+        awardState,
+        setSearchValue
+      );
 
     const { windowSize } = useWindowSize();
 
@@ -99,14 +104,14 @@ const ModalWindowWithAddAwards = forwardRef(
                 arrChoiceAward={arrChoiceAward}
                 setArrChoiceAward={setArrChoiceAward}
               />
-              {totalPage && (
+              {totalPage ? (
                 <PrevNextPages
                   startPage={page + 1}
                   endPage={totalPage}
                   handleNextClick={nextPage}
                   handlePrevClick={prevPage}
                 />
-              )}
+              ) : null}
               <div className={styles.buttons}>
                 <Button
                   onClick={handleCancel}

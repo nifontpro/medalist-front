@@ -135,7 +135,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             );
           })}
         </div>
-        {totalPage && (
+        {totalPage ? (
           <PrevNextPages
             startPage={page + 1}
             endPage={totalPage}
@@ -144,7 +144,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             }
             handlePrevClick={prevPage}
           />
-        )}
+        ) : null}
 
         <ButtonScrollUp />
       </div>

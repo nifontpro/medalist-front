@@ -104,14 +104,14 @@ const ModalWindowWithAddUsers = forwardRef(
                 setArrChoiceUser={setArrChoiceUser}
                 className={styles.mediaVisible}
               />
-              {totalPage && (
+              {totalPage ? (
                 <PrevNextPages
                   startPage={page + 1}
                   endPage={totalPage}
                   handleNextClick={nextPage}
                   handlePrevClick={prevPage}
                 />
-              )}
+              ) : null}
               <div className={styles.buttons}>
                 <Button
                   onClick={handleCancel}

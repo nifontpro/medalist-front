@@ -107,7 +107,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           ) : (
             <div className='mt-5'>Нет сотрудников в отделе...</div>
           )}
-          {totalPage && (
+          {totalPage ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
@@ -116,7 +116,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
               }
               handlePrevClick={prevPage}
             />
-          )}
+          ) : null}
         </div>
       </>
     );
