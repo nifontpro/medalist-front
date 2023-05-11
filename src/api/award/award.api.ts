@@ -65,7 +65,10 @@ export const awardApi = createApi({
 
 		/**
 		 * Получение наград из отдела [deptId]
-		 * Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
+		 * [baseRequest]:
+		 *  Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
+		 *  Пагинация.
+		 *  filter - фильтрация по названию (name)
 		 */
 		getByDept: build.query<BaseResponse<AwardDetails>, {
 			authId: number,
