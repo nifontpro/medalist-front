@@ -14,6 +14,8 @@ import SingleUserAwards from './SingleUserAwards/SingleUserAwards';
 import SingleUserNominee from './SingleUserNominee/SingleUserNominee';
 import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { Award } from '@/domain/model/award/Award';
+import ModalWindowWithAddAwards from '../ModalWindowWithAddAwards/ModalWindowWithAddAwards';
+import { useFetchParams } from '@/hooks/useFetchParams';
 
 const SingleUser = ({
   user,
@@ -24,22 +26,39 @@ const SingleUser = ({
 }: SingleUserProps): JSX.Element => {
   const { back } = useRouter();
 
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
+
   const deptId = user?.user.dept.id;
 
   //Фильтр тех медалей, которыми не награжден еще
-  const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(deptId, {
-    page: 0,
-    pageSize: 1000000000,
+  const {
+    awardsAvailableForRewardUser,
+    isLoadingAwardsAvailableForRewardUser,
+  } = useAwardAdmin(deptId, {
+    page: page,
+    pageSize: 100,
+    filter: searchValue,
   });
 
-  let arrAwardRewarded: string[] = [];
+  const totalPage = awardsAvailableForRewardUser?.pageInfo?.totalPages;
+
+  let arrAwardRewarded: string[] = []; // Массив id медалей, которыми награжден
   userActiv?.forEach((award) => {
-    if (award.actionType == 'AWARD' && award.award) {
+    if (award.award?.type == 'SIMPLE' && award.award) {
       arrAwardRewarded.push(award.award?.id.toString());
     }
   });
-  let arrAwardNotRewarded: Award[] = [];
-  awardsOnDepartment?.data?.forEach((award) => {
+  let arrAwardNotRewarded: Award[] = []; // Массив медалей, которыми может быть награжден и не был награжден до этого
+  awardsAvailableForRewardUser?.data?.forEach((award) => {
     if (award.state == 'FINISH') {
       if (
         arrAwardRewarded.find((item) => item == award.id.toString()) ==
@@ -50,14 +69,13 @@ const SingleUser = ({
     }
   });
 
-  console.log(arrAwardNotRewarded);
-
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
   const handleClickOutside = () => {
     setVisibleModal(false);
+    setSearchValue('')
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
@@ -94,7 +112,13 @@ const SingleUser = ({
         <ButtonScrollUp />
       </div>
 
-      {/* <ModalWindowWithAddAwards
+      <ModalWindowWithAddAwards
+        totalPage={totalPage}
+        nextPage={() => awardsAvailableForRewardUser && nextPage(awardsAvailableForRewardUser)}
+        prevPage={prevPage}
+        page={page}
+        setPage={setPage}
+        setSearchValue={setSearchValue}
         awardState='AWARD'
         userId={user?.user.id}
         awards={arrAwardNotRewarded}
@@ -102,7 +126,7 @@ const SingleUser = ({
         setVisibleModal={setVisibleModal}
         textBtn='Наградить'
         ref={ref}
-      /> */}
+      />
     </>
   );
 };

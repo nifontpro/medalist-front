@@ -8,12 +8,6 @@ import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
-
-  const baseRequestDefault: BaseRequest = {
-    page: 0,
-    pageSize: 100
-  }
-
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -35,7 +29,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(id),
-        baseRequest: baseRequest ? baseRequest : baseRequestDefault,
+        baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
         skip: !typeOfUser,
@@ -47,10 +41,10 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(id),
-        baseRequest: baseRequest ? baseRequest : baseRequestDefault,
+        baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
-        skip: !typeOfUser
+        skip: !typeOfUser,
       }
     );
 

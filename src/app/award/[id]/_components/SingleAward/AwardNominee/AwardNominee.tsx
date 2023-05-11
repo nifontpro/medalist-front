@@ -43,6 +43,7 @@ const AwardNominee = ({
     }
   );
   const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
+  console.log(awardActiv);
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -50,14 +51,19 @@ const AwardNominee = ({
   const refOpen = useRef(null);
   const handleClickOutside = () => {
     setVisibleModal(false);
+    setSearchValue('');
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
   //Фильтр тех кто еще не участвует в номинации
   let arrIdUserNominee: string[] = []; // Id тех кто наминирован
   awardActiv!.forEach((user) => {
-    if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
-      arrIdUserNominee.push(user.user.id.toString());
+    // if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
+    //   arrIdUserNominee.push(user.user.id.toString());
+    if (user && user.user && user.user.id) {
+      if (user.actionType == 'NOMINEE' || user.actionType == 'AWARD')
+        arrIdUserNominee.push(user.user.id.toString());
+    }
   });
 
   let arrUserNotNominee: User[] = []; // Те кто не наминирован
@@ -126,21 +132,21 @@ const AwardNominee = ({
 
       {award?.award.id && (
         <ModalWindowWithAddUsers
-        totalPage={totalPage}
-        nextPage={() =>
-          usersOnSubDepartment && nextPage(usersOnSubDepartment)
-        }
-        prevPage={prevPage}
-        page={page}
-        setPage={setPage}
-        setSearchValue={setSearchValue}
-        awardState='NOMINEE'
-        awardId={award.award.id.toString()}
-        users={arrUserNotNominee}
-        visibleModal={visibleModal}
-        setVisibleModal={setVisibleModal}
-        textBtn='Номинировать'
-        ref={ref}
+          totalPage={totalPage}
+          nextPage={() =>
+            usersOnSubDepartment && nextPage(usersOnSubDepartment)
+          }
+          prevPage={prevPage}
+          page={page}
+          setPage={setPage}
+          setSearchValue={setSearchValue}
+          awardState='NOMINEE'
+          awardId={award.award.id.toString()}
+          users={arrUserNotNominee}
+          visibleModal={visibleModal}
+          setVisibleModal={setVisibleModal}
+          textBtn='Номинировать'
+          ref={ref}
         />
       )}
     </div>

@@ -17,16 +17,16 @@ const SingleUserAwards = ({
       <div className={styles.title}>
         <Htag tag='h3'>Медали</Htag>
         <P size='s' fontstyle='thin' className={styles.countAwards}>
-          {userActiv && userActiv.filter((award) => award.actionType == 'AWARD').length}
+          {userActiv &&
+            userActiv.filter((award) => award.award?.type == 'SIMPLE').length}
         </P>
       </div>
-      {userActiv && userActiv.filter((award) => award.actionType == 'AWARD').length > 0 ? (
+      {userActiv &&
+      userActiv.filter((award) => award.award?.type == 'SIMPLE').length > 0 ? (
         <div className={styles.content}>
           {userActiv.map((award) => {
-            if (award.actionType == 'AWARD') {
-              return (
-                <CardUserAward key={uniqid()} award={award} user={user} />
-              );
+            if (award.award?.type == 'SIMPLE') {
+              return <CardUserAward key={uniqid()} award={award} user={user} />;
             }
           })}
         </div>

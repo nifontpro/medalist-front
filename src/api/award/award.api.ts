@@ -5,7 +5,6 @@ import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { CreateAwardRequest } from './request/CreateAwardRequest';
 import { UpdateAwardRequest } from './request/UpdateAwardRequest';
 import { AwardDetails } from '@/domain/model/award/AwardDetails';
-import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
 import { Activity } from '@/domain/model/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
 import { Award } from '@/domain/model/award/Award';
@@ -80,7 +79,10 @@ export const awardApi = createApi({
 
     /**
      * Получение наград из отдела [deptId]
-     * Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
+     * [baseRequest]:
+     *  Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
+     *  Пагинация.
+     *  filter - фильтрация по названию (name)
      */
     getByDept: build.query<
       BaseResponse<Award[]>,
@@ -170,6 +172,7 @@ export const awardApi = createApi({
     /**
      * Получить активные награждения в отделе [deptId]
      * [baseRequest]:
+     * Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
      * Допустимые поля для сортировки:
      *      "date",
      * 			"actionType",
@@ -222,6 +225,41 @@ export const awardApi = createApi({
         body: body,
       }),
       providesTags: ['Action'],
+    }),
+
+    /**
+     * Получение наград доступных для награждения сотрудников текущим админом
+     * отделы наград берутся из поддерева отделов авторизованного пользователя
+     * Для наград типа AwardType.PERIOD - выводятся только попадающие в период номинации (state=NOMINEE)
+     * [baseRequest]:
+     * filter - фильтрация по имени награды (необязателен)
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  minDate <= award.startDate (отсутствует - без min ограничения)
+     *  maxDate >= award.endDate (отсутствует - без max ограничения)
+     *  Допустимые поля для сортировки:
+     *  			"name",
+     *  			"type",
+     *  			"startDate",
+     *  			"endDate",
+     *  			"dept.name",
+     *  			"dept.classname"
+     */
+    getAvailableBySubDepts: build.query<
+      BaseResponse<Award[]>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: '/award/get_dept',
+          body: request,
+        };
+      },
+      providesTags: ['Award'],
     }),
   }),
 });

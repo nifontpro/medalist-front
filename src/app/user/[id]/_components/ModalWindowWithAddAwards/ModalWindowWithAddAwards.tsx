@@ -1,23 +1,23 @@
-import styles from './ModalWindowWithAddUsers.module.scss';
-import { ModalWindowWithAddUsersProps } from './ModalWindowWithAddUsers.props';
+import styles from './ModalWindowWithAddAwards.module.scss';
+import { ModalWindowWithAddAwardsProps } from './ModalWindowWithAddAwards.props';
 import cn from 'classnames';
 import ExitIcon from '@/icons/close.svg';
 import { ForwardedRef, forwardRef } from 'react';
-import { useModalWindowWithAddUsers } from './useModalWindowWithAddUsers';
+import { useModalWindowWithAddAwards } from './useModalWindowWithAddAwards';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
-import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
 import Button from '@/ui/Button/Button';
+import ChoiceAwards from '../ChoiceAwards/ChoiceAwards';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
-const ModalWindowWithAddUsers = forwardRef(
+const ModalWindowWithAddAwards = forwardRef(
   (
     {
       textBtn,
       awardState,
-      awardId,
-      users,
+      userId,
+      awards,
       visibleModal,
       setVisibleModal,
       setSearchValue,
@@ -28,11 +28,11 @@ const ModalWindowWithAddUsers = forwardRef(
       totalPage,
       className,
       ...props
-    }: ModalWindowWithAddUsersProps,
+    }: ModalWindowWithAddAwardsProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const { arrChoiceUser, setArrChoiceUser, onSubmitNominee, handleCancel } =
-      useModalWindowWithAddUsers(setVisibleModal, awardId, awardState, setSearchValue);
+    const { arrChoiceAward, setArrChoiceAward, handleCancel, onSubmitNominee } =
+      useModalWindowWithAddAwards(setVisibleModal, userId, awardState, setSearchValue);
 
     const { windowSize } = useWindowSize();
 
@@ -91,18 +91,13 @@ const ModalWindowWithAddUsers = forwardRef(
             <div className={styles.module} ref={ref}>
               <ExitIcon onClick={handleCancel} className={styles.exit} />
               <Htag tag='h2' className={styles.title}>
-                Добавить участника
+                Добавить награду
               </Htag>
-              <Htag className={styles.titleMedia} tag='h2'>
-                Выбрано сотрудников{' '}
-                <span className={styles.count}>{arrChoiceUser.length}</span>
-              </Htag>
-              <ChoiceUsers
+              <ChoiceAwards
                 setSearchValue={setSearchValue}
-                users={users}
-                arrChoiceUser={arrChoiceUser}
-                setArrChoiceUser={setArrChoiceUser}
-                className={styles.mediaVisible}
+                awards={awards}
+                arrChoiceAward={arrChoiceAward}
+                setArrChoiceAward={setArrChoiceAward}
               />
               {totalPage && (
                 <PrevNextPages
@@ -138,5 +133,5 @@ const ModalWindowWithAddUsers = forwardRef(
   }
 );
 
-ModalWindowWithAddUsers.displayName = 'ModalWindowWithAddUsers';
-export default ModalWindowWithAddUsers;
+ModalWindowWithAddAwards.displayName = 'ModalWindowWithAddAwards';
+export default ModalWindowWithAddAwards;

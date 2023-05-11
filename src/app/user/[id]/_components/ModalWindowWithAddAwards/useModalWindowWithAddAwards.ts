@@ -6,22 +6,23 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export const useModalWindowWithAddUsers = (
+export const useModalWindowWithAddAwards = (
   setVisibleModal: Dispatch<SetStateAction<boolean>>,
-  awardId: string,
+  userId: string,
   awardState: ActionType,
   setSearchValue: Dispatch<SetStateAction<string>>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const [reward] = awardApi.useSendActionMutation();
 
-  const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
+  const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
+  const [reward] = awardApi.useSendActionMutation();
+  // console.log(arrChoiceAward)
 
   return useMemo(() => {
     const handleCancel = () => {
-      setArrChoiceUser([]);
+      setArrChoiceAward([]);
       setVisibleModal(false);
       setSearchValue('');
     };
@@ -29,17 +30,17 @@ export const useModalWindowWithAddUsers = (
     const onSubmitNominee = async () => {
       let isError: boolean = false;
 
-      if (arrChoiceUser.length == 0) {
+      if (arrChoiceAward.length == 0) {
         toast.error(`Выберите сотрудников для номинации`);
       }
 
-      if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-        arrChoiceUser.forEach((user) => {
+      if (arrChoiceAward != undefined && arrChoiceAward?.length > 0) {
+        arrChoiceAward.forEach((award) => {
           if (typeOfUser && typeOfUser.id)
             reward({
               authId: typeOfUser.id,
-              awardId: Number(awardId),
-              userId: Number(user),
+              awardId: Number(award),
+              userId: Number(userId),
               actionType: awardState,
             })
               .unwrap()
@@ -51,31 +52,26 @@ export const useModalWindowWithAddUsers = (
               })
               .catch(() => {
                 isError = true;
-                toast.error(`Ошибка награждения ${user}`);
+                toast.error(`Ошибка награждения ${award}`);
               });
         });
-        setArrChoiceUser([]);
-        setVisibleModal(false);
+
         if (!isError) {
           toast.success('Награждение успешно');
+          setArrChoiceAward([]);
+          setVisibleModal(false);
+          setSearchValue('');
         }
       }
-      setSearchValue('');
     };
-    return {
-      arrChoiceUser,
-      setArrChoiceUser,
-      onSubmitNominee,
-      handleCancel,
-    };
+    return { arrChoiceAward, setArrChoiceAward, handleCancel, onSubmitNominee };
   }, [
-    arrChoiceUser,
-    setArrChoiceUser,
-    awardId,
+    arrChoiceAward,
     awardState,
     reward,
+    setSearchValue,
     setVisibleModal,
     typeOfUser,
-    setSearchValue,
+    userId,
   ]);
 };

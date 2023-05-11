@@ -10,11 +10,6 @@ import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
-  const baseRequestDefault: BaseRequest = {
-    page: 0,
-    pageSize: 5,
-  };
-
   const { back } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -65,7 +60,7 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(awardId),
-        baseRequest: baseRequest ? baseRequest : baseRequestDefault,
+        baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
         skip: !typeOfUser,
@@ -81,6 +76,21 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(awardId),
       baseRequest: undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
+  // Получение наград доступных для награждения сотрудников текущим админом
+  const {
+    data: awardsAvailableForRewardUser,
+    isLoading: isLoadingAwardsAvailableForRewardUser,
+  } = awardApi.useGetAvailableBySubDeptsQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(awardId),
+      baseRequest: baseRequest ? baseRequest : undefined,
     },
     {
       skip: !typeOfUser,
@@ -135,11 +145,11 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
           })
           .catch(() => {
             isError = true;
-            toast.error('Ошибка удаления');
+            toast.error('Ошибка награждения');
           });
 
       if (!isError) {
-        toast.success('Удаление успешно');
+        toast.success('Награждение успешно');
       }
     };
 
@@ -156,6 +166,8 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
       singleActivAwardUser,
       isLoadingSingleActivAwardUser,
       userRewardAsync,
+      awardsAvailableForRewardUser,
+      isLoadingAwardsAvailableForRewardUser
     };
   }, [
     deleteAward,
@@ -172,5 +184,7 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest) => {
     isLoadingSingleActivAwardUser,
     typeOfUser,
     deleteUserReward,
+    awardsAvailableForRewardUser,
+    isLoadingAwardsAvailableForRewardUser
   ]);
 };

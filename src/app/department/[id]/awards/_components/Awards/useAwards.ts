@@ -11,11 +11,11 @@ export const useAwards = (id: string) => {
 
   const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(id, {
     page: page,
-    pageSize: 5,
-    // orders: [{ field: 'FUTURE', direction: state }],
+    pageSize: 100,
+    // orders: [{ field: 'endDate', direction: state }],
   });
 
-  console.log(awardsOnDepartment)
+  console.log(awardsOnDepartment);
 
   // let allAwards = awards?.filter(
   //   (award) => award.state == 'FINISH' || award.state == 'ERROR'
@@ -23,8 +23,6 @@ export const useAwards = (id: string) => {
   // let allNominee = awards?.filter(
   //   (award) => award.state == 'NOMINEE' || award.state == 'FUTURE'
   // );
-
-
 
   // // Сотртировка по startDate
   // const filteredValue = awards?.filter((item) => {

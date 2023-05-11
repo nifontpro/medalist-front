@@ -6,7 +6,6 @@ import { CreateDeptRequest } from './request/createDeptRequest';
 import { BaseResponse } from '@/domain/model/base/BaseResponse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
-import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export const deptApi = createApi({

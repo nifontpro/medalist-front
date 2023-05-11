@@ -1,0 +1,133 @@
+.modalWindow {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  top: 0;
+  left: 0;
+  background: #00000052;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  overflow-y: scroll;
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    display: block;
+    top: auto;
+    bottom: 0;
+    background: none;
+    width: 100%;
+    height: fit-content;
+    padding: 60px 10px 0px 10px;
+    background: var(--white);
+    border-radius: 16px;
+  }
+
+  .slash {
+    display: none;
+    @media screen and (max-width: 768px) {
+      display: block;
+      position: fixed;
+      cursor: pointer;
+      bottom: 560px;
+      left: calc(50vw - 50px);
+      width: 100px;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--graySilver);
+      @apply duration-300;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .module {
+    margin-top: 200px;
+    padding: 85px;
+    position: relative;
+    border-radius: 27px;
+    min-width: 980px;
+    min-height: fit-content;
+    background: var(--white);
+
+    @media screen and (max-width: 1280px) {
+      min-width: auto;
+      margin-top: 100px;
+      padding: 40px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-top: 0px;
+      padding: 0px 10px;
+      height: 500px;
+      overflow-y: scroll;
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .mediaVisible {
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
+
+    .title {
+      margin-bottom: 40px;
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    // .titleMedia {
+    //   display: none;
+    //   @media screen and (max-width: 768px) {
+    //     margin-bottom: 40px;
+    //     display: flex;
+    //     align-items: flex-start;
+    //   }
+    //   .count {
+    //     margin-left: 7px;
+    //     margin-top: -5px;
+    //     font-size: 14px;
+    //   }
+    // }
+
+    .exit {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      cursor: pointer;
+      &:hover {
+        path {
+          stroke: var(--gray-dark);
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 50px;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .confirm {
+        margin-left: 15px;
+
+        @media screen and (max-width: 768px) {
+          margin-left: 0px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
