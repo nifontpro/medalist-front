@@ -11,7 +11,11 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const { singleUser } = useUserAdmin(String(typeOfUser?.id));
+  const { singleUser, isLoadingSingleUser } = useUserAdmin(String(typeOfUser?.id));
+
+  if (isLoadingSingleUser) {
+    return <div>Loading</div>
+  }
 
   return (
     <>
