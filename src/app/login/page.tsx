@@ -30,7 +30,7 @@ const LoginPage = () => {
   );
 };
 
-const generateState = (length: number) => {
+export const generateState = (length: number) => {
   let state = '';
   // noinspection SpellCheckingInspection
   let alphaNumericCharacters =
@@ -45,7 +45,7 @@ const generateState = (length: number) => {
   return state;
 };
 
-function requestAuthCode(state: string, codeChallenge: string): string {
+export function requestAuthCode(state: string, codeChallenge: string): string {
   const params = [
     'response_type=code',
     'state=' + state,

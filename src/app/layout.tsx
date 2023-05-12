@@ -28,9 +28,9 @@ export default function RootLayout({
           <ToastContainer position='bottom-right' newestOnTop />
           <Provider store={store}>
             <PersistGate persistor={persistor} loading={null}>
-              <AuthProvider>
+              {/* <AuthProvider> */}
                 <MainLayout>{children}</MainLayout>
-              </AuthProvider>
+              {/* </AuthProvider> */}
             </PersistGate>
           </Provider>
         </LocalizationProvider>

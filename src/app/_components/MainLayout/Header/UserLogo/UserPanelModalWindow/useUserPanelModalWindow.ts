@@ -12,6 +12,7 @@ import {
 import { authActions } from '@/store/features/auth/auth.slice';
 import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
+import { deleteCookie } from 'cookies-next';
 
 function logoutWin(it: string) {
   console.log(it);
@@ -55,9 +56,11 @@ export const useUserPanelModalWindow = (
         dispatch(authActions.setIsAuth(false));
         dispatch(setTypeOfUserUndefined());
         setVisibleModal(false);
+        deleteCookie('refresh_token'); // Для middleware
       }
       await dispatch(authActions.setNoAccess());
       setVisibleModal(false);
+      deleteCookie('refresh_token'); // Для middleware
 
       console.log('не понятно что это');
       // await push("/login")
