@@ -8,6 +8,8 @@ import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
 import {BaseRequest} from "@/domain/model/base/BaseRequest";
 
+export const deptUrl = (string: string = '') => `/client/dept${string}`
+
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
   baseQuery: baseQueryWithReauth,

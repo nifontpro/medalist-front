@@ -9,6 +9,8 @@ import {UpdateUserRequest} from "@/api/user/request/UpdateUserRequest";
 import {BaseImage} from "@/domain/model/base/image/baseImage";
 import {BaseRequest} from "@/domain/model/base/BaseRequest";
 
+export const userUrl = (string: string = '') => `/client/user${string}`
+
 export const userApi = createApi({
 	reducerPath: 'UserApi',
 	baseQuery: baseQueryWithReauth,
