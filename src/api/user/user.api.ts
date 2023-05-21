@@ -9,6 +9,8 @@ import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
+export const userUrl = (string: string = '') => `/client/user${string}`;
+
 export const userApi = createApi({
   reducerPath: 'UserApi',
   baseQuery: baseQueryWithReauth,
@@ -18,7 +20,7 @@ export const userApi = createApi({
       query: () => {
         return {
           method: 'POST',
-          url: '/user/data',
+          url: userUrl('/data'),
           body: { res: 'Test Body from Front' },
         };
       },
@@ -32,7 +34,7 @@ export const userApi = createApi({
       query: () => {
         return {
           method: 'POST',
-          url: '/user/profiles',
+          url: userUrl('/profiles'),
           body: {},
         };
       },
@@ -46,7 +48,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/create_owner',
+          url: userUrl('/create_owner'),
           body: request,
         };
       },
@@ -60,7 +62,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/create',
+          url: userUrl('/create'),
           body: request,
         };
       },
@@ -74,7 +76,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/update',
+          url: userUrl('/update'),
           body: request,
         };
       },
@@ -102,7 +104,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/get_by_dept',
+          url: userUrl('/get_by_dept'),
           body: request,
         };
       },
@@ -130,7 +132,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/get_by_subdepts',
+          url: userUrl('/get_by_subdepts'),
           body: request,
         };
       },
@@ -147,7 +149,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/get_id',
+          url: userUrl('/get_id'),
           body: request,
         };
       },
@@ -164,7 +166,7 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/user/delete',
+          url: userUrl('/delete'),
           body: request,
         };
       },
@@ -179,7 +181,7 @@ export const userApi = createApi({
     imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (body) => ({
         method: 'POST',
-        url: '/user/img_add',
+        url: userUrl('/img_add'),
         body: body,
       }),
       invalidatesTags: ['User'],
@@ -192,7 +194,7 @@ export const userApi = createApi({
     imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/user/img_update',
+        url: userUrl('/img_update'),
         body: formData,
       }),
       invalidatesTags: ['User'],
@@ -208,7 +210,7 @@ export const userApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/user/img_delete',
+        url: userUrl('/img_delete'),
         body: body,
       }),
       invalidatesTags: ['User'],

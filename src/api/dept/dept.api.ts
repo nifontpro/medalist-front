@@ -8,6 +8,8 @@ import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
+export const deptUrl = (string: string = '') => `/client/dept${string}`;
+
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
   baseQuery: baseQueryWithReauth,
@@ -26,7 +28,7 @@ export const deptApi = createApi({
       query: (authId) => {
         return {
           method: 'POST',
-          url: '/dept/auth_subtree',
+          url: deptUrl('/auth_subtree'),
           body: authId,
         };
       },
@@ -40,7 +42,7 @@ export const deptApi = createApi({
       query: (request: CreateDeptRequest) => {
         return {
           method: 'POST',
-          url: '/dept/create',
+          url: deptUrl('/create'),
           body: request,
         };
       },
@@ -55,7 +57,7 @@ export const deptApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/update',
+          url: deptUrl('/update'),
           body: request,
         };
       },
@@ -74,7 +76,7 @@ export const deptApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/get_id',
+          url: deptUrl('/get_id'),
           body: request,
         };
       },
@@ -91,7 +93,7 @@ export const deptApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/delete',
+          url: deptUrl('/delete'),
           body: request,
         };
       },
@@ -105,7 +107,7 @@ export const deptApi = createApi({
     imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/dept/img_add',
+        url: deptUrl('/img_add'),
         body: formData,
       }),
       invalidatesTags: ['Dept'],
@@ -118,7 +120,7 @@ export const deptApi = createApi({
     imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/dept/img_update',
+        url: deptUrl('/img_update'),
         body: formData,
       }),
       invalidatesTags: ['Dept'],
@@ -134,7 +136,7 @@ export const deptApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/dept/img_delete',
+        url: deptUrl('/img_delete'),
         body: body,
       }),
       invalidatesTags: ['Dept'],

@@ -10,6 +10,8 @@ import { SendActionRequest } from './request/SendActionRequest';
 import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
+export const awardUrl = (string: string = '') => `/client/award${string}`;
+
 export const awardApi = createApi({
   reducerPath: 'AwardApi',
   baseQuery: baseQueryWithReauth,
@@ -22,7 +24,7 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/create',
+          url: awardUrl('/create'),
           body: request,
         };
       },
@@ -39,7 +41,7 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/delete',
+          url: awardUrl('/delete'),
           body: request,
         };
       },
@@ -53,7 +55,7 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/update',
+          url: awardUrl('/update'),
           body: request,
         };
       },
@@ -70,7 +72,7 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/get_id',
+          url: awardUrl('/get_id'),
           body: request,
         };
       },
@@ -90,14 +92,14 @@ export const awardApi = createApi({
       {
         authId: number;
         deptId: number;
-        state: AwardState | undefined,
+        state: AwardState | undefined;
         baseRequest: BaseRequest | undefined;
       }
     >({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/get_dept',
+          url: awardUrl('/get_dept'),
           body: request,
         };
       },
@@ -111,8 +113,25 @@ export const awardApi = createApi({
     imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/award/img_add',
+        url: awardUrl('/img_add'),
         body: formData,
+      }),
+      invalidatesTags: ['Award'],
+    }),
+
+    /**
+     * Добавление изображения из системной галереи
+     * @param: [authId], [awardId],
+     * [itemId] - id объекта системной галереи
+     */
+    galleryImageAdd: build.mutation<
+      BaseResponse<BaseImage>,
+      { authId: number; awardId: number; itemId: number }
+    >({
+      query: (request) => ({
+        method: 'POST',
+        url: awardUrl('/img_gal'),
+        body: request,
       }),
       invalidatesTags: ['Award'],
     }),
@@ -127,7 +146,7 @@ export const awardApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/award/img_delete',
+        url: awardUrl('/img_delete'),
         body: body,
       }),
       invalidatesTags: ['Award'],
@@ -140,7 +159,7 @@ export const awardApi = createApi({
     sendAction: build.mutation<BaseResponse<Activity>, SendActionRequest>({
       query: (body) => ({
         method: 'POST',
-        url: '/award/action',
+        url: awardUrl('/action'),
         body: body,
       }),
       invalidatesTags: ['Action'],
@@ -165,7 +184,7 @@ export const awardApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/award/act_user',
+        url: awardUrl('/act_user'),
         body: body,
       }),
       providesTags: ['Action'],
@@ -196,7 +215,7 @@ export const awardApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/award/act_dept',
+        url: awardUrl('/act_dept'),
         body: body,
       }),
       providesTags: ['Action'],
@@ -223,7 +242,7 @@ export const awardApi = createApi({
     >({
       query: (body) => ({
         method: 'POST',
-        url: '/award/act_award',
+        url: awardUrl('/act_award'),
         body: body,
       }),
       providesTags: ['Action'],
@@ -257,7 +276,7 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/award/get_dept',
+          url: awardUrl('/get_dept'),
           body: request,
         };
       },
