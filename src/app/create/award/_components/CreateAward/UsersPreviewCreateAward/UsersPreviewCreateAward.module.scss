@@ -1,0 +1,30 @@
+.wrapper {
+  border-top: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+  padding: 40px 0px;
+  margin-bottom: 35px;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .countUsers {
+    margin-bottom: 35px;
+  }
+
+  .btn {
+    margin-top: 35px;
+  }
+
+  .list {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

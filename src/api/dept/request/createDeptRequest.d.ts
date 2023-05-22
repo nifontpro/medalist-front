@@ -1,16 +1,16 @@
 export interface BaseDeptRequest {
-    authId: number
-    name: string
-    classname?: string
-    address?: string
-    email?: string
-    phone?: string
-    description?: string
+  authId: number
+  name: string
+  classname?: string
+  address?: string
+  email?: string
+  phone?: string
+  description?: string
 }
 
 export interface CreateDeptRequest extends BaseDeptRequest {
-    parentId: number
+  parentId: number
 
-    // Добавлять ли тестовых сотрудников, по умолчанию - нет
-    addTestUser: boolean
+  // Добавлять ли тестовых сотрудников, по умолчанию - нет
+  addTestUser: boolean
 }

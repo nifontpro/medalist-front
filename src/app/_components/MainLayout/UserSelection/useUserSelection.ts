@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
-import { setTypeOfUser_IsOpen } from '@/store/features/userSelection/userSelection.slice';
+import { setTypeOfUser_IsOpen, setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
   setSelectedTreeId,
@@ -29,6 +29,7 @@ export const useUserSelection = () => {
       dispatch(setTypeOfUser_IsOpen(role));
       dispatch(setArrayIds(['0']));
       dispatch(setSelectedTreeId('0'));
+      push('/')
     };
 
     return {
@@ -41,6 +42,7 @@ export const useUserSelection = () => {
       isLoading,
       dispatch,
       push,
+      setIsOpen
     };
   }, [
     isAuth,

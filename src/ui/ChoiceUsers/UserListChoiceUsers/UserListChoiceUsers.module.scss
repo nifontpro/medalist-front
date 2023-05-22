@@ -1,0 +1,38 @@
+.userList {
+  // margin-bottom: 30px;
+  padding: 20px 30px 20px 60px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  @apply duration-200;
+
+  &:hover {
+    background: var(--graySilver);
+  }
+
+  @media screen and (max-width: 768px) {
+  padding: 20px 30px 20px 40px;
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 48px;
+    left: 20px;
+    @media screen and (max-width: 768px) {
+      top: 37px;
+      left: 10px;
+    }
+  }
+}
+
+// .userList:nth-last-child(1) {
+//   margin-bottom: 0px;
+// }
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

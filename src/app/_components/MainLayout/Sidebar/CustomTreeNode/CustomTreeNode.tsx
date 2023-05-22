@@ -11,16 +11,21 @@ import TreeItem, {
 import { SyntheticEvent, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Typography } from '@mui/material';
-import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getDepartmentEditUrl } from '@/config/api.config';
 import { useAppDispatch } from '@/store/hooks/hooks';
-import { setSelectedTreeId } from '../../../../../store/features/sidebar/sidebarTree.slice';
+import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
+import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
+import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
+import { useHeader } from '../../Header/useHeader';
 
 const CustomTreeNode = forwardRef(function CustomTreeNode(
   props: TreeItemContentProps,
   ref
 ) {
-  const deleteAsync = (id: string) => {};
+  const { deleteDepartmentAsync } = useDepartmentAdmin();
+
+  const { close } = useHeader()
+
   const dispatch = useAppDispatch();
 
   const {
@@ -57,6 +62,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
     handleSelection(event);
     dispatch(setSelectedTreeId(nodeId));
     push(getDepartmentUrl(`${nodeId}`));
+    close()
   };
 
   return (
@@ -90,14 +96,14 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
       >
         {label}
       </Typography>
-      <EditPanelAuthBtn
-        onlyRemove={false} 
-        handleRemove={deleteAsync}
+
+      <EditPanelDeptBtn
+        onlyRemove={false}
+        handleRemove={deleteDepartmentAsync}
         id={nodeId}
         getUrlEdit={getDepartmentEditUrl}
         getUrlCreate={getDepartmentCreateUrl}
       />
-      {/* <ParamsIcon className={styles.editIcon} /> */}
     </div>
   );
 });

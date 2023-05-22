@@ -1,0 +1,40 @@
+.wrapper {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  > .searchTitle {
+    margin-bottom: 20px;
+  }
+
+  > .searchPanel {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--gray);
+
+    @media screen and (max-width: 768px) {
+      margin-top: 30px;
+      flex-direction: column;
+      align-items: start;
+    }
+
+    .countUsers {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  > .searchUsers {
+    max-height: 400px;
+    margin-top: 30px;
+    // border-radius: 13px;
+    background: var(--white);
+    // padding: 0px 0px 20px 60px;
+    overflow-y: scroll;
+    border-bottom: 1px solid var(--gray);
+  }
+}

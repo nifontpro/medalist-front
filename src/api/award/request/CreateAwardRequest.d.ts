@@ -1,17 +1,17 @@
-import {AwardType} from "@/domain/model/award/Award";
+import { AwardType } from '@/domain/model/award/Award';
 
 export interface BaseAwardRequest {
-	authId: number
+  authId: number;
 
-	name: string
-	type: AwardType
-	startDate: number
-	endDate: number
+  name: string;
+  type: AwardType;
+  startDate: number;
+  endDate: number;
 
-	description?: string
-	criteria?: string
+  description?: string;
+  criteria?: string;
 }
 
 export interface CreateAwardRequest extends BaseAwardRequest {
-	deptId: number
+  deptId: number;
 }

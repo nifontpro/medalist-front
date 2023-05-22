@@ -1,17 +1,18 @@
 import styles from './EditPanelAuthBtn.module.scss';
 import { EditPanelAuthBtnProps } from './EditPanelAuthBtn.props';
-// import AuthComponent from '@/core/providers/AuthProvider/AuthComponent';
 import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useRef, useState } from 'react';
 import EditPanel from './EditPanel/EditPanel';
 import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
+import cn from 'classnames';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const EditPanelAuthBtn = ({
   handleRemove,
   onlyRemove,
   getUrlEdit,
-  getUrlCreate,
+  className,
   id,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
@@ -25,38 +26,34 @@ const EditPanelAuthBtn = ({
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
-    // <AuthComponent minRole={'director'}>
-    <>
+    <AuthComponent minRole={'ADMIN'}>
       <ButtonCircleIcon
         onClick={() => setVisible(!visible)}
         icon='dots'
         appearance={color}
         classNameForIcon='@apply w-[10px] h-[10px]'
-        className={styles.dots}
+        className={cn(styles.dots, className)}
         ref={refOpen}
       />
       <EditPanel
         getUrlEdit={getUrlEdit}
-        getUrlCreate={getUrlCreate}
         onMouseLeave={() => setVisible(!visible)}
         id={id}
-        // deleteAsync={handleRemove}
+        deleteAsync={handleRemove}
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
       />
       <FilterEditPanel
-        getUrl={getUrlEdit}
+        getUrlEdit={getUrlEdit}
         setVisible={setVisible}
         id={id}
-        // deleteAsync={handleRemove}
+        deleteAsync={handleRemove}
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
       />
-    </>
-
-    // </AuthComponent>
+    </AuthComponent>
   );
 };
 

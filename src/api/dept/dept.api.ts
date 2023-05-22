@@ -1,14 +1,14 @@
-import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {baseQueryWithReauth} from '../base/base.api';
-import {Dept} from '@/domain/model/dept/dept';
-import {DeptDetails} from '@/domain/model/dept/deptDetails';
-import {CreateDeptRequest} from './request/createDeptRequest';
-import {BaseResponse} from '@/domain/model/base/BaseResponse';
-import {UpdateDeptRequest} from "@/api/dept/request/updateDeptRequest";
-import {BaseImage} from "@/domain/model/base/image/baseImage";
-import {BaseRequest} from "@/domain/model/base/BaseRequest";
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { baseQueryWithReauth } from '../base/base.api';
+import { Dept } from '@/domain/model/dept/dept';
+import { DeptDetails } from '@/domain/model/dept/deptDetails';
+import { CreateDeptRequest } from './request/createDeptRequest';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
+import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { UpdateDeptRequest } from './request/updateDeptRequest';
+import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
-export const deptUrl = (string: string = '') => `/client/dept${string}`
+export const deptUrl = (string: string = '') => `/client/dept${string}`;
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
@@ -21,11 +21,14 @@ export const deptApi = createApi({
      * orders: массив полей для сортировки в заданном направлении
      * допустимые поля для сортировки: "parentId", "name", "classname"
      */
-    getAuthSubtree: build.query<BaseResponse<Dept[]>, { authId: number, baseRequest: BaseRequest | undefined} >({
+    getAuthSubtree: build.query<
+      BaseResponse<Dept[]>,
+      { authId: number; baseRequest: BaseRequest | undefined }
+    >({
       query: (authId) => {
         return {
           method: 'POST',
-          url: '/dept/auth_subtree',
+          url: deptUrl('/auth_subtree'),
           body: authId,
         };
       },
@@ -35,14 +38,15 @@ export const deptApi = createApi({
     /**
      * Создание нового отдела
      */
-    create: build.mutation<BaseResponse<DeptDetails>, CreateDeptRequest>({
-      query: (request) => {
+    getProfiles: build.mutation<BaseResponse<DeptDetails>, CreateDeptRequest>({
+      query: (request: CreateDeptRequest) => {
         return {
           method: 'POST',
-          url: '/dept/create',
+          url: deptUrl('/create'),
           body: request,
         };
       },
+      // invalidatesTags: ['Dept'],
       invalidatesTags: ['Dept'],
     }),
 
@@ -53,32 +57,43 @@ export const deptApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/update',
+          url: deptUrl('/update'),
           body: request,
         };
       },
-      invalidatesTags: ['Dept'],
+      invalidatesTags: (result) => [
+        { type: 'Dept', id: result?.data?.dept.id },
+      ],
     }),
 
     /**
      * Получение отдела по id
      */
-    getById: build.query<BaseResponse<DeptDetails>, {authId: number, deptId: number}>({
+    getById: build.query<
+      BaseResponse<DeptDetails>,
+      { authId: number; deptId: number }
+    >({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/get_id',
+          url: deptUrl('/get_id'),
           body: request,
         };
       },
       providesTags: ['Dept'],
     }),
 
-    delete: build.mutation<BaseResponse<DeptDetails>, { authId: number; deptId: number }>({
+    /**
+     * Удаление отдела по id
+     */
+    delete: build.mutation<
+      BaseResponse<DeptDetails>,
+      { authId: number; deptId: number }
+    >({
       query: (request) => {
         return {
           method: 'POST',
-          url: '/dept/delete',
+          url: deptUrl('/delete'),
           body: request,
         };
       },
@@ -92,7 +107,7 @@ export const deptApi = createApi({
     imageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/dept/img_add',
+        url: deptUrl('/img_add'),
         body: formData,
       }),
       invalidatesTags: ['Dept'],
@@ -105,7 +120,7 @@ export const deptApi = createApi({
     imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
       query: (formData) => ({
         method: 'POST',
-        url: '/dept/img_update',
+        url: deptUrl('/img_update'),
         body: formData,
       }),
       invalidatesTags: ['Dept'],
@@ -115,14 +130,16 @@ export const deptApi = createApi({
      * Удаление изображения
      * @param: authId, deptId, imageId
      */
-    imageDelete: build.mutation<BaseResponse<BaseImage>, { authId: number, deptId: number; imageId: number }>({
+    imageDelete: build.mutation<
+      BaseResponse<BaseImage>,
+      { authId: number; deptId: number; imageId: number }
+    >({
       query: (body) => ({
         method: 'POST',
-        url: '/dept/img_delete',
+        url: deptUrl('/img_delete'),
         body: body,
       }),
       invalidatesTags: ['Dept'],
     }),
-
   }),
 });

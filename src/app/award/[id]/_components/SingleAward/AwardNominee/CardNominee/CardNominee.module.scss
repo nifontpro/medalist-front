@@ -1,0 +1,70 @@
+.wrapper {
+  background: var(--white);
+  border-radius: 27px;
+  display: grid;
+  grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [starDate] auto [endDate] 70px [startButtons] auto [end];
+  margin-bottom: 50px;
+  align-items: center;
+
+  @media screen and (max-width: 1450px) {
+    grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [startButtons] auto [end];
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: [start] 76px [endLogo] 30px [startUser] 1fr [EndUser];
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: 30px;
+  }
+
+  > .img {
+    height: 76px;
+    width: 76px;
+    grid-column: start / endLogo;
+  }
+
+  > .user {
+    grid-column: startUser / EndUser;
+    > .post {
+      margin-top: 5px;
+    }
+  }
+
+  > .date {
+    grid-column: starDate / endDate;
+
+    @media screen and (max-width: 1450px) {
+      display: none;
+    }
+  }
+
+  > .buttons {
+    grid-column: startButtons / end;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+    // align-items: center;
+
+    @media screen and (max-width: 768px) {
+      grid-column: start / endUser;
+      margin-top: 10px;
+      grid-template-columns: 1fr auto;
+    }
+
+    .btnDefault {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .union {
+      margin-left: 10px;
+      width: 15px;
+      align-self: center;
+    }
+    > svg path {
+      fill: var(--gray-dark);
+    }
+  }
+}
+
+.wrapper:nth-last-child(1) {
+  margin-bottom: 0px;
+}

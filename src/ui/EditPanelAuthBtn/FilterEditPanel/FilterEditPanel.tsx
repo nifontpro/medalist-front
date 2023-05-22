@@ -5,13 +5,15 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const FilterEditPanel = forwardRef(
   (
     {
-      getUrl,
+      deleteAsync,
+      getUrlEdit,
       id,
-      // deleteAsync,
       children,
       visible,
       setVisible,
@@ -23,7 +25,9 @@ const FilterEditPanel = forwardRef(
   ): JSX.Element => {
     const { push } = useRouter();
 
-    const deleteAsync = (id: string) => {};
+    const { typeOfUser } = useAppSelector(
+      (state: RootState) => state.userSelection
+    );
 
     const variants = {
       visible: {
@@ -62,7 +66,11 @@ const FilterEditPanel = forwardRef(
               <P
                 size='xs'
                 fontstyle='thin'
-                onClick={() => deleteAsync(id)}
+                onClick={() =>
+                  typeOfUser &&
+                  typeOfUser.id &&
+                  deleteAsync(Number(id))
+                }
                 className={styles.item}
               >
                 Удалить
@@ -85,11 +93,11 @@ const FilterEditPanel = forwardRef(
         >
           <div className={styles.slash} onClick={() => setVisible(false)} />
           <div className={styles.filterContent}>
-            {getUrl && (
+            {getUrlEdit && (
               <P
                 size='xs'
                 fontstyle='thin'
-                onClick={() => push(getUrl(`/${id}`))}
+                onClick={() => push(getUrlEdit(`${id}`))}
                 className={styles.item}
               >
                 Редактировать
@@ -99,7 +107,11 @@ const FilterEditPanel = forwardRef(
               <P
                 size='xs'
                 fontstyle='thin'
-                onClick={() => deleteAsync(id)}
+                onClick={() =>
+                  typeOfUser &&
+                  typeOfUser.id &&
+                  deleteAsync(Number(id))
+                }
                 className={styles.item}
               >
                 Удалить

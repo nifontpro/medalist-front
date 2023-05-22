@@ -5,14 +5,15 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const EditPanel = forwardRef(
   (
     {
       getUrlEdit,
-      getUrlCreate,
       id,
-      // deleteAsync,
+      deleteAsync,
       children,
       visible,
       className,
@@ -21,14 +22,21 @@ const EditPanel = forwardRef(
     }: EditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const { typeOfUser } = useAppSelector(
+      (state: RootState) => state.userSelection
+    );
     const { push } = useRouter();
 
-    const deleteAsync = (id: string) => {};
+    const option = {
+      state: {
+        id: '1',
+      },
+    };
 
     const variants = {
       visible: {
         opacity: 1,
-        height: !onlyRemove ? '180px' : 'auto',
+        height: !onlyRemove ? '129.9px' : 'auto',
         padding: '20px',
       },
       hidden: {
@@ -53,7 +61,11 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(id)}
+              onClick={() =>
+                typeOfUser &&
+                typeOfUser.id &&
+                deleteAsync(Number(id))
+              }
               className={styles.item}
             >
               Удалить
@@ -76,7 +88,7 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => push(getUrlEdit(`/${id}`))}
+              onClick={() => push(getUrlEdit(`${id}`))}
               className={styles.item}
             >
               Редактировать
@@ -86,28 +98,16 @@ const EditPanel = forwardRef(
             <P
               size='xs'
               fontstyle='thin'
-              onClick={() => deleteAsync(id)}
+              onClick={() =>
+                typeOfUser &&
+                typeOfUser.id &&
+                deleteAsync(Number(id))
+              }
               className={styles.item}
             >
               Удалить
             </P>
           )}
-          <P
-            size='xs'
-            fontstyle='thin'
-            onClick={() => push(getUrlCreate())}
-            className={styles.item}
-          >
-            Создать отдел
-          </P>
-          {/* <P
-            size='xs'
-            fontstyle='thin'
-            // onClick={() => deleteAsync(id)}
-            className={styles.item}
-          >
-            Добавть сотрудника
-          </P> */}
         </motion.div>
       );
     }

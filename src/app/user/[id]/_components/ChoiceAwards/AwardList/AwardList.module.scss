@@ -1,0 +1,29 @@
+.userList {
+  // margin-bottom: 30px;
+  padding: 20px 30px 20px 60px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  @apply duration-200;
+  &:hover {
+    background: var(--graySilver);
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 48px;
+    left: 20px;
+  }
+}
+
+// .userList:nth-last-child(1) {
+//   margin-bottom: 0px;
+// }
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

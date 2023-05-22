@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  > .checkbox {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #00000020;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+
+    > .check {
+      width: 20px;
+      height: 20px;
+
+    }
+  }
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

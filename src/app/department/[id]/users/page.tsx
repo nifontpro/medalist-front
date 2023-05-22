@@ -1,16 +1,13 @@
-'use client';
-
-import { userData } from '@/app/department/[id]/users/_api/user.data';
 import Users from './_components/Users/Users';
 
-export const DepartmentUsers = ({ params }: { params: { id: string } }) => {
-  const users = userData.filter((user) => user.deptId === Number(params.id));
-
+export default function DepartmentUsers({
+  params,
+}: {
+  params: { id: string };
+}) {
   return (
-    <div>
-      <Users users={users} id={params.id} />
-    </div>
+    <main>
+      <Users id={params.id} />
+    </main>
   );
-};
-
-export default DepartmentUsers;
+}

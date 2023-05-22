@@ -1,6 +1,5 @@
-export const EditDepartment = ({ params }: { params: { id: string } }) => {
-    return <div>Редактирование отдела {params.id}</div>;
-  };
-  
-  export default EditDepartment;
-  
+import DepartmentEdit from './_components/DepartmentEdit/DepartmentEdit';
+
+export default function EditDepartment({ params }: { params: { id: string } }) {
+  return <DepartmentEdit id={params.id} />;
+}

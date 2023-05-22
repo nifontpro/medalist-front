@@ -4,15 +4,19 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
-  const { push } = useRouter();
+  const { push, back } = useRouter();
+
+  const { windowSize } = useWindowSize();
 
   const convertPathName = (pathName: string) => {
     const arr = pathName.split('/');
     const link = arr[arr.length - 1];
-    if (link == 'users' || link == 'medals' || link == 'statistic') {
+    if (link == 'users' || link == 'awards' || link == 'statistics') {
       return link;
     } else return '';
   };
@@ -26,12 +30,12 @@ const HeaderLayout = () => {
   };
 
   const [alignment, setAlignment] = useState<
-    'users' | 'medals' | 'statistic' | ''
+    'users' | 'awards' | 'statistics' | ''
   >(convertPathName(pathName));
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: 'users' | 'medals' | 'statistic' | ''
+    newAlignment: 'users' | 'awards' | 'statistics' | ''
   ) => {
     if (newAlignment === null) {
       push(pathName);
@@ -46,6 +50,14 @@ const HeaderLayout = () => {
 
   return (
     <>
+      <ButtonCircleIcon
+        onClick={back}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        Вернуться назад
+      </ButtonCircleIcon>
       {getLastUrl(pathName) === 'edit' ? null : (
         <ToggleButtonGroup
           color='primary'
@@ -53,11 +65,12 @@ const HeaderLayout = () => {
           exclusive
           onChange={handleChange}
           aria-label='Platform'
-          className='mb-5 w-full justify-center'
+          className='my-5 w-full justify-center'
+          orientation={windowSize.winWidth < 400 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value='users'>Сотрудники</ToggleButton>
-          <ToggleButton value='medals'>Медали</ToggleButton>
-          <ToggleButton value='statistic'>Статистика</ToggleButton>
+          <ToggleButton value='awards'>Медали</ToggleButton>
+          <ToggleButton value='statistics'>Статистика</ToggleButton>
         </ToggleButtonGroup>
       )}
     </>

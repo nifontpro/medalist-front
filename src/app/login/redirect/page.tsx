@@ -5,8 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { authApi } from '@/api/auth/auth.api';
 import { usePathname } from 'next/navigation';
 import Spinner from '@/ui/Spinner/Spinner';
+import { setCookie } from 'cookies-next';
+import { isExpired, decodeToken } from "react-jwt";
 
 const RedirectPage = () => {
+
   const { push, back } = useRouter();
   const query = useSearchParams();
   const pathname = usePathname();
@@ -38,9 +41,10 @@ const RedirectPage = () => {
     getLoginData({ code: queryCode, codeVerifier })
       .unwrap()
       .then(async (data) => {
-        // console.log(data)
+        // setCookie('refresh_token', data.refresh_token, { maxAge: 60 }); // Для middleware
+        setCookie('exp', decodeToken(data.refresh_token), ); // Для middleware
         await push('/');
-        console.log('Redirect on Main')
+        console.log('Redirect on Main');
       });
   }, [codeVerifier, getLoginData, pathname, query, push, back]);
 
