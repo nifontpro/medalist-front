@@ -6,5 +6,6 @@ export interface BaseRequest {
   filter?: string;
   minDate?: number;
   maxDate?: number;
+  subdepts?: boolean;
   orders?: BaseOrder[];
 }
