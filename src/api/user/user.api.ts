@@ -1,14 +1,14 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { User } from '@/domain/model/user/user';
-import { UserDetails } from '@/domain/model/user/userDetails';
-import { CreateOwnerRequest } from './request/CreateOwnerRequest';
-import { CreateUserRequest } from './request/CreateUserRequest';
-import { UpdateUserRequest } from './request/UpdateUserRequest';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import { GenderCount } from '@/domain/model/user/GenderCount';
+import {createApi} from '@reduxjs/toolkit/dist/query/react';
+import {baseQueryWithReauth} from '../base/base.api';
+import {BaseResponse} from '@/domain/model/base/BaseResponse';
+import {User} from '@/domain/model/user/user';
+import {UserDetails} from '@/domain/model/user/userDetails';
+import {CreateOwnerRequest} from './request/CreateOwnerRequest';
+import {CreateUserRequest} from './request/CreateUserRequest';
+import {UpdateUserRequest} from './request/UpdateUserRequest';
+import {BaseImage} from '@/domain/model/base/image/baseImage';
+import {BaseRequest} from '@/domain/model/base/BaseRequest';
+import {GenderCount} from "@/domain/model/user/genderCount";
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -22,7 +22,7 @@ export const userApi = createApi({
         return {
           method: 'POST',
           url: userUrl('/data'),
-          body: { res: 'Test Body from Front' },
+          body: {res: 'Test Body from Front'},
         };
       },
       providesTags: ['User'],
@@ -82,7 +82,7 @@ export const userApi = createApi({
         };
       },
       invalidatesTags: (result) => [
-        { type: 'User', id: result?.data?.user.id },
+        {type: 'User', id: result?.data?.user.id},
       ],
     }),
 
@@ -93,14 +93,14 @@ export const userApi = createApi({
      *    Параметр [filter] - фильтрация по Фамилии сотрудника
      *    Допустимые поля для сортировки:
      *          "firstname",
-     *    			"patronymic",
-     *    			"lastname",
-     *    			"authEmail",
-     *    			"post",
+     *          "patronymic",
+     *          "lastname",
+     *          "authEmail",
+     *          "post",
      */
     getUsersByDept: build.query<
-      BaseResponse<User[]>,
-      { authId: number; deptId: number; baseRequest: BaseRequest | undefined }
+        BaseResponse<User[]>,
+        { authId: number; deptId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (request) => {
         return {
@@ -119,16 +119,16 @@ export const userApi = createApi({
      *    Параметр [filter] - фильтрация по Фамилии сотрудника
      *    Допустимые поля для сортировки:
      *          "firstname",
-     *    			"patronymic",
-     *    			"lastname",
-     *    			"authEmail",
-     *    			"post",
-     *    			"dept.name", - Первым рекомендую его установить
-     *    			"dept.classname",
+     *          "patronymic",
+     *          "lastname",
+     *          "authEmail",
+     *          "post",
+     *          "dept.name", - Первым рекомендую его установить
+     *          "dept.classname",
      */
     getUsersBySubDept: build.query<
-      BaseResponse<User[]>,
-      { authId: number; deptId: number; baseRequest: BaseRequest | undefined }
+        BaseResponse<User[]>,
+        { authId: number; deptId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (request) => {
         return {
@@ -144,8 +144,8 @@ export const userApi = createApi({
      * Получение сотрудника по id
      */
     getById: build.query<
-      BaseResponse<UserDetails>,
-      { authId: number; userId: number }
+        BaseResponse<UserDetails>,
+        { authId: number; userId: number }
     >({
       query: (request) => {
         return {
@@ -161,8 +161,8 @@ export const userApi = createApi({
      * Удаление сотрудника по id
      */
     delete: build.mutation<
-      BaseResponse<UserDetails>,
-      { authId: number; userId: number }
+        BaseResponse<UserDetails>,
+        { authId: number; userId: number }
     >({
       query: (request) => {
         return {
@@ -206,8 +206,8 @@ export const userApi = createApi({
      * @param: userId, imageId
      */
     imageDelete: build.mutation<
-      BaseResponse<BaseImage>,
-      { userId: number; imageId: number }
+        BaseResponse<BaseImage>,
+        { userId: number; imageId: number }
     >({
       query: (body) => ({
         method: 'POST',
@@ -224,8 +224,8 @@ export const userApi = createApi({
      *           = false - только этот отдел [deptId]
      */
     getGenderCountByDept: build.query<
-      BaseResponse<GenderCount>,
-      { authId: number; deptId: number; baseRequest: BaseRequest }
+        BaseResponse<GenderCount>,
+        { authId: number; deptId: number; baseRequest: BaseRequest }
     >({
       query: (request) => {
         return {
