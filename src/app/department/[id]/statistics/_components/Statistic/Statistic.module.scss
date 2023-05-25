@@ -1,0 +1,76 @@
+.wrapper {
+  .title {
+    .header {
+      margin-bottom: 25px;
+    }
+
+    .headerTitle {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+  }
+
+  .content {
+    margin-top: 55px;
+    display: grid;
+    gap: 30px;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'countAwards countNominee'
+      'usersGender usersAwards'
+      'activity activity';
+    @apply animate-fade;
+
+    @media screen and (max-width: 1280px) {
+      gap: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      grid-template-areas:
+        'countAwards'
+        'countNominee'
+        'usersGender'
+        'usersAwards'
+        'activity';
+    }
+
+    .countNominee {
+      grid-area: countNominee;
+      background: var(--orange);
+      border-radius: 25px;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .usersGender {
+      grid-area: usersGender;
+    }
+
+    .usersAwards {
+      grid-area: usersAwards;
+    }
+
+    .activity {
+      grid-area: activity;
+    }
+
+    .countAwards {
+      grid-area: countAwards;
+      background: var(--lime);
+      border-radius: 25px;
+      padding: 20px;
+      cursor: pointer;
+
+      .countAwards_head {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+}

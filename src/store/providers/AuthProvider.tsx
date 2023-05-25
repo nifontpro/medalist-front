@@ -8,13 +8,12 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const { push } = useRouter();
   const pathName = usePathname();
-  const refresh = localStorage.getItem('refresh');
 
   useEffect(() => {
-    if (!isAuth && pathName.slice(0,6) !== '/login') {
-      console.log(`AuthProvider: isAuth ${isAuth}`)
+    if (!isAuth && pathName.slice(0, 6) !== '/login') {
+      console.log(`AuthProvider: isAuth ${isAuth}`);
       push('/login');
-      console.log('Redirect on LoginPage') 
+      console.log('Redirect on LoginPage');
     }
   }, [isAuth, pathName, push]);
 

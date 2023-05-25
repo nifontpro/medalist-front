@@ -58,7 +58,7 @@ export const authApi = createApi({
     logout: build.mutation<void, string>({
       query: (id_token) => ({
         method: 'GET',
-        url: 'logout',
+        url: '/logout',
         params: {
           id_token,
           // post_logout_redirect_uri: APP_URI,

@@ -1,6 +1,6 @@
 .form {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 30px;
   margin-top: 50px;
   @apply animate-fade;

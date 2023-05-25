@@ -10,12 +10,17 @@ import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import { awardApi } from '@/api/award/award.api';
+import { GalleryItem } from '@/domain/model/gallery/item';
 
 export const useAwardEdit = (
   setValue: UseFormSetValue<UpdateAwardRequest>,
   id: string
 ) => {
   const { singleAward, isLoadingSingleAward } = useAwardAdmin(id);
+
+  const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
+    undefined
+  ); // Для выбора из галлереи
 
   const [imageNum, setImageNum] = useState<number>(0);
   const [images, setImages] = useState<BaseImage[]>();
@@ -156,6 +161,8 @@ export const useAwardEdit = (
       imageNum,
       setImageNum,
       images,
+      imagesGallery,
+      setImagesGallery,
     };
   }, [
     addImage,
@@ -167,5 +174,7 @@ export const useAwardEdit = (
     singleAward,
     update,
     typeOfUser,
+    imagesGallery,
+    setImagesGallery,
   ]);
 };

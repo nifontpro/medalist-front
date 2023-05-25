@@ -1,0 +1,20 @@
+.inputWrapper {
+  position: relative;
+  text-align: center;
+
+  .inputFile {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    z-index: 10;
+    width: 100%;
+    height: 56px;
+    border-radius: 16px;
+    cursor: pointer;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

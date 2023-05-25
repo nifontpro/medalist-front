@@ -8,6 +8,7 @@ import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { GenderCount } from '@/domain/model/user/genderCount';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -214,6 +215,26 @@ export const userApi = createApi({
         body: body,
       }),
       invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Получить количество сотрудников по полам
+     * [baseRequest]:
+     *  subdepts = true - включая все подотделы [deptId]
+     *           = false - только этот отдел [deptId]
+     */
+    getGenderCountByDept: build.query<
+      BaseResponse<GenderCount>,
+      { authId: number; deptId: number; baseRequest: BaseRequest }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: userUrl('/gender_count'),
+          body: request,
+        };
+      },
+      providesTags: ['User'],
     }),
   }),
 });

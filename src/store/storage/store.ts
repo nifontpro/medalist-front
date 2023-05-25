@@ -23,6 +23,8 @@ import { headerSlice } from '../features/header/header.slice';
 import { awardApi } from '@/api/award/award.api';
 import { themeSlice } from '../features/theme/theme.slice';
 import { dataCreateAwardSlice } from '../features/awardCreateDate/awardCreateDate.slice';
+import { galleryApi } from '@/api/gallery/gallery.api';
+import { visibleModalWindowGalleryAwardsSlice } from '../features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -48,12 +50,21 @@ const persistConfig = {
   key: 'root',
   storage,
   // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
-  whitelist: ['auth', 'sidebarTree', 'userSelection', 'header', 'theme', 'dataCreateAward'], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
+  whitelist: [
+    'auth',
+    'sidebarTree',
+    'userSelection',
+    'header',
+    'theme',
+    'dataCreateAward',
+    'visibleModalWindowGalleryAwards',
+  ], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
   blacklist: [
     authApi.reducerPath,
     userApi.reducerPath,
     deptApi.reducerPath,
     awardApi.reducerPath,
+    galleryApi.reducerPath,
   ], // то что не хотим сохранять в localstorage
 };
 
@@ -63,11 +74,13 @@ const rootReducer = combineReducers({
   header: headerSlice.reducer,
   auth: authSlice.reducer,
   theme: themeSlice.reducer,
+  visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
   dataCreateAward: dataCreateAwardSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [deptApi.reducerPath]: deptApi.reducer,
   [awardApi.reducerPath]: awardApi.reducer,
+  [galleryApi.reducerPath]: galleryApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -84,7 +97,8 @@ export const store = configureStore({
       authApi.middleware,
       userApi.middleware,
       deptApi.middleware,
-      awardApi.middleware
+      awardApi.middleware,
+      galleryApi.middleware
     ),
 });
 

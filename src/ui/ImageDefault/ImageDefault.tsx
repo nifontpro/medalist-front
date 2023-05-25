@@ -11,7 +11,7 @@ export const ImageDefault: FC<ImageDefaultProps> = ({
   src,
   alt,
   draggable,
-  priority,
+  priority = true,
   width,
   height,
   className,

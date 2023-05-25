@@ -13,6 +13,7 @@ import { AwardEditProps } from './AwardEdit.props';
 import { useAwardEdit } from './useAwardEdit';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import ModalWindowGalleryAwards from '../ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
   const {
@@ -33,6 +34,8 @@ const AwardEdit = ({ id }: AwardEditProps) => {
     imageNum,
     setImageNum,
     images,
+    imagesGallery,
+    setImagesGallery,
   } = useAwardEdit(setValue, id);
 
   if (isLoadingSingleAward) return <Spinner />;
@@ -114,6 +117,13 @@ const AwardEdit = ({ id }: AwardEditProps) => {
             </Button>
           </div>
         </form>
+
+        <ModalWindowGalleryAwards
+          img={imagesGallery}
+          setImg={setImagesGallery}
+          textBtn='Подтвердить'
+          create={false}
+        />
       </div>
     </main>
   );

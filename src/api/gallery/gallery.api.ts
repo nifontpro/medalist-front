@@ -3,6 +3,7 @@ import { baseQueryWithReauth } from '@/api/base/base.api';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { Folder } from '@/domain/model/gallery/folder';
 import { GalleryItem } from '@/domain/model/gallery/item';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
 
 export const folderUrl = (string: string = '') => `/gallery/folder${string}`;
 export const itemUrl = (string: string = '') => `/gallery/item${string}`;
@@ -20,7 +21,7 @@ export const galleryApi = createApi({
      *          "name",
      *          "createdAt",
      */
-    getAllFolder: build.query<Folder[], { baseRequest: BaseRequest }>({
+    getAllFolder: build.query<BaseResponse<Folder[]>, { baseRequest: BaseRequest | undefined }>({
       query: (request) => {
         return {
           method: 'POST',
@@ -40,8 +41,8 @@ export const galleryApi = createApi({
      *            "createdAt",
      */
     getItemsByFolder: build.query<
-      GalleryItem[],
-      { folderId: number; baseRequest: BaseRequest }
+    BaseResponse<GalleryItem[]>,
+      { folderId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (request) => {
         return {

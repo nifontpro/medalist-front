@@ -1,0 +1,29 @@
+.wrapper {
+  .allAwards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .arrow {
+      width: 13px;
+      margin-left: 20px;
+      @media screen and (max-width: 768px) {
+        margin-left: 10px;
+        width: 8px;
+      }
+    }
+
+    .img {
+      background: var(--lime-dark);
+      border-radius: 16px;
+      padding: 12px;
+      width: 60px;
+      height: 60px;
+      margin-right: 25px;
+    }
+
+    .descriptionTitle {
+      margin-bottom: 10px;
+    }
+  }
+}

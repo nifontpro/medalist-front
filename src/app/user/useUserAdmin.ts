@@ -12,7 +12,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     (state: RootState) => state.userSelection
   );
 
-  //
+  // Получить пользоветля по id
   const { data: singleUser, isLoading: isLoadingSingleUser } =
     userApi.useGetByIdQuery(
       {
@@ -24,6 +24,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       }
     );
 
+  // Получить пользоветлей в отделе
   const { data: usersOnDepartment, isLoading: isLoadingUsersOnDept } =
     userApi.useGetUsersByDeptQuery(
       {
@@ -36,6 +37,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       }
     );
 
+  // Получение сотрудников всех подотделов вместе с текущим
   const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
     userApi.useGetUsersBySubDeptQuery(
       {
@@ -47,6 +49,21 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
         skip: !typeOfUser,
       }
     );
+
+  // Получить количество сотрудников по полам
+  const {
+    data: usersGenderOnDepartment,
+    isLoading: isLoadingUsersGenderOnDepartment,
+  } = userApi.useGetUsersBySubDeptQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(id),
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   const [deleteUser] = userApi.useDeleteMutation();
 
@@ -80,6 +97,8 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       isLoadingUsersOnDept,
       usersOnSubDepartment,
       isLoadingUsersOnSubDept,
+      usersGenderOnDepartment,
+      isLoadingUsersGenderOnDepartment,
     };
   }, [
     deleteUser,
@@ -90,5 +109,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     usersOnSubDepartment,
     isLoadingUsersOnSubDept,
     typeOfUser,
+    usersGenderOnDepartment,
+    isLoadingUsersGenderOnDepartment,
   ]);
 };

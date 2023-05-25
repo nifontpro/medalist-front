@@ -3,6 +3,7 @@ import { UserLogoProps } from './UserLogo.props';
 import UserPanelModalWindow from './UserPanelModalWindow/UserPanelModalWindow';
 import { useRef, useState } from 'react';
 import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import { useUserPanelModalWindow } from './UserPanelModalWindow/useUserPanelModalWindow';
 
 const UserLogo = ({
   user,
@@ -17,9 +18,14 @@ const UserLogo = ({
     setVisibleModal(false);
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
+  const {
+    handleLogoutClick,
+  } = useUserPanelModalWindow(setVisibleModal, user);
+  
   return (
     <>
-      <div
+      {user ? <div
         className={className}
         ref={refOpen}
         {...props}
@@ -38,7 +44,10 @@ const UserLogo = ({
           className='rounded-[10px]'
           priority={true}
         />
-      </div>
+      </div> : 
+      <div className='@apply text-white flex justify-center items-center cursor-pointer' onClick={handleLogoutClick}>exit</div>
+      // null
+      }
       {user && (
         <UserPanelModalWindow
           visibleModal={visibleModal}

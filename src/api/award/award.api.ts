@@ -9,6 +9,7 @@ import { Activity } from '@/domain/model/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
 import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { AwardCount } from '@/domain/model/award/AwardCount';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -281,6 +282,56 @@ export const awardApi = createApi({
         };
       },
       providesTags: ['Award'],
+    }),
+
+    /**
+     * Получение количества наград в компании
+     * [baseRequest]:
+     *  subdepts - true: включаются все подотделы
+     *             false: только указанный отдел
+     */
+    getAwardCount: build.query<
+      BaseResponse<number>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_dep'),
+          body: request,
+        };
+      },
+      providesTags: ['Award'],
+    }),
+
+    /**
+     * Получение количества активных награждений (наград у пользователей) разных типов в компании
+     * [baseRequest]:
+     *  subdepts - true: включаются все подотделы
+     *             false: включаются только ближайшие подотделы (у которых parentId=deptId)
+     *  minDate, maxDate - необязательны ограничения по дате события
+     *  Сортировка без выбора по имени отдела
+     */
+    getActivCount: build.query<
+      BaseResponse<AwardCount[]>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_activ'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
     }),
   }),
 });
