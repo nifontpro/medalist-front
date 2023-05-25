@@ -8,7 +8,7 @@ import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import { GenderCount } from '@/domain/model/user/genderCount';
+import { GenderCount } from '@/domain/model/user/GenderCount';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
