@@ -1,6 +1,6 @@
 export interface AwardCount {
-	deptId: number
-	deptName: string
-	awardCount: number
-	nomineeCount: number
+  deptId: number;
+  deptName: string;
+  awardCount: number;
+  nomineeCount: number;
 }

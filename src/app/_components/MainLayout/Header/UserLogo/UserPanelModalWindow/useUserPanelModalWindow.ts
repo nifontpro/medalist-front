@@ -56,11 +56,11 @@ export const useUserPanelModalWindow = (
         dispatch(authActions.setIsAuth(false));
         dispatch(setTypeOfUserUndefined());
         setVisibleModal(false);
-        deleteCookie('refresh_token'); // Для middleware
+        deleteCookie('exp'); // Для middleware
       }
       await dispatch(authActions.setNoAccess());
       setVisibleModal(false);
-      deleteCookie('refresh_token'); // Для middleware
+      deleteCookie('exp'); // Для middleware
 
       console.log('не понятно что это');
       // await push("/login")

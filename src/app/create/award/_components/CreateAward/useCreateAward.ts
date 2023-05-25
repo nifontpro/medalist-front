@@ -1,7 +1,7 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -11,12 +11,11 @@ import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 import { awardApi } from '@/api/award/award.api';
 import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
 import { RootState } from '@/store/storage/store';
+import { GalleryItem } from '@/domain/model/gallery/item';
 
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,
   reset: UseFormReset<CreateAwardRequest>,
-  // images: IGalleryObject | undefined,
-  // companyId?: string,
   arrChoiceUser?: string[]
 ) => {
   const dispatch = useAppDispatch();
@@ -25,8 +24,17 @@ export const useCreateAward = (
   const deptId = Number(searchParams.get('deptId'));
   const [createAward] = awardApi.useCreateMutation();
   const [rewardUser] = awardApi.useSendActionMutation();
+  const [setImageGallery] = awardApi.useGalleryImageAddMutation();
+  const [setImage] = awardApi.useImageAddMutation();
 
-  const { typeOfUser } = useAppSelector((state: RootState) => state.userSelection);
+  const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
+    undefined
+  ); // Для предпросмотра и выбора из галлереи
+  const [imageFile, setImagesFile] = useState<File>(); // Для загрузки пользовательского изображения
+
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
   const startDateSelect = useAppSelector(
     (state: RootState) => state.dataCreateAward.startDate
   );
@@ -48,6 +56,7 @@ export const useCreateAward = (
       back();
     };
 
+    //Выдать сразу и закрыть
     const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
       console.log('AWARD');
 
@@ -57,28 +66,20 @@ export const useCreateAward = (
       let isError = false;
       data.type = 'SIMPLE';
 
-      console.log(data);
-
       if (typeOfUser && typeOfUser.id && deptId) {
         await createAward({ ...data })
           .unwrap()
-          .then((res) => {
+          .then(async (res) => {
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
             }
-            // if (images) {
-            //   await setImage({ awardId: award.id, galleryItemId: images.id })
-            //     .unwrap()
-            //     .catch(() => {
-            //       isError = true;
-            //       toast.error('Ошибка добавления фото награды');
-            //     });
-            // }
+
+            //Награждение тех кого выбрали
             if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-              arrChoiceUser.forEach((user) => {
+              await arrChoiceUser.forEach(async (user) => {
                 if (typeOfUser && typeOfUser.id && res.data)
-                  rewardUser({
+                  await rewardUser({
                     authId: typeOfUser.id,
                     awardId: res.data?.award.id,
                     userId: Number(user),
@@ -97,19 +98,80 @@ export const useCreateAward = (
                     });
               });
             }
+
+            //Добавления фото из галлереи
+            if (
+              imagesGallery &&
+              imagesGallery.id !== -1 &&
+              res.data &&
+              typeOfUser &&
+              typeOfUser.id
+            ) {
+              await setImageGallery({
+                awardId: res.data?.award.id,
+                authId: typeOfUser.id,
+                itemId: imagesGallery.id,
+              })
+                .unwrap()
+                .then(async (res) => {
+                  if (res.success == false) {
+                    errorMessageParse(res.errors);
+                    isError = true;
+                  }
+                })
+                .catch(() => {
+                  isError = true;
+                  toast.error('Ошибка добавления фото награды');
+                });
+            }
+
+            //Добавления загруженного фото
+            if (
+              imagesGallery &&
+              imagesGallery.id === -1 &&
+              imageFile &&
+              res.data &&
+              typeOfUser &&
+              typeOfUser.id
+            ) {
+              const file = new FormData();
+              file.append('file', imageFile);
+              file.append('authId', typeOfUser.id.toString());
+              file.append('awardId', res.data.award.id.toString());
+
+              await setImage(file)
+                .unwrap()
+                .then((res) => {
+                  console.log(res);
+                  if (res.success == false) {
+                    errorMessageParse(res.errors);
+                    isError = true;
+                  }
+                })
+                .catch(() => {
+                  isError = true;
+                  toast.error('Ошибка добавления фотографии');
+                });
+              if (!isError) {
+                toast.success('Фото успешно добавлено');
+              }
+            }
           })
           .catch((e) => {
             isError = true;
             toastError(e, 'Ошибка создания награды');
+          })
+          .then(() => {
+            if (!isError) {
+              back();
+              toast.success('Награда успешно создана');
+              reset();
+            }
           });
       }
-      if (!isError) {
-        back();
-        toast.success('Награда успешно создана');
-      }
-      reset();
     };
 
+    //Номинировать
     const onSubmitNominee: SubmitHandler<CreateAwardRequest> = async (data) => {
       data.type = 'PERIOD';
       let isError = false;
@@ -141,8 +203,6 @@ export const useCreateAward = (
         }
       }
 
-      console.log(data);
-
       if (
         typeOfUser &&
         typeOfUser.id &&
@@ -153,25 +213,17 @@ export const useCreateAward = (
       ) {
         await createAward({ ...data })
           .unwrap()
-          .then((res) => {
+          .then(async (res) => {
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
             }
 
-            //   if (images) {
-            //     await setImage({ awardId: award.id, galleryItemId: images.id })
-            //       .unwrap()
-            //       .catch(() => {
-            //         isError = true;
-            //         toast.error('Ошибка добавления фото награды');
-            //       });
-            //   }
-
+            //Номинирование тех кого выбрали
             if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-              arrChoiceUser.forEach((user) => {
+              await arrChoiceUser.forEach(async (user) => {
                 if (typeOfUser && typeOfUser.id && res.data)
-                  rewardUser({
+                  await rewardUser({
                     authId: typeOfUser.id,
                     awardId: res.data?.award.id,
                     userId: Number(user),
@@ -190,15 +242,76 @@ export const useCreateAward = (
                     });
               });
             }
+
+            //Добавления фото из галлереи
+            if (
+              imagesGallery &&
+              imagesGallery.id !== -1 &&
+              res.data &&
+              typeOfUser &&
+              typeOfUser.id
+            ) {
+              await setImageGallery({
+                awardId: res.data?.award.id,
+                authId: typeOfUser.id,
+                itemId: imagesGallery.id,
+              })
+                .unwrap()
+                .then(async (res) => {
+                  if (res.success == false) {
+                    errorMessageParse(res.errors);
+                    isError = true;
+                  }
+                })
+                .catch(() => {
+                  isError = true;
+                  toast.error('Ошибка добавления фото награды');
+                });
+            }
+
+            //Добавления загруженного фото
+            if (
+              imagesGallery &&
+              imagesGallery.id === -1 &&
+              imageFile &&
+              res.data &&
+              typeOfUser &&
+              typeOfUser.id
+            ) {
+              const file = new FormData();
+              file.append('file', imageFile);
+              file.append('authId', typeOfUser.id.toString());
+              file.append('awardId', res.data.award.id.toString());
+
+              await setImage(file)
+                .unwrap()
+                .then((res) => {
+                  console.log(res);
+                  if (res.success == false) {
+                    errorMessageParse(res.errors);
+                    isError = true;
+                  }
+                })
+                .catch(() => {
+                  isError = true;
+                  toast.error('Ошибка добавления фотографии');
+                });
+              if (!isError) {
+                toast.success('Фото успешно добавлено');
+              }
+            }
           })
           .catch((e) => {
             isError = true;
             toastError(e, 'Ошибка создания награды');
+          })
+          .then(() => {
+            if (!isError) {
+              back();
+              toast.success('Награда успешно создана');
+              reset();
+            }
           });
-      }
-      if (!isError) {
-        toast.success('Награда успешно создана');
-        back();
       }
     };
     return {
@@ -208,6 +321,9 @@ export const useCreateAward = (
       handleClick,
       dispatch,
       deptId,
+      imagesGallery,
+      setImagesGallery,
+      setImagesFile,
     };
   }, [
     back,
@@ -220,5 +336,11 @@ export const useCreateAward = (
     typeOfUser,
     arrChoiceUser,
     createAward,
+    imagesGallery,
+    setImagesGallery,
+    setImageGallery,
+    setImagesFile,
+    imageFile,
+    setImage,
   ]);
 };

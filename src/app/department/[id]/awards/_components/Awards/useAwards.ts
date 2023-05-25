@@ -27,7 +27,7 @@ export const useAwards = (id: string) => {
     active
   );
 
-  console.log(awardsOnDepartment)
+  // console.log(awardsOnDepartment)
 
   return useMemo(() => {
     const totalPage = awardsOnDepartment?.pageInfo?.totalPages;

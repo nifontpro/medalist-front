@@ -4,7 +4,7 @@ import styles from './UserListChoiceUsers.module.scss';
 import { UserListChoiceUsersProps } from './UserListChoiceUsers.props';
 import cn from 'classnames';
 import CheckedIcon from '@/icons/checked.svg';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 
 const UserListChoiceUsers = ({
@@ -17,6 +17,8 @@ const UserListChoiceUsers = ({
   ...props
 }: UserListChoiceUsersProps): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(allChecked);
+
+  console.log('click')
 
   useEffect(() => {
     setVisible(allChecked);
@@ -60,4 +62,4 @@ const UserListChoiceUsers = ({
   );
 };
 
-export default UserListChoiceUsers;
+export default memo(UserListChoiceUsers);

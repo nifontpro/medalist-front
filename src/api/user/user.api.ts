@@ -8,7 +8,7 @@ import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import {GenderCount} from "@/domain/model/user/GenderCount";
+import { GenderCount } from '@/domain/model/user/genderCount';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -224,8 +224,8 @@ export const userApi = createApi({
      *           = false - только этот отдел [deptId]
      */
     getGenderCountByDept: build.query<
-        BaseResponse<GenderCount>,
-        { authId: number; deptId: number; baseRequest: BaseRequest }
+      BaseResponse<GenderCount>,
+      { authId: number; deptId: number; baseRequest: BaseRequest }
     >({
       query: (request) => {
         return {
@@ -236,6 +236,5 @@ export const userApi = createApi({
       },
       providesTags: ['User'],
     }),
-
   }),
 });

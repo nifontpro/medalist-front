@@ -1,7 +1,6 @@
 'use client';
 
 import { useAppSelector } from '@/store/hooks/hooks';
-import { DatePicker } from '@mui/x-date-pickers';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });

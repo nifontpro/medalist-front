@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   //         Math.floor(Math.random() * alphaNumericCharactersLength)
   //       );
   //     }
-
+ 
   //     return state;
   //   };
 

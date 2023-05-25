@@ -22,10 +22,11 @@ import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
 import UsersPreviewCreateAward from './UsersPreviewCreateAward/UsersPreviewCreateAward';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import ChoiceImgCreate from './ChoiceImgCreate/ChoiceImgCreate';
+import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 
 const CreateAward = () => {
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
-  // const [images, setImg] = useState<IGalleryObject | undefined>(undefined);
 
   const {
     handleSubmit,
@@ -35,13 +36,16 @@ const CreateAward = () => {
     reset,
   } = useForm<CreateAwardRequest>({ mode: 'onChange' });
 
-  const { onSubmitReward, onSubmitNominee, dispatch, back, deptId } =
-    useCreateAward(
-      setValue,
-      reset,
-      // images,
-      arrChoiceUser
-    );
+  const {
+    onSubmitReward,
+    onSubmitNominee,
+    dispatch,
+    back,
+    deptId,
+    imagesGallery,
+    setImagesGallery,
+    setImagesFile,
+  } = useCreateAward(setValue, reset, arrChoiceUser);
 
   const {
     page,
@@ -89,23 +93,25 @@ const CreateAward = () => {
         Вернуться назад
       </ButtonCircleIcon>
       <form className={styles.form}>
-        {/* <ChoiceImgCreate
+        <ChoiceImgCreate
           setVisibleModal={setVisibleModal}
-          images={images}
-          setImg={setImg}
-        /> */}
+          images={imagesGallery}
+          setImagesGallery={setImagesGallery}
+          setImagesFile={setImagesFile}
+        />
 
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>
             Новая награда
           </Htag>
 
-          {/* <ChoiceImgCreate
+          <ChoiceImgCreate
             className={styles.mediaVisible}
             setVisibleModal={setVisibleModal}
-            images={images}
-            setImg={setImg}
-          /> */}
+            images={imagesGallery}
+            setImagesGallery={setImagesGallery}
+            setImagesFile={setImagesFile}
+          />
 
           <Field
             {...register('name', { required: 'Название необходимо!' })}
@@ -196,15 +202,12 @@ const CreateAward = () => {
         </div>
       </form>
 
-      {/* <ModalWindowGalleryAwards
-        img={images}
-        setImg={setImg}
-        visibleModal={visibleModal}
-        setVisibleModal={setVisibleModal}
+      <ModalWindowGalleryAwards
+        img={imagesGallery}
+        setImg={setImagesGallery}
         textBtn='Подтвердить'
-        // ref={ref}
-        create={false}
-      /> */}
+        create={true}
+      />
     </>
   );
 };

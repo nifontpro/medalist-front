@@ -10,7 +10,11 @@ import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
-export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, active?: AwardState) => {
+export const useAwardAdmin = (
+  awardId?: string,
+  baseRequest?: BaseRequest,
+  active?: AwardState
+) => {
   const { back } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -55,6 +59,7 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, activ
       skip: !typeOfUser && !awardId,
     }
   );
+
   // Получить награды в отделе
   const { data: awardsOnDepartment, isLoading: isLoadingAwardsOnDept } =
     awardApi.useGetByDeptQuery(
@@ -62,6 +67,19 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, activ
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(awardId),
         state: active ? active : undefined,
+        baseRequest: baseRequest ? baseRequest : undefined,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  // Получить колличество наград в отделе
+  const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
+    awardApi.useGetAwardCountQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: Number(awardId),
         baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
@@ -78,6 +96,21 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, activ
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(awardId),
       baseRequest: undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
+  // Получение количества активных награждений (наград у пользователей) разных типов в компании
+  const {
+    data: colAwardsActivOnDepartment,
+    isLoading: isLoadingColAwardsActivOnDepartment,
+  } = awardApi.useGetActivCountQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(awardId),
+      baseRequest: baseRequest ? baseRequest : undefined,
     },
     {
       skip: !typeOfUser,
@@ -169,7 +202,11 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, activ
       isLoadingSingleActivAwardUser,
       userRewardAsync,
       awardsAvailableForRewardUser,
-      isLoadingAwardsAvailableForRewardUser
+      isLoadingAwardsAvailableForRewardUser,
+      colAwardsOnDepartment,
+      isLoadingColAwardsOnDept,
+      colAwardsActivOnDepartment,
+      isLoadingColAwardsActivOnDepartment,
     };
   }, [
     deleteAward,
@@ -187,6 +224,10 @@ export const useAwardAdmin = (awardId?: string, baseRequest?: BaseRequest, activ
     typeOfUser,
     deleteUserReward,
     awardsAvailableForRewardUser,
-    isLoadingAwardsAvailableForRewardUser
+    isLoadingAwardsAvailableForRewardUser,
+    colAwardsOnDepartment,
+    isLoadingColAwardsOnDept,
+    colAwardsActivOnDepartment,
+    isLoadingColAwardsActivOnDepartment,
   ]);
 };
