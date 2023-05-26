@@ -10,6 +10,7 @@ import { SendActionRequest } from './request/SendActionRequest';
 import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { AwardCount } from '@/domain/model/award/AwardCount';
+import { AwardStateCount } from '@/domain/model/award/AwardStateCount';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -291,7 +292,7 @@ export const awardApi = createApi({
      *             false: только указанный отдел
      */
     getAwardCount: build.query<
-      BaseResponse<number>,
+      BaseResponse<AwardStateCount>,
       {
         authId: number;
         deptId: number;

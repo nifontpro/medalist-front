@@ -236,5 +236,22 @@ export const userApi = createApi({
       },
       providesTags: ['User'],
     }),
+
+    /**
+     * Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+     */
+    getUsersWithAwards: build.query<
+      BaseResponse<User[]>,
+      { authId: number; deptId: number; baseRequest: BaseRequest | undefined}
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: userUrl('/get_awards'),
+          body: request,
+        };
+      },
+      providesTags: ['User'],
+    }),
   }),
 });

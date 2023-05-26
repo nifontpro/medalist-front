@@ -11,7 +11,7 @@ const StatisticUsersGender = ({
   ...props
 }: StatisticUsersGenderProps): JSX.Element => {
   const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
-    useUserAdmin(departId);
+    useUserAdmin(departId, { subdepts: true });
 
   let countAll = usersGenderOnDepartment?.data?.length;
   let countMale = usersGenderOnDepartment?.data?.filter(

@@ -1,7 +1,6 @@
 import styles from './StatisticCountNominee.module.scss';
 import { StatisticCountNomineeProps } from './StatisticCountNominee.props';
 import cn from 'classnames';
-import { useRouter } from 'next/navigation';
 import ArrowIcon from '@/icons/arrowRight.svg';
 import CupIcon from '@/icons/cup.svg';
 import P from '@/ui/P/P';
@@ -12,9 +11,10 @@ const StatisticCountNominee = ({
   className,
   ...props
 }: StatisticCountNomineeProps): JSX.Element => {
-  const { push } = useRouter();
-  const { colAwardsActivOnDepartment, isLoadingColAwardsActivOnDepartment } =
-    useAwardAdmin(departId);
+  const { colAwardsOnDepartment, isLoadingColAwardsOnDept } = useAwardAdmin(
+    departId,
+    { subdepts: true }
+  );
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -25,18 +25,19 @@ const StatisticCountNominee = ({
             <P size='s' className={styles.descriptionTitle}>
               Номинации
             </P>
-            {!isLoadingColAwardsActivOnDepartment &&
-            colAwardsActivOnDepartment ? (
-              <P size='xl'>{colAwardsActivOnDepartment.data?.length}</P>
+            {!isLoadingColAwardsOnDept &&
+            colAwardsOnDepartment &&
+            colAwardsOnDepartment.data ? (
+              <P size='xl'>
+                {colAwardsOnDepartment.data?.future +
+                  colAwardsOnDepartment.data?.nominee}
+              </P>
             ) : (
               <P size='xl'>0</P>
             )}
           </div>
         </div>
-        <ArrowIcon
-          onClick={() => push('/statistic')}
-          className={styles.arrow}
-        />
+        <ArrowIcon className={styles.arrow} />
       </div>
     </div>
   );

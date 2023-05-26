@@ -25,7 +25,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     );
 
   // Получить пользоветлей в отделе
-  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDept } =
+  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
     userApi.useGetUsersByDeptQuery(
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
@@ -36,6 +36,23 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
         skip: !typeOfUser,
       }
     );
+
+  // getUsersWithAwards;
+
+  // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  const {
+    data: usersOnDepartmentWithAwards,
+    isLoading: isLoadingUsersOnDepartmentWithAwards,
+  } = userApi.useGetUsersWithAwardsQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(id),
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   // Получение сотрудников всех подотделов вместе с текущим
   const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
@@ -94,22 +111,26 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       singleUser,
       isLoadingSingleUser,
       usersOnDepartment,
-      isLoadingUsersOnDept,
+      isLoadingUsersOnDepartment,
       usersOnSubDepartment,
       isLoadingUsersOnSubDept,
       usersGenderOnDepartment,
       isLoadingUsersGenderOnDepartment,
+      usersOnDepartmentWithAwards,
+      isLoadingUsersOnDepartmentWithAwards,
     };
   }, [
     deleteUser,
     singleUser,
     usersOnDepartment,
     isLoadingSingleUser,
-    isLoadingUsersOnDept,
+    isLoadingUsersOnDepartment,
     usersOnSubDepartment,
     isLoadingUsersOnSubDept,
     typeOfUser,
     usersGenderOnDepartment,
     isLoadingUsersGenderOnDepartment,
+    usersOnDepartmentWithAwards,
+    isLoadingUsersOnDepartmentWithAwards,
   ]);
 };

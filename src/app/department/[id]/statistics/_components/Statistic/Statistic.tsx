@@ -21,7 +21,7 @@ const Statistic = ({
     <div {...props} className={styles.wrapper}>
       <div className={styles.title}>
         <Htag tag='h3' className={styles.header}>
-          Статистика
+          Статистика отдела/подотделов
         </Htag>
         <div className={styles.headerTitle}></div>
       </div>
@@ -30,12 +30,13 @@ const Statistic = ({
         <StatisticCountAwards
           departId={departId}
           className={styles.countAwards}
-          onClick={() => push('/award')}
+          onClick={() => push(`department/${departId}/awards`)}
         />
 
         <StatisticCountNominee
           className={styles.countNominee}
           departId={departId}
+          onClick={() => push(`department/${departId}/awards`)}
         />
 
         <StatisticUsersGender

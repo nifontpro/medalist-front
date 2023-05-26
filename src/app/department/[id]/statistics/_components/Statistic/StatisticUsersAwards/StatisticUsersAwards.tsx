@@ -3,12 +3,22 @@ import styles from './StatisticUsersAwards.module.scss';
 import { StatisticUsersAwardsProps } from './StatisticUsersAwards.props';
 import cn from 'classnames';
 import DoughnutCircle from '@/ui/DoughnutCircle/DoughnutCircle';
+import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 
 const StatisticUsersAwards = ({
   departId,
   className,
   ...props
 }: StatisticUsersAwardsProps): JSX.Element => {
+  // const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
+  //   useUserAdmin(departId, { subdepts: true });
+
+  // const { colAwardsActivOnDepartment, isLoadingColAwardsActivOnDepartment } =
+  //   useAwardAdmin(departId, { subdepts: true });
+
+  // console.log(colAwardsActivOnDepartment);
+  
   // let countAll = users.length;
   // let countWithAward = users.filter((user) => user.awards.length > 0).length;
   // let countWithAwardPercent = Math.ceil((countWithAward * 100) / countAll);
