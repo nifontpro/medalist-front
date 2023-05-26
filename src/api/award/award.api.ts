@@ -334,5 +334,27 @@ export const awardApi = createApi({
       },
       providesTags: ['Action'],
     }),
+
+    /**
+     * То же, только с корневого отдела
+     */
+    getActivCountRoot: build.query<
+        BaseResponse<AwardCount[]>,
+        {
+          authId: number;
+          deptId: number;
+          baseRequest: BaseRequest | undefined;
+        }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_activ_root'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
+    }),
+    
   }),
 });
