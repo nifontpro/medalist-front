@@ -10,7 +10,7 @@
 
 .wrapper {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
 
   > .dot1,
@@ -34,4 +34,16 @@
   > .dot3 {
     animation: ScaleInOut 0.6s ease-in-out 0.6s infinite alternate;
   }
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.center {
+  justify-content: center;
+}
+
+.end {
+  justify-content: flex-end;
 }

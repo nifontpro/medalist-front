@@ -4,10 +4,12 @@ import { MainProps } from './Main.props';
 import cn from 'classnames';
 import { useMain } from './useMain';
 import MainAwards from './MainAwards/MainAwards';
-import MainUsers from './MainUsers/MainUsers';
 import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import MainNominee from './MainNominee/MainNominee';
+import MainUsers from './MainUsers/MainUsers';
+import MainActivity from './MainActivity/MainActivity';
 
 const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
@@ -17,14 +19,14 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const { colAwardsActivOnDepartment, isLoadingColAwardsActivOnDepartment } =
     useAwardAdmin(typeOfUser?.dept.id, { subdepts: true });
 
-    console.log(colAwardsActivOnDepartment)
+  // console.log(colAwardsActivOnDepartment);
 
   const {
     onBoarding,
     // awardsLight,
     // users,
     // awardsOnCompanyGroupDep,
-    // state,
+    state,
     // onBoardingText,
     // onBoardingText3,
     // handleClick,
@@ -38,13 +40,12 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
         })}
       />
       <MainUsers className={styles.users} />
-      {/* <div
+      <div
         className={cn(styles.nominee, {
           [styles.index30]: onBoarding >= 2 && !state,
         })}
       >
         <MainNominee
-          awards={awardsLight}
           className={cn({
             [styles.index0]: onBoarding == 3 && !state,
           })}
@@ -54,7 +55,7 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
             [styles.index0]: onBoarding == 2,
           })}
         />
-      </div> */}
+      </div>
       <ButtonScrollUp />
       {/* <OnBoarding
         state={state}

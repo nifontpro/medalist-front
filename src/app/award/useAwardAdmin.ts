@@ -77,7 +77,7 @@ export const useAwardAdmin = (
   // Получить колличество наград в отделе
   const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
     awardApi.useGetAwardCountQuery(
-      {
+      { 
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(awardId),
         baseRequest: baseRequest ? baseRequest : undefined,

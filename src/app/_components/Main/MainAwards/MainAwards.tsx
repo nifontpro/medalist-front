@@ -12,6 +12,7 @@ import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
+import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const MainAwards = ({
   // awards,
@@ -32,7 +33,7 @@ const MainAwards = ({
   );
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(typeOfUser?.dept.id);
+    useUserAdmin(typeOfUser?.dept.id, { subdepts: true });
 
   let awards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   let awardsOnCompanyGroupDep = [
@@ -73,7 +74,7 @@ const MainAwards = ({
             </div>
             <div className={styles.description}>
               <P size='s'>Наград в подразделении</P>
-              {countAll ? <P size='xl'>{countAll}</P> : <P size='xl'>0</P>}
+              {countAll ? <P size='xl'>{countAll}</P> : <SpinnerSmall position='start'/>}
             </div>
           </div>
           <ArrowIcon className={styles.arrow} />
@@ -89,7 +90,11 @@ const MainAwards = ({
             <div className={styles.description}>
               <P size='s'>Есть награды</P>
               <div className='flex items-end'>
-                <P size='xl'>{countUserWithAward}</P>
+                {countUserWithAward ? (
+                  <P size='xl'>{countUserWithAward}</P>
+                ) : (
+                  <SpinnerSmall position='start'/>
+                )}
                 <P size='l' color='gray' className={styles.percent}>
                   {Number.isNaN(countUserWithAwardPercent)
                     ? '0'

@@ -3,11 +3,19 @@ import cn from 'classnames';
 import { SpinnerSmallProps } from './SpinnerSmall.props';
 
 const SpinnerSmall = ({
+  position = 'center',
   className,
   ...props
 }: SpinnerSmallProps): JSX.Element => {
   return (
-    <div className={cn(className, styles.wrapper)} {...props}>
+    <div
+      className={cn(styles.wrapper, className, {
+        [styles.start]: position == 'start',
+        [styles.center]: position == 'center',
+        [styles.end]: position == 'end',
+      })}
+      {...props}
+    >
       <div className={styles.dot1}></div>
       <div className={styles.dot2}></div>
       <div className={styles.dot3}></div>

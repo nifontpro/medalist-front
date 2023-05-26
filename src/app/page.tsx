@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <main>
       <Main />
-      Главная страница для пользователя с id {typeOfUser?.id}
     </main>
   );
 }

@@ -5,6 +5,7 @@ import ArrowIcon from '@/icons/arrowRight.svg';
 import CupIcon from '@/icons/cup.svg';
 import P from '@/ui/P/P';
 import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const StatisticCountAwards = ({
   departId,
@@ -26,15 +27,13 @@ const StatisticCountAwards = ({
               Медали
             </P>
             {isLoadingColAwardsOnDept ? (
-              <P size='xl'>0</P>
+              <SpinnerSmall position='start' />
             ) : (
               <P size='xl'>{colAwardsOnDepartment?.data?.finish}</P>
             )}
           </div>
         </div>
-        <ArrowIcon
-          className={styles.arrow}
-        />
+        <ArrowIcon className={styles.arrow} />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export const useMain = () => {
 
   // const [saveSetting] = userApi.useSaveSettingMutation();
 
-  // const [state, setState] = useState<boolean | undefined>(false);
+  const [state, setState] = useState<boolean | undefined>(false);
   const [onBoarding, setOnboarding] = useState<number>(1);
   // const [onBoardingText, setOnboardingText] = useState<string>('');
   // const [onBoardingText3, setOnboardingText3] = useState<string>('');
@@ -53,7 +53,7 @@ export const useMain = () => {
     // awardsLight,
     // users,
     // awardsOnCompanyGroupDep,
-    // state,
+    state,
     // onBoardingText,
     // onBoardingText3,
     // handleClick,
