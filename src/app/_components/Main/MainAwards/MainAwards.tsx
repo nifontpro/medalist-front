@@ -14,35 +14,22 @@ import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
-const MainAwards = ({
-  // awards,
-  // users,
-  // awardsOnCompanyGroupDep,
-  className,
-  ...props
-}: MainAwardsProps): JSX.Element => {
+const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
   const { push } = useRouter();
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
-  const { colAwardsOnDepartment, isLoadingColAwardsOnDept } = useAwardAdmin(
-    typeOfUser?.dept.id,
-    { subdepts: true }
-  );
+  const {
+    colAwardsOnDepartment,
+    isLoadingColAwardsOnDept,
+    colAwardsActivRoot,
+    isLoadingColAwardsActivRoot,
+  } = useAwardAdmin(typeOfUser?.dept.id, { subdepts: true });
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(typeOfUser?.dept.id, { subdepts: true });
-
-  let awards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let awardsOnCompanyGroupDep = [
-    {
-      id: {
-        name: 'Frontend',
-      },
-    },
-  ];
 
   let countAll =
     colAwardsOnDepartment &&
@@ -73,8 +60,12 @@ const MainAwards = ({
               <CupIcon className={styles.imgSvg} />
             </div>
             <div className={styles.description}>
-              <P size='s'>Наград в подразделении</P>
-              {countAll ? <P size='xl'>{countAll}</P> : <SpinnerSmall position='start'/>}
+              <P size='s'>Наград</P>
+              {countAll ? (
+                <P size='xl'>{countAll}</P>
+              ) : (
+                <SpinnerSmall position='start' />
+              )}
             </div>
           </div>
           <ArrowIcon className={styles.arrow} />
@@ -93,7 +84,7 @@ const MainAwards = ({
                 {countUserWithAward ? (
                   <P size='xl'>{countUserWithAward}</P>
                 ) : (
-                  <SpinnerSmall position='start'/>
+                  <SpinnerSmall position='start' />
                 )}
                 <P size='l' color='gray' className={styles.percent}>
                   {Number.isNaN(countUserWithAwardPercent)
@@ -119,10 +110,15 @@ const MainAwards = ({
               <P size='s' fontstyle='thin'>
                 Лучший отдел
               </P>
-              <P size='m' className={styles.countAwardsTitle}>
-                {awardsOnCompanyGroupDep[0] &&
-                  awardsOnCompanyGroupDep[0].id.name}
-              </P>
+              {isLoadingColAwardsActivRoot ? (
+                <SpinnerSmall />
+              ) : (
+                <P size='m' className={styles.countAwardsTitle}>
+                  {colAwardsActivRoot &&
+                    colAwardsActivRoot.data &&
+                    colAwardsActivRoot?.data[0].deptName}
+                </P>
+              )}
             </div>
           </div>
           <ArrowIcon className={styles.arrow} />

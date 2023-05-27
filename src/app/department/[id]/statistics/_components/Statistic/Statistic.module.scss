@@ -6,9 +6,13 @@
 
     .headerTitle {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 2fr 400px;
       gap: 60px;
       align-items: center;
+
+      @media screen and (max-width: 1280px) {
+        grid-template-columns: 1fr;
+      }
     }
   }
 
@@ -19,9 +23,9 @@
     grid-template-rows: auto auto auto;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      'countAwards countNominee'
-      'usersGender usersAwards'
-      'activity activity';
+      'countAwards countNominee countDepartment'
+      'usersGender usersAwards countDepartment'
+      'activity activity countDepartment';
     @apply animate-fade;
 
     @media screen and (max-width: 1280px) {
@@ -48,6 +52,17 @@
 
     .usersGender {
       grid-area: usersGender;
+    }
+
+    .countDepartment {
+      grid-area: countDepartment;
+      height: fit-content;
+      min-width: 400px;
+      width: fit-content;
+
+      @media screen and (max-width: 1280px) {
+        display: none;
+      }
     }
 
     .usersAwards {

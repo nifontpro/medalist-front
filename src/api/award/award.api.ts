@@ -334,5 +334,32 @@ export const awardApi = createApi({
       },
       providesTags: ['Action'],
     }),
+
+    /**
+     * С КОРНЕВОГО ОТДЕЛА ! ! !
+     * Получение количества активных награждений (наград у пользователей) разных типов в компании
+     * [baseRequest]:
+     *  subdepts - true: включаются все подотделы
+     *             false: включаются только ближайшие подотделы (у которых parentId=deptId)
+     *  minDate, maxDate - необязательны ограничения по дате события
+     *  Сортировка без выбора по имени отдела
+     */
+    getActivCountRoot: build.query<
+      BaseResponse<AwardCount[]>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_activ_root'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
+    }),
   }),
 });

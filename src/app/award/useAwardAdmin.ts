@@ -77,7 +77,7 @@ export const useAwardAdmin = (
   // Получить колличество наград в отделе
   const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
     awardApi.useGetAwardCountQuery(
-      { 
+      {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(awardId),
         baseRequest: baseRequest ? baseRequest : undefined,
@@ -116,6 +116,19 @@ export const useAwardAdmin = (
       skip: !typeOfUser,
     }
   );
+
+  // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
+  const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
+    awardApi.useGetActivCountRootQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: Number(awardId),
+        baseRequest: baseRequest ? baseRequest : undefined,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   // Получение наград доступных для награждения сотрудников текущим админом
   const {
@@ -207,6 +220,8 @@ export const useAwardAdmin = (
       isLoadingColAwardsOnDept,
       colAwardsActivOnDepartment,
       isLoadingColAwardsActivOnDepartment,
+      colAwardsActivRoot,
+      isLoadingColAwardsActivRoot,
     };
   }, [
     deleteAward,
