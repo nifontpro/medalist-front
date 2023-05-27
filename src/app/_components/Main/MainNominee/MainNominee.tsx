@@ -35,8 +35,6 @@ const MainNominee = ({
     awardsOnDepartment.data &&
     awardsOnDepartment?.data[0];
 
-  console.log(awardsOnDepartment);
-
   let currentDate = +new Date();
 
   return (

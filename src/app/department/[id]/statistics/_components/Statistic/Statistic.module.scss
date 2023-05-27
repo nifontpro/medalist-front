@@ -25,12 +25,20 @@
     grid-template-areas:
       'countAwards countNominee countDepartment'
       'usersGender usersAwards countDepartment'
-      'activity activity countDepartment';
+      'activity activity countDepartment'
+      '. . countDepartment';
     @apply animate-fade;
 
     @media screen and (max-width: 1280px) {
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
+      grid-template-areas:
+        'countAwards countNominee'
+        'usersGender usersAwards'
+        'countDepartment countDepartment'
+        'activity activity';
     }
+
     @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
       gap: 15px;
@@ -39,6 +47,7 @@
         'countNominee'
         'usersGender'
         'usersAwards'
+        'countDepartment'
         'activity';
     }
 
@@ -56,12 +65,10 @@
 
     .countDepartment {
       grid-area: countDepartment;
-      height: fit-content;
-      min-width: 400px;
-      width: fit-content;
-
+      width: 500px;
+      
       @media screen and (max-width: 1280px) {
-        display: none;
+        width: auto;
       }
     }
 
@@ -79,6 +86,7 @@
       border-radius: 25px;
       padding: 20px;
       cursor: pointer;
+      height: fit-content;
 
       .countAwards_head {
         cursor: pointer;
