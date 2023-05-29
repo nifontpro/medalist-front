@@ -104,7 +104,7 @@ const ModalWindowWithAddUsers = forwardRef(
                 setArrChoiceUser={setArrChoiceUser}
                 className={styles.mediaVisible}
               />
-              {totalPage ? (
+              {totalPage && totalPage > 1 ? (
                 <PrevNextPages
                   startPage={page + 1}
                   endPage={totalPage}

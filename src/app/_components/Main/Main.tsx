@@ -1,3 +1,5 @@
+'use client'
+
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import styles from './Main.module.scss';
 import { MainProps } from './Main.props';

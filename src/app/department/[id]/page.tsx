@@ -1,26 +1,38 @@
-'use client';
-
-import { useDepartmentAdmin } from '../useDepartmentAdmin';
-import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
+import { Metadata } from 'next';
 import TitleSingleDepartment from './_components/TitleSingleDepartment/TitleSingleDepartment';
 
-export default function SingleDepartment({
+async function getData(id: string) {
+  const response = await fetch(`https://nmedalist.ru:8765/client/dept/get_id`, {
+    next: {
+      revalidate: 60,
+    },
+  });
+  return response.json;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  // const data = getData(params.id)
+  return {
+    title: `Department ${params.id} | Medalist`,
+    // title: `Department ${data.deptName} | Medalist`,
+  };
+}
+
+export default async function SingleDepartment({
   params,
 }: {
   params: { id: string };
 }) {
-  const { singleDepartment, isLoadingByIdDept } = useDepartmentAdmin(params.id);
-  if (isLoadingByIdDept) return <Spinner />;
-  if (!singleDepartment?.success) {
-    return <NoAccess button={false} />;
-  }
+  // const data = getData(params.id)
+  // console.log(data)
 
   return (
     <main>
-      {singleDepartment.data && (
-        <TitleSingleDepartment department={singleDepartment.data} />
-      )}
+      <TitleSingleDepartment id={params.id} />
     </main>
   );
 }

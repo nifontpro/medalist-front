@@ -50,7 +50,7 @@ const AwardWasAwarded = ({
   const refOpen = useRef(null);
   const handleClickOutside = () => {
     setVisibleModal(false);
-    setSearchValue('')
+    setSearchValue('');
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 

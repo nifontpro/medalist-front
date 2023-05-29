@@ -170,7 +170,7 @@ const CreateAward = () => {
               setArrChoiceUser={setArrChoiceUser}
             />
           )}
-          {totalPage ? (
+          {totalPage && totalPage > 1 ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}

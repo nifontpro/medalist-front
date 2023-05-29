@@ -5,7 +5,8 @@ import styles from './MainLayout.module.scss';
 import { useAppSelector } from '@/store/hooks/hooks';
 import UserSelection from './UserSelection/UserSelection';
 import Spinner from '@/ui/Spinner/Spinner';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
+import { deleteCookie } from 'cookies-next';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -29,7 +30,8 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   } else if (pathName.slice(0,6) === '/login') {
     return <>{children}</>;
   } else {
-    return <Spinner />;
+    deleteCookie('exp'); // Для middleware
+    return redirect('/login')
   }
 };
 

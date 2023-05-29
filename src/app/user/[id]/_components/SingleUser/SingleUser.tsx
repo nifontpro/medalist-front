@@ -16,15 +16,20 @@ import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import { Award } from '@/domain/model/award/Award';
 import ModalWindowWithAddAwards from '../ModalWindowWithAddAwards/ModalWindowWithAddAwards';
 import { useFetchParams } from '@/hooks/useFetchParams';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
+import { useUserAdmin } from '@/app/user/useUserAdmin';
 
 const SingleUser = ({
-  user,
-  userActiv,
+  id,
   className,
   children,
   ...props
 }: SingleUserProps): JSX.Element => {
   const { back } = useRouter();
+
+  const { singleUser: user, isLoadingSingleUser } = useUserAdmin(id);
+  const { singleActivAwardUser: userActiv } = useAwardAdmin(id);
 
   const {
     page,
@@ -37,7 +42,7 @@ const SingleUser = ({
     prevPage,
   } = useFetchParams();
 
-  const deptId = user?.user.dept.id;
+  const deptId = user?.data?.user.dept.id;
 
   //Фильтр тех медалей, которыми не награжден еще
   const {
@@ -52,7 +57,7 @@ const SingleUser = ({
   const totalPage = awardsAvailableForRewardUser?.pageInfo?.totalPages;
 
   let arrAwardRewarded: string[] = []; // Массив id медалей, которыми награжден
-  userActiv?.forEach((award) => {
+  userActiv?.data?.forEach((award) => {
     if (award.award?.type == 'SIMPLE' && award.award) {
       arrAwardRewarded.push(award.award?.id.toString());
     }
@@ -75,9 +80,12 @@ const SingleUser = ({
   const refOpen = useRef(null);
   const handleClickOutside = () => {
     setVisibleModal(false);
-    setSearchValue('')
+    setSearchValue('');
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
+  if (isLoadingSingleUser) return <Spinner />;
+  if (!user?.success) return <NoAccess />;
 
   return (
     <>
@@ -93,20 +101,26 @@ const SingleUser = ({
         <div className={styles.wrapper}>
           {user && (
             <ImagesCarousel
-              data={user?.user.images}
+              data={user.data?.user.images}
               edit={false}
               className={styles.img}
             />
           )}
           <div className={styles.content}>
-            <SingleUserTitle
-              user={user}
-              userActiv={userActiv}
-              setVisibleModal={setVisibleModal}
-              refOpen={refOpen}
-            />
-            <SingleUserAwards user={user} userActiv={userActiv} />
-            <SingleUserNominee user={user} userActiv={userActiv} />
+            {userActiv && (
+              <SingleUserTitle
+                user={user.data}
+                userActiv={userActiv.data}
+                setVisibleModal={setVisibleModal}
+                refOpen={refOpen}
+              />
+            )}
+            {userActiv && (
+              <SingleUserAwards user={user.data} userActiv={userActiv.data} />
+            )}
+            {userActiv && (
+              <SingleUserNominee user={user.data} userActiv={userActiv.data} />
+            )}
           </div>
         </div>
         <ButtonScrollUp />
@@ -114,13 +128,15 @@ const SingleUser = ({
 
       <ModalWindowWithAddAwards
         totalPage={totalPage}
-        nextPage={() => awardsAvailableForRewardUser && nextPage(awardsAvailableForRewardUser)}
+        nextPage={() =>
+          awardsAvailableForRewardUser && nextPage(awardsAvailableForRewardUser)
+        }
         prevPage={prevPage}
         page={page}
         setPage={setPage}
         setSearchValue={setSearchValue}
         awardState='AWARD'
-        userId={user?.user.id}
+        userId={user.data?.user.id}
         awards={arrAwardNotRewarded}
         visibleModal={visibleModal}
         setVisibleModal={setVisibleModal}

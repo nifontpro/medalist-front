@@ -2,6 +2,9 @@
   background: var(--white);
   border-radius: 25px;
   padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   @media screen and (max-width: 1280px) {
     padding: 20px;
   }

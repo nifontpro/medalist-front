@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './TitleSingleDepartment.module.scss';
 import { TitleSingleDepartmentProps } from './TitleSingleDepartment.props';
 import Htag from '@/ui/Htag/Htag';
@@ -11,19 +13,30 @@ import {
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
 
 const TitleSingleDepartment = ({
-  department,
+  id,
   children,
   className,
   ...props
 }: TitleSingleDepartmentProps): JSX.Element => {
-  const { deleteDepartmentAsync } = useDepartmentAdmin();
+  const {
+    deleteDepartmentAsync,
+    singleDepartment: department,
+    isLoadingByIdDept,
+  } = useDepartmentAdmin(id);
+  
+  if (isLoadingByIdDept) return <Spinner />;
+  if (!department?.success) {
+    return <NoAccess button={false} />;
+  }
 
   return (
     <div className={styles.titleCompany} {...props}>
       <ImagesCarousel
-        data={department?.dept.images}
+        data={department.data?.dept.images}
         edit={false}
         className={styles.img}
       />
@@ -32,7 +45,7 @@ const TitleSingleDepartment = ({
         <EditPanelDeptBtn
           onlyRemove={false}
           handleRemove={deleteDepartmentAsync}
-          id={department.dept.id}
+          id={department.data?.dept.id}
           getUrlEdit={getDepartmentEditUrl}
           getUrlCreate={getDepartmentCreateUrl}
           className={styles.dots}
@@ -40,32 +53,36 @@ const TitleSingleDepartment = ({
 
         <div className={styles.title}>
           <Htag tag='h1' className={styles.header}>
-            {department.dept.name}
+            {department.data?.dept.name}
           </Htag>
         </div>
         <div className={styles.address}>
           <GpsIcon className='mr-[10px]' />
           <P size='s' className={styles.description}>
-            {department.address}
+            {department.data?.address}
           </P>
         </div>
 
         <P size='s' className={styles.description}>
-          {department.description}
+          {department.data?.description}
         </P>
         <div className={styles.contacts}>
-          <a href={`tel:${department.dept.phone}`}>
+          <a href={`tel:${department.data?.dept.phone}`}>
             Сотовый:{' '}
-            {department.dept.phone
-              ? department.dept.phone
+            {department.data?.dept.phone
+              ? department.data?.dept.phone
               : 'Сотовый не указан'}
           </a>
-          <a href={`mailto:${department.email}`}>Почта: {department.email}</a>
+          <a href={`mailto:${department.data?.email}`}>
+            Почта: {department.data?.email}
+          </a>
         </div>
 
-        <InputFileExcelUsers department={department}>
-          Добавить сотрудников из EXCEL
-        </InputFileExcelUsers>
+        {department && department.data && (
+          <InputFileExcelUsers department={department.data}>
+            Добавить сотрудников из EXCEL
+          </InputFileExcelUsers>
+        )}
 
         {/* <div className={styles.colUsers}>
           <CountUsersPreview

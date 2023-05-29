@@ -10,7 +10,20 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['courses-top.ru', 'md-c.storage.yandexcloud.net', 'md-gal.storage.yandexcloud.net'],
+    domains: [
+      'courses-top.ru',
+      'md-c.storage.yandexcloud.net',
+      'md-gal.storage.yandexcloud.net',
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/blog/:slug*',
+        destination: '/news/:slug*', // Matched parameters can be used in the destination
+        permanent: true,
+      },
+    ];
   },
   webpack(config, options) {
     config.module.rules.push({
@@ -20,14 +33,16 @@ const nextConfig = {
         prettier: false,
         svgo: true,
         svgoConfig: {
-          plugins: [{
-            name: 'preset-default',
-            params: {
-              override: {
-                removeViewBox: false
-              }
-            }
-          }],
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                override: {
+                  removeViewBox: false,
+                },
+              },
+            },
+          ],
         },
         titleProp: true,
       },

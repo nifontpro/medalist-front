@@ -244,5 +244,7 @@ export const useAwardAdmin = (
     isLoadingColAwardsOnDept,
     colAwardsActivOnDepartment,
     isLoadingColAwardsActivOnDepartment,
+    colAwardsActivRoot,
+    isLoadingColAwardsActivRoot,
   ]);
 };

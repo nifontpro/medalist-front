@@ -30,7 +30,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     prevPage,
   } = useFetchParams();
 
-  const { usersOnDepartment, isLoadingUsersOnDept } = useUserAdmin(id, {
+  const { usersOnDepartment, isLoadingUsersOnDepartment } = useUserAdmin(id, {
     page: page,
     pageSize: 5,
     filter: searchValue,
@@ -46,7 +46,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     setPage(0);
   };
 
-  if (isLoadingUsersOnDept) return <Spinner />;
+  if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success) return <NoAccess button={false} />;
 
   if (usersOnDepartment && usersOnDepartment.data) {
@@ -107,7 +107,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           ) : (
             <div className='mt-5'>Нет сотрудников в отделе...</div>
           )}
-          {totalPage ? (
+          {totalPage && totalPage > 1 ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}

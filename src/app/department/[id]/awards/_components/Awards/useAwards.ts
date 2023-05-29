@@ -43,7 +43,7 @@ export const useAwards = (id: string) => {
       page,
       nextPage,
       prevPage,
-      setPage,
+      setPage
     };
   }, [
     active,

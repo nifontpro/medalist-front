@@ -3,7 +3,7 @@
 import LogoIcon from '@/icons/logo.svg';
 import Link from 'next/link';
 
-const ErrorWrapperDepartment = ({ error }: { error: Error }) => {
+const ErrorWrapperDepartmentId = ({ error }: { error: Error }) => {
   return (
     <div className='h-screen bg-gray-200 flex flex-col justify-center items-center'>
       <Link href='/'>
@@ -18,4 +18,4 @@ const ErrorWrapperDepartment = ({ error }: { error: Error }) => {
   );
 };
 
-export default ErrorWrapperDepartment;
+export default ErrorWrapperDepartmentId;
