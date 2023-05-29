@@ -11,6 +11,7 @@ import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { AwardCount } from '@/domain/model/award/AwardCount';
 import {AwardStateCount} from "@/domain/model/award/AwardStateCount";
+import {WWAwardCount} from "@/domain/model/award/WWAwardCount";
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -355,6 +356,32 @@ export const awardApi = createApi({
         return {
           method: 'POST',
           url: awardUrl('/count_activ_root'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
+    }),
+
+    /**
+     * Получение количества сотрудников с наградами и без них
+     * deptId - корневой отдел
+     * baseRequest:
+     *  subdepts - true: включаются все подотделы
+     *             false: включаются только указанный отдел
+     *  minDate, maxDate - (необязательны) ограничения по дате события для подсчета количества наград
+     */
+    getUserAwardWWCount: build.query<
+        BaseResponse<WWAwardCount>,
+        {
+          authId: number;
+          deptId: number;
+          baseRequest: BaseRequest | undefined;
+        }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_user_ww'),
           body: request,
         };
       },
