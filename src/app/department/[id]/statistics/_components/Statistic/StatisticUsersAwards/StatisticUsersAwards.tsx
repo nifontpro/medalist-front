@@ -5,29 +5,29 @@ import cn from 'classnames';
 import DoughnutCircle from '@/ui/DoughnutCircle/DoughnutCircle';
 import { useUserAdmin } from '@/app/user/useUserAdmin';
 import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const StatisticUsersAwards = ({
   departId,
   className,
   ...props
 }: StatisticUsersAwardsProps): JSX.Element => {
-  // const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
-  //   useUserAdmin(departId, { subdepts: true });
+  const { userAwardWWCountOnDept, isLoadingUserAwardWWCountOnDept } =
+    useAwardAdmin(departId);
 
-  // const { colAwardsActivOnDepartment, isLoadingColAwardsActivOnDepartment } =
-  //   useAwardAdmin(departId, { subdepts: true });
+  let countWithAward = userAwardWWCountOnDept?.data?.withAward;
+  let countWithoutAward = userAwardWWCountOnDept?.data?.withoutAward;
+  let countAll =
+    userAwardWWCountOnDept?.data &&
+    userAwardWWCountOnDept?.data?.withAward +
+      userAwardWWCountOnDept?.data?.withoutAward;
 
-  // console.log(colAwardsActivOnDepartment);
-  
-  // let countAll = users.length;
-  // let countWithAward = users.filter((user) => user.awards.length > 0).length;
-  // let countWithAwardPercent = Math.ceil((countWithAward * 100) / countAll);
-  // let countWithoutAward = users.filter(
-  //   (user) => user.awards.length == 0
-  // ).length;
-  // let countWithoutAwardPercent = Math.floor(
-  //   (countWithoutAward * 100) / countAll
-  // );
+  let countWithAwardPercent =
+    countWithAward && countAll && Math.ceil((countWithAward * 100) / countAll);
+  let countWithoutAwardPercent =
+    countWithoutAward &&
+    countAll &&
+    Math.ceil((countWithoutAward * 100) / countAll);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -35,13 +35,14 @@ const StatisticUsersAwards = ({
         Призеры
       </P>
 
-      {/* <DoughnutCircle
+      <DoughnutCircle
         className={styles.doughnut}
         dataOne={countWithAward}
         colorOne='#E5F23B'
         dataTwo={countWithoutAward}
         colorTwo='rgba(57, 57, 57, 1)'
       />
+
       <div className={styles.description}>
         <div className={styles.gender}>
           <div className={styles.genderInfo}>
@@ -75,7 +76,7 @@ const StatisticUsersAwards = ({
             </P>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

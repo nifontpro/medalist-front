@@ -145,6 +145,21 @@ export const useAwardAdmin = (
     }
   );
 
+  // Получение количества сотрудников с наградами и без них в отделе(ах)
+  const {
+    data: userAwardWWCountOnDept,
+    isLoading: isLoadingUserAwardWWCountOnDept,
+  } = awardApi.useGetUserAwardWWCountOnDeptQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(awardId),
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
   const [deleteAward] = awardApi.useDeleteMutation();
   const [deleteUserReward] = awardApi.useSendActionMutation();
 
@@ -185,7 +200,6 @@ export const useAwardAdmin = (
         })
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -222,6 +236,8 @@ export const useAwardAdmin = (
       isLoadingColAwardsActivOnDepartment,
       colAwardsActivRoot,
       isLoadingColAwardsActivRoot,
+      userAwardWWCountOnDept,
+      isLoadingUserAwardWWCountOnDept,
     };
   }, [
     deleteAward,
@@ -246,5 +262,7 @@ export const useAwardAdmin = (
     isLoadingColAwardsActivOnDepartment,
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
+    userAwardWWCountOnDept,
+    isLoadingUserAwardWWCountOnDept,
   ]);
 };

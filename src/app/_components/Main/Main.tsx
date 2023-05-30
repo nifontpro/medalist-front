@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import styles from './Main.module.scss';
@@ -21,18 +21,7 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const { colAwardsActivOnDepartment, isLoadingColAwardsActivOnDepartment } =
     useAwardAdmin(typeOfUser?.dept.id, { subdepts: true });
 
-  // console.log(colAwardsActivOnDepartment);
-
-  const {
-    onBoarding,
-    // awardsLight,
-    // users,
-    // awardsOnCompanyGroupDep,
-    state,
-    // onBoardingText,
-    // onBoardingText3,
-    // handleClick,
-  } = useMain();
+  const { onBoarding, state } = useMain();
 
   return (
     <div {...props} className={styles.wrapper}>

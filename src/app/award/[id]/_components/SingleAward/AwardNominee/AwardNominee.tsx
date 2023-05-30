@@ -43,7 +43,6 @@ const AwardNominee = ({
     }
   );
   const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
-  // console.log(awardActiv);
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);

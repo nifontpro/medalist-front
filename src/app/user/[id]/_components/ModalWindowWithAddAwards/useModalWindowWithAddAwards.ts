@@ -18,7 +18,6 @@ export const useModalWindowWithAddAwards = (
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
   const [reward] = awardApi.useSendActionMutation();
-  // console.log(arrChoiceAward)
 
   return useMemo(() => {
     const handleCancel = () => {

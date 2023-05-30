@@ -58,8 +58,6 @@ export const useCreateAward = (
 
     //Выдать сразу и закрыть
     const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
-      console.log('AWARD');
-
       data.endDate = Math.floor(new Date().getTime());
       data.startDate = Math.floor(new Date().getTime());
 
@@ -142,7 +140,6 @@ export const useCreateAward = (
               await setImage(file)
                 .unwrap()
                 .then((res) => {
-                  console.log(res);
                   if (res.success == false) {
                     errorMessageParse(res.errors);
                     isError = true;
@@ -286,7 +283,6 @@ export const useCreateAward = (
               await setImage(file)
                 .unwrap()
                 .then((res) => {
-                  console.log(res);
                   if (res.success == false) {
                     errorMessageParse(res.errors);
                     isError = true;

@@ -11,6 +11,7 @@ import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { AwardCount } from '@/domain/model/award/AwardCount';
 import { AwardStateCount } from '@/domain/model/award/AwardStateCount';
+import { WWAwardCount } from '@/domain/model/award/WWAwardCount';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -312,10 +313,15 @@ export const awardApi = createApi({
     /**
      * Получение количества активных награждений (наград у пользователей) разных типов в компании
      * [baseRequest]:
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
      *  subdepts - true: включаются все подотделы
      *             false: включаются только ближайшие подотделы (у которых parentId=deptId)
-     *  minDate, maxDate - необязательны ограничения по дате события
-     *  Сортировка без выбора по имени отдела
+     *  minDate, maxDate - необязательны ограничения по дате события (только для подсчета количества наград)
+     *  Допустимые поля для сортировки:
+     *      !!! В круглых скобках, т.к. используется нативный запрос к БД
+     *      (deptName),
+     *      (awardCount),
+     *      (nomineeCount)
      */
     getActivCount: build.query<
       BaseResponse<AwardCount[]>,
@@ -337,12 +343,16 @@ export const awardApi = createApi({
 
     /**
      * С КОРНЕВОГО ОТДЕЛА ! ! !
-     * Получение количества активных награждений (наград у пользователей) разных типов в компании
      * [baseRequest]:
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
      *  subdepts - true: включаются все подотделы
      *             false: включаются только ближайшие подотделы (у которых parentId=deptId)
-     *  minDate, maxDate - необязательны ограничения по дате события
-     *  Сортировка без выбора по имени отдела
+     *  minDate, maxDate - необязательны ограничения по дате события (только для подсчета количества наград)
+     *  Допустимые поля для сортировки:
+     *      !!! В круглых скобках, т.к. используется нативный запрос к БД
+     *      (deptName),
+     *      (awardCount),
+     *      (nomineeCount)
      */
     getActivCountRoot: build.query<
       BaseResponse<AwardCount[]>,
@@ -356,6 +366,32 @@ export const awardApi = createApi({
         return {
           method: 'POST',
           url: awardUrl('/count_activ_root'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
+    }),
+
+    /**
+     * Получение количества сотрудников с наградами и без них в отделе(ах)
+     * deptId - корневой отдел
+     * baseRequest:
+     *  subdepts - true: включаются все подотделы
+     *             false: включаются только указанный отдел
+     *  minDate, maxDate - (необязательны) ограничения по дате события для подсчета количества наград
+     */
+    getUserAwardWWCountOnDept: build.query<
+      BaseResponse<WWAwardCount>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/count_user_ww'),
           body: request,
         };
       },

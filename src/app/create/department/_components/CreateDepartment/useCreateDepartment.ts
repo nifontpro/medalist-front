@@ -33,7 +33,6 @@ export const useCreateDepartment = (
 
     const onSubmit: SubmitHandler<CreateDeptRequest> = async (data) => {
       let isError = false;
-      console.log(data);
       if (parentId) {
         await create({ ...data })
           .unwrap()
@@ -46,16 +45,13 @@ export const useCreateDepartment = (
           .catch((e) => {
             isError = true;
             toastError(e, 'Ошибка создания отдела');
-            console.log('Ошибка');
           });
       } else {
         isError = true;
         toast.error('Необходимо выбрать родительский отдел');
-        console.log('Ошибка');
       }
       if (!isError) {
         toast.success('Отдел успешно создан');
-        console.log('Отдел успешно создан');
         back();
       }
     };

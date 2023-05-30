@@ -28,7 +28,6 @@ export default async function SingleDepartment({
   params: { id: string };
 }) {
   // const data = getData(params.id)
-  // console.log(data)
 
   return (
     <main>

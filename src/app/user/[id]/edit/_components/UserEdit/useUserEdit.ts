@@ -75,7 +75,6 @@ export const useUserEdit = (
         await addImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -132,7 +131,6 @@ export const useUserEdit = (
         await refreshImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;

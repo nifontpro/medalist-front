@@ -19,7 +19,6 @@ export const useCreateUser = (
   );
   const searchParams = useSearchParams();
   const deptId = Number(searchParams.get('deptId'));
-  // console.log(deptId)
 
   const { back } = useRouter();
   const [create] = userApi.useCreateUserMutation();
@@ -41,8 +40,6 @@ export const useCreateUser = (
 
   const onSubmit: SubmitHandler<CreateUserRequest> = async (data) => {
     let isError = false;
-
-    console.log(data);
 
     if (active != undefined) {
       data.gender = active;

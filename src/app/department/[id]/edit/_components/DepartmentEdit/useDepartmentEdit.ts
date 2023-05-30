@@ -64,7 +64,6 @@ export const useDepartmentEdit = (
         await addImage(formData)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -136,7 +135,6 @@ export const useDepartmentEdit = (
         await refreshImage(formData)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -154,7 +152,6 @@ export const useDepartmentEdit = (
 
     const onSubmit: SubmitHandler<UpdateDeptRequest> = async (data) => {
       let isError = false;
-      console.log(data);
 
       await update({ ...data })
         .unwrap()

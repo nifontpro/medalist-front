@@ -77,7 +77,6 @@ export const useAwardEdit = (
         await addImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -131,7 +130,6 @@ export const useAwardEdit = (
 
     const onSubmit: SubmitHandler<UpdateAwardRequest> = async (data) => {
       let isError = false;
-      console.log(data);
 
       await update({ ...data })
         .unwrap()
