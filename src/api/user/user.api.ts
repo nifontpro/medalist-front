@@ -254,5 +254,35 @@ export const userApi = createApi({
       providesTags: ['User'],
     }),
 
+    /**
+     * Получить сотрудников с количеством награждений
+     * [baseRequest]:
+     *  subdepts - отдел или все подотделы
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  minDate <= activity.startDate (отсутствует - без min ограничения)
+     *  maxDate >= activity.endDate (отсутствует - без max ограничения) - для подсчета наград за период
+     *  Допустимые поля для сортировки:
+     *      "firstname",
+     *      "patronymic",
+     *      "lastname",
+     *      "post",
+     *      "(awardCount)",
+     *      "(deptName)",
+     *      "(classname)",
+     */
+    getUsersWithAwardCount: build.query<
+        BaseResponse<User[]>,
+        { authId: number; deptId: number; baseRequest: BaseRequest }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: userUrl('/get_award_count'),
+          body: request,
+        };
+      },
+      providesTags: ['User'],
+    }),
+
   }),
 });
