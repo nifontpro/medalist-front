@@ -8,4 +8,6 @@ export type UserListRatingProps = DetailedHTMLProps<
   children?: ReactNode;
   users: User[] | undefined;
   withoutCountAwards: boolean;
+  page?: number
+  pageSize?: number
 };

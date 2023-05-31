@@ -40,7 +40,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
       colAwardsOnDepartment?.data?.error;
   let countUserWithAwardAndWithout = usersOnDepartmentWithAwards?.data?.length;
   let countUserWithAward = usersOnDepartmentWithAwards?.data?.filter(
-    (user) => user.awards && user.awards?.length > 0
+    (user) => user.awardCount > 0
   ).length;
   let countUserWithAwardPercent =
     countUserWithAward &&

@@ -37,13 +37,26 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       }
     );
 
-  // getUsersWithAwards;
+  // // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  // const {
+  //   data: usersOnDepartmentWithAwards,
+  //   isLoading: isLoadingUsersOnDepartmentWithAwards,
+  // } = userApi.useGetUsersWithAwardsQuery(
+  //   {
+  //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //     deptId: Number(id),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser,
+  //   }
+  // );
 
   // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
   const {
     data: usersOnDepartmentWithAwards,
     isLoading: isLoadingUsersOnDepartmentWithAwards,
-  } = userApi.useGetUsersWithAwardsQuery(
+  } = userApi.useGetUsersWithAwardCountQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(id),

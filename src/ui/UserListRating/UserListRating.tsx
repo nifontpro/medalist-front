@@ -14,6 +14,8 @@ import Htag from '../Htag/Htag';
 const UserListRating = ({
   users,
   withoutCountAwards,
+  page,
+  pageSize,
   className,
   ...props
 }: UserListRatingProps): JSX.Element => {
@@ -41,7 +43,7 @@ const UserListRating = ({
                 className={styles.numberOfRating}
                 color='gray'
               >
-                #{index + 1}
+                #{pageSize && page && page > 0 ? (index + 1) + (page * pageSize) : index + 1}
               </P>
               <div className={styles.img}>
                 <ImageDefault
@@ -76,7 +78,7 @@ const UserListRating = ({
                   Нет отдела
                 </ButtonIcon>
               )}
-              {user.awards &&
+              {/* {user.awards &&
               user.awards.filter((item) => item.state == 'FINISH').length >=
                 1 ? (
                 <div className={styles.countAwards}>
@@ -97,7 +99,25 @@ const UserListRating = ({
                   </Htag>
                   <AwardIcon className={styles.union} />
                 </div>
-              )}
+              )} */}
+
+              <div
+                className={cn({
+                  [styles.countAwards]: user.awardCount > 0,
+                  [styles.countAwardsDisable]: user.awardCount == 0,
+                })}
+              >
+                <Htag
+                  tag='h2'
+                  className={cn({
+                    [styles.disabled]: user.awardCount == 0,
+                  })}
+                >
+                  {user.awardCount}
+                </Htag>
+                <AwardIcon className={styles.union} />
+              </div>
+
               {withoutCountAwards == true ? (
                 <div className={styles.viewerAward}>
                   {user.awards &&
