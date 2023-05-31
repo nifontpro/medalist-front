@@ -36,11 +36,7 @@ const CardUserAward = ({
 
       <div className={styles.img}>
         <ImageDefault
-          src={
-            award.award && award.award?.images.length > 0
-              ? award.award?.images[0].imageUrl
-              : undefined
-          }
+          src={award.award?.mainImg}
           width={175}
           height={175}
           alt='award img'

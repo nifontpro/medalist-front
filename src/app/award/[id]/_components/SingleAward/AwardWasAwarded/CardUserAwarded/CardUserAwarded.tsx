@@ -38,11 +38,7 @@ const CardUserAwarded = ({
         <div className={styles.img}>
           {user && (
             <ImageDefault
-              src={
-                user.user && user.user.images.length > 0
-                  ? user.user.images[0].imageUrl
-                  : undefined
-              }
+              src={user.user?.mainImg}
               width={175}
               height={175}
               alt='award img'

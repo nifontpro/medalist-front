@@ -57,12 +57,7 @@ const MainNominee = ({
         <div className={styles.content}>
           <div className={styles.img}>
             <ImageDefault
-              src={
-                minEndDateNominee?.images &&
-                minEndDateNominee?.images.length > 0
-                  ? minEndDateNominee?.images[0].imageUrl
-                  : undefined
-              }
+              src={minEndDateNominee?.mainImg}
               width={236}
               height={236}
               alt='preview image'
@@ -77,12 +72,7 @@ const MainNominee = ({
             </P>
             <div className={styles.imgCenter}>
               <ImageDefault
-                src={
-                  minEndDateNominee?.images &&
-                  minEndDateNominee?.images.length > 0
-                    ? minEndDateNominee?.images[0].imageUrl
-                    : undefined
-                }
+                src={minEndDateNominee?.mainImg}
                 width={236}
                 height={236}
                 alt='preview image'
@@ -121,12 +111,7 @@ const MainNominee = ({
           </div>
           <div className={styles.imgEnd}>
             <ImageDefault
-              src={
-                minEndDateNominee?.images &&
-                minEndDateNominee?.images.length > 0
-                  ? minEndDateNominee?.images[0].imageUrl
-                  : undefined
-              }
+              src={minEndDateNominee?.mainImg}
               width={236}
               height={236}
               alt='preview image'

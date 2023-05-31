@@ -4,6 +4,7 @@ import { BaseImage } from '@/domain/model/base/image/baseImage';
 export interface Award {
   id: number;
   name: string;
+  mainImg?: string;
   type: AwardType;
   startDate: number;
   endDate: number;

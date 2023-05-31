@@ -40,7 +40,7 @@ const CountUsersPreview = ({
                   return (
                     <div key={uniqid()} className={styles.singleImg}>
                       <ImageDefault
-                        src={user.images[0].imageUrl}
+                        src={user.mainImg}
                         width={40}
                         height={40}
                         alt={user.firstname}
@@ -83,7 +83,7 @@ const CountUsersPreview = ({
                   return (
                     <div key={uniqid()} className={styles.singleImg}>
                       <ImageDefault
-                        src={item.images[0].imageUrl}
+                        src={item.mainImg}
                         width={40}
                         height={40}
                         alt={item.firstname}

@@ -19,34 +19,37 @@ const UserLogo = ({
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
-  const {
-    handleLogoutClick,
-  } = useUserPanelModalWindow(setVisibleModal, user);
-  
+  const { handleLogoutClick } = useUserPanelModalWindow(setVisibleModal, user);
+
   return (
     <>
-      {user ? <div
-        className={className}
-        ref={refOpen}
-        {...props}
-        onClick={() => setVisibleModal(!visibleModal)}
-      >
-        <ImageDefault
-          src={
-            user && user?.images.length > 0
-              ? user.images[0].imageUrl
-              : undefined
-          }
-          width={64}
-          height={64}
-          alt='preview image'
-          objectFit='cover'
-          className='rounded-[10px]'
-          priority={true}
-        />
-      </div> : 
-      <div className='@apply text-white flex justify-center items-center cursor-pointer' onClick={handleLogoutClick}>exit</div>
-      // null
+      {
+        user ? (
+          <div
+            className={className}
+            ref={refOpen}
+            {...props}
+            onClick={() => setVisibleModal(!visibleModal)}
+          >
+            <ImageDefault
+              src={user.mainImg}
+              width={64}
+              height={64}
+              alt='preview image'
+              objectFit='cover'
+              className='rounded-[10px]'
+              priority={true}
+            />
+          </div>
+        ) : (
+          <div
+            className='@apply text-white flex justify-center items-center cursor-pointer'
+            onClick={handleLogoutClick}
+          >
+            exit
+          </div>
+        )
+        // null
       }
       {user && (
         <UserPanelModalWindow

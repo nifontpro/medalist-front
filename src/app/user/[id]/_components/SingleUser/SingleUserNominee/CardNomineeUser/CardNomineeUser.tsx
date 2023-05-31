@@ -28,11 +28,7 @@ const CardNomineeUser = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.img}>
         <ImageDefault
-          src={
-            award.award?.images && award.award?.images.length > 0
-              ? award.award?.images[0].imageUrl
-              : undefined
-          }
+          src={award.award?.mainImg}
           width={76}
           height={76}
           alt='award img'
@@ -56,7 +52,9 @@ const CardNomineeUser = ({
             {award.actionType === 'NOMINEE' && (
               <Button
                 onClick={() =>
-                  userId && awardId && userRewardAsync(awardId, 'AWARD', Number(userId))
+                  userId &&
+                  awardId &&
+                  userRewardAsync(awardId, 'AWARD', Number(userId))
                 }
                 size='m'
                 appearance='blackWhite'

@@ -12,6 +12,7 @@ export interface User {
   authEmail: string;
   gender: Gender;
   post?: string;
+  mainImg?: string;
   awardCount: number;
   roles: RoleUser[];
   images: BaseImage[];

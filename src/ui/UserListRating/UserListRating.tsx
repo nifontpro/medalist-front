@@ -43,13 +43,14 @@ const UserListRating = ({
                 className={styles.numberOfRating}
                 color='gray'
               >
-                #{pageSize && page && page > 0 ? (index + 1) + (page * pageSize) : index + 1}
+                #
+                {pageSize && page && page > 0
+                  ? index + 1 + page * pageSize
+                  : index + 1}
               </P>
               <div className={styles.img}>
                 <ImageDefault
-                  src={
-                    user.images.length > 0 ? user.images[0].imageUrl : undefined
-                  }
+                  src={user.mainImg}
                   width={100}
                   height={100}
                   alt='preview image'
@@ -128,11 +129,7 @@ const UserListRating = ({
                           return (
                             <div className={cn(styles.imgAward)} key={uniqid()}>
                               <ImageDefault
-                                src={
-                                  award.images.length > 0
-                                    ? award.images[0].imageUrl
-                                    : undefined
-                                }
+                                src={award.mainImg}
                                 width={50}
                                 height={50}
                                 alt='preview image'

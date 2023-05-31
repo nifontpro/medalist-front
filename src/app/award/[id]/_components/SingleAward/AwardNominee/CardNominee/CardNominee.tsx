@@ -29,11 +29,7 @@ const CardNominee = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.img}>
         <ImageDefault
-          src={
-            user.user && user.user?.images.length > 0
-              ? user.user.images[0].imageUrl
-              : undefined
-          }
+          src={user.user?.mainImg}
           width={76}
           height={76}
           alt='award img'
@@ -59,7 +55,13 @@ const CardNominee = ({
       {checkRole(typeOfUser, 'ADMIN') ? (
         <div className={styles.buttons}>
           {user.actionType === 'NOMINEE' && (
-            <Button onClick={() => userId && userRewardAsync(awardId, 'AWARD', userId)} size='m' appearance='blackWhite'>
+            <Button
+              onClick={() =>
+                userId && userRewardAsync(awardId, 'AWARD', userId)
+              }
+              size='m'
+              appearance='blackWhite'
+            >
               Наградить
             </Button>
           )}
