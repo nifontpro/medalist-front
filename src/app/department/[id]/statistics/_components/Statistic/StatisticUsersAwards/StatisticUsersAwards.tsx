@@ -3,8 +3,8 @@ import styles from './StatisticUsersAwards.module.scss';
 import { StatisticUsersAwardsProps } from './StatisticUsersAwards.props';
 import cn from 'classnames';
 import DoughnutCircle from '@/ui/DoughnutCircle/DoughnutCircle';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const StatisticUsersAwards = ({

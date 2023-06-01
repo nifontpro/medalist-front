@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import { StatisticDepartmentsProps } from './StatisticDepartments.props';
 import cn from 'classnames';
 import AwardIcon from '@/icons/union.svg';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';

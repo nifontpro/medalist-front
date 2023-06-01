@@ -4,7 +4,7 @@ import styles from './ChangeRole.module.scss';
 import cn from 'classnames';
 import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 
 const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   const dispatch = useAppDispatch();

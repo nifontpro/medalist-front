@@ -1,4 +1,4 @@
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import styles from './SingleUserTitle.module.scss';
 import { SingleUserTitleProps } from './SingleUserTitle.props';
 import cn from 'classnames';

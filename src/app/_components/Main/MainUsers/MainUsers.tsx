@@ -7,7 +7,7 @@ import Htag from '@/ui/Htag/Htag';
 // import P from '@/ui/P/P';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import UserListRating from '@/ui/UserListRating/UserListRating';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useFetchParams } from '@/hooks/useFetchParams';

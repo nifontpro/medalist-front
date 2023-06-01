@@ -7,7 +7,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
-import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 
 export const useDepartmentEdit = (

@@ -1,4 +1,4 @@
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { AwardState } from '@/domain/model/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useMemo, useState } from 'react';

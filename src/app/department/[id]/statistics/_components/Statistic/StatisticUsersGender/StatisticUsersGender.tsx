@@ -3,7 +3,7 @@ import styles from './StatisticUsersGender.module.scss';
 import { StatisticUsersGenderProps } from './StatisticUsersGender.props';
 import cn from 'classnames';
 import P from '@/ui/P/P';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 
 const StatisticUsersGender = ({
   departId,

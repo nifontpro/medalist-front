@@ -9,7 +9,7 @@ import StatisticUsersGender from './StatisticUsersGender/StatisticUsersGender';
 import StatisticUsersAwards from './StatisticUsersAwards/StatisticUsersAwards';
 import { useRouter } from 'next/navigation';
 import StatisticActivity from './StatisticActivity/StatisticActivity';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import StatisticDepartments from './StatisticDepartments/StatisticDepartments';
 
 const Statistic = ({

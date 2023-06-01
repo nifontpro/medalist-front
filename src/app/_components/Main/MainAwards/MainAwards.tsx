@@ -8,10 +8,10 @@ import UnionIcon from '@/icons/union.svg';
 import { useRouter } from 'next/navigation';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {

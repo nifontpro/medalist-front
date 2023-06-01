@@ -8,7 +8,7 @@ import { ForwardedRef, forwardRef } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import AuthComponent from '@/store/providers/AuthComponent';

@@ -7,7 +7,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import { awardApi } from '@/api/award/award.api';
 import { GalleryItem } from '@/domain/model/gallery/item';

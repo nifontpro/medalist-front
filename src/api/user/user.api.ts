@@ -9,13 +9,14 @@ import { UpdateUserRequest } from './request/UpdateUserRequest';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { GenderCount } from '@/domain/model/user/genderCount';
+import { UserSettings, UserSettingsRequest } from '@/domain/model/user/userSettings';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Settings'],
   endpoints: (build) => ({
     getTestData: build.query<{ res: string }, void>({
       query: () => {
@@ -282,6 +283,33 @@ export const userApi = createApi({
         };
       },
       providesTags: ['User'],
+    }),
+
+    /**
+     * Сохранение настроек сотрудника
+     */
+    saveSettings: build.mutation<
+      BaseResponse<UserSettings>,
+      UserSettingsRequest
+    >({
+      query: (request) => ({
+        method: 'POST',
+        url: userUrl('/save_settings'),
+        body: request,
+      }), 
+      invalidatesTags: ['Settings'],
+    }),
+
+    /**
+     * Получение настроек сотрудника
+     */
+    getSettings: build.query<BaseResponse<UserSettings>, { userId: number }>({
+      query: (request) => ({
+        method: 'POST',
+        url: userUrl('/get_settings'),
+        body: request,
+      }),
+      providesTags: ['Settings'],
     }),
   }),
 });

@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
 import { useRef, useState } from 'react';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import dayjs from 'dayjs';
 import {
   setEndDate,

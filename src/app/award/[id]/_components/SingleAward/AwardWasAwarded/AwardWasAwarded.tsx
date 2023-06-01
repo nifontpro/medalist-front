@@ -12,7 +12,7 @@ import P from '@/ui/P/P';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import CardUserAwarded from './CardUserAwarded/CardUserAwarded';
 import { User } from '@/domain/model/user/user';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';
 import { useFetchParams } from '@/hooks/useFetchParams';
 

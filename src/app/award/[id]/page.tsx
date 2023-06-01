@@ -2,7 +2,7 @@
 
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useAwardAdmin } from '../useAwardAdmin';
+import { useAwardAdmin } from '../../../api/award/useAwardAdmin';
 import SingleAward from './_components/SingleAward/SingleAward';
 
 export default function SingleAwardPage({

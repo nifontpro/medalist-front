@@ -9,7 +9,7 @@ import P from '@/ui/P/P';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import AwardIcon from '@/icons/union.svg';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 
 const CardUserAwarded = ({
   award,

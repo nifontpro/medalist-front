@@ -4,7 +4,7 @@ import cn from 'classnames';
 import ArrowIcon from '@/icons/arrowRight.svg';
 import CupIcon from '@/icons/cup.svg';
 import P from '@/ui/P/P';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const StatisticCountAwards = ({

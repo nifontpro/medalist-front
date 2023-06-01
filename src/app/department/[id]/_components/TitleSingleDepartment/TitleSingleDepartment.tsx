@@ -5,7 +5,7 @@ import { TitleSingleDepartmentProps } from './TitleSingleDepartment.props';
 import Htag from '@/ui/Htag/Htag';
 import GpsIcon from './gps.svg';
 import P from '@/ui/P/P';
-import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import {
   getDepartmentCreateUrl,
   getDepartmentEditUrl,

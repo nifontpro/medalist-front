@@ -13,7 +13,7 @@ import { getUserCreateUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
 import AuthComponent from '@/store/providers/AuthComponent';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useFetchParams } from '@/hooks/useFetchParams';

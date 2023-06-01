@@ -22,7 +22,7 @@ import cn from 'classnames';
 import UserLogo from './UserLogo/UserLogo';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import MenuIcon from '@/icons/menu.svg';
 import { useHeader } from './useHeader';
 import { useWindowSize } from '@/hooks/useWindowSize';

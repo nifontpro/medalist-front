@@ -11,7 +11,7 @@ import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const MainNominee = ({

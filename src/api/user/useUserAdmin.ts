@@ -24,6 +24,28 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       }
     );
 
+  // Получить настройки пользователя
+  const { data: userSettings, isLoading: isLoadingUserSettings } =
+    userApi.useGetSettingsQuery(
+      {
+        userId: 78,
+      },
+      {
+        skip: !typeOfUser && !id,
+      }
+    );
+
+  // Сохранить настройки пользователя
+  const { data: saveUserSettings, isLoading: isLoadingSaveUserSettings } =
+    userApi.useGetSettingsQuery(
+      {
+        userId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      },
+      {
+        skip: !typeOfUser && !id,
+      }
+    );
+
   // Получить пользоветлей в отделе
   const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
     userApi.useGetUsersByDeptQuery(
@@ -131,6 +153,10 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       isLoadingUsersGenderOnDepartment,
       usersOnDepartmentWithAwards,
       isLoadingUsersOnDepartmentWithAwards,
+      userSettings,
+      isLoadingUserSettings,
+      saveUserSettings,
+      isLoadingSaveUserSettings,
     };
   }, [
     deleteUser,
@@ -145,5 +171,9 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     isLoadingUsersGenderOnDepartment,
     usersOnDepartmentWithAwards,
     isLoadingUsersOnDepartmentWithAwards,
+    userSettings,
+    isLoadingUserSettings,
+    saveUserSettings,
+    isLoadingSaveUserSettings,
   ]);
 };
