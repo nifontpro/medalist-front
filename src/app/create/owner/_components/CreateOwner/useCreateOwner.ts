@@ -1,4 +1,4 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -10,10 +10,11 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateOwner = (
   setValue: UseFormSetValue<CreateOwnerRequest>,
-  active: Gender
+  active: Gender,
+  reset: UseFormReset<CreateOwnerRequest>
 ) => {
   const { back } = useRouter();
-  const [create] = userApi.useCreateOwnerMutation();
+  const [create, createInfo] = userApi.useCreateOwnerMutation();
 
   useEffect(() => {
     if (active != undefined) {
@@ -44,10 +45,11 @@ export const useCreateOwner = (
         toastError(e, 'Ошибка создания профиля владельца');
       });
     if (!isError) {
+      reset()
       toast.success('Профиль владельца успешно создан');
       back();
     }
   };
 
-  return { onSubmit, handleClick };
+  return { onSubmit, handleClick, createInfo };
 };

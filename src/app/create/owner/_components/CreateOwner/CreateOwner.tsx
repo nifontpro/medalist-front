@@ -14,6 +14,7 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { Gender } from '@/domain/model/user/user';
 import { withHookFormMask } from 'use-mask-input';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const CreateOwner = () => {
   const [active, setActive] = useState<Gender>('MALE');
@@ -24,9 +25,10 @@ const CreateOwner = () => {
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    reset,
   } = useForm<CreateOwnerRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick } = useCreateOwner(setValue, active);
+  const { onSubmit, handleClick, createInfo} = useCreateOwner(setValue, active, reset);
 
   return (
     <>
@@ -133,6 +135,7 @@ const CreateOwner = () => {
           </div>
         </div>
       </form>
+      {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );
 }

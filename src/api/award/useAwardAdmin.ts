@@ -161,7 +161,7 @@ export const useAwardAdmin = (
   );
 
   const [deleteAward] = awardApi.useDeleteMutation();
-  const [deleteUserReward] = awardApi.useSendActionMutation();
+  const [deleteUserReward, deleteUserRewardInfo] = awardApi.useSendActionMutation();
 
   return useMemo(() => {
     const deleteAwardAsync = async (awardId: number) => {
@@ -228,6 +228,7 @@ export const useAwardAdmin = (
       singleActivAwardUser,
       isLoadingSingleActivAwardUser,
       userRewardAsync,
+      deleteUserRewardInfo,
       awardsAvailableForRewardUser,
       isLoadingAwardsAvailableForRewardUser,
       colAwardsOnDepartment,
@@ -254,6 +255,7 @@ export const useAwardAdmin = (
     isLoadingSingleActivAwardUser,
     typeOfUser,
     deleteUserReward,
+    deleteUserRewardInfo,
     awardsAvailableForRewardUser,
     isLoadingAwardsAvailableForRewardUser,
     colAwardsOnDepartment,

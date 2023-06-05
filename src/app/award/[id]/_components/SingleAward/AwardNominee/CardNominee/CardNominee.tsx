@@ -11,6 +11,7 @@ import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import { checkRole } from '@/utils/checkRole';
 import Htag from '@/ui/Htag/Htag';
 import AwardIcon from '@/icons/union.svg';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const CardNominee = ({
   awardId,
@@ -20,72 +21,73 @@ const CardNominee = ({
 }: CardNomineeProps): JSX.Element => {
   let userId = user.user?.id;
 
-  const { userRewardAsync, handleRemove, typeOfUser } = useCardNominee(
-    userId,
-    awardId
-  );
+  const { userRewardAsync, handleRemove, typeOfUser, rewardInfo, deleteUserRewardInfo } =
+    useCardNominee(userId, awardId);
 
   return (
-    <div className={cn(styles.wrapper, className)} {...props}>
-      <div className={styles.img}>
-        <ImageDefault
-          src={user.user?.mainImg}
-          width={76}
-          height={76}
-          alt='award img'
-          objectFit='cover'
-          className='rounded-[27px]'
-          priority={true}
-        />
-      </div>
+    <>
+      <div className={cn(styles.wrapper, className)} {...props}>
+        <div className={styles.img}>
+          <ImageDefault
+            src={user.user?.mainImg}
+            width={76}
+            height={76}
+            alt='award img'
+            objectFit='cover'
+            className='rounded-[27px]'
+            priority={true}
+          />
+        </div>
 
-      <div className={styles.user}>
-        <P size='l'>
-          {user.user?.lastname} {user.user?.firstname}
-        </P>
-        <P size='s' fontstyle='thin' color='gray' className={styles.post}>
-          {user.user?.post}
-        </P>
-      </div>
+        <div className={styles.user}>
+          <P size='l'>
+            {user.user?.lastname} {user.user?.firstname}
+          </P>
+          <P size='s' fontstyle='thin' color='gray' className={styles.post}>
+            {user.user?.post}
+          </P>
+        </div>
 
-      {/* <P size='s' fontstyle='thin' color='gray' className={styles.date}>
+        {/* <P size='s' fontstyle='thin' color='gray' className={styles.date}>
         Какой то пост
       </P> */}
 
-      {checkRole(typeOfUser, 'ADMIN') ? (
-        <div className={styles.buttons}>
-          {user.actionType === 'NOMINEE' && (
-            <Button
-              onClick={() =>
-                userId && userRewardAsync(awardId, 'AWARD', userId)
-              }
-              size='m'
-              appearance='blackWhite'
-            >
-              Наградить
-            </Button>
-          )}
-          {user.actionType === 'AWARD' && (
-            <Button
-              size='m'
-              appearance='blackWhite'
-              className={styles.btnDefault}
-            >
-              Буден награжден
-            </Button>
-          )}
-          <ButtonEdit icon='remove' onClick={handleRemove} />
-        </div>
-      ) : (
-        <div className={styles.buttons}>
-          <Htag tag='h2'>
-            {/* {user?.awards.filter((item) => item.state == 'AWARD').length} */}
-            10
-          </Htag>
-          <AwardIcon className={styles.union} />
-        </div>
-      )}
-    </div>
+        {checkRole(typeOfUser, 'ADMIN') ? (
+          <div className={styles.buttons}>
+            {user.actionType === 'NOMINEE' && (
+              <Button
+                onClick={() =>
+                  userId && userRewardAsync(awardId, 'AWARD', userId)
+                }
+                size='m'
+                appearance='blackWhite'
+              >
+                Наградить
+              </Button>
+            )}
+            {user.actionType === 'AWARD' && (
+              <Button
+                size='m'
+                appearance='blackWhite'
+                className={styles.btnDefault}
+              >
+                Буден награжден
+              </Button>
+            )}
+            <ButtonEdit icon='remove' onClick={handleRemove} />
+          </div>
+        ) : (
+          <div className={styles.buttons}>
+            <Htag tag='h2'>
+              {/* {user?.awards.filter((item) => item.state == 'AWARD').length} */}
+              10
+            </Htag>
+            <AwardIcon className={styles.union} />
+          </div>
+        )}
+      </div>
+      {rewardInfo.status == 'pending' || deleteUserRewardInfo.status == 'pending' ? <SpinnerFetching /> : null}
+    </>
   );
 };
 

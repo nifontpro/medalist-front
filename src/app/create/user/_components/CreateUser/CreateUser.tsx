@@ -16,6 +16,7 @@ import { withHookFormMask } from 'use-mask-input';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 import SelectArtem from '@/ui/SelectArtem/SelectArtem';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const roles: IOption[] = [
   {
@@ -35,9 +36,14 @@ const CreateUser = () => {
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    reset,
   } = useForm<CreateUserRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick } = useCreateUser(setValue, active);
+  const { onSubmit, handleClick, createInfo } = useCreateUser(
+    setValue,
+    active,
+    reset
+  );
 
   return (
     <>
@@ -176,6 +182,7 @@ const CreateUser = () => {
           </div>
         </div>
       </form>
+      {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );
 };
