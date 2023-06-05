@@ -22,10 +22,10 @@ export const useCreateAward = (
   const { back } = useRouter();
   const searchParams = useSearchParams();
   const deptId = Number(searchParams.get('deptId'));
-  const [createAward] = awardApi.useCreateMutation();
-  const [rewardUser] = awardApi.useSendActionMutation();
-  const [setImageGallery] = awardApi.useGalleryImageAddMutation();
-  const [setImage] = awardApi.useImageAddMutation();
+  const [createAward, createAwardInfo] = awardApi.useCreateMutation();
+  const [rewardUser, rewardUserInfo] = awardApi.useSendActionMutation();
+  const [setImageGallery, setImageGalleryInfo] = awardApi.useGalleryImageAddMutation();
+  const [setImage, setImageInfo] = awardApi.useImageAddMutation();
 
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
     undefined
@@ -320,6 +320,10 @@ export const useCreateAward = (
       imagesGallery,
       setImagesGallery,
       setImagesFile,
+      rewardUserInfo,
+      setImageGalleryInfo,
+      setImageInfo,
+      createAwardInfo
     };
   }, [
     back,
@@ -338,5 +342,9 @@ export const useCreateAward = (
     setImagesFile,
     imageFile,
     setImage,
+    rewardUserInfo,
+    setImageGalleryInfo,
+    setImageInfo,
+    createAwardInfo
   ]);
 };

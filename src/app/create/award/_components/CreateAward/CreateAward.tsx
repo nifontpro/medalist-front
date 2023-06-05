@@ -24,6 +24,7 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import ChoiceImgCreate from './ChoiceImgCreate/ChoiceImgCreate';
 import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const CreateAward = () => {
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
@@ -45,6 +46,10 @@ const CreateAward = () => {
     imagesGallery,
     setImagesGallery,
     setImagesFile,
+    rewardUserInfo,
+    setImageGalleryInfo,
+    setImageInfo,
+    createAwardInfo,
   } = useCreateAward(setValue, reset, arrChoiceUser);
 
   const {
@@ -208,6 +213,13 @@ const CreateAward = () => {
         textBtn='Подтвердить'
         create={true}
       />
+
+      {rewardUserInfo.status == 'pending' ||
+      setImageGalleryInfo.status == 'pending' ||
+      createAwardInfo.status == 'pending' ||
+      setImageInfo.status == 'pending' ? (
+        <SpinnerFetching />
+      ) : null}
     </>
   );
 };

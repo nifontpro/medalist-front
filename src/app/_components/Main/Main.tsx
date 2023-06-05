@@ -22,41 +22,43 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
   } = useMain();
 
   return (
-    <div {...props} className={styles.wrapper}>
-      <MainAwards
-        className={cn(styles.awards, {
-          [styles.index30]: onBoarding == 1,
-        })}
-      />
-      <MainUsers className={styles.users} />
-      <div
-        className={cn(styles.nominee, {
-          [styles.index30]: onBoarding >= 2 && !state,
-        })}
-      >
-        <MainNominee
-          className={cn({
-            [styles.index0]: onBoarding == 3 && !state,
+    <>
+      <div {...props} className={styles.wrapper}>
+        <MainAwards
+          className={cn(styles.awards, {
+            [styles.index30]: onBoarding == 1,
           })}
         />
-        <MainActivity
-          className={cn({
-            [styles.index0]: onBoarding == 2,
+        <MainUsers className={styles.users} />
+        <div
+          className={cn(styles.nominee, {
+            [styles.index30]: onBoarding >= 2 && !state,
           })}
+        >
+          <MainNominee
+            className={cn({
+              [styles.index0]: onBoarding == 3 && !state,
+            })}
+          />
+          <MainActivity
+            className={cn({
+              [styles.index0]: onBoarding == 2,
+            })}
+          />
+        </div>
+        <ButtonScrollUp />
+        <div className='cursor-pointer' onClick={onBoardingFalse}>
+          Сбросить Onboarding
+        </div>
+        <OnBoarding
+          state={state}
+          onBoarding={onBoarding}
+          onBoardingText={onBoardingText}
+          onBoardingText3={onBoardingText3}
+          handleClick={saveUserSettingsAsync}
         />
       </div>
-      <ButtonScrollUp />
-      <div className='cursor-pointer' onClick={onBoardingFalse}>
-        Сбросить Onboarding
-      </div>
-      <OnBoarding
-        state={state}
-        onBoarding={onBoarding}
-        onBoardingText={onBoardingText}
-        onBoardingText3={onBoardingText3}
-        handleClick={saveUserSettingsAsync}
-      />
-    </div>
+    </>
   );
 };
 

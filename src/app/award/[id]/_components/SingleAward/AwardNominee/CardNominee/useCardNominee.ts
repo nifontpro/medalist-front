@@ -11,9 +11,9 @@ export const useCardNominee = (userId: number | undefined, awardId: number | und
     (state: RootState) => state.userSelection
   );
 
-  const [reward] = awardApi.useSendActionMutation();
+  const [reward, rewardInfo] = awardApi.useSendActionMutation();
 
-  const { userRewardAsync } = useAwardAdmin();
+  const { userRewardAsync, deleteUserRewardInfo } = useAwardAdmin(); 
 
   return useMemo(() => {
     const handleRemove = async () => {
@@ -47,7 +47,9 @@ export const useCardNominee = (userId: number | undefined, awardId: number | und
     return {
       userRewardAsync,
       handleRemove,
-      typeOfUser
+      typeOfUser,
+      rewardInfo,
+      deleteUserRewardInfo,
     };
-  }, [userId, reward, awardId, typeOfUser, userRewardAsync]);
+  }, [userId, reward, awardId, typeOfUser, userRewardAsync, rewardInfo, deleteUserRewardInfo]);
 };

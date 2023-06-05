@@ -1,4 +1,4 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { CreateDeptRequest } from '@/api/dept/request/createDeptRequest';
@@ -9,13 +9,14 @@ import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateDepartment = (
-  setValue: UseFormSetValue<CreateDeptRequest>
+  setValue: UseFormSetValue<CreateDeptRequest>,
+  reset: UseFormReset<CreateDeptRequest>
 ) => {
   const searchParams = useSearchParams();
   const parentId = Number(searchParams.get('id'));
 
   const { back } = useRouter();
-  const [create] = deptApi.useGetProfilesMutation();
+  const [create, createInfo] = deptApi.useGetProfilesMutation();
   const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export const useCreateDepartment = (
         toast.error('Необходимо выбрать родительский отдел');
       }
       if (!isError) {
+        reset();
         toast.success('Отдел успешно создан');
         back();
       }
@@ -59,6 +61,7 @@ export const useCreateDepartment = (
       onSubmit,
       handleClick,
       back,
+      createInfo,
     };
-  }, [back, create, parentId]);
+  }, [back, create, parentId, createInfo, reset]);
 };

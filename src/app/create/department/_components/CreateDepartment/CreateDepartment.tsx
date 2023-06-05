@@ -10,6 +10,7 @@ import TextArea from '@/ui/TextArea/TextArea';
 import { withHookFormMask } from 'use-mask-input';
 import { useForm } from 'react-hook-form';
 import { useCreateDepartment } from './useCreateDepartment';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const CreateDepartment = () => {
   const {
@@ -17,9 +18,11 @@ const CreateDepartment = () => {
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    reset,
   } = useForm<CreateDeptRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, back } = useCreateDepartment(setValue);
+  const { onSubmit, handleClick, back, createInfo } =
+    useCreateDepartment(setValue, reset);
 
   return (
     <>
@@ -98,10 +101,11 @@ const CreateDepartment = () => {
             className={styles.confirm}
             disabled={!isDirty || !isValid}
           >
-            Сохранить
+            Создать
           </Button>
         </div>
       </form>
+      {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );
 };

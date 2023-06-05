@@ -5,23 +5,31 @@ import cn from 'classnames';
 import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
 
 const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(String(typeOfUser?.id));
+  const { singleUser, isLoadingSingleUser } = useUserAdmin(
+    String(typeOfUser?.id)
+  );
+
+  const { close } = useHeader();
 
   if (isLoadingSingleUser) {
-    return <div>Loading</div>
+    return <div>Loading</div>;
   }
 
   return (
     <>
       <div
         className={cn(styles.role, className)}
-        onClick={() => dispatch(setIsOpen(true))}
+        onClick={() => {
+          close();
+          dispatch(setIsOpen(true));
+        }}
       >
         {singleUser?.success == false
           ? `Выберете пользователя`

@@ -15,8 +15,6 @@ export const useMain = () => {
   const { userSettings, isLoadingUserSettings } = useUserAdmin();
   const [saveUserSettings] = userApi.useSaveSettingsMutation();
 
-  console.log(userSettings);
-
   const [state, setState] = useState<boolean | undefined>(false);
   const [onBoarding, setOnboarding] = useState<number>(1);
   const [onBoardingText, setOnboardingText] = useState<string>('');
