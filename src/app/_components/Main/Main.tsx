@@ -10,6 +10,8 @@ import MainNominee from './MainNominee/MainNominee';
 import MainUsers from './MainUsers/MainUsers';
 import MainActivity from './MainActivity/MainActivity';
 import OnBoarding from './OnBoarding/OnBoarding';
+import { useMainLoading } from './useMainLoading';
+import Spinner from '@/ui/Spinner/Spinner';
 
 const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const {
@@ -21,43 +23,55 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
     onBoardingText3,
   } = useMain();
 
+  const {
+    isLoadingColAwardsActivRoot,
+    isLoadingUsersOnDepartmentWithAwards,
+    isLoadingColAwardsOnDept,
+  } = useMainLoading();
+
   return (
     <>
-      <div {...props} className={styles.wrapper}>
-        <MainAwards
-          className={cn(styles.awards, {
-            [styles.index30]: onBoarding == 1,
-          })}
-        />
-        <MainUsers className={styles.users} />
-        <div
-          className={cn(styles.nominee, {
-            [styles.index30]: onBoarding >= 2 && !state,
-          })}
-        >
-          <MainNominee
-            className={cn({
-              [styles.index0]: onBoarding == 3 && !state,
+      {!isLoadingColAwardsActivRoot &&
+      !isLoadingUsersOnDepartmentWithAwards &&
+      !isLoadingColAwardsOnDept ? (
+        <div {...props} className={styles.wrapper}>
+          <MainAwards
+            className={cn(styles.awards, {
+              [styles.index30]: onBoarding == 1,
             })}
           />
-          <MainActivity
-            className={cn({
-              [styles.index0]: onBoarding == 2,
+          <MainUsers className={styles.users} />
+          <div
+            className={cn(styles.nominee, {
+              [styles.index30]: onBoarding >= 2 && !state,
             })}
+          >
+            <MainNominee
+              className={cn({
+                [styles.index0]: onBoarding == 3 && !state,
+              })}
+            />
+            <MainActivity
+              className={cn({
+                [styles.index0]: onBoarding == 2,
+              })}
+            />
+          </div>
+          <ButtonScrollUp />
+          <div className='cursor-pointer' onClick={onBoardingFalse}>
+            Сбросить Onboarding
+          </div>
+          <OnBoarding
+            state={state}
+            onBoarding={onBoarding}
+            onBoardingText={onBoardingText}
+            onBoardingText3={onBoardingText3}
+            handleClick={saveUserSettingsAsync}
           />
         </div>
-        <ButtonScrollUp />
-        <div className='cursor-pointer' onClick={onBoardingFalse}>
-          Сбросить Onboarding
-        </div>
-        <OnBoarding
-          state={state}
-          onBoarding={onBoarding}
-          onBoardingText={onBoardingText}
-          onBoardingText3={onBoardingText3}
-          handleClick={saveUserSettingsAsync}
-        />
-      </div>
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 };
