@@ -186,10 +186,13 @@
       grid-template-columns: [startLogo] 70px [endLogo] 30px [startUser] 200px [endUser] 1fr [startCount] 70px [endCount] 10px [startArrow] auto [end];
     }
     @media screen and (max-width: 500px) {
-      grid-template-columns: [startLogo] 40px [endLogo] 15px [startUser] 200px [endUser] 1fr [startCount] 70px [endCount] 10px [startArrow] auto [end];
+      grid-template-columns: [startLogo] 40px [endLogo] 15px [startUser] 175px [endUser] 1fr [startCount] 70px [endCount] 10px [startArrow] auto [end];
     }
-    @media screen and (max-width: 370px) {
+    @media screen and (max-width: 380px) {
       grid-template-columns: [startLogo] 40px [endLogo] 15px [startUser] 138px [endUser] 1fr [startCount] 70px [endCount] 10px [startArrow] auto [end];
+    }
+    @media screen and (max-width: 340px) {
+      grid-template-columns: [startLogo] 40px [endLogo] 5px [startUser] 138px [endUser] 1fr [startCount] 60px [endCount] 5px [startArrow] auto [end];
     }
 
     &:hover {

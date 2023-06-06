@@ -87,7 +87,7 @@ const CreateUser = () => {
             <Field
               {...register('patronymic', {
                 required: 'Отчество обязательно!',
-                minLength: 6,
+                minLength: 3,
               })}
               title='Отчество'
               placeholder='Отчество пароль'

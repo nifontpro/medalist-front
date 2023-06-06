@@ -10,6 +10,7 @@ import Htag from '@/ui/Htag/Htag';
 import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
 import Button from '@/ui/Button/Button';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const ModalWindowWithAddUsers = forwardRef(
   (
@@ -31,8 +32,18 @@ const ModalWindowWithAddUsers = forwardRef(
     }: ModalWindowWithAddUsersProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const { arrChoiceUser, setArrChoiceUser, onSubmitNominee, handleCancel } =
-      useModalWindowWithAddUsers(setVisibleModal, awardId, awardState, setSearchValue);
+    const {
+      arrChoiceUser,
+      setArrChoiceUser,
+      onSubmitNominee,
+      handleCancel,
+      rewardInfo,
+    } = useModalWindowWithAddUsers(
+      setVisibleModal,
+      awardId,
+      awardState,
+      setSearchValue
+    );
 
     const { windowSize } = useWindowSize();
 
@@ -73,67 +84,70 @@ const ModalWindowWithAddUsers = forwardRef(
     };
 
     return (
-      <AnimatePresence mode='wait'>
-        {visibleModal && (
-          <motion.div
-            initial='hidden'
-            animate='visible'
-            exit='exit'
-            variants={windowSize.winWidth <= 768 ? variantsMedia : variants}
-            transition={{ duration: 0.4 }}
-            className={cn(styles.modalWindow, className)}
-            drag={windowSize.winWidth < 768 ? 'y' : undefined}
-            onDragEnd={(event, info) => handleDrag(event, info)}
-            dragSnapToOrigin={true}
-            {...props}
-          >
-            <div className={styles.slash} onClick={handleCancel} />
-            <div className={styles.module} ref={ref}>
-              <ExitIcon onClick={handleCancel} className={styles.exit} />
-              <Htag tag='h2' className={styles.title}>
-                Добавить участника
-              </Htag>
-              <Htag className={styles.titleMedia} tag='h2'>
-                Выбрано сотрудников{' '}
-                <span className={styles.count}>{arrChoiceUser.length}</span>
-              </Htag>
-              <ChoiceUsers
-                setSearchValue={setSearchValue}
-                users={users}
-                arrChoiceUser={arrChoiceUser}
-                setArrChoiceUser={setArrChoiceUser}
-                className={styles.mediaVisible}
-              />
-              {totalPage && totalPage > 1 ? (
-                <PrevNextPages
-                  startPage={page + 1}
-                  endPage={totalPage}
-                  handleNextClick={nextPage}
-                  handlePrevClick={prevPage}
+      <>
+        <AnimatePresence mode='wait'>
+          {visibleModal && (
+            <motion.div
+              initial='hidden'
+              animate='visible'
+              exit='exit'
+              variants={windowSize.winWidth <= 768 ? variantsMedia : variants}
+              transition={{ duration: 0.4 }}
+              className={cn(styles.modalWindow, className)}
+              drag={windowSize.winWidth < 768 ? 'y' : undefined}
+              onDragEnd={(event, info) => handleDrag(event, info)}
+              dragSnapToOrigin={true}
+              {...props}
+            >
+              <div className={styles.slash} onClick={handleCancel} />
+              <div className={styles.module} ref={ref}>
+                <ExitIcon onClick={handleCancel} className={styles.exit} />
+                <Htag tag='h2' className={styles.title}>
+                  Добавить участника
+                </Htag>
+                <Htag className={styles.titleMedia} tag='h2'>
+                  Выбрано сотрудников{' '}
+                  <span className={styles.count}>{arrChoiceUser.length}</span>
+                </Htag>
+                <ChoiceUsers
+                  setSearchValue={setSearchValue}
+                  users={users}
+                  arrChoiceUser={arrChoiceUser}
+                  setArrChoiceUser={setArrChoiceUser}
+                  className={styles.mediaVisible}
                 />
-              ) : null}
-              <div className={styles.buttons}>
-                <Button
-                  onClick={handleCancel}
-                  appearance='whiteBlack'
-                  size='l'
-                  className={styles.cancel}
-                >
-                  Отменить
-                </Button>
-                <Button
-                  onClick={onSubmitNominee}
-                  appearance='blackWhite'
-                  size='l'
-                  className={styles.confirm}
-                >
-                  {textBtn}
-                </Button>
+                {totalPage && totalPage > 1 ? (
+                  <PrevNextPages
+                    startPage={page + 1}
+                    endPage={totalPage}
+                    handleNextClick={nextPage}
+                    handlePrevClick={prevPage}
+                  />
+                ) : null}
+                <div className={styles.buttons}>
+                  <Button
+                    onClick={handleCancel}
+                    appearance='whiteBlack'
+                    size='l'
+                    className={styles.cancel}
+                  >
+                    Отменить
+                  </Button>
+                  <Button
+                    onClick={onSubmitNominee}
+                    appearance='blackWhite'
+                    size='l'
+                    className={styles.confirm}
+                  >
+                    {textBtn}
+                  </Button>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )} 
+        </AnimatePresence>
+        {rewardInfo.status == 'pending' ? <SpinnerFetching /> : null}
+      </>
     );
   }
 );
