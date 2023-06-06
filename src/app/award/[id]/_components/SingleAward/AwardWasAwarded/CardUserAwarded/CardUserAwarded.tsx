@@ -9,7 +9,7 @@ import P from '@/ui/P/P';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import AwardIcon from '@/icons/union.svg';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 
 const CardUserAwarded = ({
   award,
@@ -38,11 +38,7 @@ const CardUserAwarded = ({
         <div className={styles.img}>
           {user && (
             <ImageDefault
-              src={
-                user.user && user.user.images.length > 0
-                  ? user.user.images[0].imageUrl
-                  : undefined
-              }
+              src={user.user?.mainImg}
               width={175}
               height={175}
               alt='award img'

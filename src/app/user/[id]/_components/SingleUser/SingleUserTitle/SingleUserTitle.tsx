@@ -1,4 +1,4 @@
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import styles from './SingleUserTitle.module.scss';
 import { SingleUserTitleProps } from './SingleUserTitle.props';
 import cn from 'classnames';
@@ -99,11 +99,7 @@ const SingleUserTitle = ({
                     // <div className={styles.circle} key={uniqid()}></div>
                     <div className={styles.imgAward} key={uniqid()}>
                       <ImageDefault
-                        src={
-                          award && award.award && award.award.images.length > 0
-                            ? award.award?.images[0].imageUrl
-                            : undefined
-                        }
+                        src={award.award?.mainImg}
                         width={50}
                         height={50}
                         alt='preview image'

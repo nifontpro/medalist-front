@@ -1,0 +1,110 @@
+.wrapper {
+  margin-bottom: 60px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+
+    .bestNominee {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .text {
+        color: var(--gray96);
+      }
+
+      &:hover {
+        > .text {
+          color: var(--gray-dark);
+        }
+
+        path {
+          stroke: var(--gray-dark);
+        }
+      }
+
+      path {
+        stroke: var(--gray96);
+        @apply duration-200;
+      }
+      
+      .arrow {
+        width: 13px;
+        margin-left: 20px;
+        @media screen and (max-width: 768px) {
+          margin-left: 10px;
+          width: 8px;
+        }
+      }
+    }
+  }
+  .content {
+    max-width: 370px;
+    background: var(--gray-dark);
+    padding: 30px;
+    border-radius: 16px;
+    @media screen and (max-width: 1700px) {
+      max-width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .img {
+      display: flex;
+      justify-content: center;
+      @media screen and (max-width: 1700px) {
+        display: none;
+      }
+    }
+
+    .wrapper2 {
+      @media screen and (max-width: 1700px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media screen and (max-width: 600px) {
+        align-items: center;
+      }
+
+      .imgCenter {
+        display: none;
+        @media screen and (max-width: 600px) {
+          display: block;
+        }
+        @media screen and (max-width: 600px) {
+          width: 200px;
+        }
+      }
+
+      .countAwardsTitle {
+        margin-top: 40px;
+        margin-bottom: 15px;
+        @media screen and (max-width: 1700px) {
+          margin-top: 0px;
+        }
+        @media screen and (max-width: 600px) {
+          display: block;
+        }
+      }
+
+      .countEnd {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .imgEnd {
+      display: none;
+      @media screen and (max-width: 1700px) {
+        display: block;
+      }
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+  }
+}

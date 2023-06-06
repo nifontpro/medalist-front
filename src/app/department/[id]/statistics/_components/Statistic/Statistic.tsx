@@ -9,6 +9,8 @@ import StatisticUsersGender from './StatisticUsersGender/StatisticUsersGender';
 import StatisticUsersAwards from './StatisticUsersAwards/StatisticUsersAwards';
 import { useRouter } from 'next/navigation';
 import StatisticActivity from './StatisticActivity/StatisticActivity';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import StatisticDepartments from './StatisticDepartments/StatisticDepartments';
 
 const Statistic = ({
   departId,
@@ -21,7 +23,7 @@ const Statistic = ({
     <div {...props} className={styles.wrapper}>
       <div className={styles.title}>
         <Htag tag='h3' className={styles.header}>
-          Статистика
+          Статистика отдела/подотделов
         </Htag>
         <div className={styles.headerTitle}></div>
       </div>
@@ -30,12 +32,18 @@ const Statistic = ({
         <StatisticCountAwards
           departId={departId}
           className={styles.countAwards}
-          onClick={() => push('/award')}
+          onClick={() => push(`department/${departId}/awards`)}
         />
 
         <StatisticCountNominee
           className={styles.countNominee}
           departId={departId}
+          onClick={() => push(`department/${departId}/awards`)}
+        />
+
+        <StatisticDepartments
+          departId={departId}
+          className={styles.countDepartment}
         />
 
         <StatisticUsersGender

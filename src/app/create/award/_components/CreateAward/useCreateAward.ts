@@ -22,10 +22,10 @@ export const useCreateAward = (
   const { back } = useRouter();
   const searchParams = useSearchParams();
   const deptId = Number(searchParams.get('deptId'));
-  const [createAward] = awardApi.useCreateMutation();
-  const [rewardUser] = awardApi.useSendActionMutation();
-  const [setImageGallery] = awardApi.useGalleryImageAddMutation();
-  const [setImage] = awardApi.useImageAddMutation();
+  const [createAward, createAwardInfo] = awardApi.useCreateMutation();
+  const [rewardUser, rewardUserInfo] = awardApi.useSendActionMutation();
+  const [setImageGallery, setImageGalleryInfo] = awardApi.useGalleryImageAddMutation();
+  const [setImage, setImageInfo] = awardApi.useImageAddMutation();
 
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
     undefined
@@ -58,8 +58,6 @@ export const useCreateAward = (
 
     //Выдать сразу и закрыть
     const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
-      console.log('AWARD');
-
       data.endDate = Math.floor(new Date().getTime());
       data.startDate = Math.floor(new Date().getTime());
 
@@ -142,7 +140,6 @@ export const useCreateAward = (
               await setImage(file)
                 .unwrap()
                 .then((res) => {
-                  console.log(res);
                   if (res.success == false) {
                     errorMessageParse(res.errors);
                     isError = true;
@@ -286,7 +283,6 @@ export const useCreateAward = (
               await setImage(file)
                 .unwrap()
                 .then((res) => {
-                  console.log(res);
                   if (res.success == false) {
                     errorMessageParse(res.errors);
                     isError = true;
@@ -324,6 +320,10 @@ export const useCreateAward = (
       imagesGallery,
       setImagesGallery,
       setImagesFile,
+      rewardUserInfo,
+      setImageGalleryInfo,
+      setImageInfo,
+      createAwardInfo
     };
   }, [
     back,
@@ -342,5 +342,9 @@ export const useCreateAward = (
     setImagesFile,
     imageFile,
     setImage,
+    rewardUserInfo,
+    setImageGalleryInfo,
+    setImageInfo,
+    createAwardInfo
   ]);
 };

@@ -3,7 +3,7 @@ import styles from './AwardTitle.module.scss';
 import { AwardTitleProps } from './AwardTitle.props';
 import cn from 'classnames';
 import { useRef, useState } from 'react';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Htag from '@/ui/Htag/Htag';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';

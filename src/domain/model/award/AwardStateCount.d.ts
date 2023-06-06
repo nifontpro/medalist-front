@@ -1,6 +1,6 @@
 export interface AwardStateCount {
-  finish: number
-  nominee: number
-  future: number
-  error: number
+  finish: number;
+  nominee: number;
+  future: number;
+  error: number;
 }

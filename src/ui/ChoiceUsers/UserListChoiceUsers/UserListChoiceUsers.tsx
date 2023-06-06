@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import styles from './UserListChoiceUsers.module.scss';
 import { UserListChoiceUsersProps } from './UserListChoiceUsers.props';
@@ -17,8 +17,6 @@ const UserListChoiceUsers = ({
   ...props
 }: UserListChoiceUsersProps): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(allChecked);
-
-  console.log('click')
 
   useEffect(() => {
     setVisible(allChecked);

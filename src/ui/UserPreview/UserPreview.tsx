@@ -15,7 +15,7 @@ const UserPreview = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.images}>
         <ImageDefault
-          src={user.images.length > 0 ? user.images[0].imageUrl : undefined}
+          src={user.mainImg}
           width={76}
           height={76}
           alt={user.firstname}

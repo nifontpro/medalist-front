@@ -9,7 +9,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
 
 export const useUserEdit = (
@@ -75,7 +75,6 @@ export const useUserEdit = (
         await addImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -132,7 +131,6 @@ export const useUserEdit = (
         await refreshImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;

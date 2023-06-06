@@ -104,7 +104,7 @@ const ModalWindowWithAddAwards = forwardRef(
                 arrChoiceAward={arrChoiceAward}
                 setArrChoiceAward={setArrChoiceAward}
               />
-              {totalPage ? (
+              {totalPage && totalPage > 1 ? (
                 <PrevNextPages
                   startPage={page + 1}
                   endPage={totalPage}

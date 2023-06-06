@@ -1,5 +1,5 @@
 import { awardApi } from '@/api/award/award.api';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -11,9 +11,9 @@ export const useCardNominee = (userId: number | undefined, awardId: number | und
     (state: RootState) => state.userSelection
   );
 
-  const [reward] = awardApi.useSendActionMutation();
+  const [reward, rewardInfo] = awardApi.useSendActionMutation();
 
-  const { userRewardAsync } = useAwardAdmin();
+  const { userRewardAsync, deleteUserRewardInfo } = useAwardAdmin(); 
 
   return useMemo(() => {
     const handleRemove = async () => {
@@ -47,7 +47,9 @@ export const useCardNominee = (userId: number | undefined, awardId: number | und
     return {
       userRewardAsync,
       handleRemove,
-      typeOfUser
+      typeOfUser,
+      rewardInfo,
+      deleteUserRewardInfo,
     };
-  }, [userId, reward, awardId, typeOfUser, userRewardAsync]);
+  }, [userId, reward, awardId, typeOfUser, userRewardAsync, rewardInfo, deleteUserRewardInfo]);
 };

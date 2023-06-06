@@ -1,21 +1,24 @@
-'use client';
-
-import { useUserAdmin } from '../useUserAdmin';
-import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
 import SingleUser from './_components/SingleUser/SingleUser';
+import { Metadata } from 'next';
 
-export default function SingleUserPage({ params }: { params: { id: string } }): JSX.Element {
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(params.id);
-  const { singleActivAwardUser } = useAwardAdmin(params.id);
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  return {
+    title: `User ${params.id} | Medalist`,
+  };
+}
 
-  if (isLoadingSingleUser) return <Spinner />;
-  if (!singleUser?.success) return <NoAccess />;
-
+export default function SingleUserPage({
+  params,
+}: {
+  params: { id: string };
+}): JSX.Element {
   return (
     <main>
-      <SingleUser user={singleUser.data} userActiv={singleActivAwardUser?.data}/>
+      <SingleUser id={params.id} />
     </main>
   );
 }

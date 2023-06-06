@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 export const useFetchParams = () => {
   const [page, setPage] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
+  const [state, setState] = useState<'ASC' | 'DESC'>('DESC');
 
   return useMemo(() => {
     const nextPage = (data: BaseResponse<any>) => {

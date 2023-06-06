@@ -7,7 +7,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { BaseImage } from '@/domain/model/base/image/baseImage';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import { awardApi } from '@/api/award/award.api';
 import { GalleryItem } from '@/domain/model/gallery/item';
@@ -77,7 +77,6 @@ export const useAwardEdit = (
         await addImage(file)
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -131,7 +130,6 @@ export const useAwardEdit = (
 
     const onSubmit: SubmitHandler<UpdateAwardRequest> = async (data) => {
       let isError = false;
-      console.log(data);
 
       await update({ ...data })
         .unwrap()

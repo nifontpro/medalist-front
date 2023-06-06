@@ -1,4 +1,4 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -12,17 +12,17 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
-  active: Gender
+  active: Gender,
+  reset: UseFormReset<CreateUserRequest>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
   const searchParams = useSearchParams();
   const deptId = Number(searchParams.get('deptId'));
-  // console.log(deptId)
 
   const { back } = useRouter();
-  const [create] = userApi.useCreateUserMutation();
+  const [create, createInfo] = userApi.useCreateUserMutation();
 
   useEffect(() => {
     if (active != undefined) {
@@ -42,8 +42,6 @@ export const useCreateUser = (
   const onSubmit: SubmitHandler<CreateUserRequest> = async (data) => {
     let isError = false;
 
-    console.log(data);
-
     if (active != undefined) {
       data.gender = active;
     }
@@ -60,10 +58,11 @@ export const useCreateUser = (
         toastError(e, 'Ошибка создания профиля сотрудника');
       });
     if (!isError) {
+      reset();
       toast.success('Профиль сотрудника успешно создан');
       back();
     }
   };
 
-  return { onSubmit, handleClick };
+  return { onSubmit, handleClick, createInfo };
 };

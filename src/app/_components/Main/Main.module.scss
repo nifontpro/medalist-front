@@ -1,0 +1,42 @@
+.wrapper {
+  position: relative;
+  display: grid;
+  gap: 60px 60px;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 400px;
+  grid-template-areas:
+    'awards nominee'
+    'users nominee';
+  @apply animate-fade;
+
+  @media screen and (max-width: 1700px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'awards'
+      'users'
+      'nominee';
+  }
+
+  .awards {
+    grid-area: awards;
+    @apply duration-200;
+  }
+
+  .users {
+    grid-area: users;
+    @apply duration-200;
+  }
+
+  .nominee {
+    grid-area: nominee;
+    @apply duration-200;
+  }
+}
+
+.index30 {
+  z-index: 30;
+}
+
+.index0 {
+  filter: brightness(0.57);
+}

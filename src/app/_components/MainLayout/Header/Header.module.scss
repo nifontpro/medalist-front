@@ -11,6 +11,11 @@
     grid-template-columns: 50px 250px auto 1fr;
   }
   @media screen and (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
     padding: 0px 20px 0px 20px;
     height: 75px;
   }
@@ -74,7 +79,6 @@
 
 .navigation {
   padding-top: 150px;
-  // z-index: 100;
   background-color: var(--gray-dark);
   position: fixed;
   top: 0;

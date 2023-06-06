@@ -10,8 +10,8 @@ import { SendActionRequest } from './request/SendActionRequest';
 import { Award, AwardState } from '@/domain/model/award/Award';
 import { BaseRequest } from '@/domain/model/base/BaseRequest';
 import { AwardCount } from '@/domain/model/award/AwardCount';
-import {AwardStateCount} from "@/domain/model/award/AwardStateCount";
-import {WWAwardCount} from "@/domain/model/award/WWAwardCount";
+import { AwardStateCount } from '@/domain/model/award/AwardStateCount';
+import { WWAwardCount } from '@/domain/model/award/WWAwardCount';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -342,15 +342,25 @@ export const awardApi = createApi({
     }),
 
     /**
-     * То же, только с корневого отдела
+     * С КОРНЕВОГО ОТДЕЛА ! ! !
+     * [baseRequest]:
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  subdepts - true: включаются все подотделы
+     *             false: включаются только ближайшие подотделы (у которых parentId=deptId)
+     *  minDate, maxDate - необязательны ограничения по дате события (только для подсчета количества наград)
+     *  Допустимые поля для сортировки:
+     *      !!! В круглых скобках, т.к. используется нативный запрос к БД
+     *      (deptName),
+     *      (awardCount),
+     *      (nomineeCount)
      */
     getActivCountRoot: build.query<
-        BaseResponse<AwardCount[]>,
-        {
-          authId: number;
-          deptId: number;
-          baseRequest: BaseRequest | undefined;
-        }
+      BaseResponse<AwardCount[]>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
     >({
       query: (request) => {
         return {
@@ -363,20 +373,20 @@ export const awardApi = createApi({
     }),
 
     /**
-     * Получение количества сотрудников с наградами и без них
+     * Получение количества сотрудников с наградами и без них в отделе(ах)
      * deptId - корневой отдел
      * baseRequest:
      *  subdepts - true: включаются все подотделы
      *             false: включаются только указанный отдел
      *  minDate, maxDate - (необязательны) ограничения по дате события для подсчета количества наград
      */
-    getUserAwardWWCount: build.query<
-        BaseResponse<WWAwardCount>,
-        {
-          authId: number;
-          deptId: number;
-          baseRequest: BaseRequest | undefined;
-        }
+    getUserAwardWWCountOnDept: build.query<
+      BaseResponse<WWAwardCount>,
+      {
+        authId: number;
+        deptId: number;
+        baseRequest: BaseRequest | undefined;
+      }
     >({
       query: (request) => {
         return {
@@ -387,6 +397,5 @@ export const awardApi = createApi({
       },
       providesTags: ['Action'],
     }),
-    
   }),
 });

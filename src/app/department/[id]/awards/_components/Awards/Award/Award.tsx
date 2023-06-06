@@ -29,9 +29,7 @@ const Award = motion(
           >
             <div className={styles.img}>
               <ImageDefault
-                src={
-                  award.images.length > 0 ? award.images[0].imageUrl : undefined
-                }
+                src={award.mainImg}
                 width={165}
                 height={165}
                 alt={award.name}
@@ -62,9 +60,7 @@ const Award = motion(
             <div className={styles.nominee}>Номинация</div>
             <div className={styles.imgNominee}>
               <ImageDefault
-                src={
-                  award.images.length > 0 ? award.images[0].imageUrl : undefined
-                }
+                src={award.mainImg}
                 width={165}
                 height={165}
                 alt={award.name}

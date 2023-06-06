@@ -1,11 +1,12 @@
 import Spinner from '@/ui/Spinner/Spinner';
 
-const Loading = () => {
+const LoadingDepartment = () => {
   return (
     <main>
       <Spinner />
+      <div>Loading department</div>
     </main>
   );
 };
 
-export default Loading;
+export default LoadingDepartment;

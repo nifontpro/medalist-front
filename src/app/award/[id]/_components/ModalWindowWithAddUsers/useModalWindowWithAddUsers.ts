@@ -15,7 +15,7 @@ export const useModalWindowWithAddUsers = (
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const [reward] = awardApi.useSendActionMutation();
+  const [reward, rewardInfo] = awardApi.useSendActionMutation();
 
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
 
@@ -67,6 +67,7 @@ export const useModalWindowWithAddUsers = (
       setArrChoiceUser,
       onSubmitNominee,
       handleCancel,
+      rewardInfo,
     };
   }, [
     arrChoiceUser,
@@ -77,5 +78,6 @@ export const useModalWindowWithAddUsers = (
     setVisibleModal,
     typeOfUser,
     setSearchValue,
+    rewardInfo,
   ]);
 };

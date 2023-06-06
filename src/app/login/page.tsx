@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Spinner from '@/ui/Spinner/Spinner';
-import { AUTH_CODE_REDIRECT_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+import { requestAuthCode } from './requestAuthCode';
+import { generateState } from './generateState';
 
 const LoginPage = () => {
   // https://github.com/crouchcd/pkce-challenge
@@ -19,7 +20,7 @@ const LoginPage = () => {
 
     let url = requestAuthCode(tmpState, challenge.code_challenge);
     window.open(url, '_self');
-    console.log('Redirect on RedirectPage')
+    console.log('Redirect on RedirectPage');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,35 +30,6 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export const generateState = (length: number) => {
-  let state = '';
-  // noinspection SpellCheckingInspection
-  let alphaNumericCharacters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let alphaNumericCharactersLength = alphaNumericCharacters.length;
-  for (let i = 0; i < length; i++) {
-    state += alphaNumericCharacters.charAt(
-      Math.floor(Math.random() * alphaNumericCharactersLength)
-    );
-  }
-
-  return state;
-};
-
-export function requestAuthCode(state: string, codeChallenge: string): string {
-  const params = [
-    'response_type=code',
-    'state=' + state,
-    'client_id=' + CLIENT_ID,
-    'scope=openid',
-    'code_challenge=' + codeChallenge,
-    'code_challenge_method=S256',
-    'redirect_uri=' + AUTH_CODE_REDIRECT_URI,
-  ];
-
-  return KEYCLOAK_URI + '/auth' + '?' + params.join('&');
-}
 
 export default dynamic(() => Promise.resolve(LoginPage), {
   ssr: false,

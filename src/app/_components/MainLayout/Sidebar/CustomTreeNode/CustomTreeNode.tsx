@@ -14,7 +14,7 @@ import { Typography } from '@mui/material';
 import { getDepartmentEditUrl } from '@/config/api.config';
 import { useAppDispatch } from '@/store/hooks/hooks';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
-import { useDepartmentAdmin } from '@/app/department/useDepartmentAdmin';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import { useHeader } from '../../Header/useHeader';
 

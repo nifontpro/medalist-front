@@ -9,7 +9,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Htag from '@/ui/Htag/Htag';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import P from '@/ui/P/P';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { User } from '@/domain/model/user/user';
 import AuthComponent from '@/store/providers/AuthComponent';
 import CardNominee from './CardNominee/CardNominee';
@@ -43,7 +43,6 @@ const AwardNominee = ({
     }
   );
   const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
-  // console.log(awardActiv);
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);

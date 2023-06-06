@@ -4,17 +4,18 @@ import cn from 'classnames';
 import ArrowIcon from '@/icons/arrowRight.svg';
 import CupIcon from '@/icons/cup.svg';
 import P from '@/ui/P/P';
-import { useAwardAdmin } from '@/app/award/useAwardAdmin';
-import { useRouter } from 'next/navigation';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 
 const StatisticCountAwards = ({
   departId,
   className,
   ...props
 }: StatisticCountAwardsProps): JSX.Element => {
-  const { push } = useRouter();
-  const { colAwardsOnDepartment, isLoadingColAwardsOnDept } =
-    useAwardAdmin(departId);
+  const { colAwardsOnDepartment, isLoadingColAwardsOnDept } = useAwardAdmin(
+    departId,
+    { subdepts: true }
+  );
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -23,19 +24,16 @@ const StatisticCountAwards = ({
           <CupIcon className={styles.img} />
           <div>
             <P size='s' className={styles.descriptionTitle}>
-              Медалий в отделе
+              Медали
             </P>
             {isLoadingColAwardsOnDept ? (
-              <P size='xl'>0</P>
+              <SpinnerSmall position='start' />
             ) : (
-              <P size='xl'>{colAwardsOnDepartment?.data}</P>
+              <P size='xl'>{colAwardsOnDepartment?.data?.finish}</P>
             )}
           </div>
         </div>
-        <ArrowIcon
-          onClick={() => push('/statistic')}
-          className={styles.arrow}
-        />
+        <ArrowIcon className={styles.arrow} />
       </div>
     </div>
   );

@@ -6,9 +6,13 @@
 
     .headerTitle {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 2fr 400px;
       gap: 60px;
       align-items: center;
+
+      @media screen and (max-width: 1280px) {
+        grid-template-columns: 1fr;
+      }
     }
   }
 
@@ -19,14 +23,21 @@
     grid-template-rows: auto auto auto;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      'countAwards countNominee'
-      'usersGender usersAwards'
-      'activity activity';
+      'countAwards countNominee countDepartment'
+      'usersGender usersAwards countDepartment'
+      'activity activity activity';
     @apply animate-fade;
 
     @media screen and (max-width: 1280px) {
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
+      grid-template-areas:
+        'countAwards countNominee'
+        'usersGender usersAwards'
+        'countDepartment countDepartment'
+        'activity activity';
     }
+
     @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
       gap: 15px;
@@ -35,6 +46,7 @@
         'countNominee'
         'usersGender'
         'usersAwards'
+        'countDepartment'
         'activity';
     }
 
@@ -48,6 +60,15 @@
 
     .usersGender {
       grid-area: usersGender;
+    }
+
+    .countDepartment {
+      grid-area: countDepartment;
+      width: 500px;
+      
+      @media screen and (max-width: 1280px) {
+        width: auto;
+      }
     }
 
     .usersAwards {
@@ -64,6 +85,7 @@
       border-radius: 25px;
       padding: 20px;
       cursor: pointer;
+      height: fit-content;
 
       .countAwards_head {
         cursor: pointer;

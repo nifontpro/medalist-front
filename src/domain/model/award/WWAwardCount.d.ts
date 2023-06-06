@@ -2,6 +2,6 @@
  * Count with/without award
  */
 export interface WWAwardCount {
-  withAward: number
-  withoutAward: number
+  withAward: number;
+  withoutAward: number;
 }

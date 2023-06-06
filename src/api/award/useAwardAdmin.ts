@@ -117,6 +117,19 @@ export const useAwardAdmin = (
     }
   );
 
+  // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
+  const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
+    awardApi.useGetActivCountRootQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: Number(awardId),
+        baseRequest: baseRequest ? baseRequest : undefined,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
   // Получение наград доступных для награждения сотрудников текущим админом
   const {
     data: awardsAvailableForRewardUser,
@@ -132,8 +145,23 @@ export const useAwardAdmin = (
     }
   );
 
+  // Получение количества сотрудников с наградами и без них в отделе(ах)
+  const {
+    data: userAwardWWCountOnDept,
+    isLoading: isLoadingUserAwardWWCountOnDept,
+  } = awardApi.useGetUserAwardWWCountOnDeptQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(awardId),
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
   const [deleteAward] = awardApi.useDeleteMutation();
-  const [deleteUserReward] = awardApi.useSendActionMutation();
+  const [deleteUserReward, deleteUserRewardInfo] = awardApi.useSendActionMutation();
 
   return useMemo(() => {
     const deleteAwardAsync = async (awardId: number) => {
@@ -172,7 +200,6 @@ export const useAwardAdmin = (
         })
           .unwrap()
           .then((res) => {
-            console.log(res);
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -201,12 +228,17 @@ export const useAwardAdmin = (
       singleActivAwardUser,
       isLoadingSingleActivAwardUser,
       userRewardAsync,
+      deleteUserRewardInfo,
       awardsAvailableForRewardUser,
       isLoadingAwardsAvailableForRewardUser,
       colAwardsOnDepartment,
       isLoadingColAwardsOnDept,
       colAwardsActivOnDepartment,
       isLoadingColAwardsActivOnDepartment,
+      colAwardsActivRoot,
+      isLoadingColAwardsActivRoot,
+      userAwardWWCountOnDept,
+      isLoadingUserAwardWWCountOnDept,
     };
   }, [
     deleteAward,
@@ -223,11 +255,16 @@ export const useAwardAdmin = (
     isLoadingSingleActivAwardUser,
     typeOfUser,
     deleteUserReward,
+    deleteUserRewardInfo,
     awardsAvailableForRewardUser,
     isLoadingAwardsAvailableForRewardUser,
     colAwardsOnDepartment,
     isLoadingColAwardsOnDept,
     colAwardsActivOnDepartment,
     isLoadingColAwardsActivOnDepartment,
+    colAwardsActivRoot,
+    isLoadingColAwardsActivRoot,
+    userAwardWWCountOnDept,
+    isLoadingUserAwardWWCountOnDept,
   ]);
 };

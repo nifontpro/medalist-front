@@ -1,4 +1,4 @@
-import { DeptDetails } from '@/domain/model/dept/deptDetails';
+
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type TitleSingleDepartmentProps = DetailedHTMLProps<
@@ -6,5 +6,5 @@ export type TitleSingleDepartmentProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
-  department: DeptDetails;
+  id: string
 };

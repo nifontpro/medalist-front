@@ -13,11 +13,7 @@ const CardUserNominee = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.img}>
         <ImageDefault
-          src={
-            user.user && user.user.images.length > 0
-              ? user.user.images[0].imageUrl
-              : undefined
-          }
+          src={user.user?.mainImg}
           width={60}
           height={60}
           alt='award img'

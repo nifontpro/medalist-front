@@ -3,7 +3,7 @@
 import LogoIcon from '@/icons/logo.svg';
 import Link from 'next/link';
 
-const Error = ({ error }: { error: Error }) => {
+const NotFoundDepartment = ({ error }: { error: Error }) => {
   return (
     <div className='h-screen bg-gray-200 flex flex-col justify-center items-center'>
       <Link href='/'>
@@ -18,4 +18,4 @@ const Error = ({ error }: { error: Error }) => {
   );
 };
 
-export default Error;
+export default NotFoundDepartment;

@@ -139,7 +139,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             <div>Еще нет наград</div>
           )}
         </div>
-        {totalPage ? (
+        {totalPage && totalPage > 1 ? (
           <PrevNextPages
             startPage={page + 1}
             endPage={totalPage}

@@ -3,7 +3,7 @@ import styles from './StatisticUsersGender.module.scss';
 import { StatisticUsersGenderProps } from './StatisticUsersGender.props';
 import cn from 'classnames';
 import P from '@/ui/P/P';
-import { useUserAdmin } from '@/app/user/useUserAdmin';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 
 const StatisticUsersGender = ({
   departId,
@@ -11,7 +11,7 @@ const StatisticUsersGender = ({
   ...props
 }: StatisticUsersGenderProps): JSX.Element => {
   const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
-    useUserAdmin(departId);
+    useUserAdmin(departId, { subdepts: true });
 
   let countAll = usersGenderOnDepartment?.data?.length;
   let countMale = usersGenderOnDepartment?.data?.filter(
