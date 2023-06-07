@@ -1,7 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {baseQueryWithReauth} from '../base/base.api';
 import {BaseResponse} from '@/domain/model/base/BaseResponse';
-import {BaseEvent} from "@/domain/model/event/BaseEvent";
+import {BaseEvent, ShortEvent} from "@/domain/model/event/BaseEvent";
 import {AddUserEventRequest} from "@/api/event/request/AddUserEventRequest";
 import {GetAllEventsRequest} from "@/api/event/request/GetAllEventsRequest";
 
@@ -47,11 +47,39 @@ export const eventApi = createApi({
      * Пагинация.
      * Сортировка внутренняя (По дню от текущего и названию сущности).
      */
-    createOwner: build.query<BaseResponse<BaseEvent[]>, GetAllEventsRequest>({
+    getAll: build.query<BaseResponse<BaseEvent[]>, GetAllEventsRequest>({
       query: (request) => {
         return {
           method: 'POST',
           url: eventUrl('/get_all'),
+          body: request,
+        };
+      },
+      providesTags: ['Event'],
+    }),
+
+    /**
+     * Получить события сотрудника
+     */
+    getByUser: build.query<BaseResponse<ShortEvent[]>, {authId: number, userId: number}>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/get_user'),
+          body: request,
+        };
+      },
+      providesTags: ['Event'],
+    }),
+
+    /**
+     * Получить события отдела
+     */
+    getByDept: build.query<BaseResponse<ShortEvent[]>, {authId: number, deptId: number}>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/get_dept'),
           body: request,
         };
       },
