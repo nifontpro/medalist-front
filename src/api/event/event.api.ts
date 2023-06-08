@@ -86,5 +86,34 @@ export const eventApi = createApi({
       providesTags: ['Event'],
     }),
 
+    /**
+     * Удалить событие сотрудника
+     */
+    deleteByUser: build.mutation<BaseResponse<BaseEvent>, {authId: number, eventId: number}>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/delete_user'),
+          body: request,
+        };
+      },
+      invalidatesTags: ['Event'],
+    }),
+
+    /**
+     * Удалить событие отдела
+     */
+    deleteByDept: build.mutation<BaseResponse<BaseEvent>, {authId: number, eventId: number}>({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/delete_dept'),
+          body: request,
+        };
+      },
+      invalidatesTags: ['Event'],
+    }),
+
+
   }),
 });
