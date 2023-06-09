@@ -25,6 +25,7 @@ import { themeSlice } from '../features/theme/theme.slice';
 import { dataCreateAwardSlice } from '../features/awardCreateDate/awardCreateDate.slice';
 import { galleryApi } from '@/api/gallery/gallery.api';
 import { visibleModalWindowGalleryAwardsSlice } from '../features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
+import { eventApi } from '@/api/event/event.api';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -65,6 +66,7 @@ const persistConfig = {
     deptApi.reducerPath,
     awardApi.reducerPath,
     galleryApi.reducerPath,
+    eventApi.reducerPath,
   ], // то что не хотим сохранять в localstorage
 };
 
@@ -81,6 +83,7 @@ const rootReducer = combineReducers({
   [deptApi.reducerPath]: deptApi.reducer,
   [awardApi.reducerPath]: awardApi.reducer,
   [galleryApi.reducerPath]: galleryApi.reducer,
+  [eventApi.reducerPath]: eventApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -98,7 +101,8 @@ export const store = configureStore({
       userApi.middleware,
       deptApi.middleware,
       awardApi.middleware,
-      galleryApi.middleware
+      galleryApi.middleware,
+      eventApi.middleware
     ),
 });
 

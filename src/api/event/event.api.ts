@@ -27,6 +27,23 @@ export const eventApi = createApi({
     }),
 
     /**
+     * Удалить событие сотрудника
+     */
+    deleteByUser: build.mutation<
+      BaseResponse<BaseEvent>,
+      { authId: number; eventId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/delete_user'),
+          body: request,
+        };
+      },
+      invalidatesTags: ['Event'],
+    }),
+
+    /**
      * Добавить событие отдела
      */
     addDeptEvent: build.mutation<BaseResponse<BaseEvent>, AddUserEventRequest>({
@@ -34,6 +51,23 @@ export const eventApi = createApi({
         return {
           method: 'POST',
           url: eventUrl('/add_dept'),
+          body: request,
+        };
+      },
+      invalidatesTags: ['Event'],
+    }),
+
+    /**
+     * Удалить событие отдела
+     */
+    deleteByDept: build.mutation<
+      BaseResponse<BaseEvent>,
+      { authId: number; eventId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/delete_dept'),
           body: request,
         };
       },
