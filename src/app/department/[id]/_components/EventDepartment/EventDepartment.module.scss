@@ -1,0 +1,30 @@
+.eventWrapper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: 300px 1fr;
+  }
+  @media screen and (max-width: 1170px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  > .eventContent {
+    position: relative;
+    background: var(--white);
+    border-radius: 27px;
+    padding: 75px;
+
+    @media screen and (max-width: 1170px) {
+      padding: 60px 40px;
+    }
+    @media screen and (max-width: 768px) {
+      border-radius: 16px;
+      padding: 40px 20px;
+    }
+  }
+}

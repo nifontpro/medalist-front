@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+
+  &:last-child() {
+    margin-bottom: 0;
+  }
+
+  .img {
+    margin-right: 15px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    .contentHeader {
+    }
+    .contentFooter {
+      .date {
+        .btnIcon {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

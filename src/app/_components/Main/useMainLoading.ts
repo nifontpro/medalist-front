@@ -9,18 +9,6 @@ export const useMainLoading = () => {
     (state: RootState) => state.userSelection
   );
 
-  const { data } = eventApi.useCreateOwnerQuery({
-    authId: 78,
-    deptId: 87,
-    baseRequest: {
-      page: 0,
-      pageSize: 100,
-      subdepts: true,
-    },
-  });
-
-  console.log(data);
-
   const {
     colAwardsOnDepartment,
     isLoadingColAwardsOnDept,
