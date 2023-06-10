@@ -26,14 +26,12 @@ const EventDepartment = ({
     prevPage,
   } = useFetchParams();
   const pageSize: number = 10;
-
   const { allEvent, isLoadingAllEvent } = useEventAdmin(id, {
-    orders: [{ field: '(awardCount)', direction: 'DESC' }],
+    orders: [{ field: '(days)', direction: 'DESC' }],
     subdepts: true,
     page: page,
     pageSize,
   });
-
   const totalPage = allEvent?.pageInfo?.totalPages;
 
   if (isLoadingAllEvent) return <Spinner />;
@@ -42,24 +40,28 @@ const EventDepartment = ({
   }
 
   return (
-    <div className={styles.eventWrapper} {...props}>
-      <div></div>
-      <div className={styles.eventContent}>
-        {allEvent.data &&
-          allEvent.data.map((event) => {
-            return <EventCard key={event.id} event={event} />;
-          })}
+    <>
+      {allEvent && allEvent.data && allEvent.data?.length > 0 && (
+        <div className={styles.eventWrapper} {...props}>
+          <div></div>
+          <div className={styles.eventContent}>
+            {allEvent.data &&
+              allEvent.data.map((event) => {
+                return <EventCard key={event.id} event={event}/>;
+              })}
 
-        {totalPage && totalPage > 1 ? (
-          <PrevNextPages
-            startPage={page + 1}
-            endPage={totalPage}
-            handleNextClick={() => allEvent && nextPage(allEvent)}
-            handlePrevClick={prevPage}
-          />
-        ) : null}
-      </div>
-    </div>
+            {totalPage && totalPage > 1 ? (
+              <PrevNextPages
+                startPage={page + 1}
+                endPage={totalPage}
+                handleNextClick={() => allEvent && nextPage(allEvent)}
+                handlePrevClick={prevPage}
+              />
+            ) : null}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 export default EventDepartment;

@@ -1,5 +1,6 @@
 .wrapper {
-  display: flex;
+  grid-template-columns: 100px 1fr;
+  display: grid;
   align-items: center;
   margin-bottom: 25px;
 
@@ -16,12 +17,28 @@
     flex-direction: column;
 
     .contentHeader {
+      .title {
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--gray-dark);
+      }
     }
     .contentFooter {
+      display: flex;
+      align-items: center;
+
       .date {
         .btnIcon {
           margin-left: 10px;
         }
+      }
+
+      .date2 {
+        padding-left: 10px;
+      }
+
+      .date1 {
+        padding-right: 10px;
+        border-right: 1px solid var(--gray-dark);
       }
     }
   }

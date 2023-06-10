@@ -1,7 +1,7 @@
 export interface BaseEvent {
   id: number;
   eventDate: number; // Дата события
-  days: number; // ???
+  days: number; // Кол дней прошедших от начала года до события
   eventName: string; 
   entityName: string; // ???
   imageUrl?: string;
