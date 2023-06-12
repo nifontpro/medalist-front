@@ -12,17 +12,17 @@ export const messageApi = createApi({
   endpoints: (build) => ({
 
     /**
-     * Удалить сообщение.
-     * Удалять может только тот кто отправил, и кому оно отправлено.
+     * Отправить сообщение.
      */
     sendMessage: build.mutation<BaseResponse<UserMsg>, {
       authId: number,
-      messageId: number
+      userId: number, // Кому адресовано
+      msg: string
     }>({
       query: (request) => {
         return {
           method: 'POST',
-          url: msgUrl('/delete'),
+          url: msgUrl('/send'),
           body: request,
         };
       },
