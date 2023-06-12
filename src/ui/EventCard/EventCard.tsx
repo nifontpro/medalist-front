@@ -21,14 +21,24 @@ const EventCard = ({
   let eventMonth = dayjs(event.eventDate).get('month') + 1;
   let evenDay = dayjs(event.eventDate).get('date');
 
-  let setNYDate = +new Date(`Jan 01 ${dayjs(nowDays).get('year')} 00:00:00`);
-  let colDaysSinceNY = Math.floor((nowDays - setNYDate) / 1000 / 60 / 60 / 24);
+  let colDaysSinceNY = Math.floor(
+    (nowDays - +new Date(`Jan 01 ${dayjs(nowDays).get('year')} 00:00:00`)) /
+      86400000
+  ); // Дней от НГ до текущей даты
 
-  let numberDaysForEvent = event.days - colDaysSinceNY;
+  let colDaysUntilNY = Math.floor(
+    (+new Date(`Jan 01 ${dayjs(nowDays).get('year') + 1} 00:00:00`) - nowDays) /
+      86400000
+  ); // Дней от текущей даты до конца года
+
+  let numberDaysForEvent =
+    event.days < colDaysSinceNY
+      ? colDaysUntilNY + event.days
+      : event.days - colDaysSinceNY; // Кол дней до события. Если event.days меньше colDaysSinceNY нужно считать так - colDaysUntilNY + event.days. В противном случае event.days - colDaysSinceNY
 
   let colDaysSinceEventDate = Math.floor(
-    (nowDays - event.eventDate) / 1000 / 60 / 60 / 24
-  );
+    (nowDays - event.eventDate) / 86400000
+  ); // Дней от даты события начальной
 
   return (
     <div className={styles.wrapper} {...props}>
@@ -68,7 +78,7 @@ const EventCard = ({
             <ButtonIcon className={styles.btnIcon} appearance='graySilver'>
               {colDaysSinceEventDate >= 0
                 ? colDaysSinceEventDate
-                : colDaysSinceEventDate * -1}{' '}
+                : -colDaysSinceEventDate}{' '}
               {colDaysSinceEventDate >= 0
                 ? declOfNum(colDaysSinceEventDate, ['день', 'дня', 'дней'])
                 : declOfNum(colDaysSinceEventDate * -1, [
@@ -84,22 +94,10 @@ const EventCard = ({
             fontstyle='thin'
             className={cn(styles.date, styles.date2)}
           >
-            {numberDaysForEvent >= 0
-              ? declOfNum(numberDaysForEvent, [
-                  'Остался',
-                  'Осталось',
-                  'Осталось',
-                ])
-              : declOfNum(numberDaysForEvent * -1, [
-                  'Остался',
-                  'Осталось',
-                  'Осталось',
-                ])}
+            {declOfNum(numberDaysForEvent, ['Остался', 'Осталось', 'Осталось'])}
             <ButtonIcon className={styles.btnIcon} appearance='graySilver'>
               {numberDaysForEvent}{' '}
-              {numberDaysForEvent >= 0
-                ? declOfNum(numberDaysForEvent, ['день', 'дня', 'дней'])
-                : declOfNum(numberDaysForEvent * -1, ['день', 'дня', 'дней'])}
+              {declOfNum(numberDaysForEvent, ['день', 'дня', 'дней'])}
             </ButtonIcon>
           </P>
         </div>
