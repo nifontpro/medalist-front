@@ -8,4 +8,5 @@ export type SingleUserTitleProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLDi
     userActiv: Activity[] | undefined
     setVisibleModal: Dispatch<SetStateAction<boolean>>
     refOpen: MutableRefObject<null>
+    setVisibleModalEvent: Dispatch<SetStateAction<boolean>>
 }

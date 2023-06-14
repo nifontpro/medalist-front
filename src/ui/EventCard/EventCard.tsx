@@ -8,9 +8,14 @@ import P from '../P/P';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import cn from 'classnames';
+import { BaseEvent } from '@/domain/model/event/BaseEvent';
+import ButtonEdit from '../ButtonEdit/ButtonEdit';
+import AuthComponent from '@/store/providers/AuthComponent';
+import { useEventAdmin } from '@/api/event/useEventAdmin';
 
 const EventCard = ({
   event,
+  remove,
   children,
   className,
   ...props
@@ -40,23 +45,32 @@ const EventCard = ({
     (nowDays - event.eventDate) / 86400000
   ); // Дней от даты события начальной
 
+  function instanceOfBaseEvent(object: any): object is BaseEvent {
+    return true;
+  } // Функция проверяющая тип события
+
+  const { deleteDepartmentEventAsync, deleteUserEventAsync } = useEventAdmin();
+
   return (
     <div className={styles.wrapper} {...props}>
-      <div className={styles.img}>
-        <ImageDefault
-          src={event.imageUrl}
-          width={100}
-          height={100}
-          alt='preview image'
-          // objectFit='cover'
-          className='rounded-[10px]'
-        />
-      </div>
+      {instanceOfBaseEvent(event) && (
+        <div className={styles.img}>
+          <ImageDefault
+            src={event.imageUrl}
+            width={100}
+            height={100}
+            alt='preview image'
+            className='rounded-[10px]'
+          />
+        </div>
+      )}
       <div className={styles.content}>
         <div className={styles.contentHeader}>
-          <P size='xs' className={styles.title}>
-            {event.entityName}
-          </P>
+          {instanceOfBaseEvent(event) && event.entityName && (
+            <P size='xs' className={styles.title}>
+              {event.entityName}
+            </P>
+          )}
           {/* <P size='xs'>{event.eventName}</P> */}
           <P fontstyle='thin' size='xs'>
             {`${evenDay < 10 ? 0 : ''}${evenDay}.${
@@ -102,6 +116,24 @@ const EventCard = ({
           </P>
         </div>
       </div>
+
+      {remove === 'DEPT' ? (
+        <AuthComponent minRole='ADMIN'>
+          <ButtonEdit
+            icon='remove'
+            className={styles.remove}
+            onClick={() => deleteDepartmentEventAsync(event.id)}
+          />
+        </AuthComponent>
+      ) : remove === 'USER' ? (
+        <AuthComponent minRole='ADMIN'>
+          <ButtonEdit
+            icon='remove'
+            className={styles.remove}
+            onClick={() => deleteUserEventAsync(event.id)}
+          />
+        </AuthComponent>
+      ) : null}
     </div>
   );
 };

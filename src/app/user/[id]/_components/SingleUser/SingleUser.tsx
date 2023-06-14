@@ -19,6 +19,8 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
+import EventSingleUser from './EventSingleUser/EventSingleUser';
+import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 
 const SingleUser = ({
   id,
@@ -76,6 +78,7 @@ const SingleUser = ({
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
+  const [visibleModalEvent, setVisibleModalEvent] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
   const handleClickOutside = () => {
@@ -112,6 +115,7 @@ const SingleUser = ({
                 user={user.data}
                 userActiv={userActiv.data}
                 setVisibleModal={setVisibleModal}
+                setVisibleModalEvent={setVisibleModalEvent}
                 refOpen={refOpen}
               />
             )}
@@ -123,6 +127,7 @@ const SingleUser = ({
             )}
           </div>
         </div>
+        <EventSingleUser id={id} />
         <ButtonScrollUp />
       </div>
 
@@ -142,6 +147,13 @@ const SingleUser = ({
         setVisibleModal={setVisibleModal}
         textBtn='Наградить'
         ref={ref}
+      />
+      <ModalWindowWithAddEvent
+        forWhat='User'
+        id={id}
+        visibleModal={visibleModalEvent}
+        setVisibleModal={setVisibleModalEvent}
+        textBtn='Создать событие'
       />
     </>
   );

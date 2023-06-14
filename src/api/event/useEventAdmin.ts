@@ -13,16 +13,6 @@ export const useEventAdmin = (id?: string, baseRequest?: BaseRequest) => {
     (state: RootState) => state.userSelection
   );
 
-  // const { data } = eventApi.useCreateOwnerQuery({
-  //   authId: 78,
-  //   deptId: 87,
-  //   baseRequest: {
-  //     page: 0,
-  //     pageSize: 100,
-  //     subdepts: true,
-  //   },
-  // });
-
   /**
    * Получить все события сотрудников и отделов
    * с текущего дня года по кругу.
@@ -30,11 +20,35 @@ export const useEventAdmin = (id?: string, baseRequest?: BaseRequest) => {
    * Сортировка внутренняя (По дню от текущего и названию сущности).
    */
   const { data: allEvent, isLoading: isLoadingAllEvent } =
-    eventApi.useCreateOwnerQuery(
+    eventApi.useGetAllQuery(
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: Number(id),
         baseRequest: baseRequest ? baseRequest : undefined,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  // Получить все события отдела
+  const { data: eventsDepartment, isLoading: isLoadingEventsDepartment } =
+    eventApi.useGetByDeptQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        deptId: Number(id),
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  // Получить все события пользователя
+  const { data: eventsUser, isLoading: isLoadingEventsUser } =
+    eventApi.useGetByUserQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        userId: Number(id),
       },
       {
         skip: !typeOfUser,
@@ -90,6 +104,10 @@ export const useEventAdmin = (id?: string, baseRequest?: BaseRequest) => {
       isLoadingAllEvent,
       deleteUserEventAsync,
       deleteDepartmentEventAsync,
+      eventsDepartment,
+      isLoadingEventsDepartment,
+      eventsUser,
+      isLoadingEventsUser,
     };
   }, [
     allEvent,
@@ -97,5 +115,9 @@ export const useEventAdmin = (id?: string, baseRequest?: BaseRequest) => {
     deleteUserEvent,
     isLoadingAllEvent,
     typeOfUser,
+    eventsDepartment,
+    isLoadingEventsDepartment,
+    eventsUser,
+    isLoadingEventsUser,
   ]);
 };

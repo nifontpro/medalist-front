@@ -1,7 +1,7 @@
 'use client';
 
-import styles from './EventDepartment.module.scss';
-import { EventDepartmentProps } from './EventDepartment.props';
+import styles from './EventSingleUser.module.scss';
+import { EventSingleUserProps } from './EventSingleUser.props';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useEventAdmin } from '@/api/event/useEventAdmin';
@@ -10,12 +10,12 @@ import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
 
-const EventDepartment = ({
+const EventSingleUser = ({
   id,
   children,
   className,
   ...props
-}: EventDepartmentProps): JSX.Element => {
+}: EventSingleUserProps): JSX.Element => {
   const {
     page,
     setPage,
@@ -28,35 +28,35 @@ const EventDepartment = ({
   } = useFetchParams();
   const pageSize: number = 100;
 
-  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id, {
+  const { eventsUser, isLoadingEventsUser } = useEventAdmin(id, {
     orders: [{ field: '(days)', direction: 'DESC' }],
     subdepts: true,
     page: page,
     pageSize,
   });
 
-  const totalPage = eventsDepartment?.pageInfo?.totalPages;
+  const totalPage = eventsUser?.pageInfo?.totalPages;
 
-  if (isLoadingEventsDepartment) return <Spinner />;
-  if (!eventsDepartment?.success) {
+  if (isLoadingEventsUser) return <Spinner />;
+  if (!eventsUser?.success) {
     return <NoAccess button={false} />;
   }
 
   return (
     <>
-      {eventsDepartment &&
-        eventsDepartment.data &&
-        eventsDepartment.data?.length > 0 && (
+      {eventsUser &&
+        eventsUser.data &&
+        eventsUser.data?.length > 0 && (
           <div className={cn(styles.eventWrapper, className)} {...props}>
             <div></div>
             <div className={styles.eventContent}>
-              {eventsDepartment.data &&
-                eventsDepartment.data.map((eventDepartment) => {
+              {eventsUser.data &&
+                eventsUser.data.map((eventsUser) => {
                   return (
                     <EventCard
-                      key={eventDepartment.id}
-                      event={eventDepartment}
-                      remove={'DEPT'}
+                      key={eventsUser.id}
+                      event={eventsUser}
+                      remove={'USER'}
                     />
                   );
                 })}
@@ -66,7 +66,7 @@ const EventDepartment = ({
                   startPage={page + 1}
                   endPage={totalPage}
                   handleNextClick={() =>
-                    eventsDepartment && nextPage(eventsDepartment)
+                    eventsUser && nextPage(eventsUser)
                   }
                   handlePrevClick={prevPage}
                 />
@@ -77,4 +77,4 @@ const EventDepartment = ({
     </>
   );
 };
-export default EventDepartment;
+export default EventSingleUser;

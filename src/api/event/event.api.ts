@@ -1,9 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
 import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { BaseEvent } from '@/domain/model/event/BaseEvent';
+import { BaseEvent, ShortEvent } from '@/domain/model/event/BaseEvent';
 import { AddUserEventRequest } from '@/api/event/request/AddUserEventRequest';
 import { GetAllEventsRequest } from '@/api/event/request/GetAllEventsRequest';
+import { AddDeptEventRequest } from './request/AddDeptEventRequest';
 
 export const eventUrl = (string: string = '') => `/client/event${string}`;
 
@@ -27,6 +28,23 @@ export const eventApi = createApi({
     }),
 
     /**
+     * Получить события сотрудника
+     */
+    getByUser: build.query<
+      BaseResponse<ShortEvent[]>,
+      { authId: number; userId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/get_user'),
+          body: request,
+        };
+      },
+      providesTags: ['Event'],
+    }),
+
+    /**
      * Удалить событие сотрудника
      */
     deleteByUser: build.mutation<
@@ -46,7 +64,7 @@ export const eventApi = createApi({
     /**
      * Добавить событие отдела
      */
-    addDeptEvent: build.mutation<BaseResponse<BaseEvent>, AddUserEventRequest>({
+    addDeptEvent: build.mutation<BaseResponse<BaseEvent>, AddDeptEventRequest>({
       query: (request) => {
         return {
           method: 'POST',
@@ -55,6 +73,23 @@ export const eventApi = createApi({
         };
       },
       invalidatesTags: ['Event'],
+    }),
+
+    /**
+     * Получить события отдела
+     */
+    getByDept: build.query<
+      BaseResponse<ShortEvent[]>,
+      { authId: number; deptId: number }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: eventUrl('/get_dept'),
+          body: request,
+        };
+      },
+      providesTags: ['Event'],
     }),
 
     /**
@@ -75,12 +110,11 @@ export const eventApi = createApi({
     }),
 
     /**
-     * Получить все события сотрудников и отделов
-     * с текущего дня года по кругу.
+     * Получить все события сотрудников и отделов с текущего дня года по кругу.
      * Пагинация.
      * Сортировка внутренняя (По дню от текущего и названию сущности).
      */
-    createOwner: build.query<BaseResponse<BaseEvent[]>, GetAllEventsRequest>({
+    getAll: build.query<BaseResponse<BaseEvent[]>, GetAllEventsRequest>({
       query: (request) => {
         return {
           method: 'POST',

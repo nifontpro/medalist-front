@@ -16,6 +16,7 @@ const SingleUserTitle = ({
   user,
   userActiv,
   setVisibleModal,
+  setVisibleModalEvent,
   refOpen,
   className,
   ...props
@@ -158,6 +159,14 @@ const SingleUserTitle = ({
         </AuthComponent>
         {/* )} */}
       </div>
+      <Button
+        onClick={() => setVisibleModalEvent(true)}
+        appearance='blackWhite'
+        size='l'
+        className='@apply mt-[25px]'
+      >
+        Создать событие
+      </Button>
 
       <P size='l' className={styles.aboutUser}>
         О сотруднике

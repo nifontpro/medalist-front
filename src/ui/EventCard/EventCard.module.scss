@@ -1,5 +1,5 @@
 .wrapper {
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 100px 1fr auto;
   display: grid;
   align-items: center;
   margin-bottom: 25px;
@@ -41,5 +41,9 @@
         border-right: 1px solid var(--gray-dark);
       }
     }
+  }
+
+  .remove {
+    margin-left: 25px;
   }
 }

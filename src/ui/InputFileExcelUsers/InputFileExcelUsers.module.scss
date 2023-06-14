@@ -2,8 +2,6 @@
   width: fit-content;
   position: relative;
   margin-top: 30px;
-  // text-align: center;
-  // box-sizing: border-box;
 
   @media screen and (max-width: 323px) {
     width: 100%;
@@ -12,18 +10,16 @@
 
 .inputFile {
   opacity: 0;
-  // visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 2;
   width: 263px;
   height: 46px;
   border-radius: 16px;
 }
 
 .fileButton {
-  // max-width: 290px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
