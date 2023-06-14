@@ -13,6 +13,7 @@ import OnBoarding from './OnBoarding/OnBoarding';
 import { useMainLoading } from './useMainLoading';
 import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
+import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
 
 const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const {
@@ -57,7 +58,7 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
                 [styles.index0]: onBoarding == 2,
               })}
             />
-            <Events className={styles.events}/>
+            <Events className={styles.events} />
           </div>
           <ButtonScrollUp />
           {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
