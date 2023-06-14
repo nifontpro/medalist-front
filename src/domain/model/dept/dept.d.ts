@@ -3,6 +3,13 @@ export interface Dept {
   parentId: number;
   name: string;
   classname?: string;
+
+  /**
+   * Признак того, что отдел является верхним по видимости в дереве отделов для сотрудников,
+   * Обычно признак устанавливается для компании
+   */
+  topLevel: boolean;
+
   type: DeptType;
   mainImg?: string;
 }
