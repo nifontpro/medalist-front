@@ -24,7 +24,8 @@ export const useCreateAward = (
   const deptId = Number(searchParams.get('deptId'));
   const [createAward, createAwardInfo] = awardApi.useCreateMutation();
   const [rewardUser, rewardUserInfo] = awardApi.useSendActionMutation();
-  const [setImageGallery, setImageGalleryInfo] = awardApi.useGalleryImageAddMutation();
+  const [setImageGallery, setImageGalleryInfo] =
+    awardApi.useGalleryImageAddMutation();
   const [setImage, setImageInfo] = awardApi.useImageAddMutation();
 
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
@@ -68,6 +69,7 @@ export const useCreateAward = (
         await createAward({ ...data })
           .unwrap()
           .then(async (res) => {
+            //Если ошибка
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
@@ -76,7 +78,7 @@ export const useCreateAward = (
             //Награждение тех кого выбрали
             if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
               await arrChoiceUser.forEach(async (user) => {
-                if (typeOfUser && typeOfUser.id && res.data)
+                if (typeOfUser && typeOfUser.id && res.data) {
                   await rewardUser({
                     authId: typeOfUser.id,
                     awardId: res.data?.award.id,
@@ -94,6 +96,7 @@ export const useCreateAward = (
                       isError = true;
                       toastError(e, 'Ошибка награждения');
                     });
+                }
               });
             }
 
@@ -158,8 +161,8 @@ export const useCreateAward = (
             isError = true;
             toastError(e, 'Ошибка создания награды');
           })
-          .then(() => {
-            if (!isError) {
+          .finally(() => {
+            if (!isError && rewardUserInfo.status !== 'pending') {
               back();
               toast.success('Награда успешно создана');
               reset();
@@ -323,7 +326,7 @@ export const useCreateAward = (
       rewardUserInfo,
       setImageGalleryInfo,
       setImageInfo,
-      createAwardInfo
+      createAwardInfo,
     };
   }, [
     back,
@@ -345,6 +348,6 @@ export const useCreateAward = (
     rewardUserInfo,
     setImageGalleryInfo,
     setImageInfo,
-    createAwardInfo
+    createAwardInfo,
   ]);
 };

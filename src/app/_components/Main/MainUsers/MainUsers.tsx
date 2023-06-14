@@ -1,10 +1,7 @@
 import styles from './MainUsers.module.scss';
 import { MainUsersProps } from './MainUsers.props';
 import cn from 'classnames';
-// import ArrowIcon from '@/icons/arrowRight.svg';
-import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
-// import P from '@/ui/P/P';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
@@ -28,7 +25,7 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
     nextPage,
     prevPage,
   } = useFetchParams();
-  const pageSize: number = 8
+  const pageSize: number = 8;
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(typeOfUser?.dept.id, {
@@ -44,12 +41,6 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
         <Htag tag='h2'>Лучшие сотрудники</Htag>
-        {/* <div className={styles.bestUsers} onClick={() => push('/statistic')}>
-          <P size='s' fontstyle='thin' className={styles.text}>
-            Рейтинг
-          </P>
-          <ArrowIcon className={styles.arrow} />
-        </div> */}
       </div>
       {isLoadingUsersOnDepartmentWithAwards ? (
         <SpinnerSmall />

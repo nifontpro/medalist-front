@@ -5,12 +5,15 @@ import NotificationModalWindow from './NotificationModalWindow/NotificationModal
 import NotificationIcon from '@/icons/notification.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import P from '@/ui/P/P';
+import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const Notification = ({
-  allMessage,
   className,
   ...props
 }: NotificationProps): JSX.Element => {
+  const { myMessage, isLoadingMyMessage } = useMessageAdmin();
+
   const [visibleNotification, setVisibleNotification] =
     useState<boolean>(false);
 
@@ -36,8 +39,10 @@ const Notification = ({
         {...props}
       >
         <NotificationIcon className={styles.notification} />
-        {allMessage &&
-          allMessage.filter((item) => item.read == false).length > 0 && (
+        {myMessage &&
+          myMessage.data &&
+          myMessage.data.filter((message) => message.read == false).length >
+            0 && (
             <>
               <div className={styles.notificationCircle}></div>
               <P
@@ -45,7 +50,10 @@ const Notification = ({
                 fontstyle='thin'
                 className={styles.notificationCount}
               >
-                {allMessage?.filter((item) => item.read == false).length}
+                {
+                  myMessage.data?.filter((message) => message.read == false)
+                    .length
+                }
               </P>
             </>
           )}
@@ -53,7 +61,7 @@ const Notification = ({
       <NotificationModalWindow
         visibleModal={visibleNotification}
         setVisibleModal={setVisibleNotification}
-        message={allMessage}
+        message={myMessage}
         ref={refNotification}
       />
     </>

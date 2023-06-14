@@ -6,10 +6,8 @@ import {
   RefAttributes,
   SetStateAction,
 } from 'react';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { UserMsg } from '@/domain/model/msg/UserMsg';
 
-export type NotificationModalWindowProps = DetailedHTMLProps<
+export type ModalWindowWithAddEventProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > &
@@ -17,5 +15,7 @@ export type NotificationModalWindowProps = DetailedHTMLProps<
   RefAttributes<HTMLDivElement> & {
     visibleModal: boolean;
     setVisibleModal: Dispatch<SetStateAction<boolean>>;
-    message: BaseResponse<UserMsg[]> | undefined;
+    textBtn: string;
+    forWhat: 'User' | 'Dept';
+    id: string;
   };

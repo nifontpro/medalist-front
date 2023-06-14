@@ -1,11 +1,12 @@
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
+import { UserMsg } from '@/domain/model/msg/UserMsg';
 import { MouseEventHandler } from 'react';
-import { IMessage } from '../Notification.props';
 
 // import { messageApi } from 'message/data/message.api';
 // import { toast } from 'react-toastify';
 
 export const useUserPanelModalWindow = (
-  message?: IMessage[] | undefined,
+  message: BaseResponse<UserMsg[]> | undefined,
   notificationId?: string
 ) => {
   // const [readMessage] = messageApi.useMarkReadMutation();

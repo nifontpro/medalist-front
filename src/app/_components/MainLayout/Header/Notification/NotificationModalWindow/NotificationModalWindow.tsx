@@ -2,7 +2,6 @@ import styles from './NotificationModalWindow.module.scss';
 import { NotificationModalWindowProps } from './NotificationModalWindow.props';
 import cn from 'classnames';
 import { ForwardedRef, forwardRef } from 'react';
-import { useUserPanelModalWindow } from './useNotificationModalWindow';
 import uniqid from 'uniqid';
 import NotificationItem from './NotificationItem/NotificationItem';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -10,6 +9,8 @@ import ExitIcon from '@/icons/close.svg';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
+import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const NotificationModalWindow = forwardRef(
   (
@@ -22,7 +23,7 @@ const NotificationModalWindow = forwardRef(
     }: NotificationModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const { handleClickReadAll } = useUserPanelModalWindow(message);
+    const { deleteAllEventsAsync, deleteEventInfo } = useMessageAdmin();
     const { windowSize } = useWindowSize();
 
     const variants = {
@@ -61,11 +62,12 @@ const NotificationModalWindow = forwardRef(
               Уведомления
             </Htag>
 
-            {message != undefined &&
-            message.filter((item) => item.read == false).length > 0 ? (
+            {message &&
+            message.data &&
+            message.data.filter((item) => item.read == false).length > 0 ? (
               <div className={styles.wrapperList}>
                 <ul className={styles.list}>
-                  {message.map((notification) => {
+                  {message.data.map((notification) => {
                     if (notification.read == false) {
                       return (
                         <NotificationItem
@@ -79,9 +81,9 @@ const NotificationModalWindow = forwardRef(
                 <P
                   size='xs'
                   className={styles.check}
-                  onClick={handleClickReadAll}
+                  onClick={() => deleteAllEventsAsync(message.data)}
                 >
-                  Отметить все прочитанным
+                  Прочитать все уведомления
                 </P>
               </div>
             ) : (
@@ -89,6 +91,7 @@ const NotificationModalWindow = forwardRef(
                 У вас пока нет уведомлений
               </P>
             )}
+            {deleteEventInfo.status == 'pending' ? <SpinnerFetching /> : null}
           </motion.div>
         )}
       </AnimatePresence>

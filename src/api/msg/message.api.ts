@@ -1,7 +1,7 @@
-import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {baseQueryWithReauth} from '../base/base.api';
-import {BaseResponse} from '@/domain/model/base/BaseResponse';
-import {UserMsg} from "@/domain/model/msg/UserMsg";
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { baseQueryWithReauth } from '../base/base.api';
+import { BaseResponse } from '@/domain/model/base/BaseResponse';
+import { UserMsg } from '@/domain/model/msg/UserMsg';
 
 export const msgUrl = (string: string = '') => `/client/msg${string}`;
 
@@ -10,15 +10,17 @@ export const messageApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Message'],
   endpoints: (build) => ({
-
     /**
      * Отправить сообщение.
      */
-    sendMessage: build.mutation<BaseResponse<UserMsg>, {
-      authId: number,
-      userId: number, // Кому адресовано
-      msg: string
-    }>({
+    sendMessage: build.mutation<
+      BaseResponse<UserMsg>,
+      {
+        authId: number;
+        userId: number; // Кому адресовано
+        msg: string;
+      }
+    >({
       query: (request) => {
         return {
           method: 'POST',
@@ -33,10 +35,13 @@ export const messageApi = createApi({
      * Удалить сообщение.
      * Удалять может только тот кто отправил, и кому оно отправлено.
      */
-    deleteMessage: build.mutation<BaseResponse<UserMsg>, {
-      authId: number,
-      messageId: number
-    }>({
+    deleteMessage: build.mutation<
+      BaseResponse<UserMsg>,
+      {
+        authId: number;
+        messageId: number;
+      }
+    >({
       query: (request) => {
         return {
           method: 'POST',
@@ -48,7 +53,7 @@ export const messageApi = createApi({
     }),
 
     /**
-     * Прочитать свои сообщения
+     * Получить свои сообщения
      */
     getMessages: build.query<BaseResponse<UserMsg[]>, { authId: number }>({
       query: (request) => {
@@ -64,11 +69,14 @@ export const messageApi = createApi({
     /**
      * Изменить статус прочтения сообщения
      */
-    setReadStatus: build.mutation<BaseResponse<UserMsg>, {
-      authId: number,
-      messageId: number,
-      read: boolean // По умолчанию = true
-    }>({
+    setReadStatus: build.mutation<
+      BaseResponse<UserMsg>,
+      {
+        authId: number;
+        messageId: number;
+        read: boolean; // По умолчанию = true
+      }
+    >({
       query: (request) => {
         return {
           method: 'POST',
@@ -78,6 +86,5 @@ export const messageApi = createApi({
       },
       invalidatesTags: ['Message'],
     }),
-
   }),
 });

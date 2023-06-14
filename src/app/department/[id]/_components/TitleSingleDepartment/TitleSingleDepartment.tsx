@@ -15,6 +15,9 @@ import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
+import { useState } from 'react';
+import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
+import Button from '@/ui/Button/Button';
 
 const TitleSingleDepartment = ({
   id,
@@ -27,7 +30,9 @@ const TitleSingleDepartment = ({
     singleDepartment: department,
     isLoadingByIdDept,
   } = useDepartmentAdmin(id);
-  
+
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
+
   if (isLoadingByIdDept) return <Spinner />;
   if (!department?.success) {
     return <NoAccess button={false} />;
@@ -83,6 +88,14 @@ const TitleSingleDepartment = ({
             Добавить сотрудников из EXCEL
           </InputFileExcelUsers>
         )}
+        <Button
+          onClick={() => setVisibleModal(true)}
+          appearance='blackWhite'
+          size='l'
+          className='@apply mt-[25px]'
+        >
+          Создать событие
+        </Button>
 
         {/* <div className={styles.colUsers}>
           <CountUsersPreview
@@ -92,6 +105,13 @@ const TitleSingleDepartment = ({
           />
         </div> */}
       </div>
+      <ModalWindowWithAddEvent
+        forWhat='Dept'
+        id={id}
+        visibleModal={visibleModal}
+        setVisibleModal={setVisibleModal}
+        textBtn='Создать событие'
+      />
     </div>
   );
 };

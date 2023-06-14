@@ -6,44 +6,32 @@ import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { convertPathName } from './convertPathName';
+import { getLastUrl } from './getLastUrl';
+
+type Alignment = 'users' | 'awards' | 'statistics' | '';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
   const { push, back } = useRouter();
-
   const { windowSize } = useWindowSize();
 
-  const convertPathName = (pathName: string) => {
-    const arr = pathName.split('/');
-    const link = arr[arr.length - 1];
-    if (link == 'users' || link == 'awards' || link == 'statistics') {
-      return link;
-    } else return '';
-  };
-
-  const getLastUrl = (string: string) => {
-    const arr = pathName.split('/');
-    const link = arr[arr.length - 1];
-    if (link == 'edit') {
-      return link;
-    } else return '';
-  };
-
-  const [alignment, setAlignment] = useState<
-    'users' | 'awards' | 'statistics' | ''
-  >(convertPathName(pathName));
+  const [alignment, setAlignment] = useState<Alignment>(
+    convertPathName(pathName)
+  );
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: 'users' | 'awards' | 'statistics' | ''
+    newAlignment: Alignment
   ) => {
-    if (newAlignment === null) {
-      push(pathName);
-    }
-    if (convertPathName(pathName) !== '') {
+    if (convertPathName(pathName) !== '' && newAlignment != null) {
       push(`${pathName.replace(alignment, newAlignment)}`);
     } else {
-      push(`${pathName}/${newAlignment}`);
+      if (newAlignment === null) {
+        push(pathName);
+      } else {
+        push(`${pathName}/${newAlignment}`);
+      }
     }
     setAlignment(newAlignment);
   };

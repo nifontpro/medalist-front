@@ -1,26 +1,10 @@
 'use client';
 
-let allMessage: IMessage[] = [
-  {
-    toId: '63c04e650c26102ec90f212c',
-    type: 'SYSTEM',
-    theme: 'Награждение',
-    themeSlug: 'awardUser',
-    text: 'Вами награжден Еселин наградой "Отважный" ',
-    read: true,
-    sendDate: 1673548791800,
-    readDate: 1682524838332,
-    imageUrl:
-      'https://medalist.storage.yandexcloud.net/C63c04f130c26102ec90f212d/awards/e882c75b-6f30-4594-8fe7-38f17948f5f3.png',
-    id: '63c053f70c26102ec90f2141',
-  },
-];
-
 import styles from './Header.module.scss';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import UserLogo from './UserLogo/UserLogo';
-import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import MenuIcon from '@/icons/menu.svg';
@@ -31,10 +15,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import Notification from './Notification/Notification';
-import { IMessage } from './Notification/Notification.props';
 
 const Header = ({ className, ...props }: HeaderProps) => {
-  const dispatch = useAppDispatch();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -62,7 +44,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <Logo className={styles.logo} />
         <ChangeRole />
         <div className={styles.user}>
-          <Notification allMessage={allMessage} />
+          <Notification />
           <UserLogo user={singleUser?.data?.user} className={styles.userImg} />
         </div>
       </header>

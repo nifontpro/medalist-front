@@ -1,4 +1,5 @@
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { eventApi } from '@/api/event/event.api';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';

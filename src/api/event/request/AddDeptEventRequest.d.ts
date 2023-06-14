@@ -1,6 +1,6 @@
-export interface AddUserEventRequest {
-  authId: number
-  deptId: number
-  eventDate: number
-  eventName: string
+export interface AddDeptEventRequest {
+  authId: number;
+  deptId: number;
+  eventDate: number;
+  eventName: string;
 }

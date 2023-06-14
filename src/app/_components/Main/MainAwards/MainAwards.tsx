@@ -13,7 +13,6 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
-import { useEffect } from 'react';
 
 const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
   const { push } = useRouter();

@@ -1,7 +1,7 @@
-import {BaseRequest} from "@/domain/model/base/BaseRequest";
+import { BaseRequest } from '@/domain/model/base/BaseRequest';
 
 export interface GetAllEventsRequest {
-  authId: number
-  deptId: number
-  baseRequest?: BaseRequest
+  authId: number;
+  deptId: number;
+  baseRequest?: BaseRequest;
 }
