@@ -76,29 +76,27 @@ export const useCreateAward = (
             }
 
             //Награждение тех кого выбрали
-            if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-              await arrChoiceUser.forEach(async (user) => {
-                if (typeOfUser && typeOfUser.id && res.data) {
-                  await rewardUser({
-                    authId: typeOfUser.id,
-                    awardId: res.data?.award.id,
-                    userId: Number(user),
-                    actionType: 'AWARD',
-                  })
-                    .unwrap()
-                    .then((res) => {
-                      if (res.success == false) {
-                        errorMessageParse(res.errors);
-                        isError = true;
-                      }
-                    })
-                    .catch((e) => {
+            await arrChoiceUser!.forEach(async (user) => {
+              if (typeOfUser && typeOfUser.id && res.data) {
+                await rewardUser({
+                  authId: typeOfUser.id,
+                  awardId: res.data?.award.id,
+                  userId: Number(user),
+                  actionType: 'AWARD',
+                })
+                  .unwrap()
+                  .then((res) => {
+                    if (res.success == false) {
+                      errorMessageParse(res.errors);
                       isError = true;
-                      toastError(e, 'Ошибка награждения');
-                    });
-                }
-              });
-            }
+                    }
+                  })
+                  .catch((e) => {
+                    isError = true;
+                    toastError(e, 'Ошибка награждения');
+                  });
+              }
+            })
 
             //Добавления фото из галлереи
             if (
@@ -220,28 +218,26 @@ export const useCreateAward = (
             }
 
             //Номинирование тех кого выбрали
-            if (arrChoiceUser != undefined && arrChoiceUser?.length > 0) {
-              await arrChoiceUser.forEach(async (user) => {
-                if (typeOfUser && typeOfUser.id && res.data)
-                  await rewardUser({
-                    authId: typeOfUser.id,
-                    awardId: res.data?.award.id,
-                    userId: Number(user),
-                    actionType: 'NOMINEE',
-                  })
-                    .unwrap()
-                    .then((res) => {
-                      if (res.success == false) {
-                        errorMessageParse(res.errors);
-                        isError = true;
-                      }
-                    })
-                    .catch((e) => {
+            await arrChoiceUser!.forEach(async (user) => {
+              if (typeOfUser && typeOfUser.id && res.data)
+                await rewardUser({
+                  authId: typeOfUser.id,
+                  awardId: res.data?.award.id,
+                  userId: Number(user),
+                  actionType: 'NOMINEE',
+                })
+                  .unwrap()
+                  .then((res) => {
+                    if (res.success == false) {
+                      errorMessageParse(res.errors);
                       isError = true;
-                      toastError(e, 'Ошибка награждения');
-                    });
-              });
-            }
+                    }
+                  })
+                  .catch((e) => {
+                    isError = true;
+                    toastError(e, 'Ошибка награждения');
+                  });
+            });
 
             //Добавления фото из галлереи
             if (

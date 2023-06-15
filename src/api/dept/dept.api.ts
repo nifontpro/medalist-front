@@ -36,6 +36,27 @@ export const deptApi = createApi({
     }),
 
     /**
+     * Получение поддерева отделов с верхнего доступного уровня просмотра,
+     * т. е. с ближайшего верхнего отдела сотрудника, помеченного top-level.
+     * [baseRequest]:
+     * orders: массив полей для сортировки в заданном направлении
+     * допустимые поля для сортировки: "parentId", "name", "classname"
+     */
+    getAuthTopLevelTree: build.query<
+      BaseResponse<Dept[]>,
+      { authId: number; baseRequest: BaseRequest | undefined }
+    >({
+      query: (authId) => {
+        return {
+          method: 'POST',
+          url: deptUrl('/top_level_tree'),
+          body: authId,
+        };
+      },
+      providesTags: ['Dept'],
+    }),
+
+    /**
      * Создание нового отдела
      */
     getProfiles: build.mutation<BaseResponse<DeptDetails>, CreateDeptRequest>({
