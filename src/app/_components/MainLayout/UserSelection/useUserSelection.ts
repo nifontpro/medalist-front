@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
-import { setTypeOfUser_IsOpen, setIsOpen } from '@/store/features/userSelection/userSelection.slice';
+import {
+  setTypeOfUser_IsOpen,
+  setIsOpen,
+} from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
   setSelectedTreeId,
@@ -14,13 +17,12 @@ export const useUserSelection = () => {
   const dispatch = useAppDispatch();
   const pathName = usePathname();
 
-  const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
 
   const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
     undefined,
     {
-      skip: !isAuth,
+      skip: !typeOfUser,
     }
   );
 
@@ -29,11 +31,10 @@ export const useUserSelection = () => {
       dispatch(setTypeOfUser_IsOpen(role));
       dispatch(setArrayIds(['0']));
       dispatch(setSelectedTreeId('0'));
-      push('/')
+      push('/');
     };
 
     return {
-      isAuth,
       typeOfUser,
       isOpen,
       pathName,
@@ -42,16 +43,7 @@ export const useUserSelection = () => {
       isLoading,
       dispatch,
       push,
-      setIsOpen
+      setIsOpen,
     };
-  }, [
-    isAuth,
-    typeOfUser,
-    isOpen,
-    pathName,
-    rolesUser,
-    isLoading,
-    dispatch,
-    push,
-  ]);
+  }, [typeOfUser, isOpen, pathName, rolesUser, isLoading, dispatch, push]);
 };

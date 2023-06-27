@@ -1,6 +1,6 @@
-import MainProvider from '@/store/providers/MainProvider';
 import '@/styles/globals.scss';
 import { Metadata } from 'next';
+import MainProvider from '@/store/providers/MainProvider';
 
 export const metadata: Metadata = {
   title: 'Medalist',

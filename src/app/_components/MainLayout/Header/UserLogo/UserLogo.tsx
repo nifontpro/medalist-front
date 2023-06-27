@@ -5,6 +5,8 @@ import { useRef, useState } from 'react';
 import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
 import { useUserPanelModalWindow } from './UserPanelModalWindow/useUserPanelModalWindow';
 
+import { signOut } from 'next-auth/react';
+
 const UserLogo = ({
   user,
   className,
@@ -44,7 +46,7 @@ const UserLogo = ({
         ) : (
           <div
             className='@apply text-white flex justify-center items-center cursor-pointer'
-            onClick={handleLogoutClick}
+            onClick={() => signOut()}
           >
             exit
           </div>

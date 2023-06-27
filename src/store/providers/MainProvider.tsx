@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
@@ -10,21 +10,25 @@ import { LocalizationProvider, ruRU } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MainLayout from '@/app/_components/MainLayout/MainLayout';
 
+import { SessionProvider } from 'next-auth/react';
+
 const MainProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <LocalizationProvider
-      dateAdapter={AdapterDayjs}
-      localeText={
-        ruRU.components.MuiLocalizationProvider.defaultProps.localeText
-      }
-    >
-      <ToastContainer position='bottom-right' newestOnTop />
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <MainLayout>{children}</MainLayout>
-        </PersistGate>
-      </Provider>
-    </LocalizationProvider>
+    <SessionProvider>
+      <LocalizationProvider
+        dateAdapter={AdapterDayjs}
+        localeText={
+          ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+        }
+      >
+        <ToastContainer position='bottom-right' newestOnTop />
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <MainLayout>{children}</MainLayout>
+          </PersistGate>
+        </Provider>
+      </LocalizationProvider>
+    </SessionProvider>
   );
 };
 

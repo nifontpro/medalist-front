@@ -13,6 +13,8 @@ import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
 
+import { signOut } from 'next-auth/react';
+
 const UserPanelModalWindow = forwardRef(
   (
     {
@@ -24,11 +26,9 @@ const UserPanelModalWindow = forwardRef(
     }: UserPanelModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const {
-      handleClickProfile,
-      handleClickEditProfile,
-      handleLogoutClick,
-    } = useUserPanelModalWindow(setVisibleModal, user);
+
+    const { handleClickProfile, handleClickEditProfile, handleLogoutClick } =
+      useUserPanelModalWindow(setVisibleModal, user);
 
     const { windowSize } = useWindowSize();
 
@@ -95,7 +95,16 @@ const UserPanelModalWindow = forwardRef(
                   Редактировать
                 </P>
               </li>
-              <li className={styles.item} onClick={handleLogoutClick}>
+              {/* <li className={styles.item} onClick={handleLogoutClick}>
+                <ExitIcon />
+                <P size='xs' fontstyle='thin' className={styles.link}>
+                  Выйти
+                </P>
+              </li> */}
+              <li className={styles.item} onClick={() => {
+                console.log('Вышел')
+                signOut({callbackUrl: '/'})}}>
+
                 <ExitIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>
                   Выйти
