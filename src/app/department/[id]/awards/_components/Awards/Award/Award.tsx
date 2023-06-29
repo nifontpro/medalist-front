@@ -68,7 +68,6 @@ const Award = motion(
                 className='rounded-full'
                 // priority={true}
               />
-              Ï
             </div>
             <div>
               <div className={styles.nomineeAdaptive}>Номинация</div>

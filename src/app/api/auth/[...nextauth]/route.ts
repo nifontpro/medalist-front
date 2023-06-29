@@ -4,7 +4,7 @@ import { getToken, type JWT } from 'next-auth/jwt';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 import { IKeycloakRefreshTokenApiResponse } from '../keycloakRefreshToken';
 
-const secret = process.env.NEXTAUTH_SECRET;
+// const secret = process.env.NEXTAUTH_SECRET;
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -64,9 +64,9 @@ const handler = NextAuth({
   },
   // Generate secret: openssl rand -base64 32
   // secret: challenge,
-  //   pages: {
-  //     signIn: undefined,
-  //   },
+  // pages: {
+  //   signIn: undefined,
+  // },
   callbacks: {
     // async redirect({ url, baseUrl }) {
     //   return Promise.resolve(url.startsWith(baseUrl) ? url : baseUrl);

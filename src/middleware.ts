@@ -22,11 +22,15 @@ export async function middleware(request: NextRequest) {
     const refreshTokenExpired: string = (
       token.refreshTokenExpired as number
     ).toString();
+    const id_token: string = token.sub as string;
 
+    res.cookies.set('id_token', id_token);
     res.cookies.set('accessToken', access_token);
     res.cookies.set('refreshToken', refresh_token);
     res.cookies.set('accessTokenExpired', accessTokenExpired);
     res.cookies.set('refreshTokenExpired', refreshTokenExpired);
+
+    console.log(token)
 
     const currentDate = +new Date();
     if (

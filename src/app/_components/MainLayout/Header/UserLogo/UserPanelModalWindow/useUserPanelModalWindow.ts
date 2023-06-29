@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useMemo } from 'react';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/base/base.api';
 
-function logoutWin(it: string) {
+export function logoutWin(it: string) {
   console.log(it);
   const params = [
     'post_logout_redirect_uri=' + APP_URI,

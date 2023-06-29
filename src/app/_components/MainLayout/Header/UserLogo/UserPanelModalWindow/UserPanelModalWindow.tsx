@@ -4,9 +4,8 @@ import cn from 'classnames';
 import ProfileIcon from '@/icons/profile.svg';
 import EditIcon from '@/icons/editProfile.svg';
 import ExitIcon from '@/icons/exit.svg';
-import ChangePasswordIcon from '@/icons/changePassword.svg';
 import { ForwardedRef, forwardRef } from 'react';
-import { useUserPanelModalWindow } from './useUserPanelModalWindow';
+import { logoutWin, useUserPanelModalWindow } from './useUserPanelModalWindow';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
@@ -14,6 +13,7 @@ import P from '@/ui/P/P';
 import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
 
 import { signOut } from 'next-auth/react';
+import { getCookie } from 'cookies-next';
 
 const UserPanelModalWindow = forwardRef(
   (
@@ -26,7 +26,6 @@ const UserPanelModalWindow = forwardRef(
     }: UserPanelModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-
     const { handleClickProfile, handleClickEditProfile, handleLogoutClick } =
       useUserPanelModalWindow(setVisibleModal, user);
 
@@ -101,10 +100,7 @@ const UserPanelModalWindow = forwardRef(
                   Выйти
                 </P>
               </li> */}
-              <li className={styles.item} onClick={() => {
-                console.log('Вышел')
-                signOut({callbackUrl: '/'})}}>
-
+              <li className={styles.item} onClick={() => signOut()}>
                 <ExitIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>
                   Выйти
