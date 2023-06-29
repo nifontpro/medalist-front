@@ -31,7 +31,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
       opacity: 1,
       y: 0,
     },
-    hidden: {
+    hidden: { 
       opacity: 0,
       y: windowSize.winWidth > 768 ? '0px' : '460px',
     },

@@ -6,7 +6,6 @@ import UserSelection from './UserSelection/UserSelection';
 import Spinner from '@/ui/Spinner/Spinner';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { userApi } from '@/api/user/user.api';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   

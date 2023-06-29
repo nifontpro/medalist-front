@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-
 export { default } from 'next-auth/middleware';
-
 import { getToken } from 'next-auth/jwt';
 
 // paths that require authentication or authorization
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
+
+  const { pathname } = request.nextUrl;
 
   const token = await getToken({
     req: request,
@@ -16,9 +16,30 @@ export async function middleware(request: NextRequest) {
   if (token) {
     const access_token: string = token.accessToken as string;
     const refresh_token: string = token.refreshToken as string;
+    const accessTokenExpired: string = (
+      token.accessTokenExpired as number
+    ).toString();
+    const refreshTokenExpired: string = (
+      token.refreshTokenExpired as number
+    ).toString();
 
     res.cookies.set('accessToken', access_token);
     res.cookies.set('refreshToken', refresh_token);
+    res.cookies.set('accessTokenExpired', accessTokenExpired);
+    res.cookies.set('refreshTokenExpired', refreshTokenExpired);
+
+    const currentDate = +new Date();
+    if (
+      pathname == '/' ||
+      pathname.startsWith('/award') ||
+      pathname.startsWith('/department') ||
+      pathname.startsWith('/user') ||
+      pathname.startsWith('/create')
+    ) {
+      if (!accessTokenExpired || Number(accessTokenExpired) < currentDate) {
+        return NextResponse.redirect(`${process.env.APP_URL}/api/auth/signin`);
+      }
+    }
   }
 
   return res;

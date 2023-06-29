@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-// import storage from 'redux-persist/lib/storage'
 import {
   FLUSH,
   PAUSE,
@@ -14,7 +13,6 @@ import {
 } from 'redux-persist';
 import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 import { sidebarTreeSlice } from '@/store/features/sidebar/sidebarTree.slice';
-// import { authSlice } from '@/store/features/auth/auth.slice';
 import { userSelectionSlice } from '../features/userSelection/userSelection.slice';
 import { userApi } from '@/api/user/user.api';
 import { deptApi } from '@/api/dept/dept.api';
@@ -74,7 +72,6 @@ const rootReducer = combineReducers({
   sidebarTree: sidebarTreeSlice.reducer,
   userSelection: userSelectionSlice.reducer,
   header: headerSlice.reducer,
-  // auth: authSlice.reducer,
   theme: themeSlice.reducer,
   visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
   dataCreateAward: dataCreateAwardSlice.reducer,
