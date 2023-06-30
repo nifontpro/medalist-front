@@ -30,8 +30,6 @@ export async function middleware(request: NextRequest) {
     res.cookies.set('accessTokenExpired', accessTokenExpired);
     res.cookies.set('refreshTokenExpired', refreshTokenExpired);
 
-    console.log(token)
-
     const currentDate = +new Date();
     if (
       pathname == '/' ||
