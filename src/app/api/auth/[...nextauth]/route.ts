@@ -1,6 +1,6 @@
 import axios from 'axios';
 import NextAuth from 'next-auth';
-import { getToken, type JWT } from 'next-auth/jwt';
+import { type JWT } from 'next-auth/jwt';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 import { IKeycloakRefreshTokenApiResponse } from '../keycloakRefreshToken';
 
