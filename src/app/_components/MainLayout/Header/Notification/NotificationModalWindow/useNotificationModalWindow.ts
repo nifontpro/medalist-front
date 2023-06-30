@@ -13,7 +13,7 @@ export const useUserPanelModalWindow = (
 
   const handleClickRead: MouseEventHandler<HTMLLIElement> = async () => {
     let isError = false;
-    console.log('Read')
+    // console.log('Read')
     // if (notificationId) {
     //   await readMessage(notificationId)
     //     .unwrap()
@@ -30,7 +30,7 @@ export const useUserPanelModalWindow = (
 
   const handleClickReadAll: MouseEventHandler<HTMLParagraphElement> = async () => {
     let isError = false;
-    console.log('Read all')
+    // console.log('Read all')
     // if (message) {
     //   message.forEach((notification) => {
     //     readMessage(notification.id)

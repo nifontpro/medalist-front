@@ -238,7 +238,7 @@ export const useCreateAward = (
           ...rewardUserPromises,
         ])
           .then((resArray) => {
-            console.log(resArray);
+            // console.log(resArray);
             for (let i = 0; i < resArray.length; i++) {
               if (resArray[i] !== null) {
                 if (resArray[i]!.success == false) {
@@ -368,7 +368,7 @@ export const useCreateAward = (
           ...rewardUserPromises,
         ])
           .then((resArray) => {
-            console.log(resArray);
+            // console.log(resArray);
             for (let i = 0; i < resArray.length; i++) {
               if (resArray[i] !== null) {
                 if (resArray[i]!.success == false) {

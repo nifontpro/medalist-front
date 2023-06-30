@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   if (session.status == 'loading') return <Spinner />;
 
