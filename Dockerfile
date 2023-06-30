@@ -17,6 +17,8 @@ ENV KEYCLOAK_SECRET='_'
 ENV KEYCLOAK_ISSUER='https://nmedalist.ru:9443/realms/medalist-realm'
 ENV NEXTAUTH_SECRET='supersecret'
 
+ENV NEXTAUTH_URL https://nmedalist.ru
+
 EXPOSE 3000:3000
 # CMD ["npm", "run", "dev"]
 RUN ["npm","run","build"]
