@@ -12,6 +12,7 @@ export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/p
 export const CLIENT_ID = 'medalist-client';
 export const APP_URI = process.env.APP_URL;
 export const AUTH_CODE_REDIRECT_URI = APP_URI + '/login/redirect';
+export const AUTH_URL=`${APP_URI}/api/auth/signin`
 
 export interface IAuthResponse {
   access_token: string;

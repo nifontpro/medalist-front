@@ -2,16 +2,31 @@ import { User } from '@/domain/model/user/user';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
-import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/base/base.api';
+import {
+  APP_URI,
+  AUTH_URL,
+  CLIENT_ID,
+  KEYCLOAK_URI,
+} from '@/api/base/base.api';
+
+import { signOut } from 'next-auth/react';
+import { getCookie, deleteCookie } from 'cookies-next';
+import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
+import { useAppDispatch } from '@/store/hooks/hooks';
 
 export function logoutWin(it: string) {
   // console.log(it);
   const params = [
-    'post_logout_redirect_uri=' + APP_URI,
+    'post_logout_redirect_uri=' + AUTH_URL,
     'id_token=' + it,
     'client_id=' + CLIENT_ID,
   ];
   const url = KEYCLOAK_URI + '/logout' + '?' + params.join('&');
+
+  deleteCookie('accessToken');
+  deleteCookie('refreshToken');
+  deleteCookie('refreshTokenExpire');
+  deleteCookie('accessTokenExpired');
   window.open(url, '_self');
 }
 
@@ -20,6 +35,8 @@ export const useUserPanelModalWindow = (
   user: User | undefined
 ) => {
   const { push } = useRouter();
+  const dispatch = useAppDispatch();
+  const id_token = getCookie('id_token')?.toString();
 
   return useMemo(() => {
     const handleClickProfile = () => {
@@ -33,7 +50,12 @@ export const useUserPanelModalWindow = (
     };
 
     const handleLogoutClick = async () => {
-      setVisibleModal(false);
+      await dispatch(setTypeOfUserUndefined());
+      if (id_token) {
+        setVisibleModal(false);
+        signOut();
+        logoutWin(id_token);
+      }
     };
 
     return {
@@ -41,5 +63,5 @@ export const useUserPanelModalWindow = (
       handleClickEditProfile,
       handleLogoutClick,
     };
-  }, [push, setVisibleModal, user]);
+  }, [push, setVisibleModal, user, id_token, dispatch]);
 };

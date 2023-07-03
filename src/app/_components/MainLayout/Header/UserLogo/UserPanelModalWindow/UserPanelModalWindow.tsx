@@ -12,9 +12,6 @@ import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
 
-import { signOut } from 'next-auth/react';
-import { getCookie } from 'cookies-next';
-
 const UserPanelModalWindow = forwardRef(
   (
     {
@@ -94,18 +91,18 @@ const UserPanelModalWindow = forwardRef(
                   Редактировать
                 </P>
               </li>
-              {/* <li className={styles.item} onClick={handleLogoutClick}>
-                <ExitIcon />
-                <P size='xs' fontstyle='thin' className={styles.link}>
-                  Выйти
-                </P>
-              </li> */}
-              <li className={styles.item} onClick={() => signOut()}>
+              <li className={styles.item} onClick={handleLogoutClick}>
                 <ExitIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>
                   Выйти
                 </P>
               </li>
+              {/* <li className={styles.item} onClick={() => signOut()}>
+                <ExitIcon />
+                <P size='xs' fontstyle='thin' className={styles.link}>
+                  Выйти
+                </P>
+              </li> */}
             </ul>
           </motion.div>
         )}

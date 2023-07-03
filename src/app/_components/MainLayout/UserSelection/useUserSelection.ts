@@ -21,9 +21,9 @@ export const useUserSelection = () => {
 
   const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
     undefined,
-    {
-      skip: !typeOfUser,
-    }
+    // {
+    //   skip: !typeOfUser,
+    // }
   );
 
   return useMemo(() => {

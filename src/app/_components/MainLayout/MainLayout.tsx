@@ -6,13 +6,46 @@ import UserSelection from './UserSelection/UserSelection';
 import Spinner from '@/ui/Spinner/Spinner';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import { useUserSelection } from './UserSelection/useUserSelection';
+import {
+  setIsOpen,
+  setTypeOfUser,
+} from '@/store/features/userSelection/userSelection.slice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
-  
   const session = useSession();
-  // console.log(session);
+  const dispatch = useAppDispatch();
 
-  if (session.status == 'loading') return <Spinner />;
+  const {
+    typeOfUser,
+    isOpen,
+    pathName,
+    rolesUser,
+    handleChangeRole,
+    isLoading,
+    push,
+    setIsOpen,
+  } = useUserSelection();
+
+  useEffect(() => {
+    if (
+      session.status != 'loading' &&
+      session.status != 'unauthenticated' &&
+      session.data &&
+      !typeOfUser
+    ) {
+      // if (rolesUser && rolesUser.data && rolesUser.data.length > 0) {
+      //   dispatch(setTypeOfUser(rolesUser.data[0]));
+      // } else {
+        dispatch(setIsOpen(true));
+      // }
+    }
+  }, [dispatch, session, typeOfUser, rolesUser, setIsOpen]);
+
+  if (session.status === 'loading') return <Spinner />;
 
   if (session.data === null) {
     return redirect('/api/auth/signin');

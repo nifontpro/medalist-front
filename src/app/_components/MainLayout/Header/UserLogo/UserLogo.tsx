@@ -46,7 +46,7 @@ const UserLogo = ({
         ) : (
           <div
             className='@apply text-white flex justify-center items-center cursor-pointer'
-            onClick={() => signOut()}
+            onClick={() => handleLogoutClick()}
           >
             exit
           </div>
