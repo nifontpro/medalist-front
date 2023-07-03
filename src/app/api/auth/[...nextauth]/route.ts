@@ -10,7 +10,7 @@ const handler = NextAuth({
       id: 'keycloak',
       name: 'Keycloak',
       clientId: process.env.KEYCLOAK_CLIENT_ID!,
-      clientSecret: '_',
+      clientSecret: process.env.KEYCLOAK_SECRET!,
       wellKnown: `${process.env.KEYCLOAK_ISSUER}/.well-known/openid-configuration`,
       issuer: process.env.KEYCLOAK_ISSUER,
       requestTokenUrl: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
