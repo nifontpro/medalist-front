@@ -1,8 +1,12 @@
+На localhost
+https://nmedalist.ru:9443/realms/medalist-realm/protocol/openid-connect/auth?
+client_id=medalist-client&scope=openid%20email%20profile&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fcallback%2Fkeycloak&state=9ZkZZwYG1tCwciSVlKbNveDbgtyClOwGS0Wml5q4Abw&code_challenge=t6juBV-JzILRU9QarB0gh7L7N8LMQ8ta45f7lRYHygE&code_challenge_method=S256
+
 Google:
-https://nmedalist.ru:9443/realms/medalist-realm/protocol/openid-connect/auth?client_id=medalist-client&scope=openid%20email%20profile&response_type=code&redirect_uri=https%3A%2F%2Fnmedalist.ru%2Fapi%2Fauth%2Fcallback%2Fkeycloak&state=DGJMVV--LoGN1UAmSnXF1X3ZpcDyadGBhmAhbjFHpjw&code_challenge=CL_MGix9b3LCDMf-zQpRF1q_ZFozZw9bw2PSkaq_h70&code_challenge_method=S256
+https://nmedalist.ru:9443/realms/medalist-realm/protocol/openid-connect/auth?
+client_id=medalist-client&scope=openid%20email%20profile&response_type=code&
+redirect_uri=https%3A%2F%2Fnmedalist.ru%2Fapi%2Fauth%2Fcallback%2Fkeycloak&state=DGJMVV--LoGN1UAmSnXF1X3ZpcDyadGBhmAhbjFHpjw&code_challenge=CL_MGix9b3LCDMf-zQpRF1q_ZFozZw9bw2PSkaq_h70&code_challenge_method=S256
+
 успешно зашел на кейклок, но после авторизации там выдал следующее
 https://nmedalist.ru/api/auth/callback/keycloak?state=DGJMVV--LoGN1UAmSnXF1X3ZpcDyadGBhmAhbjFHpjw&session_state=1fef024c-be84-4cc8-b33c-6e0ade3196e9&code=0561be00-2312-4107-bfd0-4632f8b761eb.1fef024c-be84-4cc8-b33c-6e0ade3196e9.570774de-d7cf-4d38-a6dc-9ca5de680e28
 
-
-On localhost
-https://nmedalist.ru:9443/realms/medalist-realm/protocol/openid-connect/auth?client_id=medalist-client&scope=openid%20email%20profile&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fcallback%2Fkeycloak&state=9ZkZZwYG1tCwciSVlKbNveDbgtyClOwGS0Wml5q4Abw&code_challenge=t6juBV-JzILRU9QarB0gh7L7N8LMQ8ta45f7lRYHygE&code_challenge_method=S256

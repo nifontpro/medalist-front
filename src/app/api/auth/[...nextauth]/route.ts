@@ -9,7 +9,7 @@ const handler = NextAuth({
     KeycloakProvider({
       id: 'keycloak',
       name: 'Keycloak',
-      clientId: 'medalist-client',
+      clientId: process.env.KEYCLOAK_CLIENT_ID!,
       clientSecret: '_',
       wellKnown: `${process.env.KEYCLOAK_ISSUER}/.well-known/openid-configuration`,
       issuer: process.env.KEYCLOAK_ISSUER,

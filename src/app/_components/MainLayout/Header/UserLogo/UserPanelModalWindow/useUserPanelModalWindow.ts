@@ -1,5 +1,5 @@
 import { User } from '@/domain/model/user/user';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import {
@@ -53,7 +53,7 @@ export const useUserPanelModalWindow = (
       await dispatch(setTypeOfUserUndefined());
       if (id_token) {
         setVisibleModal(false);
-        await signOut();
+        await signOut({redirect: false});
         await logoutWin(id_token);
       }
     };

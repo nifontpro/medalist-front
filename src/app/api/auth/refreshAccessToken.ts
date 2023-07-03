@@ -1,5 +1,5 @@
 import { type JWT } from 'next-auth/jwt';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { IKeycloakRefreshTokenApiResponse } from './keycloakRefreshToken';
 
 export async function refreshAccessToken(token: JWT) {
