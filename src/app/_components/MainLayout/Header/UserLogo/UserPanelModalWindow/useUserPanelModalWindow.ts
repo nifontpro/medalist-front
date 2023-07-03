@@ -50,10 +50,10 @@ export const useUserPanelModalWindow = (
     };
 
     const handleLogoutClick = async () => {
-      await dispatch(setTypeOfUserUndefined());
       if (id_token) {
         setVisibleModal(false);
-        await signOut({redirect: false});
+        await signOut({ redirect: false });
+        await dispatch(setTypeOfUserUndefined());
         await logoutWin(id_token);
       }
     };
