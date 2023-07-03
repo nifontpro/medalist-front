@@ -11,9 +11,11 @@ const handler = NextAuth({
       name: 'Keycloak',
       clientId: 'medalist-client',
       clientSecret: '_',
+      wellKnown: `${process.env.KEYCLOAK_ISSUER}/.well-known/openid-configuration`,
       issuer: process.env.KEYCLOAK_ISSUER,
       requestTokenUrl: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
       authorization: {
+        url: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/token`,
         params: {
           scope: 'openid email profile',
         },

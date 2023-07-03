@@ -53,8 +53,8 @@ export const useUserPanelModalWindow = (
       await dispatch(setTypeOfUserUndefined());
       if (id_token) {
         setVisibleModal(false);
-        signOut();
-        logoutWin(id_token);
+        await signOut();
+        await logoutWin(id_token);
       }
     };
 
