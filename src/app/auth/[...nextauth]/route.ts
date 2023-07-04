@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 import { refreshAccessToken } from '../refreshAccessToken';
-import { JWT } from 'next-auth/jwt';
 
 // const secret = process.env.NEXTAUTH_SECRET;
 
@@ -14,13 +13,8 @@ const handler = NextAuth({
       clientSecret: process.env.KEYCLOAK_SECRET!,
       wellKnown: `${process.env.KEYCLOAK_ISSUER}/.well-known/openid-configuration`,
       issuer: process.env.KEYCLOAK_ISSUER,
-      // requestTokenUrl: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
-      // authorization: {
-      //   url: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/token`,
-      //   params: {
-      //     scope: 'openid email profile',
-      //   },
-      // },
+      authorization: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
+      token: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/token`,
       checks: ['pkce', 'state'],
       idToken: true,
       profile(profile) {
@@ -36,10 +30,11 @@ const handler = NextAuth({
   },
   // Generate secret: openssl rand -base64 32
   // secret: challenge,
-  pages: {
-    signIn: undefined,
-  },
+  // pages: {
+  //   signIn: '/auth',
+  // },
   callbacks: {
+
     // async redirect({ url, baseUrl }) {
     //   return Promise.resolve(url.startsWith(baseUrl) ? url : baseUrl);
     // },

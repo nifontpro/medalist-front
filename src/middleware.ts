@@ -39,33 +39,10 @@ export async function middleware(request: NextRequest) {
       pathname.startsWith('/create')
     ) {
       if (!accessTokenExpired || Number(accessTokenExpired) < currentDate) {
-        return NextResponse.redirect(`${process.env.APP_URL}/api/auth/signin`);
+        return NextResponse.redirect(`${process.env.APP_URL}/auth/signin`);
       }
     }
   }
 
   return res;
 }
-
-// export const config = {matcher: ['/', '/create/owner']}
-
-// export async function middleware(req: NextRequest, res: NextResponse) {
-//   const { pathname, origin } = req.nextUrl;
-//   const exp = req.cookies.get('exp')?.value; // жизнь токена полученного
-//   const currentDate = +new Date();
-
-//   if (
-//     pathname == '/' ||
-//     pathname.startsWith('/award') ||
-//     pathname.startsWith('/department') ||
-//     pathname.startsWith('/user') ||
-//     pathname.startsWith('/create')
-//   ) {
-//     if (!exp || Number(exp) * 1000 < currentDate)
-//       return NextResponse.redirect(`${process.env.APP_URL}/api/auth/signin`);
-//     //   return NextResponse.redirect(`${url}`);
-//   }
-//   if (pathname == '/login' && exp) {
-//     return NextResponse.redirect(`${origin}`);
-//   }
-// }

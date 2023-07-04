@@ -37,18 +37,16 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
       session.data &&
       !typeOfUser
     ) {
-      // if (rolesUser && rolesUser.data && rolesUser.data.length > 0) {
-      //   dispatch(setTypeOfUser(rolesUser.data[0]));
-      // } else {
-        dispatch(setIsOpen(true));
-      // }
+      dispatch(setIsOpen(true));
     }
   }, [dispatch, session, typeOfUser, rolesUser, setIsOpen]);
+
+  console.log(session);
 
   if (session.status === 'loading') return <Spinner />;
 
   if (session.data === null) {
-    return redirect('/api/auth/signin');
+    return redirect('/auth/signin');
   } else {
     return (
       <>
