@@ -1,5 +1,5 @@
 .uploadField {
-  overflow: hidden;
+  // overflow: hidden;
   border-radius: 27px;
   width: 400px;
   height: fit-content;
@@ -27,6 +27,11 @@
     justify-content: flex-end;
     align-items: center;
     padding-right: 20px;
+    position: relative;
+
+    .removeBtn {
+      margin-left: 10px;
+    }
 
     .input {
       width: fit-content;
@@ -34,14 +39,14 @@
       margin-right: 10px;
       cursor: pointer;
 
-      &:hover svg {
-        path {
-          stroke: var(--gray-dark);
-        }
-        rect {
-          stroke: var(--gray-dark);
-        }
-      }
+      // &:hover svg {
+      //   path {
+      //     stroke: var(--gray-dark);
+      //   }
+      //   rect {
+      //     stroke: var(--gray-dark);
+      //   }
+      // }
     }
   }
 }

@@ -11,4 +11,5 @@ export type EditImagesComponentProps = DetailedHTMLProps<
   images: BaseImage[] | undefined
   addPhoto: (event: ChangeEvent<HTMLInputElement>) => Promise<void>
   removePhoto: (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => Promise<void>
+  gallery: 'true' | 'false'
 };

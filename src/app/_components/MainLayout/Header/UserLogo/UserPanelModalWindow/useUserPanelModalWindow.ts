@@ -1,13 +1,8 @@
 import { User } from '@/domain/model/user/user';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
-import {
-  APP_URI,
-  AUTH_URL,
-  CLIENT_ID,
-  KEYCLOAK_URI,
-} from '@/api/base/base.api';
+import { AUTH_URL, CLIENT_ID, KEYCLOAK_URI } from '@/api/base/base.api';
 
 import { signOut } from 'next-auth/react';
 import { getCookie, deleteCookie } from 'cookies-next';
@@ -52,9 +47,10 @@ export const useUserPanelModalWindow = (
     const handleLogoutClick = async () => {
       if (id_token) {
         setVisibleModal(false);
-        await signOut({ redirect: false });
-        await dispatch(setTypeOfUserUndefined());
-        await logoutWin(id_token);
+        dispatch(setTypeOfUserUndefined());
+        await signOut({ redirect: false }).then(() => {
+          logoutWin(id_token);
+        });
       }
     };
 

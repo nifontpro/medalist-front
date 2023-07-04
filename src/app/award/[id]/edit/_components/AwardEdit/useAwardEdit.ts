@@ -61,6 +61,7 @@ export const useAwardEdit = (
 
     const addPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
+      event.preventDefault();
 
       if (
         event.target.files !== null &&

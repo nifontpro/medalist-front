@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import KeycloakProvider from 'next-auth/providers/keycloak';
 import { refreshAccessToken } from '../refreshAccessToken';
+import { JWT } from 'next-auth/jwt';
 
 // const secret = process.env.NEXTAUTH_SECRET;
 
@@ -13,13 +14,13 @@ const handler = NextAuth({
       clientSecret: process.env.KEYCLOAK_SECRET!,
       wellKnown: `${process.env.KEYCLOAK_ISSUER}/.well-known/openid-configuration`,
       issuer: process.env.KEYCLOAK_ISSUER,
-      requestTokenUrl: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
-      authorization: {
-        url: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/token`,
-        params: {
-          scope: 'openid email profile',
-        },
-      },
+      // requestTokenUrl: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/auth`,
+      // authorization: {
+      //   url: `${process.env.KEYCLOAK_URL}/protocol/openid-connect/token`,
+      //   params: {
+      //     scope: 'openid email profile',
+      //   },
+      // },
       checks: ['pkce', 'state'],
       idToken: true,
       profile(profile) {
@@ -44,8 +45,10 @@ const handler = NextAuth({
     // },
     // async signIn({ account, user }) {
     //   if (account && user) {
+    //     console.log('true');
     //     return true;
     //   } else {
+    //     console.log('false');
     //     return false;
     //   }
     // },
@@ -79,6 +82,15 @@ const handler = NextAuth({
     //   return session;
     // },
   },
+  // events: {
+  //   async signOut({ token }: { token: JWT }) {
+  //     // if (token.provider === "keycloak") {
+  //     //   const logOutUrl = new URL(`${process.env.KEYCLOAK_URL}/protocol/openid-connect/logout`)
+  //     //   logOutUrl.searchParams.set("id_token_hint", token.id_token!.toString())
+  //     //   await fetch(logOutUrl);
+  //     // }
+  //   },
+  // }
 });
 
 export { handler as GET, handler as POST };

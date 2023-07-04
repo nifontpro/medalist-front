@@ -2,7 +2,8 @@
   .buttonEdit,
   .buttonRefresh,
   .buttonRemove,
-  .buttonNext {
+  .buttonNext,
+  .buttonUpload {
     width: 56px;
     height: 56px;
   }
@@ -47,6 +48,15 @@
     .buttonRefresh svg {
       path {
         stroke: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
+
+    .buttonUpload svg {
+      path {
+        fill: var(--gray-dark);
       }
       rect {
         stroke: var(--gray-dark);

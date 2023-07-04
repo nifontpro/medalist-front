@@ -1,20 +1,50 @@
 .inputWrapper {
-  width: 52px;
-  height: 52px;
+  // width: 52px;
+  // height: 52px;
   position: relative;
   // margin: 15px 0;
   // text-align: center;
+
+  .item {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    @apply duration-200;
+
+    // @media screen and (max-width: 768px) {
+    //   padding: 5px 10px;
+    // }
+
+    // &:hover {
+    //   background: var(--graySilver);
+    // }
+
+    // &:last-child {
+    //   margin-bottom: 0px;
+    // }
+  }
 }
 
 .inputFile {
   opacity: 0;
   // visibility: hidden;
   position: absolute;
+  cursor: pointer;
   top: 0px;
   left: 0px;
-  // z-index: 100;
-  width: 52px;
-  height: 52px;
+  width: 215px;
+  height: 40px;
+  z-index: 2;
+
+  &:hover + .item {
+    background: var(--graySilver);
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .fileButton {
