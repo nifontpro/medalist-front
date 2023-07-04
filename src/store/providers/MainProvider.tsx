@@ -14,7 +14,7 @@ import { SessionProvider } from 'next-auth/react';
 
 const MainProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <SessionProvider basePath='/auth'>
+    <SessionProvider basePath='/auth' baseUrl='/'>
       <LocalizationProvider
         dateAdapter={AdapterDayjs}
         localeText={
