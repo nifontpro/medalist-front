@@ -12,6 +12,10 @@
     height: 56px;
     border-radius: 16px;
     cursor: pointer;
+
+    &:hover + .button {
+      background: var(--gray-dark-hover);
+    }
   }
 
   .button {

@@ -27,6 +27,11 @@ const ButtonEdit = forwardRef(
             <IconComp />
           </button>
         )}
+        {icon == 'upload' && (
+          <button className={cn(styles.buttonUpload, className)}>
+            <IconComp />
+          </button>
+        )}
         {icon == 'next' && (
           <button
             className={cn(

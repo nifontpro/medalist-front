@@ -107,6 +107,6 @@ export const useModalWindowWithAddEvent = (
     typeOfUser,
     forWhat,
     id,
-    date
+    date,
   ]);
 };

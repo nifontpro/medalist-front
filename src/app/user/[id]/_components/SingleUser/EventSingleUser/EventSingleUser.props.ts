@@ -1,4 +1,3 @@
-
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type EventSingleUserProps = DetailedHTMLProps<
@@ -6,5 +5,5 @@ export type EventSingleUserProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
-  id: string
+  id: string;
 };

@@ -6,5 +6,5 @@ export interface UserMsg {
   msg?: string; // Текст сообщения
   read: boolean; // Статус прочтения
   sendDate: number;
-  imageUrl?: string; 
+  imageUrl?: string;
 }

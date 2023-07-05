@@ -53,6 +53,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
         images={images}
         addPhoto={addPhoto}
         removePhoto={removePhoto}
+        gallery='false'
         className={styles.desktop}
       />
       <form className={styles.form}>
@@ -67,6 +68,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           addPhoto={addPhoto}
           removePhoto={removePhoto}
           className={styles.mobile}
+          gallery='false'
         />
         {/* <div className='flex justify-center items-center'>
           <div

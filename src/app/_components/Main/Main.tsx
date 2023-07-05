@@ -31,52 +31,51 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
     isLoadingColAwardsOnDept,
   } = useMainLoading();
 
-  return (
-    <>
-      {!isLoadingColAwardsActivRoot &&
-      !isLoadingUsersOnDepartmentWithAwards &&
-      !isLoadingColAwardsOnDept ? (
-        <div {...props} className={styles.wrapper}>
-          <MainAwards
-            className={cn(styles.awards, {
-              [styles.index30]: onBoarding == 1,
+  if (
+    !isLoadingColAwardsActivRoot &&
+    !isLoadingUsersOnDepartmentWithAwards &&
+    !isLoadingColAwardsOnDept
+  ) {
+    return (
+      <div {...props} className={styles.wrapper}>
+        <MainAwards
+          className={cn(styles.awards, {
+            [styles.index30]: onBoarding == 1,
+          })}
+        />
+        <MainUsers className={styles.users} />
+        <div
+          className={cn(styles.nominee, {
+            [styles.index30]: onBoarding >= 2 && !state,
+          })}
+        >
+          <MainNominee
+            className={cn({
+              [styles.index0]: onBoarding == 3 && !state,
             })}
           />
-          <MainUsers className={styles.users} />
-          <div
-            className={cn(styles.nominee, {
-              [styles.index30]: onBoarding >= 2 && !state,
+          <MainActivity
+            className={cn({
+              [styles.index0]: onBoarding == 2,
             })}
-          >
-            <MainNominee
-              className={cn({
-                [styles.index0]: onBoarding == 3 && !state,
-              })}
-            />
-            <MainActivity
-              className={cn({
-                [styles.index0]: onBoarding == 2,
-              })}
-            />
-            <Events className={styles.events} />
-          </div>
-          <ButtonScrollUp />
-          {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
+          />
+          <Events className={styles.events} />
+        </div>
+        <ButtonScrollUp />
+        {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
             Сбросить Onboarding
           </div> */}
-          <OnBoarding
-            state={state}
-            onBoarding={onBoarding}
-            onBoardingText={onBoardingText}
-            onBoardingText3={onBoardingText3}
-            handleClick={saveUserSettingsAsync}
-          />
-        </div>
-      ) : (
-        <Spinner />
-      )}
-    </>
-  );
+        <OnBoarding
+          state={state}
+          onBoarding={onBoarding}
+          onBoardingText={onBoardingText}
+          onBoardingText3={onBoardingText3}
+          handleClick={saveUserSettingsAsync}
+        />
+      </div>
+    );
+  }
+  return <Spinner />;
 };
 
 export default Main;

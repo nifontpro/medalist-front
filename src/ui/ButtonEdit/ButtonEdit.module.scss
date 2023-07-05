@@ -2,7 +2,8 @@
   .buttonEdit,
   .buttonRefresh,
   .buttonRemove,
-  .buttonNext {
+  .buttonNext,
+  .buttonUpload {
     width: 56px;
     height: 56px;
   }
@@ -52,10 +53,19 @@
         stroke: var(--gray-dark);
       }
     }
+
+    .buttonUpload svg {
+      path {
+        fill: var(--gray-dark);
+      }
+      rect {
+        stroke: var(--gray-dark);
+      }
+    }
   }
 }
 
 .disable {
-  opacity: .5;
+  opacity: 0.5;
   cursor: default;
 }

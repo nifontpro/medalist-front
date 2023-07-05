@@ -55,7 +55,9 @@ const Events = ({
           <div className={styles.eventContent}>
             {allEvent.data &&
               allEvent.data.map((event) => {
-                return <EventCard key={uniqid()} event={event} remove={'FALSE'}/>;
+                return (
+                  <EventCard key={uniqid()} event={event} remove={'FALSE'} />
+                );
               })}
 
             {totalPage && totalPage > 1 ? (

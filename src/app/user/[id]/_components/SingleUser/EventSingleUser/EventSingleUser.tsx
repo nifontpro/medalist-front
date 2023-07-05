@@ -44,36 +44,32 @@ const EventSingleUser = ({
 
   return (
     <>
-      {eventsUser &&
-        eventsUser.data &&
-        eventsUser.data?.length > 0 && (
-          <div className={cn(styles.eventWrapper, className)} {...props}>
-            <div></div>
-            <div className={styles.eventContent}>
-              {eventsUser.data &&
-                eventsUser.data.map((eventsUser) => {
-                  return (
-                    <EventCard
-                      key={eventsUser.id}
-                      event={eventsUser}
-                      remove={'USER'}
-                    />
-                  );
-                })}
+      {eventsUser && eventsUser.data && eventsUser.data?.length > 0 && (
+        <div className={cn(styles.eventWrapper, className)} {...props}>
+          <div></div>
+          <div className={styles.eventContent}>
+            {eventsUser.data &&
+              eventsUser.data.map((eventsUser) => {
+                return (
+                  <EventCard
+                    key={eventsUser.id}
+                    event={eventsUser}
+                    remove={'USER'}
+                  />
+                );
+              })}
 
-              {totalPage && totalPage > 1 ? (
-                <PrevNextPages
-                  startPage={page + 1}
-                  endPage={totalPage}
-                  handleNextClick={() =>
-                    eventsUser && nextPage(eventsUser)
-                  }
-                  handlePrevClick={prevPage}
-                />
-              ) : null}
-            </div>
+            {totalPage && totalPage > 1 ? (
+              <PrevNextPages
+                startPage={page + 1}
+                endPage={totalPage}
+                handleNextClick={() => eventsUser && nextPage(eventsUser)}
+                handlePrevClick={prevPage}
+              />
+            ) : null}
           </div>
-        )}
+        </div>
+      )}
     </>
   );
 };

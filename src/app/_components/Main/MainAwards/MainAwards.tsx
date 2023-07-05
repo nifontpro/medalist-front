@@ -121,7 +121,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
                   <P size='m' className={styles.countAwardsTitle}>
                     {colAwardsActivRoot &&
                       colAwardsActivRoot.data &&
-                      colAwardsActivRoot?.data[0].deptName}
+                      colAwardsActivRoot?.data[0]?.deptName}
                   </P>
                 )}
               </div>
