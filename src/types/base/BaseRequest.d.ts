@@ -1,4 +1,4 @@
-import { BaseOrder } from '@/domain/model/base/sort/BaseOrder';
+import { BaseOrder } from '@/types/base/sort/BaseOrder';
 
 export interface BaseRequest {
   page?: number;

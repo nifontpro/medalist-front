@@ -1,5 +1,5 @@
 
-import { GalleryItem } from '@/domain/model/gallery/item';
+import { GalleryItem } from '@/types/gallery/item';
 import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, SetStateAction } from 'react';
 
 export type ChoiceItemImgProps = DetailedHTMLProps<

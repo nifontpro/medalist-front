@@ -1,17 +1,17 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { BaseImage } from '@/types/base/image/baseImage';
 import { CreateAwardRequest } from './request/CreateAwardRequest';
 import { UpdateAwardRequest } from './request/UpdateAwardRequest';
-import { AwardDetails } from '@/domain/model/award/AwardDetails';
-import { Activity } from '@/domain/model/award/Activity';
+import { AwardDetails } from '@/types/award/AwardDetails';
+import { Activity } from '@/types/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
-import { Award, AwardState } from '@/domain/model/award/Award';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import { AwardCount } from '@/domain/model/award/AwardCount';
-import { AwardStateCount } from '@/domain/model/award/AwardStateCount';
-import { WWAwardCount } from '@/domain/model/award/WWAwardCount';
+import { Award, AwardState } from '@/types/award/Award';
+import { BaseRequest } from '@/types/base/BaseRequest';
+import { AwardCount } from '@/types/award/AwardCount';
+import { AwardStateCount } from '@/types/award/AwardStateCount';
+import { WWAwardCount } from '@/types/award/WWAwardCount';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 

@@ -7,7 +7,7 @@ import {
   setSelectedTreeId,
 } from '@/store/features/sidebar/sidebarTree.slice';
 import { usePathname, useRouter } from 'next/navigation';
-import { User } from '@/domain/model/user/user';
+import { User } from '@/types/user/user';
 
 export const useUserSelection = () => {
   const { push } = useRouter();

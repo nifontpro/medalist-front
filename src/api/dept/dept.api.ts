@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
-import { Dept } from '@/domain/model/dept/dept';
-import { DeptDetails } from '@/domain/model/dept/deptDetails';
+import { Dept } from '@/types/dept/dept';
+import { DeptDetails } from '@/types/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { BaseImage } from '@/types/base/image/baseImage';
 import { UpdateDeptRequest } from './request/updateDeptRequest';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { BaseRequest } from '@/types/base/BaseRequest';
 
 export const deptUrl = (string: string = '') => `/client/dept${string}`;
 

@@ -1,15 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { User } from '@/domain/model/user/user';
-import { UserDetails } from '@/domain/model/user/userDetails';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { User } from '@/types/user/user';
+import { UserDetails } from '@/types/user/userDetails';
 import { CreateOwnerRequest } from './request/CreateOwnerRequest';
 import { CreateUserRequest } from './request/CreateUserRequest';
 import { UpdateUserRequest } from './request/UpdateUserRequest';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import { GenderCount } from '@/domain/model/user/genderCount';
-import { UserSettings, UserSettingsRequest } from '@/domain/model/user/userSettings';
+import { BaseImage } from '@/types/base/image/baseImage';
+import { BaseRequest } from '@/types/base/BaseRequest';
+import { GenderCount } from '@/types/user/genderCount';
+import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 

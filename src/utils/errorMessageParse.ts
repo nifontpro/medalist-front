@@ -1,4 +1,4 @@
-import { ResponseError } from '@/domain/model/base/BaseResponse';
+import { ResponseError } from '@/types/base/BaseResponse';
 import { toast } from 'react-toastify';
 
 export const errorMessageParse = (errors: ResponseError[] | undefined) => {

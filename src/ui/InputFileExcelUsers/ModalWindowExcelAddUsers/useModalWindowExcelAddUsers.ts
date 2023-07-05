@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 import { DataSheets } from '../inputExls.types';
-import { DeptDetails } from '@/domain/model/dept/deptDetails';
+import { DeptDetails } from '@/types/dept/deptDetails';
 import { userApi } from '@/api/user/user.api';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useAppSelector } from '@/store/hooks/hooks';

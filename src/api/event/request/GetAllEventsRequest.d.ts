@@ -1,4 +1,4 @@
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { BaseRequest } from '@/types/base/BaseRequest';
 
 export interface GetAllEventsRequest {
   authId: number;

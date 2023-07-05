@@ -1,4 +1,4 @@
-import { RoleUser, User } from '@/domain/model/user/user';
+import { RoleUser, User } from '@/types/user/user';
 import { FC, PropsWithChildren } from 'react';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../storage/store';

@@ -1,5 +1,5 @@
-import { User } from '@/domain/model/user/user';
-import { Award } from '@/domain/model/award/Award';
+import { User } from '@/types/user/user';
+import { Award } from '@/types/award/Award';
 
 export interface Activity {
   id: number;

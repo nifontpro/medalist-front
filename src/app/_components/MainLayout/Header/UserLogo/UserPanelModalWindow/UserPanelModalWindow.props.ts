@@ -1,5 +1,5 @@
 
-import { User } from '@/domain/model/user/user'
+import { User } from '@/types/user/user'
 import { MotionProps } from 'framer-motion'
 import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, ReactNode, RefAttributes, SetStateAction } from "react"
 

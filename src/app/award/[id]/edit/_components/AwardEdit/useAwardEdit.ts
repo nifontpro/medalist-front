@@ -6,11 +6,11 @@ import { toastError } from '@/utils/toast-error';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseImage } from '@/types/base/image/baseImage';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import { awardApi } from '@/api/award/award.api';
-import { GalleryItem } from '@/domain/model/gallery/item';
+import { GalleryItem } from '@/types/gallery/item';
 
 export const useAwardEdit = (
   setValue: UseFormSetValue<UpdateAwardRequest>,

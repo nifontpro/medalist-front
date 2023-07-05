@@ -1,4 +1,4 @@
-import { AwardState } from '@/domain/model/award/Award';
+import { AwardState } from '@/types/award/Award';
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,

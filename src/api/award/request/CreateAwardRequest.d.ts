@@ -1,4 +1,4 @@
-import { AwardType } from '@/domain/model/award/Award';
+import { AwardType } from '@/types/award/Award';
 
 export interface BaseAwardRequest {
   authId: number;

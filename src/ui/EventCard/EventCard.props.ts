@@ -1,4 +1,4 @@
-import { BaseEvent, ShortEvent } from '@/domain/model/event/BaseEvent';
+import { BaseEvent, ShortEvent } from '@/types/event/BaseEvent';
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type EventCardProps = DetailedHTMLProps<

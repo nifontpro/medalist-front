@@ -11,7 +11,7 @@ import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 import { awardApi } from '@/api/award/award.api';
 import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
 import { RootState } from '@/store/storage/store';
-import { GalleryItem } from '@/domain/model/gallery/item';
+import { GalleryItem } from '@/types/gallery/item';
 
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,

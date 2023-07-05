@@ -1,5 +1,5 @@
-import { ActionType } from '@/domain/model/award/Activity';
-import { User } from '@/domain/model/user/user';
+import { ActionType } from '@/types/award/Activity';
+import { User } from '@/types/user/user';
 import { MotionProps } from 'framer-motion';
 import {
   ButtonHTMLAttributes,

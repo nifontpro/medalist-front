@@ -59,8 +59,8 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
               [styles.index0]: onBoarding == 2,
             })}
           />
-          <Events className={styles.events} />
         </div>
+        <Events className={styles.events} />
         <ButtonScrollUp />
         {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
             Сбросить Onboarding

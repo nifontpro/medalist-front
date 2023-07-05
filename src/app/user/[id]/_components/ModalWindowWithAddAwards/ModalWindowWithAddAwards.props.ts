@@ -1,5 +1,5 @@
-import { ActionType } from '@/domain/model/award/Activity'
-import { Award } from '@/domain/model/award/Award'
+import { ActionType } from '@/types/award/Activity'
+import { Award } from '@/types/award/Award'
 import { MotionProps } from 'framer-motion'
 import { ButtonHTMLAttributes, DetailedHTMLProps, Dispatch, ReactNode, RefAttributes, SetStateAction } from "react"
 

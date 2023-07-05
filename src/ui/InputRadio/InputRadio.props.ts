@@ -1,4 +1,4 @@
-import { Gender } from '@/domain/model/user/user';
+import { Gender } from '@/types/user/user';
 import {
   DetailedHTMLProps,
   Dispatch,

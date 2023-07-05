@@ -1,4 +1,4 @@
-import { Award } from '@/domain/model/award/Award';
+import { Award } from '@/types/award/Award';
 
 export interface AwardDetails {
   award: Award;

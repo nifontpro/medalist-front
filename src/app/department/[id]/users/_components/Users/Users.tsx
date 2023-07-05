@@ -28,6 +28,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     setState,
     nextPage,
     prevPage,
+    searchHandleChange,
   } = useFetchParams();
 
   const { usersOnDepartment, isLoadingUsersOnDepartment } = useUserAdmin(id, {
@@ -40,11 +41,6 @@ const Users = ({ id, className, ...props }: UsersProps) => {
   const totalPage = usersOnDepartment?.pageInfo?.totalPages;
 
   const { push } = useRouter();
-
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setSearchValue(event.currentTarget.value);
-    setPage(0);
-  };
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success) return <NoAccess button={false} />;
@@ -81,7 +77,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           </div>
 
           <Search
-            onChange={handleChange}
+            onChange={searchHandleChange}
             color='white'
             search={true}
             button={false}

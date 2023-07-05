@@ -1,4 +1,4 @@
-import { RoleUser, User } from '@/domain/model/user/user'
+import { RoleUser, User } from '@/types/user/user'
 
 export const checkRole = (typeOfUser: User | undefined, minRole: RoleUser) => {
     let access: boolean = false

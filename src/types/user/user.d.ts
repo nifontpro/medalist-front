@@ -1,7 +1,7 @@
 import { Dept } from '@/app/domain/model/dept/dept';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
-import { Award } from '@/domain/model/award/Award';
-import { Activity } from '@/domain/model/award/Activity';
+import { BaseImage } from '@/types/base/image/baseImage';
+import { Award } from '@/types/award/Award';
+import { Activity } from '@/types/award/Activity';
 
 export interface User {
   id?: number;

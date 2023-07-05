@@ -13,7 +13,7 @@ import SingleUserTitle from './SingleUserTitle/SingleUserTitle';
 import SingleUserAwards from './SingleUserAwards/SingleUserAwards';
 import SingleUserNominee from './SingleUserNominee/SingleUserNominee';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { Award } from '@/domain/model/award/Award';
+import { Award } from '@/types/award/Award';
 import ModalWindowWithAddAwards from '../ModalWindowWithAddAwards/ModalWindowWithAddAwards';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import Spinner from '@/ui/Spinner/Spinner';

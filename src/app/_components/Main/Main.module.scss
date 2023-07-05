@@ -7,7 +7,7 @@
   grid-template-areas:
     'awards nominee'
     'users nominee'
-    'events events';
+    'events nominee';
   @apply animate-fade;
 
   @media screen and (max-width: 1700px) {

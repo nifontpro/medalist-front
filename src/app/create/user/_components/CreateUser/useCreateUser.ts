@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
-import { Gender } from '@/domain/model/user/user';
+import { Gender } from '@/types/user/user';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';

@@ -6,8 +6,8 @@ import {
   RefAttributes,
   SetStateAction,
 } from 'react';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { UserMsg } from '@/domain/model/msg/UserMsg';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { UserMsg } from '@/types/msg/UserMsg';
 
 export type NotificationModalWindowProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLDivElement>,

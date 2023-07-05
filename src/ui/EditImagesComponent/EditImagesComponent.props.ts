@@ -1,4 +1,4 @@
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseImage } from '@/types/base/image/baseImage';
 import {
   ChangeEvent,
   DetailedHTMLProps,

@@ -1,4 +1,4 @@
-import { User } from '@/domain/model/user/user';
+import { User } from '@/types/user/user';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useMemo } from 'react';

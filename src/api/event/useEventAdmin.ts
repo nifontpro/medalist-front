@@ -1,5 +1,5 @@
 import { userApi } from '@/api/user/user.api';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { BaseRequest } from '@/types/base/BaseRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';

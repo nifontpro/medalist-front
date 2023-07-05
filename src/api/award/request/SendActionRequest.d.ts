@@ -1,4 +1,4 @@
-import { ActionType } from '@/domain/model/award/Activity';
+import { ActionType } from '@/types/award/Activity';
 
 export interface SendActionRequest {
   authId: number;

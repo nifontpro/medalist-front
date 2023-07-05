@@ -1,4 +1,4 @@
-import { User } from '@/domain/model/user/user'
+import { User } from '@/types/user/user'
 import { DetailedHTMLProps, HTMLAttributes } from "react"
 
 export type CountUsersPreviewProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {

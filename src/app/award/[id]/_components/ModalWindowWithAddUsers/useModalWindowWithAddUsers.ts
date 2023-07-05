@@ -1,5 +1,5 @@
 import { awardApi } from '@/api/award/award.api';
-import { ActionType } from '@/domain/model/award/Activity';
+import { ActionType } from '@/types/award/Activity';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';

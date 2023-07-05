@@ -1,4 +1,4 @@
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
+import { BaseResponse } from '@/types/base/BaseResponse';
 import { useState, useMemo } from 'react';
 
 export const useFetchParams = () => {
@@ -18,6 +18,11 @@ export const useFetchParams = () => {
       }
     };
 
+    const searchHandleChange = (event: React.FormEvent<HTMLInputElement>) => {
+      setSearchValue(event.currentTarget.value);
+      setPage(0);
+    };
+
     return {
       nextPage,
       prevPage,
@@ -27,6 +32,7 @@ export const useFetchParams = () => {
       setSearchValue,
       state,
       setState,
+      searchHandleChange,
     };
   }, [page, setPage, searchValue, setSearchValue, state, setState]);
 };

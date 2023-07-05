@@ -12,7 +12,7 @@ import Field from '@/ui/Field/Field';
 import InputRadio from '@/ui/InputRadio/InputRadio';
 import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
-import { Gender } from '@/domain/model/user/user';
+import { Gender } from '@/types/user/user';
 import { withHookFormMask } from 'use-mask-input';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 

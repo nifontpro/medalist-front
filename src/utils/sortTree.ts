@@ -1,4 +1,4 @@
-import { Dept } from '@/domain/model/dept/dept';
+import { Dept } from '@/types/dept/dept';
 
 export const sortTree = (tree: Dept[], child: number) => {
   if (tree) {

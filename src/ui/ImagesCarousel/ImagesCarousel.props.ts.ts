@@ -1,5 +1,5 @@
 
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseImage } from '@/types/base/image/baseImage';
 import { DetailedHTMLProps, Dispatch, HTMLAttributes, SetStateAction } from 'react';
 
 export type ImagesCarouselProps = DetailedHTMLProps<

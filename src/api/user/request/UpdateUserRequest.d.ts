@@ -1,5 +1,5 @@
 import {CreateOwnerRequest} from "@/api/user/request/CreateOwnerRequest";
- import {RoleUser} from "@/domain/model/user/user";
+ import {RoleUser} from "@/types/user/user";
 
  export interface UpdateUserRequest extends CreateOwnerRequest {
      authId: number

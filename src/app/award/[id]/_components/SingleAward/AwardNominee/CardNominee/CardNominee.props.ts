@@ -1,4 +1,4 @@
-import { Activity } from '@/domain/model/award/Activity';
+import { Activity } from '@/types/award/Activity';
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
 export type CardNomineeProps = DetailedHTMLProps<

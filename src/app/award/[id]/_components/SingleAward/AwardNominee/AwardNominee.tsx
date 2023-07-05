@@ -10,7 +10,7 @@ import Htag from '@/ui/Htag/Htag';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import P from '@/ui/P/P';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
-import { User } from '@/domain/model/user/user';
+import { User } from '@/types/user/user';
 import AuthComponent from '@/store/providers/AuthComponent';
 import CardNominee from './CardNominee/CardNominee';
 import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';

@@ -8,7 +8,7 @@ import P from '../P/P';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import cn from 'classnames';
-import { BaseEvent } from '@/domain/model/event/BaseEvent';
+import { BaseEvent } from '@/types/event/BaseEvent';
 import ButtonEdit from '../ButtonEdit/ButtonEdit';
 import AuthComponent from '@/store/providers/AuthComponent';
 import { useEventAdmin } from '@/api/event/useEventAdmin';

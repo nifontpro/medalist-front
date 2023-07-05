@@ -1,5 +1,5 @@
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { AwardState } from '@/domain/model/award/Award';
+import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useMemo, useState } from 'react';
 
@@ -27,7 +27,6 @@ export const useAwards = (id: string) => {
     active
   );
 
-  // console.log(awardsOnDepartment)
 
   return useMemo(() => {
     const totalPage = awardsOnDepartment?.pageInfo?.totalPages;

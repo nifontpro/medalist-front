@@ -1,7 +1,7 @@
 import { awardApi } from '@/api/award/award.api';
-import { ActionType } from '@/domain/model/award/Activity';
-import { AwardState } from '@/domain/model/award/Award';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { ActionType } from '@/types/award/Activity';
+import { AwardState } from '@/types/award/Award';
+import { BaseRequest } from '@/types/base/BaseRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';

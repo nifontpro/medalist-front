@@ -1,5 +1,5 @@
-import { Dept } from '@/domain/model/dept/dept';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { Dept } from '@/types/dept/dept';
+import { BaseImage } from '@/types/base/image/baseImage';
 
 export interface Award {
   id: number;

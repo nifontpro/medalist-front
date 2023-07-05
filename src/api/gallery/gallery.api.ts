@@ -1,9 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithReauth } from '@/api/base/base.api';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
-import { Folder } from '@/domain/model/gallery/folder';
-import { GalleryItem } from '@/domain/model/gallery/item';
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
+import { BaseRequest } from '@/types/base/BaseRequest';
+import { Folder } from '@/types/gallery/folder';
+import { GalleryItem } from '@/types/gallery/item';
+import { BaseResponse } from '@/types/base/BaseResponse';
 
 export const folderUrl = (string: string = '') => `/gallery/folder${string}`;
 export const itemUrl = (string: string = '') => `/gallery/item${string}`;

@@ -4,13 +4,13 @@ import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
-import { Gender } from '@/domain/model/user/user';
+import { Gender } from '@/types/user/user';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseImage } from '@/types/base/image/baseImage';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,

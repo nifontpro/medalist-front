@@ -1,5 +1,5 @@
 import { userApi } from '@/api/user/user.api';
-import { BaseRequest } from '@/domain/model/base/BaseRequest';
+import { BaseRequest } from '@/types/base/BaseRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -7,7 +7,7 @@ import { toastError } from '@/utils/toast-error';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { messageApi } from './message.api';
-import { UserMsg } from '@/domain/model/msg/UserMsg';
+import { UserMsg } from '@/types/msg/UserMsg';
 
 export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
   const { typeOfUser } = useAppSelector(

@@ -1,6 +1,6 @@
 import { awardApi } from '@/api/award/award.api';
 import { galleryApi } from '@/api/gallery/gallery.api';
-import { GalleryItem } from '@/domain/model/gallery/item';
+import { GalleryItem } from '@/types/gallery/item';
 import { setVisible } from '@/store/features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';

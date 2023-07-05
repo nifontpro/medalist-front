@@ -1,4 +1,4 @@
-import { User } from '@/domain/model/user/user';
+import { User } from '@/types/user/user';
 import styles from './UsersPreviewCreateAward.module.scss';
 import { UsersPreviewCreateAwardProps } from './UsersPreviewCreateAward.props';
 import cn from 'classnames';

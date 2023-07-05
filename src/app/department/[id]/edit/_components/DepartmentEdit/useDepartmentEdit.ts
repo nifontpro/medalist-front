@@ -8,7 +8,7 @@ import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
-import { BaseImage } from '@/domain/model/base/image/baseImage';
+import { BaseImage } from '@/types/base/image/baseImage';
 
 export const useDepartmentEdit = (
   setValue: UseFormSetValue<UpdateDeptRequest>,

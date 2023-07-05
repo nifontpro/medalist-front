@@ -1,5 +1,5 @@
-import { BaseResponse } from '@/domain/model/base/BaseResponse';
-import { UserMsg } from '@/domain/model/msg/UserMsg';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { UserMsg } from '@/types/msg/UserMsg';
 import { MouseEventHandler } from 'react';
 
 // import { messageApi } from 'message/data/message.api';
