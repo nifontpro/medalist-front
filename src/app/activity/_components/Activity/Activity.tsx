@@ -3,8 +3,8 @@
 import styles from './Activity.module.scss';
 import { ActivityProps } from './Activity.props';
 import { useActivity } from './useActivity';
-import SingleActivity from './SingleActivity/SingleActivity';
-import FilterActivity from './FilterActivity/FilterActivity';
+// import SingleActivity from './SingleActivity/SingleActivity';
+// import FilterActivity from './FilterActivity/FilterActivity';
 import uniqid from 'uniqid';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
