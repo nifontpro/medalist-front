@@ -5,8 +5,11 @@ import dynamic from 'next/dynamic';
 import Spinner from '@/ui/Spinner/Spinner';
 import { requestAuthCode } from './requestAuthCode';
 import { generateState } from './generateState';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
+  const searchParams = useSearchParams();
   // https://github.com/crouchcd/pkce-challenge
   const pkceChallenge = require('pkce-challenge').default;
 
@@ -17,6 +20,7 @@ const LoginPage = () => {
     localStorage.setItem('codeVerifier', challenge.code_verifier);
     localStorage.setItem('codeChallenge', challenge.code_challenge);
     localStorage.setItem('state', tmpState);
+    localStorage.setItem('redirect', searchParams.get('redirect')!.toString());
 
     let url = requestAuthCode(tmpState, challenge.code_challenge);
     window.open(url, '_self');

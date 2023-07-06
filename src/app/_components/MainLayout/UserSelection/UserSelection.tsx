@@ -76,8 +76,6 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     }
   });
 
-  console.log(rolesUser);
-
   return (
     <>
       {(isAuth && typeOfUser != undefined && !isOpen) ||

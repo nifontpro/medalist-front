@@ -27,11 +27,11 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
         <UserSelection />
       </>
     );
-  } else if (pathName.slice(0,6) === '/login') {
+  } else if (pathName.slice(0, 6) === '/login') {
     return <>{children}</>;
   } else {
     deleteCookie('exp'); // Для middleware
-    return redirect('/login')
+    return redirect('/login');
   }
 };
 

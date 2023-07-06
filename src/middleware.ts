@@ -52,7 +52,7 @@ export async function middleware(req: NextRequest, res: NextResponse) {
     pathname.startsWith('/create')
   ) {
     if (!exp || Number(exp) * 1000 < currentDate)
-      return NextResponse.redirect(`${process.env.APP_URL}/login`);
+      return NextResponse.redirect(`${process.env.APP_URL}/login?redirect=${pathname}`);
     //   return NextResponse.redirect(`${url}`);
   }
   if (pathname == '/login' && exp) {

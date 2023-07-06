@@ -56,7 +56,7 @@ const Statistic = ({
           className={styles.usersAwards}
         />
 
-        <StatisticActivity departId={departId} className={styles.activity} />
+        {/* <StatisticActivity departId={departId} className={styles.activity} /> */}
       </div>
     </div>
   );
