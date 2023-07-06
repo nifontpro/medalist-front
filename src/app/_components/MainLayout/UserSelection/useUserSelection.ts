@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
-import { setTypeOfUser_IsOpen, setIsOpen } from '@/store/features/userSelection/userSelection.slice';
+import {
+  setTypeOfUser_IsOpen,
+  setIsOpen,
+} from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
   setSelectedTreeId,
@@ -16,6 +19,9 @@ export const useUserSelection = () => {
 
   const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
+  const { expandedIds, selectedIds } = useAppSelector(
+    (state) => state.sidebarTree
+  );
 
   const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
     undefined,
@@ -29,7 +35,7 @@ export const useUserSelection = () => {
       dispatch(setTypeOfUser_IsOpen(role));
       dispatch(setArrayIds(['0']));
       dispatch(setSelectedTreeId('0'));
-      push('/')
+      push('/');
     };
 
     return {
@@ -42,7 +48,9 @@ export const useUserSelection = () => {
       isLoading,
       dispatch,
       push,
-      setIsOpen
+      setIsOpen,
+      expandedIds,
+      selectedIds,
     };
   }, [
     isAuth,
@@ -53,5 +61,7 @@ export const useUserSelection = () => {
     isLoading,
     dispatch,
     push,
+    expandedIds,
+    selectedIds,
   ]);
 };

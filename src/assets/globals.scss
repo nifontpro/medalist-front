@@ -46,6 +46,7 @@ body[data-theme='dark'] {
   --yellow-dark: #d3c72a;
   --orange: #edc34c;
   --orange-dark: #d9ae36;
+  --gray-dark-hover-34: #343434;
 
   --font-family: 'Manrope', sans-serif;
   --primary-color: #22eaef;
@@ -53,7 +54,7 @@ body[data-theme='dark'] {
 
 // Стилизацаия sidebar слева
 .MuiTreeItem-content:hover {
-  background: var(--gray96);
+  background: #343434 !important;
   @apply duration-200;
 }
 
@@ -257,7 +258,7 @@ body[data-theme='dark'] {
     }
 
     .form-control__control {
-      @apply  transition-all;
+      @apply transition-all;
       border-color: #ced4da !important;
       box-shadow: none !important;
     }

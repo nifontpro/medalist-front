@@ -10,6 +10,15 @@ import { getOwnerCreateUrl } from '@/config/api.config';
 import ExitIcon from '@/icons/close.svg';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { useEffect } from 'react';
+import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
+import {
+  setArrayIds,
+  setSelectedTreeId,
+} from '@/store/features/sidebar/sidebarTree.slice';
+import P from '@/ui/P/P';
+import CreateOwnerIcon from '@/icons/ownerLogo.svg';
+import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const {
@@ -23,6 +32,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     push,
     dispatch,
     setIsOpen,
+    expandedIds,
+    selectedIds,
   } = useUserSelection();
 
   const { windowSize } = useWindowSize();
@@ -49,6 +60,23 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
       dispatch(setIsOpen(false));
     }
   };
+
+  useEffect(() => {
+    if (rolesUser && rolesUser.data && rolesUser.data.length > 0) {
+      if (
+        typeOfUser &&
+        rolesUser.data.filter((role) => role.id == typeOfUser.id).length > 0
+      ) {
+        console.log('Рады вашему возвращению');
+        dispatch(setArrayIds(expandedIds));
+        dispatch(setSelectedTreeId(selectedIds));
+      } else {
+        dispatch(setTypeOfUserUndefined());
+      }
+    }
+  });
+
+  console.log(rolesUser);
 
   return (
     <>
@@ -79,9 +107,9 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   className={styles.exit}
                 />
                 <div className={styles.moduleContent}>
-                  <Htag tag='h2' className={styles.header}>
+                  {/* <Htag tag='h2' className={styles.header}>
                     Выберите профиль
-                  </Htag>
+                  </Htag> */}
                   {rolesUser ? (
                     rolesUser.data!.map((role) => {
                       return (
@@ -90,21 +118,30 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                           className={styles.role}
                           onClick={() => handleChangeRole(role)}
                         >
-                          id: {role.id} <br />
-                          {role.dept.name}
+                          <ImageDefault
+                            key={role.id}
+                            src={role.mainImg ? role.mainImg : undefined}
+                            width={40}
+                            height={40}
+                            alt='preview image'
+                            className='rounded-[10px] mr-[15px]'
+                          />
+                          {role.firstname}
                         </div>
                       );
                     })
                   ) : (
                     <div className='text-center'>Нет аккаунтов</div>
                   )}
-                  <Htag
-                    tag='h3'
-                    className={styles.create}
+                  <div
+                    className={styles.createWrapper}
                     onClick={() => push(getOwnerCreateUrl())}
                   >
-                    Зарегестрироваться как владелец
-                  </Htag>
+                    <CreateOwnerIcon className={styles.owner} />
+                    <P color='black' fontstyle='thin' className={styles.create}>
+                      Зарегестрироваться как владелец
+                    </P>
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>

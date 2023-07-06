@@ -50,20 +50,17 @@ export const useUserPanelModalWindow = (
     const handleLogoutClick = async () => {
       const it = localStorage.getItem('it');
       if (it != undefined && !isExpired) {
-        logoutWin(it);
-        dispatch(setSelectedTreeId('0'));
-        dispatch(setArrayIds(['0']));
+        await logoutWin(it);
+        // dispatch(setSelectedTreeId('0'));
+        // dispatch(setArrayIds(['0']));
         dispatch(authActions.setIsAuth(false));
-        dispatch(setTypeOfUserUndefined());
+        // dispatch(setTypeOfUserUndefined());
         setVisibleModal(false);
         deleteCookie('exp'); // Для middleware
       }
       await dispatch(authActions.setNoAccess());
       setVisibleModal(false);
-      deleteCookie('exp'); // Для middleware
-
-      console.log('не понятно что это');
-      // await push("/login")
+      await deleteCookie('exp'); // Для middleware
     };
 
     return {

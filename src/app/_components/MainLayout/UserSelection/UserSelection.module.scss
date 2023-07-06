@@ -86,26 +86,53 @@
         margin-bottom: 30px;
         text-align: center;
       }
-
-      .create {
-        text-align: center;
-        margin-top: 20px;
-        color: var(--gray);
+      .createWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
-        @apply duration-200;
+        margin-top: 20px;
+        padding-top: 30px;
+        padding-bottom: 20px;
+        border-top: 1px solid var(--gray);
 
-        &:hover {
+        .owner {
+          width: 24px;
+          margin-right: 15px;
+        }
+
+        .create {
+          text-align: center;
+          color: var(--gray);
+          @apply duration-200;
+        }
+
+        svg {
+          path {
+            @apply duration-200;
+          }
+        }
+
+        &:hover .create {
           color: var(--black);
+        }
+
+        &:hover svg {
+          path {
+            stroke: var(--black);
+          }
         }
       }
 
       .role {
-        text-align: center;
-        padding: 5px 15px;
+        padding: 5px 0px;
         margin-bottom: 5px;
         border-radius: 6px;
         cursor: pointer;
         @apply duration-200;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
         &:hover {
           background: var(--gray);
@@ -113,6 +140,10 @@
 
         &:last-child {
           margin-bottom: 0px;
+        }
+
+        @media screen and (max-width: 768px) {
+          padding-left: 10px;
         }
       }
     }

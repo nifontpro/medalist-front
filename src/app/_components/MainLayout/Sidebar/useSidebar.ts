@@ -13,7 +13,12 @@ import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 
 export const useSidebar = () => {
-  const pathName = usePathname();
+  const dispatch = useAppDispatch();
+
+  const [treeData, setTreeData] = useState<NewTree[]>([]);
+
+  const [expandedIdsState, setExpandedIdsState] = useState<string[]>([]);
+  const [selectedIdsState, setSelectedIdsState] = useState<string>('');
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -33,10 +38,6 @@ export const useSidebar = () => {
     }
   );
 
-  const [treeData, setTreeData] = useState<NewTree[]>([]);
-
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
     if (subTree && subTree.data) {
       setTreeData(
@@ -45,20 +46,16 @@ export const useSidebar = () => {
           subTree.data[findMinParentIdOnTree(subTree.data)].parentId
         )
       );
-    }
 
-    let localStorageTreeIds = localStorage.getItem('expandedIds');
-    let localStorageSelectedId = localStorage.getItem('selectedIds');
-    if (localStorageSelectedId) {
-      dispatch(setSelectedTreeId(localStorageSelectedId));
+      if (expandedIds) {
+        setExpandedIdsState(expandedIds);
+      }
+
+      if (selectedIds) {
+        setSelectedIdsState(selectedIds);
+      }
     }
-    if (pathName == '/') {
-      dispatch(setArrayIds(['0']));
-    } else {
-      if (localStorageTreeIds)
-        dispatch(setArrayIds(JSON.parse(localStorageTreeIds)));
-    }
-  }, [pathName, dispatch, subTree]);
+  }, [expandedIds, selectedIds, dispatch, subTree]);
 
   return useMemo(() => {
     const toggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
@@ -70,6 +67,15 @@ export const useSidebar = () => {
       selectedIds,
       toggle,
       treeData,
+      expandedIdsState,
+      selectedIdsState,
     };
-  }, [expandedIds, selectedIds, treeData, dispatch]);
+  }, [
+    expandedIds,
+    selectedIds,
+    treeData,
+    dispatch,
+    expandedIdsState,
+    selectedIdsState,
+  ]);
 };

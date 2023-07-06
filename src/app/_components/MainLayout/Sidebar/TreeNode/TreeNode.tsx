@@ -8,6 +8,13 @@ import CustomTreeItem from '../CustomTreeNode/CustomTreeNode';
 import React from 'react';
 
 const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
+  const st = {
+    '&:hover': {
+      backgroundColor: 'red',
+      color: 'black',
+    },
+  };
+
   return (
     <div className={styles.container}>
       <CustomTreeItem
@@ -17,6 +24,9 @@ const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
             <Typography
               variant='body2'
               sx={{ fontWeight: 'inherit', flexGrow: 1 }}
+              style={{
+                padding: '10px 0px',
+              }}
             >
               {node.name}
             </Typography>

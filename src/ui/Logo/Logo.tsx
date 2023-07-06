@@ -10,7 +10,7 @@ const Logo = ({ className }: LogoProps): JSX.Element => {
     <Link
       href='/'
       className={className}
-      onClick={() => dispatch(setSelectedTreeId('0'))}
+      // onClick={() => dispatch(setSelectedTreeId('0'))}
     >
       <LogoIcon className='w-[200px]' />
     </Link>

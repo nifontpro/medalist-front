@@ -14,7 +14,14 @@ import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
-  const { expandedIds, selectedIds, toggle, treeData } = useSidebar();
+  const {
+    expandedIds,
+    selectedIds,
+    toggle,
+    treeData,
+    expandedIdsState,
+    selectedIdsState,
+  } = useSidebar();
 
   const { close } = useHeader();
 
@@ -22,7 +29,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     <div className={cn(styles.wrapper, className)} {...props}>
       <ExitIcon onClick={close} className={styles.exit} />
       <Logo className={styles.logo} />
-      <ChangeRole className={styles.role}/>
+      <ChangeRole className={styles.role} />
       <TreeView
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}

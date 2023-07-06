@@ -24,7 +24,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
 ) {
   const { deleteDepartmentAsync } = useDepartmentAdmin();
 
-  const { close } = useHeader()
+  const { close } = useHeader();
 
   const dispatch = useAppDispatch();
 
@@ -62,7 +62,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
     handleSelection(event);
     dispatch(setSelectedTreeId(nodeId));
     push(getDepartmentUrl(`${nodeId}`));
-    close()
+    close();
   };
 
   return (
@@ -71,13 +71,13 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
       className={clsx(
         className,
         classes.root,
+        '@apply relative rounded-[16px]',
         {
           [classes.expanded]: expanded,
           [classes.selected]: selected,
           [classes.focused]: focused,
           [classes.disabled]: disabled,
-        },
-        '@apply relative rounded-[12px] py-[10px]'
+        }
       )}
       onMouseDown={handleMouseDown}
       ref={ref as React.Ref<HTMLDivElement>}
@@ -92,7 +92,7 @@ const CustomTreeNode = forwardRef(function CustomTreeNode(
       <Typography
         onClick={handleSelectionClick}
         component='div'
-        className={clsx(classes.label, '@apply text-white')}
+        className={clsx(classes.label, '@apply text-white hover:text-white')}
       >
         {label}
       </Typography>
