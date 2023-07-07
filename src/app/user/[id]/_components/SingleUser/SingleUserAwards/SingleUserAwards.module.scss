@@ -21,6 +21,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @media screen and (max-width: 1280px) {
       grid-template-columns: 1fr 1fr 1fr;
@@ -30,7 +32,10 @@
       grid-template-columns: 1fr 1fr;
     }
     @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
       gap: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 }

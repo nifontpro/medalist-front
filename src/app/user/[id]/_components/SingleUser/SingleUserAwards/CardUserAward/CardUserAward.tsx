@@ -45,12 +45,14 @@ const CardUserAward = ({
           // priority={true}
         />
       </div>
-      <P size='l' color='white'>
-        {award.award?.name}
-      </P>
-      <P size='s' fontstyle='thin' color='gray96' className={styles.date}>
-        Выдана {convertDate}
-      </P>
+      <div className={styles.info}>
+        <P size='l' color='white'>
+          {award.award?.name}
+        </P>
+        <P size='s' fontstyle='thin' color='gray96' className={styles.date}>
+          Выдана {convertDate}
+        </P>
+      </div>
     </div>
   );
 };

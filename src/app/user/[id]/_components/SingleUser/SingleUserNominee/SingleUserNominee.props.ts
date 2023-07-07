@@ -7,5 +7,5 @@ export type SingleUserNomineeProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   user: UserDetails | undefined;
-  userActiv: Activity[] | undefined;
+  id: string;
 };
