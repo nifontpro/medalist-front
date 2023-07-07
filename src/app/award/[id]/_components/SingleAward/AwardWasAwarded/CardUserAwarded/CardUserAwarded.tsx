@@ -39,20 +39,22 @@ const CardUserAwarded = ({
           {user && (
             <ImageDefault
               src={user.user?.mainImg}
-              width={175}
-              height={175}
+              width={64}
+              height={64}
               alt='award img'
               objectFit='cover'
               className='rounded-[27px]'
             />
           )}
         </div>
-        <P size='l'>
-          {user.user?.lastname} {user.user?.firstname}
-        </P>
-        <P size='s' fontstyle='thin' color='gray' className={styles.post}>
-          {user.user?.post}
-        </P>
+        <div>
+          <P size='l' className={styles.fio}>
+            {user.user?.lastname} {user.user?.firstname}
+          </P>
+          <P size='s' fontstyle='thin' color='gray' className={styles.post}>
+            {user.user?.post}
+          </P>
+        </div>
       </div>
 
       <div className={styles.date}>

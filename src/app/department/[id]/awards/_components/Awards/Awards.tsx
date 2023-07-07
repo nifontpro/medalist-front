@@ -63,7 +63,6 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
               setPage={setPage}
               active={active}
               setActive={setActive}
-              count={awardsOnDepartment.data.length}
               onClickActive={undefined}
               className={styles.all}
             >
@@ -73,8 +72,6 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
               setPage={setPage}
               active={active}
               setActive={setActive}
-              count={awardsOnDepartment.data.length}
-              // count={allAwards.length}
               onClickActive={'FINISH'}
               className={styles.award}
             >
@@ -84,8 +81,6 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
               setPage={setPage}
               active={active}
               setActive={setActive}
-              // count={allNominee.length}
-              count={awardsOnDepartment.data.length}
               onClickActive={'NOMINEE'}
               className={styles.nominee}
             >

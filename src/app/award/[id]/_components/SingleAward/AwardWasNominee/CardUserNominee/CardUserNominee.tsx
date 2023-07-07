@@ -14,8 +14,8 @@ const CardUserNominee = ({
       <div className={styles.img}>
         <ImageDefault
           src={user.user?.mainImg}
-          width={60}
-          height={60}
+          width={64}
+          height={64}
           alt='award img'
           objectFit='cover'
           className='rounded-full'

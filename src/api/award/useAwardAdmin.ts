@@ -95,7 +95,7 @@ export const useAwardAdmin = (
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(awardId),
-      baseRequest: undefined,
+      baseRequest: baseRequest ? baseRequest : undefined,
     },
     {
       skip: !typeOfUser,
@@ -161,7 +161,8 @@ export const useAwardAdmin = (
   );
 
   const [deleteAward] = awardApi.useDeleteMutation();
-  const [deleteUserReward, deleteUserRewardInfo] = awardApi.useSendActionMutation();
+  const [deleteUserReward, deleteUserRewardInfo] =
+    awardApi.useSendActionMutation();
 
   return useMemo(() => {
     const deleteAwardAsync = async (awardId: number) => {

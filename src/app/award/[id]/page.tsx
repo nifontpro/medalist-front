@@ -16,6 +16,7 @@ export default function SingleAwardPage({
     isLoadingSingleActivAward,
     isLoadingSingleAward,
   } = useAwardAdmin(params.id);
+
   if (isLoadingSingleActivAward || isLoadingSingleAward) return <Spinner />;
   if (!singleActivAward?.success || !singleAward?.success) return <NoAccess />;
 
@@ -30,6 +31,7 @@ export default function SingleAwardPage({
         <SingleAward
           awardActiv={singleActivAward.data}
           award={singleAward.data}
+          id={params.id}
         />
       </main>
     );

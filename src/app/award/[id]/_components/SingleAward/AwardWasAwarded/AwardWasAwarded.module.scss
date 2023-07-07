@@ -44,19 +44,18 @@
       }
     }
 
-    > .usersAwarded {
-      margin-top: 45px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      height: 500px;
-      overflow-y: scroll;
+    // > .usersAwarded {
+    //   display: grid;
+    //   grid-template-columns: 1fr 1fr;
+    //   gap: 25px;
+    //   // height: 500px;
+    //   // overflow-y: scroll;
 
-      @media screen and (max-width: 768px) {
-        gap: 15px;
-        margin-top: 20px;
-      }
-    }
+    //   @media screen and (max-width: 768px) {
+    //     gap: 15px;
+    //     margin-top: 20px;
+    //   }
+    // }
 
     > .none {
       margin-top: 20px;

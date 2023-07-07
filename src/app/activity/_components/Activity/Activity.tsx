@@ -12,6 +12,10 @@ import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Search from '@/ui/Search/Search';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import SingleActivity from './SingleActivity/SingleActivity';
+import FilterActivity from './FilterActivity/FilterActivity';
 
 const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
   const {
@@ -19,12 +23,18 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
     setState,
     active,
     setActive,
+    searchValue,
     setSearchValue,
     searchHandleChange,
     setPage,
+    page,
+    typeOfUser,
+    nextPage,
+    prevPage,
+    windowSize,
+    totalPage,
+    awardsActivOnDepartment,
   } = useActivity();
-
-  const { windowSize } = useWindowSize();
 
   return (
     <div {...props} className={styles.wrapper}>
@@ -32,29 +42,22 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
         Активность
       </Htag>
 
-      {/* <FilterActivity
+      <FilterActivity
         active={active}
         setActive={setActive}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
         state={state}
         setState={setState}
-        allActivityLength={allActivityLength}
-        awardsLength={awardsLength}
-        nomineeLength={nomineeLength}
-        otherLength={otherLength}
-        startDate={startDate}
-        endDate={endDate}
-        setSizePage={setSizePage}
-        setArr={setArr}
-      /> */}
+        // setStartDate={setStartDate}
+        // setEndDate={setEndDate}
+        // startDate={startDate}
+        // endDate={endDate}
+      />
 
       <div className={styles.header}>
         <TabTitle
           setPage={setPage}
           active={active}
           setActive={setActive}
-          count={1}
           onClickActive={undefined}
           className={styles.all}
         >
@@ -64,7 +67,6 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           setPage={setPage}
           active={active}
           setActive={setActive}
-          count={2}
           onClickActive={'FINISH'}
           className={styles.award}
         >
@@ -74,7 +76,6 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           setPage={setPage}
           active={active}
           setActive={setActive}
-          count={3}
           onClickActive={'NOMINEE'}
           className={styles.nominee}
         >
@@ -84,11 +85,10 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           setPage={setPage}
           active={active}
           setActive={setActive}
-          count={4}
           onClickActive={'FUTURE'}
           className={styles.other}
         >
-          Будущее
+          Скоро
         </TabTitle>
 
         <SortButton
@@ -122,7 +122,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           className={styles.search}
         />
 
-        {/* {filteredValue?.map((item) => {
+        {awardsActivOnDepartment?.data?.map((item) => {
           return (
             <SingleActivity
               activity={item}
@@ -130,19 +130,19 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
               className={styles.activity}
             />
           );
-        })} */}
-
-        {/* <SpinnerSmallBtnPagination
-          isFetching={isFetching}
-          handleNextPage={handleNextPage}
-          content={activity}
-          searchValue={searchValue}
-          startDate={startDate}
-          endDate={endDate}
-          btnSubmitTitle={'Показать еще'}
-          btnEndTitle={'Показана вся активность'}
-        /> */}
+        })}
       </div>
+
+      {totalPage && totalPage > 1 ? (
+        <PrevNextPages
+          startPage={page + 1}
+          endPage={totalPage}
+          handleNextClick={() =>
+            awardsActivOnDepartment && nextPage(awardsActivOnDepartment)
+          }
+          handlePrevClick={prevPage}
+        />
+      ) : null}
       <ButtonScrollUp />
     </div>
   );

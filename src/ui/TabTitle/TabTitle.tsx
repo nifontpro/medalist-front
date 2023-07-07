@@ -7,7 +7,6 @@ import P from '@/ui/P/P';
 const TabTitle = ({
   setActive,
   active,
-  count,
   setPage,
   onClickActive,
   className,

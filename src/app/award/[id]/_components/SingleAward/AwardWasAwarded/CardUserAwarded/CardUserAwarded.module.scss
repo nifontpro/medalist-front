@@ -1,56 +1,57 @@
 .wrapper {
   background: var(--white);
   border-radius: 27px;
-  padding: 55px;
+  padding: 10px 0px;
   min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 130px 30px;
   position: relative;
 
-  @media screen and (max-width: 1500px) {
-    min-width: auto;
-  }
-  @media screen and (max-width: 1280px) {
-    padding: 40px 30px;
-  }
   @media screen and (max-width: 768px) {
-    padding: 40px 10px 20px 10px;
     border-radius: 16px;
+  }
+
+  @media screen and (max-width: 510px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 
   .contentTitle {
     display: flex;
-    flex-direction: column;
     align-items: center;
 
     .img {
-      height: 175px;
-      width: 175px;
-      margin-bottom: 30px;
-
-      @media screen and (max-width: 768px) {
-        height: 75px;
-        width: 75px;
-      }
+      height: 64px;
+      width: 64px;
+      margin-right: 10px;
     }
 
     .post {
       margin-top: 5px;
     }
+
+    .fio {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media screen and (max-width: 768px) {
+        max-width: 200px;
+      }
+      @media screen and (max-width: 510px) {
+        max-width: 250px;
+      }
+    }
   }
 
   .date {
     display: flex;
-    margin-top: 65px;
     background: var(--graySilver);
     padding: 5px 20px;
     border-radius: 30px;
-
-    @media screen and (max-width: 768px) {
-      margin-top: 30px;
-    }
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
 
     .dateRewarded {
       display: flex;
@@ -64,7 +65,12 @@
 }
 
 .dots {
-  position: absolute;
-  top: 25px;
-  right: 25px;
+  margin-left: 10px;
+
+  @media screen and (max-width: 510px) {
+    margin-left: 0px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+  }
 }

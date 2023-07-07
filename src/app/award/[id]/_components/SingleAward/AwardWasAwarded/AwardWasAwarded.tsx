@@ -4,21 +4,20 @@ import styles from './AwardWasAwarded.module.scss';
 import { AwardWasAwardedProps } from './AwardWasAwarded.props';
 import cn from 'classnames';
 import uniqid from 'uniqid';
-import { useRef, useState } from 'react';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import CardUserAwarded from './CardUserAwarded/CardUserAwarded';
-import { User } from '@/types/user/user';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';
 import { useFetchParams } from '@/hooks/useFetchParams';
+import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
+import { useAwardWasAwardedForAddUsers } from './useAwardWasAwardedForAddUsers';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 
 const AwardWasAwarded = ({
   award,
-  awardActiv,
+  id,
   className,
   ...props
 }: AwardWasAwardedProps): JSX.Element => {
@@ -27,49 +26,34 @@ const AwardWasAwarded = ({
     setPage,
     searchValue,
     setSearchValue,
+    searchHandleChange,
     state,
     setState,
     nextPage,
     prevPage,
   } = useFetchParams();
 
-  const { usersOnSubDepartment } = useUserAdmin(
-    award?.award.dept.id?.toString(),
-    {
-      page: page,
-      pageSize: 100,
-      filter: searchValue,
-      orders: [{ field: 'lastname', direction: state }],
-    }
-  );
-  const totalPage = usersOnSubDepartment?.pageInfo?.totalPages;
-
-  const [visibleModal, setVisibleModal] = useState<boolean>(false);
-  //Закрытие модального окна нажатием вне его
-  const ref = useRef(null);
-  const refOpen = useRef(null);
-  const handleClickOutside = () => {
-    setVisibleModal(false);
-    setSearchValue('');
-  };
-  useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
-
-  //Фильтр тех кто еще не участвует в номинации
-  let arrIdUserRewarded: string[] = [];
-  awardActiv!.forEach((user) => {
-    if (user.actionType == 'AWARD' && user && user.user && user.user.id)
-      arrIdUserRewarded.push(user.user.id.toString());
+  const { singleActivAward, isLoadingSingleActivAward } = useAwardAdmin(id, {
+    page: page,
+    pageSize: 5,
+    filter: searchValue,
+    orders: [{ field: 'lastname', direction: state }],
   });
-  let arrUserNotAwarded: User[] = [];
-  usersOnSubDepartment &&
-    usersOnSubDepartment.data?.forEach((user) => {
-      if (
-        arrIdUserRewarded.find((item) => item == user.id?.toString()) ==
-        undefined
-      ) {
-        arrUserNotAwarded.push(user);
-      }
-    });
+
+  const {
+    usersOnSubDepartment,
+    ref,
+    refOpen,
+    visibleModal,
+    setVisibleModal,
+    arrUserNotAwarded,
+    addUsersPage,
+    addUsersSetPage,
+    addUsersSetSearchValue,
+    addUsersNextPage,
+    addUsersPrevPage,
+    addUsersTotalPage,
+  } = useAwardWasAwardedForAddUsers(award, singleActivAward?.data!);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -78,7 +62,11 @@ const AwardWasAwarded = ({
           <Htag tag='h3' className={styles.headerTitle}>
             Награжденные
             <P className={styles.rewardedLength}>
-              {awardActiv?.filter((user) => user.actionType == 'AWARD').length}
+              {
+                singleActivAward?.data!?.filter(
+                  (user) => user.actionType == 'AWARD'
+                ).length
+              }
             </P>
           </Htag>
           <AuthComponent minRole={'ADMIN'}>
@@ -94,17 +82,23 @@ const AwardWasAwarded = ({
             </ButtonCircleIcon>
           </AuthComponent>
         </div>
-        {awardActiv &&
-        awardActiv.findIndex((item) => item.actionType === 'AWARD') >= 0 ? (
-          <div className={styles.usersAwarded}>
-            {awardActiv.map((item) => {
-              if (item.actionType === 'AWARD') {
-                return (
-                  <CardUserAwarded award={award} user={item} key={uniqid()} />
-                );
-              }
-            })}
-          </div>
+        {singleActivAward?.data! &&
+        singleActivAward?.data!.findIndex(
+          (item) => item.actionType === 'AWARD'
+        ) >= 0 ? (
+          <ScrollContainerWithSearchParams
+            searchHandleChange={searchHandleChange}
+          >
+            <div className={styles.usersAwarded}>
+              {singleActivAward?.data!.map((item) => {
+                if (item.actionType === 'AWARD') {
+                  return (
+                    <CardUserAwarded award={award} user={item} key={uniqid()} />
+                  );
+                }
+              })}
+            </div>
+          </ScrollContainerWithSearchParams>
         ) : (
           <P className={styles.none} fontstyle='thin' size='m'>
             Нет награжденных
@@ -113,14 +107,14 @@ const AwardWasAwarded = ({
       </div>
       {award?.award.id && (
         <ModalWindowWithAddUsers
-          totalPage={totalPage}
+          totalPage={addUsersTotalPage}
           nextPage={() =>
-            usersOnSubDepartment && nextPage(usersOnSubDepartment)
+            usersOnSubDepartment && addUsersNextPage(usersOnSubDepartment)
           }
-          prevPage={prevPage}
-          page={page}
-          setPage={setPage}
-          setSearchValue={setSearchValue}
+          prevPage={addUsersPrevPage}
+          page={addUsersPage}
+          setPage={addUsersSetPage}
+          setSearchValue={addUsersSetSearchValue}
           awardState='AWARD'
           awardId={award.award.id.toString()}
           users={arrUserNotAwarded}

@@ -7,5 +7,5 @@ export type AwardWasAwardedProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   award: AwardDetails | null;
-  awardActiv: Activity[] | null;
+  id: string;
 };

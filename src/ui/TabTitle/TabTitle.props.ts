@@ -12,9 +12,8 @@ export type TabTitleProps = DetailedHTMLProps<
   HTMLHeadingElement
 > & {
   children?: ReactNode;
-  count: number;
   onClickActive: SetStateAction<AwardState | undefined>;
   active: AwardState | undefined;
   setActive: Dispatch<SetStateAction<AwardState | undefined>>;
-  setPage: Dispatch<SetStateAction<number>>
+  setPage: Dispatch<SetStateAction<number>>;
 };

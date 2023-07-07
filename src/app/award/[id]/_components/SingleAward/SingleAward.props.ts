@@ -8,4 +8,5 @@ export type SingleAwardProps = DetailedHTMLProps<
 > & {
   awardActiv: Activity[] | null;
   award: AwardDetails | null;
+  id: string;
 };

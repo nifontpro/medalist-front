@@ -13,6 +13,7 @@ import AwardNominee from './AwardNominee/AwardNominee';
 const SingleAward = ({
   awardActiv,
   award,
+  id,
   className,
   ...props
 }: SingleAwardProps) => {
@@ -31,8 +32,8 @@ const SingleAward = ({
         </ButtonCircleIcon>
 
         <AwardTitle award={award} />
-        <AwardWasAwarded award={award} awardActiv={awardActiv}/>
-        <AwardWasNominee award={award} awardActiv={awardActiv} className='mb-[50px]' />
+        <AwardWasAwarded award={award} id={id} />
+        <AwardWasNominee award={award} id={id} className='mb-[50px]' />
         <ButtonScrollUp />
       </div>
     );
@@ -49,7 +50,7 @@ const SingleAward = ({
         </ButtonCircleIcon>
 
         <AwardTitle award={award} />
-        <AwardNominee award={award} awardActiv={awardActiv}/>
+        <AwardNominee award={award} id={id} />
         <ButtonScrollUp />
       </div>
     );

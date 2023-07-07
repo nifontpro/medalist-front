@@ -17,10 +17,12 @@ const LoginPage = () => {
     const challenge = pkceChallenge(128);
     let tmpState = generateState(30);
 
+    const redirect = searchParams.get('redirect');
+
     localStorage.setItem('codeVerifier', challenge.code_verifier);
     localStorage.setItem('codeChallenge', challenge.code_challenge);
     localStorage.setItem('state', tmpState);
-    localStorage.setItem('redirect', searchParams.get('redirect')!.toString());
+    localStorage.setItem('redirect', redirect ? redirect : '/');
 
     let url = requestAuthCode(tmpState, challenge.code_challenge);
     window.open(url, '_self');
