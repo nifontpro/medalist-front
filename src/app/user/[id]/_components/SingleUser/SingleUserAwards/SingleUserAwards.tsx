@@ -50,6 +50,7 @@ const SingleUserAwards = ({
         (award) => award.award?.type == 'SIMPLE'
       ).length > 0 ? (
         <ScrollContainerWithSearchParams
+          search={true}
           searchHandleChange={searchHandleChange}
         >
           <div className={styles.content}>

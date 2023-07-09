@@ -84,6 +84,7 @@ const AwardNominee = ({
         </div>
 
         <ScrollContainerWithSearchParams
+          search={true}
           searchHandleChange={searchHandleChange}
         >
           <div

@@ -82,20 +82,24 @@ const TitleSingleDepartment = ({
             Почта: {department.data?.email}
           </a>
         </div>
-
-        {department && department.data && (
-          <InputFileExcelUsers department={department.data}>
-            Добавить сотрудников из EXCEL
-          </InputFileExcelUsers>
-        )}
-        <Button
-          onClick={() => setVisibleModal(true)}
-          appearance='blackWhite'
-          size='l'
-          className='@apply mt-[25px]'
-        >
-          Создать событие
-        </Button>
+        <div className={styles.buttonsWrapper}>
+          {department && department.data && (
+            <InputFileExcelUsers
+              department={department.data}
+              className={styles.excelBtn}
+            >
+              Добавить сотрудников из EXCEL
+            </InputFileExcelUsers>
+          )}
+          <Button
+            onClick={() => setVisibleModal(true)}
+            appearance='whiteBlack'
+            size='l'
+            className={styles.createEventBtn}
+          >
+            Создать событие
+          </Button>
+        </div>
 
         {/* <div className={styles.colUsers}>
           <CountUsersPreview

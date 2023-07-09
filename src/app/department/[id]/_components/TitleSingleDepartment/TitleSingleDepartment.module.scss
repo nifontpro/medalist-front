@@ -108,6 +108,35 @@
         line-height: 23px;
       }
     }
+
+    .buttonsWrapper {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+
+      @media screen and (max-width: 930px) {
+        margin-top: 15px;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .createEventBtn {
+        margin-left: 15px;
+
+        @media screen and (max-width: 930px) {
+          margin-top: 15px;
+          margin-left: 0px;
+          width: 100%;
+        }
+      }
+
+      .excelBtn {
+        @media screen and (max-width: 930px) {
+          margin-top: 15px;
+          width: 100%;
+        }
+      }
+    }
   }
 }
 

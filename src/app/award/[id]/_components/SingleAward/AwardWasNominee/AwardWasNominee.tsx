@@ -52,6 +52,7 @@ const AwardWasNominee = ({
           (item) => item.actionType === 'NOMINEE'
         ) >= 0 ? (
           <ScrollContainerWithSearchParams
+            search={true}
             searchHandleChange={searchHandleChange}
           >
             <div className={styles.usersAwarded}>

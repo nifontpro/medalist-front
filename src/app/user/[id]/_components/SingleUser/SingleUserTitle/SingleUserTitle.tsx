@@ -123,50 +123,29 @@ const SingleUserTitle = ({
             <div className={styles.countIcon}></div>
           )}
         </div>
-        {/* {currentUser?.id == user.id ? (
-          <div className={styles.buttons}>
-            <Button
-              onClick={() => push(getUserEditUrl(`/${user.id}`))}
-              size='m'
-              appearance='blackWhite'
-              className={styles.editBtn}
-            >
-              Редактировать
-            </Button>
-            <Button
-              onClick={() => {
-                console.log('Change password');
-                // push(getUserEditPasswordUrl(`/${user.id}`))
-              }}
-              size='m'
-              appearance='whiteBlack'
-              className={styles.changePasswordBtn}
-            >
-              Сменить пароль
-            </Button>
-          </div>
-        ) : ( */}
-        <AuthComponent minRole={'ADMIN'}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            onClick={() => setVisibleModal(true)}
+            onClick={() => setVisibleModalEvent(true)}
             size='l'
-            appearance='blackWhite'
+            appearance='whiteBlack'
             ref={refOpen}
-            className={styles.awardedBtn}
+            className={styles.createEventBtn}
           >
-            Наградить
+            Создать событие
           </Button>
-        </AuthComponent>
-        {/* )} */}
+          <AuthComponent minRole={'ADMIN'}>
+            <Button
+              onClick={() => setVisibleModal(true)}
+              size='l'
+              appearance='blackWhite'
+              ref={refOpen}
+              className={styles.awardedBtn}
+            >
+              Наградить
+            </Button>
+          </AuthComponent>
+        </div>
       </div>
-      <Button
-        onClick={() => setVisibleModalEvent(true)}
-        appearance='blackWhite'
-        size='l'
-        className='@apply mt-[25px]'
-      >
-        Создать событие
-      </Button>
 
       <P size='l' className={styles.aboutUser}>
         О сотруднике

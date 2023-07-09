@@ -59,9 +59,30 @@
       margin-bottom: 30px;
       padding-bottom: 30px;
     }
-    .awardedBtn {
+
+    .buttonsWrapper {
+      display: flex;
+      align-items: center;
+
       @media screen and (max-width: 930px) {
-        margin-top: 15px;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .awardedBtn {
+        @media screen and (max-width: 930px) {
+          margin-top: 15px;
+          width: 100%;
+        }
+      }
+      .createEventBtn {
+        margin-right: 15px;
+
+        @media screen and (max-width: 930px) {
+          margin-top: 15px;
+          margin-right: 0px;
+          width: 100%;
+        }
       }
     }
 
@@ -119,4 +140,3 @@
   top: 25px;
   right: 25px;
 }
-

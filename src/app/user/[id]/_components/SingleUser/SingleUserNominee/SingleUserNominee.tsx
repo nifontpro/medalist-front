@@ -50,6 +50,7 @@ const SingleUserNominee = ({
         (award) => award.award?.type == 'PERIOD'
       ).length > 0 ? (
         <ScrollContainerWithSearchParams
+          search={true}
           searchHandleChange={searchHandleChange}
         >
           <div className={styles.content}>
