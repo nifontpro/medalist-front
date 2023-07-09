@@ -6,6 +6,10 @@
   @media screen and (max-width: 323px) {
     width: 100%;
   }
+
+  &:hover .buttonText {
+    background: var(--gray-dark-hover);
+  }
 }
 
 .buttonText {
@@ -35,31 +39,8 @@
   height: 100%;
   border-radius: 12px;
   cursor: pointer;
-
-  &:hover + .buttonText {
-    background: var(--gray-dark-hover);
-  }
 }
 
 .fileButton {
-  // display: -webkit-box;
-  // display: -ms-flexbox;
-  // display: flex;
-  // -webkit-box-align: center;
-  // -ms-flex-align: center;
-  // align-items: center;
-  // -webkit-box-pack: start;
-  // -ms-flex-pack: start;
-  // justify-content: flex-start;
   width: 100%;
-}
-
-.modalWindow {
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: aqua;
 }
