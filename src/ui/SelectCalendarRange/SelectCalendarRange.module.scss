@@ -1,0 +1,28 @@
+.wrapper {
+  border: none;
+  display: flex;
+  align-items: center;
+  color: var(--black);
+
+  font-weight: 500;
+  font-size: 15.2338px;
+  line-height: 21px;
+  font-family: var(--font-family);
+
+  .icon {
+    width: 34px;
+    height: 24px;
+    padding-right: 10px;
+    border-right: 1px solid var(--gray96);
+  }
+
+  .calendarInput {
+    > div {
+      > fieldset {
+        border: none;
+      }
+      border-radius: 12px;
+      width: 100px;
+    }
+  }
+}

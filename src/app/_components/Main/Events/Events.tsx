@@ -12,6 +12,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import cn from 'classnames';
 import uniqid from 'uniqid';
+import Htag from '@/ui/Htag/Htag';
 
 const Events = ({
   children,
@@ -52,6 +53,9 @@ const Events = ({
     <>
       {allEvent && allEvent.data && allEvent.data?.length > 0 && (
         <div className={cn(styles.eventWrapper, className)} {...props}>
+          <Htag tag='h2' className={styles.header}>
+            События
+          </Htag>
           <div className={styles.eventContent}>
             {allEvent.data &&
               allEvent.data.map((event) => {

@@ -58,6 +58,7 @@ const SingleUser = ({
         >
           Вернуться назад
         </ButtonCircleIcon>
+
         <div className={styles.wrapper}>
           {user && (
             <ImagesCarousel
@@ -66,6 +67,7 @@ const SingleUser = ({
               className={styles.img}
             />
           )}
+
           <div className={styles.content}>
             {userActiv && (
               <SingleUserTitle
@@ -76,10 +78,10 @@ const SingleUser = ({
                 refOpen={refOpen}
               />
             )}
-            {userActiv && <SingleUserAwards user={user.data} id={id} />}
-            {userActiv && (
-              <SingleUserNominee user={user.data} id={id} />
-            )}
+
+            <SingleUserAwards user={user.data} id={id} />
+
+            <SingleUserNominee user={user.data} id={id} />
           </div>
         </div>
         <EventSingleUser id={id} />
@@ -103,6 +105,7 @@ const SingleUser = ({
         textBtn='Наградить'
         ref={ref}
       />
+
       <ModalWindowWithAddEvent
         forWhat='User'
         id={id}

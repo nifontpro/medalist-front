@@ -1,6 +1,6 @@
 .wrapper {
   .headTitle {
-    @apply mb-[40px];
+    @apply mb-[40px] mt-[40px];
   }
   .header {
     grid-template-columns: [start] auto auto auto [spaceStart] 1fr [spaceEnd] auto auto [end];

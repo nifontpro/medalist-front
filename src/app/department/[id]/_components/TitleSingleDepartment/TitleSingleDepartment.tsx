@@ -61,6 +61,7 @@ const TitleSingleDepartment = ({
             {department.data?.dept.name}
           </Htag>
         </div>
+
         <div className={styles.address}>
           <GpsIcon className='mr-[10px]' />
           <P size='s' className={styles.description}>
@@ -71,6 +72,7 @@ const TitleSingleDepartment = ({
         <P size='s' className={styles.description}>
           {department.data?.description}
         </P>
+
         <div className={styles.contacts}>
           <a href={`tel:${department.data?.dept.phone}`}>
             Сотовый:{' '}
@@ -82,6 +84,7 @@ const TitleSingleDepartment = ({
             Почта: {department.data?.email}
           </a>
         </div>
+
         <div className={styles.buttonsWrapper}>
           {department && department.data && (
             <InputFileExcelUsers
@@ -97,18 +100,11 @@ const TitleSingleDepartment = ({
             size='l'
             className={styles.createEventBtn}
           >
-            Создать событие
+            Добавить событие
           </Button>
         </div>
-
-        {/* <div className={styles.colUsers}>
-          <CountUsersPreview
-            appearanceBtn='black'
-            usersInDepartment={users}
-            className={styles.default}
-          />
-        </div> */}
       </div>
+
       <ModalWindowWithAddEvent
         forWhat='Dept'
         id={id}

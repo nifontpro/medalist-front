@@ -16,6 +16,10 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import SingleActivity from './SingleActivity/SingleActivity';
 import FilterActivity from './FilterActivity/FilterActivity';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
+import dayjs from 'dayjs';
+import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 
 const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
   const {
@@ -34,10 +38,22 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
     windowSize,
     totalPage,
     awardsActivOnDepartment,
+    back,
+    setStartDateChange,
+    setEndDateChange,
   } = useActivity();
 
   return (
     <div {...props} className={styles.wrapper}>
+      <ButtonCircleIcon
+        onClick={back}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        Вернуться назад
+      </ButtonCircleIcon>
+
       <Htag tag='h2' className={styles.headTitle}>
         Активность
       </Htag>
@@ -47,10 +63,8 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
         setActive={setActive}
         state={state}
         setState={setState}
-        // setStartDate={setStartDate}
-        // setEndDate={setEndDate}
-        // startDate={startDate}
-        // endDate={endDate}
+        setStartDateChange={setStartDateChange}
+        setEndDateChange={setEndDateChange}
       />
 
       <div className={styles.header}>
@@ -99,15 +113,10 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           Сначала новые
         </SortButton>
 
-        {/* <RangeCalendar
-          placement='bottomLeft'
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          startDate={startDate}
-          endDate={endDate}
-          setSizePage={setSizePage}
-          setArr={setArr}
-        /> */}
+        <SelectCalendarRange
+          setStartDateChange={setStartDateChange}
+          setEndDateChange={setEndDateChange}
+        />
       </div>
 
       <div className={styles.cards}>
@@ -143,7 +152,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           handlePrevClick={prevPage}
         />
       ) : null}
-      <ButtonScrollUp />
+      <ButtonScrollUp className='@apply mt-[50px]' />
     </div>
   );
 };

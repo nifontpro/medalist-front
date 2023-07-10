@@ -9,6 +9,8 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
+import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
+import Htag from '@/ui/Htag/Htag';
 
 const EventDepartment = ({
   id,
@@ -26,15 +28,15 @@ const EventDepartment = ({
     nextPage,
     prevPage,
   } = useFetchParams();
-  const pageSize: number = 100;
+  const pageSize: number = 5;
 
   const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id, {
-    orders: [{ field: '(days)', direction: 'DESC' }],
+    orders: [{ field: '(days)', direction: 'ASC' }],
     subdepts: true,
     page: page,
     pageSize,
   });
-
+  console.log(eventsDepartment);
   const totalPage = eventsDepartment?.pageInfo?.totalPages;
 
   if (isLoadingEventsDepartment) return <Spinner />;
@@ -47,30 +49,36 @@ const EventDepartment = ({
       {eventsDepartment &&
         eventsDepartment.data &&
         eventsDepartment.data?.length > 0 && (
-          <div className={cn(styles.eventWrapper, className)} {...props}>
+          <div className={styles.eventWrapper}>
             <div></div>
-            <div className={styles.eventContent}>
-              {eventsDepartment.data &&
-                eventsDepartment.data.map((eventDepartment) => {
-                  return (
-                    <EventCard
-                      key={eventDepartment.id}
-                      event={eventDepartment}
-                      remove={'DEPT'}
-                    />
-                  );
-                })}
+            <div>
+              <Htag tag='h3'>События</Htag>
 
-              {totalPage && totalPage > 1 ? (
-                <PrevNextPages
-                  startPage={page + 1}
-                  endPage={totalPage}
-                  handleNextClick={() =>
-                    eventsDepartment && nextPage(eventsDepartment)
-                  }
-                  handlePrevClick={prevPage}
-                />
-              ) : null}
+              <ScrollContainerWithSearchParams search={false}>
+                <div className={styles.eventContent}>
+                  {eventsDepartment.data &&
+                    eventsDepartment.data.map((eventDepartment) => {
+                      return (
+                        <EventCard
+                          key={eventDepartment.id}
+                          event={eventDepartment}
+                          remove={'DEPT'}
+                        />
+                      );
+                    })}
+
+                  {totalPage && totalPage > 1 ? (
+                    <PrevNextPages
+                      startPage={page + 1}
+                      endPage={totalPage}
+                      handleNextClick={() =>
+                        eventsDepartment && nextPage(eventsDepartment)
+                      }
+                      handlePrevClick={prevPage}
+                    />
+                  ) : null}
+                </div>
+              </ScrollContainerWithSearchParams>
             </div>
           </div>
         )}

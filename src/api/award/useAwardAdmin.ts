@@ -95,6 +95,7 @@ export const useAwardAdmin = (
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(awardId),
+      awardState: active,
       baseRequest: baseRequest ? baseRequest : undefined,
     },
     {

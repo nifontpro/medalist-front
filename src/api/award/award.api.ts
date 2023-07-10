@@ -213,6 +213,7 @@ export const awardApi = createApi({
       {
         authId: number;
         deptId: number;
+        awardState: AwardState | undefined;
         baseRequest: BaseRequest | undefined;
       }
     >({

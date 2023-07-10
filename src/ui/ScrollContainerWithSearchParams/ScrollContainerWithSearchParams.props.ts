@@ -5,6 +5,6 @@ export type ScrollContainerWithSearchParamsProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   search: boolean;
-  searchHandleChange: (event: FormEvent<HTMLInputElement>) => void;
+  searchHandleChange?: (event: FormEvent<HTMLInputElement>) => void;
   children: React.ReactNode;
 };

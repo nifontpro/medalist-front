@@ -13,7 +13,7 @@ const ScrollContainerWithSearchParams = ({
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.header}>
-        {search && (
+        {search && searchHandleChange && (
           <Search
             onChange={searchHandleChange}
             color='white'

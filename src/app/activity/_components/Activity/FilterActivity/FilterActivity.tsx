@@ -8,12 +8,15 @@ import SortIcon from '@/icons/sort.svg';
 import { FilterActivityProps } from './FilterActivity.props';
 import Button from '@/ui/Button/Button';
 import P from '@/ui/P/P';
+import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 
 const FilterActivity = ({
   state,
   setState,
   active,
   setActive,
+  setStartDateChange,
+  setEndDateChange,
   className,
   ...props
 }: FilterActivityProps): JSX.Element => {
@@ -242,15 +245,10 @@ const FilterActivity = ({
                 >
                   Период
                 </P>
-                {/* <RangeCalendar
-                  placement='topLeft'
-                  setStartDate={setStartDate}
-                  setEndDate={setEndDate}
-                  startDate={startDate}
-                  endDate={endDate}
-                  setSizePage={setSizePage}
-                  setArr={setArr}
-                /> */}
+                <SelectCalendarRange
+                  setStartDateChange={setStartDateChange}
+                  setEndDateChange={setEndDateChange}
+                />
               </div>
             </div>
           </motion.div>
