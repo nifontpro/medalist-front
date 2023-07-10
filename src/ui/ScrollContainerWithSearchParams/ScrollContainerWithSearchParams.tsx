@@ -2,11 +2,17 @@ import styles from './ScrollContainerWithSearchParams.module.scss';
 import cn from 'classnames';
 import { ScrollContainerWithSearchParamsProps } from './ScrollContainerWithSearchParams.props';
 import Search from '../Search/Search';
+import SelectCalendarRange from '../SelectCalendarRange/SelectCalendarRange';
+import SortButton from '../SortButton/SortButton';
 
 const ScrollContainerWithSearchParams = ({
   searchHandleChange,
   className,
   search = true,
+  setEndDateChange,
+  setStartDateChange,
+  state,
+  setState,
   children,
   ...props
 }: ScrollContainerWithSearchParamsProps): JSX.Element => {
@@ -22,6 +28,24 @@ const ScrollContainerWithSearchParams = ({
             placeholder='Поиск...'
             className={styles.search}
           />
+        )}
+
+        {setEndDateChange && setStartDateChange && state && setState && (
+          <div className={styles.filterWrapper}>
+            <SortButton
+              state={state}
+              onClick={() =>
+                state == 'ASC' ? setState('DESC') : setState('ASC')
+              }
+              className={styles.sort}
+            >
+              Сначала новые
+            </SortButton>
+            <SelectCalendarRange
+              setStartDateChange={setStartDateChange}
+              setEndDateChange={setEndDateChange}
+            />
+          </div>
         )}
       </div>
       <div className={styles.wrapperContent}>{children}</div>

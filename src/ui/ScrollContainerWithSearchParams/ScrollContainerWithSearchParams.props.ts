@@ -1,4 +1,10 @@
-import { DetailedHTMLProps, FormEvent, HTMLAttributes } from 'react';
+import {
+  DetailedHTMLProps,
+  Dispatch,
+  FormEvent,
+  HTMLAttributes,
+  SetStateAction,
+} from 'react';
 
 export type ScrollContainerWithSearchParamsProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -7,4 +13,8 @@ export type ScrollContainerWithSearchParamsProps = DetailedHTMLProps<
   search: boolean;
   searchHandleChange?: (event: FormEvent<HTMLInputElement>) => void;
   children: React.ReactNode;
+  setEndDateChange?: (data: number) => void;
+  setStartDateChange?: (data: number) => void;
+  state?: 'ASC' | 'DESC';
+  setState?: Dispatch<SetStateAction<'ASC' | 'DESC'>>;
 };

@@ -24,7 +24,8 @@ const CardUserNominee = ({
       </div>
       <div className={styles.description}>
         <P size='s'>
-          {user.user?.lastname} {user.user?.firstname}
+          {user.user?.lastname}
+          {/* {user.user?.firstname} */}
         </P>
         <P size='xs' fontstyle='thin' color='gray' className={styles.post}>
           {user.user?.post}

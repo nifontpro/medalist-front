@@ -21,10 +21,12 @@ const SingleUserAwards = ({
     searchValue,
     setSearchValue,
     searchHandleChange,
-    state,
-    setState,
     nextPage,
     prevPage,
+    setEndDateChange,
+    setStartDateChange,
+    state,
+    setState,
   } = useFetchParams();
 
   const { singleActivAwardUser } = useAwardAdmin(id, {
@@ -51,6 +53,10 @@ const SingleUserAwards = ({
       ).length > 0 ? (
         <ScrollContainerWithSearchParams
           search={true}
+          setEndDateChange={setEndDateChange}
+          setStartDateChange={setStartDateChange}
+          state={state}
+          setState={setState}
           searchHandleChange={searchHandleChange}
         >
           <div className={styles.content}>

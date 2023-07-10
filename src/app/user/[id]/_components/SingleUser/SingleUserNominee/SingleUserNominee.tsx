@@ -25,6 +25,8 @@ const SingleUserNominee = ({
     setState,
     nextPage,
     prevPage,
+    setEndDateChange,
+    setStartDateChange,
   } = useFetchParams();
 
   const { singleActivAwardUser } = useAwardAdmin(id, {
@@ -52,6 +54,10 @@ const SingleUserNominee = ({
         <ScrollContainerWithSearchParams
           search={true}
           searchHandleChange={searchHandleChange}
+          setEndDateChange={setEndDateChange}
+          setStartDateChange={setStartDateChange}
+          state={state}
+          setState={setState}
         >
           <div className={styles.content}>
             {singleActivAwardUser.data!.map((award) => {
