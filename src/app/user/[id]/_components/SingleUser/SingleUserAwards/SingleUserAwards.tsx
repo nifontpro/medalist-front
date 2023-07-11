@@ -33,7 +33,7 @@ const SingleUserAwards = ({
     page: page,
     pageSize: 5,
     filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
+    orders: [{ field: 'award.name', direction: state }],
   });
 
   return (
@@ -47,18 +47,19 @@ const SingleUserAwards = ({
             ).length}
         </P>
       </div>
-      {singleActivAwardUser &&
-      singleActivAwardUser?.data!.filter(
-        (award) => award.award?.type == 'SIMPLE'
-      ).length > 0 ? (
-        <ScrollContainerWithSearchParams
-          search={true}
-          setEndDateChange={setEndDateChange}
-          setStartDateChange={setStartDateChange}
-          state={state}
-          setState={setState}
-          searchHandleChange={searchHandleChange}
-        >
+
+      <ScrollContainerWithSearchParams
+        search={true}
+        setEndDateChange={setEndDateChange}
+        setStartDateChange={setStartDateChange}
+        state={state}
+        setState={setState}
+        searchHandleChange={searchHandleChange}
+      >
+        {singleActivAwardUser &&
+        singleActivAwardUser?.data!.filter(
+          (award) => award.award?.type == 'SIMPLE'
+        ).length > 0 ? (
           <div className={styles.content}>
             {singleActivAwardUser?.data!.map((award) => {
               if (award.award?.type == 'SIMPLE') {
@@ -68,12 +69,12 @@ const SingleUserAwards = ({
               }
             })}
           </div>
-        </ScrollContainerWithSearchParams>
-      ) : (
-        <P size='s' fontstyle='thin' className={styles.countAwards}>
-          У вас пока нет медалей
-        </P>
-      )}
+        ) : (
+          <P size='s' fontstyle='thin' className={styles.countAwards}>
+            У вас пока нет медалей
+          </P>
+        )}
+      </ScrollContainerWithSearchParams>
     </div>
   );
 };

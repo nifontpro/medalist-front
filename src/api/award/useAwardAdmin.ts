@@ -38,7 +38,7 @@ export const useAwardAdmin = (
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         awardId: awardId ? Number(awardId) : 0,
-        baseRequest: undefined,
+        baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
         skip: !typeOfUser && !awardId,
@@ -53,7 +53,7 @@ export const useAwardAdmin = (
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       userId: awardId ? Number(awardId) : 0,
-      baseRequest: undefined,
+      baseRequest: baseRequest ? baseRequest : undefined,
     },
     {
       skip: !typeOfUser && !awardId,

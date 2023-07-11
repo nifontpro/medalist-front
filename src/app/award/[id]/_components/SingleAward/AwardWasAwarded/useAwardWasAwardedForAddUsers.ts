@@ -44,10 +44,11 @@ export const useAwardWasAwardedForAddUsers = (
   return useMemo(() => {
     //Фильтр тех кто еще не участвует в номинации
     let arrIdUserRewarded: string[] = [];
-    awardActiv!.forEach((user) => {
-      if (user.actionType == 'AWARD' && user && user.user && user.user.id)
-        arrIdUserRewarded.push(user.user.id.toString());
-    });
+    awardActiv &&
+      awardActiv.forEach((user) => {
+        if (user.actionType == 'AWARD' && user && user.user && user.user.id)
+          arrIdUserRewarded.push(user.user.id.toString());
+      });
     let arrUserNotAwarded: User[] = [];
     usersOnSubDepartment &&
       usersOnSubDepartment.data?.forEach((user) => {

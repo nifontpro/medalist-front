@@ -41,6 +41,8 @@ const RedirectPage = () => {
     getLoginData({ code: queryCode, codeVerifier })
       .unwrap()
       .then(async (data) => {
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('refresh_token', data.refresh_token);
         setCookie('exp', decodeToken(data.refresh_token)); // Для middleware
         await push(redirectPage ? redirectPage : '/');
       });

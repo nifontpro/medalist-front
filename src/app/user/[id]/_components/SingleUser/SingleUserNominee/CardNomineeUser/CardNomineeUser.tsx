@@ -22,6 +22,8 @@ const CardNomineeUser = ({
     awardId
   );
 
+  console.log(award);
+
   let convertDate = timeConverterUser(award.date);
 
   return (
@@ -42,7 +44,7 @@ const CardNomineeUser = ({
         <P size='l'>{award.award?.name}</P>
       </div>
 
-      {!award.activ ? (
+      {award.activ ? (
         <P size='s' fontstyle='thin' color='gray' className={styles.date}>
           Завершена {convertDate}
         </P>

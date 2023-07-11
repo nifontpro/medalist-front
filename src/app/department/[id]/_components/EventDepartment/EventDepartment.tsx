@@ -18,26 +18,29 @@ const EventDepartment = ({
   className,
   ...props
 }: EventDepartmentProps): JSX.Element => {
-  const {
-    page,
-    setPage,
-    searchValue,
-    setSearchValue,
-    state,
-    setState,
-    nextPage,
-    prevPage,
-  } = useFetchParams();
-  const pageSize: number = 5;
+  // const {
+  //   page,
+  //   setPage,
+  //   searchValue,
+  //   setSearchValue,
+  //   state,
+  //   setState,
+  //   nextPage,
+  //   prevPage,
+  // } = useFetchParams();
+  // const pageSize: number = 5;
 
-  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id, {
-    orders: [{ field: '(days)', direction: 'ASC' }],
-    subdepts: true,
-    page: page,
-    pageSize,
-  });
-  console.log(eventsDepartment);
-  const totalPage = eventsDepartment?.pageInfo?.totalPages;
+  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(
+    id
+    //   , {
+    //   orders: [{ field: '(days)', direction: 'ASC' }],
+    //   subdepts: true,
+    //   page: page,
+    //   pageSize,
+    // }
+  );
+  // console.log(eventsDepartment);
+  // const totalPage = eventsDepartment?.pageInfo?.totalPages;
 
   if (isLoadingEventsDepartment) return <Spinner />;
   if (!eventsDepartment?.success) {
@@ -67,7 +70,7 @@ const EventDepartment = ({
                       );
                     })}
 
-                  {totalPage && totalPage > 1 ? (
+                  {/* {totalPage && totalPage > 1 ? (
                     <PrevNextPages
                       startPage={page + 1}
                       endPage={totalPage}
@@ -76,7 +79,7 @@ const EventDepartment = ({
                       }
                       handlePrevClick={prevPage}
                     />
-                  ) : null}
+                  ) : null} */}
                 </div>
               </ScrollContainerWithSearchParams>
             </div>

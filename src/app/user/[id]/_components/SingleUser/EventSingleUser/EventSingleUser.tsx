@@ -18,25 +18,28 @@ const EventSingleUser = ({
   className,
   ...props
 }: EventSingleUserProps): JSX.Element => {
-  const {
-    page,
-    setPage,
-    searchValue,
-    setSearchValue,
-    state,
-    setState,
-    nextPage,
-    prevPage,
-  } = useFetchParams();
-  const pageSize: number = 100;
+  // const {
+  //   page,
+  //   setPage,
+  //   searchValue,
+  //   setSearchValue,
+  //   state,
+  //   setState,
+  //   nextPage,
+  //   prevPage,
+  // } = useFetchParams();
+  // const pageSize: number = 100;
 
-  const { eventsUser, isLoadingEventsUser } = useEventAdmin(id, {
-    orders: [{ field: '(days)', direction: 'DESC' }],
-    subdepts: true,
-    page: page,
-    pageSize,
-  });
-  const totalPage = eventsUser?.pageInfo?.totalPages;
+  const { eventsUser, isLoadingEventsUser } = useEventAdmin(
+    id
+    //   , {
+    //   orders: [{ field: '(days)', direction: 'DESC' }],
+    //   subdepts: true,
+    //   page: page,
+    //   pageSize,
+    // }
+  );
+  // const totalPage = eventsUser?.pageInfo?.totalPages;
 
   if (isLoadingEventsUser) return <Spinner />;
   if (!eventsUser?.success) {
@@ -64,14 +67,14 @@ const EventSingleUser = ({
                     );
                   })}
 
-                {totalPage && totalPage > 1 ? (
+                {/* {totalPage && totalPage > 1 ? (
                   <PrevNextPages
                     startPage={page + 1}
                     endPage={totalPage}
                     handleNextClick={() => eventsUser && nextPage(eventsUser)}
                     handlePrevClick={prevPage}
                   />
-                ) : null}
+                ) : null} */}
               </div>
             </ScrollContainerWithSearchParams>
           </div>

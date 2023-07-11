@@ -49,7 +49,6 @@ export const useActivity = () => {
     },
     active
   );
-  console.log(awardsActivOnDepartment);
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
 
   const { windowSize } = useWindowSize();

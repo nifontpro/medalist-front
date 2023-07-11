@@ -31,7 +31,7 @@ const AwardWasNominee = ({
     page: page,
     pageSize: 5,
     filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
+    orders: [{ field: 'user.firstname', direction: state }],
   });
 
   return (
@@ -40,21 +40,23 @@ const AwardWasNominee = ({
         <div className={styles.header}>
           <Htag tag='h3'>Были номинированы </Htag>
           <P className={styles.rewardedLength}>
-            {
-              singleActivAward?.data!.filter(
+            {singleActivAward &&
+              singleActivAward.data &&
+              singleActivAward.data.filter(
                 (user) => user.actionType == 'NOMINEE'
-              ).length
-            }
+              ).length}
           </P>
         </div>
-        {singleActivAward &&
-        singleActivAward.data!.findIndex(
-          (item) => item.actionType === 'NOMINEE'
-        ) >= 0 ? (
-          <ScrollContainerWithSearchParams
-            search={true}
-            searchHandleChange={searchHandleChange}
-          >
+
+        <ScrollContainerWithSearchParams
+          search={true}
+          searchHandleChange={searchHandleChange}
+        >
+          {singleActivAward &&
+          singleActivAward.data &&
+          singleActivAward.data.findIndex(
+            (item) => item.actionType === 'NOMINEE'
+          ) >= 0 ? (
             <div className={styles.usersAwarded}>
               {singleActivAward?.data!.map((item) => {
                 if (item.actionType === 'NOMINEE') {
@@ -64,12 +66,12 @@ const AwardWasNominee = ({
                 }
               })}
             </div>
-          </ScrollContainerWithSearchParams>
-        ) : (
-          <P className={styles.none} fontstyle='thin' size='m'>
-            Нет номинантов
-          </P>
-        )}
+          ) : (
+            <P className={styles.none} fontstyle='thin' size='m'>
+              Нет номинантов
+            </P>
+          )}
+        </ScrollContainerWithSearchParams>
       </div>
     </div>
   );

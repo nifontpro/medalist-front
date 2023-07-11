@@ -45,7 +45,7 @@ export const useAwardNomineeForAddUsers = (
   return useMemo(() => {
     //Фильтр тех кто еще не участвует в номинации
     let arrIdUserNominee: string[] = []; // Id тех кто наминирован
-    awardActiv!.forEach((user) => {
+    awardActiv && awardActiv.forEach((user) => {
       // if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
       //   arrIdUserNominee.push(user.user.id.toString());
       if (user && user.user && user.user.id) {
@@ -66,7 +66,7 @@ export const useAwardNomineeForAddUsers = (
       });
 
     let arrUserNominee: User[] = []; // Те кто номинирован
-    awardActiv!.forEach((user) => {
+    awardActiv && awardActiv.forEach((user) => {
       if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
         arrUserNominee.push(user.user);
     });

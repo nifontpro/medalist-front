@@ -4,13 +4,9 @@ import styles from './AwardNominee.module.scss';
 import { AwardNomineeProps } from './AwardNominee.props';
 import cn from 'classnames';
 import uniqid from 'uniqid';
-import { useRef, useState } from 'react';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import Htag from '@/ui/Htag/Htag';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import P from '@/ui/P/P';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
-import { User } from '@/types/user/user';
 import AuthComponent from '@/store/providers/AuthComponent';
 import CardNominee from './CardNominee/CardNominee';
 import ModalWindowWithAddUsers from '../../ModalWindowWithAddUsers/ModalWindowWithAddUsers';
@@ -18,7 +14,6 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { useAwardNomineeForAddUsers } from './useAwardNomineeForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { useSearchParams } from 'next/navigation';
 
 const AwardNominee = ({
   award,
@@ -42,7 +37,7 @@ const AwardNominee = ({
     page: page,
     pageSize: 5,
     filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
+    orders: [{ field: 'user.firstname', direction: state }],
   });
 
   const {
@@ -87,33 +82,35 @@ const AwardNominee = ({
           search={true}
           searchHandleChange={searchHandleChange}
         >
-          <div
-            className={cn(styles.usersAwarded, {
-              [styles.hidden]: singleActivAward?.data!?.length == 0,
-            })}
-          >
-            {singleActivAward?.data!?.map((item) => {
-              if (
-                item.actionType === 'NOMINEE' ||
-                item.actionType === 'AWARD'
-              ) {
-                return (
-                  <CardNominee
-                    awardId={award!.award?.id}
-                    user={item}
-                    key={uniqid()}
-                  />
-                );
-              }
-            })}
-          </div>
+          {singleActivAward &&
+          singleActivAward.data &&
+          singleActivAward.data.length == 0 ? (
+            <P className={styles.none} fontstyle='thin' size='m'>
+              Нет участников
+            </P>
+          ) : (
+            <div
+              className={cn(styles.usersAwarded, {
+                [styles.hidden]: singleActivAward?.data!?.length == 0,
+              })}
+            >
+              {singleActivAward?.data!?.map((item) => {
+                if (
+                  item.actionType === 'NOMINEE' ||
+                  item.actionType === 'AWARD'
+                ) {
+                  return (
+                    <CardNominee
+                      awardId={award!.award?.id}
+                      user={item}
+                      key={uniqid()}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
         </ScrollContainerWithSearchParams>
-
-        {singleActivAward?.data!.length == 0 ? (
-          <P className={styles.none} fontstyle='thin' size='m'>
-            Нет участников
-          </P>
-        ) : null}
       </div>
 
       {award?.award.id && (

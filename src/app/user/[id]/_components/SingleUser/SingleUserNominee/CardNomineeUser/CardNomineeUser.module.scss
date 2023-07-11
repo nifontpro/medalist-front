@@ -2,7 +2,7 @@
   background: var(--white);
   border-radius: 27px;
   display: grid;
-  grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [starDate] auto [endDate] 70px [startButtons] auto [end];
+  grid-template-columns: [start] 76px [endLogo] 30px [startUser] 300px [EndUser] 0px [starDate] auto [endDate] auto [startButtons] auto [end];
   margin-bottom: 50px;
   align-items: center;
 
@@ -33,6 +33,7 @@
 
   > .date {
     grid-column: starDate / endDate;
+
     @media screen and (max-width: 650px) {
       grid-column: start / end;
     }
@@ -43,9 +44,12 @@
     display: grid;
     grid-template-columns: auto auto;
     gap: 12px;
+    justify-self: flex-end;
+
     @media screen and (max-width: 650px) {
       grid-template-columns: 1fr auto;
       grid-column: start / end;
+      justify-self: flex-end;
     }
 
     .btnDefault {

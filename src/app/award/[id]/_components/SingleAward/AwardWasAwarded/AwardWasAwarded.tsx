@@ -37,8 +37,10 @@ const AwardWasAwarded = ({
     page: page,
     pageSize: 5,
     filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
+    orders: [{ field: 'user.firstname', direction: state }],
   });
+
+  console.log(singleActivAward);
 
   const {
     usersOnSubDepartment,
@@ -82,14 +84,15 @@ const AwardWasAwarded = ({
             </ButtonCircleIcon>
           </AuthComponent>
         </div>
-        {singleActivAward?.data! &&
-        singleActivAward?.data!.findIndex(
-          (item) => item.actionType === 'AWARD'
-        ) >= 0 ? (
-          <ScrollContainerWithSearchParams
-            search={true}
-            searchHandleChange={searchHandleChange}
-          >
+
+        <ScrollContainerWithSearchParams
+          search={true}
+          searchHandleChange={searchHandleChange}
+        >
+          {singleActivAward?.data! &&
+          singleActivAward?.data!.findIndex(
+            (item) => item.actionType === 'AWARD'
+          ) >= 0 ? (
             <div className={styles.usersAwarded}>
               {singleActivAward?.data!.map((item) => {
                 if (item.actionType === 'AWARD') {
@@ -99,12 +102,12 @@ const AwardWasAwarded = ({
                 }
               })}
             </div>
-          </ScrollContainerWithSearchParams>
-        ) : (
-          <P className={styles.none} fontstyle='thin' size='m'>
-            Нет награжденных
-          </P>
-        )}
+          ) : (
+            <P className={styles.none} fontstyle='thin' size='m'>
+              Нет награжденных
+            </P>
+          )}
+        </ScrollContainerWithSearchParams>
       </div>
       {award?.award.id && (
         <ModalWindowWithAddUsers

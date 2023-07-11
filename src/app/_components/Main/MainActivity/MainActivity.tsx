@@ -27,7 +27,6 @@ const MainActivity = ({
       orders: [{ field: 'date', direction: 'DESC' }],
     }
   );
-  console.log(awardsActivOnDepartment);
 
   let currentDate = +new Date();
 
