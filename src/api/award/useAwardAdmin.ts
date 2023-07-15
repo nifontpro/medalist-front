@@ -1,6 +1,6 @@
 import { awardApi } from '@/api/award/award.api';
 import { ActionType } from '@/types/award/Activity';
-import { AwardState } from '@/types/award/Award';
+import { AwardState, AwardType } from '@/types/award/Award';
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
@@ -13,7 +13,9 @@ import { toast } from 'react-toastify';
 export const useAwardAdmin = (
   awardId?: string,
   baseRequest?: BaseRequest,
-  active?: AwardState
+  active?: AwardState,
+  actionType?: ActionType,
+  awardType?: AwardType
 ) => {
   const { back } = useRouter();
   const { typeOfUser } = useAppSelector(
@@ -33,17 +35,21 @@ export const useAwardAdmin = (
     );
 
   // Получить Актив награды по id награды
-  const { data: singleActivAward, isLoading: isLoadingSingleActivAward } =
-    awardApi.useGetUsersByActivAwardQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        awardId: awardId ? Number(awardId) : 0,
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser && !awardId,
-      }
-    );
+  const {
+    data: singleActivAward,
+    isLoading: isLoadingSingleActivAward,
+    isFetching: isFetchingSingleActivAward,
+  } = awardApi.useGetUsersByActivAwardQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      awardId: awardId ? Number(awardId) : 0,
+      baseRequest: baseRequest ? baseRequest : undefined,
+      actionType: actionType ? actionType : undefined,
+    },
+    {
+      skip: !typeOfUser && !awardId,
+    }
+  );
 
   // Получить Актив награды по id пользователя
   const {
@@ -54,6 +60,7 @@ export const useAwardAdmin = (
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       userId: awardId ? Number(awardId) : 0,
       baseRequest: baseRequest ? baseRequest : undefined,
+      awardType: awardType ? awardType : undefined,
     },
     {
       skip: !typeOfUser && !awardId,
@@ -61,18 +68,21 @@ export const useAwardAdmin = (
   );
 
   // Получить награды в отделе
-  const { data: awardsOnDepartment, isLoading: isLoadingAwardsOnDept } =
-    awardApi.useGetByDeptQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: Number(awardId),
-        state: active ? active : undefined,
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  const {
+    data: awardsOnDepartment,
+    isLoading: isLoadingAwardsOnDept,
+    isFetching: isFetchingUsersOnDepartment,
+  } = awardApi.useGetByDeptQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(awardId),
+      state: active ? active : undefined,
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   // Получить колличество наград в отделе
   const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
@@ -222,9 +232,11 @@ export const useAwardAdmin = (
       singleAward,
       isLoadingSingleAward,
       awardsOnDepartment,
+      isFetchingUsersOnDepartment,
       isLoadingAwardsOnDept,
       singleActivAward,
       isLoadingSingleActivAward,
+      isFetchingSingleActivAward,
       awardsActivOnDepartment,
       isLoadingAwardsActivOnDept,
       singleActivAwardUser,
@@ -247,9 +259,11 @@ export const useAwardAdmin = (
     singleAward,
     isLoadingSingleAward,
     awardsOnDepartment,
+    isFetchingUsersOnDepartment,
     isLoadingAwardsOnDept,
     singleActivAward,
     isLoadingSingleActivAward,
+    isFetchingSingleActivAward,
     back,
     awardsActivOnDepartment,
     isLoadingAwardsActivOnDept,

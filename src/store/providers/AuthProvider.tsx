@@ -11,9 +11,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (!isAuth && pathName.slice(0, 6) !== '/login') {
-      console.log(`AuthProvider: isAuth ${isAuth}`);
       push('/login');
-      console.log('Redirect on LoginPage');
     }
   }, [isAuth, pathName, push]);
 

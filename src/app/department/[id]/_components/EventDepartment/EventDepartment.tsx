@@ -30,17 +30,7 @@ const EventDepartment = ({
   // } = useFetchParams();
   // const pageSize: number = 5;
 
-  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(
-    id
-    //   , {
-    //   orders: [{ field: '(days)', direction: 'ASC' }],
-    //   subdepts: true,
-    //   page: page,
-    //   pageSize,
-    // }
-  );
-  // console.log(eventsDepartment);
-  // const totalPage = eventsDepartment?.pageInfo?.totalPages;
+  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id);
 
   if (isLoadingEventsDepartment) return <Spinner />;
   if (!eventsDepartment?.success) {

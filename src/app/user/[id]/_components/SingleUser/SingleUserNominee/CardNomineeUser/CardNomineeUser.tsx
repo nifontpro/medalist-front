@@ -12,17 +12,13 @@ import { useCardNominee } from '@/app/award/[id]/_components/SingleAward/AwardNo
 const CardNomineeUser = ({
   userId,
   award,
+  userRewardAsync,
   className,
   ...props
 }: CardNomineeUserProps): JSX.Element => {
   let awardId = award.award?.id;
 
-  const { userRewardAsync, handleRemove } = useCardNominee(
-    Number(userId),
-    awardId
-  );
-
-  console.log(award);
+  const { handleRemove } = useCardNominee(Number(userId), awardId);
 
   let convertDate = timeConverterUser(award.date);
 

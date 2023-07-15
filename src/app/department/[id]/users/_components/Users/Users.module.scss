@@ -35,6 +35,15 @@
         display: none;
       }
     }
+    .title {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+
+      .countAwards {
+        margin-left: 10px;
+      }
+    }
   }
 }
 

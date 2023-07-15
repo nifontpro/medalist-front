@@ -88,9 +88,10 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             </TabTitle>
             <SortButton
               state={state}
-              onClick={() =>
-                state == 'ASC' ? setState('DESC') : setState('ASC')
-              }
+              onClick={() => {
+                state == 'ASC' ? setState('DESC') : setState('ASC');
+                setPage(0);
+              }}
               className={styles.sort}
             >
               Сначала новые
@@ -134,7 +135,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             <div>Еще нет наград</div>
           )}
         </div>
-        {totalPage && totalPage > 1 ? (
+        {/* {totalPage && totalPage > 1 ? (
           <PrevNextPages
             startPage={page + 1}
             endPage={totalPage}
@@ -143,9 +144,9 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             }
             handlePrevClick={prevPage}
           />
-        ) : null}
+        ) : null} */}
 
-        <ButtonScrollUp />
+        {totalPage === page && <ButtonScrollUp />}
       </div>
     );
   } else {

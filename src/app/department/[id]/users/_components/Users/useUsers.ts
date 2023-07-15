@@ -1,10 +1,10 @@
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { AwardState } from '@/types/award/Award';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useFetchParams } from '@/hooks/useFetchParams';
-import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export const useAwards = (id: string) => {
-  const [active, setActive] = useState<AwardState | undefined>(undefined);
+export const useUsers = (id: string) => {
+  const { push } = useRouter();
 
   const {
     page,
@@ -15,22 +15,21 @@ export const useAwards = (id: string) => {
     setState,
     nextPage,
     prevPage,
+    searchHandleChange,
   } = useFetchParams();
 
   const {
-    awardsOnDepartment,
-    isLoadingAwardsOnDept,
+    usersOnDepartment,
+    isLoadingUsersOnDepartment,
     isFetchingUsersOnDepartment,
-  } = useAwardAdmin(
-    id,
-    {
-      page: page,
-      pageSize: 12,
-      orders: [{ field: 'startDate', direction: state }],
-    },
-    active
-  );
-  const totalPage = awardsOnDepartment?.pageInfo?.totalPages;
+  } = useUserAdmin(id, {
+    page: page,
+    pageSize: 10,
+    filter: searchValue,
+    orders: [{ field: 'lastname', direction: state }],
+  });
+  const totalPage = usersOnDepartment?.pageInfo?.totalPages;
+  const countUsers = usersOnDepartment?.pageInfo?.totalElements;
 
   useEffect(() => {
     const onScroll = () => {
@@ -38,7 +37,7 @@ export const useAwards = (id: string) => {
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
       if (scrolledToBottom && !isFetchingUsersOnDepartment) {
         if (totalPage && page < totalPage) {
-          nextPage(awardsOnDepartment!);
+          nextPage(usersOnDepartment!);
         }
       }
     };
@@ -52,22 +51,25 @@ export const useAwards = (id: string) => {
     page,
     isFetchingUsersOnDepartment,
     setPage,
-    awardsOnDepartment,
+    usersOnDepartment,
     nextPage,
     totalPage,
   ]);
 
   return {
-    active,
-    setActive,
-    state,
-    setState,
-    awardsOnDepartment,
-    isLoadingAwardsOnDept,
+    push,
+    usersOnDepartment,
+    isLoadingUsersOnDepartment,
+    countUsers,
     totalPage,
     page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
     nextPage,
     prevPage,
-    setPage,
+    searchHandleChange,
   };
 };

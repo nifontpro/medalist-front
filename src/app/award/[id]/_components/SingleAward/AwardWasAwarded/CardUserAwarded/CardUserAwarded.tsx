@@ -14,10 +14,11 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 const CardUserAwarded = ({
   award,
   user,
+  userRewardAsync,
   className,
   ...props
 }: CardUserAwardedProps): JSX.Element => {
-  let convertDate = timeConverterUser(user.date);
+  let convertedDate = timeConverterUser(user.date);
 
   const userId = user.user?.id;
 
@@ -30,7 +31,7 @@ const CardUserAwarded = ({
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
-  const { userRewardAsync } = useAwardAdmin();
+  // const { userRewardAsync } = useAwardAdmin();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -59,7 +60,7 @@ const CardUserAwarded = ({
 
       <div className={styles.date}>
         <P size='xs' fontstyle='thin' className={styles.dateRewarded}>
-          {convertDate}
+          {convertedDate}
           <AwardIcon className={styles.icon} />
         </P>
       </div>

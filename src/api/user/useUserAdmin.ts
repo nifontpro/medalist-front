@@ -47,17 +47,20 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     );
 
   // Получить пользоветлей в отделе
-  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
-    userApi.useGetUsersByDeptQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: Number(id),
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  const {
+    data: usersOnDepartment,
+    isLoading: isLoadingUsersOnDepartment,
+    isFetching: isFetchingUsersOnDepartment,
+  } = userApi.useGetUsersByDeptQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(id),
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   // // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
   // const {
@@ -157,6 +160,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       isLoadingUserSettings,
       saveUserSettings,
       isLoadingSaveUserSettings,
+      isFetchingUsersOnDepartment,
     };
   }, [
     deleteUser,
@@ -175,5 +179,6 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     isLoadingUserSettings,
     saveUserSettings,
     isLoadingSaveUserSettings,
+    isFetchingUsersOnDepartment,
   ]);
 };

@@ -10,16 +10,19 @@ import Search from '@/ui/Search/Search';
 import UserList from '@/ui/UserList/UserList';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { getUserCreateUrl } from '@/config/api.config';
-import { useRouter } from 'next/navigation';
 import AuthComponent from '@/store/providers/AuthComponent';
-import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useFetchParams } from '@/hooks/useFetchParams';
+import P from '@/ui/P/P';
+import { useUsers } from './useUsers';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
+    push,
+    usersOnDepartment,
+    isLoadingUsersOnDepartment,
+    countUsers,
+    totalPage,
     page,
     setPage,
     searchValue,
@@ -29,18 +32,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     nextPage,
     prevPage,
     searchHandleChange,
-  } = useFetchParams();
-
-  const { usersOnDepartment, isLoadingUsersOnDepartment } = useUserAdmin(id, {
-    page: page,
-    pageSize: 5,
-    filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
-  });
-
-  const totalPage = usersOnDepartment?.pageInfo?.totalPages;
-
-  const { push } = useRouter();
+  } = useUsers(id);
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success) return <NoAccess button={false} />;
@@ -62,14 +54,23 @@ const Users = ({ id, className, ...props }: UsersProps) => {
         </AuthComponent>
         <div className={styles.container}>
           <div className={styles.header}>
-            <Htag tag='h3' className={cn(styles.choices)}>
-              Сотрудники отдела
-            </Htag>
+            <div className={styles.title}>
+              <Htag tag='h3' className={cn(styles.choices)}>
+                Сотрудники отдела
+              </Htag>
+              {countUsers && totalPage && (
+                <P size='s' fontstyle='thin' className={styles.countAwards}>
+                  {countUsers}
+                </P>
+              )}
+            </div>
+
             <SortButton
               state={state}
-              onClick={() =>
-                state == 'ASC' ? setState('DESC') : setState('ASC')
-              }
+              onClick={() => {
+                state == 'ASC' ? setState('DESC') : setState('ASC');
+                setPage(0);
+              }}
               className={styles.filter}
             >
               По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
@@ -92,8 +93,8 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           >
             По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
           </SortButton>
-          {usersOnDepartment.data.length >= 1 ? (
-            usersOnDepartment.data?.map((user) => (
+          {usersOnDepartment?.data.length >= 1 ? (
+            usersOnDepartment?.data?.map((user) => (
               <UserList
                 user={user}
                 key={uniqid()}
@@ -103,7 +104,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           ) : (
             <div className='mt-5'>Нет сотрудников в отделе...</div>
           )}
-          {totalPage && totalPage > 1 ? (
+          {/* {totalPage && totalPage > 1 ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
@@ -112,7 +113,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
               }
               handlePrevClick={prevPage}
             />
-          ) : null}
+          ) : null} */}
         </div>
       </>
     );

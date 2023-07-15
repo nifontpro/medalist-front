@@ -10,14 +10,8 @@ import AwardWasAwarded from './AwardWasAwarded/AwardWasAwarded';
 import AwardWasNominee from './AwardWasNominee/AwardWasNominee';
 import AwardNominee from './AwardNominee/AwardNominee';
 
-const SingleAward = ({
-  awardActiv,
-  award,
-  id,
-  className,
-  ...props
-}: SingleAwardProps) => {
-  const { back, push } = useRouter();
+const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
+  const { back } = useRouter();
 
   if (award?.award.state == 'FINISH' || award?.award.state == 'ERROR') {
     return (

@@ -8,6 +8,8 @@ import CardUserNominee from './CardUserNominee/CardUserNominee';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { useEffect } from 'react';
 
 const AwardWasNominee = ({
   award,
@@ -27,12 +29,23 @@ const AwardWasNominee = ({
     prevPage,
   } = useFetchParams();
 
-  const { singleActivAward, isLoadingSingleActivAward } = useAwardAdmin(id, {
-    page: page,
-    pageSize: 5,
-    filter: searchValue,
-    orders: [{ field: 'user.firstname', direction: state }],
-  });
+  const {
+    singleActivAward,
+    isLoadingSingleActivAward,
+    isFetchingSingleActivAward,
+    
+  } = useAwardAdmin(
+    id,
+    {
+      page: page,
+      pageSize: 6,
+      filter: searchValue,
+      orders: [{ field: 'user.firstname', direction: state }],
+    },
+    undefined,
+    'NOMINEE'
+  );
+  const totalPage = singleActivAward?.pageInfo?.totalPages;
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -40,11 +53,7 @@ const AwardWasNominee = ({
         <div className={styles.header}>
           <Htag tag='h3'>Были номинированы </Htag>
           <P className={styles.rewardedLength}>
-            {singleActivAward &&
-              singleActivAward.data &&
-              singleActivAward.data.filter(
-                (user) => user.actionType == 'NOMINEE'
-              ).length}
+            {singleActivAward?.pageInfo?.totalElements}
           </P>
         </div>
 
@@ -57,19 +66,47 @@ const AwardWasNominee = ({
           singleActivAward.data.findIndex(
             (item) => item.actionType === 'NOMINEE'
           ) >= 0 ? (
-            <div className={styles.usersAwarded}>
-              {singleActivAward?.data!.map((item) => {
-                if (item.actionType === 'NOMINEE') {
-                  return (
-                    <CardUserNominee award={award} user={item} key={uniqid()} />
-                  );
-                }
-              })}
-            </div>
+            <>
+              <div className={styles.usersAwarded}>
+                {singleActivAward?.data!.map((item) => {
+                  if (item.actionType === 'NOMINEE') {
+                    return (
+                      <CardUserNominee
+                        award={award}
+                        user={item}
+                        key={uniqid()}
+                      />
+                    );
+                  }
+                })}
+              </div>
+              {totalPage && totalPage > 1 ? (
+                <PrevNextPages
+                  startPage={page + 1}
+                  endPage={totalPage}
+                  handleNextClick={() =>
+                    singleActivAward && nextPage(singleActivAward)
+                  }
+                  handlePrevClick={prevPage}
+                />
+              ) : null}
+            </>
           ) : (
-            <P className={styles.none} fontstyle='thin' size='m'>
-              Нет номинантов
-            </P>
+            <>
+              <P className={styles.none} fontstyle='thin' size='m'>
+                Нет номинантов
+              </P>
+              {totalPage && totalPage > 1 ? (
+                <PrevNextPages
+                  startPage={page + 1}
+                  endPage={totalPage}
+                  handleNextClick={() =>
+                    singleActivAward && nextPage(singleActivAward)
+                  }
+                  handlePrevClick={prevPage}
+                />
+              ) : null}
+            </>
           )}
         </ScrollContainerWithSearchParams>
       </div>

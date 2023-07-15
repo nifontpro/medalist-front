@@ -1,4 +1,4 @@
-import { Activity } from '@/types/award/Activity';
+import { ActionType, Activity } from '@/types/award/Activity';
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
 export type CardNomineeUserProps = DetailedHTMLProps<
@@ -7,4 +7,5 @@ export type CardNomineeUserProps = DetailedHTMLProps<
 > & {
   userId: string;
   award: Activity;
+  userRewardAsync: (awardId: number, actionType: ActionType, userId: number) => Promise<void>
 };

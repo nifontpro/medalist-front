@@ -6,7 +6,6 @@ export type SingleAwardProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  awardActiv: Activity[] | null;
   award: AwardDetails | null;
   id: string;
 };

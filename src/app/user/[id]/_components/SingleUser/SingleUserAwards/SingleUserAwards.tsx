@@ -8,6 +8,7 @@ import CardUserAward from './CardUserAward/CardUserAward';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const SingleUserAwards = ({
   user,
@@ -24,28 +25,39 @@ const SingleUserAwards = ({
     nextPage,
     prevPage,
     setEndDateChange,
+    endDate,
     setStartDateChange,
+    startDate,
     state,
     setState,
   } = useFetchParams();
 
-  const { singleActivAwardUser } = useAwardAdmin(id, {
-    page: page,
-    pageSize: 5,
-    filter: searchValue,
-    orders: [{ field: 'award.name', direction: state }],
-  });
+  const { singleActivAwardUser, userRewardAsync } = useAwardAdmin(
+    id,
+    {
+      page: page,
+      pageSize: 6,
+      filter: searchValue,
+      maxDate: endDate,
+      minDate: startDate,
+      orders: [{ field: 'award.name', direction: state }],
+    },
+    undefined,
+    undefined,
+    'SIMPLE'
+  );
+  const totalPage = singleActivAwardUser?.pageInfo?.totalPages;
+  const totalElements = singleActivAwardUser?.pageInfo?.totalElements;
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
         <Htag tag='h3'>Медали</Htag>
-        <P size='s' fontstyle='thin' className={styles.countAwards}>
-          {singleActivAwardUser &&
-            singleActivAwardUser?.data!.filter(
-              (award) => award.award?.type == 'SIMPLE'
-            ).length}
-        </P>
+        {totalElements && (
+          <P size='s' fontstyle='thin' className={styles.countAwards}>
+            {totalElements}
+          </P>
+        )}
       </div>
 
       <ScrollContainerWithSearchParams
@@ -60,15 +72,32 @@ const SingleUserAwards = ({
         singleActivAwardUser?.data!.filter(
           (award) => award.award?.type == 'SIMPLE'
         ).length > 0 ? (
-          <div className={styles.content}>
-            {singleActivAwardUser?.data!.map((award) => {
-              if (award.award?.type == 'SIMPLE') {
-                return (
-                  <CardUserAward key={uniqid()} award={award} user={user} />
-                );
-              }
-            })}
-          </div>
+          <>
+            <div className={styles.content}>
+              {singleActivAwardUser?.data!.map((award) => {
+                if (award.award?.type == 'SIMPLE') {
+                  return (
+                    <CardUserAward
+                      key={uniqid()}
+                      award={award}
+                      user={user}
+                      userRewardAsync={userRewardAsync}
+                    />
+                  );
+                }
+              })}
+            </div>
+            {totalPage && totalPage > 1 ? (
+              <PrevNextPages
+                startPage={page + 1}
+                endPage={totalPage}
+                handleNextClick={() =>
+                  singleActivAwardUser && nextPage(singleActivAwardUser)
+                }
+                handlePrevClick={prevPage}
+              />
+            ) : null}
+          </>
         ) : (
           <P size='s' fontstyle='thin' className={styles.countAwards}>
             У вас пока нет медалей

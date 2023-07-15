@@ -15,7 +15,6 @@ import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { deleteCookie } from 'cookies-next';
 
 function logoutWin(it: string) {
-  console.log(it);
   const params = [
     'post_logout_redirect_uri=' + APP_URI,
     'id_token=' + it,

@@ -5,6 +5,7 @@ import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 
 const TabTitle = ({
+  count,
   setActive,
   active,
   setPage,
@@ -29,13 +30,15 @@ const TabTitle = ({
       )}
     >
       {children}
-      {/* <P
-        size='s'
-        color={active == onClickActive ? 'black' : 'gray96'}
-        className={styles.awardsCount}
-      >
-        {count}
-      </P> */}
+      {count && (
+        <P
+          size='s'
+          color={active == onClickActive ? 'black' : 'gray96'}
+          className={styles.awardsCount}
+        >
+          {count}
+        </P>
+      )}
     </Htag>
   );
 };

@@ -12,17 +12,24 @@ import { checkRole } from '@/utils/checkRole';
 import Htag from '@/ui/Htag/Htag';
 import AwardIcon from '@/icons/union.svg';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import { awardApi } from '@/api/award/award.api';
 
 const CardNominee = ({
   awardId,
   user,
+  userRewardAsync,
   className,
   ...props
 }: CardNomineeProps): JSX.Element => {
+  const [deleteUserReward, deleteUserRewardInfo] =
+    awardApi.useSendActionMutation();
+
   let userId = user.user?.id;
 
-  const { userRewardAsync, handleRemove, typeOfUser, rewardInfo, deleteUserRewardInfo } =
-    useCardNominee(userId, awardId);
+  const { handleRemove, typeOfUser, rewardInfo } = useCardNominee(
+    userId,
+    awardId
+  );
 
   return (
     <>
@@ -86,7 +93,10 @@ const CardNominee = ({
           </div>
         )}
       </div>
-      {rewardInfo.status == 'pending' || deleteUserRewardInfo.status == 'pending' ? <SpinnerFetching /> : null}
+      {rewardInfo.status == 'pending' ||
+      deleteUserRewardInfo.status == 'pending' ? (
+        <SpinnerFetching />
+      ) : null}
     </>
   );
 };

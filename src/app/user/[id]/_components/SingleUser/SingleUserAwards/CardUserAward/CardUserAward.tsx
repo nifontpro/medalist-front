@@ -11,12 +11,11 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 const CardUserAward = ({
   user,
   award,
+  userRewardAsync,
   className,
   ...props
 }: CardUserAwardProps): JSX.Element => {
   let convertDate = timeConverterUser(award.date);
-
-  const { userRewardAsync } = useAwardAdmin();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>

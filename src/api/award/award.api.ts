@@ -5,13 +5,14 @@ import { BaseImage } from '@/types/base/image/baseImage';
 import { CreateAwardRequest } from './request/CreateAwardRequest';
 import { UpdateAwardRequest } from './request/UpdateAwardRequest';
 import { AwardDetails } from '@/types/award/AwardDetails';
-import { Activity } from '@/types/award/Activity';
+import { ActionType, Activity } from '@/types/award/Activity';
 import { SendActionRequest } from './request/SendActionRequest';
-import { Award, AwardState } from '@/types/award/Award';
+import { Award, AwardState, AwardType } from '@/types/award/Award';
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { AwardCount } from '@/types/award/AwardCount';
 import { AwardStateCount } from '@/types/award/AwardStateCount';
 import { WWAwardCount } from '@/types/award/WWAwardCount';
+import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -106,6 +107,26 @@ export const awardApi = createApi({
           body: request,
         };
       },
+      serializeQueryArgs: ({ queryArgs, endpointDefinition, endpointName }) => {
+        const state = queryArgs.state;
+        const orders = queryArgs.baseRequest?.orders;
+        // This can return a string, an object, a number, or a boolean.
+        // If it returns an object, number or boolean, that value
+        // will be serialized automatically via `defaultSerializeQueryArgs`
+        return { state, orders }; // omit `client` from the cache key
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems, otherArgs) => {
+        if (!checkSameIdInArrays<Award>(currentCache?.data, newItems?.data)) {
+          currentCache?.data?.push(...newItems?.data!);
+        } else {
+          currentCache.data = newItems.data;
+        }
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ['Award'],
     }),
 
@@ -183,6 +204,7 @@ export const awardApi = createApi({
         authId: number;
         userId: number;
         baseRequest: BaseRequest | undefined;
+        awardType: AwardType | undefined;
       }
     >({
       query: (body) => ({
@@ -242,6 +264,7 @@ export const awardApi = createApi({
         authId: number;
         awardId: number;
         baseRequest: BaseRequest | undefined;
+        actionType: ActionType | undefined;
       }
     >({
       query: (body) => ({

@@ -10,6 +10,7 @@ import { BaseImage } from '@/types/base/image/baseImage';
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
+import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -106,9 +107,29 @@ export const userApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: userUrl('/get_by_dept'),
+          url: userUrl(`/get_by_dept`),
           body: request,
         };
+      },
+      serializeQueryArgs: ({ queryArgs, endpointDefinition, endpointName }) => {
+        const searchValue = queryArgs.baseRequest?.filter;
+        const orders = queryArgs.baseRequest?.orders;
+        // This can return a string, an object, a number, or a boolean.
+        // If it returns an object, number or boolean, that value
+        // will be serialized automatically via `defaultSerializeQueryArgs`
+        return { searchValue, orders }; // omit `client` from the cache key
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems, otherArgs) => {
+        if (!checkSameIdInArrays<User>(currentCache?.data, newItems?.data)) {
+          currentCache?.data?.push(...newItems?.data!);
+        } else {
+          currentCache.data = newItems.data;
+        }
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
       },
       providesTags: ['User'],
     }),
@@ -296,7 +317,7 @@ export const userApi = createApi({
         method: 'POST',
         url: userUrl('/save_settings'),
         body: request,
-      }), 
+      }),
       invalidatesTags: ['Settings'],
     }),
 

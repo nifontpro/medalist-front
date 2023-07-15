@@ -6,14 +6,15 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
-export const useCardNominee = (userId: number | undefined, awardId: number | undefined) => {
+export const useCardNominee = (
+  userId: number | undefined,
+  awardId: number | undefined
+) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const [reward, rewardInfo] = awardApi.useSendActionMutation();
-
-  const { userRewardAsync, deleteUserRewardInfo } = useAwardAdmin(); 
 
   return useMemo(() => {
     const handleRemove = async () => {
@@ -45,11 +46,9 @@ export const useCardNominee = (userId: number | undefined, awardId: number | und
     };
 
     return {
-      userRewardAsync,
       handleRemove,
       typeOfUser,
       rewardInfo,
-      deleteUserRewardInfo,
     };
-  }, [userId, reward, awardId, typeOfUser, userRewardAsync, rewardInfo, deleteUserRewardInfo]);
+  }, [userId, reward, awardId, typeOfUser, rewardInfo]);
 };

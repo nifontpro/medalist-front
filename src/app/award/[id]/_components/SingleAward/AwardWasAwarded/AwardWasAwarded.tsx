@@ -14,6 +14,7 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { useAwardWasAwardedForAddUsers } from './useAwardWasAwardedForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const AwardWasAwarded = ({
   award,
@@ -33,14 +34,23 @@ const AwardWasAwarded = ({
     prevPage,
   } = useFetchParams();
 
-  const { singleActivAward, isLoadingSingleActivAward } = useAwardAdmin(id, {
-    page: page,
-    pageSize: 5,
-    filter: searchValue,
-    orders: [{ field: 'user.firstname', direction: state }],
-  });
-
-  console.log(singleActivAward);
+  const {
+    singleActivAward,
+    isLoadingSingleActivAward,
+    isFetchingSingleActivAward,
+    userRewardAsync,
+  } = useAwardAdmin(
+    id,
+    {
+      page: page,
+      pageSize: 5,
+      filter: searchValue,
+      orders: [{ field: 'user.firstname', direction: 'ASC' }],
+    },
+    undefined,
+    'AWARD'
+  );
+  const totalPage = singleActivAward?.pageInfo?.totalPages;
 
   const {
     usersOnSubDepartment,
@@ -64,11 +74,7 @@ const AwardWasAwarded = ({
           <Htag tag='h3' className={styles.headerTitle}>
             Награжденные
             <P className={styles.rewardedLength}>
-              {
-                singleActivAward?.data!?.filter(
-                  (user) => user.actionType == 'AWARD'
-                ).length
-              }
+              {singleActivAward?.pageInfo?.totalElements}
             </P>
           </Htag>
           <AuthComponent minRole={'ADMIN'}>
@@ -89,23 +95,49 @@ const AwardWasAwarded = ({
           search={true}
           searchHandleChange={searchHandleChange}
         >
-          {singleActivAward?.data! &&
-          singleActivAward?.data!.findIndex(
-            (item) => item.actionType === 'AWARD'
-          ) >= 0 ? (
-            <div className={styles.usersAwarded}>
-              {singleActivAward?.data!.map((item) => {
-                if (item.actionType === 'AWARD') {
+          {singleActivAward &&
+          singleActivAward.data &&
+          singleActivAward.data.length >= 0 ? (
+            <>
+              <div className={styles.usersAwarded}>
+                {singleActivAward.data.map((item) => {
                   return (
-                    <CardUserAwarded award={award} user={item} key={uniqid()} />
+                    <CardUserAwarded
+                      award={award}
+                      user={item}
+                      key={uniqid()}
+                      userRewardAsync={userRewardAsync}
+                    />
                   );
-                }
-              })}
-            </div>
+                })}
+              </div>
+              {totalPage && totalPage > 1 ? (
+                <PrevNextPages
+                  startPage={page + 1}
+                  endPage={totalPage}
+                  handleNextClick={() =>
+                    singleActivAward && nextPage(singleActivAward)
+                  }
+                  handlePrevClick={prevPage}
+                />
+              ) : null}
+            </>
           ) : (
-            <P className={styles.none} fontstyle='thin' size='m'>
-              Нет награжденных
-            </P>
+            <>
+              <P className={styles.none} fontstyle='thin' size='m'>
+                Нет награжденных
+              </P>
+              {totalPage && totalPage > 1 ? (
+                <PrevNextPages
+                  startPage={page + 1}
+                  endPage={totalPage}
+                  handleNextClick={() =>
+                    singleActivAward && nextPage(singleActivAward)
+                  }
+                  handlePrevClick={prevPage}
+                />
+              ) : null}
+            </>
           )}
         </ScrollContainerWithSearchParams>
       </div>

@@ -16,4 +16,5 @@ export type TabTitleProps = DetailedHTMLProps<
   active: AwardState | undefined;
   setActive: Dispatch<SetStateAction<AwardState | undefined>>;
   setPage: Dispatch<SetStateAction<number>>;
+  count?: number;
 };

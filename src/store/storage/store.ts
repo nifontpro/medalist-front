@@ -27,6 +27,7 @@ import { galleryApi } from '@/api/gallery/gallery.api';
 import { visibleModalWindowGalleryAwardsSlice } from '../features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
 import { eventApi } from '@/api/event/event.api';
 import { messageApi } from '@/api/msg/message.api';
+import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -115,6 +116,8 @@ export const persistor = persistStore(store);
 export type TypeRootState = ReturnType<typeof store.getState>;
 export const useTypedSelector: TypedUseSelectorHook<TypeRootState> =
   useSelector;
+
+// setupListeners(store.dispatch);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

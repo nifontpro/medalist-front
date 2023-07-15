@@ -67,7 +67,6 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
         typeOfUser &&
         rolesUser.data.filter((role) => role.id == typeOfUser.id).length > 0
       ) {
-        console.log('Рады вашему возвращению');
         dispatch(setArrayIds(expandedIds));
         dispatch(setSelectedTreeId(selectedIds));
       } else {
