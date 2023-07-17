@@ -16,3 +16,6 @@ EXPOSE 3000:3000
 # CMD ["npm", "run", "dev"]
 RUN ["npm","run","build"]
 CMD ["npm", "start"]
+
+# docker compose build
+# docker push 8881981/web:1
