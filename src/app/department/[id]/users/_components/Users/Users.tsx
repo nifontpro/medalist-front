@@ -15,6 +15,7 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import P from '@/ui/P/P';
 import { useUsers } from './useUsers';
+import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -115,6 +116,8 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             />
           ) : null} */}
         </div>
+        
+        {totalPage === page + 1 && <ButtonScrollUp />}
       </>
     );
   } else {

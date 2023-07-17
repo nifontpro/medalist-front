@@ -146,7 +146,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
           />
         ) : null} */}
 
-        {totalPage === page && <ButtonScrollUp />}
+        {totalPage === page + 1 && <ButtonScrollUp />}
       </div>
     );
   } else {

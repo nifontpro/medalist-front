@@ -45,24 +45,27 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
       {isLoadingUsersOnDepartmentWithAwards ? (
         <SpinnerSmall />
       ) : (
-        <UserListRating
-          withoutCountAwards={false}
-          users={usersOnDepartmentWithAwards?.data}
-          className={styles.userList}
-          page={page}
-          pageSize={pageSize}
-        />
+        <div className={styles.contentWrapper}>
+          <UserListRating
+            withoutCountAwards={false}
+            users={usersOnDepartmentWithAwards?.data}
+            className={styles.userList}
+            page={page}
+            pageSize={pageSize}
+          />
+          {totalPage && totalPage > 1 ? (
+            <PrevNextPages
+              startPage={page + 1}
+              endPage={totalPage}
+              handleNextClick={() =>
+                usersOnDepartmentWithAwards &&
+                nextPage(usersOnDepartmentWithAwards)
+              }
+              handlePrevClick={prevPage}
+            />
+          ) : null}
+        </div>
       )}
-      {totalPage && totalPage > 1 ? (
-        <PrevNextPages
-          startPage={page + 1}
-          endPage={totalPage}
-          handleNextClick={() =>
-            usersOnDepartmentWithAwards && nextPage(usersOnDepartmentWithAwards)
-          }
-          handlePrevClick={prevPage}
-        />
-      ) : null}
     </div>
   );
 };

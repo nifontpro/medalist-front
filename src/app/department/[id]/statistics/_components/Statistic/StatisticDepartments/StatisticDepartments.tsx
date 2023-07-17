@@ -47,7 +47,7 @@ const StatisticDepartments = ({
         <>
           <div>
             {colAwardsActivRoot.data?.map((depart, index) => {
-              if (index == 0) {
+              if (index == 0 && page === 0) {
                 return (
                   <div
                     key={uniqid()}
