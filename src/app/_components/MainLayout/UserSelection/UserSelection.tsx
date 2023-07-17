@@ -19,6 +19,7 @@ import {
 import P from '@/ui/P/P';
 import CreateOwnerIcon from '@/icons/ownerLogo.svg';
 import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import { User } from '@/types/user/user';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const {
@@ -35,6 +36,12 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     expandedIds,
     selectedIds,
   } = useUserSelection();
+
+  let reversedRolesUser: User[] = [];
+  if (rolesUser && rolesUser.data) {
+    // @ts-ignore: Unreachable code error
+    reversedRolesUser = rolesUser.data.toReversed();
+  }
 
   const { windowSize } = useWindowSize();
 
@@ -108,7 +115,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                     Выберите профиль
                   </Htag> */}
                   {rolesUser ? (
-                    rolesUser.data!.map((role) => {
+                    reversedRolesUser!.map((role) => {
                       return (
                         <div
                           key={uniqid()}
