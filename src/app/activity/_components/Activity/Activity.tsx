@@ -3,22 +3,16 @@
 import styles from './Activity.module.scss';
 import { ActivityProps } from './Activity.props';
 import { useActivity } from './useActivity';
-// import SingleActivity from './SingleActivity/SingleActivity';
-// import FilterActivity from './FilterActivity/FilterActivity';
 import uniqid from 'uniqid';
-import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
 import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Search from '@/ui/Search/Search';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import SingleActivity from './SingleActivity/SingleActivity';
 import FilterActivity from './FilterActivity/FilterActivity';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
-import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
-import dayjs from 'dayjs';
 import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 
 const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
@@ -142,17 +136,19 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
         })}
       </div>
 
-      {totalPage && totalPage > 1 ? (
+      {/* {totalPage && totalPage > 1 ? (
         <PrevNextPages
-          startPage={page + 1}
+          startPage={page + 1} 
           endPage={totalPage}
           handleNextClick={() =>
             awardsActivOnDepartment && nextPage(awardsActivOnDepartment)
           }
           handlePrevClick={prevPage}
         />
-      ) : null}
-      <ButtonScrollUp className='@apply mt-[50px]' />
+      ) : null} */}
+      {totalPage === page + 1 && (
+        <ButtonScrollUp className='@apply mt-[50px]' />
+      )}
     </div>
   );
 };

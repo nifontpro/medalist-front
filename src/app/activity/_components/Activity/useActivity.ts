@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { AwardState } from '@/types/award/Award';
 import { useAppSelector } from '@/store/hooks/hooks';
@@ -36,12 +36,16 @@ export const useActivity = () => {
   // const [endDate, setEndDate] = useState<number>(16732673054000);
   const [active, setActive] = useState<AwardState | undefined>(undefined);
 
-  const { awardsActivOnDepartment, isLoadingAwardsActivOnDept } = useAwardAdmin(
+  const {
+    awardsActivOnDepartment,
+    isLoadingAwardsActivOnDept,
+    isFetchingUsersActivOnDepartment,
+  } = useAwardAdmin(
     typeOfUser?.dept.id,
     {
       subdepts: true,
       page: page,
-      pageSize: 5,
+      pageSize: 10,
       filter: searchValue,
       minDate: startDate,
       maxDate: endDate,
@@ -52,6 +56,31 @@ export const useActivity = () => {
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
 
   const { windowSize } = useWindowSize();
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      if (scrolledToBottom && !isFetchingUsersActivOnDepartment) {
+        if (totalPage && page < totalPage) {
+          nextPage(awardsActivOnDepartment!);
+        }
+      }
+    };
+
+    document.addEventListener('scroll', onScroll);
+
+    return function () {
+      document.removeEventListener('scroll', onScroll);
+    };
+  }, [
+    page,
+    isFetchingUsersActivOnDepartment,
+    setPage,
+    awardsActivOnDepartment,
+    nextPage,
+    totalPage,
+  ]);
 
   return useMemo(() => {
     return {

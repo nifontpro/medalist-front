@@ -244,6 +244,29 @@ export const awardApi = createApi({
         url: awardUrl('/act_dept'),
         body: body,
       }),
+      serializeQueryArgs: ({ queryArgs, endpointDefinition, endpointName }) => {
+        const searchValue = queryArgs.baseRequest?.filter;
+        const awardState = queryArgs.awardState;
+        const orders = queryArgs.baseRequest?.orders;
+        // This can return a string, an object, a number, or a boolean.
+        // If it returns an object, number or boolean, that value
+        // will be serialized automatically via `defaultSerializeQueryArgs`
+        return { awardState, orders, searchValue }; // omit `client` from the cache key
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems, otherArgs) => {
+        if (
+          !checkSameIdInArrays<Activity>(currentCache?.data, newItems?.data)
+        ) {
+          currentCache?.data?.push(...newItems?.data!);
+        } else {
+          currentCache.data = newItems.data;
+        }
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ['Action'],
     }),
 

@@ -101,6 +101,7 @@ export const useAwardAdmin = (
   const {
     data: awardsActivOnDepartment,
     isLoading: isLoadingAwardsActivOnDept,
+    isFetching: isFetchingUsersActivOnDepartment,
   } = awardApi.useGetActivAwardByDeptQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
@@ -249,6 +250,7 @@ export const useAwardAdmin = (
       isLoadingColAwardsOnDept,
       colAwardsActivOnDepartment,
       isLoadingColAwardsActivOnDepartment,
+      isFetchingUsersActivOnDepartment,
       colAwardsActivRoot,
       isLoadingColAwardsActivRoot,
       userAwardWWCountOnDept,
@@ -267,6 +269,7 @@ export const useAwardAdmin = (
     back,
     awardsActivOnDepartment,
     isLoadingAwardsActivOnDept,
+    isFetchingUsersActivOnDepartment,
     singleActivAwardUser,
     isLoadingSingleActivAwardUser,
     typeOfUser,
