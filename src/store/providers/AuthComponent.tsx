@@ -1,5 +1,5 @@
 import { RoleUser, User } from '@/types/user/user';
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, memo } from 'react';
 import { useAppSelector } from '../hooks/hooks';
 import { RootState } from '../storage/store';
 import { checkRole } from '@/utils/checkRole';
@@ -15,4 +15,4 @@ const AuthComponent: FC<PropsWithChildren<{ minRole: RoleUser }>> = ({
   return checkRole(typeOfUser, minRole) ? <>{children}</> : null;
 };
 
-export default AuthComponent;
+export default memo(AuthComponent)

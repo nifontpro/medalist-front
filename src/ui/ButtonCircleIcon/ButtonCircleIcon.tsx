@@ -1,7 +1,7 @@
 import styles from './ButtonCircleIcon.module.scss';
 import cn from 'classnames';
 import { ButtonCircleIconProps, icons } from './ButtonCircleIcon.props';
-import { ForwardedRef, forwardRef, memo } from 'react';
+import { ForwardedRef, forwardRef, memo, useMemo } from 'react';
 
 const ButtonCircleIcon = forwardRef(
   (
@@ -16,7 +16,7 @@ const ButtonCircleIcon = forwardRef(
     }: ButtonCircleIconProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const IconComp = icons[icon];
+    const IconComp = useMemo(() => icons[icon], [icon]);
 
     return (
       <div

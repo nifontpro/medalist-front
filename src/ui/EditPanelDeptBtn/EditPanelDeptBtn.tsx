@@ -2,7 +2,7 @@ import styles from './EditPanelDeptBtn.module.scss';
 import { EditPanelDeptBtnProps } from './EditPanelDeptBtn.props';
 import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import EditPanel from './EditPanel/EditPanel';
 import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
 import cn from 'classnames';
@@ -18,12 +18,13 @@ const EditPanelDeptBtn = ({
   color = 'transparent',
 }: EditPanelDeptBtnProps): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
+
   //Закрытие модального окна нажатием вне его
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
@@ -60,4 +61,4 @@ const EditPanelDeptBtn = ({
   );
 };
 
-export default EditPanelDeptBtn;
+export default memo(EditPanelDeptBtn);

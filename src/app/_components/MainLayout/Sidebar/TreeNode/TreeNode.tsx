@@ -5,16 +5,9 @@ import Tree from '../Tree/Tree';
 import styles from './TreeNode.module.scss';
 import { Box, Typography } from '@mui/material';
 import CustomTreeItem from '../CustomTreeNode/CustomTreeNode';
-import React from 'react';
+import { memo } from 'react';
 
 const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
-  const st = {
-    '&:hover': {
-      backgroundColor: 'red',
-      color: 'black',
-    },
-  };
-
   return (
     <div className={styles.container}>
       <CustomTreeItem
@@ -42,4 +35,4 @@ const TreeNode = ({ node }: TreeNodeProps): JSX.Element => {
   );
 };
 
-export default React.memo(TreeNode);
+export default memo(TreeNode);

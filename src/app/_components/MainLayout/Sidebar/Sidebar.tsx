@@ -6,12 +6,13 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SidebarProps } from './Sidebar.props';
 import Tree from './Tree/Tree';
 import { useSidebar } from './useSidebar';
-import ExitIcon from '@/icons/close.svg';
+import ExitIconSvg from '@/icons/close.svg';
 import styles from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
+import { memo } from 'react';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -23,11 +24,9 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     selectedIdsState,
   } = useSidebar();
 
-  const { close } = useHeader();
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
-      <ExitIcon onClick={close} className={styles.exit} />
+      <ExitIcon />
       <Logo className={styles.logo} />
       <ChangeRole className={styles.role} />
       <TreeView
@@ -45,4 +44,12 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);
+
+//Для мемоизации svg icon
+const ExitIcon = memo(() => {
+  const { close } = useHeader();
+  return <ExitIconSvg onClick={close} className={styles.exit} />;
+});
+ExitIcon.displayName = 'ExitIcon';
+//__________________

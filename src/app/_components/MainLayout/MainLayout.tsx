@@ -6,6 +6,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import UserSelection from './UserSelection/UserSelection';
 import { redirect, usePathname } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
+import { memo } from 'react';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -34,4 +35,4 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   }
 };
 
-export default MainLayout;
+export default memo(MainLayout);

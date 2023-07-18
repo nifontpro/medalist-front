@@ -3,7 +3,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useDepartmentAdmin = (id?: string) => {
@@ -24,8 +24,8 @@ export const useDepartmentAdmin = (id?: string) => {
 
   const [deleteDepartment] = deptApi.useDeleteMutation();
 
-  return useMemo(() => {
-    const deleteDepartmentAsync = async (id: number) => {
+  const deleteDepartmentAsync = useCallback(
+    async (id: number) => {
       let isError = false;
       if (typeOfUser && typeOfUser.id)
         await deleteDepartment({ authId: typeOfUser.id, deptId: id })
@@ -43,12 +43,13 @@ export const useDepartmentAdmin = (id?: string) => {
       if (!isError) {
         toast.success('Отдел успешно удален');
       }
-    };
+    },
+    [deleteDepartment, typeOfUser]
+  );
 
-    return {
-      deleteDepartmentAsync,
-      singleDepartment,
-      isLoadingByIdDept,
-    };
-  }, [deleteDepartment, singleDepartment, isLoadingByIdDept, typeOfUser]);
+  return {
+    deleteDepartmentAsync,
+    singleDepartment,
+    isLoadingByIdDept,
+  };
 };

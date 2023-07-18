@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { sortTree } from '@/utils/sortTree';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -57,25 +57,19 @@ export const useSidebar = () => {
     }
   }, [expandedIds, selectedIds, dispatch, subTree]);
 
-  return useMemo(() => {
-    const toggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
+  const toggle = useCallback(
+    (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
       dispatch(setArrayIds(nodeIds));
-    };
+    },
+    [dispatch]
+  );
 
-    return {
-      expandedIds,
-      selectedIds,
-      toggle,
-      treeData,
-      expandedIdsState,
-      selectedIdsState,
-    };
-  }, [
+  return {
     expandedIds,
     selectedIds,
+    toggle,
     treeData,
-    dispatch,
     expandedIdsState,
     selectedIdsState,
-  ]);
+  };
 };

@@ -1,4 +1,4 @@
-
+import { memo } from 'react';
 import TreeNode from '../TreeNode/TreeNode';
 import { TreeProps } from './Tree.props';
 
@@ -12,4 +12,4 @@ const Tree = ({ treeData }: TreeProps): JSX.Element => {
   );
 };
 
-export default Tree;
+export default memo(Tree);
