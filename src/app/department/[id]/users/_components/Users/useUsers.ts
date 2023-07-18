@@ -1,7 +1,7 @@
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export const useUsers = (id: string) => {
   const { push } = useRouter();
@@ -31,30 +31,30 @@ export const useUsers = (id: string) => {
   const totalPage = usersOnDepartment?.pageInfo?.totalPages;
   const countUsers = usersOnDepartment?.pageInfo?.totalElements;
 
-  useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isFetchingUsersOnDepartment) {
-        if (totalPage && page < totalPage) {
-          nextPage(usersOnDepartment!);
-        }
+  //Для подгрузки данных при скролле
+  const onScroll = useCallback(() => {
+    const scrolledToBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    if (scrolledToBottom && !isFetchingUsersOnDepartment) {
+      if (totalPage && page < totalPage) {
+        nextPage(usersOnDepartment!);
       }
-    };
-
+    }
+  }, [
+    isFetchingUsersOnDepartment,
+    nextPage,
+    page,
+    totalPage,
+    usersOnDepartment,
+  ]);
+  useEffect(() => {
     document.addEventListener('scroll', onScroll);
 
     return function () {
       document.removeEventListener('scroll', onScroll);
     };
-  }, [
-    page,
-    isFetchingUsersOnDepartment,
-    setPage,
-    usersOnDepartment,
-    nextPage,
-    totalPage,
-  ]);
+  }, [onScroll]);
+  //_______________________
 
   return {
     push,

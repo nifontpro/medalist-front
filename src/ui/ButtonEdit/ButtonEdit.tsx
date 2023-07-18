@@ -1,14 +1,14 @@
 import styles from './ButtonEdit.module.scss';
 import cn from 'classnames';
 import { ButtonEditProps, icons } from './ButtonEdit.props';
-import { ForwardedRef, forwardRef, memo } from 'react';
+import { ForwardedRef, forwardRef, memo, useMemo } from 'react';
 
 const ButtonEdit = forwardRef(
   (
     { icon, disable = false, className, children, ...props }: ButtonEditProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const IconComp = icons[icon];
+    const IconComp = useMemo(() => icons[icon], [icon]);
 
     return (
       <div className={cn(styles.wrapper)} {...props} ref={ref}>
@@ -52,4 +52,4 @@ const ButtonEdit = forwardRef(
 );
 
 ButtonEdit.displayName = 'ButtonEdit';
-export default memo(ButtonEdit)
+export default memo(ButtonEdit);

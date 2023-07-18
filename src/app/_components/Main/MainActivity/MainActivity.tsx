@@ -1,7 +1,7 @@
 import styles from './MainActivity.module.scss';
 import { MainActivityProps } from './MainActivity.props';
 import cn from 'classnames';
-import ArrowIcon from '@/icons/arrowRight.svg';
+import ArrowIconSvg from '@/icons/arrowRight.svg';
 import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
@@ -41,7 +41,7 @@ const MainActivity = ({
           <P size='s' fontstyle='thin' className={styles.text}>
             Все
           </P>
-          <ArrowIcon className={styles.arrow} />
+          <ArrowIcon />
         </div>
       </div>
       <ul>
@@ -94,3 +94,10 @@ const MainActivity = ({
 };
 
 export default memo(MainActivity);
+
+//Для мемоизации svg icon
+const ArrowIcon = memo(() => {
+  return <ArrowIconSvg className={styles.arrow} />;
+});
+ArrowIcon.displayName = 'ArrowIcon';
+//__________________

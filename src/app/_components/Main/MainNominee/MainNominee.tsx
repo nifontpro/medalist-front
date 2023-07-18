@@ -2,7 +2,7 @@ import styles from './MainNominee.module.scss';
 
 import { MainNomineeProps } from './MainNominee.props';
 import cn from 'classnames';
-import ArrowIcon from '@/icons/arrowRight.svg';
+import ArrowIconSvg from '@/icons/arrowRight.svg';
 import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
@@ -52,7 +52,7 @@ const MainNominee = ({
           <P size='s' fontstyle='thin' className={styles.text}>
             Все
           </P>
-          <ArrowIcon className={styles.arrow} />
+          <ArrowIcon />
         </div>
       </div>
       {isLoadingAwardsOnDept ? (
@@ -131,3 +131,10 @@ const MainNominee = ({
 };
 
 export default memo(MainNominee);
+
+//Для мемоизации svg icon
+const ArrowIcon = memo(() => {
+  return <ArrowIconSvg className={styles.arrow} />;
+});
+ArrowIcon.displayName = 'ArrowIcon';
+//__________________

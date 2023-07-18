@@ -7,7 +7,7 @@ import UserLogo from './UserLogo/UserLogo';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
-import MenuIcon from '@/icons/menu.svg';
+import MenuIconSvg from '@/icons/menu.svg';
 import { useHeader } from './useHeader';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -15,6 +15,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import Notification from './Notification/Notification';
+import { memo } from 'react';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
@@ -23,7 +24,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
   const { singleUser } = useUserAdmin(String(typeOfUser?.id));
 
   const { windowSize } = useWindowSize();
-  const { open, navigationVisible } = useHeader();
+  const { navigationVisible } = useHeader();
 
   const variants = {
     visible: {
@@ -40,7 +41,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <>
       <header className={cn(styles.wrapper, className)} {...props}>
-        <MenuIcon className={styles.menu} onClick={open} />
+        <MenuIcon />
         <Logo className={styles.logo} />
         <ChangeRole />
         <div className={styles.user}>
@@ -69,4 +70,12 @@ const Header = ({ className, ...props }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default memo(Header);
+
+//Для мемоизации svg icon
+const MenuIcon = memo(() => {
+  const { open } = useHeader();
+  return <MenuIconSvg className={styles.menu} onClick={open} />;
+});
+MenuIcon.displayName = 'MenuIcon';
+//__________________

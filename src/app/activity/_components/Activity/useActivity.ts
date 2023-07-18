@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { AwardState } from '@/types/award/Award';
 import { useAppSelector } from '@/store/hooks/hooks';
@@ -44,7 +44,7 @@ export const useActivity = () => {
     {
       subdepts: true,
       page: page,
-      pageSize: 10,
+      pageSize: 20,
       filter: searchValue,
       minDate: startDate,
       maxDate: endDate,
@@ -54,30 +54,30 @@ export const useActivity = () => {
   );
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
 
-  useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isFetchingUsersActivOnDepartment) {
-        if (totalPage && page < totalPage) {
-          nextPage(awardsActivOnDepartment!);
-        }
+  //Для подгрузки данных при скролле
+  const onScroll = useCallback(() => {
+    const scrolledToBottom = 
+      window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    if (scrolledToBottom && !isFetchingUsersActivOnDepartment) {
+      if (totalPage && page < totalPage) {
+        nextPage(awardsActivOnDepartment!);
       }
-    };
-
+    }
+  }, [
+    awardsActivOnDepartment,
+    isFetchingUsersActivOnDepartment,
+    page,
+    totalPage,
+    nextPage,
+  ]);
+  useEffect(() => {
     document.addEventListener('scroll', onScroll);
 
     return function () {
       document.removeEventListener('scroll', onScroll);
     };
-  }, [
-    page,
-    isFetchingUsersActivOnDepartment,
-    setPage,
-    awardsActivOnDepartment,
-    nextPage,
-    totalPage,
-  ]);
+  }, [onScroll]);
+  //_______________________
 
   return {
     active,

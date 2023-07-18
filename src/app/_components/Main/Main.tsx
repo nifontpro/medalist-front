@@ -13,6 +13,7 @@ import OnBoarding from './OnBoarding/OnBoarding';
 import { useMainLoading } from './useMainLoading';
 import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
+import { memo } from 'react';
 
 const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const {
@@ -77,4 +78,4 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
   return <Spinner />;
 };
 
-export default Main;
+export default memo(Main);

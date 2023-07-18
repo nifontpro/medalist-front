@@ -2,7 +2,7 @@ import styles from './Notification.module.scss';
 import { NotificationProps } from './Notification.props';
 import { memo, useCallback, useRef, useState } from 'react';
 import NotificationModalWindow from './NotificationModalWindow/NotificationModalWindow';
-import NotificationIcon from '@/icons/notification.svg';
+import NotificationIconSvg from '@/icons/notification.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import P from '@/ui/P/P';
 import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
@@ -37,7 +37,7 @@ const Notification = ({
         onClick={() => setVisibleNotification(!visibleNotification)}
         {...props}
       >
-        <NotificationIcon className={styles.notification} />
+        <NotificationIcon />
         {myMessage &&
           myMessage.data &&
           myMessage.data.filter((message) => message.read == false).length >
@@ -68,3 +68,10 @@ const Notification = ({
 };
 
 export default memo(Notification);
+
+//Для мемоизации svg icon
+const NotificationIcon = memo(() => {
+  return <NotificationIconSvg className={styles.notification} />;
+});
+NotificationIcon.displayName = 'NotificationIcon';
+//__________________

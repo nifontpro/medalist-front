@@ -1,7 +1,7 @@
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const useAwards = (id: string) => {
   const [active, setActive] = useState<AwardState | undefined>(undefined);
@@ -32,30 +32,30 @@ export const useAwards = (id: string) => {
   );
   const totalPage = awardsOnDepartment?.pageInfo?.totalPages;
 
-  useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isFetchingUsersOnDepartment) {
-        if (totalPage && page < totalPage) {
-          nextPage(awardsOnDepartment!);
-        }
+  //Для подгрузки данных при скролле
+  const onScroll = useCallback(() => {
+    const scrolledToBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    if (scrolledToBottom && !isFetchingUsersOnDepartment) {
+      if (totalPage && page < totalPage) {
+        nextPage(awardsOnDepartment!);
       }
-    };
-
+    }
+  }, [
+    page,
+    isFetchingUsersOnDepartment,
+    awardsOnDepartment,
+    nextPage,
+    totalPage,
+  ]);
+  useEffect(() => {
     document.addEventListener('scroll', onScroll);
 
     return function () {
       document.removeEventListener('scroll', onScroll);
     };
-  }, [
-    page,
-    isFetchingUsersOnDepartment,
-    setPage,
-    awardsOnDepartment,
-    nextPage,
-    totalPage,
-  ]);
+  }, [onScroll]);
+  //_______________________
 
   return {
     active,

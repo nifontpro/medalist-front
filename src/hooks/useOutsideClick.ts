@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from 'react';
+import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 const useOutsideClick = (
   ref: RefObject<HTMLElement | null>,
@@ -8,6 +8,16 @@ const useOutsideClick = (
 ) => {
   const callbackRef = useRef(callback);
 
+  const handler: EventListener = useCallback((event) => {
+    const { current: target } = ref;
+    const { current: targetOpen } = refOpen;
+    if (!target || targetOpen!.contains(event.target as HTMLElement)) return
+
+    if (!target!.contains(event.target as HTMLElement)) {
+      callbackRef.current(event);
+    }
+  }, [ref, refOpen]);
+
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
@@ -15,19 +25,9 @@ const useOutsideClick = (
   useEffect(() => {
     if (!opened) return;
 
-    const handler: EventListener = (event) => {
-      const { current: target } = ref;
-      const { current: targetOpen } = refOpen;
-      if (!target || targetOpen!.contains(event.target as HTMLElement)) return
-
-      if (!target!.contains(event.target as HTMLElement)) {
-        callbackRef.current(event);
-      }
-    };
-
     document.addEventListener('click', handler);
     return () => document.removeEventListener('click', handler);
-  }, [ref, refOpen, opened]);
+  }, [ref, refOpen, opened, handler]);
 };
 
 export default useOutsideClick;

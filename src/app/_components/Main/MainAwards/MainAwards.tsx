@@ -1,10 +1,10 @@
 import styles from './MainAwards.module.scss';
 import { MainAwardsProps } from './MainAwards.props';
 import cn from 'classnames';
-import ArrowIcon from '@/icons/arrowRight.svg';
-import CupIcon from '@/icons/cup.svg';
-import PeopleIcon from '@/icons/people.svg';
-import UnionIcon from '@/icons/union.svg';
+import ArrowIconSvg from '@/icons/arrowRight.svg';
+import CupIconSvg from '@/icons/cup.svg';
+import PeopleIconSvg from '@/icons/people.svg';
+import UnionIconSvg from '@/icons/union.svg';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
@@ -34,7 +34,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
           >
             <div className='flex'>
               <div className={styles.img}>
-                <CupIcon className={styles.imgSvg} />
+                <CupIcon />
               </div>
               <div className={styles.description}>
                 <P size='s'>Наград</P>
@@ -45,7 +45,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
                 )}
               </div>
             </div>
-            <ArrowIcon className={styles.arrow} />
+            <ArrowIcon />
           </div>
           <div
             className={cn(styles.countAwards, styles.card)}
@@ -55,7 +55,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
           >
             <div className='flex'>
               <div className={styles.img}>
-                <PeopleIcon className={styles.imgSvg} />
+                <PeopleIcon />
               </div>
               <div className={styles.description}>
                 <P size='s'>Есть награды</P>
@@ -71,7 +71,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
                 </div>
               </div>
             </div>
-            <ArrowIcon className={styles.arrow} />
+            <ArrowIcon />
           </div>
           <div
             className={cn(styles.bestDepart, styles.card)}
@@ -81,7 +81,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
           >
             <div className='flex'>
               <div className={styles.img}>
-                <UnionIcon className={styles.imgSvg} />
+                <UnionIcon />
               </div>
 
               <div className={styles.description}>
@@ -99,7 +99,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
                 )}
               </div>
             </div>
-            <ArrowIcon className={styles.arrow} />
+            <ArrowIcon />
           </div>
         </div>
       </div>
@@ -108,3 +108,25 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
 };
 
 export default memo(MainAwards);
+
+//Для мемоизации svg icon
+const ArrowIcon = memo(() => {
+  return <ArrowIconSvg className={styles.arrow} />;
+});
+ArrowIcon.displayName = 'ArrowIcon';
+
+const PeopleIcon = memo(() => {
+  return <PeopleIconSvg className={styles.imgSvg} />;
+});
+PeopleIcon.displayName = 'PeopleIcon';
+
+const UnionIcon = memo(() => {
+  return <UnionIconSvg className={styles.imgSvg} />;
+});
+UnionIcon.displayName = 'UnionIcon';
+
+const CupIcon = memo(() => {
+  return <CupIconSvg className={styles.imgSvg} />;
+});
+CupIcon.displayName = 'CupIcon';
+//__________________

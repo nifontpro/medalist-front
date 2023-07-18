@@ -32,16 +32,19 @@ export const useMainAwards = () => {
         colAwardsOnDepartment?.data?.error,
     [colAwardsOnDepartment]
   );
+  
   let countUserWithAwardAndWithout = useMemo(
     () => usersOnDepartmentWithAwards?.data?.length,
     [usersOnDepartmentWithAwards]
   );
+
   let countUserWithAward = useMemo(
     () =>
       usersOnDepartmentWithAwards?.data?.filter((user) => user.awardCount > 0)
         .length,
     [usersOnDepartmentWithAwards]
   );
+
   let countUserWithAwardPercent = useMemo(
     () =>
       countUserWithAward &&

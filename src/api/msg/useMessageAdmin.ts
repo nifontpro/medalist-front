@@ -17,7 +17,7 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
   /**
    *Получить свои сообщения
    */
-  const { data: myMessage, isLoading: isLoadingMyMessage } =
+  const { data: myMessage, isLoading: isLoadingMyMessage } = 
     messageApi.useGetMessagesQuery(
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,

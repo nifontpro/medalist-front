@@ -6,8 +6,15 @@ import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
-import ArrowIcon from '@/icons/smallArrow.svg';
+import ArrowIconSvg from '@/icons/smallArrow.svg';
 import { memo } from 'react';
+
+//Для мемоизации svg icon
+const ArrowIcon = memo(() => {
+  return <ArrowIconSvg className={styles.arrow} />;
+});
+ArrowIcon.displayName = 'ArrowIcon';
+//__________________
 
 const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -38,7 +45,7 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
         {singleUser?.success == false
           ? `Выберете пользователя`
           : `${singleUser?.data?.user.firstname} ${singleUser?.data?.user.lastname}`}
-        <ArrowIcon className={styles.arrow} />
+        <ArrowIcon />
       </div>
     </>
   );
