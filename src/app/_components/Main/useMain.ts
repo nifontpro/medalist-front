@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const useMain = () => {
@@ -22,7 +22,6 @@ export const useMain = () => {
 
   useEffect(() => {
     setState(userSettings?.data?.showOnboarding);
-    // setState(false);
     if (onBoarding == 1) {
       setOnboardingText('Следи за своим прогрессом');
     }
@@ -35,16 +34,42 @@ export const useMain = () => {
     }
   }, [onBoarding, userSettings]);
 
-  return useMemo(() => {
+  const onBoardingFalse = useCallback(async () => {
     let isError = false;
+    if (typeOfUser && typeOfUser.id) {
+      setOnboarding(1);
+      await saveUserSettings({
+        userId: typeOfUser.id,
+        showOnboarding: false,
+        pageOnboarding: onBoarding,
+      })
+        .unwrap()
+        .then((res) => {
+          if (res.success == false) {
+            isError = true;
+            errorMessageParse(res.errors);
+          }
+        })
+        .catch((e) => {
+          isError = true;
+          toastError(e, 'Ошибка сохраннеия настроек');
+        });
+      if (!isError) {
+        toast.success('Настройки успешно сохраненны');
+      }
+    }
+  }, [onBoarding, saveUserSettings, typeOfUser]);
 
-    const onBoardingFalse = async () => {
-      if (typeOfUser && typeOfUser.id) {
-        setOnboarding(1);
+  const saveUserSettingsAsync = useCallback(async () => {
+    let isError = false;
+    if (typeOfUser && typeOfUser.id)
+      if (onBoarding < 3) {
+        setOnboarding((prev) => prev + 1);
+      } else {
         await saveUserSettings({
           userId: typeOfUser.id,
-          showOnboarding: false,
-          pageOnboarding: onBoarding,
+          showOnboarding: true,
+          pageOnboarding: 3,
         })
           .unwrap()
           .then((res) => {
@@ -61,49 +86,14 @@ export const useMain = () => {
           toast.success('Настройки успешно сохраненны');
         }
       }
-    };
+  }, [onBoarding, saveUserSettings, typeOfUser]);
 
-    const saveUserSettingsAsync = async () => {
-      if (typeOfUser && typeOfUser.id)
-        if (onBoarding < 3) {
-          setOnboarding((prev) => prev + 1);
-        } else {
-          await saveUserSettings({
-            userId: typeOfUser.id,
-            showOnboarding: true,
-            pageOnboarding: 3,
-          })
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                isError = true;
-                errorMessageParse(res.errors);
-              }
-            })
-            .catch((e) => {
-              isError = true;
-              toastError(e, 'Ошибка сохраннеия настроек');
-            });
-          if (!isError) {
-            toast.success('Настройки успешно сохраненны');
-          }
-        }
-    };
-
-    return {
-      onBoarding,
-      state,
-      saveUserSettingsAsync,
-      onBoardingText,
-      onBoardingText3,
-      onBoardingFalse,
-    };
-  }, [
+  return {
     onBoarding,
     state,
-    saveUserSettings,
-    typeOfUser,
+    saveUserSettingsAsync,
     onBoardingText,
     onBoardingText3,
-  ]);
+    onBoardingFalse,
+  };
 };

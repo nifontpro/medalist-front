@@ -13,7 +13,6 @@ import OnBoarding from './OnBoarding/OnBoarding';
 import { useMainLoading } from './useMainLoading';
 import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
-import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
 
 const Main = ({ className, ...props }: MainProps): JSX.Element => {
   const {

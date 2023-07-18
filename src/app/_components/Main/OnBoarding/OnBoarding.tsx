@@ -4,6 +4,7 @@ import { OnBoardingProps } from './OnBoarding.props';
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import Button from '@/ui/Button/Button';
+import { memo } from 'react';
 
 const OnBoarding = ({
   state,
@@ -58,4 +59,4 @@ const OnBoarding = ({
   );
 };
 
-export default OnBoarding;
+export default memo(OnBoarding)
