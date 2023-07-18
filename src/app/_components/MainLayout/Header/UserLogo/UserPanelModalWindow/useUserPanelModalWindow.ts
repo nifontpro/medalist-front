@@ -1,16 +1,16 @@
 import { User } from '@/types/user/user';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { useRouter } from 'next/navigation';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
 import { useJwt } from 'react-jwt';
 import { RootState } from '@/store/storage/store';
-import {
-  setSelectedTreeId,
-  setArrayIds,
-} from '@/store/features/sidebar/sidebarTree.slice';
+// import {
+//   setSelectedTreeId,
+//   setArrayIds,
+// } from '@/store/features/sidebar/sidebarTree.slice';
 import { authActions } from '@/store/features/auth/auth.slice';
-import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
+// import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { deleteCookie } from 'cookies-next';
 
@@ -35,37 +35,35 @@ export const useUserPanelModalWindow = (
 
   const { isExpired } = useJwt(idToken || '');
 
-  return useMemo(() => {
-    const handleClickProfile = () => {
-      push(getUserUrl(`/${user?.id}`));
-      setVisibleModal(false);
-    };
+  const handleClickProfile = useCallback(() => {
+    push(getUserUrl(`/${user?.id}`));
+    setVisibleModal(false);
+  }, [push, setVisibleModal, user]);
 
-    const handleClickEditProfile = () => {
-      push(getUserEditUrl(`${user?.id}`));
-      setVisibleModal(false);
-    };
+  const handleClickEditProfile = useCallback(() => {
+    push(getUserEditUrl(`${user?.id}`));
+    setVisibleModal(false);
+  }, [push, setVisibleModal, user]);
 
-    const handleLogoutClick = async () => {
-      const it = localStorage.getItem('it');
-      if (it != undefined && !isExpired) {
-        await logoutWin(it);
-        // dispatch(setSelectedTreeId('0'));
-        // dispatch(setArrayIds(['0']));
-        dispatch(authActions.setIsAuth(false));
-        // dispatch(setTypeOfUserUndefined());
-        setVisibleModal(false);
-        deleteCookie('exp'); // Для middleware
-      }
-      await dispatch(authActions.setNoAccess());
+  const handleLogoutClick = useCallback(async () => {
+    const it = localStorage.getItem('it');
+    if (it != undefined && !isExpired) {
+      await logoutWin(it);
+      // dispatch(setSelectedTreeId('0'));
+      // dispatch(setArrayIds(['0']));
+      dispatch(authActions.setIsAuth(false));
+      // dispatch(setTypeOfUserUndefined());
       setVisibleModal(false);
-      await deleteCookie('exp'); // Для middleware
-    };
+      deleteCookie('exp'); // Для middleware
+    }
+    await dispatch(authActions.setNoAccess());
+    setVisibleModal(false);
+    await deleteCookie('exp'); // Для middleware
+  }, [dispatch, isExpired, setVisibleModal]);
 
-    return {
-      handleClickProfile,
-      handleClickEditProfile,
-      handleLogoutClick,
-    };
-  }, [dispatch, isExpired, push, setVisibleModal, user]);
+  return {
+    handleClickProfile,
+    handleClickEditProfile,
+    handleLogoutClick,
+  };
 };

@@ -1,7 +1,8 @@
 import styles from './SpinnerFetching.module.scss';
 import cn from 'classnames';
 import { SpinnerFetchingProps } from './SpinnerFetching.props';
-import {  motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { memo } from 'react';
 
 const SpinnerFetching = ({
   main = false,
@@ -40,4 +41,4 @@ const SpinnerFetching = ({
     </motion.div>
   );
 };
-export default SpinnerFetching;
+export default memo(SpinnerFetching);

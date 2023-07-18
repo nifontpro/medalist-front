@@ -1,7 +1,7 @@
 import styles from './NotificationModalWindow.module.scss';
 import { NotificationModalWindowProps } from './NotificationModalWindow.props';
 import cn from 'classnames';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import uniqid from 'uniqid';
 import NotificationItem from './NotificationItem/NotificationItem';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -100,4 +100,4 @@ const NotificationModalWindow = forwardRef(
 );
 
 NotificationModalWindow.displayName = 'NotificationModalWindow';
-export default NotificationModalWindow;
+export default memo(NotificationModalWindow)

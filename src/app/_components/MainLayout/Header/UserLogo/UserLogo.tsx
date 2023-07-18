@@ -1,8 +1,8 @@
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { UserLogoProps } from './UserLogo.props';
 import UserPanelModalWindow from './UserPanelModalWindow/UserPanelModalWindow';
-import { useRef, useState } from 'react';
-import  ImageDefault  from '@/ui/ImageDefault/ImageDefault';
+import { memo, useCallback, useRef, useState } from 'react';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { useUserPanelModalWindow } from './UserPanelModalWindow/useUserPanelModalWindow';
 
 const UserLogo = ({
@@ -11,12 +11,13 @@ const UserLogo = ({
   ...props
 }: UserLogoProps): JSX.Element => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
+
   //Закрытие модального окна пользователя нажатием вне
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisibleModal(false);
-  };
+  }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
   const { handleLogoutClick } = useUserPanelModalWindow(setVisibleModal, user);
@@ -63,4 +64,4 @@ const UserLogo = ({
   );
 };
 
-export default UserLogo;
+export default memo(UserLogo);

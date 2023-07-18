@@ -4,8 +4,7 @@ import cn from 'classnames';
 import ProfileIcon from '@/icons/profile.svg';
 import EditIcon from '@/icons/editProfile.svg';
 import ExitIcon from '@/icons/exit.svg';
-import ChangePasswordIcon from '@/icons/changePassword.svg';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import { useUserPanelModalWindow } from './useUserPanelModalWindow';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -24,11 +23,8 @@ const UserPanelModalWindow = forwardRef(
     }: UserPanelModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const {
-      handleClickProfile,
-      handleClickEditProfile,
-      handleLogoutClick,
-    } = useUserPanelModalWindow(setVisibleModal, user);
+    const { handleClickProfile, handleClickEditProfile, handleLogoutClick } =
+      useUserPanelModalWindow(setVisibleModal, user);
 
     const { windowSize } = useWindowSize();
 
@@ -46,6 +42,7 @@ const UserPanelModalWindow = forwardRef(
         y: windowSize.winWidth > 768 ? '-60px' : '460px',
       },
     };
+
     const handleDrag = (
       event: globalThis.MouseEvent | TouchEvent | PointerEvent,
       info: PanInfo
@@ -110,4 +107,4 @@ const UserPanelModalWindow = forwardRef(
 );
 
 UserPanelModalWindow.displayName = 'UserPanelModalWindow';
-export default UserPanelModalWindow;
+export default memo(UserPanelModalWindow);

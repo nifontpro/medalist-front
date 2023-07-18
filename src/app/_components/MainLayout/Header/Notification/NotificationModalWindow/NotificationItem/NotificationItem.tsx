@@ -1,11 +1,12 @@
 import styles from './NotificationItem.module.scss';
 import { NotificationItemProps } from './NotificationItem.props';
 import cn from 'classnames';
-import ImageDefault  from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { timeConverter } from '@/utils/timeConverter';
 import P from '@/ui/P/P';
 import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import { memo } from 'react';
 
 const NotificationItem = ({
   className,
@@ -44,4 +45,4 @@ const NotificationItem = ({
   );
 };
 
-export default NotificationItem;
+export default memo(NotificationItem);

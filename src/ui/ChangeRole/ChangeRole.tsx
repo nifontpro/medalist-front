@@ -7,12 +7,15 @@ import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
 import ArrowIcon from '@/icons/smallArrow.svg';
+import { memo } from 'react';
 
 const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   const dispatch = useAppDispatch();
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
   const { singleUser, isLoadingSingleUser } = useUserAdmin(
     String(typeOfUser?.id)
   );
@@ -40,4 +43,4 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
     </>
   );
 };
-export default ChangeRole;
+export default memo(ChangeRole);

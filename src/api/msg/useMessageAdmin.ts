@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { messageApi } from './message.api';
 import { UserMsg } from '@/types/msg/UserMsg';
@@ -13,6 +13,7 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
   /**
    *Получить свои сообщения
    */
@@ -28,8 +29,8 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
 
   const [deleteEvent, deleteEventInfo] = messageApi.useDeleteMessageMutation();
 
-  return useMemo(() => {
-    const deleteEventAsync = async (id: number) => {
+  const deleteEventAsync = useCallback(
+    async (id: number) => {
       let isError = false;
       if (typeOfUser && typeOfUser.id) {
         await deleteEvent({ authId: typeOfUser?.id, messageId: id })
@@ -48,9 +49,12 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
           toast.success('Успешно удалено');
         }
       }
-    };
+    },
+    [deleteEvent, typeOfUser]
+  );
 
-    const deleteAllEventsAsync = async (data: UserMsg[] | undefined) => {
+  const deleteAllEventsAsync = useCallback(
+    async (data: UserMsg[] | undefined) => {
       let isError = false;
       if (data) {
         data.forEach(async (message) => {
@@ -73,14 +77,15 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
           toast.success('Успешно удалены');
         }
       }
-    };
+    },
+    [deleteEvent, typeOfUser]
+  );
 
-    return {
-      myMessage,
-      isLoadingMyMessage,
-      deleteEventAsync,
-      deleteEventInfo,
-      deleteAllEventsAsync,
-    };
-  }, [myMessage, isLoadingMyMessage, deleteEvent, typeOfUser, deleteEventInfo]);
+  return {
+    myMessage,
+    isLoadingMyMessage,
+    deleteEventAsync,
+    deleteEventInfo,
+    deleteAllEventsAsync,
+  };
 };

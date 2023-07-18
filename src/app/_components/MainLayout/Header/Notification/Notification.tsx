@@ -1,12 +1,11 @@
 import styles from './Notification.module.scss';
 import { NotificationProps } from './Notification.props';
-import { useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import NotificationModalWindow from './NotificationModalWindow/NotificationModalWindow';
 import NotificationIcon from '@/icons/notification.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import P from '@/ui/P/P';
 import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
-import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const Notification = ({
   className,
@@ -20,9 +19,9 @@ const Notification = ({
   //Закрытие модального окна уведомлений нажатием вне
   const refNotification = useRef(null);
   const refOpenNotification = useRef(null);
-  const handleClickOutsideNotification = () => {
+  const handleClickOutsideNotification = useCallback(() => {
     setVisibleNotification(false);
-  };
+  }, []);
   useOutsideClick(
     refNotification,
     refOpenNotification,
@@ -68,4 +67,4 @@ const Notification = ({
   );
 };
 
-export default Notification;
+export default memo(Notification);

@@ -1,6 +1,7 @@
 import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 import { useTheme } from './use-theme';
-import styles from './ThemeSwitcher.module.scss'
+import styles from './ThemeSwitcher.module.scss';
+import { memo } from 'react';
 
 const ThemeSwitcher = () => {
   const [theme, toggleTheme] = useTheme();
@@ -17,4 +18,4 @@ const ThemeSwitcher = () => {
   );
 };
 
-export default ThemeSwitcher;
+export default memo(ThemeSwitcher);
