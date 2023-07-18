@@ -4,7 +4,6 @@ import styles from './UserSelection.module.scss';
 import cn from 'classnames';
 import { UserSelectionProps } from './UserSelection.props';
 import uniqid from 'uniqid';
-import Htag from '@/ui/Htag/Htag';
 import { useUserSelection } from './useUserSelection';
 import { getOwnerCreateUrl } from '@/config/api.config';
 import ExitIcon from '@/icons/close.svg';
@@ -36,6 +35,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     expandedIds,
     selectedIds,
   } = useUserSelection();
+  // console.log('Selected');
 
   let reversedRolesUser: User[] = [];
   if (rolesUser && rolesUser.data) {

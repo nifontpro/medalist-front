@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { AwardState } from '@/types/award/Award';
 import { useAppSelector } from '@/store/hooks/hooks';
@@ -7,14 +7,14 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useRouter } from 'next/navigation';
 
-const currentDate = Math.floor(new Date().getTime());
-
 export const useActivity = () => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const { back } = useRouter();
+
+  const { windowSize } = useWindowSize();
 
   const {
     page,
@@ -30,10 +30,9 @@ export const useActivity = () => {
     setEndDateChange,
     startDate,
     endDate,
+    sortChange,
   } = useFetchParams();
 
-  // const [startDate, setStartDate] = useState<number>(10000000);
-  // const [endDate, setEndDate] = useState<number>(16732673054000);
   const [active, setActive] = useState<AwardState | undefined>(undefined);
 
   const {
@@ -54,8 +53,6 @@ export const useActivity = () => {
     active
   );
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
-
-  const { windowSize } = useWindowSize();
 
   useEffect(() => {
     const onScroll = () => {
@@ -82,28 +79,7 @@ export const useActivity = () => {
     totalPage,
   ]);
 
-  return useMemo(() => {
-    return {
-      active,
-      setActive,
-      state,
-      setState,
-      searchValue,
-      setPage,
-      setSearchValue,
-      searchHandleChange,
-      typeOfUser,
-      page,
-      nextPage,
-      prevPage,
-      windowSize,
-      awardsActivOnDepartment,
-      totalPage,
-      back,
-      setStartDateChange,
-      setEndDateChange,
-    };
-  }, [
+  return {
     active,
     setActive,
     state,
@@ -122,5 +98,6 @@ export const useActivity = () => {
     back,
     setStartDateChange,
     setEndDateChange,
-  ]);
+    sortChange,
+  };
 };

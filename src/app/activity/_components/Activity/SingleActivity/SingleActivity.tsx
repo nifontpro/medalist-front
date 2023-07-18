@@ -12,6 +12,7 @@ const SingleActivity = ({
   ...props
 }: SingleActivityProps): JSX.Element => {
   const date = timeConverterUser(activity.date);
+  // console.log('SingleActivity');
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>

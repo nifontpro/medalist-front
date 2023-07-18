@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { TabTitleProps } from './TabTitle.props';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
+import { memo } from 'react';
 
 const TabTitle = ({
   count,
@@ -43,4 +44,4 @@ const TabTitle = ({
   );
 };
 
-export default TabTitle;
+export default memo(TabTitle);

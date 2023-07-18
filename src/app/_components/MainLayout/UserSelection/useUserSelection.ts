@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
 import {
@@ -30,38 +30,25 @@ export const useUserSelection = () => {
     }
   );
 
-  return useMemo(() => {
-    const handleChangeRole = (role: User) => {
-      dispatch(setTypeOfUser_IsOpen(role));
-      dispatch(setArrayIds(['0']));
-      dispatch(setSelectedTreeId('0'));
-      push('/');
-    };
+  const handleChangeRole = (role: User) => {
+    dispatch(setTypeOfUser_IsOpen(role));
+    dispatch(setArrayIds(['0']));
+    dispatch(setSelectedTreeId('0'));
+    push('/');
+  };
 
-    return {
-      isAuth,
-      typeOfUser,
-      isOpen,
-      pathName,
-      rolesUser,
-      handleChangeRole,
-      isLoading,
-      dispatch,
-      push,
-      setIsOpen,
-      expandedIds,
-      selectedIds,
-    };
-  }, [
+  return {
     isAuth,
     typeOfUser,
     isOpen,
     pathName,
     rolesUser,
+    handleChangeRole,
     isLoading,
     dispatch,
     push,
+    setIsOpen,
     expandedIds,
     selectedIds,
-  ]);
+  };
 };

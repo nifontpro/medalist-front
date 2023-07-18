@@ -4,7 +4,6 @@ import { MainLayoutProps } from './MainLayout.props';
 import styles from './MainLayout.module.scss';
 import { useAppSelector } from '@/store/hooks/hooks';
 import UserSelection from './UserSelection/UserSelection';
-import Spinner from '@/ui/Spinner/Spinner';
 import { redirect, usePathname } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 

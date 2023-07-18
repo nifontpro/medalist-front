@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers';
 import CalenradIcon from './calendar.svg';
 import P from '../P/P';
+import { memo } from 'react';
 
 const SelectCalendarRange = ({
   setStartDateChange,
@@ -43,4 +44,4 @@ const SelectCalendarRange = ({
   );
 };
 
-export default SelectCalendarRange;
+export default memo(SelectCalendarRange);

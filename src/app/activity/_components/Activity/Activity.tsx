@@ -9,7 +9,6 @@ import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Search from '@/ui/Search/Search';
-import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import SingleActivity from './SingleActivity/SingleActivity';
 import FilterActivity from './FilterActivity/FilterActivity';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
@@ -35,7 +34,9 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
     back,
     setStartDateChange,
     setEndDateChange,
+    sortChange
   } = useActivity();
+  // console.log('Activity');
 
   return (
     <div {...props} className={styles.wrapper}>
@@ -101,7 +102,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
 
         <SortButton
           state={state}
-          onClick={() => (state == 'ASC' ? setState('DESC') : setState('ASC'))}
+          onClick={sortChange}
           className={styles.sort}
         >
           Сначала новые
@@ -113,7 +114,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
         />
       </div>
 
-      <div className={styles.cards}>
+      <div className={styles.cards}>  
         <Search
           onChange={searchHandleChange}
           placeholder={

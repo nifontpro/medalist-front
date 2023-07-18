@@ -4,6 +4,7 @@ import { SearchProps } from './Search.props';
 import Input from '@/ui/Input/Input';
 import SearchIcon from './search.svg';
 import Button from '@/ui/Button/Button';
+import { memo } from 'react';
 
 const Search = ({
   onChange,
@@ -45,4 +46,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default memo(Search);

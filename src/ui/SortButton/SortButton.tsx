@@ -2,6 +2,7 @@ import styles from './SortButton.module.scss';
 import cn from 'classnames';
 import { SortButtonProps } from './SortButton.props';
 import SortIcon from '@/icons/sort.svg';
+import { memo } from 'react';
 
 const SortButton = ({
   state,
@@ -20,4 +21,4 @@ const SortButton = ({
     </div>
   );
 };
-export default SortButton;
+export default memo(SortButton);

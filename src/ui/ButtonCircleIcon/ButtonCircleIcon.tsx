@@ -1,19 +1,31 @@
 import styles from './ButtonCircleIcon.module.scss';
 import cn from 'classnames';
 import { ButtonCircleIconProps, icons } from './ButtonCircleIcon.props';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 
 const ButtonCircleIcon = forwardRef(
   (
-    { appearance, icon, disabled, className, classNameForIcon, children, ...props }: ButtonCircleIconProps,
+    {
+      appearance,
+      icon,
+      disabled,
+      className,
+      classNameForIcon,
+      children,
+      ...props
+    }: ButtonCircleIconProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const IconComp = icons[icon];
 
     return (
-      <div className={cn(styles.wrapper, {
-        [styles.disabled]: disabled
-      })} {...props} ref={ref}>
+      <div
+        className={cn(styles.wrapper, {
+          [styles.disabled]: disabled,
+        })}
+        {...props}
+        ref={ref}
+      >
         <button
           className={cn(
             styles.button,
@@ -25,7 +37,7 @@ const ButtonCircleIcon = forwardRef(
             className
           )}
         >
-          <IconComp className={classNameForIcon}/>
+          <IconComp className={classNameForIcon} />
         </button>
         <span
           className={cn({
@@ -41,4 +53,4 @@ const ButtonCircleIcon = forwardRef(
 );
 
 ButtonCircleIcon.displayName = 'ButtonCircleIcon';
-export default ButtonCircleIcon;
+export default memo(ButtonCircleIcon);

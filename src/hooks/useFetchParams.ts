@@ -1,5 +1,5 @@
 import { BaseResponse } from '@/types/base/BaseResponse';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 export const useFetchParams = () => {
   const [page, setPage] = useState<number>(0);
@@ -8,56 +8,54 @@ export const useFetchParams = () => {
   const [startDate, setStartDate] = useState<number | undefined>(undefined);
   const [endDate, setEndDate] = useState<number | undefined>(undefined);
 
-  return useMemo(() => {
-    const setStartDateChange = (data: number) => {
-      setStartDate(data);
-      setPage(0);
-    };
+  const setStartDateChange = useCallback((data: number) => {
+    setStartDate(data);
+    setPage(0);
+  }, []);
 
-    const setEndDateChange = (data: number) => {
-      setEndDate(data);
-      setPage(0);
-    };
+  const setEndDateChange = useCallback((data: number) => {
+    setEndDate(data);
+    setPage(0);
+  }, []);
 
-    const nextPage = (data: BaseResponse<any>) => {
-      if (data?.pageInfo?.totalPages && data?.pageInfo?.totalPages > page + 1) {
-        setPage((prev) => prev + 1);
-      }
-    };
-    const prevPage = () => {
-      if (page > 0) {
-        setPage((prev) => prev - 1);
-      }
-    };
+  const nextPage = (data: BaseResponse<any>) => {
+    if (data?.pageInfo?.totalPages && data?.pageInfo?.totalPages > page + 1) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  const prevPage = () => {
+    if (page > 0) {
+      setPage((prev) => prev - 1);
+    }
+  };
 
-    const searchHandleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const searchHandleChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
       setSearchValue(event.currentTarget.value);
       setPage(0);
-    };
+    },
+    []
+  );
 
-    return {
-      nextPage,
-      prevPage,
-      page,
-      setPage,
-      searchValue,
-      setSearchValue,
-      state,
-      setState,
-      searchHandleChange,
-      setStartDateChange,
-      setEndDateChange,
-      startDate,
-      endDate,
-    };
-  }, [
+  const sortChange = useCallback(() => {
+    state == 'ASC' ? setState('DESC') : setState('ASC');
+    setPage(0);
+  }, [state]);
+
+  return {
+    nextPage,
+    prevPage,
     page,
     setPage,
     searchValue,
     setSearchValue,
     state,
     setState,
+    searchHandleChange,
+    setStartDateChange,
+    setEndDateChange,
     startDate,
     endDate,
-  ]);
+    sortChange,
+  };
 };
