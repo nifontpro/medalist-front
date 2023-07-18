@@ -9,7 +9,7 @@ import { getUserEditUrl } from '@/config/api.config';
 import P from '@/ui/P/P';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Button from '@/ui/Button/Button';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 
 const SingleUserTitle = ({

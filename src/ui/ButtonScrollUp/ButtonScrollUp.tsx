@@ -3,7 +3,7 @@ import cn from 'classnames';
 import UpIcon from '@/icons/up.svg';
 import { ButtonScrollUp } from './ButtonScrollUp.props';
 import Button from '../Button/Button';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useScrollY } from '@/hooks/useScrollY';
 
 const ButtonScrollUp = ({
@@ -51,4 +51,4 @@ const ButtonScrollUp = ({
   );
 };
 
-export default ButtonScrollUp;
+export default memo(ButtonScrollUp)

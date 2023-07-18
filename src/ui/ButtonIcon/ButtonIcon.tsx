@@ -1,6 +1,7 @@
 import styles from './ButtonIcon.module.scss';
 import cn from 'classnames';
 import { ButtonProps } from './ButtonIcon.props';
+import { memo } from 'react';
 
 const ButtonIcon = ({
   appearance,
@@ -30,4 +31,4 @@ const ButtonIcon = ({
   );
 };
 
-export default ButtonIcon;
+export default memo(ButtonIcon);

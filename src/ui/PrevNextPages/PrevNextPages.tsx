@@ -2,6 +2,7 @@ import styles from './PrevNextPages.module.scss';
 import cn from 'classnames';
 import { PrevNextPagesProps } from './PrevNextPages.props';
 import ButtonEdit from '../ButtonEdit/ButtonEdit';
+import { memo } from 'react';
 
 const PrevNextPages = ({
   startPage,
@@ -30,4 +31,4 @@ const PrevNextPages = ({
     </div>
   );
 };
-export default PrevNextPages;
+export default memo(PrevNextPages)

@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { useRef, useState } from 'react';
 import { timeConverterUser } from '@/utils/timeConverterUser';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import  ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';

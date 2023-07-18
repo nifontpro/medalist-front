@@ -1,6 +1,7 @@
 import styles from './P.module.scss';
 import cn from 'classnames';
 import { PProps } from './P.props';
+import { memo } from 'react';
 
 const P = ({ size = 'm', fontstyle, color, type, children, className, ...props }: PProps): JSX.Element => {
   return (
@@ -27,4 +28,4 @@ const P = ({ size = 'm', fontstyle, color, type, children, className, ...props }
   );
 };
 
-export default P;
+export default memo(P)

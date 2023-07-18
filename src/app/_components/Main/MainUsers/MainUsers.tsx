@@ -9,6 +9,7 @@ import UserListRating from '@/ui/UserListRating/UserListRating';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { memo, useMemo } from 'react';
 
 const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
@@ -25,7 +26,8 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
     nextPage,
     prevPage,
   } = useFetchParams();
-  const pageSize: number = 8;
+  const pageSize: number = useMemo(() => 8, []);
+  const startPage: number = useMemo(() => page + 1, [page]);
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(typeOfUser?.dept.id, {
@@ -35,7 +37,10 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
       pageSize,
     });
 
-  const totalPage = usersOnDepartmentWithAwards?.pageInfo?.totalPages;
+  const totalPage = useMemo(
+    () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,
+    [usersOnDepartmentWithAwards]
+  );
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -53,14 +58,11 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
             page={page}
             pageSize={pageSize}
           />
-          {totalPage && totalPage > 1 ? (
+          {totalPage && usersOnDepartmentWithAwards && totalPage > 1 ? (
             <PrevNextPages
-              startPage={page + 1}
+              startPage={startPage}
               endPage={totalPage}
-              handleNextClick={() =>
-                usersOnDepartmentWithAwards &&
-                nextPage(usersOnDepartmentWithAwards)
-              }
+              handleNextClick={() => nextPage(usersOnDepartmentWithAwards)}
               handlePrevClick={prevPage}
             />
           ) : null}
@@ -70,4 +72,4 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
   );
 };
 
-export default MainUsers;
+export default memo(MainUsers);

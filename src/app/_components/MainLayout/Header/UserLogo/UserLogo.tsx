@@ -2,7 +2,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import { UserLogoProps } from './UserLogo.props';
 import UserPanelModalWindow from './UserPanelModalWindow/UserPanelModalWindow';
 import { useRef, useState } from 'react';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import  ImageDefault  from '@/ui/ImageDefault/ImageDefault';
 import { useUserPanelModalWindow } from './UserPanelModalWindow/useUserPanelModalWindow';
 
 const UserLogo = ({

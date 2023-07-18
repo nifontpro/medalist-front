@@ -17,7 +17,7 @@ import {
 } from '@/store/features/sidebar/sidebarTree.slice';
 import P from '@/ui/P/P';
 import CreateOwnerIcon from '@/icons/ownerLogo.svg';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import  ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { User } from '@/types/user/user';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {

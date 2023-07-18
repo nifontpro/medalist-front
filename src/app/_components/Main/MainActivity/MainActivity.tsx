@@ -5,15 +5,18 @@ import ArrowIcon from '@/icons/arrowRight.svg';
 import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { memo, useMemo } from 'react';
 
 const MainActivity = ({
   className,
   ...props
 }: MainActivityProps): JSX.Element => {
+  const { push } = useRouter();
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -30,7 +33,6 @@ const MainActivity = ({
 
   let currentDate = +new Date();
 
-  const { push } = useRouter();
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
@@ -91,4 +93,4 @@ const MainActivity = ({
   );
 };
 
-export default MainActivity;
+export default memo(MainActivity);

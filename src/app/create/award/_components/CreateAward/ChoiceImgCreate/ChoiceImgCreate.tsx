@@ -1,4 +1,4 @@
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import styles from './ChoiceImgCreate.module.scss';
 import { ChoiceImgCreateProps } from './ChoiceImgCreate.props';
 import cn from 'classnames';

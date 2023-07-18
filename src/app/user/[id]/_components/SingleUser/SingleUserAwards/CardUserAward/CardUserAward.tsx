@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { timeConverterUser } from '@/utils/timeConverterUser';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 

@@ -5,47 +5,23 @@ import ArrowIcon from '@/icons/arrowRight.svg';
 import CupIcon from '@/icons/cup.svg';
 import PeopleIcon from '@/icons/people.svg';
 import UnionIcon from '@/icons/union.svg';
-import { useRouter } from 'next/navigation';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
+import { useMainAwards } from './useMainAwards';
+import { memo } from 'react';
 
 const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
-  const { push } = useRouter();
-
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
   const {
-    colAwardsOnDepartment,
-    isLoadingColAwardsOnDept,
+    push,
+    countUserWithAwardPercent,
+    countUserWithAward,
+    countAll,
+    typeOfUser,
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
-  } = useAwardAdmin(typeOfUser?.dept.id, { subdepts: true });
-
-  const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(typeOfUser?.dept.id, { subdepts: true });
-
-  let countAll =
-    colAwardsOnDepartment &&
-    colAwardsOnDepartment.data &&
-    colAwardsOnDepartment?.data?.finish +
-      colAwardsOnDepartment?.data?.nominee +
-      colAwardsOnDepartment?.data?.future +
-      colAwardsOnDepartment?.data?.error;
-  let countUserWithAwardAndWithout = usersOnDepartmentWithAwards?.data?.length;
-  let countUserWithAward = usersOnDepartmentWithAwards?.data?.filter(
-    (user) => user.awardCount > 0
-  ).length;
-  let countUserWithAwardPercent =
-    countUserWithAward &&
-    countUserWithAwardAndWithout &&
-    Math.ceil((countUserWithAward * 100) / countUserWithAwardAndWithout);
+    numberIsNaN,
+  } = useMainAwards();
 
   return (
     <>
@@ -90,10 +66,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
                     <SpinnerSmall position='start' />
                   )}
                   <P size='l' color='gray' className={styles.percent}>
-                    {Number.isNaN(countUserWithAwardPercent)
-                      ? '0'
-                      : countUserWithAwardPercent}{' '}
-                    %
+                    {numberIsNaN ? '0' : countUserWithAwardPercent} %
                   </P>
                 </div>
               </div>
@@ -134,4 +107,4 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
   );
 };
 
-export default MainAwards;
+export default memo(MainAwards);

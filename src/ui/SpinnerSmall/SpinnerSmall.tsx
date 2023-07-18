@@ -1,6 +1,7 @@
 import styles from './SpinnerSmall.module.scss';
 import cn from 'classnames';
 import { SpinnerSmallProps } from './SpinnerSmall.props';
+import { memo } from 'react';
 
 const SpinnerSmall = ({
   position = 'center',
@@ -22,4 +23,4 @@ const SpinnerSmall = ({
     </div>
   );
 };
-export default SpinnerSmall;
+export default memo(SpinnerSmall);

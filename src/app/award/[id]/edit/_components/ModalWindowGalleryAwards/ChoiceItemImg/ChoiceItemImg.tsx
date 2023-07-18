@@ -2,7 +2,7 @@ import styles from './ChoiceItemImg.module.scss';
 import { ChoiceItemImgProps } from './ChoiceItemImg.props';
 import cn from 'classnames';
 import CheckedIcon from '@/icons/checked.svg';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 
 const ChoiceItemImg = ({
   itemImg,
@@ -11,10 +11,9 @@ const ChoiceItemImg = ({
   className,
   ...props
 }: ChoiceItemImgProps): JSX.Element => {
-
   const handleClick = () => {
-    setImagesPreview(itemImg)
-  }
+    setImagesPreview(itemImg);
+  };
 
   return (
     <div

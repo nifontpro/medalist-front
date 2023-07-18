@@ -2,7 +2,7 @@
 
 import styles from './EventCard.module.scss';
 import { EventCardProps } from './EventCard.props';
-import { ImageDefault } from '../ImageDefault/ImageDefault';
+import ImageDefault from '../ImageDefault/ImageDefault';
 import P from '../P/P';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';

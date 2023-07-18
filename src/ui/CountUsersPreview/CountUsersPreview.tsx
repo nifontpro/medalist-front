@@ -4,7 +4,7 @@ import { CountUsersPreviewProps } from './CountUsersPreview.props';
 import uniqid from 'uniqid';
 import { declOfNum } from '@/utils/declOfNum';
 import P from '../P/P';
-import { ImageDefault } from '../ImageDefault/ImageDefault';
+import ImageDefault from '../ImageDefault/ImageDefault';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 const CountUsersPreview = ({

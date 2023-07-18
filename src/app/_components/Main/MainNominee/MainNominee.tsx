@@ -6,13 +6,14 @@ import ArrowIcon from '@/icons/arrowRight.svg';
 import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
+import { memo, useMemo } from 'react';
 
 const MainNominee = ({
   className,
@@ -30,10 +31,13 @@ const MainNominee = ({
     'NOMINEE'
   );
 
-  let minEndDateNominee =
-    awardsOnDepartment &&
-    awardsOnDepartment.data &&
-    awardsOnDepartment?.data[0];
+  let minEndDateNominee = useMemo(
+    () =>
+      awardsOnDepartment &&
+      awardsOnDepartment.data &&
+      awardsOnDepartment?.data[0],
+    [awardsOnDepartment]
+  );
 
   let currentDate = +new Date();
 
@@ -126,4 +130,4 @@ const MainNominee = ({
   );
 };
 
-export default MainNominee;
+export default memo(MainNominee);

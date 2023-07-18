@@ -1,7 +1,7 @@
 import styles from './ButtonEdit.module.scss';
 import cn from 'classnames';
 import { ButtonEditProps, icons } from './ButtonEdit.props';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 
 const ButtonEdit = forwardRef(
   (
@@ -52,4 +52,4 @@ const ButtonEdit = forwardRef(
 );
 
 ButtonEdit.displayName = 'ButtonEdit';
-export default ButtonEdit;
+export default memo(ButtonEdit)

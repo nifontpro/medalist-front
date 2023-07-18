@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 'use client';
 
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import styles from './Award.module.scss';
 import { AwardProps } from './Award.props';
 import cn from 'classnames';

@@ -2,7 +2,7 @@ import P from '@/ui/P/P';
 import styles from './CardUserNominee.module.scss';
 import { CardUserNomineeProps } from './CardUserNominee.props';
 import cn from 'classnames';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import  ImageDefault  from '@/ui/ImageDefault/ImageDefault';
 
 const CardUserNominee = ({
   user,

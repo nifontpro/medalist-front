@@ -1,7 +1,7 @@
 import styles from './UserPreview.module.scss';
 import cn from 'classnames';
 import { UserPreviewProps } from './UserPreview.props';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 
 const UserPreview = ({

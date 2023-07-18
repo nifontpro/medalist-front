@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { ImageProps, StaticImageData } from 'next/dist/client/image';
 import Image from 'next/image';
 import DefaultImage from './imageDefault.png';
@@ -7,7 +7,7 @@ type ImageDefaultProps = Omit<ImageProps, 'src'> & {
   src?: string | StaticImageData;
 };
 
-export const ImageDefault: FC<ImageDefaultProps> = ({
+const ImageDefault: FC<ImageDefaultProps> = ({
   src,
   alt,
   draggable,
@@ -38,3 +38,5 @@ export const ImageDefault: FC<ImageDefaultProps> = ({
     />
   );
 };
+
+export default memo(ImageDefault);

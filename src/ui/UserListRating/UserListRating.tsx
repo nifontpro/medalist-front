@@ -7,9 +7,10 @@ import ArrowRightIcon from '@/icons/arrowRight.svg';
 import Link from 'next/link';
 import { getUserUrl } from '@/config/api.config';
 import P from '../P/P';
-import { ImageDefault } from '../ImageDefault/ImageDefault';
+import ImageDefault from '../ImageDefault/ImageDefault';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Htag from '../Htag/Htag';
+import { memo } from 'react';
 
 const UserListRating = ({
   users,
@@ -170,4 +171,4 @@ const UserListRating = ({
   );
 };
 
-export default UserListRating;
+export default memo(UserListRating);

@@ -13,6 +13,7 @@ import { RootState } from '@/store/storage/store';
 import cn from 'classnames';
 import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
+import { memo, useMemo } from 'react';
 
 const Events = ({
   children,
@@ -33,7 +34,7 @@ const Events = ({
     nextPage,
     prevPage,
   } = useFetchParams();
-  const pageSize: number = 4;
+  const pageSize: number = useMemo(() => 4, []);
 
   const { allEvent, isLoadingAllEvent } = useEventAdmin(typeOfUser?.dept?.id, {
     orders: [{ field: '(days)', direction: 'DESC' }],
@@ -42,7 +43,7 @@ const Events = ({
     pageSize,
   });
 
-  const totalPage = allEvent?.pageInfo?.totalPages;
+  const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
   if (isLoadingAllEvent) return <Spinner />;
   if (!allEvent?.success) {
@@ -78,4 +79,4 @@ const Events = ({
     </>
   );
 };
-export default Events;
+export default memo(Events);

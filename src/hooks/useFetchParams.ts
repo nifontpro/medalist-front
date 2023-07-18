@@ -18,16 +18,20 @@ export const useFetchParams = () => {
     setPage(0);
   }, []);
 
-  const nextPage = (data: BaseResponse<any>) => {
-    if (data?.pageInfo?.totalPages && data?.pageInfo?.totalPages > page + 1) {
-      setPage((prev) => prev + 1);
-    }
-  };
-  const prevPage = () => {
+  const nextPage = useCallback(
+    (data: BaseResponse<any>) => {
+      if (data?.pageInfo?.totalPages && data?.pageInfo?.totalPages > page + 1) {
+        setPage((prev) => prev + 1);
+      }
+    },
+    [page]
+  );
+
+  const prevPage = useCallback(() => {
     if (page > 0) {
       setPage((prev) => prev - 1);
     }
-  };
+  }, [page]);
 
   const searchHandleChange = useCallback(
     (event: React.FormEvent<HTMLInputElement>) => {

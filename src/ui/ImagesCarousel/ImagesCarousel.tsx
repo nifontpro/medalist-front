@@ -1,6 +1,6 @@
 'use client';
 import Carousel from 'react-material-ui-carousel';
-import { ImageDefault } from '../ImageDefault/ImageDefault';
+import ImageDefault from '../ImageDefault/ImageDefault';
 import styles from './ImagesCarousel.module.scss';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { ImagesCarouselProps } from './ImagesCarousel.props.ts';

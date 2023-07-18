@@ -2,7 +2,7 @@ import styles from './AwardPreview.module.scss';
 import cn from 'classnames';
 import { AwardPreviewProps } from './AwardPreview.props';
 import P from '../P/P';
-import { ImageDefault } from '../ImageDefault/ImageDefault';
+import ImageDefault from '../ImageDefault/ImageDefault';
 
 const AwardPreview = ({
   award,

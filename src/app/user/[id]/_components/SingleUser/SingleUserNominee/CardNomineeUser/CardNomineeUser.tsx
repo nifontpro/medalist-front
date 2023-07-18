@@ -2,7 +2,7 @@ import { timeConverterUser } from '@/utils/timeConverterUser';
 import styles from './CardNomineeUser.module.scss';
 import { CardNomineeUserProps } from './CardNomineeUser.props';
 import cn from 'classnames';
-import { ImageDefault } from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Button from '@/ui/Button/Button';
