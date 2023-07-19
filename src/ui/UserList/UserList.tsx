@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { UserListProps } from './UserList.props';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo, useCallback } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
@@ -22,8 +22,22 @@ const UserList = motion(
       const { typeOfUser } = useAppSelector(
         (state: RootState) => state.userSelection
       );
+
       const { push } = useRouter();
+
       const { deleteUserAsync } = useUserAdmin();
+
+      const userProfileLink = useCallback(() => {
+        push(getUserUrl(`/${user.id}`));
+      }, [push, user]);
+
+      const userEditLink = useCallback(() => {
+        push(getUserEditUrl(`/${user.id}`));
+      }, [push, user]);
+
+      const userDeleteLink = useCallback(() => {
+        user?.id && typeOfUser?.id && deleteUserAsync(user.id);
+      }, [typeOfUser, user, deleteUserAsync]);
 
       return (
         <div ref={ref} className={cn(className, styles.container)} {...props}>
@@ -31,24 +45,14 @@ const UserList = motion(
             user={user}
             className={styles.user}
             forWhat='dept'
-            onClick={() => push(getUserUrl(`/${user.id}`))}
+            onClick={userProfileLink}
           />
           <AuthComponent minRole={'ADMIN'}>
             <div className={styles.editPanel} {...props}>
-              <div
-                className={styles.wrapperIcon}
-                onClick={() => push(getUserEditUrl(`/${user.id}`))}
-              >
+              <div className={styles.wrapperIcon} onClick={userEditLink}>
                 <ButtonEdit icon='edit' className={styles.edit} />
               </div>
-              <div
-                className={styles.wrapperIcon}
-                onClick={() =>
-                  user?.id &&
-                  typeOfUser?.id &&
-                  deleteUserAsync(user.id)
-                }
-              >
+              <div className={styles.wrapperIcon} onClick={userDeleteLink}>
                 <ButtonEdit icon='remove' className={styles.remove} />
               </div>
             </div>
@@ -60,4 +64,4 @@ const UserList = motion(
 );
 
 UserList.displayName = 'UserList';
-export default UserList;
+export default memo(UserList);

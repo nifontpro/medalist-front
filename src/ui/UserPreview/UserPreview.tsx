@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { UserPreviewProps } from './UserPreview.props';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
+import { memo } from 'react';
 
 const UserPreview = ({
   user,
@@ -40,4 +41,4 @@ const UserPreview = ({
     </div>
   );
 };
-export default UserPreview;
+export default memo(UserPreview);

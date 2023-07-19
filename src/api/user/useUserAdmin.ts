@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
@@ -122,10 +122,9 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
 
   const [deleteUser] = userApi.useDeleteMutation();
 
-  return useMemo(() => {
-    let isError = false;
-
-    const deleteUserAsync = async (id: number) => {
+  const deleteUserAsync = useCallback(
+    async (id: number) => {
+      let isError = false;
       if (typeOfUser && typeOfUser.id)
         await deleteUser({ authId: typeOfUser?.id, userId: id })
           .unwrap()
@@ -142,35 +141,18 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
       if (!isError) {
         toast.success('Профиль сотрудника успешно удален');
       }
-    };
+    },
+    [deleteUser, typeOfUser]
+  );
 
-    return {
-      deleteUserAsync,
-      singleUser,
-      isLoadingSingleUser,
-      usersOnDepartment,
-      isLoadingUsersOnDepartment,
-      usersOnSubDepartment,
-      isLoadingUsersOnSubDept,
-      usersGenderOnDepartment,
-      isLoadingUsersGenderOnDepartment,
-      usersOnDepartmentWithAwards,
-      isLoadingUsersOnDepartmentWithAwards,
-      userSettings,
-      isLoadingUserSettings,
-      saveUserSettings,
-      isLoadingSaveUserSettings,
-      isFetchingUsersOnDepartment,
-    };
-  }, [
-    deleteUser,
+  return {
+    deleteUserAsync,
     singleUser,
-    usersOnDepartment,
     isLoadingSingleUser,
+    usersOnDepartment,
     isLoadingUsersOnDepartment,
     usersOnSubDepartment,
     isLoadingUsersOnSubDept,
-    typeOfUser,
     usersGenderOnDepartment,
     isLoadingUsersGenderOnDepartment,
     usersOnDepartmentWithAwards,
@@ -180,5 +162,5 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     saveUserSettings,
     isLoadingSaveUserSettings,
     isFetchingUsersOnDepartment,
-  ]);
+  };
 };

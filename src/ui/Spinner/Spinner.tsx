@@ -1,6 +1,7 @@
 import styles from './Spinner.module.scss';
 import cn from 'classnames';
 import { SpinnerProps } from './Spinner.props';
+import { memo } from 'react';
 
 const Spinner = ({ className, ...props }: SpinnerProps): JSX.Element => {
   return (
@@ -11,4 +12,4 @@ const Spinner = ({ className, ...props }: SpinnerProps): JSX.Element => {
     </div>
   );
 };
-export default Spinner;
+export default memo(Spinner);

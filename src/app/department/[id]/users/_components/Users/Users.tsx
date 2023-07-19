@@ -9,13 +9,13 @@ import cn from 'classnames';
 import Search from '@/ui/Search/Search';
 import UserList from '@/ui/UserList/UserList';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
-import { getUserCreateUrl } from '@/config/api.config';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import P from '@/ui/P/P';
 import { useUsers } from './useUsers';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
+import { memo } from 'react';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -33,6 +33,9 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     nextPage,
     prevPage,
     searchHandleChange,
+    handleSort,
+    handleSortWithoutPage,
+    createUser, 
   } = useUsers(id);
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
@@ -44,7 +47,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
         <AuthComponent minRole='ADMIN'>
           <div className={styles.newUser}>
             <ButtonCircleIcon
-              onClick={() => push(getUserCreateUrl(`?deptId=${id}`))}
+              onClick={createUser}
               classNameForIcon='@apply w-[12px] h-[12px]'
               icon='plus'
               appearance='black'
@@ -68,10 +71,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
 
             <SortButton
               state={state}
-              onClick={() => {
-                state == 'ASC' ? setState('DESC') : setState('ASC');
-                setPage(0);
-              }}
+              onClick={handleSort}
               className={styles.filter}
             >
               По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
@@ -87,9 +87,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           />
           <SortButton
             state={state}
-            onClick={() =>
-              state == 'ASC' ? setState('DESC') : setState('ASC')
-            }
+            onClick={handleSortWithoutPage}
             className={styles.filterMedia}
           >
             По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
@@ -116,7 +114,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             />
           ) : null} */}
         </div>
-        
+
         {totalPage === page + 1 && <ButtonScrollUp />}
       </>
     );
@@ -125,4 +123,4 @@ const Users = ({ id, className, ...props }: UsersProps) => {
   }
 };
 
-export default Users;
+export default memo(Users);
