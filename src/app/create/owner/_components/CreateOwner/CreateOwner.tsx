@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import styles from './CreateOwner.module.scss';
 import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
 import { useForm } from 'react-hook-form';
@@ -142,4 +142,4 @@ const CreateOwner = () => {
   );
 };
 
-export default CreateOwner;
+export default memo(CreateOwner);

@@ -11,6 +11,7 @@ import { withHookFormMask } from 'use-mask-input';
 import { useForm } from 'react-hook-form';
 import { useCreateDepartment } from './useCreateDepartment';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import { memo } from 'react';
 
 const CreateDepartment = () => {
   const {
@@ -110,4 +111,4 @@ const CreateDepartment = () => {
   );
 };
 
-export default CreateDepartment;
+export default memo(CreateDepartment)

@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { CreateDeptRequest } from '@/api/dept/request/createDeptRequest';
 import { deptApi } from '@/api/dept/dept.api';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -13,7 +13,11 @@ export const useCreateDepartment = (
   reset: UseFormReset<CreateDeptRequest>
 ) => {
   const searchParams = useSearchParams();
-  const parentId = Number(searchParams.get('id'));
+
+  const parentId = useMemo(
+    () => Number(searchParams.get('id')),
+    [searchParams]
+  );
 
   const { back } = useRouter();
   const [create, createInfo] = deptApi.useGetProfilesMutation();
@@ -26,13 +30,16 @@ export const useCreateDepartment = (
     }
   }, [setValue, parentId, typeOfUser]);
 
-  return useMemo(() => {
-    const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
       back();
-    };
+    },
+    [back]
+  );
 
-    const onSubmit: SubmitHandler<CreateDeptRequest> = async (data) => {
+  const onSubmit: SubmitHandler<CreateDeptRequest> = useCallback(
+    async (data) => {
       let isError = false;
       if (parentId) {
         await create({ ...data })
@@ -56,12 +63,14 @@ export const useCreateDepartment = (
         toast.success('Отдел успешно создан');
         back();
       }
-    };
-    return {
-      onSubmit,
-      handleClick,
-      back,
-      createInfo,
-    };
-  }, [back, create, parentId, createInfo, reset]);
+    },
+    [back, create, parentId, reset]
+  );
+
+  return {
+    onSubmit,
+    handleClick,
+    back,
+    createInfo,
+  };
 };
