@@ -3,8 +3,15 @@
 import styles from './UserListChoiceUsers.module.scss';
 import { UserListChoiceUsersProps } from './UserListChoiceUsers.props';
 import cn from 'classnames';
-import CheckedIcon from '@/icons/checked.svg';
-import { memo, useEffect, useState } from 'react';
+import CheckedIconSvg from '@/icons/checked.svg';
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 
 const UserListChoiceUsers = ({
@@ -22,7 +29,7 @@ const UserListChoiceUsers = ({
     setVisible(allChecked);
   }, [allChecked]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setVisible(!visible);
     setVisibleCheckbox(false);
     let arr = [...arrChoiceUser];
@@ -39,7 +46,7 @@ const UserListChoiceUsers = ({
       arr.push(user.id.toString());
       setArrChoiceUser(arr);
     }
-  };
+  }, [arrChoiceUser, setArrChoiceUser, setVisibleCheckbox, user.id, visible]);
 
   return (
     <div
@@ -61,3 +68,17 @@ const UserListChoiceUsers = ({
 };
 
 export default memo(UserListChoiceUsers);
+
+//Для мемоизации svg icon
+const CheckedIcon = memo(
+  ({
+    className,
+  }: DetailedHTMLProps<
+    HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <CheckedIconSvg className={className} />;
+  }
+);
+CheckedIcon.displayName = 'CheckedIcon';
+//__________________

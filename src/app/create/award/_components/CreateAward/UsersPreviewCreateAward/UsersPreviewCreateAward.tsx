@@ -6,6 +6,7 @@ import P from '@/ui/P/P';
 import { declOfNum } from '@/utils/declOfNum';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 import FilterCreateAward from '../FilterCreateAward/FilterCreateAward';
+import { memo } from 'react';
 
 const UsersPreviewCreateAward = ({
   users,
@@ -20,6 +21,7 @@ const UsersPreviewCreateAward = ({
   ...props
 }: UsersPreviewCreateAwardProps): JSX.Element => {
   const selectedUsers: User[] = [];
+
   users.forEach((user) => {
     arrChoiceUser.forEach((id) => {
       if (user.id?.toString() == id) {
@@ -64,4 +66,4 @@ const UsersPreviewCreateAward = ({
   );
 };
 
-export default UsersPreviewCreateAward;
+export default memo(UsersPreviewCreateAward);

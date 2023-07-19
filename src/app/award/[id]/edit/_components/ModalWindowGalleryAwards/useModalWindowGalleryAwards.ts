@@ -6,7 +6,13 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useParams, useRouter } from 'next/navigation';
-import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
+import {
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 
 export const useModalWindowGalleryAwards = (
@@ -14,9 +20,11 @@ export const useModalWindowGalleryAwards = (
   setImg?: Dispatch<SetStateAction<GalleryItem | undefined>>
 ) => {
   const dispatch = useAppDispatch();
+
   const visibleModal = useAppSelector(
     (state: RootState) => state.visibleModalWindowGalleryAwards
   );
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -34,13 +42,14 @@ export const useModalWindowGalleryAwards = (
     },
   });
 
-  const { data: awardsGallery, isLoading: isAwardsGalleryLoading } = galleryApi.useGetItemsByFolderQuery(
-    {
-      folderId: idFolder,
-      baseRequest: undefined,
-    },
-    { skip: idFolder == -1 }
-  );
+  const { data: awardsGallery, isLoading: isAwardsGalleryLoading } =
+    galleryApi.useGetItemsByFolderQuery(
+      {
+        folderId: idFolder,
+        baseRequest: undefined,
+      },
+      { skip: idFolder == -1 }
+    );
 
   const [imagesPreview, setImagesPreview] = useState<GalleryItem | undefined>(
     undefined
@@ -48,39 +57,41 @@ export const useModalWindowGalleryAwards = (
 
   const [setImage] = awardApi.useGalleryImageAddMutation();
 
-  const onSubmit = async (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
-    e.preventDefault();
-    let isError = false;
-    if (imagesPreview) {
-      if (create && setImg) {
-        setImg(imagesPreview);
-        dispatch(setVisible(false));
-      } else if (typeOfUser && typeOfUser.id) {
-        await setImage({
-          awardId: Number(params.id),
-          authId: typeOfUser.id,
-          itemId: imagesPreview.id,
-        })
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
-              isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка добавления фото награды');
-          });
-        if (!isError) {
-          toast.success('Фото успешно обновлено');
+  const onSubmit = useCallback(
+    async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+      e.preventDefault();
+      let isError = false;
+      if (imagesPreview) {
+        if (create && setImg) {
+          setImg(imagesPreview);
           dispatch(setVisible(false));
+        } else if (typeOfUser && typeOfUser.id) {
+          await setImage({
+            awardId: Number(params.id),
+            authId: typeOfUser.id,
+            itemId: imagesPreview.id,
+          })
+            .unwrap()
+            .then((res) => {
+              if (res.success == false) {
+                errorMessageParse(res.errors);
+                isError = true;
+              }
+            })
+            .catch(() => {
+              isError = true;
+              toast.error('Ошибка добавления фото награды');
+            });
+          if (!isError) {
+            toast.success('Фото успешно обновлено');
+            dispatch(setVisible(false));
+          }
         }
       }
-    }
-  };
+    },
+    [create, dispatch, imagesPreview, params.id, setImage, setImg, typeOfUser]
+  );
+
   return {
     awardsGallery,
     imagesPreview,
@@ -90,6 +101,6 @@ export const useModalWindowGalleryAwards = (
     setIdFolder,
     dispatch,
     visibleModal,
-    isAwardsGalleryLoading
+    isAwardsGalleryLoading,
   };
 };

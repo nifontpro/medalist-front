@@ -2,7 +2,7 @@ import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import styles from './ChoiceImgCreate.module.scss';
 import { ChoiceImgCreateProps } from './ChoiceImgCreate.props';
 import cn from 'classnames';
-import { MouseEvent } from 'react';
+import { MouseEvent, memo, useCallback } from 'react';
 import Button from '@/ui/Button/Button';
 import { useAppDispatch } from '@/store/hooks/hooks';
 import { setVisible } from '@/store/features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
@@ -18,12 +18,13 @@ const ChoiceImgCreate = ({
 }: ChoiceImgCreateProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const handleClick = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
-    e.preventDefault();
-    dispatch(setVisible(true));
-  };
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+      e.preventDefault();
+      dispatch(setVisible(true));
+    },
+    [dispatch]
+  );
 
   return (
     <div
@@ -62,4 +63,4 @@ const ChoiceImgCreate = ({
   );
 };
 
-export default ChoiceImgCreate;
+export default memo(ChoiceImgCreate)

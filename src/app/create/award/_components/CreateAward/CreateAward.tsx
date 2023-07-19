@@ -9,7 +9,7 @@ import TextArea from '@/ui/TextArea/TextArea';
 import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
-import { useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import dayjs from 'dayjs';
 import {
@@ -69,22 +69,29 @@ const CreateAward = () => {
     filter: searchValue,
     orders: [{ field: 'lastname', direction: state }],
   });
-  const totalPage = users?.pageInfo?.totalPages;
+  const totalPage = useMemo(() => users?.pageInfo?.totalPages, [users]);
 
-  const onChangeStart = (value: string | null) => {
-    dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')));
-  };
-  const onChangeEnd = (value: string | null) => {
-    dispatch(setEndDate(dayjs(value).format('DD.MM.YYYY')));
-  };
+  const onChangeStart = useCallback(
+    (value: string | null) => {
+      dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')));
+    },
+    [dispatch]
+  );
+
+  const onChangeEnd = useCallback(
+    (value: string | null) => {
+      dispatch(setEndDate(dayjs(value).format('DD.MM.YYYY')));
+    },
+    [dispatch]
+  );
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisibleModal(false);
-  };
+  }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
 
   return (
@@ -175,7 +182,7 @@ const CreateAward = () => {
               setArrChoiceUser={setArrChoiceUser}
             />
           )}
-          {totalPage && totalPage > 1 ? (
+          {totalPage && users && totalPage > 1 ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
@@ -224,4 +231,4 @@ const CreateAward = () => {
   );
 };
 
-export default CreateAward;
+export default memo(CreateAward);

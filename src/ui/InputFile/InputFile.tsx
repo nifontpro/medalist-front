@@ -1,7 +1,13 @@
 import styles from './InputFile.module.scss';
 import cn from 'classnames';
 import { InputFileProps } from './InputFile.props';
-import { ChangeEvent, ForwardedRef, forwardRef } from 'react';
+import {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  memo,
+  useCallback,
+} from 'react';
 import Button from '../Button/Button';
 
 const InputFile = forwardRef(
@@ -15,17 +21,20 @@ const InputFile = forwardRef(
     }: InputFileProps,
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
-    const handleChangeImages = (event: ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files !== null) {
-        setImagesFile(event.target.files[0]);
-        setImagesGallery({
-          id: -1,
-          folderId: 123,
-          name: 'xxx123',
-          imageUrl: URL.createObjectURL(event.target.files[0]),
-        });
-      }
-    };
+    const handleChangeImages = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files !== null) {
+          setImagesFile(event.target.files[0]);
+          setImagesGallery({
+            id: -1,
+            folderId: 123,
+            name: 'xxx123',
+            imageUrl: URL.createObjectURL(event.target.files[0]),
+          });
+        }
+      },
+      [setImagesFile, setImagesGallery]
+    );
 
     return (
       <div className={cn(styles.inputWrapper, className)}>
@@ -52,4 +61,4 @@ const InputFile = forwardRef(
 
 InputFile.displayName = 'file';
 
-export default InputFile;
+export default memo(InputFile);

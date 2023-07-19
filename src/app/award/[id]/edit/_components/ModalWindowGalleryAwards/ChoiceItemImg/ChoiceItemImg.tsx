@@ -1,8 +1,14 @@
 import styles from './ChoiceItemImg.module.scss';
 import { ChoiceItemImgProps } from './ChoiceItemImg.props';
 import cn from 'classnames';
-import CheckedIcon from '@/icons/checked.svg';
+import CheckedIconSvg from '@/icons/checked.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  memo,
+  useCallback,
+} from 'react';
 
 const ChoiceItemImg = ({
   itemImg,
@@ -11,9 +17,9 @@ const ChoiceItemImg = ({
   className,
   ...props
 }: ChoiceItemImgProps): JSX.Element => {
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setImagesPreview(itemImg);
-  };
+  }, [itemImg, setImagesPreview]);
 
   return (
     <div
@@ -41,4 +47,18 @@ const ChoiceItemImg = ({
   );
 };
 
-export default ChoiceItemImg;
+export default memo(ChoiceItemImg);
+
+//Для мемоизации svg icon
+const CheckedIcon = memo(
+  ({
+    className,
+  }: DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <CheckedIconSvg className={className} />;
+  }
+);
+CheckedIcon.displayName = 'CheckedIcon';
+//__________________

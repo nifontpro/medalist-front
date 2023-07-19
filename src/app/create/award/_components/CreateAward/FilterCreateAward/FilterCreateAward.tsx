@@ -3,7 +3,7 @@
 import styles from './FilterCreateAward.module.scss';
 import cn from 'classnames';
 import { FilterCreateAwardProps } from './FilterCreateAward.props';
-import { MouseEvent, useRef, useState } from 'react';
+import { MouseEvent, memo, useCallback, useRef, useState } from 'react';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '@/ui/Button/Button';
@@ -40,29 +40,33 @@ const FilterCreateAward = ({
     },
   };
 
-  const handleDrag = (
-    event: globalThis.MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) => {
-    if (info.offset.y > 100 && info.offset.y < 1000) {
-      setVisibleFilter(false);
-    }
-  };
+  const handleDrag = useCallback(
+    (
+      event: globalThis.MouseEvent | TouchEvent | PointerEvent,
+      info: PanInfo
+    ) => {
+      if (info.offset.y > 100 && info.offset.y < 1000) {
+        setVisibleFilter(false);
+      }
+    },
+    []
+  );
 
-  const handleClick = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
-    e.preventDefault();
-    setVisibleFilter(!visibleFilter);
-    setSearchValue('');
-  };
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+      e.preventDefault();
+      setVisibleFilter(!visibleFilter);
+      setSearchValue('');
+    },
+    [setSearchValue, visibleFilter]
+  );
 
   //Закрытие модального окна уведомлений нажатием вне
   const refFilter = useRef(null);
   const refOpenFilter = useRef(null);
-  const handleClickOutsideNotification = () => {
+  const handleClickOutsideNotification = useCallback(() => {
     setVisibleFilter(false);
-  };
+  }, []);
   useOutsideClick(
     refFilter,
     refOpenFilter,
@@ -136,4 +140,4 @@ const FilterCreateAward = ({
   );
 };
 
-export default FilterCreateAward;
+export default memo(FilterCreateAward);

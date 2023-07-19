@@ -1,6 +1,7 @@
 import styles from './Checkbox.module.scss';
 import cn from 'classnames';
 import { CheckboxProps, icons } from './Checkbox.props';
+import { memo, useMemo } from 'react';
 
 const Checkbox = ({
   setVisibleCheckbox,
@@ -10,7 +11,7 @@ const Checkbox = ({
   children,
   ...props
 }: CheckboxProps): JSX.Element => {
-  const IconComp = icons[icon];
+  const IconComp = useMemo(() => icons[icon], [icon]);
 
   return (
     <div
@@ -31,4 +32,4 @@ const Checkbox = ({
   );
 };
 
-export default Checkbox;
+export default memo(Checkbox);

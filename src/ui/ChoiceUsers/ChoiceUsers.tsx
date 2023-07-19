@@ -4,7 +4,7 @@ import styles from './ChoiceUsers.module.scss';
 import { ChoiceUsersProps } from './ChoiceUsers.props';
 import cn from 'classnames';
 import UserList from './UserListChoiceUsers/UserListChoiceUsers';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import P from '../P/P';
 import Search from '../Search/Search';
 import Checkbox from '../Checkbox/Checkbox';
@@ -21,7 +21,7 @@ const ChoiceUsers = ({
   const [allChecked, setAllChecked] = useState<boolean>(false);
   const [visibleCheckbox, setVisibleCheckbox] = useState<boolean>(false);
 
-  const handleChoiceAllUsers = () => {
+  const handleChoiceAllUsers = useCallback(() => {
     setAllChecked(!allChecked);
     setVisibleCheckbox(!visibleCheckbox);
     if (!allChecked && arrChoiceUser.length != users.length) {
@@ -34,15 +34,25 @@ const ChoiceUsers = ({
       setArrChoiceUser([]);
       setSearchValue('');
     }
-  };
+  }, [
+    allChecked,
+    arrChoiceUser.length,
+    setArrChoiceUser,
+    setSearchValue,
+    users,
+    visibleCheckbox,
+  ]);
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    if (event.currentTarget.value.length == 0) {
-      setSearchValue('');
-    } else {
-      setSearchValue(event.currentTarget.value);
-    }
-  };
+  const handleChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      if (event.currentTarget.value.length == 0) {
+        setSearchValue('');
+      } else {
+        setSearchValue(event.currentTarget.value);
+      }
+    },
+    [setSearchValue]
+  );
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -92,4 +102,4 @@ const ChoiceUsers = ({
   );
 };
 
-export default ChoiceUsers;
+export default memo(ChoiceUsers);

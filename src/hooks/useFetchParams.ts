@@ -19,7 +19,7 @@ export const useFetchParams = () => {
   }, []);
 
   const nextPage = useCallback(
-    (data: BaseResponse<any>) => {
+    <T>(data: BaseResponse<T>) => {
       if (data?.pageInfo?.totalPages && data?.pageInfo?.totalPages > page + 1) {
         setPage((prev) => prev + 1);
       }

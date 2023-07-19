@@ -1,7 +1,7 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -21,7 +21,10 @@ export const useCreateAward = (
   const dispatch = useAppDispatch();
   const { back } = useRouter();
   const searchParams = useSearchParams();
-  const deptId = Number(searchParams.get('deptId'));
+  const deptId = useMemo(
+    () => Number(searchParams.get('deptId')),
+    [searchParams]
+  );
   const [createAward, createAwardInfo] = awardApi.useCreateMutation();
   const [rewardUser, rewardUserInfo] = awardApi.useSendActionMutation();
   const [setImageGallery, setImageGalleryInfo] =
@@ -51,124 +54,16 @@ export const useCreateAward = (
     }
   }, [setValue, deptId, typeOfUser, dispatch]);
 
-  return useMemo(() => {
-    const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
       back();
-    };
+    },
+    [back]
+  );
 
-    //Выдать сразу и закрыть
-    // const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
-    //   data.endDate = Math.floor(new Date().getTime());
-    //   data.startDate = Math.floor(new Date().getTime());
-
-    //   let isError = false;
-    //   data.type = 'SIMPLE';
-
-    //   if (typeOfUser && typeOfUser.id && deptId) {
-    //     await createAward({ ...data })
-    //       .unwrap()
-    //       .then(async (res) => {
-    //         //Если ошибка
-    //         if (res.success == false) {
-    //           errorMessageParse(res.errors);
-    //           isError = true;
-    //         }
-
-    //         //Награждение тех кого выбрали
-    //         arrChoiceUser!.forEach(async (user) => {
-    //           if (typeOfUser && typeOfUser.id && res.data) {
-    //             await rewardUser({
-    //               authId: typeOfUser.id,
-    //               awardId: res.data?.award.id,
-    //               userId: Number(user),
-    //               actionType: 'AWARD',
-    //             })
-    //               .unwrap()
-    //               .then((res) => {
-    //                 if (res.success == false) {
-    //                   errorMessageParse(res.errors);
-    //                   isError = true;
-    //                 }
-    //               })
-    //               .catch((e) => {
-    //                 isError = true;
-    //                 toastError(e, 'Ошибка награждения');
-    //               });
-    //           }
-    //         });
-
-    //         //Добавления фото из галлереи
-    //         if (
-    //           imagesGallery &&
-    //           imagesGallery.id !== -1 &&
-    //           res.data &&
-    //           typeOfUser &&
-    //           typeOfUser.id
-    //         ) {
-    //           await setImageGallery({
-    //             awardId: res.data?.award.id,
-    //             authId: typeOfUser.id,
-    //             itemId: imagesGallery.id,
-    //           })
-    //             .unwrap()
-    //             .then(async (res) => {
-    //               if (res.success == false) {
-    //                 errorMessageParse(res.errors);
-    //                 isError = true;
-    //               }
-    //             })
-    //             .catch(() => {
-    //               isError = true;
-    //               toast.error('Ошибка добавления фото награды');
-    //             });
-    //         }
-
-    //         //Добавления загруженного фото
-    //         if (
-    //           imagesGallery &&
-    //           imagesGallery.id === -1 &&
-    //           imageFile &&
-    //           res.data &&
-    //           typeOfUser &&
-    //           typeOfUser.id
-    //         ) {
-    //           const file = new FormData();
-    //           file.append('file', imageFile);
-    //           file.append('authId', typeOfUser.id.toString());
-    //           file.append('awardId', res.data.award.id.toString());
-
-    //           await setImage(file)
-    //             .unwrap()
-    //             .then((res) => {
-    //               if (res.success == false) {
-    //                 errorMessageParse(res.errors);
-    //                 isError = true;
-    //               }
-    //             })
-    //             .catch(() => {
-    //               isError = true;
-    //               toast.error('Ошибка добавления фотографии');
-    //             });
-    //           if (!isError) {
-    //             toast.success('Фото успешно добавлено');
-    //           }
-    //         }
-    //       })
-    //       .catch((e) => {
-    //         isError = true;
-    //         toastError(e, 'Ошибка создания награды');
-    //       })
-    //       .finally(() => {
-    //         if (!isError && rewardUserInfo.status !== 'pending') {
-    //           back();
-    //           toast.success('Награда успешно создана');
-    //           reset();
-    //         }
-    //       });
-    //   }
-    // };
-    const onSubmitReward: SubmitHandler<CreateAwardRequest> = async (data) => {
+  const onSubmitReward: SubmitHandler<CreateAwardRequest> = useCallback(
+    async (data) => {
       data.endDate = Math.floor(new Date().getTime());
       data.startDate = Math.floor(new Date().getTime());
 
@@ -264,10 +159,25 @@ export const useCreateAward = (
             }
           });
       }
-    };
+    },
+    [
+      arrChoiceUser,
+      back,
+      createAward,
+      deptId,
+      imageFile,
+      imagesGallery,
+      rewardUser,
+      rewardUserInfo.status,
+      setImage,
+      setImageGallery,
+      typeOfUser,
+    ]
+  );
 
-    //Номинировать
-    const onSubmitNominee: SubmitHandler<CreateAwardRequest> = async (data) => {
+  //Номинировать
+  const onSubmitNominee: SubmitHandler<CreateAwardRequest> = useCallback(
+    async (data) => {
       data.type = 'PERIOD';
       let isError = false;
       const file = new FormData();
@@ -393,42 +303,37 @@ export const useCreateAward = (
             }
           });
       }
-    };
-    return {
-      onSubmitReward,
-      onSubmitNominee,
+    },
+    [
+      arrChoiceUser,
       back,
-      handleClick,
-      dispatch,
+      createAward,
       deptId,
+      endDateSelect,
+      imageFile,
       imagesGallery,
-      setImagesGallery,
-      setImagesFile,
-      rewardUserInfo,
-      setImageGalleryInfo,
-      setImageInfo,
-      createAwardInfo,
-    };
-  }, [
+      rewardUser,
+      rewardUserInfo.status,
+      setImage,
+      setImageGallery,
+      startDateSelect,
+      typeOfUser,
+    ]
+  );
+
+  return {
+    onSubmitReward,
+    onSubmitNominee,
     back,
+    handleClick,
     dispatch,
-    startDateSelect,
-    endDateSelect,
-    rewardUser,
     deptId,
-    reset,
-    typeOfUser,
-    arrChoiceUser,
-    createAward,
     imagesGallery,
     setImagesGallery,
-    setImageGallery,
     setImagesFile,
-    imageFile,
-    setImage,
     rewardUserInfo,
     setImageGalleryInfo,
     setImageInfo,
     createAwardInfo,
-  ]);
+  };
 };

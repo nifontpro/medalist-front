@@ -1,7 +1,15 @@
 import styles from './ModalWindowGalleryAwards.module.scss';
 import cn from 'classnames';
-import ExitIcon from '@/icons/close.svg';
-import { ForwardedRef, forwardRef, MouseEvent } from 'react';
+import ExitIconSvg from '@/icons/close.svg';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ForwardedRef,
+  forwardRef,
+  memo,
+  MouseEvent,
+  useCallback,
+} from 'react';
 import { ModalWindowGalleryAwardsProps } from './ModalWindowGalleryAwards.props';
 import ChoiceItemImg from './ChoiceItemImg/ChoiceItemImg';
 import { useModalWindowGalleryAwards } from './useModalWindowGalleryAwards';
@@ -78,24 +86,32 @@ const ModalWindowGalleryAwards = forwardRef(
         });
       });
 
-    const onChange = (newValue: unknown | OnChangeValue<IOption, boolean>) => {
-      setIdFolder(Number((newValue as IOption).value));
-    };
+    const onChange = useCallback(
+      (newValue: unknown | OnChangeValue<IOption, boolean>) => {
+        setIdFolder(Number((newValue as IOption).value));
+      },
+      [setIdFolder]
+    );
 
-    const handleCancel = (
-      e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-      e.preventDefault();
-      dispatch(setVisible(false));
-    };
-    const handleDrag = (
-      event: globalThis.MouseEvent | TouchEvent | PointerEvent,
-      info: PanInfo
-    ) => {
-      if (info.offset.y > 100 && info.offset.y < 1000) {
+    const handleCancel = useCallback(
+      (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+        e.preventDefault();
         dispatch(setVisible(false));
-      }
-    };
+      },
+      [dispatch]
+    );
+
+    const handleDrag = useCallback(
+      (
+        event: globalThis.MouseEvent | TouchEvent | PointerEvent,
+        info: PanInfo
+      ) => {
+        if (info.offset.y > 100 && info.offset.y < 1000) {
+          dispatch(setVisible(false));
+        }
+      },
+      [dispatch]
+    );
 
     return (
       <AnimatePresence mode='wait'>
@@ -176,4 +192,20 @@ const ModalWindowGalleryAwards = forwardRef(
 );
 
 ModalWindowGalleryAwards.displayName = 'ModalWindowGalleryAwards';
-export default ModalWindowGalleryAwards;
+
+export default memo(ModalWindowGalleryAwards);
+
+//Для мемоизации svg icon
+const ExitIcon = memo(
+  ({
+    className,
+    ...props
+  }: DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <ExitIconSvg className={className} {...props} />;
+  }
+);
+ExitIcon.displayName = 'ExitIcon';
+//__________________
