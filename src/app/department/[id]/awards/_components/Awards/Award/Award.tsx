@@ -133,4 +133,4 @@ const Award = motion(
 );
 
 Award.displayName = 'Award';
-export default Award;
+export default memo(Award);

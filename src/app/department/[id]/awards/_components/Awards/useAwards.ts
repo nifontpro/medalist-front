@@ -2,9 +2,13 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { getAwardCreateUrl } from '@/config/api.config';
+import { useRouter } from 'next/navigation';
 
 export const useAwards = (id: string) => {
   const [active, setActive] = useState<AwardState | undefined>(undefined);
+
+  const { push } = useRouter();
 
   const {
     page,
@@ -30,7 +34,26 @@ export const useAwards = (id: string) => {
     },
     active
   );
-  const totalPage = awardsOnDepartment?.pageInfo?.totalPages;
+  const totalPage = useMemo(
+    () => awardsOnDepartment?.pageInfo?.totalPages,
+    [awardsOnDepartment]
+  );
+
+  const awardCreateLink = useCallback(() => {
+    push(getAwardCreateUrl(`?deptId=${id}`));
+  }, [id, push]);
+
+  const handleSort = useCallback(() => {
+    state == 'ASC' ? setState('DESC') : setState('ASC');
+    setPage(0);
+  }, [setPage, setState, state]);
+
+  const awardLink = useCallback(
+    (id: number) => {
+      push('/award/' + id);
+    },
+    [push]
+  );
 
   //Для подгрузки данных при скролле
   const onScroll = useCallback(() => {
@@ -69,5 +92,8 @@ export const useAwards = (id: string) => {
     nextPage,
     prevPage,
     setPage,
+    awardCreateLink,
+    handleSort,
+    awardLink,
   };
 };

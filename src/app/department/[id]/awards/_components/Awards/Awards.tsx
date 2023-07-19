@@ -2,25 +2,21 @@
 
 import uniqid from 'uniqid';
 import { AwardsProps } from './Awards.props';
-import { useRouter } from 'next/navigation';
 import { useAwards } from './useAwards';
 import styles from './Awards.module.scss';
 import Htag from '@/ui/Htag/Htag';
 import AuthComponent from '@/store/providers/AuthComponent';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
-import { getAwardCreateUrl } from '@/config/api.config';
 import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
-import Link from 'next/link';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Award from './Award/Award';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import FilterAwards from './FilterAwards/FilterAwards';
+import { memo } from 'react';
 
 const Awards = ({ id, className, ...props }: AwardsProps) => {
-  const { push } = useRouter();
   const {
     active,
     setActive,
@@ -33,6 +29,9 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
     setPage,
     nextPage,
     prevPage,
+    awardCreateLink,
+    handleSort,
+    awardLink,
   } = useAwards(id);
 
   if (isLoadingAwardsOnDept) return <Spinner />;
@@ -46,7 +45,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
           <AuthComponent minRole={'ADMIN'}>
             <div className={styles.createAwardAdaptive}>
               <ButtonCircleIcon
-                onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
+                onClick={awardCreateLink}
                 classNameForIcon='@apply w-[12px] h-[12px]'
                 appearance='black'
                 icon='plus'
@@ -88,10 +87,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             </TabTitle>
             <SortButton
               state={state}
-              onClick={() => {
-                state == 'ASC' ? setState('DESC') : setState('ASC');
-                setPage(0);
-              }}
+              onClick={handleSort}
               className={styles.sort}
             >
               Сначала новые
@@ -100,7 +96,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             <AuthComponent minRole={'ADMIN'}>
               <div className={styles.createAward}>
                 <ButtonCircleIcon
-                  onClick={() => push(getAwardCreateUrl(`?deptId=${id}`))}
+                  onClick={awardCreateLink}
                   classNameForIcon='@apply w-[12px] h-[12px]'
                   appearance='black'
                   icon='plus'
@@ -117,8 +113,6 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
           setState={setState}
           active={active}
           setActive={setActive}
-          // allNominee={allNominee}
-          // allAwards={allAwards}
           awardsFull={awardsOnDepartment.data}
         />
 
@@ -126,9 +120,12 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
           {awardsOnDepartment.data.length > 0 ? (
             awardsOnDepartment.data?.map((item) => {
               return (
-                <Link key={uniqid()} href={'/award/' + item.id}>
-                  <Award layout award={item} />
-                </Link>
+                <Award
+                  key={uniqid()}
+                  layout
+                  award={item}
+                  onClick={() => awardLink(item.id)}
+                />
               );
             })
           ) : (
@@ -154,4 +151,4 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
   }
 };
 
-export default Awards;
+export default memo(Awards);
