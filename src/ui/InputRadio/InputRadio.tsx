@@ -1,6 +1,7 @@
 import styles from './InputRadio.module.scss';
 import cn from 'classnames';
 import { InputRadioProps } from './InputRadio.props';
+import { memo } from 'react';
 
 const InputRadio = ({
   active,
@@ -8,8 +9,6 @@ const InputRadio = ({
   className,
   ...props
 }: InputRadioProps): JSX.Element => {
-
-
   return (
     <div className={cn(className, styles.radioButton)} {...props}>
       <div
@@ -34,4 +33,4 @@ const InputRadio = ({
 };
 InputRadio.displayName = 'radio';
 
-export default InputRadio;
+export default memo(InputRadio);

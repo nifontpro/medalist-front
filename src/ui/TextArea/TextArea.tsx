@@ -1,7 +1,7 @@
 import styles from './TextArea.module.scss';
 import cn from 'classnames';
 import { TextAreaProps } from './TextArea.props';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import P from '../P/P';
 
 const TextArea = forwardRef(
@@ -13,11 +13,10 @@ const TextArea = forwardRef(
       <div className={cn(className, styles.textareaWrapper)}>
         <P className={styles.placeholder}>{title}</P>
         <textarea
-        placeholder={placeholder}
+          placeholder={placeholder}
           className={cn(styles.textarea, {
-            [styles.error]: error
+            [styles.error]: error,
           })}
-          
           ref={ref}
           {...props}
         />
@@ -29,4 +28,4 @@ const TextArea = forwardRef(
 
 TextArea.displayName = 'description';
 
-export default TextArea;
+export default memo(TextArea);

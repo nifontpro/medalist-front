@@ -2,7 +2,7 @@
 
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -20,21 +20,21 @@ const HeaderLayout = () => {
     convertPathName(pathName)
   );
 
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: Alignment
-  ) => {
-    if (convertPathName(pathName) !== '' && newAlignment != null) {
-      push(`${pathName.replace(alignment, newAlignment)}`);
-    } else {
-      if (newAlignment === null) {
-        push(pathName);
+  const handleChange = useCallback(
+    (event: React.MouseEvent<HTMLElement>, newAlignment: Alignment) => {
+      if (convertPathName(pathName) !== '' && newAlignment != null) {
+        push(`${pathName.replace(alignment, newAlignment)}`);
       } else {
-        push(`${pathName}/${newAlignment}`);
+        if (newAlignment === null) {
+          push(pathName);
+        } else {
+          push(`${pathName}/${newAlignment}`);
+        }
       }
-    }
-    setAlignment(newAlignment);
-  };
+      setAlignment(newAlignment);
+    },
+    [alignment, pathName, push]
+  );
 
   return (
     <>
@@ -66,4 +66,4 @@ const HeaderLayout = () => {
   );
 };
 
-export default HeaderLayout;
+export default memo(HeaderLayout);

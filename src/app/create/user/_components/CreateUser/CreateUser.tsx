@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import styles from './CreateUser.module.scss';
-import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { useCreateUser } from './useCreateUser';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
@@ -28,7 +27,6 @@ const roles: IOption[] = [
 
 const CreateUser = () => {
   const [active, setActive] = useState<Gender>('MALE');
-  const { back } = useRouter();
 
   const {
     control,
@@ -39,7 +37,7 @@ const CreateUser = () => {
     reset,
   } = useForm<CreateUserRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, createInfo } = useCreateUser(
+  const { onSubmit, handleClick, createInfo, back } = useCreateUser(
     setValue,
     active,
     reset
@@ -187,4 +185,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default memo(CreateUser)
