@@ -1,11 +1,12 @@
 import styles from './StatisticCountAwards.module.scss';
 import { StatisticCountAwardsProps } from './StatisticCountAwards.props';
 import cn from 'classnames';
-import ArrowIcon from '@/icons/arrowRight.svg';
-import CupIcon from '@/icons/cup.svg';
+import ArrowIconSvg from '@/icons/arrowRight.svg';
+import CupIconSvg from '@/icons/cup.svg';
 import P from '@/ui/P/P';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
+import { memo } from 'react';
 
 const StatisticCountAwards = ({
   departId,
@@ -21,7 +22,7 @@ const StatisticCountAwards = ({
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={cn(styles.allAwards, styles.card)}>
         <div className='flex'>
-          <CupIcon className={styles.img} />
+          <CupIcon />
           <div>
             <P size='s' className={styles.descriptionTitle}>
               Медали
@@ -33,10 +34,22 @@ const StatisticCountAwards = ({
             )}
           </div>
         </div>
-        <ArrowIcon className={styles.arrow} />
+        <ArrowIcon />
       </div>
     </div>
   );
 };
 
 export default StatisticCountAwards;
+
+//Для мемоизации svg icon
+const CupIcon = memo(() => {
+  return <CupIconSvg className={styles.img} />;
+});
+CupIcon.displayName = 'CupIcon';
+
+const ArrowIcon = memo(() => {
+  return <ArrowIconSvg className={styles.arrow} />;
+});
+ArrowIcon.displayName = 'ArrowIcon';
+//__________________

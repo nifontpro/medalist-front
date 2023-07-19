@@ -3,31 +3,20 @@ import styles from './StatisticUsersAwards.module.scss';
 import { StatisticUsersAwardsProps } from './StatisticUsersAwards.props';
 import cn from 'classnames';
 import DoughnutCircle from '@/ui/DoughnutCircle/DoughnutCircle';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
+import { memo } from 'react';
+import { useStatisticUsersAwards } from './useStatisticUsersAwards';
 
 const StatisticUsersAwards = ({
   departId,
   className,
   ...props
 }: StatisticUsersAwardsProps): JSX.Element => {
-  const { userAwardWWCountOnDept, isLoadingUserAwardWWCountOnDept } =
-    useAwardAdmin(departId);
-
-  let countWithAward = userAwardWWCountOnDept?.data?.withAward;
-  let countWithoutAward = userAwardWWCountOnDept?.data?.withoutAward;
-  let countAll =
-    userAwardWWCountOnDept?.data &&
-    userAwardWWCountOnDept?.data?.withAward +
-      userAwardWWCountOnDept?.data?.withoutAward;
-
-  let countWithAwardPercent =
-    countWithAward && countAll && Math.ceil((countWithAward * 100) / countAll);
-  let countWithoutAwardPercent =
-    countWithoutAward &&
-    countAll &&
-    Math.ceil((countWithoutAward * 100) / countAll);
+  const {
+    countWithAward,
+    countWithoutAward,
+    countWithoutAwardPercent,
+    countWithAwardPercent,
+  } = useStatisticUsersAwards(departId);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -81,4 +70,4 @@ const StatisticUsersAwards = ({
   );
 };
 
-export default StatisticUsersAwards;
+export default memo(StatisticUsersAwards);

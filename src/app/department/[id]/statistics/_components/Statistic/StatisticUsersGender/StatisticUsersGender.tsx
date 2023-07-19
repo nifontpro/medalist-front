@@ -4,26 +4,16 @@ import { StatisticUsersGenderProps } from './StatisticUsersGender.props';
 import cn from 'classnames';
 import P from '@/ui/P/P';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { memo, useMemo } from 'react';
+import { useStatisticUsersGender } from './useStatisticUsersGender';
 
 const StatisticUsersGender = ({
   departId,
   className,
   ...props
 }: StatisticUsersGenderProps): JSX.Element => {
-  const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
-    useUserAdmin(departId, { subdepts: true });
-
-  let countAll = usersGenderOnDepartment?.data?.length;
-  let countMale = usersGenderOnDepartment?.data?.filter(
-    (user) => user.gender == 'MALE' || user.gender == 'UNDEF'
-  ).length;
-  let countMalePercent =
-    countMale && countAll && Math.ceil((countMale * 100) / countAll);
-  let countFemale = usersGenderOnDepartment?.data?.filter(
-    (user) => user.gender == 'FEMALE'
-  ).length;
-  let countFemalePercent =
-    countFemale && countAll && Math.floor((countFemale * 100) / countAll);
+  const { countMale, countFemale, countFemalePercent, countMalePercent } =
+    useStatisticUsersGender(departId);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -75,4 +65,4 @@ const StatisticUsersGender = ({
   );
 };
 
-export default StatisticUsersGender;
+export default memo(StatisticUsersGender);

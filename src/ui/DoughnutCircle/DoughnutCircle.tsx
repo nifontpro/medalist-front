@@ -2,6 +2,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { DoughnutCircleProps } from './DoughnutCircle.props';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { memo } from 'react';
 
 const DoughnutCircle = ({
   dataOne,
@@ -45,4 +46,4 @@ const DoughnutCircle = ({
     </div>
   );
 };
-export default DoughnutCircle;
+export default memo(DoughnutCircle);

@@ -2,13 +2,14 @@ import styles from './StatisticDepartments.module.scss';
 import uniqid from 'uniqid';
 import { StatisticDepartmentsProps } from './StatisticDepartments.props';
 import cn from 'classnames';
-import AwardIcon from '@/icons/union.svg';
+import AwardIconSvg from '@/icons/union.svg';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { memo, useMemo } from 'react';
 
 const StatisticDepartments = ({
   departId,
@@ -36,7 +37,10 @@ const StatisticDepartments = ({
     }
   );
 
-  const totalPage = colAwardsActivRoot?.pageInfo?.totalPages;
+  const totalPage = useMemo(
+    () => colAwardsActivRoot?.pageInfo?.totalPages,
+    [colAwardsActivRoot]
+  );
 
   if (!colAwardsActivRoot?.success && !isLoadingColAwardsActivRoot)
     return <div className={styles.wrapper}>Ошибка получения данных</div>;
@@ -63,7 +67,7 @@ const StatisticDepartments = ({
                       <Htag className={styles.count} tag='h2'>
                         {depart.awardCount}
                       </Htag>
-                      <AwardIcon className='@apply ml-[10px] w-[17px] h-[24px]' />
+                      <AwardIcon />
                     </div>
                   </div>
                 );
@@ -75,7 +79,7 @@ const StatisticDepartments = ({
                       <Htag className={styles.count} tag='h2'>
                         {depart.awardCount}
                       </Htag>
-                      <AwardIcon className='@apply ml-[10px] w-[17px] h-[24px]' />
+                      <AwardIcon />
                     </div>
                   </div>
                 );
@@ -101,4 +105,11 @@ const StatisticDepartments = ({
   );
 };
 
-export default StatisticDepartments;
+export default memo(StatisticDepartments);
+
+//Для мемоизации svg icon
+const AwardIcon = memo(() => {
+  return <AwardIconSvg className='@apply ml-[10px] w-[17px] h-[24px]' />;
+});
+AwardIcon.displayName = 'AwardIcon';
+//__________________

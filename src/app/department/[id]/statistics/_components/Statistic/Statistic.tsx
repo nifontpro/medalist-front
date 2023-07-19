@@ -8,9 +8,8 @@ import StatisticCountNominee from './StatisticCountNominee/StatisticCountNominee
 import StatisticUsersGender from './StatisticUsersGender/StatisticUsersGender';
 import StatisticUsersAwards from './StatisticUsersAwards/StatisticUsersAwards';
 import { useRouter } from 'next/navigation';
-import StatisticActivity from './StatisticActivity/StatisticActivity';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import StatisticDepartments from './StatisticDepartments/StatisticDepartments';
+import { memo } from 'react';
 
 const Statistic = ({
   departId,
@@ -55,11 +54,9 @@ const Statistic = ({
           departId={departId}
           className={styles.usersAwards}
         />
-
-        {/* <StatisticActivity departId={departId} className={styles.activity} /> */}
       </div>
     </div>
   );
 };
 
-export default Statistic;
+export default memo(Statistic);
