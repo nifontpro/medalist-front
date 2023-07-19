@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import styles from './CreateOwner.module.scss';
-import { useRouter } from 'next/navigation';
 import { CreateOwnerRequest } from '@/api/user/request/CreateOwnerRequest';
 import { useForm } from 'react-hook-form';
 import { useCreateOwner } from './useCreateOwner';
@@ -18,7 +17,6 @@ import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const CreateOwner = () => {
   const [active, setActive] = useState<Gender>('MALE');
-  const { back } = useRouter();
 
   const {
     handleSubmit,
@@ -28,7 +26,11 @@ const CreateOwner = () => {
     reset,
   } = useForm<CreateOwnerRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, createInfo} = useCreateOwner(setValue, active, reset);
+  const { onSubmit, handleClick, createInfo, back } = useCreateOwner(
+    setValue,
+    active,
+    reset
+  );
 
   return (
     <>
@@ -138,6 +140,6 @@ const CreateOwner = () => {
       {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );
-}
+};
 
-export default CreateOwner
+export default CreateOwner;

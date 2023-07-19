@@ -1,6 +1,6 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
@@ -22,34 +22,40 @@ export const useCreateOwner = (
     }
   }, [setValue, active]);
 
-  const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    back();
-  };
-
-  const onSubmit: SubmitHandler<CreateOwnerRequest> = async (data) => {
-    let isError = false;
-    if (active != undefined) {
-      data.gender = active;
-    }
-    await create({ ...data })
-      .unwrap()
-      .then((res) => {
-        if (res.success == false) {
-          errorMessageParse(res.errors);
-          isError = true;
-        }
-      })
-      .catch((e) => {
-        isError = true;
-        toastError(e, 'Ошибка создания профиля владельца');
-      });
-    if (!isError) {
-      reset()
-      toast.success('Профиль владельца успешно создан');
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
+      event.preventDefault();
       back();
-    }
-  };
+    },
+    [back]
+  );
 
-  return { onSubmit, handleClick, createInfo };
+  const onSubmit: SubmitHandler<CreateOwnerRequest> = useCallback(
+    async (data) => {
+      let isError = false;
+      if (active != undefined) {
+        data.gender = active;
+      }
+      await create({ ...data })
+        .unwrap()
+        .then((res) => {
+          if (res.success == false) {
+            errorMessageParse(res.errors);
+            isError = true;
+          }
+        })
+        .catch((e) => {
+          isError = true;
+          toastError(e, 'Ошибка создания профиля владельца');
+        });
+      if (!isError) {
+        reset();
+        toast.success('Профиль владельца успешно создан');
+        back();
+      }
+    },
+    [active, back, create, reset]
+  );
+
+  return { onSubmit, handleClick, createInfo, back };
 };
