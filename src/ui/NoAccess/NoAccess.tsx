@@ -6,6 +6,7 @@ import { NoAccessProps } from './NoAccess.props';
 import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import { useRouter } from 'next/navigation';
 import P from '../P/P';
+import { memo } from 'react';
 
 const NoAccess = ({
   button = true,
@@ -13,6 +14,7 @@ const NoAccess = ({
   ...props
 }: NoAccessProps): JSX.Element => {
   const { back } = useRouter();
+
   return (
     <div className={cn(className, styles.wrapper)} {...props}>
       {button && (
@@ -32,4 +34,4 @@ const NoAccess = ({
     </div>
   );
 };
-export default NoAccess;
+export default memo(NoAccess)

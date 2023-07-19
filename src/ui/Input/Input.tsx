@@ -3,7 +3,7 @@
 import styles from './Input.module.scss';
 import cn from 'classnames';
 import { InputProps } from './Input.props';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 
 const Input = forwardRef(({ color, search, error, className, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
   return (
@@ -25,4 +25,4 @@ const Input = forwardRef(({ color, search, error, className, ...props }: InputPr
 
 Input.displayName = 'Field'
 
-export default Input;
+export default memo(Input)

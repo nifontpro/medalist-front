@@ -4,6 +4,7 @@ import { ScrollContainerWithSearchParamsProps } from './ScrollContainerWithSearc
 import Search from '../Search/Search';
 import SelectCalendarRange from '../SelectCalendarRange/SelectCalendarRange';
 import SortButton from '../SortButton/SortButton';
+import { memo } from 'react';
 
 const ScrollContainerWithSearchParams = ({
   searchHandleChange,
@@ -53,4 +54,4 @@ const ScrollContainerWithSearchParams = ({
     </div>
   );
 };
-export default ScrollContainerWithSearchParams;
+export default memo(ScrollContainerWithSearchParams)

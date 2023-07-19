@@ -1,10 +1,17 @@
 import { useEventAdmin } from '@/api/event/useEventAdmin';
 import { BaseEvent, ShortEvent } from '@/types/event/BaseEvent';
 import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export const useEventCard = (event: BaseEvent | ShortEvent) => {
   const { deleteDepartmentEventAsync, deleteUserEventAsync } = useEventAdmin();
+
+  const instanceOfBaseEvent = useCallback(
+    (object: any): object is BaseEvent => {
+      return true;
+    },
+    []
+  ); // Функция проверяющая тип события (отдел/профиль/главная)
 
   return useMemo(() => {
     let nowDays = +new Date();
@@ -33,9 +40,6 @@ export const useEventCard = (event: BaseEvent | ShortEvent) => {
       (nowDays - event.eventDate) / 86400000
     ); // Дней от даты события начальной
 
-    function instanceOfBaseEvent(object: any): object is BaseEvent {
-      return true;
-    } // Функция проверяющая тип события
     return {
       instanceOfBaseEvent,
       eventYear,
@@ -46,5 +50,10 @@ export const useEventCard = (event: BaseEvent | ShortEvent) => {
       deleteDepartmentEventAsync,
       deleteUserEventAsync,
     };
-  }, [event, deleteDepartmentEventAsync, deleteUserEventAsync]);
+  }, [
+    event,
+    deleteDepartmentEventAsync,
+    deleteUserEventAsync,
+    instanceOfBaseEvent,
+  ]);
 };

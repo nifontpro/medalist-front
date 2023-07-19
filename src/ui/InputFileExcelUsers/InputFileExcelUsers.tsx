@@ -5,7 +5,9 @@ import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
+  memo,
   MouseEvent,
+  useCallback,
   useState,
 } from 'react';
 import { read, readFile, utils } from 'xlsx';
@@ -22,21 +24,24 @@ const InputFileExcelUsers = forwardRef(
     const [fileName, setFileName] = useState<string>('');
     const [data, setData] = useState<DataSheets[]>();
 
-    const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-      if (e.currentTarget.files) {
-        if (e.currentTarget.files[0]) {
-          setFileName(e.currentTarget.files[0].name);
-          const data = await e.currentTarget.files[0].arrayBuffer();
-          const workbook = read(data);
-          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonDate = utils.sheet_to_json<DataSheets>(worksheet, {
-            range: 4,
-          });
+    const handleChange = useCallback(
+      async (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files) {
+          if (e.currentTarget.files[0]) {
+            setFileName(e.currentTarget.files[0].name);
+            const data = await e.currentTarget.files[0].arrayBuffer();
+            const workbook = read(data);
+            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonDate = utils.sheet_to_json<DataSheets>(worksheet, {
+              range: 4,
+            });
 
-          setData(jsonDate);
+            setData(jsonDate);
+          }
         }
-      }
-    };
+      },
+      []
+    );
 
     return (
       <>
@@ -71,4 +76,4 @@ const InputFileExcelUsers = forwardRef(
 
 InputFileExcelUsers.displayName = 'InputFileExcelUsers';
 
-export default InputFileExcelUsers;
+export default memo(InputFileExcelUsers);

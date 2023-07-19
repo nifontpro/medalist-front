@@ -1,8 +1,16 @@
 import styles from './ModalWindowWithAddEvent.module.scss';
 import { ModalWindowWithAddEventProps } from './ModalWindowWithAddEvent.props';
 import cn from 'classnames';
-import ExitIcon from '@/icons/close.svg';
-import { ForwardedRef, forwardRef, useState } from 'react';
+import ExitIconSvg from '@/icons/close.svg';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ForwardedRef,
+  forwardRef,
+  memo,
+  useCallback,
+  useState,
+} from 'react';
 import { useModalWindowWithAddEvent } from './useModalWindowWithAddEvent';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -40,13 +48,13 @@ const ModalWindowWithAddEvent = forwardRef(
 
     const [date, setData] = useState<number>();
 
-    const onChangeDate = (value: string | null) => {
+    const onChangeDate = useCallback((value: string | null) => {
       setData(
         dayjs(
           dayjs(convertCorrectDataForUnix(dayjs(value).format('DD.MM.YYYY')))
         ).unix() * 1000
       );
-    };
+    }, []);
 
     const { onSubmit, handleCancel, createDeptEventInfo, createUserEventInfo } =
       useModalWindowWithAddEvent(setVisibleModal, forWhat, id, date);
@@ -80,14 +88,17 @@ const ModalWindowWithAddEvent = forwardRef(
       },
     };
 
-    const handleDrag = (
-      event: globalThis.MouseEvent | TouchEvent | PointerEvent,
-      info: PanInfo
-    ) => {
-      if (info.offset.y > 100 && info.offset.y < 1000) {
-        setVisibleModal(false);
-      }
-    };
+    const handleDrag = useCallback(
+      (
+        event: globalThis.MouseEvent | TouchEvent | PointerEvent,
+        info: PanInfo
+      ) => {
+        if (info.offset.y > 100 && info.offset.y < 1000) {
+          setVisibleModal(false);
+        }
+      },
+      [setVisibleModal]
+    );
 
     return (
       <>
@@ -107,7 +118,7 @@ const ModalWindowWithAddEvent = forwardRef(
             >
               <div className={styles.slash} onClick={handleCancel} />
               <div className={styles.module} ref={ref}>
-                <ExitIcon onClick={handleCancel} className={styles.exit} />
+                <ExitIcon onClick={handleCancel} />
                 <Htag tag='h2' className={styles.title}>
                   Создать событие
                 </Htag>
@@ -163,4 +174,18 @@ const ModalWindowWithAddEvent = forwardRef(
 );
 
 ModalWindowWithAddEvent.displayName = 'ModalWindowWithAddEvent';
-export default ModalWindowWithAddEvent;
+export default memo(ModalWindowWithAddEvent);
+
+//Для мемоизации svg icon
+const ExitIcon = memo(
+  ({
+    ...props
+  }: DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <ExitIconSvg className={styles.exit} {...props} />;
+  }
+);
+ExitIcon.displayName = 'ExitIcon';
+//__________________

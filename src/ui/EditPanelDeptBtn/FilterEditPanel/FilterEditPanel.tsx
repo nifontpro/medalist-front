@@ -4,7 +4,7 @@ import { FilterEditPanelProps } from './FilterEditPanel.props';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
@@ -70,9 +70,7 @@ const FilterEditPanel = forwardRef(
                 size='xs'
                 fontstyle='thin'
                 onClick={() =>
-                  typeOfUser &&
-                  typeOfUser.id &&
-                  deleteAsync(Number(id))
+                  typeOfUser && typeOfUser.id && deleteAsync(Number(id))
                 }
                 className={styles.item}
               >
@@ -114,9 +112,7 @@ const FilterEditPanel = forwardRef(
                 size='xs'
                 fontstyle='thin'
                 onClick={() =>
-                  typeOfUser &&
-                  typeOfUser.id &&
-                  deleteAsync(Number(id))
+                  typeOfUser && typeOfUser.id && deleteAsync(Number(id))
                 }
                 className={styles.item}
               >
@@ -142,4 +138,4 @@ const FilterEditPanel = forwardRef(
 );
 
 FilterEditPanel.displayName = 'FilterEditPanel';
-export default FilterEditPanel;
+export default memo(FilterEditPanel);

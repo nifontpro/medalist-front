@@ -11,6 +11,7 @@ import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import Htag from '@/ui/Htag/Htag';
+import { memo } from 'react';
 
 const EventDepartment = ({
   id,
@@ -18,18 +19,6 @@ const EventDepartment = ({
   className,
   ...props
 }: EventDepartmentProps): JSX.Element => {
-  // const {
-  //   page,
-  //   setPage,
-  //   searchValue,
-  //   setSearchValue,
-  //   state,
-  //   setState,
-  //   nextPage,
-  //   prevPage,
-  // } = useFetchParams();
-  // const pageSize: number = 5;
-
   const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id);
 
   if (isLoadingEventsDepartment) return <Spinner />;
@@ -42,7 +31,7 @@ const EventDepartment = ({
       {eventsDepartment &&
         eventsDepartment.data &&
         eventsDepartment.data?.length > 0 && (
-          <div className={styles.eventWrapper}>
+          <div className={styles.eventWrapper} {...props}>
             <div></div>
             <div>
               <Htag tag='h3'>События</Htag>
@@ -59,17 +48,6 @@ const EventDepartment = ({
                         />
                       );
                     })}
-
-                  {/* {totalPage && totalPage > 1 ? (
-                    <PrevNextPages
-                      startPage={page + 1}
-                      endPage={totalPage}
-                      handleNextClick={() =>
-                        eventsDepartment && nextPage(eventsDepartment)
-                      }
-                      handlePrevClick={prevPage}
-                    />
-                  ) : null} */}
                 </div>
               </ScrollContainerWithSearchParams>
             </div>
@@ -78,4 +56,4 @@ const EventDepartment = ({
     </>
   );
 };
-export default EventDepartment;
+export default memo(EventDepartment)

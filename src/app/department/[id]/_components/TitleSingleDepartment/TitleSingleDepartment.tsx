@@ -3,7 +3,7 @@
 import styles from './TitleSingleDepartment.module.scss';
 import { TitleSingleDepartmentProps } from './TitleSingleDepartment.props';
 import Htag from '@/ui/Htag/Htag';
-import GpsIcon from './gps.svg';
+import GpsIconSvg from './gps.svg';
 import P from '@/ui/P/P';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import {
@@ -15,7 +15,7 @@ import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import Button from '@/ui/Button/Button';
 
@@ -32,6 +32,10 @@ const TitleSingleDepartment = ({
   } = useDepartmentAdmin(id);
 
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
+
+  const handleAddEvent = useCallback(() => {
+    setVisibleModal(true);
+  }, []);
 
   if (isLoadingByIdDept) return <Spinner />;
   if (!department?.success) {
@@ -63,7 +67,7 @@ const TitleSingleDepartment = ({
         </div>
 
         <div className={styles.address}>
-          <GpsIcon className='mr-[10px]' />
+          <GpsIcon />
           <P size='s' className={styles.description}>
             {department.data?.address}
           </P>
@@ -95,7 +99,7 @@ const TitleSingleDepartment = ({
             </InputFileExcelUsers>
           )}
           <Button
-            onClick={() => setVisibleModal(true)}
+            onClick={handleAddEvent}
             appearance='whiteBlack'
             size='l'
             className={styles.createEventBtn}
@@ -115,4 +119,11 @@ const TitleSingleDepartment = ({
     </div>
   );
 };
-export default TitleSingleDepartment;
+export default memo(TitleSingleDepartment);
+
+//Для мемоизации svg icon
+const GpsIcon = memo(() => {
+  return <GpsIconSvg className='mr-[10px]' />;
+});
+GpsIcon.displayName = 'GpsIcon';
+//__________________

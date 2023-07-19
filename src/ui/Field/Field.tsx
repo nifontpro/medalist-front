@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import cn from 'classnames';
 import styles from './Field.module.scss'
 import P from '@/ui/P/P';
@@ -20,4 +20,4 @@ const Field = forwardRef(
 
 Field.displayName = 'Field';
 
-export default Field;
+export default memo(Field)

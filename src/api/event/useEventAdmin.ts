@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { eventApi } from './event.api';
 
@@ -58,66 +58,54 @@ export const useEventAdmin = (id?: string, baseRequest?: BaseRequest) => {
   const [deleteUserEvent] = eventApi.useDeleteByUserMutation();
   const [deleteDepartmentEvent] = eventApi.useDeleteByDeptMutation();
 
-  return useMemo(() => {
-    const deleteUserEventAsync = async (id: number) => {
-      let isError = false;
-      if (typeOfUser && typeOfUser.id)
-        if (!isError) {
-          await deleteUserEvent({ authId: typeOfUser?.id, eventId: id })
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                isError = true;
-                errorMessageParse(res.errors);
-              }
-            })
-            .catch((e) => {
+  const deleteUserEventAsync = useCallback( async (id: number) => {
+    let isError = false;
+    if (typeOfUser && typeOfUser.id)
+      if (!isError) {
+        await deleteUserEvent({ authId: typeOfUser?.id, eventId: id })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
               isError = true;
-              toastError(e, 'Ошибка при удалении события');
-            });
-          toast.success('Событие успешно удалено');
-        }
-    };
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка при удалении события');
+          });
+        toast.success('Событие успешно удалено');
+      }
+  }, [deleteUserEvent, typeOfUser]);
 
-    const deleteDepartmentEventAsync = async (id: number) => {
-      let isError = false;
-      if (typeOfUser && typeOfUser.id)
-        if (!isError) {
-          await deleteDepartmentEvent({ authId: typeOfUser?.id, eventId: id })
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                isError = true;
-                errorMessageParse(res.errors);
-              }
-            })
-            .catch((e) => {
+  const deleteDepartmentEventAsync = useCallback( async (id: number) => {
+    let isError = false;
+    if (typeOfUser && typeOfUser.id)
+      if (!isError) {
+        await deleteDepartmentEvent({ authId: typeOfUser?.id, eventId: id })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
               isError = true;
-              toastError(e, 'Ошибка при удалении события');
-            });
-          toast.success('Событие успешно удалено');
-        }
-    };
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка при удалении события');
+          });
+        toast.success('Событие успешно удалено');
+      }
+  }, [deleteDepartmentEvent, typeOfUser]);
 
-    return {
-      allEvent,
-      isLoadingAllEvent,
-      deleteUserEventAsync,
-      deleteDepartmentEventAsync,
-      eventsDepartment,
-      isLoadingEventsDepartment,
-      eventsUser,
-      isLoadingEventsUser,
-    };
-  }, [
+  return {
     allEvent,
-    deleteDepartmentEvent,
-    deleteUserEvent,
     isLoadingAllEvent,
-    typeOfUser,
+    deleteUserEventAsync,
+    deleteDepartmentEventAsync,
     eventsDepartment,
     isLoadingEventsDepartment,
     eventsUser,
     isLoadingEventsUser,
-  ]);
+  };
 };

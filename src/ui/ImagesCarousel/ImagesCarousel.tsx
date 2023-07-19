@@ -5,6 +5,7 @@ import styles from './ImagesCarousel.module.scss';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { ImagesCarouselProps } from './ImagesCarousel.props.ts';
 import cn from 'classnames';
+import { memo } from 'react';
 
 const ImagesCarousel = ({
   data,
@@ -100,4 +101,4 @@ const ImagesCarousel = ({
   }
 };
 
-export default ImagesCarousel;
+export default memo(ImagesCarousel);

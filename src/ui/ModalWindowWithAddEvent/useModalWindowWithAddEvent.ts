@@ -4,7 +4,7 @@ import { AddUserEventRequest } from '@/api/event/request/AddUserEventRequest';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -23,90 +23,96 @@ export const useModalWindowWithAddEvent = (
   const [createUserEvent, createUserEventInfo] =
     eventApi.useAddUserEventMutation();
 
-  function instanceOfUser(object: any): object is AddUserEventRequest {
-    return true;
-  }
+  const instanceOfUser = useCallback(
+    (object: any): object is AddUserEventRequest => {
+      return true;
+    },
+    []
+  );
 
-  function instanceOfDept(object: any): object is AddDeptEventRequest {
-    return true;
-  }
+  const instanceOfDept = useCallback(
+    (object: any): object is AddDeptEventRequest => {
+      return true;
+    },
+    []
+  );
 
-  return useMemo(() => {
-    const handleCancel = () => {
-      setVisibleModal(false);
-    };
+  const handleCancel = useCallback(() => {
+    setVisibleModal(false);
+  }, [setVisibleModal]);
 
-    const onSubmit: SubmitHandler<
-      AddUserEventRequest | AddDeptEventRequest
-    > = async (data) => {
-      let isError: boolean = false;
+  const onSubmit: SubmitHandler<AddUserEventRequest | AddDeptEventRequest> =
+    useCallback(
+      async (data) => {
+        let isError: boolean = false;
 
-      if (typeOfUser && typeOfUser.id && date) {
-        if (forWhat === 'User' && instanceOfUser(data)) {
-          createUserEvent({
-            authId: typeOfUser.id,
-            userId: Number(id),
-            eventDate: date,
-            eventName: data.eventName,
-          })
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                errorMessageParse(res.errors);
-                isError = true;
-              }
+        if (typeOfUser && typeOfUser.id && date) {
+          if (forWhat === 'User' && instanceOfUser(data)) {
+            createUserEvent({
+              authId: typeOfUser.id,
+              userId: Number(id),
+              eventDate: date,
+              eventName: data.eventName,
             })
-            .catch(() => {
-              isError = true;
-              toast.error(`Ошибка создания события`);
-            });
-          setVisibleModal(false);
-          if (!isError) {
-            toast.success('Событие создано');
+              .unwrap()
+              .then((res) => {
+                if (res.success == false) {
+                  errorMessageParse(res.errors);
+                  isError = true;
+                }
+              })
+              .catch(() => {
+                isError = true;
+                toast.error(`Ошибка создания события`);
+              });
+            setVisibleModal(false);
+            if (!isError) {
+              toast.success('Событие создано');
+            }
+          }
+          if (forWhat === 'Dept' && instanceOfDept(data)) {
+            createDeptEvent({
+              authId: typeOfUser.id,
+              deptId: Number(id),
+              eventDate: date,
+              eventName: data.eventName,
+            })
+              .unwrap()
+              .then((res) => {
+                if (res.success == false) {
+                  errorMessageParse(res.errors);
+                  isError = true;
+                }
+              })
+              .catch(() => {
+                isError = true;
+                toast.error(`Ошибка создания события`);
+              });
+            setVisibleModal(false);
+            if (!isError) {
+              toast.success('Событие создано');
+            }
           }
         }
-        if (forWhat === 'Dept' && instanceOfDept(data)) {
-          createDeptEvent({
-            authId: typeOfUser.id,
-            deptId: Number(id),
-            eventDate: date,
-            eventName: data.eventName,
-          })
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                errorMessageParse(res.errors);
-                isError = true;
-              }
-            })
-            .catch(() => {
-              isError = true;
-              toast.error(`Ошибка создания события`);
-            });
-          setVisibleModal(false);
-          if (!isError) {
-            toast.success('Событие создано');
-          }
-        }
-      }
-    };
-    return {
-      onSubmit,
-      handleCancel,
-      createDeptEvent,
-      createDeptEventInfo,
-      createUserEvent,
-      createUserEventInfo,
-    };
-  }, [
+      },
+      [
+        createDeptEvent,
+        createUserEvent,
+        date,
+        forWhat,
+        id,
+        instanceOfDept,
+        instanceOfUser,
+        setVisibleModal,
+        typeOfUser,
+      ]
+    );
+  return {
+    onSubmit,
+    handleCancel,
     createDeptEvent,
     createDeptEventInfo,
     createUserEvent,
     createUserEventInfo,
-    setVisibleModal,
-    typeOfUser,
-    forWhat,
-    id,
-    date,
-  ]);
+  };
 };

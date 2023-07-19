@@ -56,7 +56,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
             <div className='flex'>
               <div className={styles.img}>
                 <PeopleIcon />
-              </div>
+              </div> 
               <div className={styles.description}>
                 <P size='s'>Есть награды</P>
                 <div className='flex items-end'>
