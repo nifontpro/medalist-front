@@ -6,6 +6,7 @@ import styles from './EditImagesComponent.module.scss';
 import cn from 'classnames';
 import { EditImagesComponentProps } from './EditImagesComponent.props';
 import EditPanelImgBtn from '../EditPanelImgBtn/EditPanelImgBtn';
+import { memo } from 'react';
 
 const EditImagesComponent = ({
   imageNum,
@@ -50,4 +51,4 @@ const EditImagesComponent = ({
   );
 };
 
-export default EditImagesComponent;
+export default memo(EditImagesComponent);

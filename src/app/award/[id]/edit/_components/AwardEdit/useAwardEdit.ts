@@ -1,6 +1,12 @@
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { useAppSelector } from '@/store/hooks/hooks';
@@ -53,13 +59,16 @@ export const useAwardEdit = (
     }
   }, [setValue, typeOfUser, singleAward]);
 
-  return useMemo(() => {
-    const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
       back();
-    };
+    },
+    [back]
+  );
 
-    const addPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+  const addPhoto = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
       event.preventDefault();
 
@@ -92,11 +101,12 @@ export const useAwardEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [addImage, singleAward, typeOfUser]
+  );
 
-    const removePhoto = async (
-      e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-    ) => {
+  const removePhoto = useCallback(
+    async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
       e.preventDefault();
       let isError = false;
       if (
@@ -127,9 +137,12 @@ export const useAwardEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [imageNum, removeImage, singleAward, typeOfUser]
+  );
 
-    const onSubmit: SubmitHandler<UpdateAwardRequest> = async (data) => {
+  const onSubmit: SubmitHandler<UpdateAwardRequest> = useCallback(
+    async (data) => {
       let isError = false;
 
       await update({ ...data })
@@ -148,32 +161,22 @@ export const useAwardEdit = (
         toast.success('Награда успешно изменена');
         back();
       }
-    };
-    return {
-      onSubmit,
-      handleClick,
-      addPhoto,
-      removePhoto,
-      isLoadingSingleAward,
-      singleAward,
-      back,
-      imageNum,
-      setImageNum,
-      images,
-      imagesGallery,
-      setImagesGallery,
-    };
-  }, [
-    addImage,
+    },
+    [back, update]
+  );
+
+  return {
+    onSubmit,
+    handleClick,
+    addPhoto,
+    removePhoto,
+    isLoadingSingleAward,
+    singleAward,
     back,
     imageNum,
+    setImageNum,
     images,
-    isLoadingSingleAward,
-    removeImage,
-    singleAward,
-    update,
-    typeOfUser,
     imagesGallery,
     setImagesGallery,
-  ]);
+  };
 };

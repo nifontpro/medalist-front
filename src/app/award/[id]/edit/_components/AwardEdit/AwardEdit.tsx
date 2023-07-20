@@ -14,6 +14,7 @@ import { useAwardEdit } from './useAwardEdit';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import ModalWindowGalleryAwards from '../ModalWindowGalleryAwards/ModalWindowGalleryAwards';
+import { memo } from 'react';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
   const {
@@ -131,4 +132,4 @@ const AwardEdit = ({ id }: AwardEditProps) => {
   );
 };
 
-export default AwardEdit;
+export default memo(AwardEdit)

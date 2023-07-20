@@ -1,6 +1,6 @@
 import { EditPanelImgBtnProps } from './EditPanelImgBtn.props';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import EditPanel from './EditPanel/EditPanel';
 import FilterEditPanel from './FilterEditPanel/FilterEditPanel';
 import AuthComponent from '@/store/providers/AuthComponent';
@@ -14,9 +14,9 @@ const EditPanelImgBtn = ({
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
@@ -47,4 +47,4 @@ const EditPanelImgBtn = ({
   );
 };
 
-export default EditPanelImgBtn;
+export default memo(EditPanelImgBtn)
