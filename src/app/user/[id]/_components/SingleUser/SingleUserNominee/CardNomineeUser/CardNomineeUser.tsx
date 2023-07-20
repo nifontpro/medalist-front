@@ -8,6 +8,7 @@ import AuthComponent from '@/store/providers/AuthComponent';
 import Button from '@/ui/Button/Button';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import { useCardNominee } from '@/app/award/[id]/_components/SingleAward/AwardNominee/CardNominee/useCardNominee';
+import { memo, useMemo } from 'react';
 
 const CardNomineeUser = ({
   userId,
@@ -16,11 +17,11 @@ const CardNomineeUser = ({
   className,
   ...props
 }: CardNomineeUserProps): JSX.Element => {
-  let awardId = award.award?.id;
+  let awardId = useMemo(() => award.award?.id, [award]);
 
   const { handleRemove } = useCardNominee(Number(userId), awardId);
 
-  let convertDate = timeConverterUser(award.date);
+  let convertDate = useMemo(() => timeConverterUser(award.date), [award]);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -77,4 +78,4 @@ const CardNomineeUser = ({
   );
 };
 
-export default CardNomineeUser;
+export default memo(CardNomineeUser);

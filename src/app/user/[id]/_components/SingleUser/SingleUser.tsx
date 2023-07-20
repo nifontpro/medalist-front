@@ -15,6 +15,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventSingleUser from './EventSingleUser/EventSingleUser';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
+import { memo } from 'react';
 
 const SingleUser = ({
   id,
@@ -117,4 +118,4 @@ const SingleUser = ({
   );
 };
 
-export default SingleUser;
+export default memo(SingleUser);

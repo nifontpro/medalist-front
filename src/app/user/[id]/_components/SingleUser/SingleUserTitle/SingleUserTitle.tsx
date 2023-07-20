@@ -11,6 +11,8 @@ import AuthComponent from '@/store/providers/AuthComponent';
 import Button from '@/ui/Button/Button';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
+import { memo, useCallback, useMemo } from 'react';
+import { RoleUser } from '@/types/user/user';
 
 const SingleUserTitle = ({
   user,
@@ -22,6 +24,16 @@ const SingleUserTitle = ({
   ...props
 }: SingleUserTitleProps): JSX.Element => {
   const { deleteUserAsync } = useUserAdmin();
+
+  const addEventVisible = useCallback(() => {
+    setVisibleModalEvent(true);
+  }, [setVisibleModalEvent]);
+
+  const addAwardVisible = useCallback(() => {
+    setVisibleModal(true);
+  }, [setVisibleModal]);
+
+  const minRole: RoleUser = useMemo(() => 'ADMIN', []);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -125,7 +137,7 @@ const SingleUserTitle = ({
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            onClick={() => setVisibleModalEvent(true)}
+            onClick={addEventVisible}
             size='l'
             appearance='whiteBlack'
             ref={refOpen}
@@ -133,9 +145,9 @@ const SingleUserTitle = ({
           >
             Создать событие
           </Button>
-          <AuthComponent minRole={'ADMIN'}>
+          <AuthComponent minRole={minRole}>
             <Button
-              onClick={() => setVisibleModal(true)}
+              onClick={addAwardVisible}
               size='l'
               appearance='blackWhite'
               ref={refOpen}
@@ -157,4 +169,4 @@ const SingleUserTitle = ({
   );
 };
 
-export default SingleUserTitle;
+export default memo(SingleUserTitle);

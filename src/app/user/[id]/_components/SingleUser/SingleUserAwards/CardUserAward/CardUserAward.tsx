@@ -6,7 +6,7 @@ import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { memo, useMemo } from 'react';
 
 const CardUserAward = ({
   user,
@@ -15,7 +15,7 @@ const CardUserAward = ({
   className,
   ...props
 }: CardUserAwardProps): JSX.Element => {
-  let convertDate = timeConverterUser(award.date);
+  let convertDate = useMemo(() => timeConverterUser(award.date), [award]);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -56,4 +56,4 @@ const CardUserAward = ({
   );
 };
 
-export default CardUserAward;
+export default memo(CardUserAward);

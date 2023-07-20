@@ -1,6 +1,13 @@
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
@@ -58,13 +65,16 @@ export const useUserEdit = (
     }
   }, [setValue, setActive, typeOfUser, singleUser]);
 
-  return useMemo(() => {
-    const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
       back();
-    };
+    },
+    [back]
+  );
 
-    const addPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+  const addPhoto = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
 
       if (event.target.files !== null && singleUser) {
@@ -89,11 +99,12 @@ export const useUserEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [addImage, singleUser]
+  );
 
-    const removePhoto = async (
-      e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-    ) => {
+  const removePhoto = useCallback(
+    async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
       e.preventDefault();
       let isError = false;
       if (singleUser && imageNum != undefined) {
@@ -117,9 +128,12 @@ export const useUserEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [imageNum, removeImage, singleUser]
+  );
 
-    const refreshPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+  const refreshPhoto = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
 
       if (event.target.files !== null && singleUser && imageNum != undefined) {
@@ -144,9 +158,12 @@ export const useUserEdit = (
           toast.success('Фото успешно обновлено');
         }
       }
-    };
+    },
+    [imageNum, refreshImage, singleUser]
+  );
 
-    const onSubmit: SubmitHandler<UpdateUserRequest> = async (data) => {
+  const onSubmit: SubmitHandler<UpdateUserRequest> = useCallback(
+    async (data) => {
       let isError = false;
 
       if (active != undefined) {
@@ -168,32 +185,23 @@ export const useUserEdit = (
         toast.success('Профиль сотрудника успешно изменен');
         back();
       }
-    };
-    return {
-      onSubmit,
-      handleClick,
-      addPhoto,
-      removePhoto,
-      refreshPhoto,
-      isLoadingSingleUser,
-      singleUser,
-      back,
-      imageNum,
-      setImageNum,
-      images,
-      active,
-      setActive,
-    };
-  }, [
-    active,
-    addImage,
+    },
+    [active, back, update]
+  );
+
+  return {
+    onSubmit,
+    handleClick,
+    addPhoto,
+    removePhoto,
+    refreshPhoto,
+    isLoadingSingleUser,
+    singleUser,
     back,
     imageNum,
+    setImageNum,
     images,
-    isLoadingSingleUser,
-    refreshImage,
-    removeImage,
-    singleUser,
-    update,
-  ]);
+    active,
+    setActive,
+  };
 };

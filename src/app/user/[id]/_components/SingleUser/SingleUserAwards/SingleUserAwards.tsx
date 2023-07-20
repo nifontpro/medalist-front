@@ -9,6 +9,7 @@ import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParam
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { memo, useMemo } from 'react';
 
 const SingleUserAwards = ({
   user,
@@ -46,8 +47,16 @@ const SingleUserAwards = ({
     undefined,
     'SIMPLE'
   );
-  const totalPage = singleActivAwardUser?.pageInfo?.totalPages;
-  const totalElements = singleActivAwardUser?.pageInfo?.totalElements;
+
+  const totalPage = useMemo(
+    () => singleActivAwardUser?.pageInfo?.totalPages,
+    [singleActivAwardUser]
+  );
+
+  const totalElements = useMemo(
+    () => singleActivAwardUser?.pageInfo?.totalElements,
+    [singleActivAwardUser]
+  );
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -108,4 +117,4 @@ const SingleUserAwards = ({
   );
 };
 
-export default SingleUserAwards;
+export default memo(SingleUserAwards);

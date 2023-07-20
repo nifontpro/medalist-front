@@ -3,7 +3,7 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useCardNominee = (
@@ -16,39 +16,37 @@ export const useCardNominee = (
 
   const [reward, rewardInfo] = awardApi.useSendActionMutation();
 
-  return useMemo(() => {
-    const handleRemove = async () => {
-      let isError = false;
+  const handleRemove = useCallback(async () => {
+    let isError = false;
 
-      if (userId && typeOfUser && typeOfUser.id && awardId) {
-        await reward({
-          authId: typeOfUser.id,
-          awardId: awardId,
-          userId: userId,
-          actionType: 'DELETE',
-        })
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
-              isError = true;
-            }
-          })
-          .catch(() => {
+    if (userId && typeOfUser && typeOfUser.id && awardId) {
+      await reward({
+        authId: typeOfUser.id,
+        awardId: awardId,
+        userId: userId,
+        actionType: 'DELETE',
+      })
+        .unwrap()
+        .then((res) => {
+          if (res.success == false) {
+            errorMessageParse(res.errors);
             isError = true;
-            toast.error('Ошибка удаления');
-          });
+          }
+        })
+        .catch(() => {
+          isError = true;
+          toast.error('Ошибка удаления');
+        });
 
-        if (!isError) {
-          toast.success('Удаление успешно');
-        }
+      if (!isError) {
+        toast.success('Удаление успешно');
       }
-    };
+    }
+  }, [awardId, reward, typeOfUser, userId]);
 
-    return {
-      handleRemove,
-      typeOfUser,
-      rewardInfo,
-    };
-  }, [userId, reward, awardId, typeOfUser, rewardInfo]);
+  return {
+    handleRemove,
+    typeOfUser,
+    rewardInfo,
+  };
 };

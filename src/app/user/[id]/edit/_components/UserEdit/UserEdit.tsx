@@ -19,6 +19,7 @@ import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+import { memo } from 'react';
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -192,4 +193,4 @@ export const UserEdit = ({ id }: UserEditProps) => {
   );
 };
 
-export default UserEdit;
+export default memo(UserEdit)

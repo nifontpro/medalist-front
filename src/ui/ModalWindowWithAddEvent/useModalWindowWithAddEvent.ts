@@ -107,6 +107,7 @@ export const useModalWindowWithAddEvent = (
         typeOfUser,
       ]
     );
+
   return {
     onSubmit,
     handleCancel,

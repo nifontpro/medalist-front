@@ -4,7 +4,7 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { Award } from '@/types/award/Award';
 import { useRouter } from 'next/navigation';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useSingleUser = (id: string) => {
   const { back } = useRouter();
@@ -23,7 +23,7 @@ export const useSingleUser = (id: string) => {
   const { singleUser: user, isLoadingSingleUser } = useUserAdmin(id);
   const { singleActivAwardUser: userActiv } = useAwardAdmin(id);
 
-  const deptId = user?.data?.user.dept.id;
+  const deptId = useMemo(() => user?.data?.user.dept.id, [user]);
 
   //Фильтр тех медалей, которыми не награжден еще
   const {
@@ -40,11 +40,12 @@ export const useSingleUser = (id: string) => {
   const [visibleModalEvent, setVisibleModalEvent] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisibleModal(false);
     setSearchValue('');
-  };
+  }, [setSearchValue]);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
   return useMemo(() => {
     const totalPage = awardsAvailableForRewardUser?.pageInfo?.totalPages;
 
@@ -67,6 +68,7 @@ export const useSingleUser = (id: string) => {
         }
       }
     });
+
     return {
       totalPage,
       arrAwardRewarded,

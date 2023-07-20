@@ -4,7 +4,7 @@ import { ScrollContainerWithSearchParamsProps } from './ScrollContainerWithSearc
 import Search from '../Search/Search';
 import SelectCalendarRange from '../SelectCalendarRange/SelectCalendarRange';
 import SortButton from '../SortButton/SortButton';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 const ScrollContainerWithSearchParams = ({
   searchHandleChange,
@@ -17,6 +17,10 @@ const ScrollContainerWithSearchParams = ({
   children,
   ...props
 }: ScrollContainerWithSearchParamsProps): JSX.Element => {
+  const handleSort = useCallback(() => {
+    if (setState) state == 'ASC' ? setState('DESC') : setState('ASC');
+  }, [setState, state]);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.header}>
@@ -35,9 +39,7 @@ const ScrollContainerWithSearchParams = ({
           <div className={styles.filterWrapper}>
             <SortButton
               state={state}
-              onClick={() =>
-                state == 'ASC' ? setState('DESC') : setState('ASC')
-              }
+              onClick={handleSort}
               className={styles.sort}
             >
               Сначала новые
@@ -54,4 +56,4 @@ const ScrollContainerWithSearchParams = ({
     </div>
   );
 };
-export default memo(ScrollContainerWithSearchParams)
+export default memo(ScrollContainerWithSearchParams);

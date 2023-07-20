@@ -11,6 +11,7 @@ import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
 import Htag from '@/ui/Htag/Htag';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
+import { memo } from 'react';
 
 const EventSingleUser = ({
   id,
@@ -74,4 +75,4 @@ const EventSingleUser = ({
     </>
   );
 };
-export default EventSingleUser;
+export default memo(EventSingleUser);

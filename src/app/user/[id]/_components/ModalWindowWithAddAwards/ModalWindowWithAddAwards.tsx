@@ -1,8 +1,15 @@
 import styles from './ModalWindowWithAddAwards.module.scss';
 import { ModalWindowWithAddAwardsProps } from './ModalWindowWithAddAwards.props';
 import cn from 'classnames';
-import ExitIcon from '@/icons/close.svg';
-import { ForwardedRef, forwardRef } from 'react';
+import ExitIconSvg from '@/icons/close.svg';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ForwardedRef,
+  forwardRef,
+  memo,
+  useCallback,
+} from 'react';
 import { useModalWindowWithAddAwards } from './useModalWindowWithAddAwards';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -68,14 +75,17 @@ const ModalWindowWithAddAwards = forwardRef(
       },
     };
 
-    const handleDrag = (
-      event: globalThis.MouseEvent | TouchEvent | PointerEvent,
-      info: PanInfo
-    ) => {
-      if (info.offset.y > 100 && info.offset.y < 1000) {
-        setVisibleModal(false);
-      }
-    };
+    const handleDrag = useCallback(
+      (
+        event: globalThis.MouseEvent | TouchEvent | PointerEvent,
+        info: PanInfo
+      ) => {
+        if (info.offset.y > 100 && info.offset.y < 1000) {
+          setVisibleModal(false);
+        }
+      },
+      [setVisibleModal]
+    );
 
     return (
       <AnimatePresence mode='wait'>
@@ -139,4 +149,20 @@ const ModalWindowWithAddAwards = forwardRef(
 );
 
 ModalWindowWithAddAwards.displayName = 'ModalWindowWithAddAwards';
-export default ModalWindowWithAddAwards;
+
+export default memo(ModalWindowWithAddAwards);
+
+//Для мемоизации svg icon
+const ExitIcon = memo(
+  ({
+    className,
+    ...props
+  }: DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <ExitIconSvg className={className} {...props} />;
+  }
+);
+ExitIcon.displayName = 'ExitIcon';
+//__________________
