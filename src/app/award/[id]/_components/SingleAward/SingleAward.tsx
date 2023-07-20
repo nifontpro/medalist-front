@@ -9,6 +9,7 @@ import AwardTitle from './AwardTitle/AwardTitle';
 import AwardWasAwarded from './AwardWasAwarded/AwardWasAwarded';
 import AwardWasNominee from './AwardWasNominee/AwardWasNominee';
 import AwardNominee from './AwardNominee/AwardNominee';
+import { memo } from 'react';
 
 const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
   const { back } = useRouter();
@@ -51,4 +52,4 @@ const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
   }
 };
 
-export default SingleAward;
+export default memo(SingleAward)

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import UpIcon from '@/icons/up.svg';
 import { ButtonScrollUp } from './ButtonScrollUp.props';
 import Button from '../Button/Button';
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useScrollY } from '@/hooks/useScrollY';
 
 const ButtonScrollUp = ({
@@ -13,23 +13,23 @@ const ButtonScrollUp = ({
   const y = useScrollY();
   const [scroll, setScroll] = useState<number>(0);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
+
+  const scrollHandler = useCallback((e: any) => {
+    setScroll(e.target.documentElement.scrollTop);
+  }, []);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
     return function () {
       document.removeEventListener('scroll', scrollHandler);
     };
-  }, []);
-
-  const scrollHandler = (e: any) => {
-    setScroll(e.target.documentElement.scrollTop);
-  };
+  }, [scrollHandler]);
 
   return (
     <div
@@ -51,4 +51,4 @@ const ButtonScrollUp = ({
   );
 };
 
-export default memo(ButtonScrollUp)
+export default memo(ButtonScrollUp);

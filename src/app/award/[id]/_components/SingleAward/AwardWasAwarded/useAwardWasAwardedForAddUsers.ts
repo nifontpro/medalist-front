@@ -4,7 +4,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import { Activity } from '@/types/award/Activity';
 import { AwardDetails } from '@/types/award/AwardDetails';
 import { User } from '@/types/user/user';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useAwardWasAwardedForAddUsers = (
   award: AwardDetails | null,
@@ -29,17 +29,24 @@ export const useAwardWasAwardedForAddUsers = (
       orders: [{ field: 'lastname', direction: addUsersState }],
     }
   );
-  const addUsersTotalPage = usersOnSubDepartment?.pageInfo?.totalPages;
+  const addUsersTotalPage = useMemo(
+    () => usersOnSubDepartment?.pageInfo?.totalPages,
+    [usersOnSubDepartment]
+  );
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisibleModal(false);
     addUsersSetSearchValue('');
-  };
+  }, [addUsersSetSearchValue]);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
+  const handlerAddUsers = useCallback(() => {
+    setVisibleModal(true);
+  }, [setVisibleModal]);
 
   return useMemo(() => {
     //Фильтр тех кто еще не участвует в номинации
@@ -59,6 +66,7 @@ export const useAwardWasAwardedForAddUsers = (
           arrUserNotAwarded.push(user);
         }
       });
+
     return {
       usersOnSubDepartment,
       ref,
@@ -75,6 +83,7 @@ export const useAwardWasAwardedForAddUsers = (
       addUsersNextPage,
       addUsersPrevPage,
       addUsersTotalPage,
+      handlerAddUsers,
     };
   }, [
     awardActiv,
@@ -91,5 +100,6 @@ export const useAwardWasAwardedForAddUsers = (
     addUsersSetSearchValue,
     addUsersState,
     addUsersTotalPage,
+    handlerAddUsers,
   ]);
 };

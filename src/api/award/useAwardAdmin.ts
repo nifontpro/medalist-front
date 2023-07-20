@@ -7,7 +7,7 @@ import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 
 export const useAwardAdmin = (
@@ -18,6 +18,7 @@ export const useAwardAdmin = (
   awardType?: AwardType
 ) => {
   const { back } = useRouter();
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -176,8 +177,8 @@ export const useAwardAdmin = (
   const [deleteUserReward, deleteUserRewardInfo] =
     awardApi.useSendActionMutation();
 
-  return useMemo(() => {
-    const deleteAwardAsync = async (awardId: number) => {
+  const deleteAwardAsync = useCallback(
+    async (awardId: number) => {
       let isError = false;
       if (typeOfUser && typeOfUser.id)
         await deleteAward({ authId: typeOfUser.id, awardId: awardId })
@@ -196,13 +197,12 @@ export const useAwardAdmin = (
         back();
         toast.success('Награда успешно удалена');
       }
-    };
+    },
+    [back, deleteAward, typeOfUser]
+  );
 
-    const userRewardAsync = async (
-      awardId: number,
-      actionType: ActionType,
-      userId: number
-    ) => {
+  const userRewardAsync = useCallback(
+    async (awardId: number, actionType: ActionType, userId: number) => {
       let isError = false;
       if (typeOfUser && typeOfUser.id)
         await deleteUserReward({
@@ -226,38 +226,12 @@ export const useAwardAdmin = (
       if (!isError) {
         toast.success('Награждение успешно');
       }
-    };
+    },
+    [deleteUserReward, typeOfUser]
+  );
 
-    return {
-      deleteAwardAsync,
-      singleAward,
-      isLoadingSingleAward,
-      awardsOnDepartment,
-      isFetchingUsersOnDepartment,
-      isLoadingAwardsOnDept,
-      singleActivAward,
-      isLoadingSingleActivAward,
-      isFetchingSingleActivAward,
-      awardsActivOnDepartment,
-      isLoadingAwardsActivOnDept,
-      singleActivAwardUser,
-      isLoadingSingleActivAwardUser,
-      userRewardAsync,
-      deleteUserRewardInfo,
-      awardsAvailableForRewardUser,
-      isLoadingAwardsAvailableForRewardUser,
-      colAwardsOnDepartment,
-      isLoadingColAwardsOnDept,
-      colAwardsActivOnDepartment,
-      isLoadingColAwardsActivOnDepartment,
-      isFetchingUsersActivOnDepartment,
-      colAwardsActivRoot,
-      isLoadingColAwardsActivRoot,
-      userAwardWWCountOnDept,
-      isLoadingUserAwardWWCountOnDept,
-    };
-  }, [
-    deleteAward,
+  return {
+    deleteAwardAsync,
     singleAward,
     isLoadingSingleAward,
     awardsOnDepartment,
@@ -266,14 +240,11 @@ export const useAwardAdmin = (
     singleActivAward,
     isLoadingSingleActivAward,
     isFetchingSingleActivAward,
-    back,
     awardsActivOnDepartment,
     isLoadingAwardsActivOnDept,
-    isFetchingUsersActivOnDepartment,
     singleActivAwardUser,
     isLoadingSingleActivAwardUser,
-    typeOfUser,
-    deleteUserReward,
+    userRewardAsync,
     deleteUserRewardInfo,
     awardsAvailableForRewardUser,
     isLoadingAwardsAvailableForRewardUser,
@@ -281,9 +252,10 @@ export const useAwardAdmin = (
     isLoadingColAwardsOnDept,
     colAwardsActivOnDepartment,
     isLoadingColAwardsActivOnDepartment,
+    isFetchingUsersActivOnDepartment,
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
     userAwardWWCountOnDept,
     isLoadingUserAwardWWCountOnDept,
-  ]);
+  };
 };

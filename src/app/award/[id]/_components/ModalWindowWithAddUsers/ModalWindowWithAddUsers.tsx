@@ -1,8 +1,15 @@
 import styles from './ModalWindowWithAddUsers.module.scss';
 import { ModalWindowWithAddUsersProps } from './ModalWindowWithAddUsers.props';
 import cn from 'classnames';
-import ExitIcon from '@/icons/close.svg';
-import { ForwardedRef, forwardRef } from 'react';
+import ExitIconSvg from '@/icons/close.svg';
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  ForwardedRef,
+  forwardRef,
+  memo,
+  useCallback,
+} from 'react';
 import { useModalWindowWithAddUsers } from './useModalWindowWithAddUsers';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -74,14 +81,17 @@ const ModalWindowWithAddUsers = forwardRef(
       },
     };
 
-    const handleDrag = (
-      event: globalThis.MouseEvent | TouchEvent | PointerEvent,
-      info: PanInfo
-    ) => {
-      if (info.offset.y > 100 && info.offset.y < 1000) {
-        setVisibleModal(false);
-      }
-    };
+    const handleDrag = useCallback(
+      (
+        event: globalThis.MouseEvent | TouchEvent | PointerEvent,
+        info: PanInfo
+      ) => {
+        if (info.offset.y > 100 && info.offset.y < 1000) {
+          setVisibleModal(false);
+        }
+      },
+      [setVisibleModal]
+    );
 
     return (
       <>
@@ -144,7 +154,7 @@ const ModalWindowWithAddUsers = forwardRef(
                 </div>
               </div>
             </motion.div>
-          )} 
+          )}
         </AnimatePresence>
         {rewardInfo.status == 'pending' ? <SpinnerFetching /> : null}
       </>
@@ -153,4 +163,20 @@ const ModalWindowWithAddUsers = forwardRef(
 );
 
 ModalWindowWithAddUsers.displayName = 'ModalWindowWithAddUsers';
-export default ModalWindowWithAddUsers;
+
+export default memo(ModalWindowWithAddUsers);
+
+//Для мемоизации svg icon
+const ExitIcon = memo(
+  ({
+    className,
+    ...props
+  }: DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >): JSX.Element => {
+    return <ExitIconSvg className={className} {...props} />;
+  }
+);
+ExitIcon.displayName = 'ExitIcon';
+//__________________

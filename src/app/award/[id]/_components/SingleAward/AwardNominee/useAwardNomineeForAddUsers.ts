@@ -4,7 +4,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import { Activity } from '@/types/award/Activity';
 import { AwardDetails } from '@/types/award/AwardDetails';
 import { User } from '@/types/user/user';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useAwardNomineeForAddUsers = (
   award: AwardDetails | null,
@@ -30,29 +30,37 @@ export const useAwardNomineeForAddUsers = (
       orders: [{ field: 'lastname', direction: addUsersState }],
     }
   );
-  const addUsersTotalPage = usersOnSubDepartment?.pageInfo?.totalPages;
+  const addUsersTotalPage = useMemo(
+    () => usersOnSubDepartment?.pageInfo?.totalPages,
+    [usersOnSubDepartment]
+  );
 
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisibleModal(false);
     addUsersSetSearchValue('');
-  };
+  }, [addUsersSetSearchValue]);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
+  const handlerOpenAddUser = useCallback(() => {
+    setVisibleModal(true);
+  }, [setVisibleModal]);
 
   return useMemo(() => {
     //Фильтр тех кто еще не участвует в номинации
     let arrIdUserNominee: string[] = []; // Id тех кто наминирован
-    awardActiv && awardActiv.forEach((user) => {
-      // if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
-      //   arrIdUserNominee.push(user.user.id.toString());
-      if (user && user.user && user.user.id) {
-        if (user.actionType == 'NOMINEE' || user.actionType == 'AWARD')
-          arrIdUserNominee.push(user.user.id.toString());
-      }
-    });
+    awardActiv &&
+      awardActiv.forEach((user) => {
+        // if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
+        //   arrIdUserNominee.push(user.user.id.toString());
+        if (user && user.user && user.user.id) {
+          if (user.actionType == 'NOMINEE' || user.actionType == 'AWARD')
+            arrIdUserNominee.push(user.user.id.toString());
+        }
+      });
 
     let arrUserNotNominee: User[] = []; // Те кто не наминирован
     usersOnSubDepartment &&
@@ -66,10 +74,12 @@ export const useAwardNomineeForAddUsers = (
       });
 
     let arrUserNominee: User[] = []; // Те кто номинирован
-    awardActiv && awardActiv.forEach((user) => {
-      if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
-        arrUserNominee.push(user.user);
-    });
+    awardActiv &&
+      awardActiv.forEach((user) => {
+        if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
+          arrUserNominee.push(user.user);
+      });
+
     return {
       setVisibleModal,
       refOpen,
@@ -84,6 +94,7 @@ export const useAwardNomineeForAddUsers = (
       addUsersSetSearchValue,
       usersOnSubDepartment,
       arrUserNotNominee,
+      handlerOpenAddUser,
     };
   }, [
     awardActiv,
@@ -95,5 +106,6 @@ export const useAwardNomineeForAddUsers = (
     addUsersPrevPage,
     addUsersSetPage,
     addUsersSetSearchValue,
+    handlerOpenAddUser,
   ]);
 };

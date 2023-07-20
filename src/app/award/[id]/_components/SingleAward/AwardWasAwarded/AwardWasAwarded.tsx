@@ -15,6 +15,7 @@ import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParam
 import { useAwardWasAwardedForAddUsers } from './useAwardWasAwardedForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { memo } from 'react';
 
 const AwardWasAwarded = ({
   award,
@@ -65,6 +66,7 @@ const AwardWasAwarded = ({
     addUsersNextPage,
     addUsersPrevPage,
     addUsersTotalPage,
+    handlerAddUsers,
   } = useAwardWasAwardedForAddUsers(award, singleActivAward?.data!);
 
   return (
@@ -79,7 +81,7 @@ const AwardWasAwarded = ({
           </Htag>
           <AuthComponent minRole={'ADMIN'}>
             <ButtonCircleIcon
-              onClick={() => setVisibleModal(true)}
+              onClick={handlerAddUsers}
               classNameForIcon='@apply w-[12px] h-[12px]'
               appearance='black'
               icon='plus'
@@ -164,4 +166,4 @@ const AwardWasAwarded = ({
   );
 };
 
-export default AwardWasAwarded;
+export default memo(AwardWasAwarded);

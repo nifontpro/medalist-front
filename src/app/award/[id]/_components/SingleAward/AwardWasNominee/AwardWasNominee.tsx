@@ -9,7 +9,7 @@ import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParam
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
-import { useEffect } from 'react';
+import { memo, useMemo } from 'react';
 
 const AwardWasNominee = ({
   award,
@@ -24,7 +24,7 @@ const AwardWasNominee = ({
     setSearchValue,
     searchHandleChange,
     state,
-    setState,
+    setState, 
     nextPage,
     prevPage,
   } = useFetchParams();
@@ -33,7 +33,6 @@ const AwardWasNominee = ({
     singleActivAward,
     isLoadingSingleActivAward,
     isFetchingSingleActivAward,
-    
   } = useAwardAdmin(
     id,
     {
@@ -45,7 +44,10 @@ const AwardWasNominee = ({
     undefined,
     'NOMINEE'
   );
-  const totalPage = singleActivAward?.pageInfo?.totalPages;
+  const totalPage = useMemo(
+    () => singleActivAward?.pageInfo?.totalPages,
+    [singleActivAward]
+  );
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -114,4 +116,4 @@ const AwardWasNominee = ({
   );
 };
 
-export default AwardWasNominee;
+export default memo(AwardWasNominee);

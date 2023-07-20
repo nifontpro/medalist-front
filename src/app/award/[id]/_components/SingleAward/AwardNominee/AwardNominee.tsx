@@ -15,6 +15,7 @@ import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParam
 import { useAwardNomineeForAddUsers } from './useAwardNomineeForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { memo, useCallback, useMemo } from 'react';
 
 const AwardNominee = ({
   award,
@@ -50,7 +51,11 @@ const AwardNominee = ({
     undefined,
     undefined
   );
-  const totalPage = singleActivAward?.pageInfo?.totalPages;
+
+  const totalPage = useMemo(
+    () => singleActivAward?.pageInfo?.totalPages,
+    [singleActivAward]
+  );
 
   const {
     setVisibleModal,
@@ -66,6 +71,7 @@ const AwardNominee = ({
     addUsersSetSearchValue,
     usersOnSubDepartment,
     arrUserNotNominee,
+    handlerOpenAddUser,
   } = useAwardNomineeForAddUsers(award, singleActivAward?.data!);
 
   return (
@@ -82,7 +88,7 @@ const AwardNominee = ({
           <AuthComponent minRole='ADMIN'>
             <ButtonCircleIcon
               classNameForIcon='@apply w-[12px] h-[12px]'
-              onClick={() => setVisibleModal(true)}
+              onClick={handlerOpenAddUser}
               appearance='black'
               icon='plus'
               ref={refOpen}
@@ -110,10 +116,6 @@ const AwardNominee = ({
                 })}
               >
                 {singleActivAward?.data!?.map((item) => {
-                  // if (
-                  //   item.actionType === 'NOMINEE' ||
-                  //   item.actionType === 'AWARD'
-                  // ) {
                   return (
                     <CardNominee
                       awardId={award!.award?.id}
@@ -163,4 +165,4 @@ const AwardNominee = ({
   );
 };
 
-export default AwardNominee;
+export default memo(AwardNominee);

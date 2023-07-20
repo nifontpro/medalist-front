@@ -2,7 +2,7 @@ import { timeConverter } from '@/utils/timeConverter';
 import styles from './AwardTitle.module.scss';
 import { AwardTitleProps } from './AwardTitle.props';
 import cn from 'classnames';
-import { useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Htag from '@/ui/Htag/Htag';
@@ -18,8 +18,8 @@ const AwardTitle = ({
   className,
   ...props
 }: AwardTitleProps): JSX.Element => {
-  let convertDate = timeConverter(award?.award.endDate);
-  let currentDateNumber = +new Date();
+  let convertDate = useMemo(() => timeConverter(award?.award.endDate), [award]);
+  let currentDateNumber = useMemo(() => +new Date(), []);
 
   const { deleteAwardAsync } = useAwardAdmin(award?.award.id.toString());
 
@@ -27,9 +27,9 @@ const AwardTitle = ({
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
-  const handleClickOutside = () => {
+  const handleClickOutside = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
@@ -115,4 +115,4 @@ const AwardTitle = ({
   );
 };
 
-export default AwardTitle;
+export default memo(AwardTitle);
