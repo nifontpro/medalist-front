@@ -2,7 +2,14 @@ import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { deptApi } from '@/api/dept/dept.api';
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -46,13 +53,16 @@ export const useDepartmentEdit = (
     }
   }, [id, setValue, singleDepartment, typeOfUser]);
 
-  return useMemo(() => {
-    const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
       back();
-    };
+    },
+    [back]
+  );
 
-    const addPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+  const addPhoto = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
 
       if (event.target.files !== null && singleDepartment && typeOfUser) {
@@ -78,11 +88,12 @@ export const useDepartmentEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [addImage, singleDepartment, typeOfUser]
+  );
 
-    const removePhoto = async (
-      e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-    ) => {
+  const removePhoto = useCallback(
+    async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
       e.preventDefault();
       let isError = false;
       if (
@@ -112,9 +123,12 @@ export const useDepartmentEdit = (
           setImageNum(0);
         }
       }
-    };
+    },
+    [imageNum, removeImage, singleDepartment, typeOfUser]
+  );
 
-    const refreshPhoto = async (event: ChangeEvent<HTMLInputElement>) => {
+  const refreshPhoto = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
       let isError = false;
 
       if (
@@ -148,9 +162,12 @@ export const useDepartmentEdit = (
           toast.success('Фото успешно обновлено');
         }
       }
-    };
+    },
+    [imageNum, refreshImage, singleDepartment, typeOfUser]
+  );
 
-    const onSubmit: SubmitHandler<UpdateDeptRequest> = async (data) => {
+  const onSubmit: SubmitHandler<UpdateDeptRequest> = useCallback(
+    async (data) => {
       let isError = false;
 
       await update({ ...data })
@@ -170,31 +187,21 @@ export const useDepartmentEdit = (
         toast.success('Отдел успешно отредактирован');
         back();
       }
-    };
-    return {
-      onSubmit,
-      handleClick,
-      back,
-      addPhoto,
-      refreshPhoto,
-      removePhoto,
-      isLoadingByIdDept,
-      singleDepartment,
-      imageNum,
-      setImageNum,
-      images,
-    };
-  }, [
+    },
+    [back, update]
+  );
+
+  return {
+    onSubmit,
+    handleClick,
     back,
-    update,
-    addImage,
-    imageNum,
-    refreshImage,
-    setImageNum,
-    singleDepartment,
-    typeOfUser,
+    addPhoto,
+    refreshPhoto,
+    removePhoto,
     isLoadingByIdDept,
+    singleDepartment,
+    imageNum,
+    setImageNum,
     images,
-    removeImage,
-  ]);
+  };
 };

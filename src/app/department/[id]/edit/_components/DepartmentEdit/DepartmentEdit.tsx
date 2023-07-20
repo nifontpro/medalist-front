@@ -10,14 +10,11 @@ import { withHookFormMask } from 'use-mask-input';
 import { useForm } from 'react-hook-form';
 import { useDepartmentEdit } from './useDepartmentEdit';
 import { DepartmentEditProps } from './DepartmentEdit.props';
-import cn from 'classnames';
-import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
-import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
-import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+import { memo } from 'react';
 
 const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const {
@@ -30,9 +27,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const {
     onSubmit,
     handleClick,
-    back,
     addPhoto,
-    refreshPhoto,
     removePhoto,
     isLoadingByIdDept,
     singleDepartment,
@@ -70,34 +65,6 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           className={styles.mobile}
           gallery='false'
         />
-        {/* <div className='flex justify-center items-center'>
-          <div
-            className={cn(
-              styles.field,
-              styles.uploadField,
-              styles.mediaVisible
-            )}
-          >
-            {images && (
-              <ImagesCarousel
-                data={images}
-                imageNum={imageNum}
-                setImageNum={setImageNum}
-                images={images}
-                edit={true}
-              />
-            )}
-
-            <div className={styles.editPanel}>
-              <InputPhotoAdd onChange={addPhoto} className={styles.input}>
-                <ButtonEdit icon='edit' />
-              </InputPhotoAdd>
-              {images && images.length > 0 && (
-                <ButtonEdit icon='remove' onClick={(e) => removePhoto(e)} />
-              )}
-            </div>
-          </div>
-        </div> */}
 
         <Field
           {...register('name', { required: 'Название необходимо!' })}
@@ -169,4 +136,4 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   );
 };
 
-export default DepartmentEdit;
+export default memo(DepartmentEdit);
