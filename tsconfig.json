@@ -22,20 +22,18 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/app/*": ["./src/app/*"],
-      "@/styles/*": [
-        "./src/assets/*"
-      ],
-      "@/ui/*": [
-        "./src/ui/*"
-      ],
-      "@/icons/*": [
-        "./public/icons/*"
-      ],
-      "@/hooks/*": [
-        "./src/hooks/*"
-      ],
+      "@/styles/*": ["./src/assets/*"],
+      "@/ui/*": ["./src/ui/*"],
+      "@/icons/*": ["./public/icons/*"],
+      "@/hooks/*": ["./src/hooks/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/validDate"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/utils/validDate"
+  ],
   "exclude": ["node_modules"]
 }

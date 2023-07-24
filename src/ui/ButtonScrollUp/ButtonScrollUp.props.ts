@@ -1,5 +1,6 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react"
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export type ButtonScrollUp = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
-
-}
+export type ButtonScrollUpProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> & {};

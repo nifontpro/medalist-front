@@ -7,6 +7,7 @@ import UserSelection from './UserSelection/UserSelection';
 import { redirect, usePathname } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { memo } from 'react';
+import React from 'react';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);

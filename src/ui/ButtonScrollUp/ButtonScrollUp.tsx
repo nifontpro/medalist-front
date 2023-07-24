@@ -1,7 +1,7 @@
 import styles from './ButtonScrollUp.module.scss';
 import cn from 'classnames';
 import UpIcon from '@/icons/up.svg';
-import { ButtonScrollUp } from './ButtonScrollUp.props';
+import { ButtonScrollUpProps } from './ButtonScrollUp.props';
 import Button from '../Button/Button';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useScrollY } from '@/hooks/useScrollY';
@@ -9,7 +9,7 @@ import { useScrollY } from '@/hooks/useScrollY';
 const ButtonScrollUp = ({
   className,
   ...props
-}: ButtonScrollUp): JSX.Element => {
+}: ButtonScrollUpProps): JSX.Element => {
   const y = useScrollY();
   const [scroll, setScroll] = useState<number>(0);
 

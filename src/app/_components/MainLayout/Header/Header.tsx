@@ -16,6 +16,7 @@ import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import Notification from './Notification/Notification';
 import { memo } from 'react';
+import React from 'react';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(

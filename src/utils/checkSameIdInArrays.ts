@@ -11,3 +11,5 @@ export function checkSameIdInArrays<T extends { id?: number }>(
     return false;
   }
 }
+
+// module.exports = checkSameIdInArrays;
