@@ -16,6 +16,7 @@ import { useAwardNomineeForAddUsers } from './useAwardNomineeForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useCallback, useMemo } from 'react';
+import { awardUrl } from '@/api/award/award.api';
 
 const AwardNominee = ({
   award,
@@ -71,7 +72,7 @@ const AwardNominee = ({
     handlerOpenAddUser,
     availableUsersBySubDeptForAwards,
     addUsersSearchHandleChange,
-  } = useAwardNomineeForAddUsers(award, singleActivAward?.data!);
+  } = useAwardNomineeForAddUsers(award);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>

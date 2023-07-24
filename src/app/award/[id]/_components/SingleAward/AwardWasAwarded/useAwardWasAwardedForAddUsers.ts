@@ -3,13 +3,9 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { Activity } from '@/types/award/Activity';
 import { AwardDetails } from '@/types/award/AwardDetails';
-import { User } from '@/types/user/user';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-export const useAwardWasAwardedForAddUsers = (
-  award: AwardDetails | null,
-  awardActiv: Activity[] | null
-) => {
+export const useAwardWasAwardedForAddUsers = (award: AwardDetails | null) => {
   const {
     page: addUsersPage,
     setPage: addUsersSetPage,
@@ -29,7 +25,7 @@ export const useAwardWasAwardedForAddUsers = (
     {
       subdepts: true,
       page: addUsersPage,
-      pageSize: 10,
+      pageSize: 100,
       filter: addUsersSearchValue,
       orders: [{ field: 'firstname', direction: addUsersState }],
     },

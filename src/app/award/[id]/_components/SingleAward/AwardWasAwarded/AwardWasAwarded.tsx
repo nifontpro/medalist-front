@@ -67,7 +67,7 @@ const AwardWasAwarded = ({
     handlerAddUsers,
     addUsersSearchHandleChange,
     availableUsersBySubDeptForAwards,
-  } = useAwardWasAwardedForAddUsers(award, singleActivAward?.data!);
+  } = useAwardWasAwardedForAddUsers(award);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
