@@ -29,6 +29,7 @@ const ModalWindowWithAddUsers = forwardRef(
       visibleModal,
       setVisibleModal,
       setSearchValue,
+      addUsersSearchHandleChange,
       page,
       setPage,
       prevPage,
@@ -121,6 +122,7 @@ const ModalWindowWithAddUsers = forwardRef(
                 </Htag>
                 <ChoiceUsers
                   setSearchValue={setSearchValue}
+                  addUsersSearchHandleChange={addUsersSearchHandleChange}
                   users={users}
                   arrChoiceUser={arrChoiceUser}
                   setArrChoiceUser={setArrChoiceUser}

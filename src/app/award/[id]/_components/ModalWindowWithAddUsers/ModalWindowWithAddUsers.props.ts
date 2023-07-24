@@ -5,6 +5,7 @@ import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
   Dispatch,
+  FormEvent,
   RefAttributes,
   SetStateAction,
 } from 'react';
@@ -18,13 +19,14 @@ export type ModalWindowWithAddUsersProps = DetailedHTMLProps<
     visibleModal: boolean;
     setVisibleModal: Dispatch<SetStateAction<boolean>>;
     setSearchValue: Dispatch<SetStateAction<string>>;
+    addUsersSearchHandleChange: (event: FormEvent<HTMLInputElement>) => void;
     users: User[];
     awardId: string;
     awardState: ActionType;
     textBtn: string;
     setPage: Dispatch<SetStateAction<number>>;
     page: number;
-    prevPage: () => void
-    nextPage: () => void
-    totalPage: number | undefined
+    prevPage: () => void;
+    nextPage: () => void;
+    totalPage: number | undefined;
   };

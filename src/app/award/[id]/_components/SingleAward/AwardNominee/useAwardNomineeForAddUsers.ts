@@ -1,4 +1,5 @@
 import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { userApi } from '@/api/user/user.api';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { Activity } from '@/types/award/Activity';
@@ -15,24 +16,30 @@ export const useAwardNomineeForAddUsers = (
     setPage: addUsersSetPage,
     searchValue: addUsersSearchValue,
     setSearchValue: addUsersSetSearchValue,
+    searchHandleChange: addUsersSearchHandleChange,
     state: addUsersState,
     setState,
     nextPage: addUsersNextPage,
     prevPage: addUsersPrevPage,
   } = useFetchParams();
 
-  const { usersOnSubDepartment } = useUserAdmin(
+  const {
+    availableUsersBySubDeptForAwards,
+    isLoadingAvailableUsersBySubDeptForAwards,
+  } = useUserAdmin(
     award?.award.dept.id?.toString(),
     {
+      subdepts: true,
       page: addUsersPage,
-      pageSize: 100,
+      pageSize: 10,
       filter: addUsersSearchValue,
-      orders: [{ field: 'lastname', direction: addUsersState }],
-    }
+      orders: [{ field: 'firstname', direction: addUsersState }],
+    },
+    award?.award.id
   );
   const addUsersTotalPage = useMemo(
-    () => usersOnSubDepartment?.pageInfo?.totalPages,
-    [usersOnSubDepartment]
+    () => availableUsersBySubDeptForAwards?.pageInfo?.totalPages,
+    [availableUsersBySubDeptForAwards]
   );
 
   //Закрытие модального окна нажатием вне его
@@ -49,56 +56,10 @@ export const useAwardNomineeForAddUsers = (
     setVisibleModal(true);
   }, [setVisibleModal]);
 
-  return useMemo(() => {
-    //Фильтр тех кто еще не участвует в номинации
-    let arrIdUserNominee: string[] = []; // Id тех кто наминирован
-    awardActiv &&
-      awardActiv.forEach((user) => {
-        // if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
-        //   arrIdUserNominee.push(user.user.id.toString());
-        if (user && user.user && user.user.id) {
-          if (user.actionType == 'NOMINEE' || user.actionType == 'AWARD')
-            arrIdUserNominee.push(user.user.id.toString());
-        }
-      });
-
-    let arrUserNotNominee: User[] = []; // Те кто не наминирован
-    usersOnSubDepartment &&
-      usersOnSubDepartment.data?.forEach((user) => {
-        if (
-          arrIdUserNominee.find((item) => item == user.id?.toString()) ==
-          undefined
-        ) {
-          arrUserNotNominee.push(user);
-        }
-      });
-
-    let arrUserNominee: User[] = []; // Те кто номинирован
-    awardActiv &&
-      awardActiv.forEach((user) => {
-        if (user.actionType == 'NOMINEE' && user && user.user && user.user.id)
-          arrUserNominee.push(user.user);
-      });
-
-    return {
-      setVisibleModal,
-      refOpen,
-      ref,
-      arrIdUserNominee,
-      addUsersTotalPage,
-      addUsersPage,
-      visibleModal,
-      addUsersNextPage,
-      addUsersPrevPage,
-      addUsersSetPage,
-      addUsersSetSearchValue,
-      usersOnSubDepartment,
-      arrUserNotNominee,
-      handlerOpenAddUser,
-    };
-  }, [
-    awardActiv,
-    usersOnSubDepartment,
+  return {
+    setVisibleModal,
+    refOpen,
+    ref,
     addUsersTotalPage,
     addUsersPage,
     visibleModal,
@@ -107,5 +68,7 @@ export const useAwardNomineeForAddUsers = (
     addUsersSetPage,
     addUsersSetSearchValue,
     handlerOpenAddUser,
-  ]);
+    availableUsersBySubDeptForAwards,
+    addUsersSearchHandleChange,
+  };
 };

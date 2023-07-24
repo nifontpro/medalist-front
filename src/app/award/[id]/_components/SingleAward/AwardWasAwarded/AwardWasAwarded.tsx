@@ -54,12 +54,10 @@ const AwardWasAwarded = ({
   const totalPage = singleActivAward?.pageInfo?.totalPages;
 
   const {
-    usersOnSubDepartment,
     ref,
     refOpen,
     visibleModal,
     setVisibleModal,
-    arrUserNotAwarded,
     addUsersPage,
     addUsersSetPage,
     addUsersSetSearchValue,
@@ -67,6 +65,8 @@ const AwardWasAwarded = ({
     addUsersPrevPage,
     addUsersTotalPage,
     handlerAddUsers,
+    addUsersSearchHandleChange,
+    availableUsersBySubDeptForAwards,
   } = useAwardWasAwardedForAddUsers(award, singleActivAward?.data!);
 
   return (
@@ -147,15 +147,17 @@ const AwardWasAwarded = ({
         <ModalWindowWithAddUsers
           totalPage={addUsersTotalPage}
           nextPage={() =>
-            usersOnSubDepartment && addUsersNextPage(usersOnSubDepartment)
+            availableUsersBySubDeptForAwards &&
+            addUsersNextPage(availableUsersBySubDeptForAwards)
           }
           prevPage={addUsersPrevPage}
           page={addUsersPage}
           setPage={addUsersSetPage}
           setSearchValue={addUsersSetSearchValue}
+          addUsersSearchHandleChange={addUsersSearchHandleChange}
           awardState='AWARD'
           awardId={award.award.id.toString()}
-          users={arrUserNotAwarded}
+          users={availableUsersBySubDeptForAwards?.data!}
           visibleModal={visibleModal}
           setVisibleModal={setVisibleModal}
           textBtn='Выдать награду'

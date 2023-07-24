@@ -13,6 +13,8 @@ import { AwardCount } from '@/types/award/AwardCount';
 import { AwardStateCount } from '@/types/award/AwardStateCount';
 import { WWAwardCount } from '@/types/award/WWAwardCount';
 import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
+import { userApi } from '../user/user.api';
+import { messageApi } from '../msg/message.api';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -187,6 +189,15 @@ export const awardApi = createApi({
         body: body,
       }),
       invalidatesTags: ['Action'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          await dispatch(userApi.util.invalidateTags(['Action']));
+          await dispatch(messageApi.util.invalidateTags(['Message']));
+        } catch (error) {
+          console.error(`Error award user!`, error);
+        }
+      },
     }),
 
     /**

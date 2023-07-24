@@ -3,6 +3,7 @@ import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
   Dispatch,
+  FormEvent,
   SetStateAction,
 } from 'react';
 
@@ -14,4 +15,5 @@ export type ChoiceUsersProps = DetailedHTMLProps<
   setArrChoiceUser: Dispatch<SetStateAction<string[]>>;
   setSearchValue: Dispatch<SetStateAction<string>>;
   users: User[];
+  addUsersSearchHandleChange?: (event: FormEvent<HTMLInputElement>) => void;
 };

@@ -11,13 +11,14 @@ import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
+import { ActionType, Activity } from '@/types/award/Activity';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Settings'],
+  tagTypes: ['User', 'Settings', 'Action'],
   endpoints: (build) => ({
     getTestData: build.query<{ res: string }, void>({
       query: () => {
@@ -160,6 +161,37 @@ export const userApi = createApi({
         };
       },
       providesTags: ['User'],
+    }),
+
+    /**
+     * Получение сотрудников доступных для награжения данной награды
+     * отделы наград берутся из поддерева отделов авторизованного пользователя
+     * actionType: фильтрация для номинации (undefined) и награды ('AWARD')
+     * [baseRequest]:
+     * filter - фильтрация по имени награды (необязателен)
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  Допустимые поля для сортировки:
+     *  			"firstName",
+     *  			"dept.name",
+     */
+    getAvailableUsersBySubDeptForAwards: build.query<
+      BaseResponse<User[]>,
+      {
+        authId: number;
+        deptId: number;
+        awardId: number;
+        actionType: ActionType | undefined;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: userUrl('/exclude_by_depts'),
+          body: request,
+        };
+      },
+      providesTags: ['Action'],
     }),
 
     /**

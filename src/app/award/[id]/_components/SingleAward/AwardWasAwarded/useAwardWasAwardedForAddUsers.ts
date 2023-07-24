@@ -15,23 +15,30 @@ export const useAwardWasAwardedForAddUsers = (
     setPage: addUsersSetPage,
     searchValue: addUsersSearchValue,
     setSearchValue: addUsersSetSearchValue,
+    searchHandleChange: addUsersSearchHandleChange,
     state: addUsersState,
     nextPage: addUsersNextPage,
     prevPage: addUsersPrevPage,
   } = useFetchParams();
 
-  const { usersOnSubDepartment } = useUserAdmin(
+  const {
+    availableUsersBySubDeptForAwards,
+    isLoadingAvailableUsersBySubDeptForAwards,
+  } = useUserAdmin(
     award?.award.dept.id?.toString(),
     {
+      subdepts: true,
       page: addUsersPage,
-      pageSize: 100,
+      pageSize: 10,
       filter: addUsersSearchValue,
-      orders: [{ field: 'lastname', direction: addUsersState }],
-    }
+      orders: [{ field: 'firstname', direction: addUsersState }],
+    },
+    award?.award.id,
+    'AWARD'
   );
   const addUsersTotalPage = useMemo(
-    () => usersOnSubDepartment?.pageInfo?.totalPages,
-    [usersOnSubDepartment]
+    () => availableUsersBySubDeptForAwards?.pageInfo?.totalPages,
+    [availableUsersBySubDeptForAwards]
   );
 
   //Закрытие модального окна нажатием вне его
@@ -48,58 +55,21 @@ export const useAwardWasAwardedForAddUsers = (
     setVisibleModal(true);
   }, [setVisibleModal]);
 
-  return useMemo(() => {
-    //Фильтр тех кто еще не участвует в номинации
-    let arrIdUserRewarded: string[] = [];
-    awardActiv &&
-      awardActiv.forEach((user) => {
-        if (user.actionType == 'AWARD' && user && user.user && user.user.id)
-          arrIdUserRewarded.push(user.user.id.toString());
-      });
-    let arrUserNotAwarded: User[] = [];
-    usersOnSubDepartment &&
-      usersOnSubDepartment.data?.forEach((user) => {
-        if (
-          arrIdUserRewarded.find((item) => item == user.id?.toString()) ==
-          undefined
-        ) {
-          arrUserNotAwarded.push(user);
-        }
-      });
-
-    return {
-      usersOnSubDepartment,
-      ref,
-      refOpen,
-      visibleModal,
-      setVisibleModal,
-      arrIdUserRewarded,
-      arrUserNotAwarded,
-      addUsersPage,
-      addUsersSetPage,
-      addUsersSearchValue,
-      addUsersSetSearchValue,
-      addUsersState,
-      addUsersNextPage,
-      addUsersPrevPage,
-      addUsersTotalPage,
-      handlerAddUsers,
-    };
-  }, [
-    awardActiv,
-    usersOnSubDepartment,
+  return {
     ref,
     refOpen,
     visibleModal,
     setVisibleModal,
-    addUsersNextPage,
     addUsersPage,
-    addUsersPrevPage,
-    addUsersSearchValue,
     addUsersSetPage,
+    addUsersSearchValue,
     addUsersSetSearchValue,
     addUsersState,
+    addUsersNextPage,
+    addUsersPrevPage,
     addUsersTotalPage,
     handlerAddUsers,
-  ]);
+    addUsersSearchHandleChange,
+    availableUsersBySubDeptForAwards,
+  };
 };

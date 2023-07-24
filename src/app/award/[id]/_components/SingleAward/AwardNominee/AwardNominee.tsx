@@ -61,7 +61,6 @@ const AwardNominee = ({
     setVisibleModal,
     refOpen,
     ref,
-    arrIdUserNominee,
     addUsersTotalPage,
     addUsersPage,
     addUsersSetPage,
@@ -69,9 +68,9 @@ const AwardNominee = ({
     addUsersNextPage,
     addUsersPrevPage,
     addUsersSetSearchValue,
-    usersOnSubDepartment,
-    arrUserNotNominee,
     handlerOpenAddUser,
+    availableUsersBySubDeptForAwards,
+    addUsersSearchHandleChange,
   } = useAwardNomineeForAddUsers(award, singleActivAward?.data!);
 
   return (
@@ -146,15 +145,17 @@ const AwardNominee = ({
         <ModalWindowWithAddUsers
           totalPage={addUsersTotalPage}
           nextPage={() =>
-            usersOnSubDepartment && addUsersNextPage(usersOnSubDepartment)
+            availableUsersBySubDeptForAwards &&
+            addUsersNextPage(availableUsersBySubDeptForAwards)
           }
           prevPage={addUsersPrevPage}
           page={addUsersPage}
           setPage={addUsersSetPage}
           setSearchValue={addUsersSetSearchValue}
+          addUsersSearchHandleChange={addUsersSearchHandleChange}
           awardState='NOMINEE'
           awardId={award.award.id.toString()}
-          users={arrUserNotNominee}
+          users={availableUsersBySubDeptForAwards?.data!}
           visibleModal={visibleModal}
           setVisibleModal={setVisibleModal}
           textBtn='Номинировать'

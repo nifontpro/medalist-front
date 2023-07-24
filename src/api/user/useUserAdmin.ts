@@ -6,8 +6,14 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
+import { ActionType } from '@/types/award/Activity';
 
-export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
+export const useUserAdmin = (
+  id?: string,
+  baseRequest?: BaseRequest,
+  awardId?: number,
+  actionType?: ActionType
+) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -120,6 +126,23 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     }
   );
 
+  // Получить сотрудников которых можно наградить выбранной медалью
+  const {
+    data: availableUsersBySubDeptForAwards,
+    isLoading: isLoadingAvailableUsersBySubDeptForAwards,
+  } = userApi.useGetAvailableUsersBySubDeptForAwardsQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      deptId: Number(id),
+      awardId: awardId ? awardId : 0,
+      actionType: actionType ? actionType : undefined,
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser || !awardId,
+    }
+  );
+
   const [deleteUser] = userApi.useDeleteMutation();
 
   const deleteUserAsync = useCallback(
@@ -162,5 +185,7 @@ export const useUserAdmin = (id?: string, baseRequest?: BaseRequest) => {
     saveUserSettings,
     isLoadingSaveUserSettings,
     isFetchingUsersOnDepartment,
+    availableUsersBySubDeptForAwards,
+    isLoadingAvailableUsersBySubDeptForAwards,
   };
 };

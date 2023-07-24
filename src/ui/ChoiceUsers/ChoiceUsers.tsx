@@ -15,6 +15,7 @@ const ChoiceUsers = ({
   arrChoiceUser,
   setArrChoiceUser,
   setSearchValue,
+  addUsersSearchHandleChange,
   className,
   ...props
 }: ChoiceUsersProps): JSX.Element => {
@@ -57,8 +58,10 @@ const ChoiceUsers = ({
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <Search
-        onChange={handleChange}
-        placeholder='Поиск сотрудника'
+        onChange={
+          addUsersSearchHandleChange ? addUsersSearchHandleChange : handleChange
+        }
+        placeholder='Поиск сотрудника...'
         button={false}
         search={true}
         color='white'
