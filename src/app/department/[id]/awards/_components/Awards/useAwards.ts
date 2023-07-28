@@ -54,6 +54,7 @@ export const useAwards = (id: string) => {
     },
     [push]
   );
+  console.log(awardsOnDepartment);
 
   //Для подгрузки данных при скролле
   const onScroll = useCallback(() => {
