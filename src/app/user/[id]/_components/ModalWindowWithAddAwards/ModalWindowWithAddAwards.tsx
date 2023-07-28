@@ -28,6 +28,7 @@ const ModalWindowWithAddAwards = forwardRef(
       visibleModal,
       setVisibleModal,
       setSearchValue,
+      searchHandleChange,
       page,
       setPage,
       prevPage,
@@ -110,6 +111,7 @@ const ModalWindowWithAddAwards = forwardRef(
               </Htag>
               <ChoiceAwards
                 setSearchValue={setSearchValue}
+                searchHandleChange={searchHandleChange}
                 awards={awards}
                 arrChoiceAward={arrChoiceAward}
                 setArrChoiceAward={setArrChoiceAward}

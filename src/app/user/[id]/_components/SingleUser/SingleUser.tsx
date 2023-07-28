@@ -15,7 +15,8 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventSingleUser from './EventSingleUser/EventSingleUser';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 
 const SingleUser = ({
   id,
@@ -24,8 +25,6 @@ const SingleUser = ({
   ...props
 }: SingleUserProps): JSX.Element => {
   const {
-    totalPage,
-    awardsAvailableForRewardUser,
     visibleModal,
     setVisibleModal,
     ref,
@@ -34,16 +33,26 @@ const SingleUser = ({
     setVisibleModalEvent,
     user,
     isLoadingSingleUser,
-    userActiv,
     page,
     setPage,
     setSearchValue,
+    searchValue,
     nextPage,
     prevPage,
     back,
-    arrAwardNotRewarded,
     searchHandleChange,
+    userActiv,
   } = useSingleUser(id);
+
+  const {
+    awardsAvailableForRewardUserSimple,
+    isLoadingAwardsAvailableForRewardUserSimple,
+  } = useAwardAdmin(id, { filter: searchValue });
+
+  const totalPage = useMemo(
+    () => awardsAvailableForRewardUserSimple?.pageInfo?.totalPages,
+    [awardsAvailableForRewardUserSimple]
+  );
 
   if (isLoadingSingleUser) return <Spinner />;
   if (!user?.success) return <NoAccess />;
@@ -92,15 +101,17 @@ const SingleUser = ({
       <ModalWindowWithAddAwards
         totalPage={totalPage}
         nextPage={() =>
-          awardsAvailableForRewardUser && nextPage(awardsAvailableForRewardUser)
+          awardsAvailableForRewardUserSimple &&
+          nextPage(awardsAvailableForRewardUserSimple)
         }
         prevPage={prevPage}
         page={page}
         setPage={setPage}
         setSearchValue={setSearchValue}
+        searchHandleChange={searchHandleChange}
         awardState='AWARD'
         userId={user.data?.user.id}
-        awards={arrAwardNotRewarded}
+        awards={awardsAvailableForRewardUserSimple?.data!}
         visibleModal={visibleModal}
         setVisibleModal={setVisibleModal}
         textBtn='Наградить'

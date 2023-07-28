@@ -188,7 +188,7 @@ export const awardApi = createApi({
         url: awardUrl('/action'),
         body: body,
       }),
-      invalidatesTags: ['Action'],
+      invalidatesTags: ['Action', 'Award'],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -337,7 +337,42 @@ export const awardApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: awardUrl('/get_dept'),
+          url: awardUrl('/get_subdepts'),
+          body: request,
+        };
+      },
+      providesTags: ['Award'],
+    }),
+
+    /**
+     * Получение наград доступных для награждения сотрудника текущим админом
+     * отделы наград берутся из поддерева отделов авторизованного пользователя
+     * награды типа SIMPLE.
+     * [baseRequest]:
+     * filter - фильтрация по имени награды (необязателен)
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  minDate <= award.startDate (отсутствует - без min ограничения)
+     *  maxDate >= award.endDate (отсутствует - без max ограничения)
+     *  Допустимые поля для сортировки:
+     *  			"name",
+     *  			"type",
+     *  			"startDate",
+     *  			"endDate",
+     *  			"dept.name",
+     *  			"dept.classname"
+     */
+    getAvailableAwardsForRewardBySubDepts: build.query<
+      BaseResponse<Award[]>,
+      {
+        authId: number;
+        userId: number;
+        baseRequest: BaseRequest | undefined;
+      }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: awardUrl('/get_simple'),
           body: request,
         };
       },

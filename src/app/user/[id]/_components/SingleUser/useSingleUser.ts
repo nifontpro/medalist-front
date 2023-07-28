@@ -25,16 +25,6 @@ export const useSingleUser = (id: string) => {
 
   const deptId = useMemo(() => user?.data?.user.dept.id, [user]);
 
-  //Фильтр тех медалей, которыми не награжден еще
-  const {
-    awardsAvailableForRewardUser,
-    isLoadingAwardsAvailableForRewardUser,
-  } = useAwardAdmin(deptId, {
-    page: page,
-    pageSize: 100,
-    filter: searchValue,
-  });
-
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [visibleModalEvent, setVisibleModalEvent] = useState<boolean>(false);
@@ -46,72 +36,25 @@ export const useSingleUser = (id: string) => {
   }, [setSearchValue]);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
-  return useMemo(() => {
-    const totalPage = awardsAvailableForRewardUser?.pageInfo?.totalPages;
-
-    let arrAwardRewarded: string[] = []; // Массив id медалей, которыми награжден
-    userActiv?.data?.forEach((award) => {
-      if (award.award?.type == 'SIMPLE' && award.award) {
-        arrAwardRewarded.push(award.award?.id.toString());
-      }
-    });
-
-    let arrAwardNotRewarded: Award[] = []; // Массив медалей, которыми может быть награжден и не был награжден до этого
-
-    awardsAvailableForRewardUser?.data?.forEach((award) => {
-      if (award.state == 'FINISH') {
-        if (
-          arrAwardRewarded.find((item) => item == award.id.toString()) ==
-          undefined
-        ) {
-          arrAwardNotRewarded.push(award);
-        }
-      }
-    });
-
-    return {
-      totalPage,
-      arrAwardRewarded,
-      awardsAvailableForRewardUser,
-      visibleModal,
-      setVisibleModal,
-      ref,
-      refOpen,
-      visibleModalEvent,
-      setVisibleModalEvent,
-      isLoadingAwardsAvailableForRewardUser,
-      user,
-      isLoadingSingleUser,
-      userActiv,
-      page,
-      setPage,
-      searchValue,
-      setSearchValue,
-      state,
-      setState,
-      nextPage,
-      prevPage,
-      back,
-      arrAwardNotRewarded,
-      searchHandleChange,
-    };
-  }, [
-    awardsAvailableForRewardUser,
-    back,
-    isLoadingAwardsAvailableForRewardUser,
-    isLoadingSingleUser,
-    nextPage,
-    page,
-    prevPage,
-    searchValue,
-    setPage,
-    setSearchValue,
-    setState,
-    state,
-    user,
-    userActiv,
+  return {
     visibleModal,
+    setVisibleModal,
+    ref,
+    refOpen,
     visibleModalEvent,
+    setVisibleModalEvent,
+    user,
+    isLoadingSingleUser,
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+    back,
     searchHandleChange,
-  ]);
+    userActiv,
+  };
 };

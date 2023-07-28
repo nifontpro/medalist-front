@@ -15,6 +15,7 @@ const ChoiceAwards = ({
   arrChoiceAward,
   setArrChoiceAward,
   setSearchValue,
+  searchHandleChange,
   className,
   ...props
 }: ChoiceAwardsProps): JSX.Element => {
@@ -48,7 +49,7 @@ const ChoiceAwards = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <P className={styles.searchTitle}>Поиск</P>
       <Search
-        onChange={handleChange}
+        onChange={searchHandleChange}
         placeholder='Поиск награды'
         button={false}
         search={true}

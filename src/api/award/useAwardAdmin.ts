@@ -158,6 +158,21 @@ export const useAwardAdmin = (
     }
   );
 
+  // Получение наград типа SIMPLE доступных для награждения сотрудников текущим админом
+  const {
+    data: awardsAvailableForRewardUserSimple,
+    isLoading: isLoadingAwardsAvailableForRewardUserSimple,
+  } = awardApi.useGetAvailableAwardsForRewardBySubDeptsQuery(
+    {
+      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      userId: awardId ? Number(awardId) : 0,
+      baseRequest: baseRequest ? baseRequest : undefined,
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
   // Получение количества сотрудников с наградами и без них в отделе(ах)
   const {
     data: userAwardWWCountOnDept,
@@ -257,5 +272,7 @@ export const useAwardAdmin = (
     isLoadingColAwardsActivRoot,
     userAwardWWCountOnDept,
     isLoadingUserAwardWWCountOnDept,
+    awardsAvailableForRewardUserSimple,
+    isLoadingAwardsAvailableForRewardUserSimple,
   };
 };
