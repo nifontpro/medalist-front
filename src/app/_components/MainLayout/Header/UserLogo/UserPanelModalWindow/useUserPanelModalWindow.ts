@@ -45,20 +45,47 @@ export const useUserPanelModalWindow = (
     setVisibleModal(false);
   }, [push, setVisibleModal, user]);
 
-  const handleLogoutClick = useCallback(async () => {
+  // const handleLogoutClick = useCallback(async () => {
+  //   const it = localStorage.getItem('it');
+  //   if (it != undefined && !isExpired) {
+  //     await logoutWin(it);
+  //     // dispatch(setSelectedTreeId('0'));
+  //     // dispatch(setArrayIds(['0']));
+  //     dispatch(authActions.setIsAuth(false));
+  //     // dispatch(setTypeOfUserUndefined());
+  //     setVisibleModal(false);
+  //     deleteCookie('exp'); // Для middleware
+  //   }
+  //   await dispatch(authActions.setNoAccess());
+  //   setVisibleModal(false);
+  //   await deleteCookie('exp'); // Для middleware
+  // }, [dispatch, isExpired, setVisibleModal]);
+
+  const handleLogoutClick = useCallback(() => {
     const it = localStorage.getItem('it');
     if (it != undefined && !isExpired) {
-      await logoutWin(it);
-      // dispatch(setSelectedTreeId('0'));
-      // dispatch(setArrayIds(['0']));
-      dispatch(authActions.setIsAuth(false));
-      // dispatch(setTypeOfUserUndefined());
-      setVisibleModal(false);
-      deleteCookie('exp'); // Для middleware
+      const logoutPromise = logoutWin(it);
+      const setIsAuthPromise = dispatch(authActions.setIsAuth(false));
+      const setVisibleModalPromise = setVisibleModal(false);
+      const deleteCookiePromise = deleteCookie('exp');
+
+      return Promise.all([
+        logoutPromise,
+        setIsAuthPromise,
+        setVisibleModalPromise,
+        deleteCookiePromise,
+      ])
+        .then(() => {
+          dispatch(authActions.setNoAccess());
+          setVisibleModal(false);
+          return deleteCookie('exp');
+        })
+        .catch((error) => {
+          // Handle error
+        });
+    } else {
+      return Promise.resolve();
     }
-    await dispatch(authActions.setNoAccess());
-    setVisibleModal(false);
-    await deleteCookie('exp'); // Для middleware
   }, [dispatch, isExpired, setVisibleModal]);
 
   return {
