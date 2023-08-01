@@ -21,6 +21,7 @@ function logoutWin(it: string) {
     'client_id=' + CLIENT_ID,
   ];
   const url = KEYCLOAK_URI + '/logout' + '?' + params.join('&');
+  deleteCookie('exp');
   window.open(url, '_self');
 }
 
@@ -51,7 +52,7 @@ export const useUserPanelModalWindow = (
       await logoutWin(it);
       dispatch(authActions.setIsAuth(false));
       setVisibleModal(false);
-      deleteCookie('exp'); // Для middleware
+      // deleteCookie('exp'); // Для middleware
     }
     await dispatch(authActions.setNoAccess());
     setVisibleModal(false);
