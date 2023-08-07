@@ -54,32 +54,51 @@ export const useAwards = (id: string) => {
     },
     [push]
   );
-  console.log(awardsOnDepartment);
 
-  //Для подгрузки данных при скролле
-  const onScroll = useCallback(() => {
-    const scrolledToBottom =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight;
-    if (scrolledToBottom && !isFetchingUsersOnDepartment) {
-      if (totalPage && page < totalPage) {
-        nextPage(awardsOnDepartment!);
-      }
-    }
-  }, [
-    page,
-    isFetchingUsersOnDepartment,
-    awardsOnDepartment,
-    nextPage,
-    totalPage,
-  ]);
+  // //Для подгрузки данных при скролле с использованием IntersectionObserver
   useEffect(() => {
-    document.addEventListener('scroll', onScroll);
+    const infinityObserver = new IntersectionObserver(
+      ([entry], observer) => {
+        if (entry.isIntersecting && totalPage && page < totalPage) {
+          nextPage(awardsOnDepartment!);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.5 }
+    );
 
-    return function () {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, [onScroll]);
+    const lastUser = document.querySelector('.awardCard:last-child');
+
+    if (lastUser) {
+      infinityObserver.observe(lastUser);
+    }
+  });
   //_______________________
+
+  // //Для подгрузки данных при скролле
+  // const onScroll = useCallback(() => {
+  //   const scrolledToBottom =
+  //     window.innerHeight + window.scrollY >= document.body.offsetHeight;
+  //   if (scrolledToBottom && !isFetchingUsersOnDepartment) {
+  //     if (totalPage && page < totalPage) {
+  //       nextPage(awardsOnDepartment!);
+  //     }
+  //   }
+  // }, [
+  //   page,
+  //   isFetchingUsersOnDepartment,
+  //   awardsOnDepartment,
+  //   nextPage,
+  //   totalPage,
+  // ]);
+  // useEffect(() => {
+  //   document.addEventListener('scroll', onScroll);
+
+  //   return function () {
+  //     document.removeEventListener('scroll', onScroll);
+  //   };
+  // }, [onScroll]);
+  // //_______________________
 
   return {
     active,

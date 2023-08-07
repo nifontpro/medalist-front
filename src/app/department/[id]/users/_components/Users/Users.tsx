@@ -35,7 +35,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     searchHandleChange,
     handleSort,
     handleSortWithoutPage,
-    createUser, 
+    createUser,
   } = useUsers(id);
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
@@ -97,7 +97,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
               <UserList
                 user={user}
                 key={uniqid()}
-                className={styles.userList}
+                className={cn(styles.userList, 'userCard')}
               />
             ))
           ) : (

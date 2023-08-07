@@ -2,7 +2,7 @@ import { timeConverterUser } from '@/utils/timeConverterUser';
 import styles from './SingleActivity.module.scss';
 import { SingleActivityProps } from './SingleActivity.props';
 import cn from 'classnames';
-import  ImageDefault  from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 
@@ -12,7 +12,6 @@ const SingleActivity = ({
   ...props
 }: SingleActivityProps): JSX.Element => {
   const date = timeConverterUser(activity.date);
-  // console.log('SingleActivity');
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>

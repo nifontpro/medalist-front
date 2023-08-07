@@ -54,30 +54,50 @@ export const useActivity = () => {
   );
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
 
-  //Для подгрузки данных при скролле
-  const onScroll = useCallback(() => {
-    const scrolledToBottom = 
-      window.innerHeight + window.scrollY >= document.body.offsetHeight;
-    if (scrolledToBottom && !isFetchingUsersActivOnDepartment) {
-      if (totalPage && page < totalPage) {
-        nextPage(awardsActivOnDepartment!);
-      }
-    }
-  }, [
-    awardsActivOnDepartment,
-    isFetchingUsersActivOnDepartment,
-    page,
-    totalPage,
-    nextPage,
-  ]);
+  // //Для подгрузки данных при скролле с использованием IntersectionObserver
   useEffect(() => {
-    document.addEventListener('scroll', onScroll);
+    const infinityObserver = new IntersectionObserver(
+      ([entry], observer) => {
+        if (entry.isIntersecting && totalPage && page < totalPage) {
+          nextPage(awardsActivOnDepartment!);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.5 }
+    );
 
-    return function () {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, [onScroll]);
+    const lastUser = document.querySelector('.activityCard:last-child');
+
+    if (lastUser) {
+      infinityObserver.observe(lastUser);
+    }
+  });
   //_______________________
+
+  // //Для подгрузки данных при скролле
+  // const onScroll = useCallback(() => {
+  //   const scrolledToBottom =
+  //     window.innerHeight + window.scrollY >= document.body.offsetHeight;
+  //   if (scrolledToBottom && !isFetchingUsersActivOnDepartment) {
+  //     if (totalPage && page < totalPage) {
+  //       nextPage(awardsActivOnDepartment!);
+  //     }
+  //   }
+  // }, [
+  //   awardsActivOnDepartment,
+  //   isFetchingUsersActivOnDepartment,
+  //   page,
+  //   totalPage,
+  //   nextPage,
+  // ]);
+  // useEffect(() => {
+  //   document.addEventListener('scroll', onScroll);
+
+  //   return function () {
+  //     document.removeEventListener('scroll', onScroll);
+  //   };
+  // }, [onScroll]);
+  // //_______________________
 
   return {
     active,

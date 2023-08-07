@@ -125,6 +125,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
                   layout
                   award={item}
                   onClick={() => awardLink(item.id)}
+                  className='awardCard'
                 />
               );
             })

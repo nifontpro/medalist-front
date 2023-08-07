@@ -20,7 +20,3 @@ export const useOnScreen = (ref: RefObject<Element>) => {
   });
   return isIntersecting;
 };
-
-// const ref = useRef(null);
-// const isVisible = useOnScreen(ref);
-// console.log(isVisible);

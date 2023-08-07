@@ -13,6 +13,7 @@ import SingleActivity from './SingleActivity/SingleActivity';
 import FilterActivity from './FilterActivity/FilterActivity';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
+import cn from 'classnames';
 
 const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
   const {
@@ -34,9 +35,8 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
     back,
     setStartDateChange,
     setEndDateChange,
-    sortChange
+    sortChange,
   } = useActivity();
-  // console.log('Activity');
 
   return (
     <div {...props} className={styles.wrapper}>
@@ -100,11 +100,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
           Скоро
         </TabTitle>
 
-        <SortButton
-          state={state}
-          onClick={sortChange}
-          className={styles.sort}
-        >
+        <SortButton state={state} onClick={sortChange} className={styles.sort}>
           Сначала новые
         </SortButton>
 
@@ -114,7 +110,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
         />
       </div>
 
-      <div className={styles.cards}>  
+      <div className={styles.cards}>
         <Search
           onChange={searchHandleChange}
           placeholder={
@@ -131,7 +127,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
             <SingleActivity
               activity={item}
               key={uniqid()}
-              className={styles.activity}
+              className={cn(styles.activity, 'activityCard')}
             />
           );
         })}
