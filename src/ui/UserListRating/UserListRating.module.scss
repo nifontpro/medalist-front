@@ -2,7 +2,7 @@
   .userWrapper {
     display: grid;
     align-items: center;
-    grid-template-columns: [start] 40px [endPosition] 20px [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 150px [endDepart] 1fr [startCount] 70px [endCount] 1fr [startViewer] 400px [endViewer] 50px [startArrow] auto [end];
+    grid-template-columns: [start] 40px [endPosition] 20px [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startCount] 70px [endCount] 1fr [startViewer] 400px [endViewer] 50px [startArrow] auto [end];
     margin-bottom: 50px;
     cursor: pointer;
     border-radius: 20px;
@@ -167,7 +167,7 @@
   .userWrapper {
     display: grid;
     align-items: center;
-    grid-template-columns: [start] 40px [endPosition] 20px [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 150px [endDepart] 1fr [startCount] 70px [endCount] 50px [startArrow] auto [end];
+    grid-template-columns: [start] 40px [endPosition] 20px [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startCount] 70px [endCount] 50px [startArrow] auto [end];
     margin-bottom: 50px;
     cursor: pointer;
     border-radius: 20px;
@@ -176,7 +176,7 @@
 
     @media screen and (max-width: 1280px) {
       padding: 20px 20px;
-      grid-template-columns: [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 150px [endDepart] 1fr [startCount] 70px [endCount] 50px [startArrow] auto [end];
+      grid-template-columns: [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startCount] 70px [endCount] 50px [startArrow] auto [end];
     }
     @media screen and (max-width: 900px) {
       grid-template-columns: [startLogo] 70px [endLogo] 30px [startUser] 250px [endUser] 1fr [startCount] 70px [endCount] 1fr [startArrow] auto [end];

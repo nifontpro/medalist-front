@@ -52,11 +52,11 @@ export const useUserPanelModalWindow = (
       await logoutWin(it);
       dispatch(authActions.setIsAuth(false));
       setVisibleModal(false);
-      // deleteCookie('exp'); // Для middleware
     }
     await dispatch(authActions.setNoAccess());
     setVisibleModal(false);
     await deleteCookie('exp'); // Для middleware
+    await logoutWin(it!);
   }, [dispatch, isExpired, setVisibleModal]);
 
   // const handleLogoutClick = useCallback(() => {

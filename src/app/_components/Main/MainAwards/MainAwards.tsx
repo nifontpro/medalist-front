@@ -23,6 +23,8 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
     numberIsNaN,
   } = useMainAwards();
 
+  console.log(countAll);
+
   return (
     <>
       <div {...props} className={cn(styles.wrapper, className)}>
@@ -38,7 +40,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
               </div>
               <div className={styles.description}>
                 <P size='s'>Наград</P>
-                {countAll ? (
+                {countAll !== undefined ? (
                   <P size='xl'>{countAll}</P>
                 ) : (
                   <SpinnerSmall position='start' />
@@ -56,11 +58,11 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
             <div className='flex'>
               <div className={styles.img}>
                 <PeopleIcon />
-              </div> 
+              </div>
               <div className={styles.description}>
                 <P size='s'>Есть награды</P>
                 <div className='flex items-end'>
-                  {countUserWithAward ? (
+                  {countUserWithAward !== undefined ? (
                     <P size='xl'>{countUserWithAward}</P>
                   ) : (
                     <SpinnerSmall position='start' />
