@@ -16,6 +16,8 @@ import P from '@/ui/P/P';
 import { useUsers } from './useUsers';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import { memo } from 'react';
+import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -38,6 +40,8 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     createUser,
   } = useUsers(id);
 
+  const { singleDepartment: department } = useDepartmentAdmin(id);
+
   if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success) return <NoAccess button={false} />;
 
@@ -55,6 +59,14 @@ const Users = ({ id, className, ...props }: UsersProps) => {
               Сотрудник
             </ButtonCircleIcon>
           </div>
+          {department && department.data && (
+            <InputFileExcelUsers
+              department={department.data}
+              className={styles.excelBtn}
+            >
+              Добавить сотрудников из EXCEL
+            </InputFileExcelUsers>
+          )}
         </AuthComponent>
         <div className={styles.container}>
           <div className={styles.header}>

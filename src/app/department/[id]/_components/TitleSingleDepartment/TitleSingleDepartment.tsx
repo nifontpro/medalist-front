@@ -18,6 +18,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import { memo, useCallback, useState } from 'react';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import Button from '@/ui/Button/Button';
+import { useRouter } from 'next/navigation';
 
 const TitleSingleDepartment = ({
   id,
@@ -25,6 +26,8 @@ const TitleSingleDepartment = ({
   className,
   ...props
 }: TitleSingleDepartmentProps): JSX.Element => {
+  const { push } = useRouter();
+
   const {
     deleteDepartmentAsync,
     singleDepartment: department,
@@ -90,14 +93,14 @@ const TitleSingleDepartment = ({
         </div>
 
         <div className={styles.buttonsWrapper}>
-          {department && department.data && (
-            <InputFileExcelUsers
-              department={department.data}
-              className={styles.excelBtn}
-            >
-              Добавить сотрудников из EXCEL
-            </InputFileExcelUsers>
-          )}
+          <Button
+            onClick={() => push(getDepartmentCreateUrl(`?id=${id}`))}
+            appearance='blackWhite'
+            size='l'
+            className={styles.excelBtn}
+          >
+            Добавить отдел
+          </Button>
           <Button
             onClick={handleAddEvent}
             appearance='whiteBlack'

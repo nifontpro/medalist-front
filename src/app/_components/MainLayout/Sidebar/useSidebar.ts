@@ -11,6 +11,7 @@ import {
 import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
+import { Dept } from '@/types/dept/dept';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,14 @@ export const useSidebar = () => {
       skip: !typeOfUser,
     }
   );
+
+  // _____________ Ниже код для того, чтобы дерево всегда было раскрыто полностью ____________
+  function getParentIds(arr: Dept[] | undefined) {
+    if (!arr) return [];
+    return arr.map((obj) => String(obj.parentId));
+  }
+  const parentIds = getParentIds(subTree?.data);
+  // _____________ Выше код для того, чтобы дерево всегда было раскрыто полностью ____________
 
   useEffect(() => {
     if (subTree && subTree.data) {
@@ -71,5 +80,6 @@ export const useSidebar = () => {
     treeData,
     expandedIdsState,
     selectedIdsState,
+    parentIds,
   };
 };

@@ -120,9 +120,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
 
             <div className={styles.group}>
               <Field
-                {...register('post', { required: 'Пост обязательно!' })}
-                title='Пост'
-                placeholder='Введите свой пост'
+                {...register('post', { required: 'Должность обязательна!' })}
+                title='Должность'
+                placeholder='Введите должность'
                 error={errors.post}
               />
               <Field
@@ -193,4 +193,4 @@ export const UserEdit = ({ id }: UserEditProps) => {
   );
 };
 
-export default memo(UserEdit)
+export default memo(UserEdit);

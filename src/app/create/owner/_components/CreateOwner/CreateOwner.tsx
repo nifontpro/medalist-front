@@ -84,9 +84,9 @@ const CreateOwner = () => {
 
           <div className={styles.group}>
             <Field
-              {...register('post', { required: 'Пост обязательно!' })}
-              title='Пост'
-              placeholder='Введите свой пост'
+              {...register('post', { required: 'Должность обязательна!' })}
+              title='Должность'
+              placeholder='Введите свою должность'
               error={errors.post}
             />
             <Field

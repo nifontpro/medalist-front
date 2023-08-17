@@ -22,6 +22,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     treeData,
     expandedIdsState,
     selectedIdsState,
+    parentIds,
   } = useSidebar();
 
   return (
@@ -33,7 +34,8 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
-        expanded={expandedIds} // Сразу открытый путь
+        // expanded={expandedIds} // Сразу открытый путь
+        expanded={parentIds} // Полностью раскрытое дерево
         selected={selectedIds}
         onNodeToggle={toggle} // Когда открываешь
         sx={{ flexGrow: 1, maxWidth: 300, height: '100%', overflowY: 'auto' }}

@@ -95,9 +95,9 @@ const CreateUser = () => {
 
           <div className={styles.group}>
             <Field
-              {...register('post', { required: 'Пост обязательно!' })}
-              title='Пост'
-              placeholder='Введите свой пост'
+              {...register('post', { required: 'Должность обязательна!' })}
+              title='Должность'
+              placeholder='Введите должность'
               error={errors.post}
             />
             <Field
@@ -185,4 +185,4 @@ const CreateUser = () => {
   );
 };
 
-export default memo(CreateUser)
+export default memo(CreateUser);

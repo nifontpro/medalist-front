@@ -142,7 +142,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   >
                     <CreateOwnerIcon className={styles.owner} />
                     <P color='black' fontstyle='thin' className={styles.create}>
-                      Зарегестрироваться как владелец
+                      Зарегистрироваться как владелец
                     </P>
                   </div>
                 </div>

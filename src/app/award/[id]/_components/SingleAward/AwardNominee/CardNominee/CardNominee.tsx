@@ -4,7 +4,7 @@ import styles from './CardNominee.module.scss';
 import { CardNomineeProps } from './CardNominee.props';
 import cn from 'classnames';
 import { useCardNominee } from './useCardNominee';
-import  ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import Button from '@/ui/Button/Button';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';

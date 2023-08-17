@@ -64,3 +64,11 @@
     }
   }
 }
+
+.excelBtn {
+  margin-bottom: 15px;
+  @media screen and (max-width: 930px) {
+    margin-top: 15px;
+    width: 100%;
+  }
+}
