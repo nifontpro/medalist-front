@@ -30,6 +30,21 @@
   // @media screen and (max-width: 930px) {
   //   width: 100%;
   // }
+
+  .link {
+    font-size: 10px;
+    color: var(--gray);
+    font-weight: 100;
+    z-index: 3;
+    position: absolute;
+    bottom: 2.5px;
+    right: 10px;
+    @apply duration-200;
+
+    &:hover {
+      color: var(--orange);
+    }
+  }
 }
 
 .inputFile {

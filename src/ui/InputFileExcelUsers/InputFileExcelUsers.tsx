@@ -56,7 +56,15 @@ const InputFileExcelUsers = forwardRef(
             {...props}
           />
           <label className={styles.fileButton}>
-            <span className={styles.buttonText}>{children}</span>
+            <span className={styles.buttonText}>
+              {children}{' '}
+              <a
+                className={styles.link}
+                href='https://storage.yandexcloud.net/medalist/doc/users.xlsx'
+              >
+                Скачать шаблон
+              </a>
+            </span>{' '}
           </label>
         </div>
 
