@@ -37,12 +37,17 @@
     font-weight: 100;
     z-index: 3;
     position: absolute;
-    bottom: 2.5px;
-    right: 10px;
+    bottom: 5px;
+    right: 20px;
     @apply duration-200;
 
     &:hover {
       color: var(--orange);
+    }
+
+    @media screen and (max-width: 500px) {
+      bottom: 2.5px;
+      right: 10px;
     }
   }
 }
