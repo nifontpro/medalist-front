@@ -105,10 +105,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   className={styles.slash}
                   onClick={() => dispatch(setIsOpen(false))}
                 />
-                <ExitIcon
+                {/* <ExitIcon
                   onClick={() => dispatch(setIsOpen(false))}
                   className={styles.exit}
-                />
+                /> */}
                 <div className={styles.moduleContent}>
                   {/* <Htag tag='h2' className={styles.header}>
                     Выберите профиль

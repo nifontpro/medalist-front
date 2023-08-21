@@ -45,49 +45,52 @@ const MainActivity = ({
         </div>
       </div>
       <ul>
-        {awardsActivOnDepartment?.data!.map((item, index) => {
-          if (index < 5) {
-            return (
-              <li key={item.id}>
-                <div className={styles.activity}>
-                  <div className={styles.img}>
-                    <ImageDefault
-                      src={item.user?.mainImg}
-                      width={64}
-                      height={64}
-                      alt='preview image'
-                      objectFit='cover'
-                      className='rounded-[10px]'
-                      // priority={true}
-                    />
-                  </div>
-                  <div className={styles.user}>
-                    <P size='m'>
-                      {item.user?.lastname} {item.user?.firstname}
-                    </P>
-                    <div className={styles.userTag}>
-                      <P size='s' fontstyle='thin' color='gray'>
-                        {item.award?.name}
+        {awardsActivOnDepartment &&
+          awardsActivOnDepartment.data &&
+          awardsActivOnDepartment.data.length > 0 &&
+          awardsActivOnDepartment?.data!.map((item, index) => {
+            if (index < 5) {
+              return (
+                <li key={item.id}>
+                  <div className={styles.activity}>
+                    <div className={styles.img}>
+                      <ImageDefault
+                        src={item.user?.mainImg}
+                        width={64}
+                        height={64}
+                        alt='preview image'
+                        objectFit='cover'
+                        className='rounded-[10px]'
+                        // priority={true}
+                      />
+                    </div>
+                    <div className={styles.user}>
+                      <P size='m'>
+                        {item.user?.lastname} {item.user?.firstname}
                       </P>
+                      <div className={styles.userTag}>
+                        <P size='s' fontstyle='thin' color='gray'>
+                          {item.award?.name}
+                        </P>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {item.date &&
-                Math.floor((currentDate - item.date) / 86400000) == 0 ? (
-                  <P size='m' color='gray' fontstyle='thin'>
-                    сегодня
-                  </P>
-                ) : (
-                  <P size='m' color='gray' fontstyle='thin'>
-                    {item.date &&
-                      Math.floor((currentDate - item.date) / 86400000)}
-                    &nbsp;дн
-                  </P>
-                )}
-              </li>
-            );
-          }
-        })}
+                  {item.date &&
+                  Math.floor((currentDate - item.date) / 86400000) == 0 ? (
+                    <P size='m' color='gray' fontstyle='thin'>
+                      сегодня
+                    </P>
+                  ) : (
+                    <P size='m' color='gray' fontstyle='thin'>
+                      {item.date &&
+                        Math.floor((currentDate - item.date) / 86400000)}
+                      &nbsp;дн
+                    </P>
+                  )}
+                </li>
+              );
+            }
+          })}
       </ul>
     </div>
   );
