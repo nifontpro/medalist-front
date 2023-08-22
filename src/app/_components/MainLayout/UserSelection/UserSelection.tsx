@@ -19,8 +19,11 @@ import P from '@/ui/P/P';
 import CreateOwnerIcon from '@/icons/ownerLogo.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { User } from '@/types/user/user';
+import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow/useUserPanelModalWindow';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
+  const { handleLogoutClick } = useUserPanelModalWindow();
+
   const {
     isAuth,
     typeOfUser,
@@ -78,6 +81,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
       } else {
         dispatch(setTypeOfUserUndefined());
       }
+    } else if (rolesUser && rolesUser.data && rolesUser.data.length == 0) {
+      dispatch(setTypeOfUserUndefined());
     }
   });
 
@@ -105,10 +110,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   className={styles.slash}
                   onClick={() => dispatch(setIsOpen(false))}
                 />
-                {/* <ExitIcon
+                <ExitIcon
                   onClick={() => dispatch(setIsOpen(false))}
                   className={styles.exit}
-                /> */}
+                />
                 <div className={styles.moduleContent}>
                   {/* <Htag tag='h2' className={styles.header}>
                     Выберите профиль
@@ -144,7 +149,19 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                     <P color='black' fontstyle='thin' className={styles.create}>
                       Зарегистрироваться как владелец
                     </P>
-                  </div>
+                  </div>{' '}
+                  {rolesUser &&
+                    rolesUser.data &&
+                    rolesUser.data.length == 0 && (
+                      <P
+                        onClick={handleLogoutClick}
+                        color='black'
+                        fontstyle='thin'
+                        className={styles.exitBtn}
+                      >
+                        Выйти
+                      </P>
+                    )}
                 </div>
               </motion.div>
             </AnimatePresence>

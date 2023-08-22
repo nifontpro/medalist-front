@@ -26,8 +26,8 @@ function logoutWin(it: string) {
 }
 
 export const useUserPanelModalWindow = (
-  setVisibleModal: Dispatch<SetStateAction<boolean>>,
-  user: User | undefined
+  setVisibleModal?: Dispatch<SetStateAction<boolean>>,
+  user?: User | undefined
 ) => {
   const { push } = useRouter();
   const dispatch = useAppDispatch();
@@ -38,12 +38,12 @@ export const useUserPanelModalWindow = (
 
   const handleClickProfile = useCallback(() => {
     push(getUserUrl(`/${user?.id}`));
-    setVisibleModal(false);
+    setVisibleModal && setVisibleModal(false);
   }, [push, setVisibleModal, user]);
 
   const handleClickEditProfile = useCallback(() => {
     push(getUserEditUrl(`${user?.id}`));
-    setVisibleModal(false);
+    setVisibleModal && setVisibleModal(false);
   }, [push, setVisibleModal, user]);
 
   const handleLogoutClick = useCallback(async () => {
@@ -51,13 +51,13 @@ export const useUserPanelModalWindow = (
     if (it != undefined && !isExpired) {
       await logoutWin(it);
       dispatch(authActions.setIsAuth(false));
-      setVisibleModal(false);
+      // setVisibleModal(false);
     }
     await dispatch(authActions.setNoAccess());
-    setVisibleModal(false);
+    // setVisibleModal(false);
     await deleteCookie('exp'); // Для middleware
     await logoutWin(it!);
-  }, [dispatch, isExpired, setVisibleModal]);
+  }, [dispatch, isExpired]);
 
   // const handleLogoutClick = useCallback(() => {
   //   const it = localStorage.getItem('it');

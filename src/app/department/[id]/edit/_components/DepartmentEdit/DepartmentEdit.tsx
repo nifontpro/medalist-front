@@ -53,7 +53,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
       />
       <form className={styles.form}>
         <Htag tag='h2' className={styles.title}>
-          Редактирование отдела
+          Редактирование
         </Htag>
 
         <EditImagesComponent
@@ -68,8 +68,8 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
 
         <Field
           {...register('name', { required: 'Название необходимо!' })}
-          title='Название отдела'
-          placeholder='Название отдела'
+          title='Название'
+          placeholder='Название'
           error={errors.name}
           className={styles.field}
         />
@@ -90,7 +90,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           />
         </div>
 
-        <div className={styles.group}>
+        {/* <div className={styles.group}>
           <Field
             {...register('classname')}
             title='Classname'
@@ -103,7 +103,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
             placeholder='Укажите адрес'
             error={errors.address}
           />
-        </div>
+        </div> */}
 
         <TextArea
           {...register('description')}

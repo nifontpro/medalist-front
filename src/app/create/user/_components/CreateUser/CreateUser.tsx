@@ -143,16 +143,16 @@ const CreateUser = () => {
             />
           </div>
 
-          <Field
+          {/* <Field
             {...register('address', { required: 'Адрес необходим!' })}
             title='Адрес'
             placeholder='Напишите адрес'
             error={errors.address}
             className={styles.field}
-          />
+          /> */}
 
           <TextArea
-            {...register('description', { required: 'Описание необходимо!' })}
+            {...register('description')}
             title='О сотруднике'
             placeholder='Введите информацию о владельце'
             error={errors.description}

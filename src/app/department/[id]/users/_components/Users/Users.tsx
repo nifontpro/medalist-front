@@ -72,7 +72,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           <div className={styles.header}>
             <div className={styles.title}>
               <Htag tag='h3' className={cn(styles.choices)}>
-                Сотрудники отдела
+                Сотрудники
               </Htag>
               {countUsers && totalPage && (
                 <P size='s' fontstyle='thin' className={styles.countAwards}>

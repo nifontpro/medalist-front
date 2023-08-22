@@ -22,8 +22,10 @@ const CreateDepartment = () => {
     reset,
   } = useForm<CreateDeptRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, back, createInfo } =
-    useCreateDepartment(setValue, reset);
+  const { onSubmit, handleClick, back, createInfo } = useCreateDepartment(
+    setValue,
+    reset
+  );
 
   return (
     <>
@@ -64,7 +66,7 @@ const CreateDepartment = () => {
           />
         </div>
 
-        <div className={styles.group}>
+        {/* <div className={styles.group}>
           <Field
             {...register('classname')}
             title='Classname'
@@ -77,7 +79,7 @@ const CreateDepartment = () => {
             placeholder='Укажите адрес'
             error={errors.address}
           />
-        </div>
+        </div> */}
 
         <TextArea
           {...register('description')}
@@ -111,4 +113,4 @@ const CreateDepartment = () => {
   );
 };
 
-export default memo(CreateDepartment)
+export default memo(CreateDepartment);

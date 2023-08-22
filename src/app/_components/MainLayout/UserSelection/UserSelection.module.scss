@@ -147,5 +147,16 @@
         }
       }
     }
+
+    .exitBtn {
+      cursor: pointer;
+      text-align: center;
+      color: var(--gray);
+      @apply duration-200;
+
+      &:hover {
+        color: var(--black);
+      }
+    }
   }
 }

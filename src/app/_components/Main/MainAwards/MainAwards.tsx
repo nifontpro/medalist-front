@@ -23,8 +23,6 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
     numberIsNaN,
   } = useMainAwards();
 
-  console.log(countAll);
-
   return (
     <>
       <div {...props} className={cn(styles.wrapper, className)}>

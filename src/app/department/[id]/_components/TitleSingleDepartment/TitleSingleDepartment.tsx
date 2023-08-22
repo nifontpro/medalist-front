@@ -69,12 +69,12 @@ const TitleSingleDepartment = ({
           </Htag>
         </div>
 
-        <div className={styles.address}>
+        {/* <div className={styles.address}>
           <GpsIcon />
           <P size='s' className={styles.description}>
             {department.data?.address}
           </P>
-        </div>
+        </div> */}
 
         <P size='s' className={styles.description}>
           {department.data?.description}
