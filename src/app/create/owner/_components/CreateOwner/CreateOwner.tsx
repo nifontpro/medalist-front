@@ -77,7 +77,7 @@ const CreateOwner = () => {
                 minLength: 6,
               })}
               title='Отчество'
-              placeholder='Отчество пароль'
+              placeholder='Введите отчество'
               error={errors.patronymic}
             />
           </div>

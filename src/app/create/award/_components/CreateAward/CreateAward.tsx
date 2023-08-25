@@ -199,7 +199,7 @@ const CreateAward = () => {
               size='l'
               disabled={!isDirty || !isValid}
             >
-              Выдать сразу и закрыть
+              Наградить сейчас
             </Button>
             <Button
               onClick={handleSubmit(onSubmitNominee)}

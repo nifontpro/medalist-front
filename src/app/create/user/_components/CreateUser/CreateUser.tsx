@@ -88,7 +88,7 @@ const CreateUser = () => {
                 minLength: 3,
               })}
               title='Отчество'
-              placeholder='Отчество пароль'
+              placeholder='Введите отчество'
               error={errors.patronymic}
             />
           </div>
