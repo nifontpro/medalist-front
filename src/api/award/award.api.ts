@@ -86,12 +86,21 @@ export const awardApi = createApi({
     }),
 
     /**
-     * Получение наград из отдела [deptId]
+     * Получение наград из отдела [deptId] или всех его подотделов
      * [state] - фильтрация по состоянию (необязательна)
      * [baseRequest]:
-     *  Допустимые поля для сортировки [orders]: "name", "type", "startDate", "endDate"
-     *  Пагинация.
-     *  filter - фильтрация по названию (name)
+     *  subdepts - включать подотделы (true / false)
+     *  filter - фильтрация по имени награды (необязателен)
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  minDate <= award.startDate (отсутствует - без min ограничения)
+     *  maxDate >= award.endDate (отсутствует - без max ограничения)
+     *  Допустимые поля для сортировки:
+     *        "name",
+     *        "type",
+     *        "startDate",
+     *        "endDate",
+     *        "dept.name", - при subdepts = true - делать первым в списке для сортировки по отделам
+     *        "dept.classname"
      */
     getByDept: build.query<
       BaseResponse<Award[]>,
@@ -349,7 +358,7 @@ export const awardApi = createApi({
      * отделы наград берутся из поддерева отделов авторизованного пользователя
      * награды типа SIMPLE.
      * [baseRequest]:
-     * filter - фильтрация по имени награды (необязателен)
+     *  filter - фильтрация по имени награды (необязателен)
      *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
      *  minDate <= award.startDate (отсутствует - без min ограничения)
      *  maxDate >= award.endDate (отсутствует - без max ограничения)
