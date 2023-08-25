@@ -132,7 +132,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                             width={40}
                             height={40}
                             alt='preview image'
-                            className='rounded-[10px] mr-[15px]'
+                            className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
                           />
                           {role.firstname}
                         </div>

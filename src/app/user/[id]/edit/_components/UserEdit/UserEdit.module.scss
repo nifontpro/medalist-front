@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 30px;
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1500px) {
     grid-template-columns: 1fr;
     gap: 0px;
   }
@@ -13,7 +13,7 @@
     margin-top: 50px;
     // @apply animate-fade;
 
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 1500px) {
       grid-template-columns: 1fr;
     }
 
@@ -150,14 +150,14 @@
   margin-top: 50px;
   align-items: flex-start;
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1500px) {
     display: none;
   }
 }
 
 .mobile {
   display: none;
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1500px) {
     display: flex;
   }
 }

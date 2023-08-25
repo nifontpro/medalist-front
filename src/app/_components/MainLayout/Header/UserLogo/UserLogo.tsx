@@ -37,7 +37,6 @@ const UserLogo = ({
               width={64}
               height={64}
               alt='preview image'
-              objectFit='cover'
               className='rounded-[10px]'
               priority={true}
             />
