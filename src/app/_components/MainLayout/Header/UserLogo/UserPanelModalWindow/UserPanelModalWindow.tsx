@@ -77,9 +77,9 @@ const UserPanelModalWindow = forwardRef(
               {user.authEmail}
             </Htag>
             <ul className={styles.list}>
-              <li className={styles.itemAbsolute}>
+              {/* <li className={styles.itemAbsolute}>
                 <ThemeSwitcher />
-              </li>
+              </li> */}
               <li className={styles.item} onClick={handleClickProfile}>
                 <ProfileIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>

@@ -3,7 +3,7 @@
 
   .logo {
     display: none;
-    
+
     @media screen and (max-width: 400px) {
       display: block;
       position: absolute;
@@ -37,7 +37,7 @@
 
   .exit {
     display: none;
-    @media screen and (max-width: 1500px) {
+    @media screen and (max-width: 1140px) {
       display: block;
       position: absolute;
       top: 25px;

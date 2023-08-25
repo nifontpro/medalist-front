@@ -7,16 +7,13 @@
   grid-template-columns: [start] 64px [endImg] 25px [startUser] 250px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startAward] 300px [end];
   align-items: center;
 
-  @media screen and (max-width: 1280px) {
-    grid-template-columns: [start] 64px [endImg] 25px [startUser] 200px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startAward] 300px [end];
-  }
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1400px) {
     grid-template-columns: [start] 64px [endImg] 25px [startUser] 200px [endUser] 1fr [startAward] 300px [end];
   }
   @media screen and (max-width: 680px) {
     min-width: 100%;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: [start] 64px [endImg] 25px [startUser] 150px [endUser]
+    grid-template-columns: [start] 64px [endImg] 25px [startUser] 150px [endUser];
   }
 
   :hover {
@@ -39,7 +36,7 @@
 
   .depart {
     grid-column: startDepart / endDepart;
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1400px) {
       display: none;
     }
   }

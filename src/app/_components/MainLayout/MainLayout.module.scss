@@ -6,7 +6,7 @@
     'sidebar content content';
   background-color: var(--black);
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 1140px) {
     grid-template-columns: 1fr;
     grid-template-areas:
       'header'
@@ -25,7 +25,7 @@
     position: sticky;
     top: 0;
 
-    @media screen and (max-width: 1500px) {
+    @media screen and (max-width: 1140px) {
       display: none;
     }
   }
@@ -37,7 +37,7 @@
     overflow: hidden;
     min-height: 100vh;
 
-    @media screen and (max-width: 1500px) {
+    @media screen and (max-width: 1140px) {
       border-radius: 0px;
       margin-top: 100px;
     }
