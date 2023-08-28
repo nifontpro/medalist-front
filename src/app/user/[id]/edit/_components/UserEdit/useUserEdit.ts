@@ -81,26 +81,33 @@ export const useUserEdit = (
         const file = new FormData();
         file.append('file', event.target.files[0]);
         file.append('userId', singleUser.data?.user.id);
-
-        await addImage(file)
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
+        typeOfUser &&
+          typeOfUser.id &&
+          file.append('authId', typeOfUser.id.toString());
+        console.log(event.target.files[0].size);
+        if (event.target.files[0].size > 1024000) {
+          toast.error('Размер фотографии должен быть меньше 1МБ');
+        } else {
+          await addImage(file)
+            .unwrap()
+            .then((res) => {
+              if (res.success == false) {
+                errorMessageParse(res.errors);
+                isError = true;
+              }
+            })
+            .catch(() => {
               isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка добавления фотографии');
-          });
-        if (!isError) {
-          toast.success('Фото успешно добавлено');
-          setImageNum(0);
+              toast.error('Ошибка добавления фотографии');
+            });
+          if (!isError) {
+            toast.success('Фото успешно добавлено');
+            setImageNum(0);
+          }
         }
       }
     },
-    [addImage, singleUser]
+    [addImage, singleUser, typeOfUser]
   );
 
   const removePhoto = useCallback(

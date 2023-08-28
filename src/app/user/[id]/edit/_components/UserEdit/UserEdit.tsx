@@ -72,7 +72,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
         <form className={styles.form}>
           <div className={styles.fields}>
             <Htag tag='h2' className={styles.title}>
-              Редактирование сотрудника
+              Редактирование
             </Htag>
 
             <EditImagesComponent

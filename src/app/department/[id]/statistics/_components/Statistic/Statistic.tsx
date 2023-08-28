@@ -22,7 +22,7 @@ const Statistic = ({
     <div {...props} className={styles.wrapper}>
       <div className={styles.title}>
         <Htag tag='h3' className={styles.header}>
-          Статистика отдела/подотделов
+          Статистика
         </Htag>
         <div className={styles.headerTitle}></div>
       </div>

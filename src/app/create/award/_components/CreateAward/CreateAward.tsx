@@ -63,7 +63,8 @@ const CreateAward = () => {
     prevPage,
   } = useFetchParams();
 
-  const { usersOnSubDepartment: users } = useUserAdmin(deptId.toString(), {
+  const { usersOnDepartment: users } = useUserAdmin(deptId.toString(), {
+    subdepts: true,
     page: page,
     pageSize: 100,
     filter: searchValue,

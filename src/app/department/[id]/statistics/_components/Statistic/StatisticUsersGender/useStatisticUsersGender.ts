@@ -2,20 +2,22 @@ import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useMemo } from 'react';
 
 export const useStatisticUsersGender = (departId: string) => {
-  const { usersGenderOnDepartment, isLoadingUsersGenderOnDepartment } =
-    useUserAdmin(departId, { subdepts: true });
+  const { usersOnDepartment } = useUserAdmin(departId, {
+    subdepts: false,
+    filter: '',
+  });
 
   let countAll = useMemo(
-    () => usersGenderOnDepartment?.data?.length,
-    [usersGenderOnDepartment]
+    () => usersOnDepartment?.data?.length,
+    [usersOnDepartment]
   );
 
   let countMale = useMemo(
     () =>
-      usersGenderOnDepartment?.data?.filter(
+      usersOnDepartment?.data?.filter(
         (user) => user.gender == 'MALE' || user.gender == 'UNDEF'
       ).length,
-    [usersGenderOnDepartment]
+    [usersOnDepartment]
   );
 
   let countMalePercent = useMemo(
@@ -25,9 +27,8 @@ export const useStatisticUsersGender = (departId: string) => {
 
   let countFemale = useMemo(
     () =>
-      usersGenderOnDepartment?.data?.filter((user) => user.gender == 'FEMALE')
-        .length,
-    [usersGenderOnDepartment]
+      usersOnDepartment?.data?.filter((user) => user.gender == 'FEMALE').length,
+    [usersOnDepartment]
   );
 
   let countFemalePercent = useMemo(

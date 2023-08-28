@@ -98,33 +98,33 @@ export const useUserAdmin = (
     }
   );
 
-  // Получение сотрудников всех подотделов вместе с текущим
-  const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
-    userApi.useGetUsersBySubDeptQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: Number(id),
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // // Получение сотрудников всех подотделов вместе с текущим
+  // const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
+  //   userApi.useGetUsersBySubDeptQuery(
+  //     {
+  //       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //       deptId: Number(id),
+  //       baseRequest: baseRequest ? baseRequest : undefined,
+  //     },
+  //     {
+  //       skip: !typeOfUser,
+  //     }
+  //   );
 
-  // Получить количество сотрудников по полам
-  const {
-    data: usersGenderOnDepartment,
-    isLoading: isLoadingUsersGenderOnDepartment,
-  } = userApi.useGetUsersBySubDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(id),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получить количество сотрудников по полам
+  // const {
+  //   data: usersGenderOnDepartment,
+  //   isLoading: isLoadingUsersGenderOnDepartment,
+  // } = userApi.useGetUsersBySubDeptQuery(
+  //   {
+  //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //     deptId: Number(id),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser,
+  //   }
+  // );
 
   // Получить сотрудников которых можно наградить выбранной медалью
   const {
@@ -174,10 +174,10 @@ export const useUserAdmin = (
     isLoadingSingleUser,
     usersOnDepartment,
     isLoadingUsersOnDepartment,
-    usersOnSubDepartment,
-    isLoadingUsersOnSubDept,
-    usersGenderOnDepartment,
-    isLoadingUsersGenderOnDepartment,
+    // usersOnSubDepartment,
+    // isLoadingUsersOnSubDept,
+    // usersGenderOnDepartment,
+    // isLoadingUsersGenderOnDepartment,
     usersOnDepartmentWithAwards,
     isLoadingUsersOnDepartmentWithAwards,
     userSettings,
