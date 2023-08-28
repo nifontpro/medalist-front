@@ -1,9 +1,14 @@
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { useMemo } from 'react';
 
 export const useStatisticUsersAwards = (departId: string) => {
+  const switcher = useAppSelector((state) => state.switcher);
+
   const { userAwardWWCountOnDept, isLoadingUserAwardWWCountOnDept } =
-    useAwardAdmin(departId);
+    useAwardAdmin(departId, {
+      subdepts: switcher,
+    });
 
   let countWithAward = useMemo(
     () => userAwardWWCountOnDept?.data?.withAward,

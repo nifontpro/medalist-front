@@ -7,15 +7,18 @@ import P from '@/ui/P/P';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
 
 const StatisticCountAwards = ({
   departId,
   className,
   ...props
 }: StatisticCountAwardsProps): JSX.Element => {
+  const switcher = useAppSelector((state) => state.switcher);
+
   const { colAwardsOnDepartment, isLoadingColAwardsOnDept } = useAwardAdmin(
     departId,
-    { subdepts: true }
+    { subdepts: switcher }
   );
 
   return (

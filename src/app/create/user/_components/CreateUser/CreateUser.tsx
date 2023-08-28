@@ -102,8 +102,8 @@ const CreateUser = () => {
             />
             <Field
               {...register('phone', { required: 'Сотовый обязательно!' })}
-              title='Сотовый'
-              placeholder='Введите свой сотовый'
+              title='Мобильный'
+              placeholder='Введите мобильный'
               error={errors.phone}
               type='tel'
               className={styles.phone}

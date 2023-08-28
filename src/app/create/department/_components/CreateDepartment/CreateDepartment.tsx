@@ -59,8 +59,8 @@ const CreateDepartment = () => {
           />
           <Field
             {...register('phone')}
-            title='Сотовый'
-            placeholder='Сотовый'
+            title='Мобильный'
+            placeholder='Введите номер'
             error={errors.phone}
             {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
           />

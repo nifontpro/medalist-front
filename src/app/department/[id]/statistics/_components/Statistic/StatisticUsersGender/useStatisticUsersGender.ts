@@ -1,9 +1,12 @@
 import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { useMemo } from 'react';
 
 export const useStatisticUsersGender = (departId: string) => {
+  const switcher = useAppSelector((state) => state.switcher);
+
   const { usersOnDepartment } = useUserAdmin(departId, {
-    subdepts: false,
+    subdepts: switcher,
     filter: '',
   });
 

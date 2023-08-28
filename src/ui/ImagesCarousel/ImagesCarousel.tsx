@@ -93,7 +93,7 @@ const ImagesCarousel = ({
             width={250}
             height={250}
             alt='preview image'
-            className={className}
+            className='@apply w-[250px] h-[250px]'
           />
         )}
       </>

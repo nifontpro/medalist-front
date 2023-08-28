@@ -10,6 +10,7 @@ import StatisticUsersAwards from './StatisticUsersAwards/StatisticUsersAwards';
 import { useRouter } from 'next/navigation';
 import StatisticDepartments from './StatisticDepartments/StatisticDepartments';
 import { memo } from 'react';
+import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
 const Statistic = ({
   departId,
@@ -24,6 +25,7 @@ const Statistic = ({
         <Htag tag='h3' className={styles.header}>
           Статистика
         </Htag>
+        <SwitchDepartOnCompany />
         <div className={styles.headerTitle}></div>
       </div>
 

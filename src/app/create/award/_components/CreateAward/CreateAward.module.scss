@@ -5,7 +5,7 @@
   margin-top: 50px;
   @apply animate-fade;
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1500px) {
     grid-template-columns: 1fr;
   }
 
@@ -36,7 +36,7 @@
 
     .mediaVisible {
       display: none;
-      @media screen and (max-width: 1280px) {
+      @media screen and (max-width: 1500px) {
         width: 100%;
         display: flex;
         justify-content: center;

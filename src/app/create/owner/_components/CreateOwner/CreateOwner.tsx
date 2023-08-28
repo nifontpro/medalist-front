@@ -91,8 +91,8 @@ const CreateOwner = () => {
             />
             <Field
               {...register('phone', { required: 'Сотовый обязательно!' })}
-              title='Сотовый'
-              placeholder='Введите свой сотовый'
+              title='Мобильный'
+              placeholder='Введите номер'
               error={errors.phone}
               type='tel'
               className={styles.phone}
