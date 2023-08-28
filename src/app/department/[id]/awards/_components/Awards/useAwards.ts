@@ -4,8 +4,11 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getAwardCreateUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/store/hooks/hooks';
 
 export const useAwards = (id: string) => {
+  const switcher = useAppSelector((state) => state.switcher);
+
   const [active, setActive] = useState<AwardState | undefined>(undefined);
 
   const { push } = useRouter();
@@ -28,6 +31,7 @@ export const useAwards = (id: string) => {
   } = useAwardAdmin(
     id,
     {
+      subdepts: switcher,
       page: page,
       pageSize: 12,
       orders: [{ field: 'startDate', direction: state }],

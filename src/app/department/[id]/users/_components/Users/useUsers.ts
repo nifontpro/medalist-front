@@ -1,10 +1,13 @@
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { getUserCreateUrl } from '@/config/api.config';
 import { useFetchParams } from '@/hooks/useFetchParams';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo } from 'react';
 
 export const useUsers = (id: string) => {
+  const switcher = useAppSelector((state) => state.switcher);
+
   const { push } = useRouter();
 
   const {
@@ -24,6 +27,7 @@ export const useUsers = (id: string) => {
     isLoadingUsersOnDepartment,
     isFetchingUsersOnDepartment,
   } = useUserAdmin(id, {
+    subdepts: switcher,
     page: page,
     pageSize: 10,
     filter: searchValue,

@@ -121,10 +121,11 @@ export const awardApi = createApi({
       serializeQueryArgs: ({ queryArgs, endpointDefinition, endpointName }) => {
         const state = queryArgs.state;
         const orders = queryArgs.baseRequest?.orders;
+        const switcher = queryArgs.baseRequest?.subdepts;
         // This can return a string, an object, a number, or a boolean.
         // If it returns an object, number or boolean, that value
         // will be serialized automatically via `defaultSerializeQueryArgs`
-        return { state, orders }; // omit `client` from the cache key
+        return { state, orders, switcher }; // omit `client` from the cache key
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems, otherArgs) => {

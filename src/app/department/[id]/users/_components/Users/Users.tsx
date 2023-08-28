@@ -18,6 +18,7 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import { memo } from 'react';
 import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
+import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -90,12 +91,15 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             </SortButton>
           </div>
 
+          <SwitchDepartOnCompany />
+
           <Search
             onChange={searchHandleChange}
             color='white'
             search={true}
             button={false}
             placeholder='Поиск сотрудника...'
+            className='mt-[30px]'
           />
           <SortButton
             state={state}

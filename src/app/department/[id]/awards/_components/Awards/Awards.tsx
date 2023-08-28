@@ -15,6 +15,7 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
+import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
 const Awards = ({ id, className, ...props }: AwardsProps) => {
   const {
@@ -42,6 +43,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
       <div {...props} className={styles.wrapper}>
         <div className={styles.headerTitle}>
           <Htag tag='h2' className={styles.headTitle}>{`Награды`}</Htag>
+          <SwitchDepartOnCompany />
           <AuthComponent minRole={'ADMIN'}>
             <div className={styles.createAwardAdaptive}>
               <ButtonCircleIcon
