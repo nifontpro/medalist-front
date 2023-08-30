@@ -22,7 +22,7 @@ const ScrollContainerWithSearchParams = ({
   }, [setState, state]);
 
   return (
-    <div className={cn(styles.wrapper, className)} {...props}>
+    <div className={cn(styles.wrapper)} {...props}>
       <div className={styles.header}>
         {search && searchHandleChange && (
           <Search
@@ -51,7 +51,7 @@ const ScrollContainerWithSearchParams = ({
           </div>
         )}
       </div>
-      <div className={styles.wrapperContent}>{children}</div>
+      <div className={cn(styles.wrapperContent, className)}>{children}</div>
       <div className={styles.footer}></div>
     </div>
   );

@@ -38,6 +38,9 @@ export const useAwards = (id: string) => {
     },
     active
   );
+
+  console.log(awardsOnDepartment);
+
   const totalPage = useMemo(
     () => awardsOnDepartment?.pageInfo?.totalPages,
     [awardsOnDepartment]

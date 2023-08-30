@@ -1,9 +1,9 @@
 .wrapper {
   margin-bottom: 60px;
 
-  // @media screen and (max-width: 1280px) {
-  //   margin-bottom: 0px;
-  // }
+  @media screen and (max-width: 1700px) {
+    margin-bottom: 0px;
+  }
 
   .header {
     display: flex;

@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 30px;
-  margin-top: 85px;
+  margin-top: 80px;
   @apply animate-fade;
 
   @media screen and (max-width: 1280px) {
@@ -56,10 +56,10 @@
     //     margin-top: 20px;
     //   }
     // }
-
-    > .none {
-      margin-top: 20px;
-      margin-bottom: 50px;
-    }
   }
+}
+
+.none {
+  padding-top: 50px;
+  padding-bottom: 50px;
 }

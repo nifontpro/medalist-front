@@ -69,6 +69,8 @@ const AwardWasAwarded = ({
     availableUsersBySubDeptForAwards,
   } = useAwardWasAwardedForAddUsers(award);
 
+  console.log(singleActivAward);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.content}>
@@ -99,7 +101,7 @@ const AwardWasAwarded = ({
         >
           {singleActivAward &&
           singleActivAward.data &&
-          singleActivAward.data.length >= 0 ? (
+          singleActivAward.data.length > 0 ? (
             <>
               <div className={styles.usersAwarded}>
                 {singleActivAward.data.map((item) => {

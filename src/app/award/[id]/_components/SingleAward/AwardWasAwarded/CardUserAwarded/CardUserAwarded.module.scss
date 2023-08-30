@@ -7,6 +7,14 @@
   grid-template-columns: 1fr 130px 30px;
   position: relative;
 
+  &:last-child {
+    padding-bottom: 50px;
+  }
+
+  &:first-child {
+    padding-top: 50px;
+  }
+
   @media screen and (max-width: 768px) {
     border-radius: 16px;
   }

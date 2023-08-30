@@ -108,7 +108,7 @@ const SingleUserAwards = ({
             ) : null}
           </>
         ) : (
-          <P size='s' fontstyle='thin' className={styles.countAwards}>
+          <P size='s' fontstyle='thin' className={styles.none}>
             У вас пока нет медалей
           </P>
         )}
