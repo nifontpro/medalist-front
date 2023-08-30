@@ -1,6 +1,10 @@
 .wrapper {
   position: relative;
 
+  @media screen and (max-width: 1140px) {
+    padding: 25px 10px;
+  }
+
   .logo {
     display: none;
 
@@ -54,4 +58,20 @@
       }
     }
   }
+}
+
+.mainLink {
+  width: fit-content;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 44px;
+  margin: 0;
+  color: var(--white);
+  margin-bottom: 20px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.9);
+  }
+
+  @apply duration-200;
 }

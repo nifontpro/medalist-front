@@ -82,9 +82,10 @@ export const deptApi = createApi({
           body: request,
         };
       },
-      invalidatesTags: (result) => [
-        { type: 'Dept', id: result?.data?.dept.id },
-      ],
+      // invalidatesTags: (result) => [
+      //   { type: 'Dept', id: result?.data?.dept.id },
+      // ], //Для инвалидации только данного отдела (почему то работает только после рефреша)
+      invalidatesTags: ['Dept'],
     }),
 
     /**

@@ -13,6 +13,8 @@ import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
 import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import { memo } from 'react';
+import Htag from '@/ui/Htag/Htag';
+import Link from 'next/link';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -35,11 +37,15 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
         // expanded={expandedIds} // Сразу открытый путь
-        expanded={parentIds} // Полностью раскрытое дерево
+        expanded={parentIds} // Полностью раскрытое дерево всегда
         selected={selectedIds}
         onNodeToggle={toggle} // Когда открываешь
         sx={{ flexGrow: 1, maxWidth: 300, height: '100%', overflowY: 'auto' }}
       >
+        <Link href='/' className='@apply w-fit flex'>
+          <div className={styles.mainLink}>Главная</div>
+        </Link>
+
         <Tree treeData={treeData} />
       </TreeView>
     </div>
