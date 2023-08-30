@@ -5,10 +5,7 @@
   margin-top: 50px;
   @apply animate-fade;
 
-  @media screen and (max-width: 1280px) {
-    grid-template-columns: 300px 1fr;
-  }
-  @media screen and (max-width: 1170px) {
+  @media screen and (max-width: 1500px) {
     grid-template-columns: 1fr;
     gap: 15px;
   }
@@ -19,17 +16,13 @@
     width: 400px;
     height: fit-content;
 
-    @media screen and (max-width: 1280px) {
-      width: 300px;
-    }
-    @media screen and (max-width: 1170px) {
-      width: 100%;
-      height: auto;
-      // display: flex;
+    @media screen and (max-width: 1500px) {
+      width: 400px;
       justify-content: center;
     }
     @media screen and (max-width: 768px) {
       border-radius: 16px;
+      width: auto;
     }
   }
 

@@ -36,6 +36,14 @@
     align-items: center;
     margin-bottom: 60px;
 
+    @media screen and (max-width: 1500px) {
+      gap: 20px;
+    }
+
+    @media screen and (max-width: 1280px) {
+      gap: 15px;
+    }
+
     @media screen and (max-width: 840px) {
       display: none;
     }
@@ -77,9 +85,10 @@
     @media screen and (max-width: 1530px) {
       grid-template-columns: 1fr 1fr 1fr;
     }
-    @media screen and (max-width: 1465px) {
-      grid-template-columns: 1fr 1fr;
-    }
+    gap: 20px 20px;
+    // @media screen and (max-width: 1465px) {
+    //   grid-template-columns: 1fr 1fr;
+    // }
     @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
       gap: 15px;

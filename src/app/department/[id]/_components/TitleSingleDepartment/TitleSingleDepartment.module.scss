@@ -15,13 +15,13 @@
     height: fit-content;
 
     @media screen and (max-width: 1500px) {
-      width: 100%;
-      height: auto;
-      // display: flex;
+      width: 400px;
+
       justify-content: center;
     }
     @media screen and (max-width: 768px) {
       border-radius: 16px;
+      width: auto;
     }
   }
 

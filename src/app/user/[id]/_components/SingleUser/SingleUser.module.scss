@@ -15,17 +15,14 @@
     width: 400px;
     height: fit-content;
 
-    // @media screen and (max-width: 1280px) {
-    //   width: 300px;
-    // }
     @media screen and (max-width: 1500px) {
-      width: auto;
-      height: auto;
-      // display: flex;
+      width: 400px;
+
       justify-content: center;
     }
     @media screen and (max-width: 768px) {
       border-radius: 16px;
+      width: auto;
     }
   }
 }
