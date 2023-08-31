@@ -7,10 +7,11 @@ import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useRouter } from 'next/navigation';
 
-export const useActivity = () => {
+export const useActivity = (deptId: string | undefined) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+  const switcher = useAppSelector((state) => state.switcher);
 
   const { back } = useRouter();
 
@@ -40,9 +41,9 @@ export const useActivity = () => {
     isLoadingAwardsActivOnDept,
     isFetchingUsersActivOnDepartment,
   } = useAwardAdmin(
-    typeOfUser?.dept.id,
+    deptId ? deptId : typeOfUser?.dept.id,
     {
-      subdepts: true,
+      subdepts: switcher,
       page: page,
       pageSize: 20,
       filter: searchValue,

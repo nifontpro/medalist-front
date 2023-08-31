@@ -6,25 +6,31 @@ import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-import { useAppSelector } from '@/store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { memo, useMemo } from 'react';
+import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 
 const MainActivity = ({
+  deptId,
   className,
   ...props
 }: MainActivityProps): JSX.Element => {
   const { push } = useRouter();
+
+  const dispatch = useAppDispatch();
+
+  const switcher = useAppSelector((state) => state.switcher);
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const { awardsActivOnDepartment, isLoadingAwardsActivOnDept } = useAwardAdmin(
-    typeOfUser?.dept.id,
+    deptId ? deptId : typeOfUser?.dept.id,
     {
-      subdepts: true,
+      subdepts: switcher,
       page: 0,
       pageSize: 5,
       orders: [{ field: 'date', direction: 'DESC' }],
@@ -37,7 +43,13 @@ const MainActivity = ({
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
         <Htag tag='h2'>Активность</Htag>
-        <div className={styles.bestActivity} onClick={() => push('/activity')}>
+        <div
+          className={styles.bestActivity}
+          onClick={() => {
+            dispatch(setSelectedTreeId(''));
+            push('/activity');
+          }}
+        >
           <P size='s' fontstyle='thin' className={styles.text}>
             Все
           </P>

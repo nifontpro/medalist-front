@@ -1,4 +1,3 @@
-
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type EventsProps = DetailedHTMLProps<
@@ -6,4 +5,5 @@ export type EventsProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
+  deptId?: string;
 };

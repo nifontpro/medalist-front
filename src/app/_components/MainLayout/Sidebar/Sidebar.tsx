@@ -42,9 +42,9 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         onNodeToggle={toggle} // Когда открываешь
         sx={{ flexGrow: 1, maxWidth: 300, height: '100%', overflowY: 'auto' }}
       >
-        <Link href='/' className='@apply w-fit flex'>
+        {/* <Link href='/' className='@apply w-fit flex'>
           <div className={styles.mainLink}>Главная</div>
-        </Link>
+        </Link> */}
 
         <Tree treeData={treeData} />
       </TreeView>

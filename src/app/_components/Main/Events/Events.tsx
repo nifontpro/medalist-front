@@ -16,6 +16,7 @@ import Htag from '@/ui/Htag/Htag';
 import { memo, useMemo } from 'react';
 
 const Events = ({
+  deptId,
   children,
   className,
   ...props
@@ -23,6 +24,8 @@ const Events = ({
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
+  const switcher = useAppSelector((state) => state.switcher);
 
   const {
     page,
@@ -36,12 +39,15 @@ const Events = ({
   } = useFetchParams();
   const pageSize: number = useMemo(() => 4, []);
 
-  const { allEvent, isLoadingAllEvent } = useEventAdmin(typeOfUser?.dept?.id, {
-    orders: [{ field: '(days)', direction: 'DESC' }],
-    subdepts: true,
-    page: page,
-    pageSize,
-  });
+  const { allEvent, isLoadingAllEvent } = useEventAdmin(
+    deptId ? deptId : typeOfUser?.dept?.id,
+    {
+      orders: [{ field: '(days)', direction: 'DESC' }],
+      subdepts: switcher,
+      page: page,
+      pageSize,
+    }
+  );
 
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 

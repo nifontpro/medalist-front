@@ -1,6 +1,9 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react"
-
-export type MainProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
-    children?: ReactNode;
-}
+export type MainProps = DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> & {
+  children?: ReactNode;
+  deptId?: string;
+};

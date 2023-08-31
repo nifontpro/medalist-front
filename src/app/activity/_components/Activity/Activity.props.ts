@@ -5,4 +5,5 @@ export type ActivityProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
+  deptId?: string;
 };

@@ -140,13 +140,14 @@ const ModalWindowGalleryAwards = forwardRef(
                 Выберите медаль
               </Htag>
 
-              <Select
+              {/* Ниже закоментированно для того, чтобы выводились сразу медали дизайнерские, без выбора каталогов */}
+              {/* <Select
                 classNamePrefix='custom-select-rating'
                 placeholder={'Выберите папку с изображениями'}
                 options={arrFolders}
                 onChange={onChange}
                 components={animatedComponents}
-              />
+              /> */}
 
               {
                 <div className={cn(styles.wrapperChoiceImg)}>

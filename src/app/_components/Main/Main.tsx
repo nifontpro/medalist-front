@@ -14,8 +14,9 @@ import { useMainLoading } from './useMainLoading';
 import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
 import { memo } from 'react';
+import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
-const Main = ({ className, ...props }: MainProps): JSX.Element => {
+const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
   const {
     onBoarding,
     state,
@@ -37,42 +38,48 @@ const Main = ({ className, ...props }: MainProps): JSX.Element => {
     !isLoadingColAwardsOnDept
   ) {
     return (
-      <div {...props} className={styles.wrapper}>
-        <MainAwards
-          className={cn(styles.awards, {
-            [styles.index30]: onBoarding == 1,
-          })}
-        />
-        <MainUsers className={styles.users} />
-        <div
-          className={cn(styles.nominee, {
-            [styles.index30]: onBoarding >= 2 && !state,
-          })}
-        >
-          <MainNominee
-            className={cn({
-              [styles.index0]: onBoarding == 3 && !state,
+      <>
+        <SwitchDepartOnCompany />
+        <div {...props} className={styles.wrapper}>
+          <MainAwards
+            deptId={deptId}
+            className={cn(styles.awards, {
+              [styles.index30]: onBoarding == 1,
             })}
           />
-          <MainActivity
-            className={cn({
-              [styles.index0]: onBoarding == 2,
+          <MainUsers deptId={deptId} className={styles.users} />
+          <div
+            className={cn(styles.nominee, {
+              [styles.index30]: onBoarding >= 2 && !state,
             })}
-          />
-        </div>
-        <Events className={styles.events} />
-        <ButtonScrollUp />
-        {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
+          >
+            <MainNominee
+              deptId={deptId}
+              className={cn({
+                [styles.index0]: onBoarding == 3 && !state,
+              })}
+            />
+            <MainActivity
+              deptId={deptId}
+              className={cn({
+                [styles.index0]: onBoarding == 2,
+              })}
+            />
+          </div>
+          <Events deptId={deptId} className={styles.events} />
+          <ButtonScrollUp />
+          {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
           Сбросить Onboarding
         </div> */}
-        <OnBoarding
-          state={state}
-          onBoarding={onBoarding}
-          onBoardingText={onBoardingText}
-          onBoardingText3={onBoardingText3}
-          handleClick={saveUserSettingsAsync}
-        />
-      </div>
+          <OnBoarding
+            state={state}
+            onBoarding={onBoarding}
+            onBoardingText={onBoardingText}
+            onBoardingText3={onBoardingText3}
+            handleClick={saveUserSettingsAsync}
+          />
+        </div>
+      </>
     );
   }
   return <Spinner />;

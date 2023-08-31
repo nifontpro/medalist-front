@@ -5,4 +5,5 @@ export type MainNomineeProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
+  deptId?: string;
 };

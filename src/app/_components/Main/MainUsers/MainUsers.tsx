@@ -11,10 +11,16 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
 
-const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
+const MainUsers = ({
+  deptId,
+  className,
+  ...props
+}: MainUsersProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
+  const switcher = useAppSelector((state) => state.switcher);
 
   const {
     page,
@@ -30,9 +36,9 @@ const MainUsers = ({ className, ...props }: MainUsersProps): JSX.Element => {
   const startPage: number = useMemo(() => page + 1, [page]);
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(typeOfUser?.dept.id, {
+    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
       orders: [{ field: '(awardCount)', direction: 'DESC' }],
-      subdepts: true,
+      subdepts: switcher,
       page: page,
       pageSize,
     });

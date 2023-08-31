@@ -69,8 +69,6 @@ const AwardWasAwarded = ({
     availableUsersBySubDeptForAwards,
   } = useAwardWasAwardedForAddUsers(award);
 
-  console.log(singleActivAward);
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.content}>

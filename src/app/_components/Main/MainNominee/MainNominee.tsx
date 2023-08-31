@@ -16,18 +16,21 @@ import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
 
 const MainNominee = ({
+  deptId,
   className,
   ...props
 }: MainNomineeProps): JSX.Element => {
   const { push } = useRouter();
+
+  const switcher = useAppSelector((state) => state.switcher);
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(
-    typeOfUser?.dept.id,
-    { subdepts: true, orders: [{ field: 'endDate', direction: 'ASC' }] },
+    deptId ? deptId : typeOfUser?.dept.id,
+    { subdepts: switcher, orders: [{ field: 'endDate', direction: 'ASC' }] },
     'NOMINEE'
   );
 

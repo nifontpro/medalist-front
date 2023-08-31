@@ -5,8 +5,10 @@ import { RootState } from '@/store/storage/store';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 
-export const useMainAwards = () => {
+export const useMainAwards = (deptId: string | undefined) => {
   const { push } = useRouter();
+
+  const switcher = useAppSelector((state) => state.switcher);
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -17,10 +19,12 @@ export const useMainAwards = () => {
     isLoadingColAwardsOnDept,
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
-  } = useAwardAdmin(typeOfUser?.dept.id, { subdepts: true });
+  } = useAwardAdmin(deptId ? deptId : typeOfUser?.dept.id, {
+    subdepts: switcher,
+  });
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(typeOfUser?.dept.id, { subdepts: true });
+    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, { subdepts: switcher });
 
   let countAll = useMemo(
     () =>

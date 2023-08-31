@@ -9,7 +9,7 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import { convertPathName } from './convertPathName';
 import { getLastUrl } from './getLastUrl';
 
-type Alignment = 'users' | 'awards' | 'statistics' | '';
+type Alignment = 'reports' | 'users' | 'awards' | 'statistics' | '';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
@@ -56,7 +56,8 @@ const HeaderLayout = () => {
           className='my-5 w-full justify-center'
           orientation={windowSize.winWidth < 420 ? 'vertical' : 'horizontal'}
         >
-          <ToggleButton value=''>Отдел</ToggleButton>
+          <ToggleButton value='reports'>Сводка</ToggleButton>
+          <ToggleButton value=''>Информация</ToggleButton>
           <ToggleButton value='users'>Сотрудники</ToggleButton>
           <ToggleButton value='awards'>Медали</ToggleButton>
           <ToggleButton value='statistics'>Статистика</ToggleButton>

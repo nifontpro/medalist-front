@@ -42,13 +42,15 @@ export const useModalWindowGalleryAwards = (
     },
   });
 
+  // Ниже закоментированно для того, чтобы выводились сразу медали дизайнерские, без выбора каталогов
   const { data: awardsGallery, isLoading: isAwardsGalleryLoading } =
     galleryApi.useGetItemsByFolderQuery(
       {
-        folderId: idFolder,
+        // folderId: idFolder,
+        folderId: 20,
         baseRequest: undefined,
-      },
-      { skip: idFolder == -1 }
+      }
+      // { skip: idFolder == -1 }
     );
 
   const [imagesPreview, setImagesPreview] = useState<GalleryItem | undefined>(

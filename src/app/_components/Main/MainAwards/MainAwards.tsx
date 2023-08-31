@@ -11,7 +11,11 @@ import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useMainAwards } from './useMainAwards';
 import { memo } from 'react';
 
-const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
+const MainAwards = ({
+  deptId,
+  className,
+  ...props
+}: MainAwardsProps): JSX.Element => {
   const {
     push,
     countUserWithAwardPercent,
@@ -21,7 +25,7 @@ const MainAwards = ({ className, ...props }: MainAwardsProps): JSX.Element => {
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
     numberIsNaN,
-  } = useMainAwards();
+  } = useMainAwards(deptId);
 
   return (
     <>

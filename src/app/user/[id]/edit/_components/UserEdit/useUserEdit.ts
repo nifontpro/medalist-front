@@ -84,7 +84,6 @@ export const useUserEdit = (
         typeOfUser &&
           typeOfUser.id &&
           file.append('authId', typeOfUser.id.toString());
-        console.log(event.target.files[0].size);
         if (event.target.files[0].size > 1024000) {
           toast.error('Размер фотографии должен быть меньше 1МБ');
         } else {

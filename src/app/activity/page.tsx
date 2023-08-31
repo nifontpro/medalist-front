@@ -8,10 +8,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ActivityPage(): JSX.Element {
+export default function ActivityPage({
+  params,
+}: {
+  params: { id: string };
+}): JSX.Element {
   return (
     <main>
-      <Activity />
+      <Activity deptId={params.id} />
     </main>
   );
 }

@@ -5,4 +5,5 @@ export type MainUsersProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
+  deptId?: string;
 };

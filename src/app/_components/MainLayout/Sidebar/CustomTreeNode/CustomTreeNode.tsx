@@ -68,7 +68,7 @@ const CustomTreeNode = React.memo(
       (event: SyntheticEvent<Element, Event>) => {
         handleSelection(event);
         dispatch(setSelectedTreeId(nodeId));
-        push(getDepartmentUrl(`${nodeId}`));
+        push(getDepartmentUrl(`${nodeId}/reports`));
         close();
       },
       [close, dispatch, nodeId, push, handleSelection]

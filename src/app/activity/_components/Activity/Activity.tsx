@@ -14,8 +14,13 @@ import FilterActivity from './FilterActivity/FilterActivity';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 import cn from 'classnames';
+import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
-const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
+const Activity = ({
+  deptId,
+  className,
+  ...props
+}: ActivityProps): JSX.Element => {
   const {
     state,
     setState,
@@ -36,7 +41,7 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
     setStartDateChange,
     setEndDateChange,
     sortChange,
-  } = useActivity();
+  } = useActivity(deptId);
 
   return (
     <div {...props} className={styles.wrapper}>
@@ -52,6 +57,8 @@ const Activity = ({ className, ...props }: ActivityProps): JSX.Element => {
       <Htag tag='h2' className={styles.headTitle}>
         Активность
       </Htag>
+
+      <SwitchDepartOnCompany />
 
       <FilterActivity
         active={active}
