@@ -54,7 +54,7 @@ const HeaderLayout = () => {
           onChange={handleChange}
           aria-label='Platform'
           className='my-5 w-full justify-center'
-          orientation={windowSize.winWidth < 420 ? 'vertical' : 'horizontal'}
+          orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value='reports'>Сводка</ToggleButton>
           <ToggleButton value=''>Информация</ToggleButton>

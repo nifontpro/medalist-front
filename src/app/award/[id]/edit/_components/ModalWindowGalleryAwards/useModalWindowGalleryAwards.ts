@@ -47,7 +47,7 @@ export const useModalWindowGalleryAwards = (
     galleryApi.useGetItemsByFolderQuery(
       {
         // folderId: idFolder,
-        folderId: 20,
+        folderId: 1,
         baseRequest: undefined,
       }
       // { skip: idFolder == -1 }
