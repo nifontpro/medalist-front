@@ -88,6 +88,8 @@ export const awardApi = createApi({
     /**
      * Получение наград из отдела [deptId] или всех его подотделов
      * [state] - фильтрация по состоянию (необязательна)
+     * withUsers: Boolean - Включать ли информацию о награжденных (по умолчанию false),
+     *                      использовать при крайней необходимости.
      * [baseRequest]:
      *  subdepts - включать подотделы (true / false)
      *  filter - фильтрация по имени награды (необязателен)
@@ -108,6 +110,7 @@ export const awardApi = createApi({
         authId: number;
         deptId: number;
         state: AwardState | undefined;
+        /*withUser: boolean;*/
         baseRequest: BaseRequest | undefined;
       }
     >({
