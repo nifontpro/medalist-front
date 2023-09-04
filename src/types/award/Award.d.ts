@@ -1,5 +1,6 @@
 import { Dept } from '@/types/dept/dept';
 import { BaseImage } from '@/types/base/image/baseImage';
+import {User} from "@/types/user/user";
 
 export interface Award {
   id: number;
@@ -11,6 +12,7 @@ export interface Award {
   state: AwardState;
   dept: Dept;
   images: BaseImage[];
+  users: User[];
 }
 
 export type AwardType = 'PERIOD' | 'SIMPLE' | 'UNDEF';
