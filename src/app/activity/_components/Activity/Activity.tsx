@@ -58,7 +58,7 @@ const Activity = ({
         Активность
       </Htag>
 
-      <SwitchDepartOnCompany />
+      {/* <SwitchDepartOnCompany /> */}
 
       <FilterActivity
         active={active}

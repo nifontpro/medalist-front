@@ -39,7 +39,7 @@ const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
   ) {
     return (
       <>
-        <SwitchDepartOnCompany />
+        {/* <SwitchDepartOnCompany /> */}
         <div {...props} className={styles.wrapper}>
           <MainAwards
             deptId={deptId}

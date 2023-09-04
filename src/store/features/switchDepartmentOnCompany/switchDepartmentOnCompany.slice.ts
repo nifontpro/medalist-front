@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export const switchDepartmentOnCompanySlice = createSlice({
   name: 'switcher',
-  initialState: false,
+  initialState: true,
   reducers: {
     setSwitcher: (_, action: PayloadAction<boolean>) => action.payload,
   },

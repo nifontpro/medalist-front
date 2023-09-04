@@ -39,6 +39,8 @@ export const useSidebar = () => {
     }
   );
 
+  console.log(subTree);
+
   // _____________ Ниже код для того, чтобы дерево всегда было раскрыто полностью ____________
   function getParentIds(arr: Dept[] | undefined) {
     if (!arr) return [];

@@ -43,7 +43,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
       <div {...props} className={styles.wrapper}>
         <div className={styles.headerTitle}>
           <Htag tag='h2' className={styles.headTitle}>{`Награды`}</Htag>
-          <SwitchDepartOnCompany />
+          {/* <SwitchDepartOnCompany /> */}
           <AuthComponent minRole={'ADMIN'}>
             <div className={styles.createAwardAdaptive}>
               <ButtonCircleIcon

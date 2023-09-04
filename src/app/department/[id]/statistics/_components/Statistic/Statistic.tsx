@@ -25,7 +25,7 @@ const Statistic = ({
         <Htag tag='h3' className={styles.header}>
           Статистика
         </Htag>
-        <SwitchDepartOnCompany />
+        {/* <SwitchDepartOnCompany /> */}
         <div className={styles.headerTitle}></div>
       </div>
 

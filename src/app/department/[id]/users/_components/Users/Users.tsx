@@ -91,7 +91,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             </SortButton>
           </div>
 
-          <SwitchDepartOnCompany />
+          {/* <SwitchDepartOnCompany /> */}
 
           <Search
             onChange={searchHandleChange}
