@@ -7,7 +7,8 @@ export const useStatisticUsersAwards = (departId: string) => {
 
   const { userAwardWWCountOnDept, isLoadingUserAwardWWCountOnDept } =
     useAwardAdmin(departId, {
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
     });
 
   let countWithAward = useMemo(

@@ -18,7 +18,10 @@ const StatisticCountAwards = ({
 
   const { colAwardsOnDepartment, isLoadingColAwardsOnDept } = useAwardAdmin(
     departId,
-    { subdepts: switcher }
+    {
+      // subdepts: switcher
+      subdepts: true,
+    }
   );
 
   return (

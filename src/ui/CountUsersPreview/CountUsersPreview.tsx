@@ -36,7 +36,7 @@ const CountUsersPreview = ({
           <div className={styles.imgWrapper}>
             <div className={styles.img}>
               {usersInDepartment.map((user, index) => {
-                if (index < 4) {
+                if (index < 3) {
                   return (
                     <div key={uniqid()} className={styles.singleImg}>
                       <ImageDefault
@@ -53,9 +53,9 @@ const CountUsersPreview = ({
                 }
               })}
             </div>
-            {usersInDepartment.length > 4 && (
+            {usersInDepartment.length > 3 && (
               <ButtonIcon appearance={appearanceBtn}>
-                +{usersInDepartment.length - 4}
+                +{usersInDepartment.length - 3}
               </ButtonIcon>
             )}
           </div>
@@ -79,7 +79,7 @@ const CountUsersPreview = ({
           <div className={styles.imgWrapper}>
             <div className={styles.imgAwards}>
               {usersAwards.map((item, index) => {
-                if (index < 4) {
+                if (index < 3) {
                   return (
                     <div key={uniqid()} className={styles.singleImg}>
                       <ImageDefault
@@ -96,9 +96,9 @@ const CountUsersPreview = ({
                 }
               })}
             </div>
-            {usersAwards.length > 4 && (
+            {usersAwards.length > 3 && (
               <ButtonIcon appearance={appearanceBtn}>
-                +{usersAwards.length - 4}
+                +{usersAwards.length - 3}
               </ButtonIcon>
             )}
           </div>

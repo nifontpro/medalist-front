@@ -30,7 +30,8 @@ const MainActivity = ({
   const { awardsActivOnDepartment, isLoadingAwardsActivOnDept } = useAwardAdmin(
     deptId ? deptId : typeOfUser?.dept.id,
     {
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
       page: 0,
       pageSize: 5,
       orders: [{ field: 'date', direction: 'DESC' }],

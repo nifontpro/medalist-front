@@ -30,7 +30,11 @@ const MainNominee = ({
 
   const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(
     deptId ? deptId : typeOfUser?.dept.id,
-    { subdepts: switcher, orders: [{ field: 'endDate', direction: 'ASC' }] },
+    {
+      // subdepts: switcher,
+      subdepts: true,
+      orders: [{ field: 'endDate', direction: 'ASC' }],
+    },
     'NOMINEE'
   );
 

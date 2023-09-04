@@ -20,11 +20,15 @@ export const useMainAwards = (deptId: string | undefined) => {
     colAwardsActivRoot,
     isLoadingColAwardsActivRoot,
   } = useAwardAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-    subdepts: switcher,
+    // subdepts: switcher,
+    subdepts: true,
   });
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, { subdepts: switcher });
+    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
+      // subdepts: switcher
+      subdepts: true,
+    });
 
   let countAll = useMemo(
     () =>

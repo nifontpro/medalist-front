@@ -6,7 +6,8 @@ export const useStatisticUsersGender = (departId: string) => {
   const switcher = useAppSelector((state) => state.switcher);
 
   const { usersOnDepartment } = useUserAdmin(departId, {
-    subdepts: switcher,
+    // subdepts: switcher,
+    subdepts: true,
     filter: '',
   });
 

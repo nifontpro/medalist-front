@@ -38,7 +38,8 @@ const MainUsers = ({
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
       orders: [{ field: '(awardCount)', direction: 'DESC' }],
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
       page: page,
       pageSize,
     });

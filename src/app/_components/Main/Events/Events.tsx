@@ -43,7 +43,8 @@ const Events = ({
     deptId ? deptId : typeOfUser?.dept?.id,
     {
       orders: [{ field: '(days)', direction: 'DESC' }],
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
       page: page,
       pageSize,
     }

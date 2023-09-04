@@ -27,7 +27,8 @@ export const useUsers = (id: string) => {
     isLoadingUsersOnDepartment,
     isFetchingUsersOnDepartment,
   } = useUserAdmin(id, {
-    subdepts: switcher,
+    // subdepts: switcher,
+    subdepts: true,
     page: page,
     pageSize: 10,
     filter: searchValue,

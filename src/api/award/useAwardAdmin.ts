@@ -15,7 +15,8 @@ export const useAwardAdmin = (
   baseRequest?: BaseRequest,
   active?: AwardState,
   actionType?: ActionType,
-  awardType?: AwardType
+  awardType?: AwardType,
+  withUsers?: boolean
 ) => {
   const { back } = useRouter();
 
@@ -77,6 +78,7 @@ export const useAwardAdmin = (
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
       deptId: Number(awardId),
+      withUsers: withUsers !== undefined ? withUsers : false,
       state: active ? active : undefined,
       baseRequest: baseRequest ? baseRequest : undefined,
     },

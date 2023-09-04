@@ -43,7 +43,8 @@ export const useActivity = (deptId: string | undefined) => {
   } = useAwardAdmin(
     deptId ? deptId : typeOfUser?.dept.id,
     {
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
       page: page,
       pageSize: 20,
       filter: searchValue,

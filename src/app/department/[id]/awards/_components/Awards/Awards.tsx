@@ -35,6 +35,8 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
     awardLink,
   } = useAwards(id);
 
+  console.log(awardsOnDepartment);
+
   if (isLoadingAwardsOnDept) return <Spinner />;
   if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 

@@ -31,12 +31,16 @@ export const useAwards = (id: string) => {
   } = useAwardAdmin(
     id,
     {
-      subdepts: switcher,
+      // subdepts: switcher,
+      subdepts: true,
       page: page,
       pageSize: 12,
       orders: [{ field: 'startDate', direction: state }],
     },
-    active
+    active,
+    undefined,
+    undefined,
+    true
   );
 
   const totalPage = useMemo(
