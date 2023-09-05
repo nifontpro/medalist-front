@@ -313,7 +313,7 @@ export const userApi = createApi({
     // }),
 
     /**
-     * Получить сотрудников с количеством награждений
+     * Получить сотрудников с количеством награждений и общим числом баллов
      * [baseRequest]:
      *  subdepts - отдел или все подотделы
      *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
@@ -324,6 +324,7 @@ export const userApi = createApi({
      *      "patronymic",
      *      "lastname",
      *      "post",
+     *      "(scores)",
      *      "(awardCount)",
      *      "(deptName)",
      *      "(classname)",

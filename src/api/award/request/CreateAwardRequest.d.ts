@@ -7,6 +7,7 @@ export interface BaseAwardRequest {
   type: AwardType;
   startDate: number;
   endDate: number;
+  score: number;
 
   description?: string;
   criteria?: string;

@@ -14,6 +14,7 @@ export interface User {
   post?: string;
   mainImg?: string;
   awardCount: number;
+  scores: number;
   roles: RoleUser[];
   images: BaseImage[];
   awards?: Award[];

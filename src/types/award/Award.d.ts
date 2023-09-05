@@ -9,6 +9,7 @@ export interface Award {
   type: AwardType;
   startDate: number;
   endDate: number;
+  score: number;
   state: AwardState;
   dept: Dept;
   images: BaseImage[];
