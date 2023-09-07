@@ -109,15 +109,17 @@ const UserListRating = ({
                   [styles.countAwardsDisable]: user.awardCount == 0,
                 })}
               >
-                <Htag
-                  tag='h2'
-                  className={cn({
-                    [styles.disabled]: user.awardCount == 0,
-                  })}
-                >
-                  {user.awardCount}
-                </Htag>
-                <AwardIcon className={styles.union} />
+                <>
+                  <Htag
+                    tag='h2'
+                    className={cn({
+                      [styles.disabled]: user.awardCount == 0,
+                    })}
+                  >
+                    {user.awardCount}
+                  </Htag>
+                  <AwardIcon className={styles.union} />
+                </>
               </div>
 
               {withoutCountAwards == true ? (

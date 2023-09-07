@@ -52,11 +52,6 @@ const Events = ({
 
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
-  if (isLoadingAllEvent) return <Spinner />;
-  if (!allEvent?.success) {
-    return <NoAccess button={false} />;
-  }
-
   return (
     <>
       {allEvent && allEvent.data && allEvent.data?.length > 0 && (

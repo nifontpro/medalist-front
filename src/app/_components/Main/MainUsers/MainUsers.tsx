@@ -44,6 +44,8 @@ const MainUsers = ({
       pageSize,
     });
 
+  console.log(usersOnDepartmentWithAwards);
+
   const totalPage = useMemo(
     () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,
     [usersOnDepartmentWithAwards]
@@ -55,7 +57,9 @@ const MainUsers = ({
         <Htag tag='h2'>Лучшие сотрудники</Htag>
       </div>
       {isLoadingUsersOnDepartmentWithAwards ? (
-        <SpinnerSmall />
+        <div className='h-[300px]'>
+          <SpinnerSmall />
+        </div>
       ) : (
         <div className={styles.contentWrapper}>
           <UserListRating

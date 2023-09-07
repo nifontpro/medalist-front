@@ -7,7 +7,6 @@ import PeopleIconSvg from '@/icons/people.svg';
 import UnionIconSvg from '@/icons/union.svg';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
-import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useMainAwards } from './useMainAwards';
 import { memo } from 'react';
 
@@ -23,7 +22,6 @@ const MainAwards = ({
     countAll,
     typeOfUser,
     colAwardsActivRoot,
-    isLoadingColAwardsActivRoot,
     numberIsNaN,
   } = useMainAwards(deptId);
 
@@ -31,6 +29,8 @@ const MainAwards = ({
     <>
       <div {...props} className={cn(styles.wrapper, className)}>
         <Htag tag='h2'>Медали</Htag>
+
+        {/* Наград */}
         <div className={styles.content}>
           <div
             className={cn(styles.allAwards, styles.card)}
@@ -42,15 +42,13 @@ const MainAwards = ({
               </div>
               <div className={styles.description}>
                 <P size='s'>Наград</P>
-                {countAll !== undefined ? (
-                  <P size='xl'>{countAll}</P>
-                ) : (
-                  <SpinnerSmall position='start' />
-                )}
+                <P size='xl'>{countAll ? countAll : 0}</P>
               </div>
             </div>
             <ArrowIcon />
           </div>
+
+          {/* Есть награды */}
           <div
             className={cn(styles.countAwards, styles.card)}
             onClick={() =>
@@ -64,11 +62,7 @@ const MainAwards = ({
               <div className={styles.description}>
                 <P size='s'>Есть награды</P>
                 <div className='flex items-end'>
-                  {countUserWithAward !== undefined ? (
-                    <P size='xl'>{countUserWithAward}</P>
-                  ) : (
-                    <SpinnerSmall position='start' />
-                  )}
+                  <P size='xl'>{countUserWithAward ? countUserWithAward : 0}</P>
                   <P size='l' color='gray' className={styles.percent}>
                     {numberIsNaN ? '0' : countUserWithAwardPercent} %
                   </P>
@@ -77,6 +71,8 @@ const MainAwards = ({
             </div>
             <ArrowIcon />
           </div>
+
+          {/* Лучший отдел */}
           <div
             className={cn(styles.bestDepart, styles.card)}
             onClick={() =>
@@ -87,20 +83,15 @@ const MainAwards = ({
               <div className={styles.img}>
                 <UnionIcon />
               </div>
-
               <div className={styles.description}>
                 <P size='s' fontstyle='thin'>
                   Лучший отдел
                 </P>
-                {isLoadingColAwardsActivRoot ? (
-                  <SpinnerSmall />
-                ) : (
-                  <P size='m' className={styles.countAwardsTitle}>
-                    {colAwardsActivRoot &&
-                      colAwardsActivRoot.data &&
-                      colAwardsActivRoot?.data[0]?.deptName}
-                  </P>
-                )}
+                <P size='m' className={styles.countAwardsTitle}>
+                  {colAwardsActivRoot &&
+                    colAwardsActivRoot.data &&
+                    colAwardsActivRoot?.data[0]?.deptName}
+                </P>
               </div>
             </div>
             <ArrowIcon />

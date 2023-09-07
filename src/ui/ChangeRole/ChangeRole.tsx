@@ -29,9 +29,9 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
 
   const { close } = useHeader();
 
-  if (isLoadingSingleUser) {
-    return <div>Loading</div>;
-  }
+  // if (isLoadingSingleUser) {
+  //   return <div>Loading</div>;
+  // }
 
   return (
     <>
