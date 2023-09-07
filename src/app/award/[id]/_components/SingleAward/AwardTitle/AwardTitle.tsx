@@ -78,8 +78,13 @@ const AwardTitle = ({
         <P size='m' className={styles.criteriaTitle}>
           Требования
         </P>
+
         <P size='s' fontstyle='thin' className={styles.criteria}>
           {award?.criteria}
+        </P>
+
+        <P size='s' fontstyle='thin' className={styles.criteria}>
+          Вес награды: {award?.award.score}
         </P>
 
         <div className={styles.date}>

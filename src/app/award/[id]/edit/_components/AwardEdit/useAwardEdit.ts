@@ -56,6 +56,7 @@ export const useAwardEdit = (
       setValue('name', singleAward.data.award.name);
       setValue('description', singleAward.data.description);
       setValue('criteria', singleAward.data.criteria);
+      setValue('score', singleAward.data.award.score);
     }
   }, [setValue, typeOfUser, singleAward]);
 

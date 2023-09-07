@@ -140,6 +140,14 @@ const CreateAward = () => {
             error={errors.description}
             className={styles.field}
           />
+          <Field
+            {...register('score', { required: 'Вес необходить!' })}
+            title='Вес награды'
+            placeholder='Введите вес награды'
+            error={errors.score}
+            className={styles.field}
+            type='number'
+          />
 
           <TextArea
             {...register('criteria', { required: 'Критерии необходимы!' })}

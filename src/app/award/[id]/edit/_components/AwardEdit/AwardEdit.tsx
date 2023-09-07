@@ -91,6 +91,14 @@ const AwardEdit = ({ id }: AwardEditProps) => {
             error={errors.description}
             className={styles.field}
           />
+          <Field
+            {...register('score', { required: 'Вес необходим!' })}
+            type='number'
+            title='Вес награды'
+            placeholder='Введите вес награды'
+            error={errors.score}
+            className={styles.field}
+          />
 
           <TextArea
             {...register('criteria', { required: 'Критерии необходимы!' })}
@@ -132,4 +140,4 @@ const AwardEdit = ({ id }: AwardEditProps) => {
   );
 };
 
-export default memo(AwardEdit)
+export default memo(AwardEdit);
