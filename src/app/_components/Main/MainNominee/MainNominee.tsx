@@ -59,7 +59,9 @@ const MainNominee = ({
           <Htag tag='h2'>Номинации</Htag>
           <div
             className={styles.bestNominee}
-            onClick={() => push(`/department/${typeOfUser?.dept.id}/awards`)}
+            onClick={() =>
+              push(`/department/${typeOfUser?.dept.id}/awards?active=NOMINEE`)
+            }
           >
             <P size='s' fontstyle='thin' className={styles.text}>
               Все

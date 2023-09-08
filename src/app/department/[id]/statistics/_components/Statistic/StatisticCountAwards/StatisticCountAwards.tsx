@@ -31,7 +31,7 @@ const StatisticCountAwards = ({
           <CupIcon />
           <div>
             <P size='s' className={styles.descriptionTitle}>
-              Медали
+              Награды
             </P>
             {isLoadingColAwardsOnDept ? (
               <SpinnerSmall position='start' />

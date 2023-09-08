@@ -59,7 +59,7 @@ const HeaderLayout = () => {
           <ToggleButton value='reports'>Сводка</ToggleButton>
           <ToggleButton value=''>Информация</ToggleButton>
           <ToggleButton value='users'>Сотрудники</ToggleButton>
-          <ToggleButton value='awards'>Медали</ToggleButton>
+          <ToggleButton value='awards'>Награды</ToggleButton>
           <ToggleButton value='statistics'>Статистика</ToggleButton>
         </ToggleButtonGroup>
       )}

@@ -3,13 +3,23 @@ import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getAwardCreateUrl } from '@/config/api.config';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 
 export const useAwards = (id: string) => {
   const switcher = useAppSelector((state) => state.switcher);
 
-  const [active, setActive] = useState<AwardState | undefined>(undefined);
+  //устанавливаем дефолтное значение active, в зависимости откуда перешли
+  const searchParams = useSearchParams();
+  const activeDefault: AwardState | null = useMemo(
+    () => searchParams.get('active') as AwardState,
+    [searchParams]
+  );
+  //______________________
+
+  const [active, setActive] = useState<AwardState | undefined>(
+    activeDefault !== null ? activeDefault : undefined
+  );
 
   const { push } = useRouter();
 

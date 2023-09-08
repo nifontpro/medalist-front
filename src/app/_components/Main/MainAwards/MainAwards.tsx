@@ -28,13 +28,15 @@ const MainAwards = ({
   return (
     <>
       <div {...props} className={cn(styles.wrapper, className)}>
-        <Htag tag='h2'>Медали</Htag>
+        <Htag tag='h2'>Награды</Htag>
 
         {/* Наград */}
         <div className={styles.content}>
           <div
             className={cn(styles.allAwards, styles.card)}
-            onClick={() => push(`/department/${typeOfUser?.dept.id}/awards`)}
+            onClick={() =>
+              push(`/department/${typeOfUser?.dept.id}/awards?active=FINISH`)
+            }
           >
             <div className='flex'>
               <div className={styles.img}>

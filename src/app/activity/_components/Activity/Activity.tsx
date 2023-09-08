@@ -86,7 +86,7 @@ const Activity = ({
           onClickActive={'FINISH'}
           className={styles.award}
         >
-          Медали
+          Награды
         </TabTitle>
         <TabTitle
           setPage={setPage}
