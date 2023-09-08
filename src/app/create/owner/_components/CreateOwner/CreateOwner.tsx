@@ -51,10 +51,10 @@ const CreateOwner = () => {
 
           <div className={styles.groupGender}>
             <Field
-              {...register('lastname', { required: 'Фамилия необходима!' })}
-              title='Фамилия'
-              placeholder='Введите Фамилию'
-              error={errors.lastname}
+              {...register('firstname', { required: 'Имя обязательно!' })}
+              title='Имя'
+              placeholder='Введите имя'
+              error={errors.firstname}
             />
             <InputRadio
               active={active}
@@ -65,10 +65,10 @@ const CreateOwner = () => {
 
           <div className={styles.group}>
             <Field
-              {...register('firstname', { required: 'Имя обязательно!' })}
-              title='Имя'
-              placeholder='Введите имя'
-              error={errors.firstname}
+              {...register('lastname', { required: 'Фамилия необходима!' })}
+              title='Фамилия'
+              placeholder='Введите Фамилию'
+              error={errors.lastname}
             />
 
             <Field
