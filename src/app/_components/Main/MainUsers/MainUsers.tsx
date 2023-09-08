@@ -44,8 +44,6 @@ const MainUsers = ({
       pageSize,
     });
 
-  console.log(usersOnDepartmentWithAwards);
-
   const totalPage = useMemo(
     () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,
     [usersOnDepartmentWithAwards]
