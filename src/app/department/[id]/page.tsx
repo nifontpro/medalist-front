@@ -14,7 +14,6 @@ import EventDepartment from './_components/EventDepartment/EventDepartment';
 //     }),
 //   });
 //   const data = await response;
-//   console.log(data);
 //   return data;
 // }
 

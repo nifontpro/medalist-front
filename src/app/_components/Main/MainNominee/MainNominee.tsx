@@ -46,8 +46,6 @@ const MainNominee = ({
     [awardsOnDepartment]
   );
 
-  console.log(minEndDateNominee);
-
   let currentDate = +new Date();
 
   if (!minEndDateNominee) {
