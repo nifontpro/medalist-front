@@ -3,11 +3,13 @@
 
   .link {
     margin-right: 10px;
+    color: var(--gray96);
     cursor: pointer;
     border-bottom: 2px solid transparent;
     @apply duration-200;
 
     &:hover {
+      color: var(--gray-dark);
       border-bottom: 2px solid var(--gray-dark);
     }
 
@@ -20,6 +22,7 @@
 }
 
 .br {
+  color: var(--gray96) !important;
   cursor: default;
   margin-right: 10px !important;
 }
