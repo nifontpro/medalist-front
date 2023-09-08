@@ -3,7 +3,8 @@ import CreateOwner from './_components/CreateOwner/CreateOwner';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Create Owner | Medalist`,
+    title: `Создание владельца`,
+    description: 'Страница создания владельца',
   };
 }
 

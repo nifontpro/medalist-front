@@ -1,4 +1,15 @@
 import Main from '@/app/_components/Main/Main';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  return {
+    title: `Дошборд отдела ${params.id}`,
+  };
+}
 
 export default function DepartmentReports({
   params,

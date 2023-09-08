@@ -1,10 +1,12 @@
 // import SingleUser from './_components/SingleUser/SingleUser';
 import { Metadata } from 'next';
 import Activity from './_components/Activity/Activity';
+import { useUserAdmin } from '@/api/user/useUserAdmin';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Activity | Medalist`,
+    title: `Активность`,
+    description: 'Активность отдела и подотделов',
   };
 }
 

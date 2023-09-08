@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'Medalist',
-  description: 'MainPage Medalist',
+  title: 'Medalist Главная',
+  description: 'Главная страница Medalist',
 };
 
 export default function RootLayout({

@@ -56,7 +56,7 @@ const HeaderLayout = () => {
           className='my-5 w-full justify-center'
           orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
         >
-          <ToggleButton value='reports'>Сводка</ToggleButton>
+          <ToggleButton value='reports'>Дашборд</ToggleButton>
           <ToggleButton value=''>Информация</ToggleButton>
           <ToggleButton value='users'>Сотрудники</ToggleButton>
           <ToggleButton value='awards'>Награды</ToggleButton>

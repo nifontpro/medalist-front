@@ -7,7 +7,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   return {
-    title: `Department edit ${params.id} | Medalist`,
+    title: `Редактирование ${params.id}`,
   };
 }
 

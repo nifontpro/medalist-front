@@ -10,11 +10,22 @@ import AwardWasAwarded from './AwardWasAwarded/AwardWasAwarded';
 import AwardWasNominee from './AwardWasNominee/AwardWasNominee';
 import AwardNominee from './AwardNominee/AwardNominee';
 import { memo } from 'react';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
+import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 
-const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
+const SingleAward = ({ id, className, ...props }: SingleAwardProps) => {
+  const { singleAward: award, isLoadingSingleAward } = useAwardAdmin(id);
+
   const { back } = useRouter();
 
-  if (award?.award.state == 'FINISH' || award?.award.state == 'ERROR') {
+  if (isLoadingSingleAward) return <Spinner />;
+  if (!award?.success) return <NoAccess />;
+
+  if (
+    award?.data?.award.state == 'FINISH' ||
+    award?.data?.award.state == 'ERROR'
+  ) {
     return (
       <div {...props} className={cn(className)}>
         <ButtonCircleIcon
@@ -26,9 +37,9 @@ const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
           Вернуться назад
         </ButtonCircleIcon>
 
-        <AwardTitle award={award} />
-        <AwardWasAwarded award={award} id={id} />
-        <AwardWasNominee award={award} id={id} className='mb-[50px]' />
+        <AwardTitle award={award.data!} />
+        <AwardWasAwarded award={award.data!} id={id} />
+        <AwardWasNominee award={award.data!} id={id} className='mb-[50px]' />
         <ButtonScrollUp />
       </div>
     );
@@ -44,12 +55,12 @@ const SingleAward = ({ award, id, className, ...props }: SingleAwardProps) => {
           Вернуться назад
         </ButtonCircleIcon>
 
-        <AwardTitle award={award} />
-        <AwardNominee award={award} id={id} />
+        <AwardTitle award={award.data!} />
+        <AwardNominee award={award.data!} id={id} />
         <ButtonScrollUp />
       </div>
     );
   }
 };
 
-export default memo(SingleAward)
+export default memo(SingleAward);

@@ -3,7 +3,8 @@ import CreateUser from './_components/CreateUser/CreateUser';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Create User | Medalist`,
+    title: `Создание сотрудника`,
+    description: 'Страница создания сотрудника',
   };
 }
 

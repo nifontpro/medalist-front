@@ -2,24 +2,29 @@ import { Metadata } from 'next';
 import TitleSingleDepartment from './_components/TitleSingleDepartment/TitleSingleDepartment';
 import EventDepartment from './_components/EventDepartment/EventDepartment';
 
-async function getData(id: string) {
-  const response = await fetch(`https://nmedalist.ru:8765/client/dept/get_id`, {
-    next: {
-      revalidate: 60,
-    },
-  });
-  return response.json;
-}
+// async function getData(id: string) {
+//   const response = fetch(`https://nmedalist.ru:8765/client/dept/get_id`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       authId: 78,
+//       id,
+//     }),
+//   });
+//   const data = await response;
+//   console.log(data);
+//   return data;
+// }
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  // const data = getData(params.id)
   return {
-    title: `Department ${params.id} | Medalist`,
-    // title: `Department ${data.deptName} | Medalist`,
+    title: `Отдел ${params.id}`,
   };
 }
 
@@ -28,8 +33,6 @@ export default async function SingleDepartment({
 }: {
   params: { id: string };
 }) {
-  // const data = getData(params.id)
-
   return (
     <main>
       <TitleSingleDepartment id={params.id} />

@@ -3,7 +3,8 @@ import CreateAward from './_components/CreateAward/CreateAward';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Create Award | Medalist`,
+    title: `Создание награды`,
+    description: 'Создание награды или номинации',
   };
 }
 

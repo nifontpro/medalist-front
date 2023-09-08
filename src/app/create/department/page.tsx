@@ -3,7 +3,8 @@ import CreateDepartment from './_components/CreateDepartment/CreateDepartment';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Create Department | Medalist`,
+    title: `Создание отдела`,
+    description: 'Создание отдела, подразделения',
   };
 }
 
