@@ -1,4 +1,6 @@
 .role {
+  min-width: 300px;
+  min-height: 54.48px;
   padding: 14px 24px;
   cursor: pointer;
   color: var(--white);
@@ -10,6 +12,7 @@
 
   @media screen and (max-width: 840px) {
     display: none;
+    min-width: auto;
     justify-content: space-between;
   }
 

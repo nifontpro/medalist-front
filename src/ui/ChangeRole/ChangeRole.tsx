@@ -33,6 +33,9 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
   //   return <div>Loading</div>;
   // }
 
+  let firstname = singleUser?.data?.user.firstname;
+  let lastname = singleUser?.data?.user.lastname;
+
   return (
     <>
       <div
@@ -44,8 +47,8 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
       >
         {singleUser?.success == false
           ? `Выберете пользователя`
-          : `${singleUser?.data?.user.firstname} ${singleUser?.data?.user.lastname}`}
-        <ArrowIcon />
+          : `${firstname ? firstname : ''} ${lastname ? lastname : ''}`}
+        {firstname && lastname ? <ArrowIcon /> : null}
       </div>
     </>
   );
