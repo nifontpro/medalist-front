@@ -41,9 +41,9 @@ function Breadcrumbs(): JSX.Element {
                 <div className='cursor-default'>{checkSegments(segment)}</div>
               ) : (
                 <div className='flex'>
-                  <li className={styles.link}>
+                  <div className={styles.link}>
                     <Link href={href}>{checkSegments(segment)}</Link>
-                  </li>
+                  </div>
                   <P fontstyle='thin' className={styles.br}>
                     /
                   </P>
