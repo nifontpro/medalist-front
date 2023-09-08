@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+
+  .link {
+    margin-right: 10px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    @apply duration-200;
+
+    &:hover {
+      border-bottom: 2px solid var(--gray-dark);
+    }
+
+    &:last-child {
+      margin-right: 0px;
+      border-bottom: 2px solid transparent;
+      cursor: default;
+    }
+  }
+}
+
+.br {
+  cursor: default;
+  margin-right: 10px !important;
+}

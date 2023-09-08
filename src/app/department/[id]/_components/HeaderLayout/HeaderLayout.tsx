@@ -4,10 +4,10 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { memo, useCallback, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { convertPathName } from './convertPathName';
 import { getLastUrl } from './getLastUrl';
+import Breadcrumbs from '@/ui/Breadcrumbs/Breadcrumbs';
 
 type Alignment = 'reports' | 'users' | 'awards' | 'statistics' | '';
 
@@ -38,14 +38,7 @@ const HeaderLayout = () => {
 
   return (
     <>
-      <ButtonCircleIcon
-        onClick={back}
-        classNameForIcon=''
-        appearance='black'
-        icon='down'
-      >
-        Вернуться назад
-      </ButtonCircleIcon>
+      <Breadcrumbs />
       {getLastUrl(pathName) === 'edit' ? null : (
         <ToggleButtonGroup
           color='primary'
