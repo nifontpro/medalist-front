@@ -11,6 +11,8 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
 
+let currentDate = Math.floor(new Date().getTime());
+
 const MainUsers = ({
   deptId,
   className,
@@ -37,13 +39,16 @@ const MainUsers = ({
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-      // orders: [{ field: '(awardCount)', direction: 'DESC' }],
       orders: [{ field: '(scores)', direction: 'DESC' }],
       // subdepts: switcher,
       subdepts: true,
       page: page,
       pageSize,
+      minDate: currentDate - 31556926000, // Вычитаем год, чтобы получить за прошедший 1 год лучших
+      maxDate: currentDate,
     });
+
+  console.log(usersOnDepartmentWithAwards);
 
   const totalPage = useMemo(
     () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,
