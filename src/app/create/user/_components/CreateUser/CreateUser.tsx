@@ -13,8 +13,8 @@ import Button from '@/ui/Button/Button';
 import { Gender } from '@/types/user/user';
 import { withHookFormMask } from 'use-mask-input';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
-import SelectArtem from '@/ui/SelectArtem/SelectArtem';
-import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
+import SelectRole from '@/ui/SelectRole/SelectRole';
+import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 
 const roles: IOption[] = [
@@ -116,7 +116,7 @@ const CreateUser = () => {
                 required: 'Необходимо выбрать роль!',
               }}
               render={({ field, fieldState: { error } }) => (
-                <SelectArtem
+                <SelectRole
                   error={error}
                   field={field}
                   placeholder='Роль пользователя'

@@ -17,7 +17,7 @@ import Select, { OnChangeValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
-import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
+import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import Htag from '@/ui/Htag/Htag';
 import Button from '@/ui/Button/Button';
 import { setVisible } from '@/store/features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';

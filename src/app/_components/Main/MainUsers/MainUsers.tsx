@@ -9,56 +9,41 @@ import UserListRating from '@/ui/UserListRating/UserListRating';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
-import { memo, useMemo } from 'react';
-
-let currentDate = Math.floor(new Date().getTime());
+import { memo, useMemo, useState } from 'react';
+import SelectIntervalDateUsers from '@/ui/SelectIntervalDateUsers/SelectIntervalDateUsers';
+import { IOptionInterval } from '@/ui/SelectIntervalDateUsers/SelectIntervalDateUsers.interface';
+import { useMainUsers } from './useMainUsers';
 
 const MainUsers = ({
   deptId,
   className,
   ...props
 }: MainUsersProps): JSX.Element => {
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
-  const switcher = useAppSelector((state) => state.switcher);
-
   const {
+    dataInterval,
+    setDataInterval,
+    roles,
+    isLoadingUsersOnDepartmentWithAwards,
+    usersOnDepartmentWithAwards,
     page,
-    setPage,
-    searchValue,
-    setSearchValue,
-    state,
-    setState,
+    pageSize,
+    totalPage,
+    startPage,
     nextPage,
     prevPage,
-  } = useFetchParams();
-  const pageSize: number = useMemo(() => 8, []);
-  const startPage: number = useMemo(() => page + 1, [page]);
-
-  const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-      orders: [{ field: '(scores)', direction: 'DESC' }],
-      // subdepts: switcher,
-      subdepts: true,
-      page: page,
-      pageSize,
-      minDate: currentDate - 31556926000, // Вычитаем год, чтобы получить за прошедший 1 год лучших
-      maxDate: currentDate,
-    });
-
-  console.log(usersOnDepartmentWithAwards);
-
-  const totalPage = useMemo(
-    () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,
-    [usersOnDepartmentWithAwards]
-  );
+  } = useMainUsers(deptId);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
         <Htag tag='h2'>Лучшие сотрудники</Htag>
+        <SelectIntervalDateUsers
+          dataInterval={dataInterval}
+          setDataInterval={setDataInterval}
+          options={roles || []}
+          isLoading={false}
+          isMulti={false}
+        />
       </div>
       {isLoadingUsersOnDepartmentWithAwards ? (
         <div className='h-[300px]'>
