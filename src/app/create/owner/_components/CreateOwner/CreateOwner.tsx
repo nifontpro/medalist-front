@@ -90,7 +90,7 @@ const CreateOwner = () => {
               error={errors.post}
             />
             <Field
-              {...register('phone', { required: 'Сотовый обязательно!' })}
+              {...register('phone')}
               title='Мобильный'
               placeholder='Введите номер'
               error={errors.phone}
