@@ -2,7 +2,7 @@ import { ChangeRoleProps } from './ChangeRole.props';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import styles from './ChangeRole.module.scss';
 import cn from 'classnames';
-import { setIsOpen } from '@/store/features/userSelection/userSelection.slice';
+import { setIsOpenUserSelection } from '@/store/features/userSelection/userSelection.slice';
 import { RootState } from '@/store/storage/store';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
@@ -42,7 +42,7 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
         className={cn(styles.role, className)}
         onClick={() => {
           close();
-          dispatch(setIsOpen(true));
+          dispatch(setIsOpenUserSelection(true));
         }}
       >
         {singleUser?.success == false

@@ -11,10 +11,7 @@ import styles from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
-import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import { memo } from 'react';
-import Htag from '@/ui/Htag/Htag';
-import Link from 'next/link';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -31,7 +28,6 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     <div className={cn(styles.wrapper, className)} {...props}>
       <ExitIcon />
       <Logo className={styles.logo} />
-      <ChangeRole className={styles.role} />
       <TreeView
         aria-label='file system navigator'
         defaultCollapseIcon={<ExpandMoreIcon />}

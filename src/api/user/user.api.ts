@@ -18,7 +18,7 @@ export const userUrl = (string: string = '') => `/client/user${string}`;
 export const userApi = createApi({
   reducerPath: 'UserApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Settings', 'Action'],
+  tagTypes: ['User', 'Settings', 'Action', 'None'],
   endpoints: (build) => ({
     getTestData: build.query<{ res: string }, void>({
       query: () => {
@@ -369,5 +369,18 @@ export const userApi = createApi({
       }),
       providesTags: ['Settings'],
     }),
+
+    /**
+     * Проверка, зарегистрирован ли сотрудник как Владелец
+     */
+    hasUserOwnerRole: build.query<BaseResponse<boolean>, { userId: number }>({
+      query: (request) => ({
+        method: 'POST',
+        url: userUrl('/has_owner'),
+        body: request,
+      }),
+      providesTags: ['None'],
+    }),
+
   }),
 });

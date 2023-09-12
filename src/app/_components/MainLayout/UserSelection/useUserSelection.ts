@@ -1,9 +1,8 @@
-
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { userApi } from '@/api/user/user.api';
 import {
   setTypeOfUser_IsOpen,
-  setIsOpen,
+  setIsOpenUserSelection,
 } from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
@@ -47,7 +46,7 @@ export const useUserSelection = () => {
     isLoading,
     dispatch,
     push,
-    setIsOpen,
+    setIsOpenUserSelection,
     expandedIds,
     selectedIds,
   };

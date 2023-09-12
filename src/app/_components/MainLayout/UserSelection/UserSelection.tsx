@@ -34,7 +34,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     isLoading,
     push,
     dispatch,
-    setIsOpen,
+    setIsOpenUserSelection,
     expandedIds,
     selectedIds,
   } = useUserSelection();
@@ -66,7 +66,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     info: PanInfo
   ) => {
     if (info.offset.y > 100 && info.offset.y < 1000) {
-      dispatch(setIsOpen(false));
+      dispatch(setIsOpenUserSelection(false));
     }
   };
 
@@ -108,10 +108,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
               >
                 <div
                   className={styles.slash}
-                  onClick={() => dispatch(setIsOpen(false))}
+                  onClick={() => dispatch(setIsOpenUserSelection(false))}
                 />
                 <ExitIcon
-                  onClick={() => dispatch(setIsOpen(false))}
+                  onClick={() => dispatch(setIsOpenUserSelection(false))}
                   className={styles.exit}
                 />
                 <div className={styles.moduleContent}>
@@ -134,22 +134,28 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                             alt='preview image'
                             className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
                           />
-                          {role.firstname}
+                          {role.dept.name}
                         </div>
                       );
                     })
                   ) : (
                     <div className='text-center'>Нет аккаунтов</div>
                   )}
-                  <div
-                    className={styles.createWrapper}
-                    onClick={() => push(getOwnerCreateUrl())}
-                  >
-                    <CreateOwnerIcon className={styles.owner} />
-                    <P color='black' fontstyle='thin' className={styles.create}>
-                      Зарегистрироваться как владелец
-                    </P>
-                  </div>{' '}
+                  {rolesUser?.data?.length == 0 ? (
+                    <div
+                      className={styles.createWrapper}
+                      onClick={() => push(getOwnerCreateUrl())}
+                    >
+                      <CreateOwnerIcon className={styles.owner} />
+                      <P
+                        color='black'
+                        fontstyle='thin'
+                        className={styles.create}
+                      >
+                        Зарегистрироваться как владелец
+                      </P>
+                    </div>
+                  ) : null}{' '}
                   {rolesUser &&
                     rolesUser.data &&
                     rolesUser.data.length == 0 && (

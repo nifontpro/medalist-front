@@ -126,7 +126,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 error={errors.post}
               />
               <Field
-                {...register('phone', { required: 'Сотовый обязательно!' })}
+                {...register('phone')}
                 title='Сотовый'
                 placeholder='Введите свой сотовый'
                 error={errors.phone}

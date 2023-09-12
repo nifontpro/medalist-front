@@ -12,7 +12,7 @@
   align-items: center;
 
   .window {
-    width: fit-content;
+    min-width: 400px;
     height: fit-content;
     background: var(--white);
     border-radius: 16px;
