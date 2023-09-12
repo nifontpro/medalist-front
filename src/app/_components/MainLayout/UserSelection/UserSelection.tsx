@@ -134,22 +134,28 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                             alt='preview image'
                             className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
                           />
-                          {role.firstname}
+                          {role.dept.name}
                         </div>
                       );
                     })
                   ) : (
                     <div className='text-center'>Нет аккаунтов</div>
                   )}
-                  <div
-                    className={styles.createWrapper}
-                    onClick={() => push(getOwnerCreateUrl())}
-                  >
-                    <CreateOwnerIcon className={styles.owner} />
-                    <P color='black' fontstyle='thin' className={styles.create}>
-                      Зарегистрироваться как владелец
-                    </P>
-                  </div>{' '}
+                  {rolesUser?.data?.length == 0 ? (
+                    <div
+                      className={styles.createWrapper}
+                      onClick={() => push(getOwnerCreateUrl())}
+                    >
+                      <CreateOwnerIcon className={styles.owner} />
+                      <P
+                        color='black'
+                        fontstyle='thin'
+                        className={styles.create}
+                      >
+                        Зарегистрироваться как владелец
+                      </P>
+                    </div>
+                  ) : null}{' '}
                   {rolesUser &&
                     rolesUser.data &&
                     rolesUser.data.length == 0 && (
