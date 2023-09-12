@@ -1,18 +1,15 @@
 import { User } from '@/types/user/user';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { useRouter } from 'next/navigation';
-import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
 import { useJwt } from 'react-jwt';
 import { RootState } from '@/store/storage/store';
-// import {
-//   setSelectedTreeId,
-//   setArrayIds,
-// } from '@/store/features/sidebar/sidebarTree.slice';
 import { authActions } from '@/store/features/auth/auth.slice';
-// import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { deleteCookie } from 'cookies-next';
+import { useHeader } from '../../useHeader';
+import { setIsOpenUserSelection } from '@/store/features/userSelection/userSelection.slice';
 
 function logoutWin(it: string) {
   const params = [
@@ -31,6 +28,7 @@ export const useUserPanelModalWindow = (
 ) => {
   const { push } = useRouter();
   const dispatch = useAppDispatch();
+  const { close } = useHeader();
 
   const { idToken } = useAppSelector((state: RootState) => state.auth);
 
@@ -40,6 +38,12 @@ export const useUserPanelModalWindow = (
     push(getUserUrl(`/${user?.id}`));
     setVisibleModal && setVisibleModal(false);
   }, [push, setVisibleModal, user]);
+
+  const handleChangeCompany = useCallback(() => {
+    close();
+    dispatch(setIsOpenUserSelection(true));
+    setVisibleModal && setVisibleModal(false);
+  }, [close, dispatch, setVisibleModal]);
 
   const handleClickEditProfile = useCallback(() => {
     push(getUserEditUrl(`${user?.id}`));
@@ -90,6 +94,7 @@ export const useUserPanelModalWindow = (
     handleClickProfile,
     handleClickEditProfile,
     handleLogoutClick,
+    handleChangeCompany,
   };
 };
 

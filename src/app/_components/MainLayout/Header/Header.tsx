@@ -13,7 +13,6 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from '../Sidebar/Sidebar';
 import Logo from '@/ui/Logo/Logo';
-import ChangeRole from '@/ui/ChangeRole/ChangeRole';
 import Notification from './Notification/Notification';
 import { memo } from 'react';
 import React from 'react';
@@ -44,7 +43,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
       <header className={cn(styles.wrapper, className)} {...props}>
         <MenuIcon />
         <Logo className={styles.logo} />
-        <ChangeRole />
         <div className={styles.user}>
           <Notification />
           <UserLogo user={singleUser?.data?.user} className={styles.userImg} />

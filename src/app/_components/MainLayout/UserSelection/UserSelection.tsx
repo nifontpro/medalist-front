@@ -34,7 +34,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     isLoading,
     push,
     dispatch,
-    setIsOpen,
+    setIsOpenUserSelection,
     expandedIds,
     selectedIds,
   } = useUserSelection();
@@ -66,7 +66,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     info: PanInfo
   ) => {
     if (info.offset.y > 100 && info.offset.y < 1000) {
-      dispatch(setIsOpen(false));
+      dispatch(setIsOpenUserSelection(false));
     }
   };
 
@@ -108,10 +108,10 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
               >
                 <div
                   className={styles.slash}
-                  onClick={() => dispatch(setIsOpen(false))}
+                  onClick={() => dispatch(setIsOpenUserSelection(false))}
                 />
                 <ExitIcon
-                  onClick={() => dispatch(setIsOpen(false))}
+                  onClick={() => dispatch(setIsOpenUserSelection(false))}
                   className={styles.exit}
                 />
                 <div className={styles.moduleContent}>

@@ -23,16 +23,20 @@ export const userSelectionSlice = createSlice({
       state.typeOfUser = action.payload;
       state.isOpen = false;
     },
-    setIsOpen: (state, action: PayloadAction<boolean>) => {
+    setIsOpenUserSelection: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload;
     },
     setTypeOfUserUndefined: (state) => {
-      state.typeOfUser = undefined
+      state.typeOfUser = undefined;
     },
   },
 });
 
-export const { setTypeOfUser, setTypeOfUser_IsOpen, setIsOpen, setTypeOfUserUndefined } =
-  userSelectionSlice.actions;
+export const {
+  setTypeOfUser,
+  setTypeOfUser_IsOpen,
+  setIsOpenUserSelection,
+  setTypeOfUserUndefined,
+} = userSelectionSlice.actions;
 
 export default userSelectionSlice.reducer;

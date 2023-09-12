@@ -11,6 +11,8 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
+import { userApi } from '@/api/user/user.api';
+import { useAppSelector } from '@/store/hooks/hooks';
 
 const UserPanelModalWindow = forwardRef(
   (
@@ -23,8 +25,20 @@ const UserPanelModalWindow = forwardRef(
     }: UserPanelModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const { handleClickProfile, handleClickEditProfile, handleLogoutClick } =
-      useUserPanelModalWindow(setVisibleModal, user);
+    const {
+      handleClickProfile,
+      handleClickEditProfile,
+      handleLogoutClick,
+      handleChangeCompany,
+    } = useUserPanelModalWindow(setVisibleModal, user);
+
+    const { isAuth } = useAppSelector((state) => state.auth);
+    const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
+      undefined,
+      {
+        skip: !isAuth,
+      }
+    );
 
     const { windowSize } = useWindowSize();
 
@@ -86,6 +100,14 @@ const UserPanelModalWindow = forwardRef(
                   Мой профиль
                 </P>
               </li>
+              {rolesUser?.data?.length && rolesUser?.data?.length > 1 ? (
+                <li className={styles.item} onClick={handleChangeCompany}>
+                  <ProfileIcon />
+                  <P size='xs' fontstyle='thin' className={styles.link}>
+                    Выбрать организацию
+                  </P>
+                </li>
+              ) : null}
               <li className={styles.item} onClick={handleClickEditProfile}>
                 <EditIcon />
                 <P size='xs' fontstyle='thin' className={styles.link}>
