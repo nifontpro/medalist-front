@@ -58,16 +58,16 @@ body[data-theme='dark'] {
   @apply duration-200;
 }
 
-.Mui-selected {
-  // поправить стиль т.к. он влияет на ToggleButton в layout department
-  background: var(--white) !important;
-  > .MuiTreeItem-label {
-    color: var(--black);
-  }
-  > .MuiTreeItem-iconContainer {
-    color: var(--black);
-  }
-}
+// .Mui-selected {
+//   // поправить стиль т.к. он влияет на ToggleButton в layout department
+//   background: var(--white) !important;
+//   > .MuiTreeItem-label {
+//     color: var(--black);
+//   }
+//   > .MuiTreeItem-iconContainer {
+//     color: var(--black);
+//   }
+// }
 
 /* React Select */
 .custom-select {
