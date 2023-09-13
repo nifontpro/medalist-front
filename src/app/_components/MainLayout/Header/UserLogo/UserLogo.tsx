@@ -3,7 +3,6 @@ import { UserLogoProps } from './UserLogo.props';
 import UserPanelModalWindow from './UserPanelModalWindow/UserPanelModalWindow';
 import { memo, useCallback, useRef, useState } from 'react';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-import { useUserPanelModalWindow } from './UserPanelModalWindow/useUserPanelModalWindow';
 
 const UserLogo = ({
   user,
@@ -20,37 +19,24 @@ const UserLogo = ({
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
 
-  const { handleLogoutClick } = useUserPanelModalWindow(setVisibleModal, user);
-
   return (
     <>
-      {
-        user ? (
-          <div
-            className={className}
-            ref={refOpen}
-            {...props}
-            onClick={() => setVisibleModal(!visibleModal)}
-          >
-            <ImageDefault
-              src={user.mainImg}
-              width={64}
-              height={64}
-              alt='preview image'
-              className='rounded-[10px]'
-              priority={true}
-            />
-          </div>
-        ) : (
-          <div
-            className='@apply text-white flex justify-center items-center cursor-pointer'
-            onClick={handleLogoutClick}
-          >
-            exit
-          </div>
-        )
-        // null
-      }
+      <div
+        className={className}
+        ref={refOpen}
+        {...props}
+        onClick={() => setVisibleModal(!visibleModal)}
+      >
+        <ImageDefault
+          src={user ? user.mainImg : undefined}
+          width={64}
+          height={64}
+          alt='preview image'
+          className='rounded-[10px]'
+          priority={true}
+        />
+      </div>
+
       {user && (
         <UserPanelModalWindow
           visibleModal={visibleModal}

@@ -19,19 +19,19 @@ export const useMainUsers = (deptId: string | undefined) => {
   );
   const roles: IOptionInterval[] = [
     {
-      label: 'Год',
+      label: 'За год',
       value: currentDate - oneYear,
     },
     {
-      label: 'Полгода',
+      label: 'За полгода',
       value: currentDate - oneYear / 2,
     },
     {
-      label: 'Квартал',
+      label: 'За квартал',
       value: currentDate - 31556926000 / 4,
     },
     {
-      label: 'Месяц',
+      label: 'За месяц',
       value: currentDate - 31556926000 / 12,
     },
   ];

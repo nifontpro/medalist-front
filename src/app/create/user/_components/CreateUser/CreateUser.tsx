@@ -16,6 +16,7 @@ import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 import SelectRole from '@/ui/SelectRole/SelectRole';
 import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import P from '@/ui/P/P';
 
 const roles: IOption[] = [
   {
@@ -60,40 +61,40 @@ const CreateUser = () => {
             Новый сотрудник
           </Htag>
 
-          <div className={styles.groupGender}>
+          <div className={styles.group}>
             <Field
               {...register('firstname', { required: 'Имя обязательно!' })}
-              title='Имя'
+              title='Имя*'
               placeholder='Введите имя'
               error={errors.firstname}
             />
-            <InputRadio
-              active={active}
-              setActive={setActive}
-              className={styles.gender}
-            />
+            <div className={styles.groupGender}>
+              <Field
+                {...register('lastname', { required: 'Фамилия необходима!' })}
+                title='Фамилия*'
+                placeholder='Введите Фамилию'
+                error={errors.lastname}
+              />
+              <InputRadio
+                active={active}
+                setActive={setActive}
+                className={styles.gender}
+              />
+            </div>
           </div>
 
-          <div className={styles.group}>
-            <Field
-              {...register('lastname', { required: 'Фамилия необходима!' })}
-              title='Фамилия'
-              placeholder='Введите Фамилию'
-              error={errors.lastname}
-            />
-
-            <Field
-              {...register('patronymic')}
-              title='Отчество'
-              placeholder='Введите отчество'
-              error={errors.patronymic}
-            />
-          </div>
+          <Field
+            {...register('patronymic')}
+            title='Отчество'
+            placeholder='Введите отчество'
+            error={errors.patronymic}
+            className={styles.field}
+          />
 
           <div className={styles.group}>
             <Field
               {...register('post', { required: 'Должность обязательна!' })}
-              title='Должность'
+              title='Должность*'
               placeholder='Введите должность'
               error={errors.post}
             />
@@ -119,7 +120,7 @@ const CreateUser = () => {
                 <SelectRole
                   error={error}
                   field={field}
-                  placeholder='Роль пользователя'
+                  placeholder='Роль пользователя*'
                   options={roles || []}
                   isLoading={false}
                   isMulti={true}
@@ -134,7 +135,7 @@ const CreateUser = () => {
                   message: 'Entered value does not match email format',
                 },
               })}
-              title='Email'
+              title='Email*'
               placeholder='Введите свой email'
               error={errors.authEmail}
             />
@@ -153,8 +154,10 @@ const CreateUser = () => {
             title='О сотруднике'
             placeholder='Введите информацию о владельце'
             error={errors.description}
-            className={styles.field}
           />
+          <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+            * - обязательные поля
+          </P>
 
           <div className={styles.buttons}>
             <Button

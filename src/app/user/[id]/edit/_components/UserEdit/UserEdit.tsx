@@ -20,6 +20,7 @@ import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo } from 'react';
+import P from '@/ui/P/P';
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -84,44 +85,43 @@ export const UserEdit = ({ id }: UserEditProps) => {
               className={styles.mobile}
               gallery='false'
             />
-
-            <div className={styles.groupGender}>
-              <Field
-                {...register('lastname', { required: 'Фамилия необходима!' })}
-                title='Фамилия'
-                placeholder='Введите Фамилию'
-                error={errors.lastname}
-              />
-              <InputRadio
-                active={active}
-                setActive={setActive}
-                className={styles.gender}
-              />
-            </div>
-
             <div className={styles.group}>
               <Field
                 {...register('firstname', { required: 'Имя обязательно!' })}
-                title='Имя'
+                title='Имя*'
                 placeholder='Введите имя'
                 error={errors.firstname}
               />
-
-              <Field
-                {...register('patronymic', {
-                  required: 'Отчество обязательно!',
-                  minLength: 6,
-                })}
-                title='Отчество'
-                placeholder='Отчество пароль'
-                error={errors.patronymic}
-              />
+              <div className={styles.groupGender}>
+                <Field
+                  {...register('lastname', { required: 'Фамилия необходима!' })}
+                  title='Фамилия*'
+                  placeholder='Введите Фамилию'
+                  error={errors.lastname}
+                />
+                <InputRadio
+                  active={active}
+                  setActive={setActive}
+                  className={styles.gender}
+                />
+              </div>
             </div>
+
+            <Field
+              {...register('patronymic', {
+                required: 'Отчество обязательно!',
+                minLength: 6,
+              })}
+              title='Отчество*'
+              placeholder='Отчество пароль'
+              error={errors.patronymic}
+              className={styles.field}
+            />
 
             <div className={styles.group}>
               <Field
                 {...register('post', { required: 'Должность обязательна!' })}
-                title='Должность'
+                title='Должность*'
                 placeholder='Введите должность'
                 error={errors.post}
               />
@@ -145,7 +145,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                     message: 'Entered value does not match email format',
                   },
                 })}
-                title='Email'
+                title='Email*'
                 placeholder='Введите свой email'
                 error={errors.authEmail}
               />
@@ -164,8 +164,10 @@ export const UserEdit = ({ id }: UserEditProps) => {
               title='О сотруднике'
               placeholder='Введите информацию о владельце'
               error={errors.description}
-              className={styles.field}
             />
+            <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+              * - обязательные поля
+            </P>
 
             <div className={styles.buttons}>
               <Button

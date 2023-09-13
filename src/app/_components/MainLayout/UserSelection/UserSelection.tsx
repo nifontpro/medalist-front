@@ -10,7 +10,10 @@ import ExitIcon from '@/icons/close.svg';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useEffect } from 'react';
-import { setTypeOfUserUndefined } from '@/store/features/userSelection/userSelection.slice';
+import {
+  setTypeOfUser_IsOpen,
+  setTypeOfUserUndefined,
+} from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
   setSelectedTreeId,
@@ -71,17 +74,20 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   };
 
   useEffect(() => {
-    if (rolesUser && rolesUser.data && rolesUser.data.length > 0) {
+    if (rolesUser?.data?.length && rolesUser?.data?.length > 0) {
       if (
         typeOfUser &&
-        rolesUser.data.filter((role) => role.id == typeOfUser.id).length > 0
+        rolesUser?.data.filter((role) => role.id == typeOfUser.id).length > 0
       ) {
         dispatch(setArrayIds(expandedIds));
         dispatch(setSelectedTreeId(selectedIds));
       } else {
         dispatch(setTypeOfUserUndefined());
       }
-    } else if (rolesUser && rolesUser.data && rolesUser.data.length == 0) {
+      if (rolesUser?.data?.length == 1) {
+        dispatch(setTypeOfUser_IsOpen(rolesUser?.data[0]));
+      }
+    } else if (rolesUser?.data?.length == 0) {
       dispatch(setTypeOfUserUndefined());
     }
   });
@@ -134,7 +140,15 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                             alt='preview image'
                             className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
                           />
-                          {role.dept.name}
+                          <div>
+                            <P color='black' fontstyle='thin' size='xs'>
+                              {role.dept.name}
+                            </P>
+                            <P color='gray' fontstyle='thin' size='xs'>
+                              {role.lastname}
+                              {role.post !== 'Нет' ? `: ${role.post}` : ''}
+                            </P>
+                          </div>
                         </div>
                       );
                     })

@@ -43,10 +43,15 @@ const Header = ({ className, ...props }: HeaderProps) => {
       <header className={cn(styles.wrapper, className)} {...props}>
         <MenuIcon />
         <Logo className={styles.logo} />
-        <div className={styles.user}>
-          <Notification />
-          <UserLogo user={singleUser?.data?.user} className={styles.userImg} />
-        </div>
+        {singleUser?.data?.user ? (
+          <div className={styles.user}>
+            <Notification />
+            <UserLogo
+              user={singleUser?.data?.user}
+              className={styles.userImg}
+            />
+          </div>
+        ) : null}
       </header>
 
       <AnimatePresence mode='wait'>
