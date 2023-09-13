@@ -20,6 +20,7 @@ import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo } from 'react';
+import P from '@/ui/P/P';
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -87,14 +88,14 @@ export const UserEdit = ({ id }: UserEditProps) => {
             <div className={styles.group}>
               <Field
                 {...register('firstname', { required: 'Имя обязательно!' })}
-                title='Имя'
+                title='Имя*'
                 placeholder='Введите имя'
                 error={errors.firstname}
               />
               <div className={styles.groupGender}>
                 <Field
                   {...register('lastname', { required: 'Фамилия необходима!' })}
-                  title='Фамилия'
+                  title='Фамилия*'
                   placeholder='Введите Фамилию'
                   error={errors.lastname}
                 />
@@ -111,7 +112,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 required: 'Отчество обязательно!',
                 minLength: 6,
               })}
-              title='Отчество'
+              title='Отчество*'
               placeholder='Отчество пароль'
               error={errors.patronymic}
               className={styles.field}
@@ -120,7 +121,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
             <div className={styles.group}>
               <Field
                 {...register('post', { required: 'Должность обязательна!' })}
-                title='Должность'
+                title='Должность*'
                 placeholder='Введите должность'
                 error={errors.post}
               />
@@ -144,7 +145,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                     message: 'Entered value does not match email format',
                   },
                 })}
-                title='Email'
+                title='Email*'
                 placeholder='Введите свой email'
                 error={errors.authEmail}
               />
@@ -163,8 +164,10 @@ export const UserEdit = ({ id }: UserEditProps) => {
               title='О сотруднике'
               placeholder='Введите информацию о владельце'
               error={errors.description}
-              className={styles.field}
             />
+            <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+              * - обязательные поля
+            </P>
 
             <div className={styles.buttons}>
               <Button

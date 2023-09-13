@@ -15,6 +15,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo } from 'react';
+import P from '@/ui/P/P';
 
 const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const {
@@ -68,7 +69,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
 
         <Field
           {...register('name', { required: 'Название необходимо!' })}
-          title='Название'
+          title='Название*'
           placeholder='Название'
           error={errors.name}
           className={styles.field}
@@ -111,6 +112,9 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           placeholder='Чем занимается отдел'
           error={errors.description}
         />
+        <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+          * - обязательные поля
+        </P>
 
         <div className={styles.btn}>
           <Button

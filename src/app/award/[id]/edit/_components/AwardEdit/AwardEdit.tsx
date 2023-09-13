@@ -15,6 +15,7 @@ import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import ModalWindowGalleryAwards from '../ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 import { memo } from 'react';
+import P from '@/ui/P/P';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
   const {
@@ -79,14 +80,14 @@ const AwardEdit = ({ id }: AwardEditProps) => {
           />
           <Field
             {...register('name', { required: 'Название необходимо!' })}
-            title='Название'
+            title='Название*'
             placeholder='Введите название награды'
             error={errors.name}
             className={styles.field}
           />
           <Field
             {...register('description', { required: 'Описание необходимо!' })}
-            title='Краткое описание'
+            title='Краткое описание*'
             placeholder='Введите описание награды'
             error={errors.description}
             className={styles.field}
@@ -94,7 +95,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
           <Field
             {...register('score', { required: 'Вес необходим!' })}
             type='number'
-            title='Вес награды'
+            title='Вес награды*'
             placeholder='Введите вес награды'
             error={errors.score}
             className={styles.field}
@@ -102,11 +103,13 @@ const AwardEdit = ({ id }: AwardEditProps) => {
 
           <TextArea
             {...register('criteria', { required: 'Критерии необходимы!' })}
-            title='Требования к номинанту'
+            title='Требования к номинанту*'
             placeholder='Введите критерии награды'
             error={errors.criteria}
-            className={styles.field}
           />
+          <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+            * - обязательные поля
+          </P>
 
           <div className={styles.btn}>
             <Button
