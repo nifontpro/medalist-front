@@ -14,6 +14,7 @@ import Button from '@/ui/Button/Button';
 import { Gender } from '@/types/user/user';
 import { withHookFormMask } from 'use-mask-input';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import P from '@/ui/P/P';
 
 const CreateOwner = () => {
   const [active, setActive] = useState<Gender>('MALE');
@@ -52,14 +53,14 @@ const CreateOwner = () => {
           <div className={styles.group}>
             <Field
               {...register('firstname', { required: 'Имя обязательно!' })}
-              title='Имя'
+              title='Имя*'
               placeholder='Введите имя'
               error={errors.firstname}
             />
             <div className={styles.groupGender}>
               <Field
                 {...register('lastname', { required: 'Фамилия необходима!' })}
-                title='Фамилия'
+                title='Фамилия*'
                 placeholder='Введите Фамилию'
                 error={errors.lastname}
               />
@@ -76,7 +77,7 @@ const CreateOwner = () => {
               required: 'Отчество обязательно!',
               minLength: 6,
             })}
-            title='Отчество'
+            title='Отчество*'
             placeholder='Введите отчество'
             error={errors.patronymic}
             className={styles.field}
@@ -85,7 +86,7 @@ const CreateOwner = () => {
           <div className={styles.group}>
             <Field
               {...register('post', { required: 'Должность обязательна!' })}
-              title='Должность'
+              title='Должность*'
               placeholder='Введите свою должность'
               error={errors.post}
             />
@@ -113,8 +114,10 @@ const CreateOwner = () => {
             title='О сотруднике'
             placeholder='Введите информацию о владельце'
             error={errors.description}
-            className={styles.field}
           />
+          <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+            * - обязательные поля
+          </P>
 
           <div className={styles.buttons}>
             <Button

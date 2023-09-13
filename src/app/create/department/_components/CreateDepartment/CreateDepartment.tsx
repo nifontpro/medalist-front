@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useCreateDepartment } from './useCreateDepartment';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import { memo } from 'react';
+import P from '@/ui/P/P';
 
 const CreateDepartment = () => {
   const {
@@ -44,7 +45,7 @@ const CreateDepartment = () => {
 
         <Field
           {...register('name', { required: 'Название необходимо!' })}
-          title='Название отдела'
+          title='Название отдела*'
           placeholder='Название отдела'
           error={errors.name}
           className={styles.field}
@@ -87,6 +88,9 @@ const CreateDepartment = () => {
           placeholder='Чем занимается отдел'
           error={errors.description}
         />
+        <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+          * - обязательные поля
+        </P>
 
         <div className={styles.btn}>
           <Button

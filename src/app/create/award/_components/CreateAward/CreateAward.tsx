@@ -25,6 +25,7 @@ import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import ChoiceImgCreate from './ChoiceImgCreate/ChoiceImgCreate';
 import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import P from '@/ui/P/P';
 
 const CreateAward = () => {
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
@@ -128,21 +129,21 @@ const CreateAward = () => {
 
           <Field
             {...register('name', { required: 'Название необходимо!' })}
-            title='Название'
+            title='Название*'
             placeholder='Введите название награды'
             error={errors.name}
             className={styles.field}
           />
           <Field
             {...register('description', { required: 'Описание необходимо!' })}
-            title='Краткое описание'
+            title='Краткое описание*'
             placeholder='Введите описание награды'
             error={errors.description}
             className={styles.field}
           />
           <Field
             {...register('score', { required: 'Вес необходить!' })}
-            title='Вес награды'
+            title='Вес награды*'
             placeholder='Введите вес награды'
             error={errors.score}
             className={styles.field}
@@ -151,11 +152,13 @@ const CreateAward = () => {
 
           <TextArea
             {...register('criteria', { required: 'Критерии необходимы!' })}
-            title='Требования к номинанту'
+            title='Требования к номинанту*'
             placeholder='Введите критерии награды'
             error={errors.criteria}
-            className={styles.field}
           />
+          <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+            * - обязательные поля
+          </P>
 
           <div className={styles.group}>
             <SelectCalendar
