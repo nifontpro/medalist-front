@@ -84,21 +84,6 @@ export const UserEdit = ({ id }: UserEditProps) => {
               className={styles.mobile}
               gallery='false'
             />
-
-            <div className={styles.groupGender}>
-              <Field
-                {...register('lastname', { required: 'Фамилия необходима!' })}
-                title='Фамилия'
-                placeholder='Введите Фамилию'
-                error={errors.lastname}
-              />
-              <InputRadio
-                active={active}
-                setActive={setActive}
-                className={styles.gender}
-              />
-            </div>
-
             <div className={styles.group}>
               <Field
                 {...register('firstname', { required: 'Имя обязательно!' })}
@@ -106,17 +91,31 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 placeholder='Введите имя'
                 error={errors.firstname}
               />
-
-              <Field
-                {...register('patronymic', {
-                  required: 'Отчество обязательно!',
-                  minLength: 6,
-                })}
-                title='Отчество'
-                placeholder='Отчество пароль'
-                error={errors.patronymic}
-              />
+              <div className={styles.groupGender}>
+                <Field
+                  {...register('lastname', { required: 'Фамилия необходима!' })}
+                  title='Фамилия'
+                  placeholder='Введите Фамилию'
+                  error={errors.lastname}
+                />
+                <InputRadio
+                  active={active}
+                  setActive={setActive}
+                  className={styles.gender}
+                />
+              </div>
             </div>
+
+            <Field
+              {...register('patronymic', {
+                required: 'Отчество обязательно!',
+                minLength: 6,
+              })}
+              title='Отчество'
+              placeholder='Отчество пароль'
+              error={errors.patronymic}
+              className={styles.field}
+            />
 
             <div className={styles.group}>
               <Field

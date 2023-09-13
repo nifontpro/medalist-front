@@ -60,35 +60,35 @@ const CreateUser = () => {
             Новый сотрудник
           </Htag>
 
-          <div className={styles.groupGender}>
+          <div className={styles.group}>
             <Field
               {...register('firstname', { required: 'Имя обязательно!' })}
               title='Имя'
               placeholder='Введите имя'
               error={errors.firstname}
             />
-            <InputRadio
-              active={active}
-              setActive={setActive}
-              className={styles.gender}
-            />
+            <div className={styles.groupGender}>
+              <Field
+                {...register('lastname', { required: 'Фамилия необходима!' })}
+                title='Фамилия'
+                placeholder='Введите Фамилию'
+                error={errors.lastname}
+              />
+              <InputRadio
+                active={active}
+                setActive={setActive}
+                className={styles.gender}
+              />
+            </div>
           </div>
 
-          <div className={styles.group}>
-            <Field
-              {...register('lastname', { required: 'Фамилия необходима!' })}
-              title='Фамилия'
-              placeholder='Введите Фамилию'
-              error={errors.lastname}
-            />
-
-            <Field
-              {...register('patronymic')}
-              title='Отчество'
-              placeholder='Введите отчество'
-              error={errors.patronymic}
-            />
-          </div>
+          <Field
+            {...register('patronymic')}
+            title='Отчество'
+            placeholder='Введите отчество'
+            error={errors.patronymic}
+            className={styles.field}
+          />
 
           <div className={styles.group}>
             <Field
