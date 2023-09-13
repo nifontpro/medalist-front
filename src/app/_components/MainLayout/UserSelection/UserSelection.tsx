@@ -140,7 +140,15 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                             alt='preview image'
                             className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
                           />
-                          {role.dept.name}
+                          <div>
+                            <P color='black' fontstyle='thin' size='xs'>
+                              {role.dept.name}
+                            </P>
+                            <P color='gray' fontstyle='thin' size='xs'>
+                              {role.lastname}
+                              {role.post !== 'Нет' ? `: ${role.post}` : ''}
+                            </P>
+                          </div>
                         </div>
                       );
                     })
