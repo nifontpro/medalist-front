@@ -9,7 +9,7 @@ import { convertPathName } from './convertPathName';
 import { getLastUrl } from './getLastUrl';
 import Breadcrumbs from '@/ui/Breadcrumbs/Breadcrumbs';
 
-type Alignment = 'reports' | 'users' | 'awards' | 'statistics' | '';
+type Alignment = 'information' | 'users' | 'awards' | 'statistics' | '';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
@@ -49,8 +49,8 @@ const HeaderLayout = () => {
           className='my-5 w-full justify-center'
           orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
         >
-          <ToggleButton value='reports'>Дашборд</ToggleButton>
-          <ToggleButton value=''>Информация</ToggleButton>
+          <ToggleButton value=''>Дашборд</ToggleButton>
+          <ToggleButton value='information'>Инофрмация</ToggleButton>
           <ToggleButton value='users'>Сотрудники</ToggleButton>
           <ToggleButton value='awards'>Награды</ToggleButton>
           <ToggleButton value='statistics'>Статистика</ToggleButton>

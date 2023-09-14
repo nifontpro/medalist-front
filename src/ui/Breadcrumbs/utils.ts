@@ -13,8 +13,8 @@ export const checkSegments = (segment: string): string => {
   if (segment === 'statistics') {
     return 'Статистика';
   }
-  if (segment === 'reports') {
-    return 'Дашборд';
+  if (segment === 'information') {
+    return 'Информация';
   }
   if (segment.split(' ').length >= 1) {
     return `Отдел ${segment.split(' ')[1]}`;

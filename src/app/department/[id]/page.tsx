@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import TitleSingleDepartment from './_components/TitleSingleDepartment/TitleSingleDepartment';
 import EventDepartment from './_components/EventDepartment/EventDepartment';
+import Main from '@/app/_components/Main/Main';
 
 // async function getData(id: string) {
 //   const response = fetch(`https://nmedalist.ru:8765/client/dept/get_id`, {
@@ -33,9 +34,12 @@ export default async function SingleDepartment({
   params: { id: string };
 }) {
   return (
+    // <main>
+    //   <TitleSingleDepartment id={params.id} />
+    //   <EventDepartment id={params.id} />
+    // </main>
     <main>
-      <TitleSingleDepartment id={params.id} />
-      <EventDepartment id={params.id} />
+      <Main deptId={params.id} />
     </main>
   );
 }

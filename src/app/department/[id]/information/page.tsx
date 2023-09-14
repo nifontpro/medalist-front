@@ -1,5 +1,7 @@
 import Main from '@/app/_components/Main/Main';
 import { Metadata } from 'next';
+import TitleSingleDepartment from '../_components/TitleSingleDepartment/TitleSingleDepartment';
+import EventDepartment from '../_components/EventDepartment/EventDepartment';
 
 export async function generateMetadata({
   params,
@@ -18,7 +20,11 @@ export default function DepartmentReports({
 }) {
   return (
     <main>
-      <Main deptId={params.id} />
+      <TitleSingleDepartment id={params.id} />
+      <EventDepartment id={params.id} />
     </main>
+    // <main>
+    //   <Main deptId={params.id} />
+    // </main>
   );
 }
