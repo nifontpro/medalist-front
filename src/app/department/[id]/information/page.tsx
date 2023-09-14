@@ -9,7 +9,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   return {
-    title: `Дошборд отдела ${params.id}`,
+    // title: `Дошборд отдела ${params.id}`,
   };
 }
 

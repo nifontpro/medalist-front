@@ -12,6 +12,7 @@ import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 import { Dept } from '@/types/dept/dept';
+import { setTreeDepts } from '@/store/features/treeDepts/treeDepts.slice';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,8 @@ export const useSidebar = () => {
   // _____________ Выше код для того, чтобы дерево всегда было раскрыто полностью ____________
 
   useEffect(() => {
-    if (subTree && subTree.data) {
+    if (subTree?.data) {
+      dispatch(setTreeDepts(subTree.data));
       setTreeData(
         sortTree(
           subTree.data,

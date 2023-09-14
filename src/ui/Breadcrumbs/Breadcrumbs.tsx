@@ -3,8 +3,11 @@ import { usePathname } from 'next/navigation';
 import styles from './Breadcrumbs.module.scss';
 import P from '../P/P';
 import { checkSegments, convertString } from './utils';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
 
 function Breadcrumbs(): JSX.Element {
+  document.title = localStorage.getItem('TreeName') as string;
   const pathName = usePathname();
   let segments = pathName.split('/').filter((segment) => segment !== '');
 
@@ -12,6 +15,8 @@ function Breadcrumbs(): JSX.Element {
     segments[1] = `${segments[0]} ${segments[1]}`;
     segments.shift();
   }
+
+  const treeDepts = useAppSelector(SelectTreeDepts);
 
   return (
     <nav>
@@ -35,14 +40,17 @@ function Breadcrumbs(): JSX.Element {
           }
 
           const isLast = index === segments.length - 1;
+
           return (
             <li key={segment}>
               {isLast ? (
-                <div className='cursor-default'>{checkSegments(segment)}</div>
+                <div className='cursor-default'>
+                  {checkSegments(segment, treeDepts)}
+                </div>
               ) : (
                 <div className='flex'>
                   <div className={styles.link}>
-                    <Link href={href}>{checkSegments(segment)}</Link>
+                    <Link href={href}>{checkSegments(segment, treeDepts)}</Link>
                   </div>
                   <P fontstyle='thin' className={styles.br}>
                     /
