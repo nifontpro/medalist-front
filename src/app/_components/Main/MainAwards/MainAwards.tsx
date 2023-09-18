@@ -34,9 +34,7 @@ const MainAwards = ({
         <div className={styles.content}>
           <div
             className={cn(styles.allAwards, styles.card)}
-            onClick={() =>
-              push(`/department/${typeOfUser?.dept.id}/awards?active=FINISH`)
-            }
+            onClick={() => push(`/department/${deptId}/awards?active=FINISH`)}
           >
             <div className='flex'>
               <div className={styles.img}>
@@ -53,16 +51,18 @@ const MainAwards = ({
           {/* Есть награды */}
           <div
             className={cn(styles.countAwards, styles.card)}
-            onClick={() =>
-              push(`/department/${typeOfUser?.dept.id}/statistics`)
-            }
+            onClick={() => push(`/department/${deptId}/statistics`)}
           >
             <div className='flex'>
               <div className={styles.img}>
                 <PeopleIcon />
               </div>
               <div className={styles.description}>
-                <P size='s'>Есть награды</P>
+                {countUserWithAward && countUserWithAward > 0 ? (
+                  <P size='s'>Есть награды</P>
+                ) : (
+                  <P size='s'>Наград нет</P>
+                )}
                 <div className='flex items-end'>
                   <P size='xl'>{countUserWithAward ? countUserWithAward : 0}</P>
                   <P size='l' color='gray' className={styles.percent}>
@@ -77,9 +77,7 @@ const MainAwards = ({
           {/* Лучший отдел */}
           <div
             className={cn(styles.bestDepart, styles.card)}
-            onClick={() =>
-              push(`/department/${typeOfUser?.dept.id}/statistics`)
-            }
+            onClick={() => push(`/department/${deptId}/statistics`)}
           >
             <div className='flex'>
               <div className={styles.img}>

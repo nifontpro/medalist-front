@@ -3,7 +3,6 @@ import { userApi } from '@/api/user/user.api';
 import {
   setTypeOfUser_IsOpen,
   setIsOpenUserSelection,
-  setTypeOfUser,
 } from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
@@ -34,6 +33,8 @@ export const useUserSelection = () => {
     dispatch(setTypeOfUser_IsOpen(role));
     dispatch(setArrayIds(['0']));
     dispatch(setSelectedTreeId('0'));
+
+    push(`/department/${role.dept.id}`);
   };
 
   return {

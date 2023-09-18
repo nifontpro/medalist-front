@@ -1,0 +1,39 @@
+.wrapper {
+  min-width: 300px;
+  min-height: 200px;
+  background: var(--white);
+  position: absolute;
+  top: 40%;
+  left: calc(50% - 150px);
+  padding: 40px 20px;
+  border-radius: 27px;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+  }
+
+  .text {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      margin-top: 60px;
+    }
+
+    .confirm {
+      margin-left: 15px;
+
+      @media screen and (max-width: 768px) {
+        margin-left: 0px;
+        margin-top: 15px;
+      }
+    }
+  }
+}

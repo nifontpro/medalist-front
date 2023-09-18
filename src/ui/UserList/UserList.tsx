@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { UserListProps } from './UserList.props';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ForwardedRef, forwardRef, memo, useCallback } from 'react';
+import { ForwardedRef, forwardRef, memo, useCallback, useState } from 'react';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import UserPreview from '@/ui/UserPreview/UserPreview';
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
@@ -12,6 +12,7 @@ import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import AuthComponent from '@/store/providers/AuthComponent';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 
 const UserList = motion(
   forwardRef(
@@ -39,25 +40,39 @@ const UserList = motion(
         user?.id && typeOfUser?.id && deleteUserAsync(user.id);
       }, [typeOfUser, user, deleteUserAsync]);
 
+      const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
       return (
-        <div ref={ref} className={cn(className, styles.container)} {...props}>
-          <UserPreview
-            user={user}
-            className={styles.user}
-            forWhat='dept'
-            onClick={userProfileLink}
+        <>
+          <div ref={ref} className={cn(className, styles.container)} {...props}>
+            <UserPreview
+              user={user}
+              className={styles.user}
+              forWhat='dept'
+              onClick={userProfileLink}
+            />
+            <AuthComponent minRole={'ADMIN'}>
+              <div className={styles.editPanel} {...props}>
+                <div className={styles.wrapperIcon} onClick={userEditLink}>
+                  <ButtonEdit icon='edit' className={styles.edit} />
+                </div>
+                <div
+                  className={styles.wrapperIcon}
+                  // onClick={userDeleteLink}
+                  onClick={() => setOpenModalConfirm(true)}
+                >
+                  <ButtonEdit icon='remove' className={styles.remove} />
+                </div>
+              </div>
+            </AuthComponent>
+          </div>
+          <ModalConfirm
+            text={`Вы действительно хотите удалить ${user.firstname} ${user.lastname}?`}
+            openModalConfirm={openModalConfirm}
+            setOpenModalConfirm={setOpenModalConfirm}
+            onConfirm={userDeleteLink}
           />
-          <AuthComponent minRole={'ADMIN'}>
-            <div className={styles.editPanel} {...props}>
-              <div className={styles.wrapperIcon} onClick={userEditLink}>
-                <ButtonEdit icon='edit' className={styles.edit} />
-              </div>
-              <div className={styles.wrapperIcon} onClick={userDeleteLink}>
-                <ButtonEdit icon='remove' className={styles.remove} />
-              </div>
-            </div>
-          </AuthComponent>
-        </div>
+        </>
       );
     }
   )

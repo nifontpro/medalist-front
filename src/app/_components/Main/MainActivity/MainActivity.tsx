@@ -79,7 +79,7 @@ const MainActivity = ({
                     </div>
                     <div className={styles.user}>
                       <P size='m'>
-                        {item.user?.lastname} {item.user?.firstname}
+                        {item.user?.firstname} {item.user?.lastname}
                       </P>
                       <div className={styles.userTag}>
                         <P size='s' fontstyle='thin' color='gray'>

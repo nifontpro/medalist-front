@@ -29,6 +29,7 @@ import { eventApi } from '@/api/event/event.api';
 import { messageApi } from '@/api/msg/message.api';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { switchDepartmentOnCompanySlice } from '../features/switchDepartmentOnCompany/switchDepartmentOnCompany.slice';
+import { treeDeptsSlice } from '../features/treeDepts/treeDepts.slice';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -60,6 +61,7 @@ const persistConfig = {
     'userSelection',
     'header',
     'theme',
+    'treeDepts',
     'switcher',
     'dataCreateAward',
     'visibleModalWindowGalleryAwards',
@@ -81,6 +83,7 @@ const rootReducer = combineReducers({
   header: headerSlice.reducer,
   auth: authSlice.reducer,
   theme: themeSlice.reducer,
+  treeDepts: treeDeptsSlice.reducer,
   switcher: switchDepartmentOnCompanySlice.reducer,
   visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
   dataCreateAward: dataCreateAwardSlice.reducer,

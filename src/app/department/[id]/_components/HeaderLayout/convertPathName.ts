@@ -5,7 +5,7 @@ export const convertPathName = (pathName: string) => {
     link == 'users' ||
     link == 'awards' ||
     link == 'statistics' ||
-    link == 'reports'
+    link == 'information'
   ) {
     return link;
   } else return '';

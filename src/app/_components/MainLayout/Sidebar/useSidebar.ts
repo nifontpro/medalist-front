@@ -12,6 +12,7 @@ import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 import { Dept } from '@/types/dept/dept';
+import { setTreeDepts } from '@/store/features/treeDepts/treeDepts.slice';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,9 @@ export const useSidebar = () => {
   const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser?.id : 0,
-      baseRequest: undefined,
+      baseRequest: {
+        orders: [{ field: 'parentId' }, { field: 'name', direction: 'ASC' }],
+      },
     },
     {
       skip: !typeOfUser,
@@ -48,7 +51,8 @@ export const useSidebar = () => {
   // _____________ Выше код для того, чтобы дерево всегда было раскрыто полностью ____________
 
   useEffect(() => {
-    if (subTree && subTree.data) {
+    if (subTree?.data) {
+      dispatch(setTreeDepts(subTree.data));
       setTreeData(
         sortTree(
           subTree.data,

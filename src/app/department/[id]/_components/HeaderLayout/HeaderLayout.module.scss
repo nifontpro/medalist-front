@@ -1,0 +1,8 @@
+.wrapper {
+  @apply my-5 w-full justify-center;
+
+  [aria-pressed='true'] {
+    background: var(--white) !important;
+    color: var(--gray-dark) !important;
+  }
+}

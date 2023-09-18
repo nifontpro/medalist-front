@@ -6,7 +6,7 @@ import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
   ForwardedRef,
-  forwardRef, 
+  forwardRef,
   memo,
   useCallback,
   useState,
@@ -108,6 +108,7 @@ const ModalWindowWithAddEvent = forwardRef(
               initial='hidden'
               animate='visible'
               exit='exit'
+              ref={ref}
               variants={windowSize.winWidth <= 768 ? variantsMedia : variants}
               transition={{ duration: 0.4 }}
               className={cn(styles.modalWindow, className)}

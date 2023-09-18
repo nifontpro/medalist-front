@@ -2,23 +2,27 @@ import styles from './ModalWindowExcelAddUsers.module.scss';
 import { ModalWindowExcelAddUsersProps } from './ModalWindowExcelAddUsers.props';
 import cn from 'classnames';
 import ExitIcon from '@/icons/close.svg';
-import { ForwardedRef, forwardRef, useState } from 'react';
+import { ForwardedRef, forwardRef, useRef, useState } from 'react';
 import { useModalWindowExcelAddUsers } from './useModalWindowExcelAddUsers';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import uniqid from 'uniqid';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import P from '@/ui/P/P';
 import Button from '@/ui/Button/Button';
+import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
+import { Divider } from '@mui/material';
 
 const ModalWindowExcelAddUsers = forwardRef(
   (
     {
       textBtn,
       data,
+      setData,
       visibleModal,
       fileName,
       setVisibleModal,
       department,
+      handleClearInput,
       className,
       ...props
     }: ModalWindowExcelAddUsersProps,
@@ -26,6 +30,8 @@ const ModalWindowExcelAddUsers = forwardRef(
   ): JSX.Element => {
     const { handleCancel, onSubmitAdded } = useModalWindowExcelAddUsers(
       setVisibleModal,
+      setData,
+      handleClearInput,
       data,
       department
     );
@@ -68,9 +74,13 @@ const ModalWindowExcelAddUsers = forwardRef(
       }
     };
 
+    //Закрытие модального окна уведомлений нажатием вне
+    const refModal = useRef(null);
+    useOutsideClickWithoutBtn(refModal, handleCancel, visibleModal);
+
     return (
       <AnimatePresence mode='wait'>
-        {visibleModal && (
+        {visibleModal && data ? (
           <motion.div
             initial='hidden'
             animate='visible'
@@ -84,9 +94,9 @@ const ModalWindowExcelAddUsers = forwardRef(
             {...props}
           >
             <div className={styles.slash} onClick={handleCancel} />
-            <ExitIcon onClick={handleCancel} className={styles.exit} />
 
-            <div className={styles.module} ref={ref}>
+            <div className={styles.module} ref={refModal}>
+              <ExitIcon onClick={handleCancel} className={styles.exit} />
               <div>
                 <P size='s' className={styles.fileName}>
                   {fileName}
@@ -104,38 +114,22 @@ const ModalWindowExcelAddUsers = forwardRef(
                           <P size='s'>
                             {user.Фамилия} {user.Имя} {user.Отчество}
                           </P>
-                          <P
-                            size='xs'
-                            fontstyle='thin'
-                            className={styles.itemProps}
-                          >
+                          <div className={styles.itemProps}>
                             <P size='xs'>Email:&nbsp;</P>
                             {user.email}
-                          </P>
-                          <P
-                            size='xs'
-                            fontstyle='thin'
-                            className={styles.itemProps}
-                          >
+                          </div>
+                          <div className={styles.itemProps}>
                             <P size='xs'>Телефон:&nbsp;</P>
                             {user.Телефон}
-                          </P>
-                          <P
-                            size='xs'
-                            fontstyle='thin'
-                            className={styles.itemProps}
-                          >
+                          </div>
+                          <div className={styles.itemProps}>
                             <P size='xs'>Должность:&nbsp;</P>
                             {user.Должность}
-                          </P>
-                          <P
-                            size='xs'
-                            fontstyle='thin'
-                            className={styles.itemProps}
-                          >
+                          </div>
+                          <div className={styles.itemProps}>
                             <P size='xs'>О&nbsp;сотруднике:&nbsp;</P>
                             {user['О сотруднике']}
-                          </P>
+                          </div>
                         </li>
                       );
                     })}
@@ -166,7 +160,7 @@ const ModalWindowExcelAddUsers = forwardRef(
               </div>
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     );
   }
