@@ -5,6 +5,14 @@
     padding: 25px 10px;
   }
 
+  [aria-selected='true'] > div {
+    background: white !important;
+
+    p {
+      color: var(--gray-dark) !important;
+    }
+  }
+
   .logo {
     display: none;
 
