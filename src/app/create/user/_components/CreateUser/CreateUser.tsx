@@ -161,21 +161,21 @@ const CreateUser = () => {
 
           <div className={styles.buttons}>
             <Button
-              onClick={handleClick}
-              appearance='whiteBlack'
-              size='l'
-              className={styles.cancel}
-            >
-              Отменить
-            </Button>
-            <Button
               onClick={handleSubmit(onSubmit)}
               appearance='blackWhite'
               size='l'
-              className={styles.confirm}
+              className={styles.cancel}
               disabled={!isDirty || !isValid}
             >
               Создать
+            </Button>
+            <Button
+              onClick={handleClick}
+              appearance='whiteBlack'
+              size='l'
+              className={styles.confirm}
+            >
+              Отменить
             </Button>
           </div>
         </div>
