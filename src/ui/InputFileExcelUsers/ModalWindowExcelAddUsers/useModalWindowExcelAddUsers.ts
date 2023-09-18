@@ -9,7 +9,9 @@ import { RootState } from '@/store/storage/store';
 
 export const useModalWindowExcelAddUsers = (
   setVisibleModal: Dispatch<SetStateAction<boolean>>,
-  data: DataSheets[] | undefined,
+  setData: Dispatch<SetStateAction<DataSheets[] | null>>,
+  handleClearInput: () => void,
+  data: DataSheets[] | null,
   department: DeptDetails
 ) => {
   const { typeOfUser } = useAppSelector(
@@ -19,6 +21,8 @@ export const useModalWindowExcelAddUsers = (
 
   const handleCancel = () => {
     setVisibleModal(false);
+    setData(null);
+    handleClearInput();
   };
 
   const onSubmitAdded = async () => {
@@ -28,11 +32,7 @@ export const useModalWindowExcelAddUsers = (
       toast.error(`Выберите сотрудников для номинации`);
     }
 
-    if (
-      data != undefined &&
-      data?.length > 0 &&
-      department
-    ) {
+    if (data != undefined && data?.length > 0 && department) {
       data.forEach((user) => {
         createUser({
           deptId: department.dept.id,

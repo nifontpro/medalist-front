@@ -44,19 +44,19 @@
   }
 
   .exit {
-    position: fixed;
-    top: 125px;
-    right: 50px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
     cursor: pointer;
     &:hover {
       path {
         stroke: var(--gray-dark);
       }
     }
-    @media screen and (max-width: 1280px) {
-      top: 125px;
-      right: 50px;
-    }
+    // @media screen and (max-width: 1280px) {
+    //   top: 125px;
+    //   right: 50px;
+    // }
     @media screen and (max-width: 768px) {
       display: none;
     }

@@ -8,6 +8,7 @@ import {
   memo,
   MouseEvent,
   useCallback,
+  useRef,
   useState,
 } from 'react';
 import { read, readFile, utils } from 'xlsx';
@@ -22,7 +23,7 @@ const InputFileExcelUsers = forwardRef(
     const [visibleModal, setVisibleModal] = useState<boolean>(false);
 
     const [fileName, setFileName] = useState<string>('');
-    const [data, setData] = useState<DataSheets[]>();
+    const [data, setData] = useState<DataSheets[] | null>(null);
 
     const handleChange = useCallback(
       async (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +44,15 @@ const InputFileExcelUsers = forwardRef(
       []
     );
 
+    //Ниже код для очистки input
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const handleClearInput = () => {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = '';
+      }
+    };
+    //__________
+
     return (
       <>
         <div className={cn(styles.inputWrapper, className)}>
@@ -50,7 +60,7 @@ const InputFileExcelUsers = forwardRef(
             accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
             type='file'
             className={styles.inputFile}
-            ref={ref}
+            ref={inputFileRef}
             onChange={(e) => handleChange(e)}
             onClick={() => setVisibleModal(true)}
             {...props}
@@ -71,11 +81,13 @@ const InputFileExcelUsers = forwardRef(
         <ModalWindowExcelAddUsers
           department={department}
           data={data}
+          setData={setData}
           fileName={fileName}
           visibleModal={visibleModal}
           setVisibleModal={setVisibleModal}
+          handleClearInput={handleClearInput}
           textBtn='Загрузить'
-          ref={ref}
+          // ref={ref}
         />
       </>
     );
