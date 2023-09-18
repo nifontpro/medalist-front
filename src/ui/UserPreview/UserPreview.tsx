@@ -27,7 +27,7 @@ const UserPreview = ({
 
       <div className={styles.info}>
         <P size='m' fontstyle='bold'>
-          {user.lastname} {user.firstname}
+          {user.firstname} {user.lastname}
         </P>
         <P color='gray' size='m' fontstyle='thin'>
           {user.post}

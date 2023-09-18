@@ -33,7 +33,9 @@ export const useSidebar = () => {
   const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser?.id : 0,
-      baseRequest: undefined,
+      baseRequest: {
+        orders: [{ field: 'parentId' }, { field: 'name', direction: 'ASC' }],
+      },
     },
     {
       skip: !typeOfUser,

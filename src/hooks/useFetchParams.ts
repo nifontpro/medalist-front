@@ -1,10 +1,10 @@
 import { BaseResponse } from '@/types/base/BaseResponse';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useFetchParams = () => {
   const [page, setPage] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [state, setState] = useState<'ASC' | 'DESC'>('DESC');
+  const [state, setState] = useState<'ASC' | 'DESC'>('ASC');
   const [startDate, setStartDate] = useState<number | undefined>(undefined);
   const [endDate, setEndDate] = useState<number | undefined>(undefined);
 
