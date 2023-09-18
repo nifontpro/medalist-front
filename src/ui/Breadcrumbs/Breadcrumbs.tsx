@@ -18,13 +18,14 @@ function Breadcrumbs(): JSX.Element {
   }
 
   const treeDepts = useAppSelector(SelectTreeDepts);
-  console.log(treeDepts);
 
+  //Ищем рутовый доступный отдел, чтобы поставить его первым и переходить в него, а не на главную
   const smallestIdDept = treeDepts!.reduce((prev, curr): Dept => {
     if (prev.parentId && curr.parentId) {
       return prev.parentId < curr.parentId ? prev : curr;
     } else return curr;
   });
+  //________________________
 
   return (
     <nav>

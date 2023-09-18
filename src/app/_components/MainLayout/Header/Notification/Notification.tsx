@@ -39,23 +39,17 @@ const Notification = ({
       >
         <NotificationIcon />
         {myMessage &&
-          myMessage.data &&
-          myMessage.data.filter((message) => message.read == false).length >
-            0 && (
-            <>
-              <div className={styles.notificationCircle}></div>
-              <P
-                size='xs'
-                fontstyle='thin'
-                className={styles.notificationCount}
-              >
-                {
-                  myMessage.data?.filter((message) => message.read == false)
-                    .length
-                }
-              </P>
-            </>
-          )}
+        myMessage.data &&
+        myMessage.data.filter((message) => message.read == false).length > 0 ? (
+          <div className={styles.notificationCircle}>
+            <P size='xs' fontstyle='thin' className={styles.notificationCount}>
+              {
+                myMessage.data?.filter((message) => message.read == false)
+                  .length
+              }
+            </P>
+          </div>
+        ) : null}
       </div>
       <NotificationModalWindow
         visibleModal={visibleNotification}
