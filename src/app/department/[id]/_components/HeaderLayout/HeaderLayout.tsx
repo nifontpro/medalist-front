@@ -8,6 +8,7 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import { convertPathName } from './convertPathName';
 import { getLastUrl } from './getLastUrl';
 import Breadcrumbs from '@/ui/Breadcrumbs/Breadcrumbs';
+import styles from './HeaderLayout.module.scss';
 
 type Alignment = 'information' | 'users' | 'awards' | 'statistics' | '';
 
@@ -46,7 +47,8 @@ const HeaderLayout = () => {
           exclusive
           onChange={handleChange}
           aria-label='Platform'
-          className='my-5 w-full justify-center'
+          className={styles.wrapper}
+          // className='my-5 w-full justify-center'
           orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value=''>Дашборд</ToggleButton>
