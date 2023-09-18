@@ -5,6 +5,7 @@ import P from '../P/P';
 import { checkSegments, convertString } from './utils';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
+import { Dept } from '@/types/dept/dept';
 
 function Breadcrumbs(): JSX.Element {
   document.title = localStorage.getItem('TreeName') as string;
@@ -17,13 +18,22 @@ function Breadcrumbs(): JSX.Element {
   }
 
   const treeDepts = useAppSelector(SelectTreeDepts);
+  console.log(treeDepts);
+
+  const smallestIdDept = treeDepts!.reduce((prev, curr): Dept => {
+    if (prev.parentId && curr.parentId) {
+      return prev.parentId < curr.parentId ? prev : curr;
+    } else return curr;
+  });
 
   return (
     <nav>
       <ol className={styles.wrapper}>
         <>
           <li className={styles.link}>
-            <Link href='/'>Главная</Link>
+            <Link href={`/department/${smallestIdDept.id}`}>
+              {smallestIdDept.name}
+            </Link>
           </li>
           <P fontstyle='thin' className={styles.br}>
             /
