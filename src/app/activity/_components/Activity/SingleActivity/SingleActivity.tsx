@@ -28,7 +28,7 @@ const SingleActivity = ({
       </div>
       <div className={styles.user}>
         <P size='m'>
-          {activity.user?.lastname} {activity.user?.firstname}
+          {activity.user?.firstname} {activity.user?.lastname}
         </P>
         <div className={styles.userTag}>
           {activity.user?.post && (

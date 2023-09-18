@@ -3,7 +3,6 @@ import { userApi } from '@/api/user/user.api';
 import {
   setTypeOfUser_IsOpen,
   setIsOpenUserSelection,
-  setTypeOfUser,
 } from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,

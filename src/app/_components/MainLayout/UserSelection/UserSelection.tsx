@@ -9,7 +9,7 @@ import { getOwnerCreateUrl } from '@/config/api.config';
 import ExitIcon from '@/icons/close.svg';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import {
   setTypeOfUser_IsOpen,
   setTypeOfUserUndefined,
@@ -23,6 +23,8 @@ import CreateOwnerIcon from '@/icons/ownerLogo.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { User } from '@/types/user/user';
 import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow/useUserPanelModalWindow';
+import useOutsideClick from '@/hooks/useOutsideClick';
+import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
@@ -92,6 +94,13 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     }
   });
 
+  //Закрытие модального окна уведомлений нажатием вне
+  const ref = useRef(null);
+  const handleClickOutsideNotification = useCallback(() => {
+    dispatch(setIsOpenUserSelection(false));
+  }, []);
+  useOutsideClickWithoutBtn(ref, handleClickOutsideNotification, isOpen);
+
   return (
     <>
       {(isAuth && typeOfUser != undefined && !isOpen) ||
@@ -102,7 +111,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
             <AnimatePresence mode='wait'>
               <motion.div
                 className={styles.window}
-                // ref={ref}
+                ref={ref}
                 initial='hidden'
                 animate='visible'
                 exit='exit'

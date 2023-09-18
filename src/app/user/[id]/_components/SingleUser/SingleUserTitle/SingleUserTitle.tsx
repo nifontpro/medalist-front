@@ -39,7 +39,7 @@ const SingleUserTitle = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
         <Htag tag='h2'>
-          {user?.user.lastname} {user?.user.firstname}
+          {user?.user.firstname} {user?.user.lastname}
         </Htag>
       </div>
 

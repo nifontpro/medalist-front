@@ -11,14 +11,14 @@ import {
   getDepartmentEditUrl,
 } from '@/config/api.config';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
-import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const TitleSingleDepartment = ({
   id,

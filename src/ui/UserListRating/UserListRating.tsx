@@ -61,7 +61,7 @@ const UserListRating = ({
               </div>
               <div className={styles.user}>
                 <P size='m'>
-                  {user.lastname} {user.firstname}
+                  {user.firstname} {user.lastname}
                 </P>
                 <div className={styles.userTag}>
                   {user.post && (

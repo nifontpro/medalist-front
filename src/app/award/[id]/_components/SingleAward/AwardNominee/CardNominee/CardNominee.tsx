@@ -48,7 +48,7 @@ const CardNominee = ({
 
         <div className={styles.user}>
           <P size='l'>
-            {user.user?.lastname} {user.user?.firstname}
+            {user.user?.firstname} {user.user?.lastname}
           </P>
           <P size='s' fontstyle='thin' color='gray' className={styles.post}>
             {user.user?.post}
