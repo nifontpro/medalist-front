@@ -33,13 +33,13 @@ const Statistic = ({
         <StatisticCountAwards
           departId={departId}
           className={styles.countAwards}
-          onClick={() => push(`department/${departId}/awards`)}
+          onClick={() => push(`department/${departId}/awards?active=FINISH`)}
         />
 
         <StatisticCountNominee
           className={styles.countNominee}
           departId={departId}
-          onClick={() => push(`department/${departId}/awards`)}
+          onClick={() => push(`department/${departId}/awards?active=NOMINEE`)}
         />
 
         <StatisticDepartments
