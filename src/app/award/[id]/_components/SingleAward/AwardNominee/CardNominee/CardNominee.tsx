@@ -13,6 +13,8 @@ import Htag from '@/ui/Htag/Htag';
 import AwardIcon from '@/icons/union.svg';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import { awardApi } from '@/api/award/award.api';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import { useState } from 'react';
 
 const CardNominee = ({
   awardId,
@@ -30,6 +32,8 @@ const CardNominee = ({
     userId,
     awardId
   );
+
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   return (
     <>
@@ -81,7 +85,10 @@ const CardNominee = ({
                 Буден награжден
               </Button>
             )}
-            <ButtonEdit icon='remove' onClick={handleRemove} />
+            <ButtonEdit
+              icon='remove'
+              onClick={() => setOpenModalConfirm(true)}
+            />
           </div>
         ) : (
           <div className={styles.buttons}>
@@ -97,6 +104,12 @@ const CardNominee = ({
       deleteUserRewardInfo.status == 'pending' ? (
         <SpinnerFetching />
       ) : null}
+      <ModalConfirm
+        text={`Вы действительно хотите удалить ${user.user?.firstname} ${user.user?.lastname}?`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={handleRemove}
+      />
     </>
   );
 };
