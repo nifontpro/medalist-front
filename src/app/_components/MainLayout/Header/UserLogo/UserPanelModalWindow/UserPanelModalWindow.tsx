@@ -2,6 +2,7 @@ import styles from './UserPanelModalWindow.module.scss';
 import { UserPanelModalWindowProps } from './UserPanelModalWindow.props';
 import cn from 'classnames';
 import ProfileIcon from '@/icons/profile.svg';
+import ChangeRoleIcon from '@/icons/changeRole.svg';
 import EditIcon from '@/icons/editProfile.svg';
 import ExitIcon from '@/icons/exit.svg';
 import { ForwardedRef, forwardRef, memo } from 'react';
@@ -86,10 +87,16 @@ const UserPanelModalWindow = forwardRef(
               className={styles.slash}
               onClick={() => setVisibleModal(false)}
             />
+            <div className={styles.title}>
+              <P fontstyle='thin' size='xl' className={styles.titleItem}>
+                {user.firstname} {user.lastname}
+              </P>
+              <P fontstyle='thin' size='l' className={styles.titleItem}>
+                {user.dept?.name} / {user.post}
+              </P>
+              <P size='xs'>{user.authEmail}</P>
+            </div>
 
-            <Htag tag='h3' className={styles.title}>
-              {user.authEmail}
-            </Htag>
             <ul className={styles.list}>
               {/* <li className={styles.itemAbsolute}>
                 <ThemeSwitcher />
@@ -102,7 +109,7 @@ const UserPanelModalWindow = forwardRef(
               </li>
               {rolesUser?.data?.length && rolesUser?.data?.length > 1 ? (
                 <li className={styles.item} onClick={handleChangeCompany}>
-                  <ProfileIcon />
+                  <ChangeRoleIcon />
                   <P size='xs' fontstyle='thin' className={styles.link}>
                     Выбрать организацию
                   </P>

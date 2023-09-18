@@ -10,13 +10,14 @@
   padding: 45px 40px;
   @apply animate-fade;
   @media screen and (max-width: 768px) {
+    overflow-y: scroll;
     padding: 60px 40px 100px 40px;
     position: fixed;
     border-radius: 16px 16px 0 0;
     top: calc(100vh - 400px);
     left: 0;
     width: 100%;
-    height: fit-content;
+    height: 400px;
   }
 
   .slash {
@@ -41,6 +42,10 @@
   .title {
     padding-bottom: 30px;
     border-bottom: 1px solid var(--gray);
+
+    .titleItem {
+      margin-bottom: 15px;
+    }
   }
 
   .list {
@@ -49,7 +54,8 @@
 
     .item,
     .itemAbsolute {
-      display: flex;
+      display: grid;
+      grid-template-columns: 40px 1fr;
       align-items: center;
       margin-bottom: 35px;
       cursor: pointer;
@@ -79,7 +85,7 @@
     }
 
     .link {
-      margin-left: 20px;
+      // margin-left: 20px;
       @apply duration-200;
     }
   }
