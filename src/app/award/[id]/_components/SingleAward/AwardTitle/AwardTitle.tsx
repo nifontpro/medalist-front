@@ -70,7 +70,7 @@ const AwardTitle = ({
         <div className={styles.dateAward}>
           {/* {award.state == 'AWARD' && ( */}
           <P size='m' color='gray'>
-            Награда выдана {convertDate}
+            Награда создана {convertDate}
           </P>
           {/* )} */}
         </div>
