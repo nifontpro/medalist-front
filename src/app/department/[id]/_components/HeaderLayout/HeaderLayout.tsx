@@ -2,7 +2,7 @@
 
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { convertPathName } from './convertPathName';
@@ -20,6 +20,9 @@ const HeaderLayout = () => {
   const [alignment, setAlignment] = useState<Alignment>(
     convertPathName(pathName)
   );
+  useEffect(() => {
+    setAlignment(convertPathName(pathName));
+  }, [pathName]);
 
   const handleChange = useCallback(
     (event: React.MouseEvent<HTMLElement>, newAlignment: Alignment) => {
