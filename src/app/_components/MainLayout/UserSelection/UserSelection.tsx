@@ -25,6 +25,7 @@ import { User } from '@/types/user/user';
 import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow/useUserPanelModalWindow';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
+import WindowWithoutRoles from './WindowWithoutRoles/WindowWithoutRoles';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
@@ -43,6 +44,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     expandedIds,
     selectedIds,
   } = useUserSelection();
+
+  console.log(rolesUser);
 
   let reversedRolesUser: User[] = [];
   if (rolesUser && rolesUser.data) {
@@ -125,14 +128,15 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   className={styles.slash}
                   onClick={() => dispatch(setIsOpenUserSelection(false))}
                 />
-                <ExitIcon
+                {/* <ExitIcon
                   onClick={() => dispatch(setIsOpenUserSelection(false))}
                   className={styles.exit}
-                />
+                /> */}
                 <div className={styles.moduleContent}>
                   {/* <Htag tag='h2' className={styles.header}>
                     Выберите профиль
                   </Htag> */}
+                  {/* Если есть роли */}
                   {rolesUser ? (
                     reversedRolesUser!.map((role) => {
                       return (
@@ -164,33 +168,34 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   ) : (
                     <div className='text-center'>Нет аккаунтов</div>
                   )}
+                  {/* Если нет ролей */}
                   {rolesUser?.data?.length == 0 ? (
-                    <div
-                      className={styles.createWrapper}
-                      onClick={() => push(getOwnerCreateUrl())}
-                    >
-                      <CreateOwnerIcon className={styles.owner} />
-                      <P
-                        color='black'
-                        fontstyle='thin'
-                        className={styles.create}
-                      >
-                        Зарегистрироваться как владелец
-                      </P>
-                    </div>
-                  ) : null}{' '}
-                  {rolesUser &&
-                    rolesUser.data &&
-                    rolesUser.data.length == 0 && (
-                      <P
-                        onClick={handleLogoutClick}
-                        color='black'
-                        fontstyle='thin'
-                        className={styles.exitBtn}
-                      >
-                        Выйти
-                      </P>
-                    )}
+                    <WindowWithoutRoles />
+                  ) : // <>
+                  //   <div
+                  //     className={styles.createWrapper}
+                  //     onClick={() => push(getOwnerCreateUrl())}
+                  //   >
+                  //     <CreateOwnerIcon className={styles.owner} />
+                  //     <P
+                  //       color='black'
+                  //       fontstyle='thin'
+                  //       className={styles.create}
+                  //     >
+                  //       Зарегистрироваться как владелец
+                  //     </P>
+                  //   </div>
+
+                  //   <P
+                  //     onClick={handleLogoutClick}
+                  //     color='black'
+                  //     fontstyle='thin'
+                  //     className={styles.exitBtn}
+                  //   >
+                  //     Выйти
+                  //   </P>
+                  // </>
+                  null}{' '}
                 </div>
               </motion.div>
             </AnimatePresence>

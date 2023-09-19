@@ -33,11 +33,11 @@ const UserPreview = ({
           {user.post}
         </P>
       </div>
-      {forWhat == 'user' && (
+      {forWhat == 'user' ? (
         <P size='xs' fontstyle='thin' className={styles.departName}>
           {user.dept?.name}
         </P>
-      )}
+      ) : null}
     </div>
   );
 };

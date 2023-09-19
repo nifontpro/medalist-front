@@ -4,9 +4,10 @@ import { EditPanelProps } from './EditPanel.props';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, useState } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const EditPanel = forwardRef(
   (
@@ -46,69 +47,85 @@ const EditPanel = forwardRef(
       },
     };
 
+    const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
     if (onlyRemove) {
       return (
-        <motion.div
-          animate={visible ? 'visible' : 'hidden'}
-          variants={variants}
-          initial='hidden'
-          transition={{ duration: 0.2 }}
-          className={cn(styles.editPanel, className)}
-          ref={ref}
-          {...props}
-        >
-          {id && (
-            <P
-              size='xs'
-              fontstyle='thin'
-              onClick={() =>
-                typeOfUser &&
-                typeOfUser.id &&
-                deleteAsync(Number(id))
-              }
-              className={styles.item}
-            >
-              Удалить
-            </P>
-          )}
-        </motion.div>
+        <>
+          <motion.div
+            animate={visible ? 'visible' : 'hidden'}
+            variants={variants}
+            initial='hidden'
+            transition={{ duration: 0.2 }}
+            className={cn(styles.editPanel, className)}
+            ref={ref}
+            {...props}
+          >
+            {id ? (
+              <P
+                size='xs'
+                fontstyle='thin'
+                onClick={() => setOpenModalConfirm(true)}
+                className={styles.item}
+              >
+                Удалить
+              </P>
+            ) : null}
+          </motion.div>
+
+          <ModalConfirm
+            text={`Вы действительно хотите удалить?`}
+            openModalConfirm={openModalConfirm}
+            setOpenModalConfirm={setOpenModalConfirm}
+            onConfirm={() =>
+              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
+            }
+          />
+        </>
       );
     } else {
       return (
-        <motion.div
-          animate={visible ? 'visible' : 'hidden'}
-          variants={variants}
-          initial='hidden'
-          transition={{ duration: 0.2 }}
-          className={cn(styles.editPanel, className)}
-          ref={ref}
-          {...props}
-        >
-          {getUrlEdit && (
-            <P
-              size='xs'
-              fontstyle='thin'
-              onClick={() => push(getUrlEdit(`${id}`))}
-              className={styles.item}
-            >
-              Редактировать
-            </P>
-          )}
-          {id && (
-            <P
-              size='xs'
-              fontstyle='thin'
-              onClick={() =>
-                typeOfUser &&
-                typeOfUser.id &&
-                deleteAsync(Number(id))
-              }
-              className={styles.item}
-            >
-              Удалить
-            </P>
-          )}
-        </motion.div>
+        <>
+          <motion.div
+            animate={visible ? 'visible' : 'hidden'}
+            variants={variants}
+            initial='hidden'
+            transition={{ duration: 0.2 }}
+            className={cn(styles.editPanel, className)}
+            ref={ref}
+            {...props}
+          >
+            {getUrlEdit && (
+              <P
+                size='xs'
+                fontstyle='thin'
+                onClick={() => push(getUrlEdit(`${id}`))}
+                className={styles.item}
+              >
+                Редактировать
+              </P>
+            )}
+            {id ? (
+              <P
+                size='xs'
+                fontstyle='thin'
+                onClick={() => setOpenModalConfirm(true)}
+                className={styles.item}
+              >
+                Удалить
+              </P>
+            ) : null}
+          </motion.div>
+
+          <ModalConfirm
+            text={`Вы действительно хотите удалить?`}
+            openModalConfirm={openModalConfirm}
+            setOpenModalConfirm={setOpenModalConfirm}
+            onConfirm={() =>
+              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
+            }
+          />
+        </>
       );
     }
   }
