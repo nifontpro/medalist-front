@@ -23,8 +23,5 @@ export default function DepartmentReports({
       <TitleSingleDepartment id={params.id} />
       <EventDepartment id={params.id} />
     </main>
-    // <main>
-    //   <Main deptId={params.id} />
-    // </main>
   );
 }

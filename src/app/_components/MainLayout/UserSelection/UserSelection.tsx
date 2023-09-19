@@ -25,6 +25,8 @@ import { User } from '@/types/user/user';
 import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow/useUserPanelModalWindow';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
+import WindowWithoutRoles from './WindowWithoutRoles/WindowWithoutRoles';
+import WindowWithRoles from './WindowWithRoles/WindowWithRoles';
 
 const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
@@ -43,6 +45,8 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     expandedIds,
     selectedIds,
   } = useUserSelection();
+
+  console.log(rolesUser);
 
   let reversedRolesUser: User[] = [];
   if (rolesUser && rolesUser.data) {
@@ -125,72 +129,19 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
                   className={styles.slash}
                   onClick={() => dispatch(setIsOpenUserSelection(false))}
                 />
-                <ExitIcon
-                  onClick={() => dispatch(setIsOpenUserSelection(false))}
-                  className={styles.exit}
-                />
                 <div className={styles.moduleContent}>
-                  {/* <Htag tag='h2' className={styles.header}>
-                    Выберите профиль
-                  </Htag> */}
-                  {rolesUser ? (
-                    reversedRolesUser!.map((role) => {
-                      return (
-                        <div
-                          key={uniqid()}
-                          className={styles.role}
-                          onClick={() => handleChangeRole(role)}
-                        >
-                          <ImageDefault
-                            key={role.id}
-                            src={role.mainImg ? role.mainImg : undefined}
-                            width={40}
-                            height={40}
-                            alt='preview image'
-                            className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
-                          />
-                          <div>
-                            <P color='black' fontstyle='thin' size='xs'>
-                              {role.dept.name}
-                            </P>
-                            <P color='gray' fontstyle='thin' size='xs'>
-                              {role.lastname}
-                              {role.post !== 'Нет' ? `: ${role.post}` : ''}
-                            </P>
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className='text-center'>Нет аккаунтов</div>
-                  )}
+                  {/* Если есть роли */}
+                  {rolesUser?.data?.length && rolesUser?.data?.length > 0 ? (
+                    <WindowWithRoles
+                      handleLogoutClick={handleLogoutClick}
+                      rolesUser={rolesUser?.data}
+                      handleChangeRole={handleChangeRole}
+                    />
+                  ) : null}
+                  {/* Если нет ролей */}
                   {rolesUser?.data?.length == 0 ? (
-                    <div
-                      className={styles.createWrapper}
-                      onClick={() => push(getOwnerCreateUrl())}
-                    >
-                      <CreateOwnerIcon className={styles.owner} />
-                      <P
-                        color='black'
-                        fontstyle='thin'
-                        className={styles.create}
-                      >
-                        Зарегистрироваться как владелец
-                      </P>
-                    </div>
+                    <WindowWithoutRoles handleLogoutClick={handleLogoutClick} />
                   ) : null}{' '}
-                  {rolesUser &&
-                    rolesUser.data &&
-                    rolesUser.data.length == 0 && (
-                      <P
-                        onClick={handleLogoutClick}
-                        color='black'
-                        fontstyle='thin'
-                        className={styles.exitBtn}
-                      >
-                        Выйти
-                      </P>
-                    )}
                 </div>
               </motion.div>
             </AnimatePresence>

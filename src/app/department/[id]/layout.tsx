@@ -1,7 +1,7 @@
 import HeaderLayout from './_components/HeaderLayout/HeaderLayout';
 
 export const metadata = {
-  title: 'Medalist Department',
+  // title: 'Medalist Department',
   description: 'Review department',
 };
 

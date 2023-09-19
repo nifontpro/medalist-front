@@ -6,9 +6,9 @@ import { checkSegments, convertString } from './utils';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
 import { Dept } from '@/types/dept/dept';
+import { useEffect } from 'react';
 
 function Breadcrumbs(): JSX.Element {
-  document.title = localStorage.getItem('TreeName') as string;
   const pathName = usePathname();
   let segments = pathName.split('/').filter((segment) => segment !== '');
 
@@ -26,6 +26,15 @@ function Breadcrumbs(): JSX.Element {
     } else return curr;
   });
   //________________________
+
+  useEffect(() => {
+    if (segments.length < 2) {
+      document.title = localStorage.getItem('TreeName') as string;
+    } else {
+      let deptName = localStorage.getItem('TreeName') as string;
+      document.title = `${deptName} | ${checkSegments(segments[1], null)}`;
+    }
+  }, []);
 
   return (
     <nav>
