@@ -55,7 +55,7 @@ const HeaderLayout = () => {
           orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value=''>Дашборд</ToggleButton>
-          <ToggleButton value='information'>Инофрмация</ToggleButton>
+          <ToggleButton value='information'>Информация</ToggleButton>
           <ToggleButton value='users'>Сотрудники</ToggleButton>
           <ToggleButton value='awards'>Награды</ToggleButton>
           <ToggleButton value='statistics'>Статистика</ToggleButton>
