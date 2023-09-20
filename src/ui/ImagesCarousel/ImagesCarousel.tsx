@@ -49,19 +49,21 @@ const ImagesCarousel = ({
             })}
           </Carousel>
         ) : (
-          <ImageDefault
-            src={undefined}
-            width={400}
-            height={400}
-            alt='preview image'
-            objectFit='cover'
-          />
+          <div className={styles.imageDefault}>
+            <ImageDefault
+              src={undefined}
+              width={400}
+              height={400}
+              alt='preview image'
+              objectFit='cover'
+            />
+          </div>
         )}
       </>
     );
   } else {
     return (
-      <>
+      <div>
         {data.length > 0 ? (
           <Carousel
             className={cn(styles.carousel, className)}
@@ -88,15 +90,17 @@ const ImagesCarousel = ({
             })}
           </Carousel>
         ) : (
-          <ImageDefault
-            src={undefined}
-            width={250}
-            height={250}
-            alt='preview image'
-            className='@apply w-[250px] h-[250px]'
-          />
+          <div className={styles.imageDefault}>
+            <ImageDefault
+              src={undefined}
+              width={250}
+              height={250}
+              alt='preview image'
+              className='@apply w-[250px] h-[250px]'
+            />
+          </div>
         )}
-      </>
+      </div>
     );
   }
 };
