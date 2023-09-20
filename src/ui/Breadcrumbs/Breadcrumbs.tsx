@@ -36,9 +36,9 @@ function Breadcrumbs(): JSX.Element {
     }
   }, []);
 
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(
-    localStorage.getItem('selectCompany')
-  );
+  // const [selectedCompany, setSelectedCompany] = useState<string | null>(
+  const selectedCompany = localStorage.getItem('selectCompany');
+  // );
 
   return (
     <nav>
@@ -67,16 +67,6 @@ function Breadcrumbs(): JSX.Element {
             /
           </P>
         </>
-        {/* <>
-          <li className={styles.link}>
-            <Link href={`/department/${smallestIdDept.id}`}>
-              {smallestIdDept.name}
-            </Link>
-          </li>
-          <P fontstyle='thin' className={styles.br}>
-            /
-          </P>
-        </> */}
 
         {segments.map((segment, index) => {
           let href = '';
