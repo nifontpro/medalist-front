@@ -51,7 +51,7 @@ const MainAwards = ({
           {/* Есть награды */}
           <div
             className={cn(styles.countAwards, styles.card)}
-            onClick={() => push(`/department/${deptId}/statistics`)}
+            onClick={() => push(`/department/${deptId}/users`)}
           >
             <div className='flex'>
               <div className={styles.img}>

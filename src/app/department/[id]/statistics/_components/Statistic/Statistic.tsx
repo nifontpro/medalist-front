@@ -22,7 +22,7 @@ const Statistic = ({
   return (
     <div {...props} className={styles.wrapper}>
       <div className={styles.title}>
-        <Htag tag='h3' className={styles.header}>
+        <Htag tag='h2' className={styles.header}>
           Статистика
         </Htag>
         {/* <SwitchDepartOnCompany /> */}

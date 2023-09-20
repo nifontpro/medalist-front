@@ -108,12 +108,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
             </div>
 
             <Field
-              {...register('patronymic', {
-                required: 'Отчество обязательно!',
-                minLength: 6,
-              })}
-              title='Отчество*'
-              placeholder='Отчество пароль'
+              {...register('patronymic')}
+              title='Отчество'
+              placeholder='Введите отчество'
               error={errors.patronymic}
               className={styles.field}
             />

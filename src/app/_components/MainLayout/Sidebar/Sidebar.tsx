@@ -56,10 +56,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         <>
           <FormControl fullWidth>
             <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
-              label='Организация'
               onChange={handleChange}
               className={styles.select}
             >
