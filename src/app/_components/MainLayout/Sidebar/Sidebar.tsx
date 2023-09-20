@@ -19,6 +19,7 @@ import { NewTree } from './newTree';
 import { useRouter } from 'next/navigation';
 import P from '@/ui/P/P';
 import ChangeRoleIcon from '@/icons/ownerLogo.svg';
+import ArrowIcon from '@/icons/arrowDown.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { useAppDispatch } from '@/store/hooks/hooks';
 import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
@@ -70,6 +71,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               onChange={handleChange}
               className={styles.select}
+              IconComponent={ArrowIcon}
               MenuProps={{
                 classes: {
                   paper: styles.dropdown,

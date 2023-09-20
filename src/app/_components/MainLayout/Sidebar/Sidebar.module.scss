@@ -6,10 +6,10 @@
   }
 
   [aria-selected='true'] > div {
-    background: white !important;
+    background: var(--gray96) !important;
 
     p {
-      color: var(--gray-dark) !important;
+      color: var(--white) !important;
     }
   }
 
@@ -28,6 +28,12 @@
         width: 40px !important;
         height: 40px !important;
       }
+    }
+
+    > svg {
+      height: 15px;
+      width: 15px;
+      margin-right: 15px;
     }
   }
 
