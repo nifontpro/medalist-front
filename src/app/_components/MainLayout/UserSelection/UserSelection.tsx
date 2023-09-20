@@ -46,8 +46,6 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     selectedIds,
   } = useUserSelection();
 
-  console.log(rolesUser);
-
   let reversedRolesUser: User[] = [];
   if (rolesUser && rolesUser.data) {
     // @ts-ignore: Unreachable code error

@@ -30,7 +30,7 @@
         stroke: var(--gray96);
         @apply duration-200;
       }
-      
+
       .arrow {
         width: 13px;
         margin-left: 20px;
@@ -42,7 +42,7 @@
     }
   }
   .content {
-    max-width: 370px;
+    max-width: 500px;
     background: var(--gray-dark);
     padding: 30px;
     border-radius: 16px;
@@ -94,6 +94,9 @@
       .countEnd {
         display: flex;
         align-items: center;
+        @media screen and (max-width: 600px) {
+          margin-top: 20px;
+        }
       }
     }
 
@@ -107,4 +110,9 @@
       }
     }
   }
+}
+
+.imgDefault {
+  @apply rounded-[10px] max-h-[300px];
+  object-fit: contain !important;
 }

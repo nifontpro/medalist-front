@@ -14,6 +14,7 @@ import { RootState } from '@/store/storage/store';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
+import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
 
 const MainNominee = ({
   deptId,
@@ -48,9 +49,6 @@ const MainNominee = ({
 
   let currentDate = +new Date();
 
-  // if (!minEndDateNominee) {
-  //   return <></>;
-  // } else
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
@@ -73,22 +71,30 @@ const MainNominee = ({
         <div className={styles.content}>
           <div className={styles.img}>
             <ImageDefault
-              src={minEndDateNominee?.mainImg}
+              src={
+                minEndDateNominee?.mainImg
+                  ? minEndDateNominee?.mainImg
+                  : DefaultImgPNG
+              }
               width={236}
               height={236}
               alt='preview image'
-              objectFit='cover'
-              className='rounded-[10px]'
+              className={styles.imgDefault}
               priority={true}
             />
           </div>
+
           <div className={styles.wrapper2}>
             <P size='m' color='white' className={styles.countAwardsTitle}>
               {minEndDateNominee?.name}
             </P>
             <div className={styles.imgCenter}>
               <ImageDefault
-                src={minEndDateNominee?.mainImg}
+                src={
+                  minEndDateNominee?.mainImg
+                    ? minEndDateNominee?.mainImg
+                    : DefaultImgPNG
+                }
                 width={236}
                 height={236}
                 alt='preview image'
@@ -133,7 +139,11 @@ const MainNominee = ({
           </div>
           <div className={styles.imgEnd}>
             <ImageDefault
-              src={minEndDateNominee?.mainImg}
+              src={
+                minEndDateNominee?.mainImg
+                  ? minEndDateNominee?.mainImg
+                  : DefaultImgPNG
+              }
               width={236}
               height={236}
               alt='preview image'
