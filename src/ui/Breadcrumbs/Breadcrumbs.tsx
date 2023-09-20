@@ -82,7 +82,7 @@ function Breadcrumbs(): JSX.Element {
           return (
             <li key={segment}>
               {isLast ? (
-                <div className='cursor-default'>
+                <div className={styles.linkDefault}>
                   {checkSegments(segment, treeDepts)}
                 </div>
               ) : (

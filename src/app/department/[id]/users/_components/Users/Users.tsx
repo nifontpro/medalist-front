@@ -12,13 +12,12 @@ import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import P from '@/ui/P/P';
 import { useUsers } from './useUsers';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import { memo } from 'react';
-import InputFileExcelUsers from '@/ui/InputFileExcelUsers/InputFileExcelUsers';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
+import InputFileExcelUsersBtns from '@/ui/InputFileExcelUsersBnts/InputFileExcelUsersBtns';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -49,28 +48,12 @@ const Users = ({ id, className, ...props }: UsersProps) => {
   if (usersOnDepartment && usersOnDepartment.data) {
     return (
       <>
-        <AuthComponent minRole='ADMIN'>
-          <div className={styles.newUser}>
-            <ButtonCircleIcon
-              onClick={createUser}
-              classNameForIcon='@apply w-[12px] h-[12px]'
-              icon='plus'
-              appearance='black'
-            >
-              Сотрудник
-            </ButtonCircleIcon>
-          </div>
-          {department && department.data && (
-            <InputFileExcelUsers
-              department={department.data}
-              className={styles.excelBtn}
-            >
-              Добавить сотрудников из EXCEL
-            </InputFileExcelUsers>
-          )}
-        </AuthComponent>
+        <Htag tag='h2' className={styles.titleUsers}>
+          Сотрудники
+        </Htag>
+
         <div className={styles.container}>
-          <div className={styles.header}>
+          {/* <div className={styles.header}>
             <div className={styles.title}>
               <Htag tag='h3' className={cn(styles.choices)}>
                 Сотрудники
@@ -81,33 +64,70 @@ const Users = ({ id, className, ...props }: UsersProps) => {
                 </P>
               )}
             </div>
+          </div> */}
+
+          {/* <SwitchDepartOnCompany /> */}
+
+          <div className={styles.headerContainer}>
+            <Search
+              onChange={searchHandleChange}
+              color='white'
+              search={true}
+              button={false}
+              className={styles.search}
+              placeholder='Поиск сотрудника...'
+            />
 
             <SortButton
               state={state}
               onClick={handleSort}
               className={styles.filter}
             >
-              По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
+              {state == 'ASC' ? 'А - Я' : 'Я - А'}
             </SortButton>
+
+            <AuthComponent minRole='ADMIN'>
+              <div className={styles.addUser}>
+                <ButtonCircleIcon
+                  onClick={createUser}
+                  classNameForIcon='@apply w-[12px] h-[12px]'
+                  icon='plus'
+                  appearance='black'
+                >
+                  Сотрудник
+                </ButtonCircleIcon>
+              </div>
+            </AuthComponent>
+
+            <AuthComponent minRole='ADMIN'>
+              {department && department.data && (
+                <InputFileExcelUsersBtns
+                  department={department.data}
+                  className={styles.excelBtn}
+                >
+                  Из EXCEL
+                </InputFileExcelUsersBtns>
+              )}
+            </AuthComponent>
+
+            <AuthComponent minRole='ADMIN'>
+              <a
+                className={styles.link}
+                href='https://storage.yandexcloud.net/medalist/doc/users.xlsx'
+              >
+                Скачать шаблон
+              </a>
+            </AuthComponent>
           </div>
 
-          {/* <SwitchDepartOnCompany /> */}
-
-          <Search
-            onChange={searchHandleChange}
-            color='white'
-            search={true}
-            button={false}
-            placeholder='Поиск сотрудника...'
-            className='mt-[30px]'
-          />
-          <SortButton
+          {/* <SortButton
             state={state}
             onClick={handleSortWithoutPage}
             className={styles.filterMedia}
           >
             По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
-          </SortButton>
+          </SortButton> */}
+
           {usersOnDepartment?.data.length >= 1 ? (
             usersOnDepartment?.data?.map((user) => (
               <UserList
@@ -119,16 +139,6 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           ) : (
             <div className='mt-5'>Нет сотрудников в отделе...</div>
           )}
-          {/* {totalPage && totalPage > 1 ? (
-            <PrevNextPages
-              startPage={page + 1}
-              endPage={totalPage}
-              handleNextClick={() =>
-                usersOnDepartment && nextPage(usersOnDepartment)
-              }
-              handlePrevClick={prevPage}
-            />
-          ) : null} */}
         </div>
 
         {totalPage === page + 1 && <ButtonScrollUp />}

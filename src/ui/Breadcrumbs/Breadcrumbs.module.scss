@@ -20,6 +20,11 @@
       cursor: default;
     }
   }
+
+  .linkDefault {
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
 }
 
 .br {
