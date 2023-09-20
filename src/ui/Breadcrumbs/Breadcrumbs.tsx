@@ -6,7 +6,7 @@ import { checkSegments, convertString } from './utils';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
 import { Dept } from '@/types/dept/dept';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Breadcrumbs(): JSX.Element {
   const pathName = usePathname();
@@ -36,10 +36,38 @@ function Breadcrumbs(): JSX.Element {
     }
   }, []);
 
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(
+    localStorage.getItem('selectCompany')
+  );
+
   return (
     <nav>
       <ol className={styles.wrapper}>
         <>
+          <li className={styles.link}>
+            {selectedCompany ? (
+              <Link href={`/department/${selectedCompany}`}>
+                {
+                  treeDepts?.filter(
+                    (item) => item.id === Number(selectedCompany)
+                  )[0].name
+                }
+              </Link>
+            ) : (
+              <Link
+                href={`/department/${
+                  treeDepts?.filter((item) => item.level == 2)[0].id
+                }`}
+              >
+                {treeDepts?.filter((item) => item.level == 2)[0].name}
+              </Link>
+            )}
+          </li>
+          <P fontstyle='thin' className={styles.br}>
+            /
+          </P>
+        </>
+        {/* <>
           <li className={styles.link}>
             <Link href={`/department/${smallestIdDept.id}`}>
               {smallestIdDept.name}
@@ -48,7 +76,7 @@ function Breadcrumbs(): JSX.Element {
           <P fontstyle='thin' className={styles.br}>
             /
           </P>
-        </>
+        </> */}
 
         {segments.map((segment, index) => {
           let href = '';
