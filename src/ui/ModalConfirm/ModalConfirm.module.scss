@@ -1,16 +1,29 @@
 .wrapper {
-  min-width: 300px;
+  max-width: 600px;
+  min-width: 320px;
   min-height: 200px;
   background: var(--white);
   position: absolute;
   top: 40%;
-  left: calc(50% - 150px);
-  padding: 40px 20px;
+  left: calc(50vw - 150px);
+  // left: 50%;
+  padding: 60px 60px;
   border-radius: 27px;
   margin-bottom: 30px;
 
+  @media screen and (max-width: 1200px) {
+    top: 30%;
+    left: calc(30vw - 150px);
+  }
+
   @media screen and (max-width: 768px) {
+    max-width: 100%;
+    width: 100%;
     border-radius: 16px;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    height: fit-content;
   }
 
   .text {
@@ -20,7 +33,7 @@
 
   .buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     @media screen and (max-width: 768px) {
       flex-direction: column;
