@@ -1,13 +1,9 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { sortTree } from '@/utils/sortTree';
-import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import {
-  setArrayIds,
-  setSelectedTreeId,
-} from '@/store/features/sidebar/sidebarTree.slice';
+import { setArrayIds } from '@/store/features/sidebar/sidebarTree.slice';
 import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
@@ -30,7 +26,8 @@ export const useSidebar = () => {
     (state: RootState) => state.sidebarTree
   );
 
-  const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
+  // const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
+  const { data: subTree } = deptApi.useGetAuthTopLevelTreeQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser?.id : 0,
       baseRequest: {
@@ -53,12 +50,16 @@ export const useSidebar = () => {
   useEffect(() => {
     if (subTree?.data) {
       dispatch(setTreeDepts(subTree.data));
-      setTreeData(
-        sortTree(
-          subTree.data,
-          subTree.data[findMinParentIdOnTree(subTree.data)].parentId
-        )
-      );
+      setTreeData(() => {
+        if (subTree?.data) {
+          let arr = sortTree(
+            subTree.data,
+            subTree.data[findMinParentIdOnTree(subTree.data)].parentId
+          );
+          return arr;
+          // return arr[0].children;
+        }
+      });
 
       if (expandedIds) {
         setExpandedIdsState(expandedIds);
@@ -76,6 +77,8 @@ export const useSidebar = () => {
     },
     [dispatch]
   );
+
+  console.log(treeData);
 
   return {
     expandedIds,
