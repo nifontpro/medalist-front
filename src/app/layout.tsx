@@ -3,11 +3,6 @@ import '@/styles/globals.scss';
 import { Metadata } from 'next';
 import React from 'react';
 
-export const metadata: Metadata = {
-  title: 'Medalist Главная',
-  description: 'Главная страница Medalist',
-};
-
 export default function RootLayout({
   children,
 }: {
