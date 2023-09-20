@@ -22,8 +22,11 @@ const ModalConfirm = ({
       aria-describedby='modal-modal-description'
     >
       <div className={styles.wrapper}>
+        <P size='xl' className={styles.text}>
+          Требуется подтверждение!
+        </P>
         <P size='xs' fontstyle='thin' className={styles.text}>
-          {text}
+          Ваше действие уже нельзя будет отменить. {text}
         </P>
         <div className={styles.buttons}>
           <Button

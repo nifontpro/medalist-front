@@ -65,6 +65,8 @@ export const useSidebar = () => {
     }
   }, [expandedIds, selectedIds, dispatch, subTree]);
 
+  console.log(treeData);
+
   const toggle = useCallback(
     (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
       dispatch(setArrayIds(nodeIds));
@@ -80,5 +82,6 @@ export const useSidebar = () => {
     expandedIdsState,
     selectedIdsState,
     parentIds,
+    subTree,
   };
 };

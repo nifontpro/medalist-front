@@ -40,7 +40,7 @@
 
     .filterContent {
       height: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -54,7 +54,7 @@
 }
 
 .list {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
   .listItem {
     position: relative;
     display: flex;
@@ -71,8 +71,8 @@
     }
 
     &:last-child {
-        margin-bottom: 0px;
-      }
+      margin-bottom: 0px;
+    }
     .circle {
       width: 20px;
       height: 20px;
@@ -88,15 +88,15 @@
     }
 
     .disabled {
-        opacity: .4;
+      opacity: 0.4;
     }
   }
 }
 
 .visible {
-    display: block;
+  display: block;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

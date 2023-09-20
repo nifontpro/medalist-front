@@ -5,9 +5,16 @@ export const sortTree = (tree: Dept[], child: number) => {
     const childs = (id: any): any =>
       tree
         .filter((item) => item.parentId === id)
-        .map(({ id, name }) => ({ id, name, children: childs(id) }))
-        .map(({ id, name, children }) =>
-          children.length ? { id, name, children } : { id, name }
+        .map(({ id, name, mainImg }) => ({
+          id,
+          name,
+          mainImg,
+          children: childs(id),
+        }))
+        .map(({ id, name, mainImg, children }) =>
+          children.length
+            ? { id, name, mainImg, children }
+            : { id, name, mainImg }
         );
     return childs(child);
   } else return undefined;

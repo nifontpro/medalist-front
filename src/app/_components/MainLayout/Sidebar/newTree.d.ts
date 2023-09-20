@@ -1,5 +1,6 @@
 export type NewTree = {
-    id: number;
-    name: string;
-    children?: NewTree[];
-  };
+  id: number;
+  name: string;
+  mainImg: string;
+  children?: NewTree[];
+};

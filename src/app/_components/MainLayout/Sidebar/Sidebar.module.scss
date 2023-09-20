@@ -17,6 +17,18 @@
     background: var(--white) !important;
     color: var(--gray-dark);
     margin-bottom: 20px;
+    border-radius: 16px;
+
+    > div {
+      display: flex !important;
+      align-items: center !important;
+
+      img {
+        margin-right: 15px !important;
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
   }
 
   .logo {
@@ -72,4 +84,66 @@
       }
     }
   }
+}
+
+.bottom {
+  border-top: 1px solid var(--gray);
+  padding-bottom: 10px;
+  padding-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .bottomContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg path {
+      @apply duration-200;
+    }
+
+    &:hover p {
+      color: var(--gray-dark);
+    }
+
+    &:hover svg path {
+      stroke: var(--gray-dark);
+    }
+  }
+}
+
+.dropdown {
+  padding: 25px !important;
+  margin-top: 10px !important;
+  border-radius: 16px !important;
+}
+
+.menuItem,
+.selectedItem {
+  display: flex !important;
+  align-items: center !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  margin-bottom: 5px !important;
+
+  &:last-child {
+    margin-bottom: 0px !important;
+  }
+
+  img {
+    margin-right: 15px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  /* Add your custom styles for the menu items here */
+}
+
+.selectedItem {
+  background: var(--gray) !important;
+}
+
+.menuItem:hover {
+  /* Add your custom styles for the hovered item here */
 }

@@ -9,6 +9,7 @@ import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
 import { useMainAwards } from './useMainAwards';
 import { memo } from 'react';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 
 const MainAwards = ({
   deptId,
@@ -25,10 +26,12 @@ const MainAwards = ({
     numberIsNaN,
   } = useMainAwards(deptId);
 
+  const { singleDepartment: department } = useDepartmentAdmin(deptId);
+
   return (
     <>
       <div {...props} className={cn(styles.wrapper, className)}>
-        <Htag tag='h2'>Награды</Htag>
+        <Htag tag='h2'>{department?.data?.dept?.name}</Htag>
 
         {/* Наград */}
         <div className={styles.content}>
@@ -51,7 +54,7 @@ const MainAwards = ({
           {/* Есть награды */}
           <div
             className={cn(styles.countAwards, styles.card)}
-            onClick={() => push(`/department/${deptId}/statistics`)}
+            onClick={() => push(`/department/${deptId}/users`)}
           >
             <div className='flex'>
               <div className={styles.img}>
