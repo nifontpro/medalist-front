@@ -6,39 +6,7 @@ import uniqid from 'uniqid';
 import styles from './WindowWithRoles.module.scss';
 import { WindowWithRolesProps } from './WindowWithRoles.props';
 import { useRouter } from 'next/navigation';
-import { getOwnerCreateUrl } from '@/config/api.config';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-
-{
-  /* {rolesUser ? (
-                    reversedRolesUser!.map((role) => {
-                      return (
-                        <div
-                          key={uniqid()}
-                          className={styles.role}
-                          onClick={() => handleChangeRole(role)}
-                        >
-                          <ImageDefault
-                            key={role.id}
-                            src={role.mainImg ? role.mainImg : undefined}
-                            width={40}
-                            height={40}
-                            alt='preview image'
-                            className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
-                          />
-                          <div>
-                            <P color='black' fontstyle='thin' size='xs'>
-                              {role.dept.name}
-                            </P>
-                            <P color='gray' fontstyle='thin' size='xs'>
-                              {role.lastname}
-                              {role.post !== 'Нет' ? `: ${role.post}` : ''}
-                            </P>
-                          </div>
-                        </div>
-                      );
-                    }) */
-}
 
 const WindowWithRoles = ({
   handleLogoutClick,

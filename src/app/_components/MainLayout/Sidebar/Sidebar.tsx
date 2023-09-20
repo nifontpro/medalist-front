@@ -17,6 +17,11 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { NewTree } from './newTree';
 import { useRouter } from 'next/navigation';
+import P from '@/ui/P/P';
+import ChangeRoleIcon from '@/icons/ownerLogo.svg';
+import ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import { useAppDispatch } from '@/store/hooks/hooks';
+import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -27,8 +32,13 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     expandedIdsState,
     selectedIdsState,
     parentIds,
+    subTree,
   } = useSidebar();
   const { push } = useRouter();
+
+  const dispatch = useAppDispatch();
+
+  let ownerCompany = subTree?.data?.find((item) => item.parentId === 1);
 
   const [tree, setTree] = useState<NewTree[] | undefined>(undefined);
 
@@ -44,6 +54,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     setTree(treeData?.filter((item) => item.id === Number(event.target.value)));
     localStorage.setItem('selectCompany', event.target.value);
     setSelectedCompany(event.target.value);
+    dispatch(setSelectedTreeId(''));
     push(`/department/${event.target.value}`);
   };
 
@@ -59,12 +70,51 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               onChange={handleChange}
               className={styles.select}
+              MenuProps={{
+                classes: {
+                  paper: styles.dropdown,
+                },
+              }}
             >
               {treeData.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
+                <MenuItem
+                  key={item.id}
+                  value={item.id}
+                  className={
+                    item.id === Number(selectedCompany)
+                      ? styles.selectedItem
+                      : styles.menuItem
+                  }
+                >
+                  <ImageDefault
+                    src={item.mainImg ? item.mainImg : undefined}
+                    width={40}
+                    height={40}
+                    alt='preview image'
+                    objectFit='cover'
+                    className='rounded-[10px]'
+                    // priority={true}
+                  />
                   {item.name}
                 </MenuItem>
               ))}
+
+              {ownerCompany ? (
+                <div className={styles.bottom}>
+                  <div
+                    className={styles.bottomContent}
+                    onClick={() => {
+                      if (ownerCompany)
+                        push(`create/department?id=${ownerCompany.id}`);
+                    }}
+                  >
+                    <ChangeRoleIcon className='@apply w-[24px] mr-[10px]' />
+                    <P size='xs' fontstyle='thin' color='gray'>
+                      Зарегистрировать новую компанию
+                    </P>
+                  </div>
+                </div>
+              ) : null}
             </Select>
           </FormControl>
 
