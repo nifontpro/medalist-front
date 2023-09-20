@@ -43,6 +43,7 @@ const HeaderLayout = () => {
   return (
     <>
       <Breadcrumbs />
+
       {getLastUrl(pathName) === 'edit' ? null : (
         <ToggleButtonGroup
           color='primary'
@@ -52,7 +53,7 @@ const HeaderLayout = () => {
           aria-label='Platform'
           className={styles.wrapper}
           // className='my-5 w-full justify-center'
-          orientation={windowSize.winWidth < 580 ? 'vertical' : 'horizontal'}
+          orientation={windowSize.winWidth < 640 ? 'vertical' : 'horizontal'}
         >
           <ToggleButton value=''>Дашборд</ToggleButton>
           <ToggleButton value='information'>Информация</ToggleButton>
