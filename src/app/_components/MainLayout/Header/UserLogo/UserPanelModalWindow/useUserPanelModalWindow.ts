@@ -52,6 +52,7 @@ export const useUserPanelModalWindow = (
 
   const handleLogoutClick = useCallback(async () => {
     const it = localStorage.getItem('it');
+    localStorage.removeItem('selectCompany');
     if (it != undefined && !isExpired) {
       await logoutWin(it);
       dispatch(authActions.setIsAuth(false));

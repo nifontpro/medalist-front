@@ -12,8 +12,6 @@ import cn from 'classnames';
 import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
 import { memo, useEffect, useState } from 'react';
-
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -38,25 +36,15 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     if (treeData) setTree(treeData);
   }, [treeData]);
 
-  // console.log(tree);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(
+    localStorage.getItem('selectCompany')
+  );
 
   const handleChange = (event: SelectChangeEvent) => {
-    if (
-      treeData?.filter((item) => item.id === Number(event.target.value))
-        .length > 0
-    ) {
-      setTree(
-        treeData?.filter((item) => item.id === Number(event.target.value))
-      );
-    } else {
-      setTree(
-        treeData[0].children?.filter(
-          (item) => item.id === Number(event.target.value)
-        )
-      );
-    }
-    // setTree(treeData?.filter((item) => item.id === Number(event.target.value)));
-    // push(`/department/${event.target.value}`);
+    setTree(treeData?.filter((item) => item.id === Number(event.target.value)));
+    localStorage.setItem('selectCompany', event.target.value);
+    setSelectedCompany(event.target.value);
+    push(`/department/${event.target.value}`);
   };
 
   return (
@@ -64,28 +52,24 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
       <ExitIcon />
       <Logo className={styles.logo} />
 
-      {tree !== undefined ? (
+      {tree && tree[0] ? (
         <>
-          {/* <FormControl fullWidth>
+          <FormControl fullWidth>
             <Select
               labelId='demo-simple-select-label'
               id='demo-simple-select'
-              value={treeData[0]?.id.toString()}
-              // defaultValue={tree.name}
+              value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               label='Организация'
               onChange={handleChange}
               className={styles.select}
             >
-              <MenuItem key={treeData[0]?.id} value={treeData[0]?.id}>
-                {treeData[0]?.name}
-              </MenuItem>
-              {treeData[0]?.children?.map((item) => (
+              {treeData.map((item) => (
                 <MenuItem key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>
               ))}
             </Select>
-          </FormControl> */}
+          </FormControl>
 
           <TreeView
             aria-label='file system navigator'
@@ -102,8 +86,14 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               overflowY: 'auto',
             }}
           >
-            <Tree treeData={treeData} />
-            {/* <Tree treeData={tree[0]?.children} /> */}
+            <Tree
+              treeData={
+                selectedCompany
+                  ? tree.find((item) => item.id == Number(selectedCompany))
+                      ?.children
+                  : tree[0]?.children
+              }
+            />
           </TreeView>
         </>
       ) : null}

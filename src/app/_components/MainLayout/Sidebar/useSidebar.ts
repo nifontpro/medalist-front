@@ -12,21 +12,16 @@ import { setTreeDepts } from '@/store/features/treeDepts/treeDepts.slice';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();
-
   const [treeData, setTreeData] = useState<NewTree[]>([]);
-
   const [expandedIdsState, setExpandedIdsState] = useState<string[]>([]);
   const [selectedIdsState, setSelectedIdsState] = useState<string>('');
-
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-
   const { expandedIds, selectedIds } = useAppSelector(
     (state: RootState) => state.sidebarTree
   );
 
-  // const { data: subTree } = deptApi.useGetAuthSubtreeQuery(
   const { data: subTree } = deptApi.useGetAuthTopLevelTreeQuery(
     {
       authId: typeOfUser && typeOfUser.id ? typeOfUser?.id : 0,
@@ -39,21 +34,6 @@ export const useSidebar = () => {
     }
   );
 
-  const transformToTree = (depts: Dept[], parentId: number): any[] => {
-    const filteredDepts = depts.filter(
-      (dept) => dept.level === 2 && dept.parentId === parentId
-    );
-    return filteredDepts.map((dept) => {
-      const children = transformToTree(depts, dept.id || 0);
-      return children.length > 0 ? { ...dept, children } : { ...dept };
-    });
-  };
-
-  if (subTree && subTree.data) {
-    const tree = transformToTree(subTree.data, 1);
-    console.log(tree);
-  }
-
   // _____________ Ниже код для того, чтобы дерево всегда было раскрыто полностью ____________
   function getParentIds(arr: Dept[] | undefined) {
     if (!arr) return [];
@@ -65,23 +45,15 @@ export const useSidebar = () => {
   useEffect(() => {
     if (subTree?.data) {
       dispatch(setTreeDepts(subTree.data));
-
+      let arrWithLevelMoraThan2 = subTree.data.filter(
+        (item) => item.level >= 2
+      );
       setTreeData(
         sortTree(
-          subTree.data,
-          subTree.data[findMinParentIdOnTree(subTree.data)].parentId
+          arrWithLevelMoraThan2,
+          arrWithLevelMoraThan2[findMinParentIdOnTree(subTree.data)].parentId
         )
       );
-      // setTreeData(() => {
-      //   if (subTree?.data) {
-      //     let arr = sortTree(
-      //       subTree.data,
-      //       subTree.data[findMinParentIdOnTree(subTree.data)].parentId
-      //     );
-      //     return arr;
-      //     // return arr[0].children;
-      //   }
-      // });
 
       if (expandedIds) {
         setExpandedIdsState(expandedIds);
@@ -99,8 +71,6 @@ export const useSidebar = () => {
     },
     [dispatch]
   );
-
-  // console.log(treeData);
 
   return {
     expandedIds,

@@ -33,6 +33,7 @@ export const useUserSelection = () => {
     dispatch(setTypeOfUser_IsOpen(role));
     dispatch(setArrayIds(['0']));
     dispatch(setSelectedTreeId('0'));
+    localStorage.removeItem('selectCompany');
 
     push(`/department/${role.dept.id}`);
   };
