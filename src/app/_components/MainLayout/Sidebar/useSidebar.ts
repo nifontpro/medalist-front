@@ -39,6 +39,21 @@ export const useSidebar = () => {
     }
   );
 
+  const transformToTree = (depts: Dept[], parentId: number): any[] => {
+    const filteredDepts = depts.filter(
+      (dept) => dept.level === 2 && dept.parentId === parentId
+    );
+    return filteredDepts.map((dept) => {
+      const children = transformToTree(depts, dept.id || 0);
+      return children.length > 0 ? { ...dept, children } : { ...dept };
+    });
+  };
+
+  if (subTree && subTree.data) {
+    const tree = transformToTree(subTree.data, 1);
+    console.log(tree);
+  }
+
   // _____________ Ниже код для того, чтобы дерево всегда было раскрыто полностью ____________
   function getParentIds(arr: Dept[] | undefined) {
     if (!arr) return [];
@@ -50,16 +65,23 @@ export const useSidebar = () => {
   useEffect(() => {
     if (subTree?.data) {
       dispatch(setTreeDepts(subTree.data));
-      setTreeData(() => {
-        if (subTree?.data) {
-          let arr = sortTree(
-            subTree.data,
-            subTree.data[findMinParentIdOnTree(subTree.data)].parentId
-          );
-          return arr;
-          // return arr[0].children;
-        }
-      });
+
+      setTreeData(
+        sortTree(
+          subTree.data,
+          subTree.data[findMinParentIdOnTree(subTree.data)].parentId
+        )
+      );
+      // setTreeData(() => {
+      //   if (subTree?.data) {
+      //     let arr = sortTree(
+      //       subTree.data,
+      //       subTree.data[findMinParentIdOnTree(subTree.data)].parentId
+      //     );
+      //     return arr;
+      //     // return arr[0].children;
+      //   }
+      // });
 
       if (expandedIds) {
         setExpandedIdsState(expandedIds);
@@ -78,7 +100,7 @@ export const useSidebar = () => {
     [dispatch]
   );
 
-  console.log(treeData);
+  // console.log(treeData);
 
   return {
     expandedIds,

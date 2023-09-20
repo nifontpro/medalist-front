@@ -38,7 +38,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     if (treeData) setTree(treeData);
   }, [treeData]);
 
-  console.log(tree);
+  // console.log(tree);
 
   const handleChange = (event: SelectChangeEvent) => {
     if (
