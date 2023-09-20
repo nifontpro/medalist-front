@@ -1,5 +1,4 @@
 .wrapper {
-
   > .searchTitle {
     margin-bottom: 20px;
   }
@@ -10,16 +9,16 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 30px;
-    border-bottom: 1px solid var(--gray)
+    border-bottom: 1px solid var(--gray);
   }
 
-  > .searchUsers { 
+  > .searchUsers {
     max-height: 400px;
     margin-top: 30px;
     // border-radius: 13px;
     background: var(--white);
     // padding: 0px 0px 20px 60px;
-    overflow-y: scroll;
-    border-bottom: 1px solid var(--gray)
+    overflow-y: auto;
+    border-bottom: 1px solid var(--gray);
   }
 }

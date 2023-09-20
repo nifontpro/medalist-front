@@ -40,7 +40,7 @@
 
     .filterContent {
       height: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;

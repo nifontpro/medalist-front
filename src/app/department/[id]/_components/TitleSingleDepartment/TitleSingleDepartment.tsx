@@ -81,15 +81,16 @@ const TitleSingleDepartment = ({
         </P>
 
         <div className={styles.contacts}>
-          <a href={`tel:${department.data?.dept.phone}`}>
-            Сотовый:{' '}
-            {department.data?.dept.phone
-              ? department.data?.dept.phone
-              : 'Сотовый не указан'}
-          </a>
-          <a href={`mailto:${department.data?.email}`}>
-            Почта: {department.data?.email}
-          </a>
+          {department.data?.dept.phone ? (
+            <a href={`tel:${department.data?.dept.phone}`}>
+              Сотовый: {department.data.dept.phone}
+            </a>
+          ) : null}
+          {department.data?.email ? (
+            <a href={`mailto:${department.data?.email}`}>
+              Почта: {department.data?.email}
+            </a>
+          ) : null}
         </div>
 
         <div className={styles.buttonsWrapper}>
