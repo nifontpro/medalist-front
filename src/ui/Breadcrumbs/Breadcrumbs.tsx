@@ -20,11 +20,11 @@ function Breadcrumbs(): JSX.Element {
   const treeDepts = useAppSelector(SelectTreeDepts);
 
   //Ищем рутовый доступный отдел, чтобы поставить его первым и переходить в него, а не на главную
-  const smallestIdDept = treeDepts!.reduce((prev, curr): Dept => {
-    if (prev.parentId && curr.parentId) {
-      return prev.parentId < curr.parentId ? prev : curr;
-    } else return curr;
-  });
+  // const smallestIdDept = treeDepts!.reduce((prev, curr): Dept => {
+  //   if (prev.parentId && curr.parentId) {
+  //     return prev.parentId < curr.parentId ? prev : curr;
+  //   } else return curr;
+  // });
   //________________________
 
   useEffect(() => {
@@ -36,16 +36,16 @@ function Breadcrumbs(): JSX.Element {
     }
   }, []);
 
-  // const [selectedCompany, setSelectedCompany] = useState<string | null>(
   const selectedCompany = localStorage.getItem('selectCompany');
-  // );
 
   return (
     <nav>
       <ol className={styles.wrapper}>
         <>
           <li className={styles.link}>
-            {selectedCompany ? (
+            {selectedCompany &&
+            selectedCompany ==
+              pathName.split('/')[2] ? null : selectedCompany ? (
               <Link href={`/department/${selectedCompany}`}>
                 {
                   treeDepts?.filter(
@@ -63,9 +63,11 @@ function Breadcrumbs(): JSX.Element {
               </Link>
             )}
           </li>
-          <P fontstyle='thin' className={styles.br}>
-            /
-          </P>
+          {selectedCompany && selectedCompany != pathName.split('/')[2] ? (
+            <P fontstyle='thin' className={styles.br}>
+              /
+            </P>
+          ) : null}
         </>
 
         {segments.map((segment, index) => {

@@ -61,13 +61,10 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
 
   // Сделал чтобы открывать нажатием на иконку стрелки. Она стала не кликабельна из-за уменьшения поля текста
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
+
+  const handleToggle = () => {
+    setOpen(!open);
   };
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  // _________
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -81,15 +78,15 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               open={tree.length > 1 ? open : false}
               onClick={
                 tree.length > 1
-                  ? handleOpen
+                  ? handleToggle
                   : () => push(`/department/${tree[0].id}`)
               }
-              onClose={handleClose}
-              onOpen={handleOpen}
+              onClose={handleToggle}
+              onOpen={handleToggle}
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               onChange={handleChange}
               className={styles.select}
-              IconComponent={ArrowIcon}
+              IconComponent={tree.length > 1 ? ArrowIcon : ''}
               MenuProps={{
                 classes: {
                   paper: styles.dropdown,
