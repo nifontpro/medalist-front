@@ -63,11 +63,16 @@ function Breadcrumbs(): JSX.Element {
               </Link>
             )}
           </li>
-          {selectedCompany && selectedCompany != pathName.split('/')[2] ? (
+          {selectedCompany &&
+          selectedCompany == pathName.split('/')[2] ? null : selectedCompany ? (
             <P fontstyle='thin' className={styles.br}>
               /
             </P>
-          ) : null}
+          ) : (
+            <P fontstyle='thin' className={styles.br}>
+              /
+            </P>
+          )}
         </>
 
         {segments.map((segment, index) => {

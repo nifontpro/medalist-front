@@ -79,7 +79,13 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               onClick={
                 tree.length > 1
                   ? handleToggle
-                  : () => push(`/department/${tree[0].id}`)
+                  : () => {
+                      localStorage.setItem(
+                        'selectCompany',
+                        tree[0].id.toString()
+                      );
+                      push(`/department/${tree[0].id}`);
+                    }
               }
               onClose={handleToggle}
               onOpen={handleToggle}
