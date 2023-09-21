@@ -1,0 +1,11 @@
+.selectContainer {
+	position: relative;
+
+}
+
+.error {
+	position: absolute;
+	bottom: -30px;
+	color: var(--red);
+	font-weight: 700;
+}

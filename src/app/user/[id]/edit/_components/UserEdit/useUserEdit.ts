@@ -5,7 +5,6 @@ import {
   MouseEvent,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
@@ -18,12 +17,27 @@ import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { BaseImage } from '@/types/base/image/baseImage';
+import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
+import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
   id: string
 ) => {
   const { singleUser, isLoadingSingleUser } = useUserAdmin(id);
+
+  //  Для выбора отделов и перемещения
+  const { deptsForRelocation, isLoadingDeptsForRelocation } =
+    useDepartmentAdmin();
+
+  let arrDeparts: IOption[] = [];
+
+  if (deptsForRelocation?.data)
+    arrDeparts = deptsForRelocation.data.map((depart) => ({
+      label: depart.name,
+      value: depart?.id,
+    }));
+  //  ______
 
   const [imageNum, setImageNum] = useState<number>(0);
   const [images, setImages] = useState<BaseImage[]>();
@@ -62,6 +76,7 @@ export const useUserEdit = (
       setValue('authEmail', singleUser.data?.user.authEmail);
       setValue('userId', singleUser.data?.user.id);
       setValue('roles', singleUser.data?.user.roles);
+      setValue('deptId', singleUser.data?.user.dept.id);
     }
   }, [setValue, setActive, typeOfUser, singleUser]);
 
@@ -209,5 +224,6 @@ export const useUserEdit = (
     images,
     active,
     setActive,
+    arrDeparts,
   };
 };
