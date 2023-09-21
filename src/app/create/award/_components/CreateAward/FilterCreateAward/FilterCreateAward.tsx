@@ -83,7 +83,7 @@ const FilterCreateAward = ({
         className={styles.button}
         onClick={(e) => handleClick(e)}
       >
-        Добавить
+        Выбрать
       </Button>
 
       <AnimatePresence mode='wait'>
