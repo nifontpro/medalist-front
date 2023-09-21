@@ -1,12 +1,13 @@
 import { deptApi } from '@/api/dept/dept.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { BaseRequest } from '@/types/base/BaseRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
-export const useDepartmentAdmin = (id?: string) => {
+export const useDepartmentAdmin = (id?: string, baseRequest?: BaseRequest) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -16,6 +17,17 @@ export const useDepartmentAdmin = (id?: string) => {
       {
         authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
         deptId: id ? Number(id) : 0,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
+    deptApi.useGetAuthSubtreeQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+        baseRequest: baseRequest ? baseRequest : undefined,
       },
       {
         skip: !typeOfUser,
@@ -51,5 +63,7 @@ export const useDepartmentAdmin = (id?: string) => {
     deleteDepartmentAsync,
     singleDepartment,
     isLoadingByIdDept,
+    deptsForRelocation,
+    isLoadingDeptsForRelocation,
   };
 };

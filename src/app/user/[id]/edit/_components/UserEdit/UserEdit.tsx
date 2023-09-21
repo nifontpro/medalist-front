@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './UserEdit.module.scss';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
@@ -21,6 +21,8 @@ import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo } from 'react';
 import P from '@/ui/P/P';
+import SelectArtem from '@/ui/SelectArtem/SelectArtem';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -28,6 +30,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    control,
   } = useForm<UpdateUserRequest>({ mode: 'onChange' });
 
   const {
@@ -44,6 +47,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
     images,
     active,
     setActive,
+    arrDeparts,
   } = useUserEdit(setValue, id);
 
   if (isLoadingSingleUser) return <Spinner />;
@@ -146,6 +150,25 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 placeholder='Введите свой email'
                 error={errors.authEmail}
               />
+              <AuthComponent minRole='ADMIN'>
+                <Controller
+                  name='deptId'
+                  control={control}
+                  rules={{
+                    required: 'Необходимо выбрать отдел!',
+                  }}
+                  render={({ field, fieldState: { error } }) => (
+                    <SelectArtem
+                      error={error}
+                      field={field}
+                      placeholder=''
+                      options={arrDeparts || []}
+                      isLoading={false}
+                      isMulti={false}
+                    />
+                  )}
+                />
+              </AuthComponent>
             </div>
 
             {/* <Field
