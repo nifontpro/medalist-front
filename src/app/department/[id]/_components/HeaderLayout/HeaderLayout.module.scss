@@ -1,9 +1,9 @@
 .wrapper {
   justify-content: flex-start;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 50px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 
   border-bottom: 2px solid var(--gray);
 
@@ -11,27 +11,22 @@
   [aria-pressed='false'] {
     border: none !important;
     font-size: 24px !important;
-    margin-right: 60px !important;
-    padding: 0 !important;
+    padding: 10px 20px !important;
 
     @media screen and (max-width: 1400px) {
       font-size: 19px !important;
-      margin-right: 35px !important;
     }
 
     @media screen and (max-width: 840px) {
       font-size: 18px !important;
-      margin-right: 30px !important;
     }
 
     @media screen and (max-width: 740px) {
       font-size: 16px !important;
-      margin-right: 20px !important;
     }
 
     @media screen and (max-width: 640px) {
       font-size: 24px !important;
-      margin-right: 0px !important;
     }
   }
 
