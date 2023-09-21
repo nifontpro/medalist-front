@@ -78,8 +78,12 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         <>
           <FormControl fullWidth>
             <Select
-              open={open}
-              onClick={open ? handleClose : handleOpen}
+              open={tree.length > 1 ? open : false}
+              onClick={
+                tree.length > 1
+                  ? handleOpen
+                  : () => push(`/department/${tree[0].id}`)
+              }
               onClose={handleClose}
               onOpen={handleOpen}
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}

@@ -31,7 +31,7 @@ const EditPanelAuthBtn = ({
         onClick={() => setVisible(!visible)}
         icon='dots'
         appearance={color}
-        classNameForIcon='@apply w-[10px] h-[10px]'
+        classNameForIcon='@apply w-[30px] h-[30px]'
         className={cn(styles.dots, className)}
         ref={refOpen}
       />
