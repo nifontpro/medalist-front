@@ -162,9 +162,15 @@ const SingleUserTitle = ({
       <P size='l' className={styles.aboutUser}>
         О сотруднике
       </P>
-      <P size='m' fontstyle='thin'>
-        {user?.description}
-      </P>
+      {user?.description ? (
+        <P size='m' fontstyle='thin'>
+          {user?.description}
+        </P>
+      ) : (
+        <P size='m' fontstyle='thin'>
+          Нет данных о сотруднике
+        </P>
+      )}
     </div>
   );
 };

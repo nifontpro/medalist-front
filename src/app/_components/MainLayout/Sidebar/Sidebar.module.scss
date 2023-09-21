@@ -19,9 +19,23 @@
     margin-bottom: 20px;
     border-radius: 16px;
 
+    fieldset {
+      outline: none !important;
+      border: none !important;
+    }
+
     > div {
       display: flex !important;
       align-items: center !important;
+
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      overflow-x: auto !important;
+      max-width: 68% !important;
+
+      @media screen and (max-width: 768px) {
+        max-width: 72% !important;
+      }
 
       img {
         margin-right: 15px !important;
@@ -124,6 +138,11 @@
   padding: 25px !important;
   margin-top: 10px !important;
   border-radius: 16px !important;
+  max-width: 350px !important;
+
+  @media screen and (max-width: 400px) {
+    max-width: 300px !important;
+  }
 }
 
 .menuItem,
@@ -133,6 +152,10 @@
   padding: 10px 20px !important;
   border-radius: 8px !important;
   margin-bottom: 5px !important;
+
+  text-overflow: ellipsis !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
 
   &:last-child {
     margin-bottom: 0px !important;
