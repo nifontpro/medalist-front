@@ -11,7 +11,7 @@ import styles from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -59,6 +59,16 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     push(`/department/${event.target.value}`);
   };
 
+  // Сделал чтобы открывать нажатием на иконку стрелки. Она стала не кликабельна из-за уменьшения поля текста
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  // _________
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <ExitIcon />
@@ -68,6 +78,10 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         <>
           <FormControl fullWidth>
             <Select
+              open={open}
+              onClick={open ? handleClose : handleOpen}
+              onClose={handleClose}
+              onOpen={handleOpen}
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               onChange={handleChange}
               className={styles.select}
