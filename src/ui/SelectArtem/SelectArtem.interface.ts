@@ -10,6 +10,7 @@ export interface IFieldProps {
 export interface IOption {
   label: string;
   value: number | undefined;
+  level: number;
 }
 
 export interface ISelect extends IFieldProps {

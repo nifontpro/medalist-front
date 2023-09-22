@@ -162,7 +162,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
                       error={error}
                       field={field}
                       placeholder=''
-                      options={arrDeparts || []}
+                      options={
+                        arrDeparts.filter((item) => item.level !== 1) || []
+                      }
                       isLoading={false}
                       isMulti={false}
                     />

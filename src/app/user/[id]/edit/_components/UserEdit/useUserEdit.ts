@@ -36,6 +36,7 @@ export const useUserEdit = (
     arrDeparts = deptsForRelocation.data.map((depart) => ({
       label: depart.name,
       value: depart?.id,
+      level: depart.level,
     }));
   //  ______
 
