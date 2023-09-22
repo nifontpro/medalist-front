@@ -80,28 +80,6 @@ const UserListRating = ({
                   Нет отдела
                 </ButtonIcon>
               )}
-              {/* {user.awards &&
-              user.awards.filter((item) => item.state == 'FINISH').length >=
-                1 ? (
-                <div className={styles.countAwards}>
-                  <Htag tag='h2'>
-                    {
-                      user.awards.filter((item) => item.state == 'FINISH')
-                        .length
-                    }
-                  </Htag>
-                  <AwardIcon className={styles.union} />
-                </div>
-              ) : (
-                <div className={styles.countAwardsDisable}>
-                  <Htag className={styles.disabled} tag='h2'>
-                    {user.awards &&
-                      user.awards.filter((item) => item.state == 'FINISH')
-                        .length}
-                  </Htag>
-                  <AwardIcon className={styles.union} />
-                </div>
-              )} */}
 
               <div
                 className={cn({

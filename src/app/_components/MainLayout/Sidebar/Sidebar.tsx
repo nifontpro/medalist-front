@@ -85,6 +85,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                         tree[0].id.toString()
                       );
                       push(`/department/${tree[0].id}`);
+                      dispatch(setSelectedTreeId(''));
                     }
               }
               onClose={handleToggle}

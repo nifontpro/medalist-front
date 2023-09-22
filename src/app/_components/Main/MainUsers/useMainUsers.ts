@@ -53,7 +53,8 @@ export const useMainUsers = (deptId: string | undefined) => {
 
   const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
     useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-      orders: [{ field: '(scores)', direction: 'DESC' }],
+      // orders: [{ field: '(scores)', direction: 'DESC' }],
+      orders: [{ field: '(awardCount)', direction: 'DESC' }],
       // subdepts: switcher,
       subdepts: true,
       page: page,

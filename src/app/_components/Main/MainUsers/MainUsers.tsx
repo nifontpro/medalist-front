@@ -13,6 +13,7 @@ import { memo, useMemo, useState } from 'react';
 import SelectIntervalDateUsers from '@/ui/SelectIntervalDateUsers/SelectIntervalDateUsers';
 import { IOptionInterval } from '@/ui/SelectIntervalDateUsers/SelectIntervalDateUsers.interface';
 import { useMainUsers } from './useMainUsers';
+import P from '@/ui/P/P';
 
 const MainUsers = ({
   deptId,
@@ -49,7 +50,8 @@ const MainUsers = ({
         <div className='h-[300px]'>
           <SpinnerSmall />
         </div>
-      ) : (
+      ) : usersOnDepartmentWithAwards?.data?.length &&
+        usersOnDepartmentWithAwards?.data?.length > 0 ? (
         <div className={styles.contentWrapper}>
           <UserListRating
             withoutCountAwards={false}
@@ -58,6 +60,7 @@ const MainUsers = ({
             page={page}
             pageSize={pageSize}
           />
+
           {totalPage && usersOnDepartmentWithAwards && totalPage > 1 ? (
             <PrevNextPages
               startPage={startPage}
@@ -67,6 +70,10 @@ const MainUsers = ({
             />
           ) : null}
         </div>
+      ) : (
+        <P size='s' fontstyle='thin'>
+          На данный момент лучших сотрудников нет
+        </P>
       )}
     </div>
   );

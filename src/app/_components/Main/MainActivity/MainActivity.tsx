@@ -59,8 +59,8 @@ const MainActivity = ({
       </div>
       <ul>
         {awardsActivOnDepartment &&
-          awardsActivOnDepartment.data &&
-          awardsActivOnDepartment.data.length > 0 &&
+        awardsActivOnDepartment.data &&
+        awardsActivOnDepartment.data.length > 0 ? (
           awardsActivOnDepartment?.data!.map((item, index) => {
             if (index < 5) {
               return (
@@ -103,7 +103,12 @@ const MainActivity = ({
                 </li>
               );
             }
-          })}
+          })
+        ) : (
+          <P size='s' fontstyle='thin'>
+            На данный активности нет
+          </P>
+        )}
       </ul>
     </div>
   );
