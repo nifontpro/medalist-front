@@ -163,7 +163,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
                       field={field}
                       placeholder=''
                       options={
-                        arrDeparts.filter((item) => item.level !== 1) || []
+                        arrDeparts
+                          .filter((item) => item.level !== 1)
+                          .sort((a, b) => a.label.localeCompare(b.label)) || []
                       }
                       isLoading={false}
                       isMulti={false}
