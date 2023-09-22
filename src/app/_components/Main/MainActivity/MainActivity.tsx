@@ -47,8 +47,8 @@ const MainActivity = ({
         <div
           className={styles.bestActivity}
           onClick={() => {
-            dispatch(setSelectedTreeId(''));
-            push('/activity');
+            // dispatch(setSelectedTreeId(''));
+            push(`/department/${deptId}/activity`);
           }}
         >
           <P size='s' fontstyle='thin' className={styles.text}>

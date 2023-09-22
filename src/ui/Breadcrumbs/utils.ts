@@ -18,9 +18,11 @@ export const checkSegments = (segment: string, tree: Dept[] | null): string => {
   if (segment === 'edit') {
     return 'Редактирование';
   }
-
   if (segment === 'information') {
     return 'Информация';
+  }
+  if (segment === 'activity') {
+    return 'Активность';
   }
   if (segment.split(' ').length >= 1) {
     // return `Отдел ${segment.split(' ')[1]}`; // Выводит только id, удалить в будущем

@@ -10,7 +10,13 @@ import { getLastUrl } from './getLastUrl';
 import Breadcrumbs from '@/ui/Breadcrumbs/Breadcrumbs';
 import styles from './HeaderLayout.module.scss';
 
-type Alignment = 'information' | 'users' | 'awards' | 'statistics' | '';
+type Alignment =
+  | 'information'
+  | 'users'
+  | 'awards'
+  | 'statistics'
+  | 'activity'
+  | '';
 
 const HeaderLayout = () => {
   const pathName = usePathname();
