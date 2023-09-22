@@ -1,17 +1,17 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
-import { BaseResponse } from '@/types/base/BaseResponse';
-import { User } from '@/types/user/user';
-import { UserDetails } from '@/types/user/userDetails';
-import { CreateOwnerRequest } from './request/CreateOwnerRequest';
-import { CreateUserRequest } from './request/CreateUserRequest';
-import { UpdateUserRequest } from './request/UpdateUserRequest';
-import { BaseImage } from '@/types/base/image/baseImage';
-import { BaseRequest } from '@/types/base/BaseRequest';
-import { GenderCount } from '@/types/user/genderCount';
-import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
-import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
-import { ActionType } from '@/types/award/Activity';
+import {createApi} from '@reduxjs/toolkit/dist/query/react';
+import {baseQueryWithReauth} from '../base/base.api';
+import {BaseResponse} from '@/types/base/BaseResponse';
+import {User} from '@/types/user/user';
+import {UserDetails} from '@/types/user/userDetails';
+import {CreateOwnerRequest} from './request/CreateOwnerRequest';
+import {CreateUserRequest} from './request/CreateUserRequest';
+import {UpdateUserRequest} from './request/UpdateUserRequest';
+import {BaseImage} from '@/types/base/image/baseImage';
+import {BaseRequest} from '@/types/base/BaseRequest';
+import {GenderCount} from '@/types/user/genderCount';
+import {UserSettings, UserSettingsRequest} from '@/types/user/userSettings';
+import {checkSameIdInArrays} from '@/utils/checkSameIdInArrays';
+import {ActionType} from '@/types/award/Activity';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -48,7 +48,7 @@ export const userApi = createApi({
     /**
      * Создание владельца
      */
-    createOwner: build.mutation<BaseResponse<UserDetails>, CreateOwnerRequest>({
+    createOwner: build.mutation<BaseResponse<{userDetails: UserDetails, deptId: number}>, CreateOwnerRequest>({
       query: (request) => {
         return {
           method: 'POST',
