@@ -98,13 +98,13 @@ body[data-theme='dark'] {
   }
 
   &__multi-value {
-    background-color: rgba(#999aa5, 0.6) !important;
+    background-color: var(--gray-dark) !important;
     border-radius: 0.5rem !important;
   }
 
   &__multi-value__label {
     font-size: 80% !important;
-    color: rgba(white, 0.7) !important;
+    color: var(--white) !important;
   }
 
   &__multi-value__remove {
