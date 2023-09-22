@@ -84,9 +84,10 @@ export const userApi = createApi({
           body: request,
         };
       },
-      invalidatesTags: (result) => [
-        { type: 'User', id: result?.data?.user.id },
-      ],
+      // invalidatesTags: (result) => [
+      //   { type: 'User', id: result?.data?.user.id },
+      // ],//Для инвалидации только данного пользователя (почему то работает только после рефреша)
+      invalidatesTags: ['User'],
     }),
 
     /**
@@ -381,6 +382,5 @@ export const userApi = createApi({
       }),
       providesTags: ['None'],
     }),
-
   }),
 });
