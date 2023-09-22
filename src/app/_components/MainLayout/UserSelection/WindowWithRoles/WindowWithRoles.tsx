@@ -20,6 +20,8 @@ const WindowWithRoles = ({
     (role) => !role.roles.includes('OWNER')
   );
 
+  console.log(ownerRole);
+
   return (
     <div className={styles.wrapper} {...props}>
       <Htag tag='h1'>Медалист приветствует Вас!</Htag>
@@ -31,7 +33,7 @@ const WindowWithRoles = ({
         </P>
       </div>
 
-      {ownerRole ? (
+      {ownerRole.length > 0 ? (
         <>
           <P size='s' fontstyle='thin'>
             Продолжите работу в роли владельца компании:

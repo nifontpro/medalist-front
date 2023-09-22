@@ -90,11 +90,11 @@ const MainActivity = ({
                   </div>
                   {item.date &&
                   Math.floor((currentDate - item.date) / 86400000) == 0 ? (
-                    <P size='m' color='gray' fontstyle='thin'>
+                    <P size='xs' color='gray' fontstyle='thin'>
                       сегодня
                     </P>
                   ) : (
-                    <P size='m' color='gray' fontstyle='thin'>
+                    <P size='xs' color='gray' fontstyle='thin'>
                       {item.date &&
                         Math.floor((currentDate - item.date) / 86400000)}
                       &nbsp;дн
