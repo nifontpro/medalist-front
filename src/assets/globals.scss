@@ -126,12 +126,13 @@ body[data-theme='dark'] {
   &__option {
     cursor: pointer !important;
     &--is-focused {
-      background-color: var(--grayF8) !important;
+      background-color: var(--gray-dark) !important;
+      color: var(--white) !important;
       border-radius: 4px;
     }
     &--is-selected {
       border-radius: 4px;
-      background-color: var(--gray) !important;
+      background-color: var(--gray96) !important;
     }
   }
 
