@@ -10,37 +10,26 @@ import { LocalizationProvider, ruRU } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MainLayout from '@/app/_components/MainLayout/MainLayout';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { ruRU as coreRuRU } from '@mui/material/locale';
-// import { ruRU } from '@mui/x-date-pickers/locales';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 
-const theme = createTheme(
-  {
-    palette: {
-      primary: { main: '#1976d2' },
-    },
-  },
-  ruRU, // x-date-pickers translations
-  coreRuRU // core translations
-);
+dayjs.locale('ru');
 
 const MainProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider
-        dateAdapter={AdapterDayjs}
-        localeText={
-          ruRU.components.MuiLocalizationProvider.defaultProps.localeText
-        }
-      >
-        <ToastContainer position='bottom-right' newestOnTop />
-        <Provider store={store}>
-          <PersistGate persistor={persistor} loading={null}>
-            <MainLayout>{children}</MainLayout>
-          </PersistGate>
-        </Provider>
-      </LocalizationProvider>
-    </ThemeProvider>
+    <LocalizationProvider
+      dateAdapter={AdapterDayjs}
+      localeText={
+        ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+      }
+    >
+      <ToastContainer position='bottom-right' newestOnTop />
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <MainLayout>{children}</MainLayout>
+        </PersistGate>
+      </Provider>
+    </LocalizationProvider>
   );
 };
 
