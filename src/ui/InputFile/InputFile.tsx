@@ -9,6 +9,7 @@ import {
   useCallback,
 } from 'react';
 import Button from '../Button/Button';
+import { toast } from 'react-toastify';
 
 const InputFile = forwardRef(
   (
@@ -24,13 +25,17 @@ const InputFile = forwardRef(
     const handleChangeImages = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files !== null) {
-          setImagesFile(event.target.files[0]);
-          setImagesGallery({
-            id: -1,
-            folderId: 123,
-            name: 'xxx123',
-            imageUrl: URL.createObjectURL(event.target.files[0]),
-          });
+          if (event.target.files[0].size > 1024000) {
+            toast.error('Размер фотографии должен быть меньше 1МБ');
+          } else {
+            setImagesFile(event.target.files[0]);
+            setImagesGallery({
+              id: -1,
+              folderId: 123,
+              name: 'xxx123',
+              imageUrl: URL.createObjectURL(event.target.files[0]),
+            });
+          }
         }
       },
       [setImagesFile, setImagesGallery]
