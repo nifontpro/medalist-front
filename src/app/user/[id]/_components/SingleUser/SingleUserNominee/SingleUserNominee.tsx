@@ -77,7 +77,8 @@ const SingleUserNominee = ({
         setState={setState}
       >
         {singleActivAwardUser &&
-        singleActivAwardUser.data!.filter(
+        singleActivAwardUser.data &&
+        singleActivAwardUser.data.filter(
           (award) => award.award?.type == 'PERIOD'
         ).length > 0 ? (
           <>

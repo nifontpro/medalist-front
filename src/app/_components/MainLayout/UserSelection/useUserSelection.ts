@@ -32,11 +32,23 @@ export const useUserSelection = () => {
   const handleChangeRole = (role: User) => {
     dispatch(setTypeOfUser_IsOpen(role));
     dispatch(setArrayIds(['0']));
-    dispatch(setSelectedTreeId('0'));
+    // dispatch(setSelectedTreeId('0'));
     localStorage.removeItem('selectCompany');
     dispatch(setSelectedTreeId(role.dept.id.toString())); //чтобы в сайдбаре выделялся отдел в который перешли
 
-    push(`/department/${role.dept.id}`);
+    if (role.roles.includes('OWNER')) {
+      push(`/`);
+      // if (treeDepts.length == 1 && treeDepts[0].id) {
+      //   localStorage.setItem('selectCompany', treeDepts[0].id.toString());
+      //   push(`department/${treeDepts[0].id}`);
+      // }
+      // if (treeDepts.length > 1 && treeDepts[1].id) {
+      //   localStorage.setItem('selectCompany', treeDepts[1].id.toString());
+      //   push(`/department/${treeDepts[1].id}`);
+      // }
+    } else {
+      push(`/department/${role.dept.id}`);
+    }
   };
 
   return {
