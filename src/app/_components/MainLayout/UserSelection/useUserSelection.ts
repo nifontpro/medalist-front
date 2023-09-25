@@ -10,6 +10,7 @@ import {
 } from '@/store/features/sidebar/sidebarTree.slice';
 import { usePathname, useRouter } from 'next/navigation';
 import { User } from '@/types/user/user';
+import { deptApi } from '@/api/dept/dept.api';
 
 export const useUserSelection = () => {
   const { push } = useRouter();
@@ -29,23 +30,45 @@ export const useUserSelection = () => {
     }
   );
 
-  const handleChangeRole = (role: User) => {
+  // //Получаем отделы возможные для просмотра
+  const [subTree] = deptApi.useLazyGetAuthTopLevelTreeQuery();
+
+  const handleChangeRole = async (role: User) => {
     dispatch(setTypeOfUser_IsOpen(role));
     dispatch(setArrayIds(['0']));
     // dispatch(setSelectedTreeId('0'));
     localStorage.removeItem('selectCompany');
     dispatch(setSelectedTreeId(role.dept.id.toString())); //чтобы в сайдбаре выделялся отдел в который перешли
 
-    if (role.roles.includes('OWNER')) {
-      push(`/`);
-      // if (treeDepts.length == 1 && treeDepts[0].id) {
-      //   localStorage.setItem('selectCompany', treeDepts[0].id.toString());
-      //   push(`department/${treeDepts[0].id}`);
-      // }
-      // if (treeDepts.length > 1 && treeDepts[1].id) {
-      //   localStorage.setItem('selectCompany', treeDepts[1].id.toString());
-      //   push(`/department/${treeDepts[1].id}`);
-      // }
+    if (role.roles.includes('OWNER') && role.id) {
+      // push(`/`);
+      const result = await subTree({
+        authId: role.id,
+        baseRequest: {
+          orders: [{ field: 'parentId' }, { field: 'name', direction: 'ASC' }],
+        },
+      });
+
+      console.log(result.data);
+
+      if (result.data?.data?.length == 1 && result.data.data[0].id) {
+        localStorage.setItem(
+          'selectCompany',
+          result.data?.data[0].id.toString()
+        );
+        push(`department/${result.data?.data[0].id}`);
+      }
+      if (
+        result.data?.data &&
+        result.data?.data?.length > 1 &&
+        result.data?.data[1].id
+      ) {
+        localStorage.setItem(
+          'selectCompany',
+          result.data?.data[1].id.toString()
+        );
+        push(`/department/${result.data?.data[1].id}`);
+      }
     } else {
       push(`/department/${role.dept.id}`);
     }
