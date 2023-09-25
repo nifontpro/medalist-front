@@ -46,7 +46,7 @@ export const useCreateOwner = (
             errorMessageParse(res.errors);
             isError = true;
           } else {
-            newDeptId = res.data?.deptId;
+            newDeptId = res.data?.deptId.toString();
           }
         })
         .catch((e) => {
