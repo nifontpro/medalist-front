@@ -78,7 +78,8 @@ const SingleUserAwards = ({
         searchHandleChange={searchHandleChange}
       >
         {singleActivAwardUser &&
-        singleActivAwardUser?.data!.filter(
+        singleActivAwardUser.data &&
+        singleActivAwardUser.data.filter(
           (award) => award.award?.type == 'SIMPLE'
         ).length > 0 ? (
           <>

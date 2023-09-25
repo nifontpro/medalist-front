@@ -73,11 +73,8 @@ const CreateOwner = () => {
           </div>
 
           <Field
-            {...register('patronymic', {
-              required: 'Отчество обязательно!',
-              minLength: 6,
-            })}
-            title='Отчество*'
+            {...register('patronymic')}
+            title='Отчество'
             placeholder='Введите отчество'
             error={errors.patronymic}
             className={styles.field}

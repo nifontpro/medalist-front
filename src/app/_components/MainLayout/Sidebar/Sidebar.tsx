@@ -28,43 +28,22 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
     expandedIds,
     selectedIds,
-    toggle,
+    toggleTreeNode,
     treeData,
     expandedIdsState,
     selectedIdsState,
     parentIds,
     subTree,
+    typeOfUser,
+    tree,
+    open,
+    handleToggle,
+    push,
+    dispatch,
+    selectedCompany,
+    handleChangeSelect,
+    ownerCompany,
   } = useSidebar();
-  const { push } = useRouter();
-
-  const dispatch = useAppDispatch();
-
-  let ownerCompany = subTree?.data?.find((item) => item.parentId === 1);
-
-  const [tree, setTree] = useState<NewTree[] | undefined>(undefined);
-
-  useEffect(() => {
-    if (treeData) setTree(treeData);
-  }, [treeData]);
-
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(
-    localStorage.getItem('selectCompany')
-  );
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setTree(treeData?.filter((item) => item.id === Number(event.target.value)));
-    localStorage.setItem('selectCompany', event.target.value);
-    setSelectedCompany(event.target.value);
-    dispatch(setSelectedTreeId(''));
-    push(`/department/${event.target.value}`);
-  };
-
-  // Сделал чтобы открывать нажатием на иконку стрелки. Она стала не кликабельна из-за уменьшения поля текста
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setOpen(!open);
-  };
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -75,9 +54,17 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
         <>
           <FormControl fullWidth>
             <Select
-              open={tree.length > 1 ? open : false}
+              open={
+                tree.length > 1
+                  ? open
+                  : typeOfUser?.roles.find((item) => item == 'OWNER')
+                  ? open
+                  : false
+              }
               onClick={
                 tree.length > 1
+                  ? handleToggle
+                  : typeOfUser?.roles.find((item) => item == 'OWNER')
                   ? handleToggle
                   : () => {
                       localStorage.setItem(
@@ -91,9 +78,15 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               onClose={handleToggle}
               onOpen={handleToggle}
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
-              onChange={handleChange}
+              onChange={handleChangeSelect}
               className={styles.select}
-              IconComponent={tree.length > 1 ? ArrowIcon : ''}
+              IconComponent={
+                tree.length > 1
+                  ? ArrowIcon
+                  : typeOfUser?.roles.find((item) => item == 'OWNER')
+                  ? ArrowIcon
+                  : ''
+              }
               MenuProps={{
                 classes: {
                   paper: styles.dropdown,
@@ -149,7 +142,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
             // expanded={expandedIds} // Сразу открытый путь
             expanded={parentIds} // Полностью раскрытое дерево всегда
             selected={selectedIds}
-            onNodeToggle={toggle} // Когда открываешь
+            onNodeToggle={toggleTreeNode} // Когда открываешь
             sx={{
               flexGrow: 1,
               maxWidth: 300,

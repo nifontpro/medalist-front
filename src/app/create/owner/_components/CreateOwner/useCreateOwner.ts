@@ -13,7 +13,7 @@ export const useCreateOwner = (
   active: Gender,
   reset: UseFormReset<CreateOwnerRequest>
 ) => {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const [create, createInfo] = userApi.useCreateOwnerMutation();
 
   useEffect(() => {
@@ -32,16 +32,21 @@ export const useCreateOwner = (
 
   const onSubmit: SubmitHandler<CreateOwnerRequest> = useCallback(
     async (data) => {
+      let newDeptId: string | undefined = '';
       let isError = false;
+
       if (active != undefined) {
         data.gender = active;
       }
+
       await create({ ...data })
         .unwrap()
         .then((res) => {
           if (res.success == false) {
             errorMessageParse(res.errors);
             isError = true;
+          } else {
+            newDeptId = res.data?.deptId;
           }
         })
         .catch((e) => {
@@ -51,10 +56,12 @@ export const useCreateOwner = (
       if (!isError) {
         reset();
         toast.success('Профиль владельца успешно создан');
-        back();
+        // back();
+        localStorage.setItem('selectCompany', newDeptId);
+        push(`/department/${newDeptId}/edit`);
       }
     },
-    [active, back, create, reset]
+    [active, back, push, create, reset]
   );
 
   return { onSubmit, handleClick, createInfo, back };

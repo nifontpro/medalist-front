@@ -30,7 +30,7 @@ export const useDepartmentEdit = (
     setImages(singleDepartment?.data?.dept.images);
   }, [singleDepartment]);
 
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const [update] = deptApi.useUpdateMutation();
   const [addImage] = deptApi.useImageAddMutation();
   const [refreshImage] = deptApi.useImageUpdateMutation();
@@ -185,10 +185,10 @@ export const useDepartmentEdit = (
 
       if (!isError) {
         toast.success('Отдел успешно отредактирован');
-        back();
+        push(`/department/${id}`);
       }
     },
-    [back, update]
+    [push, id, update]
   );
 
   return {

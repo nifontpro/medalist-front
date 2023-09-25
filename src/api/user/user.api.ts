@@ -12,6 +12,7 @@ import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 import { ActionType } from '@/types/award/Activity';
+import { NewOwnerDetails } from '@/types/user/newOwner';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -48,7 +49,10 @@ export const userApi = createApi({
     /**
      * Создание владельца
      */
-    createOwner: build.mutation<BaseResponse<UserDetails>, CreateOwnerRequest>({
+    createOwner: build.mutation<
+      BaseResponse<NewOwnerDetails>,
+      CreateOwnerRequest
+    >({
       query: (request) => {
         return {
           method: 'POST',
