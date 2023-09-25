@@ -18,6 +18,7 @@
     color: var(--gray-dark);
     margin-bottom: 20px;
     border-radius: 16px;
+    cursor: pointer !important;
 
     fieldset {
       outline: none !important;
@@ -28,9 +29,7 @@
       display: flex !important;
       align-items: center !important;
 
-      text-overflow: ellipsis !important;
-      white-space: nowrap !important;
-      // overflow-x: auto !important;
+      text-wrap: wrap !important;
       max-width: 68% !important;
 
       @media screen and (max-width: 768px) {
@@ -153,9 +152,7 @@
   border-radius: 8px !important;
   margin-bottom: 5px !important;
 
-  text-overflow: ellipsis !important;
-  // overflow-x: auto !important;
-  white-space: nowrap !important;
+  text-wrap: wrap !important;
 
   &:last-child {
     margin-bottom: 0px !important;
