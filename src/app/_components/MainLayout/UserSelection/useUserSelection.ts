@@ -34,6 +34,7 @@ export const useUserSelection = () => {
     dispatch(setArrayIds(['0']));
     dispatch(setSelectedTreeId('0'));
     localStorage.removeItem('selectCompany');
+    dispatch(setSelectedTreeId(role.dept.id.toString())); //чтобы в сайдбаре выделялся отдел в который перешли
 
     push(`/department/${role.dept.id}`);
   };

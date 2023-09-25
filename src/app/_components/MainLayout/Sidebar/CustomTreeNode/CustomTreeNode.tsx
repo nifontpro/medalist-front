@@ -66,6 +66,7 @@ const CustomTreeNode = React.memo(
     );
     const handleSelectionClick = useCallback(
       (event: SyntheticEvent<Element, Event>) => {
+        console.log(nodeId);
         handleSelection(event);
         dispatch(setSelectedTreeId(nodeId));
         push(getDepartmentUrl(`${nodeId}`));
