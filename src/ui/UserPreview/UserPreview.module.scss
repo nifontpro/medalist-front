@@ -1,6 +1,6 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 76px 1fr 200px;
+  grid-template-columns: 76px 2fr minmax(150px, 200px);
   align-items: center;
   gap: 30px;
 
@@ -27,9 +27,9 @@
     border-radius: 20px;
     background: var(--graySilver);
     text-align: center;
-    word-wrap: break-word;
+    text-wrap: wrap;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 600px) {
       display: none;
     }
   }

@@ -13,6 +13,8 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import AuthComponent from '@/store/providers/AuthComponent';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import Htag from '../Htag/Htag';
+import AwardIcon from '@/icons/union.svg';
 
 const UserList = motion(
   forwardRef(
@@ -51,6 +53,26 @@ const UserList = motion(
               forWhat='dept'
               onClick={userProfileLink}
             />
+
+            <div
+              className={cn({
+                [styles.countAwards]: user.awardCount > 0,
+                [styles.countAwardsDisable]: user.awardCount == 0,
+              })}
+            >
+              <>
+                <Htag
+                  tag='h2'
+                  className={cn({
+                    [styles.disabled]: user.awardCount == 0,
+                  })}
+                >
+                  {user.awardCount}
+                </Htag>
+                <AwardIcon className={styles.union} />
+              </>
+            </div>
+
             <AuthComponent minRole={'ADMIN'}>
               <div className={styles.editPanel} {...props}>
                 <div className={styles.wrapperIcon} onClick={userEditLink}>
@@ -66,6 +88,7 @@ const UserList = motion(
               </div>
             </AuthComponent>
           </div>
+
           <ModalConfirm
             title={'Требуется подтверждение!'}
             textBtn={'Удалить'}

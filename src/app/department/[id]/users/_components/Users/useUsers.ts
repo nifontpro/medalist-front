@@ -22,8 +22,10 @@ export const useUsers = (id: string) => {
     searchHandleChange,
   } = useFetchParams();
 
+  const startPage: number = useMemo(() => page + 1, [page]);
+
   const {
-    usersOnDepartment,
+    usersOnDepartmentWithAwards: usersOnDepartment,
     isLoadingUsersOnDepartment,
     isFetchingUsersOnDepartment,
   } = useUserAdmin(id, {
@@ -57,49 +59,24 @@ export const useUsers = (id: string) => {
     push(getUserCreateUrl(`?deptId=${id}`));
   }, [id, push]);
 
-  // //Для подгрузки данных при скролле с использованием IntersectionObserver
-  useEffect(() => {
-    const infinityObserver = new IntersectionObserver(
-      ([entry], observer) => {
-        if (entry.isIntersecting && totalPage && page < totalPage) {
-          nextPage(usersOnDepartment!);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    const lastUser = document.querySelector('.userCard:last-child');
-
-    if (lastUser) {
-      infinityObserver.observe(lastUser);
-    }
-  });
-  //_______________________
-
-  // //Для подгрузки данных при скролле с использованием EventListener
-  // const onScroll = useCallback(() => {
-  //   const scrolledToBottom =
-  //     window.innerHeight + window.scrollY >= document.body.offsetHeight;
-  //   if (scrolledToBottom && !isFetchingUsersOnDepartment) {
-  //     if (totalPage && page < totalPage) {
-  //       nextPage(usersOnDepartment!);
-  //     }
-  //   }
-  // }, [
-  //   isFetchingUsersOnDepartment,
-  //   nextPage,
-  //   page,
-  //   totalPage,
-  //   usersOnDepartment,
-  // ]);
+  // // //Для подгрузки данных при скролле с использованием IntersectionObserver
   // useEffect(() => {
-  //   document.addEventListener('scroll', onScroll);
+  //   const infinityObserver = new IntersectionObserver(
+  //     ([entry], observer) => {
+  //       if (entry.isIntersecting && totalPage && page < totalPage) {
+  //         nextPage(usersOnDepartment!);
+  //         observer.unobserve(entry.target);
+  //       }
+  //     },
+  //     { threshold: 0.5 }
+  //   );
 
-  //   return function () {
-  //     document.removeEventListener('scroll', onScroll);
-  //   };
-  // }, [onScroll]);
+  //   const lastUser = document.querySelector('.userCard:last-child');
+
+  //   if (lastUser) {
+  //     infinityObserver.observe(lastUser);
+  //   }
+  // });
   // //_______________________
 
   return {
@@ -120,5 +97,6 @@ export const useUsers = (id: string) => {
     handleSort,
     handleSortWithoutPage,
     createUser,
+    startPage,
   };
 };

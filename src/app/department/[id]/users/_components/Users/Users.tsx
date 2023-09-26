@@ -18,6 +18,7 @@ import { memo } from 'react';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 import InputFileExcelUsersBtns from '@/ui/InputFileExcelUsersBnts/InputFileExcelUsersBtns';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const {
@@ -38,6 +39,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     handleSort,
     handleSortWithoutPage,
     createUser,
+    startPage,
   } = useUsers(id);
 
   const { singleDepartment: department } = useDepartmentAdmin(id);
@@ -141,7 +143,18 @@ const Users = ({ id, className, ...props }: UsersProps) => {
           )}
         </div>
 
-        {totalPage === page + 1 && <ButtonScrollUp />}
+        {totalPage && usersOnDepartment && totalPage > 1 ? (
+          <PrevNextPages
+            className='mb-[50px]'
+            startPage={startPage}
+            endPage={totalPage}
+            handleNextClick={() => nextPage(usersOnDepartment)}
+            handlePrevClick={prevPage}
+          />
+        ) : null}
+
+        <ButtonScrollUp />
+        {/* {totalPage === page + 1 && <ButtonScrollUp />} */}
       </>
     );
   } else {

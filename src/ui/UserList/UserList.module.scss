@@ -1,18 +1,19 @@
 .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 3fr 1fr auto;
+  gap: 15px;
   align-items: center;
   margin-top: 45px;
 
   @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
     margin-top: 30px;
   }
 
   .user {
-    width: 100%;
-    padding-right: 20px;
+    // width: 100%;
+    // padding-right: 20px;
     cursor: pointer;
   }
 
@@ -65,11 +66,34 @@
 
       .remove {
         margin-left: 10px;
-
         @media screen and (max-width: 768px) {
           margin-left: 0px;
         }
       }
+    }
+  }
+
+  .countAwards,
+  .countAwardsDisable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .union {
+      margin-left: 10px;
+      width: 15px;
+    }
+  }
+
+  .countAwardsDisable {
+    .disabled {
+      color: var(--gray);
+    }
+    > svg path {
+      fill: var(--gray);
+    }
+    > svg path {
+      stroke: var(--gray);
     }
   }
 }
