@@ -25,8 +25,13 @@ const InputFile = forwardRef(
     const handleChangeImages = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files !== null) {
-          if (event.target.files[0].size > 1024000) {
+          const file = event.target.files[0];
+          const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+          if (file.size > 1024000) {
             toast.error('Размер фотографии должен быть меньше 1МБ');
+          } else if (!allowedTypes.includes(file.type)) {
+            toast.error('Формат фотографии должен быть PNG, JPEG или JPG');
           } else {
             setImagesFile(event.target.files[0]);
             setImagesGallery({

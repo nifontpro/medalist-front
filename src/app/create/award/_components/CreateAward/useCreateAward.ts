@@ -112,7 +112,12 @@ export const useCreateAward = (
           imagesGallery.id === -1 &&
           typeOfUser &&
           typeOfUser.id
-            ? setImage(file).unwrap()
+            ? setImage(file)
+                .unwrap()
+                .catch((e: Error) => {
+                  isError = true;
+                  toastError(e.message, 'Ошибка загрузки изображения');
+                })
             : null;
 
         //Номинирование тех кого выбрали
