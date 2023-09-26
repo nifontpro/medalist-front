@@ -5,6 +5,8 @@ import Button from '../Button/Button';
 import P from '../P/P';
 
 const ModalConfirm = ({
+  title,
+  textBtn,
   text,
   openModalConfirm,
   setOpenModalConfirm,
@@ -23,10 +25,10 @@ const ModalConfirm = ({
     >
       <div className={styles.wrapper}>
         <P size='xl' className={styles.text}>
-          Требуется подтверждение!
+          {title}
         </P>
         <P size='xs' fontstyle='thin' className={styles.text}>
-          Ваше действие уже нельзя будет отменить. {text}
+          {text}
         </P>
         <div className={styles.buttons}>
           <Button
@@ -35,7 +37,7 @@ const ModalConfirm = ({
             size='l'
             className={styles.cancel}
           >
-            Удалить
+            {textBtn}
           </Button>
           <Button
             onClick={handleClose}

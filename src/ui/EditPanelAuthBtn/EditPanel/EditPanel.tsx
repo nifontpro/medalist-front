@@ -74,7 +74,9 @@ const EditPanel = forwardRef(
           </motion.div>
 
           <ModalConfirm
-            text={`Вы действительно хотите удалить?`}
+            title={'Требуется подтверждение!'}
+            textBtn={'Удалить'}
+            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
             onConfirm={() =>
@@ -118,7 +120,9 @@ const EditPanel = forwardRef(
           </motion.div>
 
           <ModalConfirm
-            text={`Вы действительно хотите удалить?`}
+            title={'Требуется подтверждение!'}
+            textBtn={'Удалить'}
+            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
             onConfirm={() =>

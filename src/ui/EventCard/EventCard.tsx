@@ -106,7 +106,9 @@ const EventCard = ({
 
       <ModalConfirm
         key={'forDept'}
-        text={`Вы действительно хотите удалить событие отдела "${event.eventName}"?`}
+        title={'Требуется подтверждение!'}
+        textBtn={'Удалить'}
+        text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить событие отдела "${event.eventName}"?`}
         openModalConfirm={openModalConfirmForDept}
         setOpenModalConfirm={setOpenModalConfirmForDept}
         onConfirm={() => deleteDepartmentEventAsync(event.id)}
@@ -114,7 +116,9 @@ const EventCard = ({
 
       <ModalConfirm
         key={'forUser'}
-        text={`Вы действительно хотите удалить событие пользователя "${event.eventName}"?`}
+        title={'Требуется подтверждение!'}
+        textBtn={'Удалить'}
+        text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить событие пользователя "${event.eventName}"?`}
         openModalConfirm={openModalConfirmForUser}
         setOpenModalConfirm={setOpenModalConfirmForUser}
         onConfirm={() => deleteUserEventAsync(event.id)}

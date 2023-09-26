@@ -105,7 +105,9 @@ const CardNominee = ({
         <SpinnerFetching />
       ) : null}
       <ModalConfirm
-        text={`Вы действительно хотите удалить ${user.user?.firstname} ${user.user?.lastname}?`}
+        title={'Требуется подтверждение!'}
+        textBtn={'Удалить'}
+        text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ${user.user?.firstname} ${user.user?.lastname}?`}
         openModalConfirm={openModalConfirm}
         setOpenModalConfirm={setOpenModalConfirm}
         onConfirm={handleRemove}

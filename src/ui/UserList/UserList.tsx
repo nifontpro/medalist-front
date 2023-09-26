@@ -67,7 +67,9 @@ const UserList = motion(
             </AuthComponent>
           </div>
           <ModalConfirm
-            text={`Вы действительно хотите удалить ${user.firstname} ${user.lastname}?`}
+            title={'Требуется подтверждение!'}
+            textBtn={'Удалить'}
+            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить  ${user.firstname} ${user.lastname}?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
             onConfirm={userDeleteLink}
