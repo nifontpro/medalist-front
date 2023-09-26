@@ -33,7 +33,7 @@ export const useUsers = (id: string) => {
     subdepts: true,
     page: page,
     pageSize: 10,
-    filter: searchValue,
+    filter: searchValue ? searchValue : undefined,
     orders: [{ field: 'lastname', direction: state }],
   });
 

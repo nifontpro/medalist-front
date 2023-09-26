@@ -34,6 +34,8 @@ const MainUsers = ({
     prevPage,
   } = useMainUsers(deptId);
 
+  let currentRank = 1;
+
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={styles.header}>
@@ -54,6 +56,7 @@ const MainUsers = ({
         usersOnDepartmentWithAwards?.data?.length > 0 ? (
         <div className={styles.contentWrapper}>
           <UserListRating
+            currentRank={currentRank}
             withoutCountAwards={false}
             users={usersOnDepartmentWithAwards?.data}
             className={styles.userList}
@@ -61,14 +64,14 @@ const MainUsers = ({
             pageSize={pageSize}
           />
 
-          {totalPage && usersOnDepartmentWithAwards && totalPage > 1 ? (
+          {/* {totalPage && usersOnDepartmentWithAwards && totalPage > 1 ? (
             <PrevNextPages
               startPage={startPage}
               endPage={totalPage}
               handleNextClick={() => nextPage(usersOnDepartmentWithAwards)}
               handlePrevClick={prevPage}
             />
-          ) : null}
+          ) : null} */}
         </div>
       ) : (
         <P size='s' fontstyle='thin'>
