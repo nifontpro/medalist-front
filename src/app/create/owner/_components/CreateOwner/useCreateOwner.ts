@@ -1,6 +1,6 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
@@ -11,7 +11,8 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 export const useCreateOwner = (
   setValue: UseFormSetValue<CreateOwnerRequest>,
   active: Gender,
-  reset: UseFormReset<CreateOwnerRequest>
+  reset: UseFormReset<CreateOwnerRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const { back, push } = useRouter();
   const [create, createInfo] = userApi.useCreateOwnerMutation();
@@ -25,9 +26,9 @@ export const useCreateOwner = (
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      back();
+      setOpenModalConfirm(true);
     },
-    [back]
+    [setOpenModalConfirm]
   );
 
   const onSubmit: SubmitHandler<CreateOwnerRequest> = useCallback(

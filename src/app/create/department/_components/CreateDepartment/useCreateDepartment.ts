@@ -3,14 +3,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { CreateDeptRequest } from '@/api/dept/request/createDeptRequest';
 import { deptApi } from '@/api/dept/dept.api';
-import { useCallback, useEffect, useMemo } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 
 export const useCreateDepartment = (
   setValue: UseFormSetValue<CreateDeptRequest>,
-  reset: UseFormReset<CreateDeptRequest>
+  reset: UseFormReset<CreateDeptRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const searchParams = useSearchParams();
 
@@ -33,9 +40,9 @@ export const useCreateDepartment = (
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      back();
+      setOpenModalConfirm(true);
     },
-    [back]
+    []
   );
 
   const onSubmit: SubmitHandler<CreateDeptRequest> = useCallback(

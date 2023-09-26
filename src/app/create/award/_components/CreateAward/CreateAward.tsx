@@ -26,6 +26,7 @@ import ChoiceImgCreate from './ChoiceImgCreate/ChoiceImgCreate';
 import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const CreateAward = () => {
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
@@ -87,6 +88,8 @@ const CreateAward = () => {
     [dispatch]
   );
 
+  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
+
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
@@ -99,7 +102,7 @@ const CreateAward = () => {
   return (
     <>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={() => setOpenModalConfirm(true)}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -225,6 +228,15 @@ const CreateAward = () => {
           </div>
         </div>
       </form>
+
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
 
       <ModalWindowGalleryAwards
         img={imagesGallery}

@@ -1,6 +1,12 @@
 import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
 import { userApi } from '@/api/user/user.api';
@@ -13,7 +19,8 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
   active: Gender,
-  reset: UseFormReset<CreateUserRequest>
+  reset: UseFormReset<CreateUserRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -42,7 +49,7 @@ export const useCreateUser = (
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      back();
+      setOpenModalConfirm(true);
     },
     []
   );

@@ -11,8 +11,9 @@ import { withHookFormMask } from 'use-mask-input';
 import { useForm } from 'react-hook-form';
 import { useCreateDepartment } from './useCreateDepartment';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const CreateDepartment = () => {
   const {
@@ -23,15 +24,18 @@ const CreateDepartment = () => {
     reset,
   } = useForm<CreateDeptRequest>({ mode: 'onChange' });
 
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
   const { onSubmit, handleClick, back, createInfo } = useCreateDepartment(
     setValue,
-    reset
+    reset,
+    setOpenModalConfirm
   );
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={() => setOpenModalConfirm(true)}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -112,6 +116,16 @@ const CreateDepartment = () => {
           </Button>
         </div>
       </form>
+
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
+
       {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );

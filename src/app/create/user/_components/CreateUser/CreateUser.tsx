@@ -17,6 +17,7 @@ import SelectRole from '@/ui/SelectRole/SelectRole';
 import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const roles: IOption[] = [
   {
@@ -28,6 +29,8 @@ const roles: IOption[] = [
 
 const CreateUser = () => {
   const [active, setActive] = useState<Gender>('MALE');
+
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const {
     control,
@@ -41,13 +44,14 @@ const CreateUser = () => {
   const { onSubmit, handleClick, createInfo, back } = useCreateUser(
     setValue,
     active,
-    reset
+    reset,
+    setOpenModalConfirm
   );
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={() => setOpenModalConfirm(true)}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -180,6 +184,16 @@ const CreateUser = () => {
           </div>
         </div>
       </form>
+
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
+
       {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );

@@ -15,9 +15,11 @@ import { Gender } from '@/types/user/user';
 import { withHookFormMask } from 'use-mask-input';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const CreateOwner = () => {
   const [active, setActive] = useState<Gender>('MALE');
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const {
     handleSubmit,
@@ -30,13 +32,14 @@ const CreateOwner = () => {
   const { onSubmit, handleClick, createInfo, back } = useCreateOwner(
     setValue,
     active,
-    reset
+    reset,
+    setOpenModalConfirm
   );
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={() => setOpenModalConfirm(true)}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -137,6 +140,16 @@ const CreateOwner = () => {
           </div>
         </div>
       </form>
+
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
+
       {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
     </>
   );
