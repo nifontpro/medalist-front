@@ -11,6 +11,9 @@
   border-radius: 27px;
   margin-bottom: 30px;
 
+  border: none !important;
+  outline: none !important;
+
   @media screen and (max-width: 1200px) {
     top: 30%;
     left: calc(30vw - 150px);
