@@ -13,7 +13,7 @@ const InputPhotoAdd = forwardRef(
       <div className={cn(styles.inputWrapper, className)}>
         <input type='file' className={styles.inputFile} ref={ref} {...props} />
         <P size='xs' fontstyle='thin' className={styles.item}>
-          Загрузить с компьютера
+          Загрузить с устройства
         </P>
         {error && <span className={styles.errorMessage}>{error.message}</span>}
       </div>

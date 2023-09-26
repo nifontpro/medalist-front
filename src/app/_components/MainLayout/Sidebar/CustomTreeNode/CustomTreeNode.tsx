@@ -14,8 +14,6 @@ import TreeItem, {
 import React, { SyntheticEvent, forwardRef, memo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Typography } from '@mui/material';
-import { useAppDispatch } from '@/store/hooks/hooks';
-import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import { useHeader } from '../../Header/useHeader';
@@ -23,12 +21,8 @@ import { useHeader } from '../../Header/useHeader';
 const CustomTreeNode = React.memo(
   forwardRef(function CustomTreeNode(props: TreeItemContentProps, ref) {
     const { deleteDepartmentAsync } = useDepartmentAdmin();
-
     const { push } = useRouter();
-
     const { close } = useHeader();
-
-    const dispatch = useAppDispatch();
 
     const {
       classes,
@@ -66,13 +60,11 @@ const CustomTreeNode = React.memo(
     );
     const handleSelectionClick = useCallback(
       (event: SyntheticEvent<Element, Event>) => {
-        console.log(nodeId);
         handleSelection(event);
-        dispatch(setSelectedTreeId(nodeId));
         push(getDepartmentUrl(`${nodeId}`));
         close();
       },
-      [close, dispatch, nodeId, push, handleSelection]
+      [close, nodeId, push, handleSelection]
     );
 
     return (

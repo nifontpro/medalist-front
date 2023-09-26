@@ -1,9 +1,8 @@
 import MainProvider from '@/store/providers/MainProvider';
 import '@/styles/globals.scss';
-import { Metadata } from 'next';
 import React from 'react';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

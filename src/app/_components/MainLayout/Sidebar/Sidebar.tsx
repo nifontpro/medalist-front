@@ -11,18 +11,14 @@ import styles from './Sidebar.module.scss';
 import cn from 'classnames';
 import { useHeader } from '../Header/useHeader';
 import Logo from '@/ui/Logo/Logo';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { NewTree } from './newTree';
-import { useRouter } from 'next/navigation';
+import Select from '@mui/material/Select';
 import P from '@/ui/P/P';
 import ChangeRoleIcon from '@/icons/ownerLogo.svg';
 import ArrowIcon from '@/icons/arrowDown.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-import { useAppDispatch } from '@/store/hooks/hooks';
-import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -72,7 +68,6 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                         tree[0].id.toString()
                       );
                       push(`/department/${tree[0].id}`);
-                      dispatch(setSelectedTreeId(''));
                     }
               }
               onClose={handleToggle}

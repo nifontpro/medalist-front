@@ -1,9 +1,7 @@
 import { LogoProps } from './Logo.props';
-import Link from 'next/link';
 import LogoIcon from '@/icons/logo.svg';
 import { memo } from 'react';
-import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import cn from 'classnames';
 
@@ -11,8 +9,6 @@ const Logo = ({ className }: LogoProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-
-  const dispatch = useAppDispatch();
 
   return (
     // <Link

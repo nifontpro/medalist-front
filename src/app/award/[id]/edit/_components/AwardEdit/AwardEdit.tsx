@@ -117,7 +117,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
               appearance='blackWhite'
               size='l'
               className={styles.cancel}
-              disabled={!isDirty || !isValid}
+              // disabled={!isDirty || !isValid}
             >
               Сохранить
             </Button>

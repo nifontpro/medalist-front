@@ -3,10 +3,7 @@ import { sortTree } from '@/utils/sortTree';
 import { useState } from 'react';
 import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import {
-  setArrayIds,
-  setSelectedTreeId,
-} from '@/store/features/sidebar/sidebarTree.slice';
+import { setArrayIds } from '@/store/features/sidebar/sidebarTree.slice';
 import { deptApi } from '@/api/dept/dept.api';
 import { RootState } from '@/store/storage/store';
 import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
@@ -109,7 +106,6 @@ export const useSidebar = () => {
     setTree(treeData?.filter((item) => item.id === Number(event.target.value)));
     localStorage.setItem('selectCompany', event.target.value);
     setSelectedCompany(event.target.value);
-    dispatch(setSelectedTreeId(''));
     push(`/department/${event.target.value}`);
   };
 

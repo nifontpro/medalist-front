@@ -71,21 +71,30 @@ export const useDepartmentEdit = (
         formData.append('deptId', singleDepartment.data?.dept.id);
         formData.append('authId', String(typeOfUser.id));
 
-        await addImage(formData)
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
+        const fileImg = event.target.files[0];
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+        if (fileImg.size > 1024000) {
+          toast.error('Размер фотографии должен быть меньше 1МБ');
+        } else if (!allowedTypes.includes(fileImg.type)) {
+          toast.error('Формат фотографии должен быть PNG, JPEG или JPG');
+        } else {
+          await addImage(formData)
+            .unwrap()
+            .then((res) => {
+              if (res.success == false) {
+                errorMessageParse(res.errors);
+                isError = true;
+              }
+            })
+            .catch(() => {
               isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка добавления фотографии');
-          });
-        if (!isError) {
-          toast.success('Фото успешно добавлено');
-          setImageNum(0);
+              toast.error('Ошибка добавления фотографии');
+            });
+          if (!isError) {
+            toast.success('Фото успешно добавлено');
+            setImageNum(0);
+          }
         }
       }
     },

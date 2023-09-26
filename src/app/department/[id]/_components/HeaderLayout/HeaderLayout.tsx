@@ -9,6 +9,8 @@ import { convertPathName } from './convertPathName';
 import { getLastUrl } from './getLastUrl';
 import Breadcrumbs from '@/ui/Breadcrumbs/Breadcrumbs';
 import styles from './HeaderLayout.module.scss';
+import { useAppDispatch } from '@/store/hooks/hooks';
+import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
 
 type Alignment =
   | 'information'
@@ -18,7 +20,13 @@ type Alignment =
   | 'activity'
   | '';
 
-const HeaderLayout = () => {
+const HeaderLayout = ({ id }: { id: string }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setSelectedTreeId(id));
+  }, []);
+
   const pathName = usePathname();
   const { push, back } = useRouter();
   const { windowSize } = useWindowSize();

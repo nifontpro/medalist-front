@@ -42,8 +42,6 @@ export const useCreateUser = (
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      console.log(event.type);
-
       back();
     },
     []

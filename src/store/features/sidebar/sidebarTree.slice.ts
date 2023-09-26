@@ -17,11 +17,9 @@ export const sidebarTreeSlice = createSlice({
   reducers: {
     setArrayIds: (state, action: PayloadAction<string[]>) => {
       state.expandedIds = action.payload;
-      // localStorage.setItem('expandedIds', JSON.stringify(action.payload));
     },
     setSelectedTreeId: (state, action: PayloadAction<string>) => {
       state.selectedIds = action.payload;
-      // localStorage.setItem('selectedIds', action.payload);
     },
   },
 });
@@ -29,10 +27,3 @@ export const sidebarTreeSlice = createSlice({
 export const { setArrayIds, setSelectedTreeId } = sidebarTreeSlice.actions;
 
 export default sidebarTreeSlice.reducer;
-
-// // Использование в компоненте пример
-// import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-// import { setArrayIds } from '@/redux/features/treeIdsArray/treeIdsArray.slice';
-
-// const treeIds = useAppSelector((state) => state.treeIds.value);
-// const dispatch = useAppDispatch();

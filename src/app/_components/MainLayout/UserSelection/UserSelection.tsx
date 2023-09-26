@@ -16,7 +16,7 @@ import {
 } from '@/store/features/userSelection/userSelection.slice';
 import {
   setArrayIds,
-  setSelectedTreeId,
+  // setSelectedTreeId,
 } from '@/store/features/sidebar/sidebarTree.slice';
 import P from '@/ui/P/P';
 import CreateOwnerIcon from '@/icons/ownerLogo.svg';
@@ -84,7 +84,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
         rolesUser?.data.filter((role) => role.id == typeOfUser.id).length > 0
       ) {
         dispatch(setArrayIds(expandedIds));
-        dispatch(setSelectedTreeId(selectedIds));
+        // dispatch(setSelectedTreeId(selectedIds));
       } else {
         dispatch(setTypeOfUserUndefined());
       }

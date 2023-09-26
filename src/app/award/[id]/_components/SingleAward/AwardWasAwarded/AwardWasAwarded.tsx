@@ -79,7 +79,7 @@ const AwardWasAwarded = ({
               {singleActivAward?.pageInfo?.totalElements}
             </P>
           </Htag>
-          {/* <AuthComponent minRole={'ADMIN'}>
+          <AuthComponent minRole={'ADMIN'}>
             <ButtonCircleIcon
               onClick={handlerAddUsers}
               classNameForIcon='@apply w-[12px] h-[12px]'
@@ -90,7 +90,7 @@ const AwardWasAwarded = ({
             >
               Наградить еще
             </ButtonCircleIcon>
-          </AuthComponent> */}
+          </AuthComponent>
         </div>
 
         <ScrollContainerWithSearchParams

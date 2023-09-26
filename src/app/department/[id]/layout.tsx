@@ -7,12 +7,14 @@ export const metadata = {
 
 export default function DepartmentLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { id: string };
 }) {
   return (
     <section>
-      <HeaderLayout />
+      <HeaderLayout id={params.id} />
       <div>{children}</div>
     </section>
   );

@@ -18,15 +18,15 @@ import Main from '@/app/_components/Main/Main';
 //   return data;
 // }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
-  return {
-    title: ``,
-  };
-}
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { id: string };
+// }): Promise<Metadata> {
+//   return {
+//     title: ``,
+//   };
+// }
 
 export default async function SingleDepartment({
   params,

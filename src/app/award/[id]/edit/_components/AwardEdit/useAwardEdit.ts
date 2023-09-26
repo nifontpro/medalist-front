@@ -84,8 +84,13 @@ export const useAwardEdit = (
         file.append('file', event.target.files[0]);
         file.append('authId', typeOfUser.id.toString());
         file.append('awardId', singleAward.data.award.id.toString());
-        if (event.target.files[0].size > 1024000) {
+        const fileImg = event.target.files[0];
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+        if (fileImg.size > 1024000) {
           toast.error('Размер фотографии должен быть меньше 1МБ');
+        } else if (!allowedTypes.includes(fileImg.type)) {
+          toast.error('Формат фотографии должен быть PNG, JPEG или JPG');
         } else {
           await addImage(file)
             .unwrap()

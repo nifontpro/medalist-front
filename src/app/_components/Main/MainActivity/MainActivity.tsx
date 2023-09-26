@@ -9,8 +9,7 @@ import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { memo, useMemo } from 'react';
-import { setSelectedTreeId } from '@/store/features/sidebar/sidebarTree.slice';
+import { memo } from 'react';
 
 const MainActivity = ({
   deptId,
@@ -47,7 +46,6 @@ const MainActivity = ({
         <div
           className={styles.bestActivity}
           onClick={() => {
-            // dispatch(setSelectedTreeId(''));
             push(`/department/${deptId}/activity`);
           }}
         >
