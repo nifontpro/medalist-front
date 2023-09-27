@@ -94,10 +94,10 @@ const SingleUserTitle = ({
 
       <div className={styles.contacts}>
         <P size='m' fontstyle='thin'>
-          {user?.user.email}
+          Email: {user?.user.email ? user?.user.email : 'email не указан'}
         </P>
         <P size='m' fontstyle='thin'>
-          {user?.phone}
+          Сотовый: {user?.phone ? user?.phone : 'Сотовый не указан'}
         </P>
       </div>
 
