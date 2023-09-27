@@ -1,7 +1,7 @@
 import styles from './EditPanel.module.scss';
 import cn from 'classnames';
 import { EditPanelProps } from './EditPanel.props';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef, memo, useState } from 'react';
@@ -25,6 +25,8 @@ const EditPanel = forwardRef(
     }: EditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const params = useParams();
+
     const { close } = useHeader();
     const { typeOfUser } = useAppSelector(
       (state: RootState) => state.userSelection
@@ -51,6 +53,15 @@ const EditPanel = forwardRef(
     };
 
     const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+    const handleDelete = () => {
+      if (params.id == id) {
+        deleteAsync(Number(id));
+        push(`/department/${localStorage.getItem('selectCompany')}`);
+      } else {
+        deleteAsync(Number(id));
+      }
+    };
 
     if (onlyRemove) {
       return (
@@ -82,9 +93,7 @@ const EditPanel = forwardRef(
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={() =>
-              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
-            }
+            onConfirm={handleDelete}
           />
         </>
       );
@@ -142,9 +151,7 @@ const EditPanel = forwardRef(
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={() =>
-              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
-            }
+            onConfirm={handleDelete}
           />
         </>
       );

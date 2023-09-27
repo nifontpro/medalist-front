@@ -1,7 +1,7 @@
 import styles from './FilterEditPanel.module.scss';
 import cn from 'classnames';
 import { FilterEditPanelProps } from './FilterEditPanel.props';
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef, useState } from 'react';
@@ -24,7 +24,9 @@ const FilterEditPanel = forwardRef(
     }: FilterEditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const { push } = useRouter();
+    const params = useParams();
+    const pathName = usePathname();
+    const { push, back } = useRouter();
 
     const { typeOfUser } = useAppSelector(
       (state: RootState) => state.userSelection
@@ -46,6 +48,20 @@ const FilterEditPanel = forwardRef(
     };
 
     const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+    const handleDelete = () => {
+      if (params.id == id) {
+        if (pathName.split('/')[1] == 'department') {
+          deleteAsync(Number(id));
+          push(`/department/${localStorage.getItem('selectCompany')}`);
+        } else {
+          deleteAsync(Number(id));
+          back();
+        }
+      } else {
+        deleteAsync(Number(id));
+      }
+    };
 
     if (onlyRemove) {
       return (
@@ -85,9 +101,7 @@ const FilterEditPanel = forwardRef(
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={() =>
-              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
-            }
+            onConfirm={handleDelete}
           />
         </>
       );
@@ -135,9 +149,7 @@ const FilterEditPanel = forwardRef(
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={() =>
-              typeOfUser && typeOfUser.id && deleteAsync(Number(id))
-            }
+            onConfirm={handleDelete}
           />
         </>
       );
