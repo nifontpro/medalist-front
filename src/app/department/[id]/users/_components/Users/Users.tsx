@@ -122,14 +122,6 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             </AuthComponent>
           </div>
 
-          {/* <SortButton
-            state={state}
-            onClick={handleSortWithoutPage}
-            className={styles.filterMedia}
-          >
-            По алфавиту {state == 'ASC' ? 'А -- Я' : 'Я -- А'}
-          </SortButton> */}
-
           {usersOnDepartment?.data.length >= 1 ? (
             usersOnDepartment?.data?.map((user) => (
               <UserList

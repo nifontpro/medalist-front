@@ -58,14 +58,20 @@ const AwardTitle = ({
           )}
         </div>
 
-        <P
-          size='xs'
-          fontstyle='thin'
-          type='silverBtn'
-          className={styles.description}
-        >
-          {award?.description}
-        </P>
+        <div className='flex items-center'>
+          <P
+            size='xs'
+            fontstyle='thin'
+            type='silverBtn'
+            className={styles.description}
+          >
+            Описание награды:
+          </P>
+          <P size='xs' fontstyle='thin'>
+            &nbsp;
+            {award?.description ? award?.description : 'Нет описания награды'}
+          </P>
+        </div>
 
         <div className={styles.dateAward}>
           {/* {award.state == 'AWARD' && ( */}
