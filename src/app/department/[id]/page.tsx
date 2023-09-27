@@ -34,10 +34,6 @@ export default async function SingleDepartment({
   params: { id: string };
 }) {
   return (
-    // <main>
-    //   <TitleSingleDepartment id={params.id} />
-    //   <EventDepartment id={params.id} />
-    // </main>
     <main>
       <Main deptId={params.id} />
     </main>

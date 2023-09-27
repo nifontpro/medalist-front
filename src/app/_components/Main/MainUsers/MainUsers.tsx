@@ -52,8 +52,9 @@ const MainUsers = ({
         <div className='h-[300px]'>
           <SpinnerSmall />
         </div>
-      ) : usersOnDepartmentWithAwards?.data?.length &&
-        usersOnDepartmentWithAwards?.data?.length > 0 ? (
+      ) : usersOnDepartmentWithAwards?.data &&
+        usersOnDepartmentWithAwards.data.filter((user) => user.awardCount > 0)
+          .length > 0 ? (
         <div className={styles.contentWrapper}>
           <UserListRating
             currentRank={currentRank}
