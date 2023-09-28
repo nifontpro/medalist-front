@@ -20,6 +20,7 @@ import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
+import AuthComponent from '@/store/providers/AuthComponent';
 
 const TitleSingleDepartment = ({
   id,
@@ -93,24 +94,26 @@ const TitleSingleDepartment = ({
           ) : null}
         </div>
 
-        <div className={styles.buttonsWrapper}>
-          <Button
-            onClick={() => push(getDepartmentCreateUrl(`?id=${id}`))}
-            appearance='blackWhite'
-            size='l'
-            className={styles.excelBtn}
-          >
-            Добавить отдел
-          </Button>
-          <Button
-            onClick={handleAddEvent}
-            appearance='whiteBlack'
-            size='l'
-            className={styles.createEventBtn}
-          >
-            Добавить событие
-          </Button>
-        </div>
+        <AuthComponent minRole='ADMIN'>
+          <div className={styles.buttonsWrapper}>
+            <Button
+              onClick={() => push(getDepartmentCreateUrl(`?id=${id}`))}
+              appearance='blackWhite'
+              size='l'
+              className={styles.excelBtn}
+            >
+              Добавить отдел
+            </Button>
+            <Button
+              onClick={handleAddEvent}
+              appearance='whiteBlack'
+              size='l'
+              className={styles.createEventBtn}
+            >
+              Добавить событие
+            </Button>
+          </div>
+        </AuthComponent>
       </div>
 
       <ModalWindowWithAddEvent

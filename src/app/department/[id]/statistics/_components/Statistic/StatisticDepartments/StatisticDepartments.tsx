@@ -45,64 +45,60 @@ const StatisticDepartments = ({
   if (!colAwardsActivRoot?.success && !isLoadingColAwardsActivRoot)
     return <div className={styles.wrapper}>Ошибка получения данных</div>;
 
-  return (
-    <div {...props} className={cn(styles.wrapper, className)}>
-      {!isLoadingColAwardsActivRoot && colAwardsActivRoot ? (
-        <>
-          <div>
-            {colAwardsActivRoot.data?.map((depart, index) => {
-              if (index == 0 && page === 0) {
-                return (
-                  <div
-                    key={uniqid()}
-                    className={cn(styles.bestDepart, styles.depart)}
-                  >
-                    <div>
-                      <P size='l'>{depart.deptName}</P>
-                      <P size='xs' className={styles.best}>
-                        Лучший отдел
-                      </P>
-                    </div>
-                    <div className={styles.countAwards}>
-                      <Htag className={styles.count} tag='h2'>
-                        {depart.awardCount}
-                      </Htag>
-                      <AwardIcon />
-                    </div>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={uniqid()} className={styles.depart}>
+  if (!isLoadingColAwardsActivRoot && colAwardsActivRoot) {
+    return (
+      <div {...props} className={cn(styles.wrapper, className)}>
+        <div>
+          {colAwardsActivRoot?.data?.map((depart, index) => {
+            if (index == 0 && page === 0) {
+              return (
+                <div
+                  key={uniqid()}
+                  className={cn(styles.bestDepart, styles.depart)}
+                >
+                  <div>
                     <P size='l'>{depart.deptName}</P>
-                    <div className={styles.countAwards}>
-                      <Htag className={styles.count} tag='h2'>
-                        {depart.awardCount}
-                      </Htag>
-                      <AwardIcon />
-                    </div>
+                    <P size='xs' className={styles.best}>
+                      Лучший отдел
+                    </P>
                   </div>
-                );
-              }
-            })}
-          </div>
+                  <div className={styles.countAwards}>
+                    <Htag className={styles.count} tag='h2'>
+                      {depart.awardCount}
+                    </Htag>
+                    <AwardIcon />
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <div key={uniqid()} className={styles.depart}>
+                  <P size='l'>{depart.deptName}</P>
+                  <div className={styles.countAwards}>
+                    <Htag className={styles.count} tag='h2'>
+                      {depart.awardCount}
+                    </Htag>
+                    <AwardIcon />
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
 
-          {totalPage && totalPage > 1 ? (
-            <PrevNextPages
-              startPage={page + 1}
-              endPage={totalPage}
-              handleNextClick={() =>
-                colAwardsActivRoot && nextPage(colAwardsActivRoot)
-              }
-              handlePrevClick={prevPage}
-            />
-          ) : null}
-        </>
-      ) : (
-        <SpinnerSmall />
-      )}
-    </div>
-  );
+        {totalPage && totalPage > 1 ? (
+          <PrevNextPages
+            startPage={page + 1}
+            endPage={totalPage}
+            handleNextClick={() =>
+              colAwardsActivRoot && nextPage(colAwardsActivRoot)
+            }
+            handlePrevClick={prevPage}
+          />
+        ) : null}
+      </div>
+    );
+  } else return <></>;
 };
 
 export default memo(StatisticDepartments);

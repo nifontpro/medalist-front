@@ -23,6 +23,16 @@ import { memo } from 'react';
 import P from '@/ui/P/P';
 import SelectArtem from '@/ui/SelectArtem/SelectArtem';
 import AuthComponent from '@/store/providers/AuthComponent';
+import SelectRole from '@/ui/SelectRole/SelectRole';
+import { IOption } from '@/ui/SelectRole/SelectRole.interface';
+
+const roles: IOption[] = [
+  {
+    label: 'Администратор',
+    value: 'ADMIN',
+  },
+  { label: 'Пользователь', value: 'USER' },
+];
 
 export const UserEdit = ({ id }: UserEditProps) => {
   const {
@@ -150,6 +160,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 placeholder='Введите свой email'
                 error={errors.authEmail}
               />
+
               <AuthComponent minRole='ADMIN'>
                 <Controller
                   name='deptId'
@@ -158,30 +169,48 @@ export const UserEdit = ({ id }: UserEditProps) => {
                     required: 'Необходимо выбрать отдел!',
                   }}
                   render={({ field, fieldState: { error } }) => (
-                    <SelectArtem
-                      error={error}
-                      field={field}
-                      placeholder=''
-                      options={
-                        arrDeparts
-                          .filter((item) => item.level !== 1)
-                          .sort((a, b) => a.label.localeCompare(b.label)) || []
-                      }
-                      isLoading={false}
-                      isMulti={false}
-                    />
+                    <div className='flex flex-col'>
+                      <P className={styles.fieldDept}>Отдел</P>
+                      <SelectArtem
+                        error={error}
+                        field={field}
+                        placeholder=''
+                        options={
+                          arrDeparts
+                            .filter((item) => item.level !== 1)
+                            .sort((a, b) => a.label.localeCompare(b.label)) ||
+                          []
+                        }
+                        isLoading={false}
+                        isMulti={false}
+                      />
+                    </div>
                   )}
                 />
               </AuthComponent>
             </div>
 
-            {/* <Field
-              {...register('address', { required: 'Адрес необходим!' })}
-              title='Адрес'
-              placeholder='Напишите адрес'
-              error={errors.address}
-              className={styles.field}
-            /> */}
+            <div className={styles.group}>
+              <AuthComponent minRole='ADMIN'>
+                <Controller
+                  name='roles'
+                  control={control}
+                  rules={{
+                    required: 'Необходимо выбрать роль!',
+                  }}
+                  render={({ field, fieldState: { error } }) => (
+                    <SelectRole
+                      error={error}
+                      field={field}
+                      placeholder='Роль пользователя*'
+                      options={roles || []}
+                      isLoading={false}
+                      isMulti={true}
+                    />
+                  )}
+                />
+              </AuthComponent>
+            </div>
 
             <TextArea
               {...register('description')}

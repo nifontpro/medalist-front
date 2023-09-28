@@ -20,7 +20,8 @@ const EditPanelImgBtn = ({
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
-    <AuthComponent minRole={'ADMIN'}>
+    // <AuthComponent minRole={'ADMIN'}>
+    <>
       <ButtonEdit
         onClick={(e) => {
           e.preventDefault();
@@ -43,8 +44,10 @@ const EditPanelImgBtn = ({
         gallery={gallery}
         onChange={onChangeImages}
       />
-    </AuthComponent>
+    </>
+
+    // </AuthComponent>
   );
 };
 
-export default memo(EditPanelImgBtn)
+export default memo(EditPanelImgBtn);
