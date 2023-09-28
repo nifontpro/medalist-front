@@ -1,0 +1,39 @@
+.wrapper {
+  &:hover .arrow {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  &:hover .img {
+    transform: scale(0.9);
+  }
+
+  .allAwards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .arrow {
+      width: 13px;
+      margin-left: 20px;
+      @apply duration-200;
+      @media screen and (max-width: 768px) {
+        margin-left: 10px;
+        width: 8px;
+      }
+    }
+
+    .img {
+      background: var(--lime-dark);
+      border-radius: 16px;
+      padding: 12px;
+      width: 60px;
+      height: 60px;
+      margin-right: 25px;
+      @apply duration-200;
+    }
+
+    .descriptionTitle {
+      margin-bottom: 10px;
+    }
+  }
+}

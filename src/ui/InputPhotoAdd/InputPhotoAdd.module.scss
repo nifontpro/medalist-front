@@ -1,0 +1,61 @@
+.inputWrapper {
+  // width: 52px;
+  // height: 52px;
+  position: relative;
+  // margin: 15px 0;
+  // text-align: center;
+
+  .item {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    @apply duration-200;
+
+    // @media screen and (max-width: 768px) {
+    //   padding: 5px 10px;
+    // }
+
+    // &:hover {
+    //   background: var(--graySilver);
+    // }
+
+    // &:last-child {
+    //   margin-bottom: 0px;
+    // }
+  }
+}
+
+.inputFile {
+  opacity: 0;
+  // visibility: hidden;
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  left: 0px;
+  width: 215px;
+  height: 40px;
+  z-index: 2;
+
+  &:hover + .item {
+    background: var(--graySilver);
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.fileButton {
+  // max-width: 290px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: center;
+}

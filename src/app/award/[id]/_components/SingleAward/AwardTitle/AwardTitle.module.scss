@@ -1,0 +1,84 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  @apply animate-fade;
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  > .img {
+    background: var(--white);
+    border-radius: 27px;
+    width: 400px;
+    height: fit-content;
+
+    @media screen and (max-width: 1500px) {
+      width: 400px;
+      justify-content: center;
+    }
+    @media screen and (max-width: 768px) {
+      border-radius: 16px;
+      width: auto;
+    }
+  }
+
+  > .awardDescription {
+    position: relative;
+    background: var(--white);
+    border-radius: 27px;
+    padding: 75px;
+
+    @media screen and (max-width: 1280px) {
+      border-radius: 16px;
+      padding: 60px 40px;
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 40px 15px;
+    }
+
+    > .title {
+      // position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 21px;
+
+      .dots {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+      }
+    }
+
+    > .description {
+      margin-bottom: 30px;
+    }
+
+    > .criteria {
+      margin-top: 30px;
+    }
+
+    .criteriaTitle {
+      padding-top: 30px;
+    }
+
+    > .date,
+    .dateAward {
+      margin-top: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    > .dateAward {
+      margin-top: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #0000001a;
+    }
+  }
+}

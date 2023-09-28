@@ -1,0 +1,45 @@
+.uploadField {
+  border-radius: 27px;
+  width: 400px;
+  height: fit-content;
+  background: var(--white);
+  @media screen and (max-width: 1280px) {
+    width: 250px;
+  }
+
+  .images {
+    height: 400px;
+    @media screen and (max-width: 1280px) {
+      width: 250px;
+    }
+  }
+
+  .editPanel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+    position: relative;
+
+    .removeBtn {
+      margin-left: 10px;
+    }
+
+    .input {
+      width: fit-content;
+      height: fit-content;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+.field {
+  margin-bottom: 60px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 30px;
+  }
+}

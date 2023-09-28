@@ -1,0 +1,97 @@
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr auto;
+  gap: 15px;
+  align-items: center;
+  margin-top: 45px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 30px;
+  }
+
+  .user {
+    cursor: pointer;
+  }
+
+  .editPanel {
+    display: flex;
+    @media screen and (max-width: 768px) {
+      margin-top: 15px;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .wrapperIcon {
+      @media screen and (max-width: 768px) {
+        border: 2px solid var(--graySilver);
+        border-radius: 10px;
+        height: 45px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @apply duration-200 cursor-pointer;
+      }
+
+      &:hover {
+        border-color: var(--gray-dark);
+
+        .edit svg {
+          path {
+            stroke: var(--gray-dark);
+          }
+        }
+
+        .remove svg {
+          path {
+            fill: var(--gray-dark);
+          }
+        }
+      }
+
+      .edit,
+      .remove {
+        svg rect {
+          @media screen and (max-width: 768px) {
+            stroke: transparent;
+          }
+        }
+      }
+
+      .remove {
+        margin-left: 10px;
+        @media screen and (max-width: 768px) {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+
+  .countAwards,
+  .countAwardsDisable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .union {
+      margin-left: 10px;
+      width: 15px;
+    }
+  }
+
+  .countAwardsDisable {
+    .disabled {
+      color: var(--gray);
+    }
+    > svg path {
+      fill: var(--gray);
+    }
+    > svg path {
+      stroke: var(--gray);
+    }
+  }
+}

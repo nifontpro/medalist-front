@@ -1,0 +1,69 @@
+.wrapper {
+  display: none;
+  @media screen and (max-width: 840px) {
+    display: block;
+  }
+  .button {
+    margin-top: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filterWrapper {
+    z-index: 10;
+    height: 60%;
+    background: var(--white);
+    padding: 60px 20px 20px 20px;
+    position: fixed;
+    border-radius: 16px 16px 0 0;
+    top: calc(100vh - 60%);
+    left: 0;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+
+    .slash {
+      display: block;
+      position: absolute;
+      cursor: pointer;
+      top: 20px;
+      left: calc(50vw - 50px);
+      width: 100px;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--graySilver);
+      @apply duration-300;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .filterContent {
+      height: 100%;
+      overflow-y: auto;
+
+      .mediaVisible {
+        @media screen and (max-width: 768px) {
+          display: block;
+        }
+      }
+
+      .title {
+        margin-bottom: 20px;
+        display: inline-block;
+
+        span {
+          float: right;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 100%;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

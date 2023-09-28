@@ -1,0 +1,92 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 250px auto 1fr;
+  align-items: center;
+  background: var(--black);
+
+  height: 100px;
+  padding: 0px 40px 0px 40px;
+
+  @media screen and (max-width: 1140px) {
+    grid-template-columns: 50px 250px auto 1fr;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    height: 100px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0px 20px 0px 20px;
+    height: 75px;
+  }
+  @media screen and (max-width: 514px) {
+    grid-template-columns: 40px 200px 5px 1fr;
+  }
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 40px 1fr;
+    padding: 0px 10px 0px 10px;
+  }
+
+  .menu {
+    display: none;
+    cursor: pointer;
+    @media screen and (max-width: 1140px) {
+      width: 40px;
+      display: block;
+    }
+    @media screen and (max-width: 1000px) {
+      width: 30px;
+    }
+  }
+
+  .logo {
+    justify-self: center;
+    @media screen and (max-width: 400px) {
+      display: none;
+    }
+  }
+
+  .user {
+    grid-column: startUser / endUser;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    @media screen and (max-width: 500px) {
+      grid-template-columns: 40px 40px;
+    }
+
+    .userImg {
+      cursor: pointer;
+      height: 64px;
+      width: 64px;
+      @apply duration-200;
+      @media screen and (max-width: 500px) {
+        height: 40px;
+        width: 40px;
+      }
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  // .sign {
+  //   justify-self: flex-end;
+  // }
+}
+
+.navigation {
+  padding-top: 175px;
+  background-color: var(--gray-dark);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 100%;
+  @media screen and (max-width: 500px) {
+    width: 320px;
+  }
+}

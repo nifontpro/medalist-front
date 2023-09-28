@@ -1,0 +1,165 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .window {
+    min-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 50px 50px;
+    position: relative;
+    margin: 15px;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+      padding: 50px 15px 15px 15px;
+      position: fixed;
+      border-radius: 16px 16px 0 0;
+      top: calc(100vh - 460px);
+      left: 0;
+      width: 100%;
+      height: 460px;
+      margin: 0px;
+    }
+
+    .slash {
+      display: none;
+      @media screen and (max-width: 768px) {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        top: 20px;
+        left: calc(50vw - 50px);
+        width: 100px;
+        height: 5px;
+        border-radius: 3px;
+        background: var(--graySilver);
+        @apply duration-300;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .exit {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      cursor: pointer;
+      > path {
+        @apply duration-200;
+      }
+
+      &:hover {
+        path {
+          stroke: var(--gray-dark);
+        }
+      }
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .moduleContent {
+      @media screen and (max-width: 768px) {
+        position: relative;
+        min-height: fit-content;
+
+        margin-top: 0px;
+        padding: 0px 0px 50px 0px;
+        height: 410px;
+        overflow-y: auto;
+        width: 100%;
+        // border-radius: 16px;
+        // margin-bottom: 20px;
+      }
+
+      .header {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .createWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 20px;
+        padding-top: 30px;
+        padding-bottom: 20px;
+        // border-top: 1px solid var(--gray);
+
+        .owner {
+          width: 24px;
+          margin-right: 15px;
+        }
+
+        .create {
+          text-align: center;
+          color: var(--gray);
+          @apply duration-200;
+        }
+
+        svg {
+          path {
+            @apply duration-200;
+          }
+        }
+
+        &:hover .create {
+          color: var(--black);
+        }
+
+        &:hover svg {
+          path {
+            stroke: var(--black);
+          }
+        }
+      }
+
+      .role {
+        padding: 5px 0px;
+        margin-bottom: 5px;
+        border-radius: 6px;
+        cursor: pointer;
+        @apply duration-200;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &:hover {
+          background: var(--gray);
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+
+        @media screen and (max-width: 768px) {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .exitBtn {
+      cursor: pointer;
+      text-align: center;
+      color: var(--gray);
+      @apply duration-200;
+
+      &:hover {
+        color: var(--black);
+      }
+    }
+  }
+}

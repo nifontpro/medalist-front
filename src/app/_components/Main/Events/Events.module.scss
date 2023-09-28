@@ -1,0 +1,22 @@
+.eventWrapper {
+  margin-bottom: 50px;
+
+  .header {
+    margin-bottom: 35px;
+  }
+
+  > .eventContent {
+    position: relative;
+    background: var(--white);
+    border-radius: 27px;
+    padding: 75px;
+
+    @media screen and (max-width: 1170px) {
+      padding: 60px 40px;
+    }
+    @media screen and (max-width: 768px) {
+      border-radius: 16px;
+      padding: 20px 20px;
+    }
+  }
+}

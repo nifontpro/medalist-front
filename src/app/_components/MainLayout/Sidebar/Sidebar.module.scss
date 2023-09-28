@@ -1,0 +1,175 @@
+.wrapper {
+  position: relative;
+
+  @media screen and (max-width: 1140px) {
+    padding: 25px 10px;
+  }
+
+  [aria-selected='true'] > div {
+    background: var(--gray96) !important;
+
+    > p {
+      color: var(--white) !important;
+    }
+  }
+
+  .select {
+    background: var(--white) !important;
+    color: var(--gray-dark);
+    margin-bottom: 20px;
+    border-radius: 16px;
+    cursor: pointer !important;
+
+    fieldset {
+      outline: none !important;
+      border: none !important;
+    }
+
+    > div {
+      display: flex !important;
+      align-items: center !important;
+
+      text-wrap: wrap !important;
+      max-width: 68% !important;
+
+      @media screen and (max-width: 768px) {
+        max-width: 72% !important;
+      }
+
+      img {
+        margin-right: 15px !important;
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+
+    > svg {
+      height: 15px;
+      width: 15px;
+      margin-right: 15px;
+    }
+  }
+
+  .logo {
+    display: none;
+
+    @media screen and (max-width: 400px) {
+      display: block;
+      position: absolute;
+      top: 50px;
+      right: 60px;
+      cursor: pointer;
+    }
+  }
+
+  .role {
+    display: none;
+
+    @media screen and (max-width: 840px) {
+      display: flex;
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      cursor: pointer;
+      width: 320px;
+    }
+
+    @media screen and (max-width: 500px) {
+      display: flex;
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      cursor: pointer;
+      width: 280px;
+    }
+  }
+
+  .exit {
+    display: none;
+    @media screen and (max-width: 1140px) {
+      display: block;
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      cursor: pointer;
+
+      path {
+        stroke: var(--white);
+      }
+      &:hover {
+        path {
+          stroke: var(--gray);
+        }
+      }
+    }
+  }
+}
+
+.bottom {
+  border-top: 1px solid var(--gray);
+  padding-bottom: 10px;
+  padding-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .bottomContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg path {
+      @apply duration-200;
+    }
+
+    &:hover p {
+      color: var(--gray-dark);
+    }
+
+    &:hover svg path {
+      stroke: var(--gray-dark);
+    }
+  }
+}
+
+.dropdown {
+  padding: 25px !important;
+  margin-top: 10px !important;
+  border-radius: 16px !important;
+  max-width: 350px !important;
+
+  @media screen and (max-width: 400px) {
+    max-width: 300px !important;
+  }
+}
+
+.menuItem,
+.selectedItem {
+  display: flex !important;
+  align-items: center !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  margin-bottom: 5px !important;
+
+  text-wrap: wrap !important;
+
+  &:last-child {
+    margin-bottom: 0px !important;
+  }
+
+  img {
+    margin-right: 15px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  /* Add your custom styles for the menu items here */
+}
+
+.selectedItem {
+  background: var(--gray) !important;
+}
+
+.menuItem:hover {
+  /* Add your custom styles for the hovered item here */
+}

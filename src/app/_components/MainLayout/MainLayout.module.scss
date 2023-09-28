@@ -1,0 +1,55 @@
+.wrapperMainLayout {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-template-areas:
+    'header header header'
+    'sidebar content content';
+  background-color: var(--black);
+
+  @media screen and (max-width: 1140px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'header'
+      'content';
+  }
+
+  .header {
+    grid-area: header;
+  }
+  .sidebar {
+    grid-area: sidebar;
+    left: 0;
+    padding: 25px 10px 25px 10px;
+    background-color: var(--black);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+
+    @media screen and (max-width: 1140px) {
+      display: none;
+    }
+  }
+  .content {
+    grid-area: content;
+    padding: 50px 50px 0px 50px;
+    background: var(--backgroundMain);
+    border-radius: 15px 0px 0px 0px;
+    overflow: hidden;
+    min-height: 100vh;
+
+    @media screen and (max-width: 1140px) {
+      border-radius: 0px;
+      margin-top: 100px;
+    }
+    @media screen and (max-width: 1280px) {
+      padding: 40px 40px 0px 40px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-top: 75px;
+      padding: 30px 20px 0px 20px;
+    }
+    @media screen and (max-width: 400px) {
+      padding: 30px 10px 0px 10px;
+    }
+  }
+}

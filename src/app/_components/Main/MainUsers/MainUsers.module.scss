@@ -1,0 +1,56 @@
+.wrapper {
+  .contentWrapper {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding-bottom: 20px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+
+    .bestUsers {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .text {
+        color: var(--gray96);
+      }
+
+      &:hover {
+        > .text {
+          color: var(--gray-dark);
+        }
+
+        path {
+          stroke: var(--gray-dark);
+        }
+      }
+
+      path {
+        stroke: var(--gray96);
+        @apply duration-200;
+      }
+      .arrow {
+        width: 13px;
+        margin-left: 20px;
+        @media screen and (max-width: 768px) {
+          margin-left: 10px;
+          width: 8px;
+        }
+      }
+    }
+  }
+
+  .userList {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    @media screen and (max-width: 768px) {
+      padding: 20px 10px;
+    }
+  }
+}

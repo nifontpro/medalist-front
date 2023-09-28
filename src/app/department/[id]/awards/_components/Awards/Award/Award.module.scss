@@ -1,0 +1,149 @@
+.wrapper {
+  background: var(--gray-dark);
+  border-radius: 15px;
+  min-width: 250px;
+  min-height: 400px;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    min-height: auto;
+  }
+
+  @media screen and (max-width: 455px) {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 400px;
+  }
+
+  &:hover {
+    .img,
+    .imgNominee {
+      transform: scale(0.9);
+    }
+  }
+
+  .img,
+  .imgNominee {
+    height: 165px;
+    display: flex;
+    justify-content: center;
+    @apply duration-200;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 0px;
+      margin-left: 30px;
+    }
+
+    @media screen and (max-width: 530px) {
+      width: 90px;
+      height: 90px;
+    }
+
+    @media screen and (max-width: 455px) {
+      margin-left: 0px;
+      margin-bottom: 10px;
+      width: 165px;
+      height: 165px;
+    }
+  }
+
+  .img {
+    margin-top: 29px;
+    margin-bottom: 36px;
+  }
+
+  .imgNominee {
+    margin-bottom: 25px;
+  }
+
+  .name {
+    margin-bottom: 25px;
+
+    @media screen and (max-width: 455px) {
+      text-align: center;
+    }
+  }
+
+  .nominee,
+  .nomineeAdaptive {
+    display: inline-block;
+    color: var(--gray-dark);
+    background: var(--lime);
+    padding: 6px 16px;
+    border-radius: 33px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 17px;
+    margin-bottom: 12px;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+
+    @media screen and (max-width: 455px) {
+      display: inline-block;
+    }
+  }
+
+  .nomineeAdaptive {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+
+    @media screen and (max-width: 455px) {
+      display: none;
+    }
+  }
+
+  .date {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: 455px) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+.wrapperNominee {
+  padding: 30px 20px;
+
+  @media screen and (max-width: 768px) {
+    padding: 40px 20px;
+  }
+
+  @media screen and (max-width: 455px) {
+    padding: 20px 10px;
+  }
+}
+
+.wrapperAward {
+  padding: 30px 20px;
+
+  @media screen and (max-width: 768px) {
+    padding: 40px 20px;
+  }
+
+  @media screen and (max-width: 455px) {
+    padding: 20px 10px;
+  }
+}
+
+.btnIcon {
+  width: fit-content;
+  margin-top: 10px;
+
+  @media screen and (max-width: 455px) {
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+}

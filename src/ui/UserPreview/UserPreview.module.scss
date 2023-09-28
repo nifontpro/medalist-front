@@ -1,0 +1,36 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 76px 2fr minmax(150px, 200px);
+  align-items: center;
+  gap: 30px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 50px 1fr 1fr;
+    gap: 15px;
+  }
+
+  .images {
+    width: 76px;
+    height: 76px;
+    overflow: hidden;
+    border-radius: 16px;
+
+    @media screen and (max-width: 768px) {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+    }
+  }
+
+  .departName {
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--graySilver);
+    text-align: center;
+    text-wrap: wrap;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+}

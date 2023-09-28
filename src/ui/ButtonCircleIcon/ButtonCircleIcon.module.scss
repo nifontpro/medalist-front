@@ -1,0 +1,66 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+  // @apply animate-fade duration-200;
+
+  &:hover {
+    .black {
+      background-color: var(--gray96);
+    }
+    .blackText {
+      color: var(--gray96);
+    }
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+  }
+
+  .black {
+    background-color: var(--black);
+    @apply duration-200;
+  }
+
+  .transparent {
+    background-color: transparent;
+    @apply duration-200;
+  }
+
+  &:hover {
+    .transparent {
+      background-color: var(--gray-light);
+    }
+  }
+
+  .white {
+    background-color: none;
+
+    svg > circle {
+      fill: var(--white);
+    }
+  }
+
+  .blackText {
+    @apply duration-200;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+
+  .button {
+    cursor: default;
+  }
+}

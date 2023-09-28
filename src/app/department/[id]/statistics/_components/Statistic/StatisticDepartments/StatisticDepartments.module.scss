@@ -1,0 +1,42 @@
+.wrapper {
+  background: var(--white);
+  border-radius: 25px;
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media screen and (max-width: 1280px) {
+    padding: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .title {
+    padding-left: 20px;
+    margin-bottom: 50px;
+  }
+
+  .bestDepart {
+    background: var(--gray);
+  }
+
+  .depart,
+  .bestDepart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-radius: 12px;
+
+    .best {
+      margin-top: 10px;
+    }
+
+    .countAwards {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

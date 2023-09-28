@@ -1,0 +1,69 @@
+.inputWrapper {
+  width: fit-content;
+  position: relative;
+  cursor: pointer;
+
+  width: 100%;
+
+  // @media screen and (max-width: 323px) {
+  //   width: 100%;
+  // }
+
+  &:hover .buttonText {
+    background: var(--gray-dark-hover);
+  }
+}
+
+.buttonText {
+  background: var(--gray-dark);
+  border: 1px solid var(--gray-dark);
+  padding: 12px 25px;
+  color: var(--white);
+  font-weight: 500;
+  font-size: 13.5888px;
+  border-radius: 16px;
+  cursor: pointer;
+
+  @apply py-[18px] h-fit text-[15px] font-bold leading-[20px] rounded-[12px] border-none text-center box-border inline-block duration-200;
+
+  width: 100%;
+  // @media screen and (max-width: 930px) {
+  //   width: 100%;
+  // }
+
+  .link {
+    font-size: 10px;
+    color: var(--gray);
+    font-weight: 100;
+    z-index: 3;
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    @apply duration-200;
+
+    &:hover {
+      color: var(--orange);
+    }
+
+    @media screen and (max-width: 500px) {
+      bottom: 2.5px;
+      right: 10px;
+    }
+  }
+}
+
+.inputFile {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.fileButton {
+  width: 100%;
+}

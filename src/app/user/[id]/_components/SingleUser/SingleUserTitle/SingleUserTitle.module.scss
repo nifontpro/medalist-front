@@ -1,0 +1,142 @@
+.wrapper {
+  position: relative;
+  background: var(--white);
+  border-radius: 27px;
+  padding: 75px;
+
+  @media screen and (max-width: 1280px) {
+    padding: 50px;
+  }
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+    padding: 30px 15px;
+  }
+
+  .title {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .position {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    .post {
+      margin-left: 10px;
+    }
+  }
+
+  .contacts {
+    margin-top: 60px;
+    @media screen and (max-width: 1280px) {
+      margin-top: 40px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-top: 30px;
+    }
+  }
+
+  .awards {
+    margin-top: 95px;
+    margin-bottom: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 80px;
+    border-bottom: 1px solid #00000016;
+
+    @media screen and (max-width: 1280px) {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+    }
+    @media screen and (max-width: 930px) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+    }
+
+    .buttonsWrapper {
+      display: flex;
+      align-items: center;
+
+      @media screen and (max-width: 1830px) {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .awardedBtn {
+        @media screen and (max-width: 1830px) {
+          margin-top: 15px;
+          width: 100%;
+        }
+      }
+      .createEventBtn {
+        margin-right: 15px;
+
+        @media screen and (max-width: 1830px) {
+          margin-top: 15px;
+          margin-right: 0px;
+          width: 100%;
+        }
+      }
+    }
+
+    .buttons {
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+
+      .changePasswordBtn {
+        margin-left: 15px;
+        @media screen and (max-width: 768px) {
+          margin-top: 15px;
+          margin-left: 0px;
+        }
+      }
+
+      .editBtn {
+        @media screen and (max-width: 930px) {
+          margin-top: 15px;
+        }
+      }
+    }
+
+    .imagesAward {
+      display: flex;
+      align-items: center;
+      .imgAward {
+        margin-left: 10px;
+        width: 50px;
+        height: 50px;
+
+        @media screen and (max-width: 768px) {
+          width: 35px;
+          height: 35px;
+        }
+
+        &:nth-child(1) {
+          margin-left: 0;
+        }
+      }
+
+      .countIcon {
+        height: fit-content;
+      }
+    }
+  }
+
+  .aboutUser {
+    margin-bottom: 20px;
+  }
+}
+
+.dots {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}

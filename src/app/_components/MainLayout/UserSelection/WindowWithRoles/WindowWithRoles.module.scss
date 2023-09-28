@@ -1,0 +1,21 @@
+.wrapper {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .ownerRole {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    @apply duration-200;
+
+    &:hover {
+      background: var(--gray);
+    }
+  }
+}

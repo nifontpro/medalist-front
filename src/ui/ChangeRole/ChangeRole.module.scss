@@ -1,0 +1,27 @@
+.role {
+  min-width: 300px;
+  min-height: 54.48px;
+  padding: 14px 24px;
+  cursor: pointer;
+  color: var(--white);
+  border-radius: 16px;
+  border: 1.5px solid var(--gray-dark-hover-34);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media screen and (max-width: 840px) {
+    display: none;
+    min-width: auto;
+    justify-content: space-between;
+  }
+
+  .arrow {
+    width: 10px;
+    margin-left: 100px;
+
+    @media screen and (max-width: 840px) {
+      margin-left: 0px;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.imageCard {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 27px;
+
+  @media screen and (max-width: 1500px) {
+    width: 100%;
+    height: 400px;
+  }
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+  }
+}
+
+.imageDefault {
+  padding: 30px;
+  border-radius: 27px;
+  background: var(--gray-dark);
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+  }
+}

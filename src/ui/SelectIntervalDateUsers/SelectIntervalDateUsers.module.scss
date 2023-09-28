@@ -1,0 +1,15 @@
+.selectContainer {
+  position: relative;
+  min-width: 150px;
+}
+
+.error {
+  position: absolute;
+  bottom: -30px;
+  color: var(--red);
+  font-weight: 700;
+}
+
+.placeholder {
+  margin-bottom: 20px !important;
+}

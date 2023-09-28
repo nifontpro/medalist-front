@@ -1,0 +1,60 @@
+.userComponent {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gray-light05);
+  border-radius: 10px;
+  width: 64px;
+  height: 64px;
+  @media screen and (max-width: 500px) {
+    width: 40px;
+    height: 40px;
+  }
+
+  .notification {
+    width: 20px;
+    @media screen and (max-width: 500px) {
+      width: 15px;
+    }
+  }
+
+  svg path {
+    @apply duration-200;
+  }
+
+  &:hover svg path {
+    stroke: var(--gray-light05);
+  }
+
+  .notificationCircle {
+    width: 18px;
+    height: 18px;
+    background-color: var(--lime);
+    border-radius: 15px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 6px;
+    right: 6px;
+    color: var(--white);
+
+    @media screen and (max-width: 500px) {
+      top: 2px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+    }
+
+    .notificationCount {
+      font-size: 12px;
+
+      @media screen and (max-width: 500px) {
+        font-size: 8px;
+        line-height: 0;
+      }
+    }
+  }
+}

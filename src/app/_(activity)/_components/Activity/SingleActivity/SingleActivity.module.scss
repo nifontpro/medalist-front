@@ -1,0 +1,65 @@
+.wrapper {
+  background: var(--white);
+  border-radius: 15px;
+  min-width: 335px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: [start] 64px [endImg] 25px [startUser] 250px [endUser] 1fr [startDepart] 200px [endDepart] 1fr [startAward] 300px [end];
+  align-items: center;
+
+  @media screen and (max-width: 1400px) {
+    grid-template-columns: [start] 64px [endImg] 25px [startUser] 200px [endUser] 1fr [startAward] 300px [end];
+  }
+  @media screen and (max-width: 680px) {
+    min-width: 100%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: [start] 64px [endImg] 25px [startUser] 150px [endUser];
+  }
+
+  :hover {
+  }
+
+  .img {
+    grid-column: start / endImg;
+  }
+
+  .user {
+    grid-column: startUser / endUser;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .userTag {
+      margin-top: 5px;
+    }
+  }
+
+  .depart {
+    grid-column: startDepart / endDepart;
+    @media screen and (max-width: 1400px) {
+      display: none;
+    }
+  }
+
+  .award {
+    grid-column: startAward / end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    @media screen and (max-width: 680px) {
+      grid-column: start / endUser;
+    }
+
+    .imgAward {
+      margin-right: 10px;
+      width: 64px;
+      height: 64px;
+
+      @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

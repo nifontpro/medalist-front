@@ -1,0 +1,28 @@
+.calendar {
+  border: none;
+  // background: var(--white);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  color: var(--black);
+
+  border-radius: 12px;
+
+  font-weight: 500;
+  font-size: 15.2338px;
+  line-height: 21px;
+  font-family: var(--font-family);
+
+  > div {
+    border-radius: 12px;
+
+    &.error {
+      border: 1px solid var(--red);
+    }
+  }
+
+  .placeholder {
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,97 @@
+.wrapper {
+  @apply animate-fade;
+
+  .spinnerSmallBtnPagination {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .headerTitle {
+    margin-bottom: 40px;
+    @media screen and (max-width: 1015px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .createAward {
+    @media screen and (max-width: 1015px) {
+      display: none;
+    }
+  }
+
+  .createAwardAdaptive {
+    display: none;
+
+    @media screen and (max-width: 1015px) {
+      display: block;
+    }
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: [start] auto auto auto [spaceStart] 1fr [spaceEnd] auto auto [end];
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 60px;
+
+    @media screen and (max-width: 1500px) {
+      gap: 20px;
+    }
+
+    @media screen and (max-width: 1280px) {
+      gap: 15px;
+    }
+
+    @media screen and (max-width: 840px) {
+      display: none;
+    }
+
+    .all {
+      grid-column: start / 2;
+    }
+
+    .award {
+      grid-column: 2 / 3;
+    }
+
+    .nominee {
+      grid-column: 3 / spaceStart;
+    }
+
+    .sort {
+      cursor: pointer;
+      grid-column: spaceEnd / 6;
+    }
+
+    .btn {
+      grid-column: 6 / end;
+      margin-left: 50px;
+    }
+
+    .active {
+      cursor: pointer;
+      color: var(--gray-dark);
+    }
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px 30px;
+    margin-bottom: 50px;
+
+    @media screen and (max-width: 1530px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    gap: 20px 20px;
+    // @media screen and (max-width: 1465px) {
+    //   grid-template-columns: 1fr 1fr;
+    // }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+}
