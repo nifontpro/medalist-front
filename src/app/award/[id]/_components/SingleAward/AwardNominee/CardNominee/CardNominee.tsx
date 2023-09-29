@@ -15,6 +15,7 @@ import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import { awardApi } from '@/api/award/award.api';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CardNominee = ({
   awardId,
@@ -23,6 +24,7 @@ const CardNominee = ({
   className,
   ...props
 }: CardNomineeProps): JSX.Element => {
+  const { push } = useRouter();
   const [deleteUserReward, deleteUserRewardInfo] =
     awardApi.useSendActionMutation();
 
@@ -50,7 +52,10 @@ const CardNominee = ({
           />
         </div>
 
-        <div className={styles.user}>
+        <div
+          className={styles.user}
+          onClick={() => push(`/user/${user?.user?.id}`)}
+        >
           <P size='l'>
             {user.user?.firstname} {user.user?.lastname}
           </P>

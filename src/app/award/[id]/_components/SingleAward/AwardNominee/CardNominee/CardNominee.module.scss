@@ -22,6 +22,7 @@
   }
 
   > .user {
+    cursor: pointer;
     grid-column: startUser / EndUser;
     > .post {
       margin-top: 5px;

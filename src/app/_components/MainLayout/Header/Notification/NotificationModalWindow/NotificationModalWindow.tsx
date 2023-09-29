@@ -83,7 +83,7 @@ const NotificationModalWindow = forwardRef(
                   className={styles.check}
                   onClick={() => deleteAllEventsAsync(message.data)}
                 >
-                  Прочитать все уведомления
+                  Очистить
                 </P>
               </div>
             ) : (
@@ -100,4 +100,4 @@ const NotificationModalWindow = forwardRef(
 );
 
 NotificationModalWindow.displayName = 'NotificationModalWindow';
-export default memo(NotificationModalWindow)
+export default memo(NotificationModalWindow);
