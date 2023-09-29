@@ -236,9 +236,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
                 appearance='blackWhite'
                 size='l'
                 className={styles.confirm}
-                disabled={!isDirty || !isValid}
+                // disabled={!isDirty || !isValid}
               >
-                Изменить
+                Сохранить
               </Button>
             </div>
           </div>
