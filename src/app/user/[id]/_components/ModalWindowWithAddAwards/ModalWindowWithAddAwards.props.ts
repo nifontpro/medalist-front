@@ -29,5 +29,7 @@ export type ModalWindowWithAddAwardsProps = DetailedHTMLProps<
     nextPage: () => void;
     totalPage: number | undefined;
     setSearchValue: Dispatch<SetStateAction<string>>;
+    arrChoiceAward: string[];
+    setArrChoiceAward: Dispatch<SetStateAction<string[]>>;
     searchHandleChange: (event: FormEvent<HTMLInputElement>) => void;
   };

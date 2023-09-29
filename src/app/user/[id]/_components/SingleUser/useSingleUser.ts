@@ -25,12 +25,15 @@ export const useSingleUser = (id: string) => {
 
   const deptId = useMemo(() => user?.data?.user.dept.id, [user]);
 
+  const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
+
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [visibleModalEvent, setVisibleModalEvent] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
   const handleClickOutside = useCallback(() => {
+    setArrChoiceAward([]);
     setVisibleModal(false);
     setSearchValue('');
   }, [setSearchValue]);
@@ -56,5 +59,7 @@ export const useSingleUser = (id: string) => {
     back,
     searchHandleChange,
     userActiv,
+    arrChoiceAward,
+    setArrChoiceAward,
   };
 };

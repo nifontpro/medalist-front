@@ -42,6 +42,8 @@ const SingleUser = ({
     back,
     searchHandleChange,
     userActiv,
+    arrChoiceAward,
+    setArrChoiceAward,
   } = useSingleUser(id);
 
   const {
@@ -108,6 +110,8 @@ const SingleUser = ({
         page={page}
         setPage={setPage}
         setSearchValue={setSearchValue}
+        arrChoiceAward={arrChoiceAward}
+        setArrChoiceAward={setArrChoiceAward}
         searchHandleChange={searchHandleChange}
         awardState='AWARD'
         userId={user.data?.user.id}

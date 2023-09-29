@@ -14,6 +14,8 @@ import {
 import { toast } from 'react-toastify';
 
 export const useModalWindowWithAddAwards = (
+  arrChoiceAward: string[],
+  setArrChoiceAward: Dispatch<SetStateAction<string[]>>,
   setVisibleModal: Dispatch<SetStateAction<boolean>>,
   userId: string,
   awardState: ActionType,
@@ -22,8 +24,6 @@ export const useModalWindowWithAddAwards = (
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-
-  const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
   const [reward] = awardApi.useSendActionMutation();
 
   const handleCancel = useCallback(() => {
