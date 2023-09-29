@@ -10,6 +10,7 @@ import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import AwardIcon from '@/icons/union.svg';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { useRouter } from 'next/navigation';
 
 const CardUserAwarded = ({
   award,
@@ -18,6 +19,7 @@ const CardUserAwarded = ({
   className,
   ...props
 }: CardUserAwardedProps): JSX.Element => {
+  const { push } = useRouter();
   let convertedDate = timeConverterUser(user.date);
 
   const userId = user.user?.id;
@@ -31,11 +33,12 @@ const CardUserAwarded = ({
   };
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
-  // const { userRewardAsync } = useAwardAdmin();
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
-      <div className={styles.contentTitle}>
+      <div
+        className={styles.contentTitle}
+        onClick={() => push(`/user/${user?.user?.id}`)}
+      >
         <div className={styles.img}>
           {user && (
             <ImageDefault
