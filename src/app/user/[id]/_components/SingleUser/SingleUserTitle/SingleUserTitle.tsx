@@ -94,7 +94,8 @@ const SingleUserTitle = ({
 
       <div className={styles.contacts}>
         <P size='m' fontstyle='thin'>
-          Email: {user?.user.email ? user?.user.email : 'email не указан'}
+          Email:{' '}
+          {user?.user?.authEmail ? user?.user.authEmail : 'email не указан'}
         </P>
         <P size='m' fontstyle='thin'>
           Сотовый: {user?.phone ? user?.phone : 'Сотовый не указан'}

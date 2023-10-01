@@ -40,7 +40,7 @@ export const useUserEdit = (
     );
 
   const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
-    deptApi.useGetAuthSubtreeQuery(
+    deptApi.useGetAuthTopLevelTreeQuery(
       {
         authId: typeOfUser?.id!,
         baseRequest: undefined,

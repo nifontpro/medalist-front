@@ -21,7 +21,10 @@ const CardNomineeUser = ({
 
   const { handleRemove } = useCardNominee(Number(userId), awardId);
 
-  let convertDate = useMemo(() => timeConverterUser(award.date), [award]);
+  let convertDate = useMemo(
+    () => timeConverterUser(award.award?.endDate),
+    [award]
+  );
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -43,7 +46,7 @@ const CardNomineeUser = ({
 
       {award.activ ? (
         <P size='s' fontstyle='thin' color='gray' className={styles.date}>
-          Завершена {convertDate}
+          Дата завершения {convertDate}
         </P>
       ) : (
         <AuthComponent minRole={'ADMIN'}>

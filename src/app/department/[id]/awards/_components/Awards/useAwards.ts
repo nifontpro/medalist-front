@@ -16,14 +16,13 @@ export const useAwards = (id: string) => {
 
   //устанавливаем дефолтное значение active, в зависимости откуда перешли
   const searchParams = useSearchParams();
-  const activeDefault: AwardState | null = useMemo(
-    () => searchParams.get('active') as AwardState,
-    [searchParams]
-  );
+  const activeDefault: AwardState | null = searchParams.get(
+    'active'
+  ) as AwardState;
   //______________________
 
   const [active, setActive] = useState<AwardState | undefined>(
-    activeDefault !== null ? activeDefault : undefined
+    activeDefault ? activeDefault : undefined
   );
 
   const { push } = useRouter();
@@ -49,7 +48,7 @@ export const useAwards = (id: string) => {
       authId: typeOfUser?.id!,
       deptId: Number(id),
       withUsers: true,
-      state: active ? active : undefined,
+      state: active,
       baseRequest: {
         // subdepts: switcher,
         subdepts: true,
@@ -103,31 +102,6 @@ export const useAwards = (id: string) => {
     }
   });
   //_______________________
-
-  // //Для подгрузки данных при скролле
-  // const onScroll = useCallback(() => {
-  //   const scrolledToBottom =
-  //     window.innerHeight + window.scrollY >= document.body.offsetHeight;
-  //   if (scrolledToBottom && !isFetchingUsersOnDepartment) {
-  //     if (totalPage && page < totalPage) {
-  //       nextPage(awardsOnDepartment!);
-  //     }
-  //   }
-  // }, [
-  //   page,
-  //   isFetchingUsersOnDepartment,
-  //   awardsOnDepartment,
-  //   nextPage,
-  //   totalPage,
-  // ]);
-  // useEffect(() => {
-  //   document.addEventListener('scroll', onScroll);
-
-  //   return function () {
-  //     document.removeEventListener('scroll', onScroll);
-  //   };
-  // }, [onScroll]);
-  // //_______________________
 
   return {
     active,

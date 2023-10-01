@@ -43,7 +43,7 @@ const MainActivity = ({
       },
     },
     {
-      skip: !deptId || !typeOfUser,
+      skip: !typeOfUser,
     }
   );
 

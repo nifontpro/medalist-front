@@ -59,12 +59,7 @@ const AwardTitle = ({
         </div>
 
         <div className='flex items-center'>
-          <P
-            size='xs'
-            fontstyle='thin'
-            type='silverBtn'
-            className={styles.description}
-          >
+          <P size='xs' className={styles.description}>
             Описание награды:
           </P>
           <P size='xs' fontstyle='thin'>

@@ -25,7 +25,7 @@ const TabTitle = ({
       className={cn(
         styles.award,
         {
-          [styles.active]: active == onClickActive,
+          [styles.active]: active === onClickActive,
         },
         className
       )}
