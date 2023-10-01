@@ -18,5 +18,5 @@ RUN ["npm","run","build"]
 CMD ["npm", "start"]
 
 # docker compose build
-# build . -t 8881981/web:1
-# docker push 8881981/web:1
+# docker build . --platform=linux/amd64 -t 8881981/web:1.1
+# docker push 8881981/web:1.1
