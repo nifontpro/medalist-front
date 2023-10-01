@@ -1,10 +1,9 @@
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const useMain = () => {
@@ -12,7 +11,17 @@ export const useMain = () => {
     (state: RootState) => state.userSelection
   );
 
-  const { userSettings, isLoadingUserSettings } = useUserAdmin();
+  // Получить настройки пользователя
+  const { data: userSettings, isLoading: isLoadingUserSettings } =
+    userApi.useGetSettingsQuery(
+      {
+        userId: typeOfUser?.id!,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
   const [saveUserSettings] = userApi.useSaveSettingsMutation();
 
   const [state, setState] = useState<boolean | undefined>(false);

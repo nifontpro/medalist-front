@@ -15,12 +15,17 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useUsers } from './useUsers';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import { memo } from 'react';
-import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
-import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 import InputFileExcelUsersBtns from '@/ui/InputFileExcelUsersBnts/InputFileExcelUsersBtns';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import { deptApi } from '@/api/dept/dept.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     push,
     usersOnDepartment,
@@ -42,7 +47,16 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     startPage,
   } = useUsers(id);
 
-  const { singleDepartment: department } = useDepartmentAdmin(id);
+  const { data: department, isLoading: isLoadingByIdDept } =
+    deptApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success) return <NoAccess button={false} />;

@@ -3,19 +3,24 @@ import uniqid from 'uniqid';
 import { StatisticDepartmentsProps } from './StatisticDepartments.props';
 import cn from 'classnames';
 import AwardIconSvg from '@/icons/union.svg';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
-import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { awardApi } from '@/api/award/award.api';
 
 const StatisticDepartments = ({
   departId,
   className,
   ...props
 }: StatisticDepartmentsProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page,
     setPage,
@@ -27,15 +32,23 @@ const StatisticDepartments = ({
     prevPage,
   } = useFetchParams();
 
-  const { colAwardsActivRoot, isLoadingColAwardsActivRoot } = useAwardAdmin(
-    departId,
-    {
-      orders: [{ field: '(awardCount)', direction: 'DESC' }],
-      subdepts: true,
-      page: page,
-      pageSize: 5,
-    }
-  );
+  // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
+  const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
+    awardApi.useGetActivCountRootQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(departId),
+        baseRequest: {
+          orders: [{ field: '(awardCount)', direction: 'DESC' }],
+          subdepts: true,
+          page: page,
+          pageSize: 5,
+        },
+      },
+      {
+        skip: !departId || !typeOfUser,
+      }
+    );
 
   const totalPage = useMemo(
     () => colAwardsActivRoot?.pageInfo?.totalPages,

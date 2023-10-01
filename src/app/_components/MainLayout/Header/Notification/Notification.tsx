@@ -5,13 +5,30 @@ import NotificationModalWindow from './NotificationModalWindow/NotificationModal
 import NotificationIconSvg from '@/icons/notification.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import P from '@/ui/P/P';
-import { useMessageAdmin } from '@/api/msg/useMessageAdmin';
+import { messageApi } from '@/api/msg/message.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const Notification = ({
   className,
   ...props
 }: NotificationProps): JSX.Element => {
-  const { myMessage, isLoadingMyMessage } = useMessageAdmin();
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  /**
+   *Получить свои сообщения
+   */
+  const { data: myMessage, isLoading: isLoadingMyMessage } =
+    messageApi.useGetMessagesQuery(
+      {
+        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const [visibleNotification, setVisibleNotification] =
     useState<boolean>(false);

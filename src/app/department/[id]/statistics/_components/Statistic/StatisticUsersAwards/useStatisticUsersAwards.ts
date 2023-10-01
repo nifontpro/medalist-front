@@ -1,15 +1,32 @@
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { awardApi } from '@/api/award/award.api';
 import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 import { useMemo } from 'react';
 
 export const useStatisticUsersAwards = (departId: string) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const switcher = useAppSelector((state) => state.switcher);
 
-  const { userAwardWWCountOnDept, isLoadingUserAwardWWCountOnDept } =
-    useAwardAdmin(departId, {
-      // subdepts: switcher,
-      subdepts: true,
-    });
+  // Получение количества сотрудников с наградами и без них в отделе(ах)
+  const {
+    data: userAwardWWCountOnDept,
+    isLoading: isLoadingUserAwardWWCountOnDept,
+  } = awardApi.useGetUserAwardWWCountOnDeptQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: Number(departId),
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+      },
+    },
+    {
+      skip: !departId || !typeOfUser,
+    }
+  );
 
   let countWithAward = useMemo(
     () => userAwardWWCountOnDept?.data?.withAward,

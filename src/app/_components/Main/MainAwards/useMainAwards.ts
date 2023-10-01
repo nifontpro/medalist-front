@@ -1,9 +1,9 @@
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { awardApi } from '@/api/award/award.api';
+import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 
 export const useMainAwards = (deptId: string | undefined) => {
   const { push } = useRouter();
@@ -14,21 +14,55 @@ export const useMainAwards = (deptId: string | undefined) => {
     (state: RootState) => state.userSelection
   );
 
-  const {
-    colAwardsOnDepartment,
-    isLoadingColAwardsOnDept,
-    colAwardsActivRoot,
-    isLoadingColAwardsActivRoot,
-  } = useAwardAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-    // subdepts: switcher,
-    subdepts: true,
-  });
+  // Получить колличество наград в отделе
+  const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
+    awardApi.useGetAwardCountQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: deptId ? deptId : typeOfUser?.dept.id,
+        baseRequest: {
+          // subdepts: switcher
+          subdepts: true,
+        },
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
-  const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-      // subdepts: switcher
-      subdepts: true,
-    });
+  // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
+  const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
+    awardApi.useGetActivCountRootQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: deptId ? deptId : typeOfUser?.dept.id,
+        baseRequest: {
+          // subdepts: switcher
+          subdepts: true,
+        },
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  const {
+    data: usersOnDepartmentWithAwards,
+    isLoading: isLoadingUsersOnDepartmentWithAwards,
+  } = userApi.useGetUsersWithAwardCountQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      baseRequest: {
+        // subdepts: switcher
+        subdepts: true,
+      },
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   let countAll = useMemo(
     () =>

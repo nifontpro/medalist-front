@@ -36,9 +36,5 @@ export default function Home() {
     }
   }, [typeOfUser, treeDepts]);
 
-  return (
-    <main>
-      <Main />
-    </main>
-  );
+  return <main>{/* <Main /> */}</main>;
 }

@@ -14,18 +14,18 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
     (state: RootState) => state.userSelection
   );
 
-  /**
-   *Получить свои сообщения
-   */
-  const { data: myMessage, isLoading: isLoadingMyMessage } = 
-    messageApi.useGetMessagesQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // /**
+  //  *Получить свои сообщения
+  //  */
+  // const { data: myMessage, isLoading: isLoadingMyMessage } =
+  //   messageApi.useGetMessagesQuery(
+  //     {
+  //       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //     },
+  //     {
+  //       skip: !typeOfUser,
+  //     }
+  //   );
 
   const [deleteEvent, deleteEventInfo] = messageApi.useDeleteMessageMutation();
 
@@ -82,8 +82,8 @@ export const useMessageAdmin = (id?: string, baseRequest?: BaseRequest) => {
   );
 
   return {
-    myMessage,
-    isLoadingMyMessage,
+    // myMessage,
+    // isLoadingMyMessage,
     deleteEventAsync,
     deleteEventInfo,
     deleteAllEventsAsync,

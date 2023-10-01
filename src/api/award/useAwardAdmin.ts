@@ -24,171 +24,171 @@ export const useAwardAdmin = (
     (state: RootState) => state.userSelection
   );
 
-  // Получить награду по id
-  const { data: singleAward, isLoading: isLoadingSingleAward } =
-    awardApi.useGetByIdQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        awardId: awardId ? Number(awardId) : 0,
-      },
-      {
-        skip: !typeOfUser && !awardId,
-      }
-    );
+  // // Получить награду по id
+  // const { data: singleAward, isLoading: isLoadingSingleAward } =
+  //   awardApi.useGetByIdQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       awardId: Number(awardId),
+  //     },
+  //     {
+  //       skip: !typeOfUser && !awardId,
+  //     }
+  //   );
 
-  // Получить Актив награды по id награды
-  const {
-    data: singleActivAward,
-    isLoading: isLoadingSingleActivAward,
-    isFetching: isFetchingSingleActivAward,
-  } = awardApi.useGetUsersByActivAwardQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      awardId: awardId ? Number(awardId) : 0,
-      baseRequest: baseRequest ? baseRequest : undefined,
-      actionType: actionType ? actionType : undefined,
-    },
-    {
-      skip: !typeOfUser && !awardId,
-    }
-  );
+  // // Получить Актив награды по id награды
+  // const {
+  //   data: singleActivAward,
+  //   isLoading: isLoadingSingleActivAward,
+  //   isFetching: isFetchingSingleActivAward,
+  // } = awardApi.useGetUsersByActivAwardQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     awardId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //     actionType: actionType ? actionType : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получить Актив награды по id пользователя
-  const {
-    data: singleActivAwardUser,
-    isLoading: isLoadingSingleActivAwardUser,
-  } = awardApi.useGetActivAwardByUserQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      userId: awardId ? Number(awardId) : 0,
-      baseRequest: baseRequest ? baseRequest : undefined,
-      awardType: awardType ? awardType : undefined,
-    },
-    {
-      skip: !typeOfUser && !awardId,
-    }
-  );
+  // // Получить Актив награды по id пользователя
+  // const {
+  //   data: singleActivAwardUser,
+  //   isLoading: isLoadingSingleActivAwardUser,
+  // } = awardApi.useGetActivAwardByUserQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     userId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //     awardType: awardType ? awardType : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получить награды в отделе
-  const {
-    data: awardsOnDepartment,
-    isLoading: isLoadingAwardsOnDept,
-    isFetching: isFetchingUsersOnDepartment,
-  } = awardApi.useGetByDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(awardId),
-      withUsers: withUsers !== undefined ? withUsers : false,
-      state: active ? active : undefined,
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получить награды в отделе
+  // const {
+  //   data: awardsOnDepartment,
+  //   isLoading: isLoadingAwardsOnDept,
+  //   isFetching: isFetchingUsersOnDepartment,
+  // } = awardApi.useGetByDeptQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(awardId),
+  //     withUsers: withUsers !== undefined ? withUsers : false,
+  //     state: active ? active : undefined,
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получить колличество наград в отделе
-  const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
-    awardApi.useGetAwardCountQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: Number(awardId),
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // // Получить колличество наград в отделе
+  // const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
+  //   awardApi.useGetAwardCountQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       deptId: Number(awardId),
+  //       baseRequest: baseRequest ? baseRequest : undefined,
+  //     },
+  //     {
+  //       skip: !typeOfUser,
+  //     }
+  //   );
 
-  // Получить Актив наград по id в отделе
-  const {
-    data: awardsActivOnDepartment,
-    isLoading: isLoadingAwardsActivOnDept,
-    isFetching: isFetchingUsersActivOnDepartment,
-  } = awardApi.useGetActivAwardByDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(awardId),
-      awardState: active,
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получить Актив наград по id в отделе
+  // const {
+  //   data: awardsActivOnDepartment,
+  //   isLoading: isLoadingAwardsActivOnDept,
+  //   isFetching: isFetchingUsersActivOnDepartment,
+  // } = awardApi.useGetActivAwardByDeptQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(awardId),
+  //     awardState: active,
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получение количества активных награждений (наград у пользователей) разных типов в компании
-  const {
-    data: colAwardsActivOnDepartment,
-    isLoading: isLoadingColAwardsActivOnDepartment,
-  } = awardApi.useGetActivCountQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(awardId),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получение количества активных награждений (наград у пользователей) разных типов в компании
+  // const {
+  //   data: colAwardsActivOnDepartment,
+  //   isLoading: isLoadingColAwardsActivOnDepartment,
+  // } = awardApi.useGetActivCountQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
-  const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
-    awardApi.useGetActivCountRootQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: Number(awardId),
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // // С КОРНЕВОГО ОТДЕЛА ! Получение количества активных награждений (наград у пользователей) разных типов в компании
+  // const { data: colAwardsActivRoot, isLoading: isLoadingColAwardsActivRoot } =
+  //   awardApi.useGetActivCountRootQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       deptId: Number(awardId),
+  //       baseRequest: baseRequest ? baseRequest : undefined,
+  //     },
+  //     {
+  //       skip: !typeOfUser && !awardId,
+  //     }
+  //   );
 
-  // Получение наград доступных для награждения сотрудников текущим админом
-  const {
-    data: awardsAvailableForRewardUser,
-    isLoading: isLoadingAwardsAvailableForRewardUser,
-  } = awardApi.useGetAvailableBySubDeptsQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(awardId),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получение наград доступных для награждения сотрудников текущим админом
+  // const {
+  //   data: awardsAvailableForRewardUser,
+  //   isLoading: isLoadingAwardsAvailableForRewardUser,
+  // } = awardApi.useGetAvailableBySubDeptsQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получение наград типа SIMPLE доступных для награждения сотрудников текущим админом
-  const {
-    data: awardsAvailableForRewardUserSimple,
-    isLoading: isLoadingAwardsAvailableForRewardUserSimple,
-  } = awardApi.useGetAvailableAwardsForRewardBySubDeptsQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      userId: awardId ? Number(awardId) : 0,
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получение наград типа SIMPLE доступных для награждения сотрудников текущим админом
+  // const {
+  //   data: awardsAvailableForRewardUserSimple,
+  //   isLoading: isLoadingAwardsAvailableForRewardUserSimple,
+  // } = awardApi.useGetAvailableAwardsForRewardBySubDeptsQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     userId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
-  // Получение количества сотрудников с наградами и без них в отделе(ах)
-  const {
-    data: userAwardWWCountOnDept,
-    isLoading: isLoadingUserAwardWWCountOnDept,
-  } = awardApi.useGetUserAwardWWCountOnDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(awardId),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получение количества сотрудников с наградами и без них в отделе(ах)
+  // const {
+  //   data: userAwardWWCountOnDept,
+  //   isLoading: isLoadingUserAwardWWCountOnDept,
+  // } = awardApi.useGetUserAwardWWCountOnDeptQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(awardId),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !typeOfUser && !awardId,
+  //   }
+  // );
 
   const [deleteAward] = awardApi.useDeleteMutation();
   const [deleteUserReward, deleteUserRewardInfo] =
@@ -249,32 +249,32 @@ export const useAwardAdmin = (
 
   return {
     deleteAwardAsync,
-    singleAward,
-    isLoadingSingleAward,
-    awardsOnDepartment,
-    isFetchingUsersOnDepartment,
-    isLoadingAwardsOnDept,
-    singleActivAward,
-    isLoadingSingleActivAward,
-    isFetchingSingleActivAward,
-    awardsActivOnDepartment,
-    isLoadingAwardsActivOnDept,
-    singleActivAwardUser,
-    isLoadingSingleActivAwardUser,
     userRewardAsync,
     deleteUserRewardInfo,
-    awardsAvailableForRewardUser,
-    isLoadingAwardsAvailableForRewardUser,
-    colAwardsOnDepartment,
-    isLoadingColAwardsOnDept,
-    colAwardsActivOnDepartment,
-    isLoadingColAwardsActivOnDepartment,
-    isFetchingUsersActivOnDepartment,
-    colAwardsActivRoot,
-    isLoadingColAwardsActivRoot,
-    userAwardWWCountOnDept,
-    isLoadingUserAwardWWCountOnDept,
-    awardsAvailableForRewardUserSimple,
-    isLoadingAwardsAvailableForRewardUserSimple,
+    // singleAward,
+    // isLoadingSingleAward,
+    // awardsOnDepartment,
+    // isFetchingUsersOnDepartment,
+    // isLoadingAwardsOnDept,
+    // singleActivAward,
+    // isLoadingSingleActivAward,
+    // isFetchingSingleActivAward,
+    // awardsActivOnDepartment,
+    // isLoadingAwardsActivOnDept,
+    // singleActivAwardUser,
+    // isLoadingSingleActivAwardUser,
+    // awardsAvailableForRewardUser,
+    // isLoadingAwardsAvailableForRewardUser,
+    // colAwardsOnDepartment,
+    // isLoadingColAwardsOnDept,
+    // colAwardsActivOnDepartment,
+    // isLoadingColAwardsActivOnDepartment,
+    // isFetchingUsersActivOnDepartment,
+    // colAwardsActivRoot,
+    // isLoadingColAwardsActivRoot,
+    // userAwardWWCountOnDept,
+    // isLoadingUserAwardWWCountOnDept,
+    // awardsAvailableForRewardUserSimple,
+    // isLoadingAwardsAvailableForRewardUserSimple,
   };
 };

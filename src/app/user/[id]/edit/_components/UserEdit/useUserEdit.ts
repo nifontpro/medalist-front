@@ -15,20 +15,40 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { BaseImage } from '@/types/base/image/baseImage';
-import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
+import { deptApi } from '@/api/dept/dept.api';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
   id: string
 ) => {
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
 
-  //  Для выбора отделов и перемещения
-  const { deptsForRelocation, isLoadingDeptsForRelocation } =
-    useDepartmentAdmin();
+  // Получить пользоветля по id
+  const { data: singleUser, isLoading: isLoadingSingleUser } =
+    userApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
+
+  const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
+    deptApi.useGetAuthSubtreeQuery(
+      {
+        authId: typeOfUser?.id!,
+        baseRequest: undefined,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   let arrDeparts: IOption[] = [];
 
@@ -48,10 +68,6 @@ export const useUserEdit = (
   }, [singleUser]);
 
   const [active, setActive] = useState<Gender>('UNDEF');
-
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
 
   const { back } = useRouter();
   const [update] = userApi.useUpdateMutation();

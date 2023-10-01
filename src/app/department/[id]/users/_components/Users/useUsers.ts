@@ -1,11 +1,16 @@
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { userApi } from '@/api/user/user.api';
 import { getUserCreateUrl } from '@/config/api.config';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export const useUsers = (id: string) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const switcher = useAppSelector((state) => state.switcher);
 
   const { push } = useRouter();
@@ -24,18 +29,25 @@ export const useUsers = (id: string) => {
 
   const startPage: number = useMemo(() => page + 1, [page]);
 
-  const {
-    usersOnDepartmentWithAwards: usersOnDepartment,
-    isLoadingUsersOnDepartment,
-    isFetchingUsersOnDepartment,
-  } = useUserAdmin(id, {
-    // subdepts: switcher,
-    subdepts: true,
-    page: page,
-    pageSize: 10,
-    filter: searchValue ? searchValue : undefined,
-    orders: [{ field: 'lastname', direction: state }],
-  });
+  // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
+    userApi.useGetUsersWithAwardCountQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+        baseRequest: {
+          // subdepts: switcher,
+          subdepts: true,
+          page: page,
+          pageSize: 10,
+          filter: searchValue ? searchValue : undefined,
+          orders: [{ field: 'lastname', direction: state }],
+        },
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   const totalPage = useMemo(
     () => usersOnDepartment?.pageInfo?.totalPages,

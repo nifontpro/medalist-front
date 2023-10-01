@@ -1,4 +1,4 @@
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { userApi } from '@/api/user/user.api';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
@@ -51,17 +51,29 @@ export const useMainUsers = (deptId: string | undefined) => {
   const pageSize: number = useMemo(() => 8, []);
   const startPage: number = useMemo(() => page + 1, [page]);
 
-  const { usersOnDepartmentWithAwards, isLoadingUsersOnDepartmentWithAwards } =
-    useUserAdmin(deptId ? deptId : typeOfUser?.dept.id, {
-      // orders: [{ field: '(scores)', direction: 'DESC' }],
-      orders: [{ field: '(awardCount)', direction: 'DESC' }],
-      // subdepts: switcher,
-      subdepts: true,
-      page: page,
-      pageSize,
-      minDate: dataInterval ? dataInterval.value : currentDate - 31556926000, // Вычитаем год, чтобы получить за прошедший 1 год лучших
-      maxDate: currentDate,
-    });
+  // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  const {
+    data: usersOnDepartmentWithAwards,
+    isLoading: isLoadingUsersOnDepartmentWithAwards,
+  } = userApi.useGetUsersWithAwardCountQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
+      baseRequest: {
+        // orders: [{ field: '(scores)', direction: 'DESC' }],
+        orders: [{ field: '(awardCount)', direction: 'DESC' }],
+        // subdepts: switcher,
+        subdepts: true,
+        page: page,
+        pageSize,
+        minDate: dataInterval ? dataInterval.value : currentDate - 31556926000, // Вычитаем год, чтобы получить за прошедший 1 год лучших
+        maxDate: currentDate,
+      },
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   const totalPage = useMemo(
     () => usersOnDepartmentWithAwards?.pageInfo?.totalPages,

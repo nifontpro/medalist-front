@@ -9,7 +9,6 @@ import P from '@/ui/P/P';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getUserEditUrl } from '@/config/api.config';
 import AwardIcon from '@/icons/union.svg';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useRouter } from 'next/navigation';
 
 const CardUserAwarded = ({

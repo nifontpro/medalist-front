@@ -1,11 +1,16 @@
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { userApi } from '@/api/user/user.api';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { Activity } from '@/types/award/Activity';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 import { AwardDetails } from '@/types/award/AwardDetails';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useAwardNomineeForAddUsers = (award: AwardDetails | null) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page: addUsersPage,
     setPage: addUsersSetPage,
@@ -18,20 +23,29 @@ export const useAwardNomineeForAddUsers = (award: AwardDetails | null) => {
     prevPage: addUsersPrevPage,
   } = useFetchParams();
 
+  // Получить сотрудников которых можно наградить выбранной медалью
   const {
-    availableUsersBySubDeptForAwards,
-    isLoadingAvailableUsersBySubDeptForAwards,
-  } = useUserAdmin(
-    award?.award.dept.id?.toString(),
+    data: availableUsersBySubDeptForAwards,
+    isLoading: isLoadingAvailableUsersBySubDeptForAwards,
+  } = userApi.useGetAvailableUsersBySubDeptForAwardsQuery(
     {
-      subdepts: true,
-      page: addUsersPage,
-      pageSize: 100,
-      filter: addUsersSearchValue,
-      orders: [{ field: 'firstname', direction: addUsersState }],
+      authId: typeOfUser?.id!,
+      deptId: Number(award?.award.dept.id),
+      awardId: award?.award?.id!,
+      actionType: undefined,
+      baseRequest: {
+        subdepts: true,
+        page: addUsersPage,
+        pageSize: 100,
+        filter: addUsersSearchValue,
+        orders: [{ field: 'firstname', direction: addUsersState }],
+      },
     },
-    award?.award.id
+    {
+      skip: !typeOfUser,
+    }
   );
+
   const addUsersTotalPage = useMemo(
     () => availableUsersBySubDeptForAwards?.pageInfo?.totalPages,
     [availableUsersBySubDeptForAwards]

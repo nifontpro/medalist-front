@@ -7,21 +7,33 @@ import {
   MouseEvent,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
-import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
 import { BaseImage } from '@/types/base/image/baseImage';
+import { RootState } from '@/store/storage/store';
 
 export const useDepartmentEdit = (
   setValue: UseFormSetValue<UpdateDeptRequest>,
   id: string
 ) => {
-  const { singleDepartment, isLoadingByIdDept } = useDepartmentAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  const { data: singleDepartment, isLoading: isLoadingByIdDept } =
+    deptApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   const [imageNum, setImageNum] = useState<number>(0);
   const [images, setImages] = useState<BaseImage[]>();
@@ -35,8 +47,6 @@ export const useDepartmentEdit = (
   const [addImage] = deptApi.useImageAddMutation();
   const [refreshImage] = deptApi.useImageUpdateMutation();
   const [removeImage] = deptApi.useImageDeleteMutation();
-
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {

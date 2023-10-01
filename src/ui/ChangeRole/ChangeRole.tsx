@@ -4,10 +4,10 @@ import styles from './ChangeRole.module.scss';
 import cn from 'classnames';
 import { setIsOpenUserSelection } from '@/store/features/userSelection/userSelection.slice';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import { useHeader } from '@/app/_components/MainLayout/Header/useHeader';
 import ArrowIconSvg from '@/icons/smallArrow.svg';
 import { memo } from 'react';
+import { userApi } from '@/api/user/user.api';
 
 //Для мемоизации svg icon
 const ArrowIcon = memo(() => {
@@ -23,9 +23,17 @@ const ChangeRole = ({ className }: ChangeRoleProps): JSX.Element => {
     (state: RootState) => state.userSelection
   );
 
-  const { singleUser, isLoadingSingleUser } = useUserAdmin(
-    String(typeOfUser?.id)
-  );
+  // Получить пользоветля по id
+  const { data: singleUser, isLoading: isLoadingSingleUser } =
+    userApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(typeOfUser?.id),
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const { close } = useHeader();
 

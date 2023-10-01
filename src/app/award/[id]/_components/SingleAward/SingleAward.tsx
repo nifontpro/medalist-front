@@ -12,10 +12,26 @@ import AwardNominee from './AwardNominee/AwardNominee';
 import { memo } from 'react';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { awardApi } from '@/api/award/award.api';
 
 const SingleAward = ({ id, className, ...props }: SingleAwardProps) => {
-  const { singleAward: award, isLoadingSingleAward } = useAwardAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  // Получить награду по id
+  const { data: award, isLoading: isLoadingSingleAward } =
+    awardApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        awardId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   const { back } = useRouter();
 

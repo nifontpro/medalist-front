@@ -9,7 +9,7 @@ import P from '@/ui/P/P';
 import Htag from '@/ui/Htag/Htag';
 import { useMainAwards } from './useMainAwards';
 import { memo } from 'react';
-import { useDepartmentAdmin } from '@/api/dept/useDepartmentAdmin';
+import { deptApi } from '@/api/dept/dept.api';
 
 const MainAwards = ({
   deptId,
@@ -26,7 +26,16 @@ const MainAwards = ({
     numberIsNaN,
   } = useMainAwards(deptId);
 
-  const { singleDepartment: department } = useDepartmentAdmin(deptId);
+  const { data: department, isLoading: isLoadingByIdDept } =
+    deptApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(deptId),
+      },
+      {
+        skip: !deptId || !typeOfUser,
+      }
+    );
 
   return (
     <>

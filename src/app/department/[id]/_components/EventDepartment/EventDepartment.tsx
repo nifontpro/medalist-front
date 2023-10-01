@@ -4,11 +4,13 @@ import styles from './EventDepartment.module.scss';
 import { EventDepartmentProps } from './EventDepartment.props';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useEventAdmin } from '@/api/event/useEventAdmin';
 import EventCard from '@/ui/EventCard/EventCard';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import Htag from '@/ui/Htag/Htag';
 import { memo } from 'react';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { eventApi } from '@/api/event/event.api';
 
 const EventDepartment = ({
   id,
@@ -16,7 +18,21 @@ const EventDepartment = ({
   className,
   ...props
 }: EventDepartmentProps): JSX.Element => {
-  const { eventsDepartment, isLoadingEventsDepartment } = useEventAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  // Получить все события отдела
+  const { data: eventsDepartment, isLoading: isLoadingEventsDepartment } =
+    eventApi.useGetByDeptQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   if (isLoadingEventsDepartment) return <Spinner />;
   if (!eventsDepartment?.success) {

@@ -2,9 +2,6 @@
 
 import styles from './Events.module.scss';
 import { EventsProps } from './Events.props';
-import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useEventAdmin } from '@/api/event/useEventAdmin';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import EventCard from '@/ui/EventCard/EventCard';
@@ -14,6 +11,7 @@ import cn from 'classnames';
 import uniqid from 'uniqid';
 import Htag from '@/ui/Htag/Htag';
 import { memo, useMemo } from 'react';
+import { eventApi } from '@/api/event/event.api';
 
 const Events = ({
   deptId,
@@ -39,16 +37,29 @@ const Events = ({
   } = useFetchParams();
   const pageSize: number = useMemo(() => 4, []);
 
-  const { allEvent, isLoadingAllEvent } = useEventAdmin(
-    deptId ? deptId : typeOfUser?.dept?.id,
-    {
-      orders: [{ field: '(days)', direction: 'DESC' }],
-      // subdepts: switcher,
-      subdepts: true,
-      page: page,
-      pageSize,
-    }
-  );
+  /**
+   * Получить все события сотрудников и отделов
+   * с текущего дня года по кругу.
+   * Пагинация.
+   * Сортировка внутренняя (По дню от текущего и названию сущности).
+   */
+  const { data: allEvent, isLoading: isLoadingAllEvent } =
+    eventApi.useGetAllQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(deptId ? deptId : typeOfUser?.dept?.id),
+        baseRequest: {
+          orders: [{ field: '(days)', direction: 'DESC' }],
+          // subdepts: switcher,
+          subdepts: true,
+          page: page,
+          pageSize,
+        },
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 

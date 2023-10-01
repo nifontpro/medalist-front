@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import dayjs from 'dayjs';
 import {
   setEndDate,
@@ -27,8 +26,15 @@ import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWin
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import { userApi } from '@/api/user/user.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const CreateAward = () => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
 
   const {
@@ -65,13 +71,28 @@ const CreateAward = () => {
     prevPage,
   } = useFetchParams();
 
-  const { usersOnDepartment: users } = useUserAdmin(deptId.toString(), {
-    subdepts: true,
-    page: page,
-    pageSize: 100,
-    filter: searchValue,
-    orders: [{ field: 'lastname', direction: state }],
-  });
+  // Получить пользоветлей в отделе
+  const {
+    data: users,
+    isLoading: isLoadingUsersOnDepartment,
+    isFetching: isFetchingUsersOnDepartment,
+  } = userApi.useGetUsersByDeptQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: deptId,
+      baseRequest: {
+        subdepts: true,
+        page: page,
+        pageSize: 100,
+        filter: searchValue,
+        orders: [{ field: 'lastname', direction: state }],
+      },
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
   const totalPage = useMemo(() => users?.pageInfo?.totalPages, [users]);
 
   const onChangeStart = useCallback(

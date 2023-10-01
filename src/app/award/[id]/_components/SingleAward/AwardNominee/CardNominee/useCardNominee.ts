@@ -1,5 +1,4 @@
 import { awardApi } from '@/api/award/award.api';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';

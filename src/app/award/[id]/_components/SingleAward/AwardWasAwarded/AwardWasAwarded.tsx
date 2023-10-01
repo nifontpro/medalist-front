@@ -16,6 +16,9 @@ import { useAwardWasAwardedForAddUsers } from './useAwardWasAwardedForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo } from 'react';
+import { awardApi } from '@/api/award/award.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const AwardWasAwarded = ({
   award,
@@ -23,6 +26,10 @@ const AwardWasAwarded = ({
   className,
   ...props
 }: AwardWasAwardedProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page,
     setPage,
@@ -35,22 +42,30 @@ const AwardWasAwarded = ({
     prevPage,
   } = useFetchParams();
 
+  // Получить Актив награды по id награды
   const {
-    singleActivAward,
-    isLoadingSingleActivAward,
-    isFetchingSingleActivAward,
-    userRewardAsync,
-  } = useAwardAdmin(
-    id,
+    data: singleActivAward,
+    isLoading: isLoadingSingleActivAward,
+    isFetching: isFetchingSingleActivAward,
+  } = awardApi.useGetUsersByActivAwardQuery(
     {
-      page: page,
-      pageSize: 5,
-      filter: searchValue,
-      orders: [{ field: 'user.firstname', direction: 'ASC' }],
+      authId: typeOfUser?.id!,
+      awardId: Number(id),
+      baseRequest: {
+        page: page,
+        pageSize: 5,
+        filter: searchValue,
+        orders: [{ field: 'user.firstname', direction: 'ASC' }],
+      },
+      actionType: 'AWARD',
     },
-    undefined,
-    'AWARD'
+    {
+      skip: !id || !typeOfUser,
+    }
   );
+
+  const { userRewardAsync } = useAwardAdmin();
+
   const totalPage = singleActivAward?.pageInfo?.totalPages;
 
   const {

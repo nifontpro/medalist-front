@@ -1,15 +1,34 @@
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 import { useMemo } from 'react';
 
 export const useStatisticUsersGender = (departId: string) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const switcher = useAppSelector((state) => state.switcher);
 
-  const { usersOnDepartment } = useUserAdmin(departId, {
-    // subdepts: switcher,
-    subdepts: true,
-    filter: '',
-  });
+  // Получить пользоветлей в отделе
+  const {
+    data: usersOnDepartment,
+    isLoading: isLoadingUsersOnDepartment,
+    isFetching: isFetchingUsersOnDepartment,
+  } = userApi.useGetUsersByDeptQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: Number(departId),
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+        filter: '',
+      },
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
 
   let countAll = useMemo(
     () => usersOnDepartment?.data?.length,

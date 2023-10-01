@@ -1,12 +1,17 @@
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
+import { awardApi } from '@/api/award/award.api';
+import { userApi } from '@/api/user/user.api';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { Award } from '@/types/award/Award';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useSingleUser = (id: string) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const { back } = useRouter();
   const {
     page,
@@ -20,10 +25,31 @@ export const useSingleUser = (id: string) => {
     prevPage,
   } = useFetchParams();
 
-  const { singleUser: user, isLoadingSingleUser } = useUserAdmin(id);
-  const { singleActivAwardUser: userActiv } = useAwardAdmin(id);
+  // Получить пользоветля по id
+  const { data: user, isLoading: isLoadingSingleUser } =
+    userApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
-  const deptId = useMemo(() => user?.data?.user.dept.id, [user]);
+  // Получить Актив награды по id пользователя
+  const { data: userActiv, isLoading: isLoadingSingleActivAwardUser } =
+    awardApi.useGetActivAwardByUserQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+        baseRequest: undefined,
+        awardType: undefined,
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 
@@ -38,6 +64,26 @@ export const useSingleUser = (id: string) => {
     setSearchValue('');
   }, [setSearchValue]);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal);
+
+  // Получение наград типа SIMPLE доступных для награждения сотрудников текущим админом
+  const {
+    data: awardsAvailableForRewardUserSimple,
+    isLoading: isLoadingAwardsAvailableForRewardUserSimple,
+  } = awardApi.useGetAvailableAwardsForRewardBySubDeptsQuery(
+    {
+      authId: typeOfUser?.id!,
+      userId: Number(id),
+      baseRequest: { filter: searchValue },
+    },
+    {
+      skip: !id || !typeOfUser,
+    }
+  );
+
+  const totalPage = useMemo(
+    () => awardsAvailableForRewardUserSimple?.pageInfo?.totalPages,
+    [awardsAvailableForRewardUserSimple]
+  );
 
   return {
     visibleModal,
@@ -61,5 +107,7 @@ export const useSingleUser = (id: string) => {
     userActiv,
     arrChoiceAward,
     setArrChoiceAward,
+    totalPage,
+    awardsAvailableForRewardUserSimple,
   };
 };

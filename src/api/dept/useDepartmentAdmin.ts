@@ -4,7 +4,7 @@ import { RootState } from '@/store/storage/store';
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { toastError } from '@/utils/toast-error';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 
 export const useDepartmentAdmin = (id?: string, baseRequest?: BaseRequest) => {
@@ -12,27 +12,27 @@ export const useDepartmentAdmin = (id?: string, baseRequest?: BaseRequest) => {
     (state: RootState) => state.userSelection
   );
 
-  const { data: singleDepartment, isLoading: isLoadingByIdDept } =
-    deptApi.useGetByIdQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        deptId: id ? Number(id) : 0,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // const { data: singleDepartment, isLoading: isLoadingByIdDept } =
+  //   deptApi.useGetByIdQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       deptId: Number(id),
+  //     },
+  //     {
+  //       skip: !id || !typeOfUser,
+  //     }
+  //   );
 
-  const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
-    deptApi.useGetAuthSubtreeQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        baseRequest: baseRequest ? baseRequest : undefined,
-      },
-      {
-        skip: !typeOfUser,
-      }
-    );
+  // const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
+  //   deptApi.useGetAuthSubtreeQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       baseRequest: baseRequest ? baseRequest : undefined,
+  //     },
+  //     {
+  //       skip: !typeOfUser,
+  //     }
+  //   );
 
   const [deleteDepartment] = deptApi.useDeleteMutation();
 
@@ -61,9 +61,9 @@ export const useDepartmentAdmin = (id?: string, baseRequest?: BaseRequest) => {
 
   return {
     deleteDepartmentAsync,
-    singleDepartment,
-    isLoadingByIdDept,
-    deptsForRelocation,
-    isLoadingDeptsForRelocation,
+    // singleDepartment,
+    // isLoadingByIdDept,
+    // deptsForRelocation,
+    // isLoadingDeptsForRelocation,
   };
 };

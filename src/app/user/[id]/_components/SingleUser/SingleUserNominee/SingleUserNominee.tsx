@@ -10,6 +10,9 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
+import { awardApi } from '@/api/award/award.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const SingleUserNominee = ({
   user,
@@ -17,6 +20,10 @@ const SingleUserNominee = ({
   className,
   ...props
 }: SingleUserNomineeProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page,
     setPage,
@@ -33,20 +40,31 @@ const SingleUserNominee = ({
     startDate,
   } = useFetchParams();
 
-  const { singleActivAwardUser, userRewardAsync } = useAwardAdmin(
-    id,
+  const { userRewardAsync } = useAwardAdmin();
+
+  // Получить Актив награды по id пользователя
+  const {
+    data: singleActivAwardUser,
+    isLoading: isLoadingSingleActivAwardUser,
+  } = awardApi.useGetActivAwardByUserQuery(
     {
-      page: page,
-      pageSize: 5,
-      filter: searchValue,
-      maxDate: endDate,
-      minDate: startDate,
-      orders: [{ field: 'award.name', direction: state }],
+      authId: typeOfUser?.id!,
+      userId: Number(id),
+      baseRequest: {
+        page: page,
+        pageSize: 5,
+        filter: searchValue,
+        maxDate: endDate,
+        minDate: startDate,
+        orders: [{ field: 'award.name', direction: state }],
+      },
+      awardType: 'PERIOD',
     },
-    undefined,
-    undefined,
-    'PERIOD'
+    {
+      skip: !id || !typeOfUser,
+    }
   );
+
   const totalPage = useMemo(
     () => singleActivAwardUser?.pageInfo?.totalPages,
     [singleActivAwardUser]

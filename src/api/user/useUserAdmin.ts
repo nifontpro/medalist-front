@@ -18,130 +18,130 @@ export const useUserAdmin = (
     (state: RootState) => state.userSelection
   );
 
-  // Получить пользоветля по id
-  const { data: singleUser, isLoading: isLoadingSingleUser } =
-    userApi.useGetByIdQuery(
-      {
-        authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-        userId: id ? Number(id) : 0,
-      },
-      {
-        skip: !typeOfUser && !id,
-      }
-    );
+  // // Получить пользоветля по id
+  // const { data: singleUser, isLoading: isLoadingSingleUser } =
+  //   userApi.useGetByIdQuery(
+  //     {
+  //       authId: typeOfUser?.id!,
+  //       userId: Number(id),
+  //     },
+  //     {
+  //       skip: !id || !typeOfUser,
+  //     }
+  //   );
 
-  // Получить настройки пользователя
-  const { data: userSettings, isLoading: isLoadingUserSettings } =
-    userApi.useGetSettingsQuery(
-      {
-        userId: 78,
-      },
-      {
-        skip: !typeOfUser && !id,
-      }
-    );
+  // // Получить настройки пользователя
+  // const { data: userSettings, isLoading: isLoadingUserSettings } =
+  //   userApi.useGetSettingsQuery(
+  //     {
+  //       userId: typeOfUser?.id!,
+  //     },
+  //     {
+  //       skip: !typeOfUser && !id,
+  //     }
+  //   );
 
-  // Сохранить настройки пользователя
-  const { data: saveUserSettings, isLoading: isLoadingSaveUserSettings } =
-    userApi.useGetSettingsQuery(
-      {
-        userId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      },
-      {
-        skip: !typeOfUser && !id,
-      }
-    );
+  // // Сохранить настройки пользователя
+  // const { data: saveUserSettings, isLoading: isLoadingSaveUserSettings } =
+  //   userApi.useGetSettingsQuery(
+  //     {
+  //       userId: typeOfUser?.id!,
+  //     },
+  //     {
+  //       skip: !typeOfUser && !id,
+  //     }
+  //   );
 
-  // Получить пользоветлей в отделе
-  const {
-    data: usersOnDepartment,
-    isLoading: isLoadingUsersOnDepartment,
-    isFetching: isFetchingUsersOnDepartment,
-  } = userApi.useGetUsersByDeptQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(id),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // Получить пользоветлей в отделе
+  // const {
+  //   data: usersOnDepartment,
+  //   isLoading: isLoadingUsersOnDepartment,
+  //   isFetching: isFetchingUsersOnDepartment,
+  // } = userApi.useGetUsersByDeptQuery(
+  //   {
+  //     authId: typeOfUser?.id!,
+  //     deptId: Number(id),
+  //     baseRequest: baseRequest ? baseRequest : undefined,
+  //   },
+  //   {
+  //     skip: !id || !typeOfUser,
+  //   }
+  // );
+
+  // // // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
+  // // const {
+  // //   data: usersOnDepartmentWithAwards,
+  // //   isLoading: isLoadingUsersOnDepartmentWithAwards,
+  // // } = userApi.useGetUsersWithAwardsQuery(
+  // //   {
+  // //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  // //     deptId: Number(id),
+  // //     baseRequest: baseRequest ? baseRequest : undefined,
+  // //   },
+  // //   {
+  // //     skip: !typeOfUser,
+  // //   }
+  // // );
 
   // // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
   // const {
   //   data: usersOnDepartmentWithAwards,
   //   isLoading: isLoadingUsersOnDepartmentWithAwards,
-  // } = userApi.useGetUsersWithAwardsQuery(
+  // } = userApi.useGetUsersWithAwardCountQuery(
   //   {
-  //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //     authId: typeOfUser?.id!,
   //     deptId: Number(id),
   //     baseRequest: baseRequest ? baseRequest : undefined,
   //   },
   //   {
-  //     skip: !typeOfUser,
+  //     skip: !id || !typeOfUser,
   //   }
   // );
 
-  // Получить сотрудников отдела/подотделов с наградами (через активность типа AWARD)
-  const {
-    data: usersOnDepartmentWithAwards,
-    isLoading: isLoadingUsersOnDepartmentWithAwards,
-  } = userApi.useGetUsersWithAwardCountQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(id),
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
+  // // // Получение сотрудников всех подотделов вместе с текущим
+  // // const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
+  // //   userApi.useGetUsersBySubDeptQuery(
+  // //     {
+  // //       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  // //       deptId: Number(id),
+  // //       baseRequest: baseRequest ? baseRequest : undefined,
+  // //     },
+  // //     {
+  // //       skip: !typeOfUser,
+  // //     }
+  // //   );
 
-  // // Получение сотрудников всех подотделов вместе с текущим
-  // const { data: usersOnSubDepartment, isLoading: isLoadingUsersOnSubDept } =
-  //   userApi.useGetUsersBySubDeptQuery(
-  //     {
-  //       authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-  //       deptId: Number(id),
-  //       baseRequest: baseRequest ? baseRequest : undefined,
-  //     },
-  //     {
-  //       skip: !typeOfUser,
-  //     }
-  //   );
+  // // // Получить количество сотрудников по полам
+  // // const {
+  // //   data: usersGenderOnDepartment,
+  // //   isLoading: isLoadingUsersGenderOnDepartment,
+  // // } = userApi.useGetUsersBySubDeptQuery(
+  // //   {
+  // //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  // //     deptId: Number(id),
+  // //     baseRequest: baseRequest ? baseRequest : undefined,
+  // //   },
+  // //   {
+  // //     skip: !typeOfUser,
+  // //   }
+  // // );
 
-  // // Получить количество сотрудников по полам
+  // // Получить сотрудников которых можно наградить выбранной медалью
   // const {
-  //   data: usersGenderOnDepartment,
-  //   isLoading: isLoadingUsersGenderOnDepartment,
-  // } = userApi.useGetUsersBySubDeptQuery(
+  //   data: availableUsersBySubDeptForAwards,
+  //   isLoading: isLoadingAvailableUsersBySubDeptForAwards,
+  // } = userApi.useGetAvailableUsersBySubDeptForAwardsQuery(
   //   {
-  //     authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
+  //     authId: typeOfUser?.id!,
   //     deptId: Number(id),
+  //     awardId: awardId!,
+  //     actionType: actionType ? actionType : undefined,
   //     baseRequest: baseRequest ? baseRequest : undefined,
   //   },
   //   {
-  //     skip: !typeOfUser,
+  //     skip: !awardId || !typeOfUser,
   //   }
   // );
-
-  // Получить сотрудников которых можно наградить выбранной медалью
-  const {
-    data: availableUsersBySubDeptForAwards,
-    isLoading: isLoadingAvailableUsersBySubDeptForAwards,
-  } = userApi.useGetAvailableUsersBySubDeptForAwardsQuery(
-    {
-      authId: typeOfUser && typeOfUser.id ? typeOfUser.id : 0,
-      deptId: Number(id),
-      awardId: awardId ? awardId : 0,
-      actionType: actionType ? actionType : undefined,
-      baseRequest: baseRequest ? baseRequest : undefined,
-    },
-    {
-      skip: !typeOfUser || !awardId,
-    }
-  );
 
   const [deleteUser] = userApi.useDeleteMutation();
 
@@ -170,22 +170,22 @@ export const useUserAdmin = (
 
   return {
     deleteUserAsync,
-    singleUser,
-    isLoadingSingleUser,
-    usersOnDepartment,
-    isLoadingUsersOnDepartment,
+    // singleUser,
+    // isLoadingSingleUser,
+    // usersOnDepartment,
+    // isLoadingUsersOnDepartment,
     // usersOnSubDepartment,
     // isLoadingUsersOnSubDept,
     // usersGenderOnDepartment,
     // isLoadingUsersGenderOnDepartment,
-    usersOnDepartmentWithAwards,
-    isLoadingUsersOnDepartmentWithAwards,
-    userSettings,
-    isLoadingUserSettings,
-    saveUserSettings,
-    isLoadingSaveUserSettings,
-    isFetchingUsersOnDepartment,
-    availableUsersBySubDeptForAwards,
-    isLoadingAvailableUsersBySubDeptForAwards,
+    // usersOnDepartmentWithAwards,
+    // isLoadingUsersOnDepartmentWithAwards,
+    // userSettings,
+    // isLoadingUserSettings,
+    // saveUserSettings,
+    // isLoadingSaveUserSettings,
+    // isFetchingUsersOnDepartment,
+    // availableUsersBySubDeptForAwards,
+    // isLoadingAvailableUsersBySubDeptForAwards,
   };
 };

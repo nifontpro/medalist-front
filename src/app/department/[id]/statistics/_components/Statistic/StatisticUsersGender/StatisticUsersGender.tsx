@@ -3,8 +3,7 @@ import styles from './StatisticUsersGender.module.scss';
 import { StatisticUsersGenderProps } from './StatisticUsersGender.props';
 import cn from 'classnames';
 import P from '@/ui/P/P';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useStatisticUsersGender } from './useStatisticUsersGender';
 
 const StatisticUsersGender = ({

@@ -1,12 +1,17 @@
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getAwardCreateUrl } from '@/config/api.config';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { awardApi } from '@/api/award/award.api';
 
 export const useAwards = (id: string) => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const switcher = useAppSelector((state) => state.switcher);
 
   //устанавливаем дефолтное значение active, в зависимости откуда перешли
@@ -34,23 +39,28 @@ export const useAwards = (id: string) => {
     prevPage,
   } = useFetchParams();
 
+  // Получить награды в отделе
   const {
-    awardsOnDepartment,
-    isLoadingAwardsOnDept,
-    isFetchingUsersOnDepartment,
-  } = useAwardAdmin(
-    id,
+    data: awardsOnDepartment,
+    isLoading: isLoadingAwardsOnDept,
+    isFetching: isFetchingUsersOnDepartment,
+  } = awardApi.useGetByDeptQuery(
     {
-      // subdepts: switcher,
-      subdepts: true,
-      page: page,
-      pageSize: 12,
-      orders: [{ field: 'startDate', direction: state }],
+      authId: typeOfUser?.id!,
+      deptId: Number(id),
+      withUsers: true,
+      state: active ? active : undefined,
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+        page: page,
+        pageSize: 12,
+        orders: [{ field: 'startDate', direction: state }],
+      },
     },
-    active,
-    undefined,
-    undefined,
-    true
+    {
+      skip: !id || !typeOfUser,
+    }
   );
 
   const totalPage = useMemo(

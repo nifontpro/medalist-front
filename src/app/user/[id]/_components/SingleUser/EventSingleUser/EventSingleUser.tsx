@@ -4,14 +4,14 @@ import styles from './EventSingleUser.module.scss';
 import { EventSingleUserProps } from './EventSingleUser.props';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { useEventAdmin } from '@/api/event/useEventAdmin';
-import { useFetchParams } from '@/hooks/useFetchParams';
-import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
 import Htag from '@/ui/Htag/Htag';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { memo } from 'react';
+import { eventApi } from '@/api/event/event.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const EventSingleUser = ({
   id,
@@ -19,7 +19,20 @@ const EventSingleUser = ({
   className,
   ...props
 }: EventSingleUserProps): JSX.Element => {
-  const { eventsUser, isLoadingEventsUser } = useEventAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  const { data: eventsUser, isLoading: isLoadingEventsUser } =
+    eventApi.useGetByUserQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   if (isLoadingEventsUser) return <Spinner />;
   if (!eventsUser?.success) {

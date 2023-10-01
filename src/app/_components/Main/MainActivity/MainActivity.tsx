@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
+import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { memo } from 'react';
+import { awardApi } from '@/api/award/award.api';
 
 const MainActivity = ({
   deptId,
@@ -18,22 +18,32 @@ const MainActivity = ({
 }: MainActivityProps): JSX.Element => {
   const { push } = useRouter();
 
-  const dispatch = useAppDispatch();
-
   const switcher = useAppSelector((state) => state.switcher);
 
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
-  const { awardsActivOnDepartment, isLoadingAwardsActivOnDept } = useAwardAdmin(
-    deptId ? deptId : typeOfUser?.dept.id,
+  // Получить Актив наград по id в отделе
+  const {
+    data: awardsActivOnDepartment,
+    isLoading: isLoadingAwardsActivOnDept,
+    isFetching: isFetchingUsersActivOnDepartment,
+  } = awardApi.useGetActivAwardByDeptQuery(
     {
-      // subdepts: switcher,
-      subdepts: true,
-      page: 0,
-      pageSize: 5,
-      orders: [{ field: 'date', direction: 'DESC' }],
+      authId: typeOfUser?.id!,
+      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      awardState: undefined,
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+        page: 0,
+        pageSize: 5,
+        orders: [{ field: 'date', direction: 'DESC' }],
+      },
+    },
+    {
+      skip: !deptId || !typeOfUser,
     }
   );
 

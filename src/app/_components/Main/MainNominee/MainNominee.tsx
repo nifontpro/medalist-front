@@ -1,5 +1,4 @@
 import styles from './MainNominee.module.scss';
-
 import { MainNomineeProps } from './MainNominee.props';
 import cn from 'classnames';
 import ArrowIconSvg from '@/icons/arrowRight.svg';
@@ -11,10 +10,10 @@ import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
 import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
+import { awardApi } from '@/api/award/award.api';
 
 const MainNominee = ({
   deptId,
@@ -29,14 +28,26 @@ const MainNominee = ({
     (state: RootState) => state.userSelection
   );
 
-  const { awardsOnDepartment, isLoadingAwardsOnDept } = useAwardAdmin(
-    deptId ? deptId : typeOfUser?.dept.id,
+  // Получить награды в отделе
+  const {
+    data: awardsOnDepartment,
+    isLoading: isLoadingAwardsOnDept,
+    isFetching: isFetchingUsersOnDepartment,
+  } = awardApi.useGetByDeptQuery(
     {
-      // subdepts: switcher,
-      subdepts: true,
-      orders: [{ field: 'endDate', direction: 'ASC' }],
+      authId: typeOfUser?.id!,
+      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      withUsers: false,
+      state: 'NOMINEE',
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+        orders: [{ field: 'endDate', direction: 'ASC' }],
+      },
     },
-    'NOMINEE'
+    {
+      skip: !typeOfUser,
+    }
   );
 
   let minEndDateNominee = useMemo(

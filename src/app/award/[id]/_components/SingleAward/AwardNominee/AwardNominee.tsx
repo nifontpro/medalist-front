@@ -15,8 +15,10 @@ import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParam
 import { useAwardNomineeForAddUsers } from './useAwardNomineeForAddUsers';
 import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
-import { memo, useCallback, useMemo } from 'react';
-import { awardUrl } from '@/api/award/award.api';
+import { memo, useMemo } from 'react';
+import { awardApi } from '@/api/award/award.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const AwardNominee = ({
   award,
@@ -24,6 +26,10 @@ const AwardNominee = ({
   className,
   ...props
 }: AwardNomineeProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page,
     setPage,
@@ -36,22 +42,29 @@ const AwardNominee = ({
     prevPage,
   } = useFetchParams();
 
+  // Получить Актив награды по id награды
   const {
-    singleActivAward,
-    isLoadingSingleActivAward,
-    isFetchingSingleActivAward,
-    userRewardAsync,
-  } = useAwardAdmin(
-    id,
+    data: singleActivAward,
+    isLoading: isLoadingSingleActivAward,
+    isFetching: isFetchingSingleActivAward,
+  } = awardApi.useGetUsersByActivAwardQuery(
     {
-      page: page,
-      pageSize: 5,
-      filter: searchValue,
-      orders: [{ field: 'user.firstname', direction: state }],
+      authId: typeOfUser?.id!,
+      awardId: Number(id),
+      baseRequest: {
+        page: page,
+        pageSize: 5,
+        filter: searchValue,
+        orders: [{ field: 'user.firstname', direction: state }],
+      },
+      actionType: undefined,
     },
-    undefined,
-    undefined
+    {
+      skip: !id || !typeOfUser,
+    }
   );
+
+  const { userRewardAsync } = useAwardAdmin();
 
   const totalPage = useMemo(
     () => singleActivAward?.pageInfo?.totalPages,

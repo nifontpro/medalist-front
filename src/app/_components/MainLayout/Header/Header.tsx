@@ -6,7 +6,6 @@ import cn from 'classnames';
 import UserLogo from './UserLogo/UserLogo';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useUserAdmin } from '@/api/user/useUserAdmin';
 import MenuIconSvg from '@/icons/menu.svg';
 import { useHeader } from './useHeader';
 import { useWindowSize } from '@/hooks/useWindowSize';
@@ -16,12 +15,23 @@ import Logo from '@/ui/Logo/Logo';
 import Notification from './Notification/Notification';
 import { memo } from 'react';
 import React from 'react';
+import { userApi } from '@/api/user/user.api';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const { singleUser } = useUserAdmin(String(typeOfUser?.id));
+  // Получить пользоветля по id
+  const { data: singleUser, isLoading: isLoadingSingleUser } =
+    userApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: typeOfUser?.id!,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
 
   const { windowSize } = useWindowSize();
   const { navigationVisible } = useHeader();

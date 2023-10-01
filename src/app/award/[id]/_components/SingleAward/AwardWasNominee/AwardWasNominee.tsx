@@ -7,9 +7,11 @@ import P from '@/ui/P/P';
 import CardUserNominee from './CardUserNominee/CardUserNominee';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import { useFetchParams } from '@/hooks/useFetchParams';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
+import { awardApi } from '@/api/award/award.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const AwardWasNominee = ({
   award,
@@ -17,6 +19,10 @@ const AwardWasNominee = ({
   className,
   ...props
 }: AwardWasNomineeProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const {
     page,
     setPage,
@@ -24,26 +30,33 @@ const AwardWasNominee = ({
     setSearchValue,
     searchHandleChange,
     state,
-    setState, 
+    setState,
     nextPage,
     prevPage,
   } = useFetchParams();
 
+  // Получить Актив награды по id награды
   const {
-    singleActivAward,
-    isLoadingSingleActivAward,
-    isFetchingSingleActivAward,
-  } = useAwardAdmin(
-    id,
+    data: singleActivAward,
+    isLoading: isLoadingSingleActivAward,
+    isFetching: isFetchingSingleActivAward,
+  } = awardApi.useGetUsersByActivAwardQuery(
     {
-      page: page,
-      pageSize: 6,
-      filter: searchValue,
-      orders: [{ field: 'user.firstname', direction: state }],
+      authId: typeOfUser?.id!,
+      awardId: Number(id),
+      baseRequest: {
+        page: page,
+        pageSize: 6,
+        filter: searchValue,
+        orders: [{ field: 'user.firstname', direction: state }],
+      },
+      actionType: 'NOMINEE',
     },
-    undefined,
-    'NOMINEE'
+    {
+      skip: !id || !typeOfUser,
+    }
   );
+
   const totalPage = useMemo(
     () => singleActivAward?.pageInfo?.totalPages,
     [singleActivAward]

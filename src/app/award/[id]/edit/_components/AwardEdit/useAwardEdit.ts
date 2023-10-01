@@ -13,7 +13,6 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { BaseImage } from '@/types/base/image/baseImage';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import { awardApi } from '@/api/award/award.api';
 import { GalleryItem } from '@/types/gallery/item';
@@ -22,7 +21,21 @@ export const useAwardEdit = (
   setValue: UseFormSetValue<UpdateAwardRequest>,
   id: string
 ) => {
-  const { singleAward, isLoadingSingleAward } = useAwardAdmin(id);
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
+  // Получить награду по id
+  const { data: singleAward, isLoading: isLoadingSingleAward } =
+    awardApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        awardId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
     undefined
@@ -34,10 +47,6 @@ export const useAwardEdit = (
   useEffect(() => {
     setImages(singleAward?.data?.award.images);
   }, [singleAward]);
-
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
 
   const { back } = useRouter();
   const [update] = awardApi.useUpdateMutation();

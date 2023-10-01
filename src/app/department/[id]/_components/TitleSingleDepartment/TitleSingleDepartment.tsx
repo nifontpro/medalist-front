@@ -11,16 +11,17 @@ import {
   getDepartmentEditUrl,
 } from '@/config/api.config';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
-import EditPanelDeptBtn from '@/ui/EditPanelDeptBtn/EditPanelDeptBtn';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import AuthComponent from '@/store/providers/AuthComponent';
+import { deptApi } from '@/api/dept/dept.api';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const TitleSingleDepartment = ({
   id,
@@ -28,13 +29,24 @@ const TitleSingleDepartment = ({
   className,
   ...props
 }: TitleSingleDepartmentProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const { push } = useRouter();
 
-  const {
-    deleteDepartmentAsync,
-    singleDepartment: department,
-    isLoadingByIdDept,
-  } = useDepartmentAdmin(id);
+  const { data: department, isLoading: isLoadingByIdDept } =
+    deptApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
+
+  const { deleteDepartmentAsync } = useDepartmentAdmin();
 
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
 

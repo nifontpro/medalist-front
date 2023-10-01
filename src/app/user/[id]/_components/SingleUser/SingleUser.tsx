@@ -15,8 +15,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventSingleUser from './EventSingleUser/EventSingleUser';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
-import { memo, useMemo } from 'react';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { memo } from 'react';
 
 const SingleUser = ({
   id,
@@ -44,17 +43,9 @@ const SingleUser = ({
     userActiv,
     arrChoiceAward,
     setArrChoiceAward,
-  } = useSingleUser(id);
-
-  const {
     awardsAvailableForRewardUserSimple,
-    isLoadingAwardsAvailableForRewardUserSimple,
-  } = useAwardAdmin(id, { filter: searchValue });
-
-  const totalPage = useMemo(
-    () => awardsAvailableForRewardUserSimple?.pageInfo?.totalPages,
-    [awardsAvailableForRewardUserSimple]
-  );
+    totalPage,
+  } = useSingleUser(id);
 
   if (isLoadingSingleUser) return <Spinner />;
   if (!user?.success) return <NoAccess />;

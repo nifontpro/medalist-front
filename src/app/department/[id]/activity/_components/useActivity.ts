@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { AwardState } from '@/types/award/Award';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useRouter } from 'next/navigation';
+import { awardApi } from '@/api/award/award.api';
 
 export const useActivity = (deptId: string | undefined) => {
   const { typeOfUser } = useAppSelector(
@@ -36,24 +36,32 @@ export const useActivity = (deptId: string | undefined) => {
 
   const [active, setActive] = useState<AwardState | undefined>(undefined);
 
+  // Получить Актив наград по id в отделе
   const {
-    awardsActivOnDepartment,
-    isLoadingAwardsActivOnDept,
-    isFetchingUsersActivOnDepartment,
-  } = useAwardAdmin(
-    deptId ? deptId : typeOfUser?.dept.id,
+    data: awardsActivOnDepartment,
+    isLoading: isLoadingAwardsActivOnDept,
+    isFetching: isFetchingUsersActivOnDepartment,
+  } = awardApi.useGetActivAwardByDeptQuery(
     {
-      // subdepts: switcher,
-      subdepts: true,
-      page: page,
-      pageSize: 20,
-      filter: searchValue,
-      minDate: startDate,
-      maxDate: endDate,
-      orders: [{ field: 'date', direction: state }],
+      authId: typeOfUser?.id!,
+      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
+      awardState: active,
+      baseRequest: {
+        // subdepts: switcher,
+        subdepts: true,
+        page: page,
+        pageSize: 20,
+        filter: searchValue,
+        minDate: startDate,
+        maxDate: endDate,
+        orders: [{ field: 'date', direction: state }],
+      },
     },
-    active
+    {
+      skip: !typeOfUser,
+    }
   );
+
   const totalPage = awardsActivOnDepartment?.pageInfo?.totalPages;
 
   // //Для подгрузки данных при скролле с использованием IntersectionObserver
