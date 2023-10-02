@@ -71,13 +71,13 @@ const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
           {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
           Сбросить Onboarding
         </div> */}
-          <OnBoarding
+          {/* <OnBoarding
             state={state}
             onBoarding={onBoarding}
             onBoardingText={onBoardingText}
             onBoardingText3={onBoardingText3}
             handleClick={saveUserSettingsAsync}
-          />
+          /> */}
         </div>
       </>
     );
