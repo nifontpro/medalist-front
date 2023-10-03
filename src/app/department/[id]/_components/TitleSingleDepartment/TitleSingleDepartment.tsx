@@ -90,20 +90,26 @@ const TitleSingleDepartment = ({
         </div> */}
 
         <P size='s' className={styles.description}>
-          {department.data?.description}
+          Описание:{' '}
+          {department.data?.description
+            ? department.data?.description
+            : 'Нет описания'}
         </P>
 
         <div className={styles.contacts}>
-          {department.data?.dept.phone ? (
-            <a href={`tel:${department.data?.dept.phone}`}>
-              Сотовый: {department.data.dept.phone}
-            </a>
-          ) : null}
-          {department.data?.email ? (
-            <a href={`mailto:${department.data?.email}`}>
-              Почта: {department.data?.email}
-            </a>
-          ) : null}
+          <a href={`tel:${department.data?.dept.phone}`}>
+            Сотовый:{' '}
+            {department.data?.phone
+              ? department.data?.phone
+              : 'Телефон не указан'}
+          </a>
+
+          <a href={`mailto:${department.data?.email}`}>
+            Почта:{' '}
+            {department.data?.email
+              ? department.data?.email
+              : 'Почта не указана'}
+          </a>
         </div>
 
         <AuthComponent minRole='ADMIN'>

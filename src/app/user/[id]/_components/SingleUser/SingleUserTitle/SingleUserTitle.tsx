@@ -13,6 +13,9 @@ import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { memo, useCallback, useMemo } from 'react';
 import { RoleUser } from '@/types/user/user';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const SingleUserTitle = ({
   user,
@@ -23,6 +26,10 @@ const SingleUserTitle = ({
   className,
   ...props
 }: SingleUserTitleProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const { deleteUserAsync } = useUserAdmin();
 
   const addEventVisible = useCallback(() => {
@@ -137,15 +144,17 @@ const SingleUserTitle = ({
           )}
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
-            onClick={addEventVisible}
-            size='l'
-            appearance='whiteBlack'
-            ref={refOpen}
-            className={styles.createEventBtn}
-          >
-            Создать событие
-          </Button>
+          {typeOfUser?.id === user?.user.id ? (
+            <Button
+              onClick={addEventVisible}
+              size='l'
+              appearance='whiteBlack'
+              ref={refOpen}
+              className={styles.createEventBtn}
+            >
+              Создать событие
+            </Button>
+          ) : null}
           <AuthComponent minRole={minRole}>
             <Button
               onClick={addAwardVisible}
