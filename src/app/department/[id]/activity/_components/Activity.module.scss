@@ -58,7 +58,7 @@
   .activity {
     padding: 15px;
     margin-bottom: 15px;
-    @apply duration-200 cursor-default;
+    @apply duration-200 cursor-pointer;
 
     @media screen and (max-width: 680px) {
       margin-bottom: 0px;

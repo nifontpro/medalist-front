@@ -61,6 +61,10 @@
     .activity {
       display: flex;
       align-items: center;
+
+      .user {
+        cursor: pointer;
+      }
     }
 
     &:last-child {

@@ -85,7 +85,10 @@ const MainActivity = ({
                         // priority={true}
                       />
                     </div>
-                    <div className={styles.user}>
+                    <div
+                      className={styles.user}
+                      onClick={() => push(`/user/${item.user?.id}`)}
+                    >
                       <P size='m'>
                         {item.user?.firstname} {item.user?.lastname}
                       </P>

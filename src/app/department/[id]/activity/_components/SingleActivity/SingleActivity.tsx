@@ -5,16 +5,22 @@ import cn from 'classnames';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
+import { useRouter } from 'next/navigation';
 
 const SingleActivity = ({
   activity,
   className,
   ...props
 }: SingleActivityProps): JSX.Element => {
+  const { push } = useRouter();
   const date = timeConverterUser(activity.date);
 
   return (
-    <div {...props} className={cn(styles.wrapper, className)}>
+    <div
+      {...props}
+      className={cn(styles.wrapper, className)}
+      onClick={() => push(`/user/${activity.user?.id}`)}
+    >
       <div className={styles.img}>
         <ImageDefault
           src={activity.user?.mainImg}
