@@ -47,6 +47,7 @@ const MainNominee = ({
     },
     {
       skip: !typeOfUser,
+      refetchOnFocus: true,
     }
   );
 

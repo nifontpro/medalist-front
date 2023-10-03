@@ -12,8 +12,11 @@ import MainLayout from '@/app/_components/MainLayout/MainLayout';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
+import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
 
 dayjs.locale('ru');
+
+setupListeners(store.dispatch);
 
 const MainProvider = ({ children }: { children: ReactNode }) => {
   return (

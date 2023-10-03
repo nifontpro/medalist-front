@@ -19,6 +19,7 @@ import { messageApi } from '../msg/message.api';
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
 export const awardApi = createApi({
+  refetchOnFocus: true,
   reducerPath: 'AwardApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Award', 'Action'],
@@ -126,10 +127,12 @@ export const awardApi = createApi({
         const orders = queryArgs.baseRequest?.orders;
         const switcher = queryArgs.baseRequest?.subdepts;
         const users = queryArgs.withUsers;
+        const id = queryArgs.deptId;
+        const authId = queryArgs.authId;
         // This can return a string, an object, a number, or a boolean.
         // If it returns an object, number or boolean, that value
         // will be serialized automatically via `defaultSerializeQueryArgs`
-        return { state, orders, switcher, users }; // omit `client` from the cache key
+        return { state, orders, switcher, users, id, authId }; // omit `client` from the cache key
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems, otherArgs) => {
@@ -274,10 +277,12 @@ export const awardApi = createApi({
         const awardState = queryArgs.awardState;
         const orders = queryArgs.baseRequest?.orders;
         const switcher = queryArgs.baseRequest?.subdepts;
+        const id = queryArgs.deptId;
+        const authId = queryArgs.authId;
         // This can return a string, an object, a number, or a boolean.
         // If it returns an object, number or boolean, that value
         // will be serialized automatically via `defaultSerializeQueryArgs`
-        return { awardState, orders, searchValue, switcher }; // omit `client` from the cache key
+        return { awardState, orders, searchValue, switcher, id, authId }; // omit `client` from the cache key
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems, otherArgs) => {
