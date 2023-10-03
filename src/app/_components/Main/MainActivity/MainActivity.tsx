@@ -32,7 +32,7 @@ const MainActivity = ({
   } = awardApi.useGetActivAwardByDeptQuery(
     {
       authId: typeOfUser?.id!,
-      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
       awardState: undefined,
       baseRequest: {
         // subdepts: switcher,

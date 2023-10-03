@@ -36,7 +36,7 @@ const MainNominee = ({
   } = awardApi.useGetByDeptQuery(
     {
       authId: typeOfUser?.id!,
-      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
       withUsers: false,
       state: 'NOMINEE',
       baseRequest: {

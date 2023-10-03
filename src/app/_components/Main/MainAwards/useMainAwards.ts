@@ -19,7 +19,7 @@ export const useMainAwards = (deptId: string | undefined) => {
     awardApi.useGetAwardCountQuery(
       {
         authId: typeOfUser?.id!,
-        deptId: deptId ? deptId : typeOfUser?.dept.id,
+        deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
         baseRequest: {
           // subdepts: switcher
           subdepts: true,
@@ -35,7 +35,7 @@ export const useMainAwards = (deptId: string | undefined) => {
     awardApi.useGetActivCountRootQuery(
       {
         authId: typeOfUser?.id!,
-        deptId: deptId ? deptId : typeOfUser?.dept.id,
+        deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
         baseRequest: {
           // subdepts: switcher
           subdepts: true,
@@ -53,7 +53,7 @@ export const useMainAwards = (deptId: string | undefined) => {
   } = userApi.useGetUsersWithAwardCountQuery(
     {
       authId: typeOfUser?.id!,
-      deptId: deptId ? deptId : typeOfUser?.dept.id,
+      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
       baseRequest: {
         // subdepts: switcher
         subdepts: true,
