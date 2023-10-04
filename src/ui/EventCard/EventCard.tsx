@@ -34,10 +34,12 @@ const EventCard = ({
   const [openModalConfirmForUser, setOpenModalConfirmForUser] = useState(false);
   const [openModalConfirmForDept, setOpenModalConfirmForDept] = useState(false);
 
+  console.log(event);
+
   return (
     <>
       <div className={styles.wrapper} {...props}>
-        {instanceOfBaseEvent(event) && (
+        {instanceOfBaseEvent(event) && remove === 'FALSE' ? (
           <div className={styles.img}>
             <ImageDefault
               src={event.imageUrl}
@@ -47,7 +49,7 @@ const EventCard = ({
               className='rounded-[10px]'
             />
           </div>
-        )}
+        ) : null}
 
         <div className={styles.info}>
           {instanceOfBaseEvent(event) && event.entityName && (

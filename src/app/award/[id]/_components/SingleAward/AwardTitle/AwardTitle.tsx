@@ -32,6 +32,8 @@ const AwardTitle = ({
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
+  console.log('award', award);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (
@@ -59,12 +61,8 @@ const AwardTitle = ({
         </div>
 
         <div className='flex items-center'>
-          <P size='xs' className={styles.description}>
-            Описание награды:
-          </P>
-          <P size='xs' fontstyle='thin'>
-            &nbsp;
-            {award?.description ? award?.description : 'Нет описания награды'}
+          <P size='xs' className={styles.description} type='silverBtn'>
+            {award?.description}
           </P>
         </div>
 
@@ -84,38 +82,36 @@ const AwardTitle = ({
           {award?.criteria}
         </P>
 
-        <P size='s' fontstyle='thin' className={styles.criteria}>
+        {/* <P size='s' fontstyle='thin' className={styles.criteria}>
           Вес награды: {award?.award.score}
-        </P>
+        </P> */}
 
-        <div className={styles.date}>
-          {award?.award.state == 'NOMINEE' ||
-            (award?.award.state == 'FUTURE' &&
-              award?.award.state != undefined && (
-                <P size='s' fontstyle='thin'>
-                  Осталось
-                  <ButtonIcon className='ml-[10px]' appearance='lime'>
-                    {Math.floor(
-                      (award?.award.endDate - currentDateNumber) /
-                        1000 /
-                        60 /
-                        60 /
-                        24
-                    )}{' '}
-                    {declOfNum(
-                      Math.floor(
-                        (award?.award.endDate - currentDateNumber) /
-                          1000 /
-                          60 /
-                          60 /
-                          24
-                      ),
-                      ['день', 'дня', 'дней']
-                    )}
-                  </ButtonIcon>
-                </P>
-              ))}
-        </div>
+        {award?.award.state == 'NOMINEE' || award?.award.state == 'FUTURE' ? (
+          <div className={styles.date}>
+            <P size='s' fontstyle='thin'>
+              Осталось
+              <ButtonIcon className='ml-[10px]' appearance='lime'>
+                {Math.floor(
+                  (award?.award.endDate - currentDateNumber) /
+                    1000 /
+                    60 /
+                    60 /
+                    24
+                )}{' '}
+                {declOfNum(
+                  Math.floor(
+                    (award?.award.endDate - currentDateNumber) /
+                      1000 /
+                      60 /
+                      60 /
+                      24
+                  ),
+                  ['день', 'дня', 'дней']
+                )}
+              </ButtonIcon>
+            </P>
+          </div>
+        ) : null}
       </div>
     </div>
   );
