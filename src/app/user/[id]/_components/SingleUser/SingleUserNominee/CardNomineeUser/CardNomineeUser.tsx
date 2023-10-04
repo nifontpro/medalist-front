@@ -9,6 +9,7 @@ import Button from '@/ui/Button/Button';
 import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
 import { useCardNominee } from '@/app/award/[id]/_components/SingleAward/AwardNominee/CardNominee/useCardNominee';
 import { memo, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CardNomineeUser = ({
   userId,
@@ -17,6 +18,7 @@ const CardNomineeUser = ({
   className,
   ...props
 }: CardNomineeUserProps): JSX.Element => {
+  const { push } = useRouter();
   let awardId = useMemo(() => award.award?.id, [award]);
 
   const { handleRemove } = useCardNominee(Number(userId), awardId);
@@ -27,7 +29,11 @@ const CardNomineeUser = ({
   );
 
   return (
-    <div className={cn(styles.wrapper, className)} {...props}>
+    <div
+      className={cn(styles.wrapper, className)}
+      {...props}
+      onClick={() => push(`/award/${award.award?.id}`)}
+    >
       <div className={styles.img}>
         <ImageDefault
           src={award.award?.mainImg}

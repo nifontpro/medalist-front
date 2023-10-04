@@ -5,6 +5,7 @@
   grid-template-columns: [start] 76px [endLogo] 30px [startUser] 300px [EndUser] 0px [starDate] auto [endDate] auto [startButtons] auto [end];
   margin-bottom: 50px;
   align-items: center;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     margin-bottom: 15px;

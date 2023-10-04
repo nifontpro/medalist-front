@@ -7,6 +7,7 @@ import { getUserEditUrl } from '@/config/api.config';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
 import P from '@/ui/P/P';
 import { memo, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CardUserAward = ({
   user,
@@ -16,6 +17,7 @@ const CardUserAward = ({
   ...props
 }: CardUserAwardProps): JSX.Element => {
   let convertDate = useMemo(() => timeConverterUser(award.date), [award]);
+  const { push } = useRouter();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -33,7 +35,10 @@ const CardUserAward = ({
         className={styles.dots}
       />
 
-      <div className={styles.img}>
+      <div
+        className={styles.img}
+        onClick={() => push(`/award/${award.award?.id}`)}
+      >
         <ImageDefault
           src={award.award?.mainImg}
           width={175}

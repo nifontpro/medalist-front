@@ -31,9 +31,9 @@
     cursor: pointer;
     @apply duration-200;
 
-    &:hover {
-      background: var(--graySilver);
-    }
+    // &:hover {
+    //   background: var(--graySilver);
+    // }
 
     .img {
       height: 64px;
