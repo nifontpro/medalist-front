@@ -1,9 +1,19 @@
+.wrapper {
+  margin-top: 50px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 400px 1fr;
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form {
   background: var(--white);
   max-width: 980px;
   padding: 60px 85px;
   border-radius: 27px;
-  margin-top: 50px;
+
   margin-bottom: 50px;
   // @apply animate-fade;
 
@@ -16,6 +26,21 @@
   }
   @media screen and (max-width: 500px) {
     padding: 30px 15px;
+  }
+
+  .mediaVisible {
+    display: none;
+    @media screen and (max-width: 1500px) {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
   }
 
   .field {

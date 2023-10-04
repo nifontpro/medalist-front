@@ -14,6 +14,7 @@ const ChoiceImgCreate = ({
   className,
   setImagesGallery,
   setImagesFile,
+  gallery = true,
   ...props
 }: ChoiceImgCreateProps): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -49,18 +50,20 @@ const ChoiceImgCreate = ({
         >
           Загрузить изображение
         </InputFile>
-        <Button
-          // ref={refOpen}
-          size='m'
-          appearance='blackWhite'
-          onClick={(e) => handleClick(e)}
-          className={styles.button}
-        >
-          Выбрать из галлереи
-        </Button>
+        {gallery ? (
+          <Button
+            // ref={refOpen}
+            size='m'
+            appearance='blackWhite'
+            onClick={(e) => handleClick(e)}
+            className={styles.button}
+          >
+            Выбрать из галлереи
+          </Button>
+        ) : null}
       </div>
     </div>
   );
 };
 
-export default memo(ChoiceImgCreate)
+export default memo(ChoiceImgCreate);

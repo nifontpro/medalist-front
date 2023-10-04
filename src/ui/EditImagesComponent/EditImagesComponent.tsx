@@ -20,7 +20,7 @@ const EditImagesComponent = ({
   ...props
 }: EditImagesComponentProps) => {
   const pathname = usePathname();
-  console.log(pathname.split('/')[1]);
+
   return (
     <div
       className={cn('@apply flex justify-center items-center', className)}

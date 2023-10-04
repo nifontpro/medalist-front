@@ -14,6 +14,7 @@ import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import ChoiceImgCreate from '@/app/create/award/_components/CreateAward/ChoiceImgCreate/ChoiceImgCreate';
 
 const CreateDepartment = () => {
   const {
@@ -26,11 +27,15 @@ const CreateDepartment = () => {
 
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
-  const { onSubmit, handleClick, back, createInfo } = useCreateDepartment(
-    setValue,
-    reset,
-    setOpenModalConfirm
-  );
+  const {
+    imagesGallery,
+    setImagesGallery,
+    setImagesFile,
+    onSubmit,
+    handleClick,
+    back,
+    createInfo,
+  } = useCreateDepartment(setValue, reset, setOpenModalConfirm);
 
   return (
     <>
@@ -42,36 +47,51 @@ const CreateDepartment = () => {
       >
         Вернуться назад
       </ButtonCircleIcon>
-      <form className={styles.form}>
-        <Htag tag='h2' className={styles.title}>
-          Новый отдел
-        </Htag>
-
-        <Field
-          {...register('name', { required: 'Название необходимо!' })}
-          title='Название отдела*'
-          placeholder='Название отдела'
-          error={errors.name}
-          className={styles.field}
+      <div className={styles.wrapper}>
+        <ChoiceImgCreate
+          images={imagesGallery}
+          setImagesGallery={setImagesGallery}
+          setImagesFile={setImagesFile}
+          gallery={false}
         />
+        <form className={styles.form}>
+          <Htag tag='h2' className={styles.title}>
+            Новый отдел
+          </Htag>
 
-        <div className={styles.group}>
-          <Field
-            {...register('email')}
-            title='Email'
-            placeholder='Email'
-            error={errors.email}
+          <ChoiceImgCreate
+            className={styles.mediaVisible}
+            images={imagesGallery}
+            setImagesGallery={setImagesGallery}
+            setImagesFile={setImagesFile}
+            gallery={false}
           />
-          <Field
-            {...register('phone')}
-            title='Мобильный'
-            placeholder='Введите номер'
-            error={errors.phone}
-            {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
-          />
-        </div>
 
-        {/* <div className={styles.group}>
+          <Field
+            {...register('name', { required: 'Название необходимо!' })}
+            title='Название отдела*'
+            placeholder='Название отдела'
+            error={errors.name}
+            className={styles.field}
+          />
+
+          <div className={styles.group}>
+            <Field
+              {...register('email')}
+              title='Email'
+              placeholder='Email'
+              error={errors.email}
+            />
+            <Field
+              {...register('phone')}
+              title='Мобильный'
+              placeholder='Введите номер'
+              error={errors.phone}
+              {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
+            />
+          </div>
+
+          {/* <div className={styles.group}>
           <Field
             {...register('classname')}
             title='Classname'
@@ -86,36 +106,37 @@ const CreateDepartment = () => {
           />
         </div> */}
 
-        <TextArea
-          {...register('description')}
-          title='Описание'
-          placeholder='Чем занимается отдел'
-          error={errors.description}
-        />
-        <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
-          * - обязательные поля
-        </P>
+          <TextArea
+            {...register('description')}
+            title='Описание'
+            placeholder='Чем занимается отдел'
+            error={errors.description}
+          />
+          <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
+            * - обязательные поля
+          </P>
 
-        <div className={styles.btn}>
-          <Button
-            onClick={handleClick}
-            appearance='whiteBlack'
-            size='l'
-            className={styles.cancel}
-          >
-            Отменить
-          </Button>
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            appearance='blackWhite'
-            size='l'
-            className={styles.confirm}
-            disabled={!isDirty || !isValid}
-          >
-            Создать
-          </Button>
-        </div>
-      </form>
+          <div className={styles.btn}>
+            <Button
+              onClick={handleClick}
+              appearance='whiteBlack'
+              size='l'
+              className={styles.cancel}
+            >
+              Отменить
+            </Button>
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              appearance='blackWhite'
+              size='l'
+              className={styles.confirm}
+              disabled={!isDirty || !isValid}
+            >
+              Создать
+            </Button>
+          </div>
+        </form>
+      </div>
 
       <ModalConfirm
         title={'Вы действительно хотите покинуть страницу?'}

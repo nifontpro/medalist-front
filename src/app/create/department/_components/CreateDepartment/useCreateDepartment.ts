@@ -9,10 +9,13 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useState,
 } from 'react';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
+import { RootState } from '@/store/storage/store';
+import { GalleryItem } from '@/types/gallery/item';
 
 export const useCreateDepartment = (
   setValue: UseFormSetValue<CreateDeptRequest>,
@@ -20,6 +23,9 @@ export const useCreateDepartment = (
   setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const searchParams = useSearchParams();
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
 
   const parentId = useMemo(
     () => Number(searchParams.get('id')),
@@ -28,7 +34,6 @@ export const useCreateDepartment = (
 
   const { back } = useRouter();
   const [create, createInfo] = deptApi.useGetProfilesMutation();
-  const { typeOfUser } = useAppSelector((state) => state.userSelection);
 
   useEffect(() => {
     if (parentId && typeOfUser && typeOfUser.id) {
@@ -45,16 +50,42 @@ export const useCreateDepartment = (
     []
   );
 
+  const [imageFile, setImagesFile] = useState<File>(); // Для загрузки пользовательского изображения
+  const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
+    undefined
+  ); // Для предпросмотра и выбора из галлереи
+
+  const [addImage] = deptApi.useImageAddMutation();
+
   const onSubmit: SubmitHandler<CreateDeptRequest> = useCallback(
     async (data) => {
       let isError = false;
       if (parentId) {
         await create({ ...data })
           .unwrap()
-          .then((res) => {
+          .then(async (res) => {
             if (res.success == false) {
               errorMessageParse(res.errors);
               isError = true;
+            } else {
+              if (imageFile && typeOfUser && typeOfUser.id) {
+                const file = new FormData();
+                file.append('file', imageFile);
+                file.append('authId', typeOfUser.id.toString());
+                file.append('deptId', res.data?.dept.id.toString());
+                await addImage(file)
+                  .unwrap()
+                  .then((res) => {
+                    if (res.success == false) {
+                      errorMessageParse(res.errors);
+                      isError = true;
+                    }
+                  })
+                  .catch(() => {
+                    isError = true;
+                    toast.error('Ошибка добавления фотографии');
+                  });
+              }
             }
           })
           .catch((e) => {
@@ -71,7 +102,7 @@ export const useCreateDepartment = (
         back();
       }
     },
-    [back, create, parentId, reset]
+    [back, create, parentId, reset, addImage, imageFile, typeOfUser]
   );
 
   return {
@@ -79,5 +110,9 @@ export const useCreateDepartment = (
     handleClick,
     back,
     createInfo,
+    typeOfUser,
+    imagesGallery,
+    setImagesGallery,
+    setImagesFile,
   };
 };

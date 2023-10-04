@@ -68,8 +68,6 @@ const TitleSingleDepartment = ({
       }
     );
 
-  console.log(usersOnDepartment);
-
   const { deleteDepartmentAsync } = useDepartmentAdmin();
 
   const [visibleModal, setVisibleModal] = useState<boolean>(false);

@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useState,
 } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
@@ -15,6 +16,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
+import { GalleryItem } from '@/types/gallery/item';
 
 export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
@@ -54,6 +56,13 @@ export const useCreateUser = (
     []
   );
 
+  const [imageFile, setImagesFile] = useState<File>(); // Для загрузки пользовательского изображения
+  const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
+    undefined
+  ); // Для предпросмотра и выбора из галлереи
+
+  const [addImage] = userApi.useImageAddMutation();
+
   const onSubmit: SubmitHandler<CreateUserRequest> = useCallback(
     async (data) => {
       let isError = false;
@@ -63,10 +72,31 @@ export const useCreateUser = (
       }
       await create({ ...data })
         .unwrap()
-        .then((res) => {
+        .then(async (res) => {
           if (res.success == false) {
             errorMessageParse(res.errors);
             isError = true;
+          } else {
+            if (imageFile && typeOfUser && typeOfUser.id) {
+              console.log(123);
+              const file = new FormData();
+              file.append('file', imageFile);
+              file.append('authId', typeOfUser.id.toString());
+              file.append('userId', res.data?.user.id.toString());
+              console.log(123);
+              await addImage(file)
+                .unwrap()
+                .then((res) => {
+                  if (res.success == false) {
+                    errorMessageParse(res.errors);
+                    isError = true;
+                  }
+                })
+                .catch(() => {
+                  isError = true;
+                  toast.error('Ошибка добавления фотографии');
+                });
+            }
           }
         })
         .catch((e) => {
@@ -79,8 +109,16 @@ export const useCreateUser = (
         back();
       }
     },
-    [active, back, create, reset]
+    [active, back, create, reset, addImage, imageFile, typeOfUser]
   );
 
-  return { onSubmit, handleClick, createInfo, back };
+  return {
+    onSubmit,
+    handleClick,
+    createInfo,
+    back,
+    imagesGallery,
+    setImagesGallery,
+    setImagesFile,
+  };
 };

@@ -10,8 +10,9 @@ export type ChoiceImgCreateProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  setVisibleModal: Dispatch<SetStateAction<boolean>>;
+  setVisibleModal?: Dispatch<SetStateAction<boolean>>;
   images: GalleryItem | undefined;
   setImagesGallery: Dispatch<SetStateAction<GalleryItem | undefined>>;
   setImagesFile: Dispatch<SetStateAction<File | undefined>>;
+  gallery?: boolean;
 };
