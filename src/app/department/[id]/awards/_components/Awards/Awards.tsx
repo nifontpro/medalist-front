@@ -38,8 +38,6 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
   if (isLoadingAwardsOnDept) return <Spinner />;
   if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
 
-  console.log(active);
-
   if (awardsOnDepartment && awardsOnDepartment.data) {
     return (
       <div {...props} className={styles.wrapper}>

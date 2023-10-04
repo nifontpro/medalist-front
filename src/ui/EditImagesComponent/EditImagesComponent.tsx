@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { EditImagesComponentProps } from './EditImagesComponent.props';
 import EditPanelImgBtn from '../EditPanelImgBtn/EditPanelImgBtn';
 import { memo } from 'react';
+import { usePathname } from 'next/navigation';
 
 const EditImagesComponent = ({
   imageNum,
@@ -18,6 +19,8 @@ const EditImagesComponent = ({
   className,
   ...props
 }: EditImagesComponentProps) => {
+  const pathname = usePathname();
+  console.log(pathname.split('/')[1]);
   return (
     <div
       className={cn('@apply flex justify-center items-center', className)}
@@ -37,7 +40,11 @@ const EditImagesComponent = ({
         )}
 
         <div className={styles.editPanel}>
-          <EditPanelImgBtn gallery={gallery} onChangeImages={addPhoto} />
+          {images && images.length < 1 && pathname.split('/')[1] === 'award' ? (
+            <EditPanelImgBtn gallery={gallery} onChangeImages={addPhoto} />
+          ) : pathname.split('/')[1] !== 'award' ? (
+            <EditPanelImgBtn gallery={gallery} onChangeImages={addPhoto} />
+          ) : null}
           {images && images.length > 0 && (
             <ButtonEdit
               icon='remove'
