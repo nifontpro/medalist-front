@@ -44,7 +44,7 @@ const Award = motion(
               </P>
               <CountUsersPreview
                 appearanceBtn='black'
-                usersAwards={award.users}
+                users={award.users}
                 className={styles.default}
               />
             </div>

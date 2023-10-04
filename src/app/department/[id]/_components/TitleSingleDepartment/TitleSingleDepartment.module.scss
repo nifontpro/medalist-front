@@ -39,6 +39,17 @@
       padding: 40px 20px;
     }
 
+    .countUsers {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+
+      @media screen and (max-width: 400px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
     > .title {
       display: flex;
       justify-content: space-between;
@@ -90,10 +101,6 @@
         margin-top: 60px;
       }
 
-      .default {
-        cursor: default;
-      }
-
       > .numberUsers {
         opacity: 0.5;
         color: var(--black);
@@ -131,4 +138,17 @@
   position: absolute;
   top: 25px;
   right: 25px;
+}
+
+.default {
+  margin-left: 10px;
+  cursor: default;
+
+  @media screen and (max-width: 400px) {
+    margin-left: 0px;
+  }
+
+  button {
+    cursor: default;
+  }
 }

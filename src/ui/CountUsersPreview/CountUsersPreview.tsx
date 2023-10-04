@@ -2,66 +2,21 @@ import styles from './CountUsersPreview.module.scss';
 import cn from 'classnames';
 import { CountUsersPreviewProps } from './CountUsersPreview.props';
 import uniqid from 'uniqid';
-import { declOfNum } from '@/utils/declOfNum';
-import P from '../P/P';
 import ImageDefault from '../ImageDefault/ImageDefault';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 const CountUsersPreview = ({
-  usersAwards,
+  users,
   appearanceBtn,
-  usersInDepartment,
   listUserVisible,
   children,
+  totalUsers,
   className,
   ...props
 }: CountUsersPreviewProps): JSX.Element => {
   return (
     <div className={className} {...props}>
-      {usersInDepartment && (
-        <div
-          className={cn(className, {
-            [styles.container]: !listUserVisible,
-            [styles.hidden]: listUserVisible,
-          })}
-        >
-          <P size='xs' color='gray'>
-            {usersInDepartment.length}{' '}
-            {declOfNum(usersInDepartment.length, [
-              'сотрудник',
-              'сотрудника',
-              'сотрудников',
-            ])}
-          </P>
-          <div className={styles.imgWrapper}>
-            <div className={styles.img}>
-              {usersInDepartment.map((user, index) => {
-                if (index < 3) {
-                  return (
-                    <div key={uniqid()} className={styles.singleImg}>
-                      <ImageDefault
-                        src={user.mainImg}
-                        width={40}
-                        height={40}
-                        alt={user.firstname}
-                        objectFit='cover'
-                        className='rounded-full mr-4'
-                        // priority={true}
-                      />
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            {usersInDepartment.length > 3 && (
-              <ButtonIcon appearance={appearanceBtn}>
-                +{usersInDepartment.length - 3}
-              </ButtonIcon>
-            )}
-          </div>
-        </div>
-      )}
-      {usersAwards && (
+      {users && (
         <div
           className={cn(className, {
             [styles.container]: !listUserVisible,
@@ -78,7 +33,7 @@ const CountUsersPreview = ({
           </P> */}
           <div className={styles.imgWrapper}>
             <div className={styles.imgAwards}>
-              {usersAwards.map((item, index) => {
+              {users.map((item, index) => {
                 if (index < 3) {
                   return (
                     <div key={uniqid()} className={styles.singleImg}>
@@ -96,10 +51,16 @@ const CountUsersPreview = ({
                 }
               })}
             </div>
-            {usersAwards.length > 3 && (
+            {totalUsers && users.length > 3 ? (
               <ButtonIcon appearance={appearanceBtn}>
-                +{usersAwards.length - 3}
+                +{users.length > 3 ? totalUsers - 3 : users.length}
               </ButtonIcon>
+            ) : (
+              users.length > 3 && (
+                <ButtonIcon appearance={appearanceBtn}>
+                  +{users.length - 3}
+                </ButtonIcon>
+              )
             )}
           </div>
         </div>

@@ -100,13 +100,16 @@ const SingleUserTitle = ({
       </div>
 
       <div className={styles.contacts}>
-        <P size='m' fontstyle='thin'>
-          Email:{' '}
-          {user?.user?.authEmail ? user?.user.authEmail : 'email не указан'}
-        </P>
-        <P size='m' fontstyle='thin'>
-          Сотовый: {user?.phone ? user?.phone : 'Сотовый не указан'}
-        </P>
+        {user?.user?.authEmail ? (
+          <P size='m' fontstyle='thin'>
+            Email: {user?.user?.authEmail}
+          </P>
+        ) : null}
+        {user?.phone ? (
+          <P size='m' fontstyle='thin'>
+            Сотовый: {user?.phone}
+          </P>
+        ) : null}
       </div>
 
       <div className={styles.awards}>
@@ -169,18 +172,17 @@ const SingleUserTitle = ({
         </div>
       </div>
 
-      <P size='l' className={styles.aboutUser}>
-        О сотруднике
-      </P>
       {user?.description ? (
-        <P size='m' fontstyle='thin'>
-          {user?.description}
-        </P>
-      ) : (
-        <P size='m' fontstyle='thin'>
-          Нет данных о сотруднике
-        </P>
-      )}
+        <>
+          <P size='l' className={styles.aboutUser}>
+            О сотруднике
+          </P>
+
+          <P size='m' fontstyle='thin'>
+            {user?.description}
+          </P>
+        </>
+      ) : null}
     </div>
   );
 };

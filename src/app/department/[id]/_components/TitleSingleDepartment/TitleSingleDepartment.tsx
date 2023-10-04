@@ -22,6 +22,9 @@ import AuthComponent from '@/store/providers/AuthComponent';
 import { deptApi } from '@/api/dept/dept.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { userApi } from '@/api/user/user.api';
+import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
+import { declOfNum } from '@/utils/declOfNum';
 
 const TitleSingleDepartment = ({
   id,
@@ -45,6 +48,27 @@ const TitleSingleDepartment = ({
         skip: !id || !typeOfUser,
       }
     );
+
+  // Получить сотрудников отдела/подотделов
+  const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
+    userApi.useGetUsersByDeptQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: Number(id),
+        baseRequest: {
+          // subdepts: switcher,
+          subdepts: true,
+          page: 0,
+          pageSize: 4,
+          orders: [{ field: 'lastname', direction: 'ASC' }],
+        },
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
+
+  console.log(usersOnDepartment);
 
   const { deleteDepartmentAsync } = useDepartmentAdmin();
 
@@ -89,28 +113,48 @@ const TitleSingleDepartment = ({
           </P>
         </div> */}
 
-        <P size='s' className={styles.description}>
-          Описание:{' '}
-          {department.data?.description
-            ? department.data?.description
-            : 'Нет описания'}
-        </P>
+        {department.data?.description ? (
+          <P size='s' className={styles.description}>
+            {department.data.dept.level <= 2 ? 'О компании' : 'Об отделе'}:{' '}
+            {department.data?.description}
+          </P>
+        ) : null}
 
-        <div className={styles.contacts}>
-          <a href={`tel:${department.data?.dept.phone}`}>
-            Сотовый:{' '}
-            {department.data?.phone
-              ? department.data?.phone
-              : 'Телефон не указан'}
-          </a>
+        {department.data?.phone || department.data?.email ? (
+          <div className={styles.contacts}>
+            {department.data.phone ? (
+              <a href={`tel:${department.data.phone}`}>
+                Сотовый: {department.data?.phone}
+              </a>
+            ) : null}
 
-          <a href={`mailto:${department.data?.email}`}>
-            Почта:{' '}
-            {department.data?.email
-              ? department.data?.email
-              : 'Почта не указана'}
-          </a>
-        </div>
+            {department.data?.email ? (
+              <a href={`mailto:${department.data?.email}`}>
+                Почта: {department.data?.email}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+
+        {usersOnDepartment?.data?.length &&
+        usersOnDepartment?.data?.length > 0 ? (
+          <div className={styles.countUsers}>
+            <P size='xs' color='gray' fontstyle='thin'>
+              {usersOnDepartment?.pageInfo?.totalElements}{' '}
+              {declOfNum(usersOnDepartment?.pageInfo?.totalElements!, [
+                'сотрудник',
+                'сотрудника',
+                'сотрудников',
+              ])}
+            </P>
+            <CountUsersPreview
+              appearanceBtn='black'
+              users={usersOnDepartment?.data}
+              className={styles.default}
+              totalUsers={usersOnDepartment?.pageInfo?.totalElements}
+            />
+          </div>
+        ) : null}
 
         <AuthComponent minRole='ADMIN'>
           <div className={styles.buttonsWrapper}>
