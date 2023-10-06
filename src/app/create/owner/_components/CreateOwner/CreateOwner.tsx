@@ -27,19 +27,16 @@ const CreateOwner = () => {
     formState: { errors, isDirty, isValid },
     setValue,
     reset,
+    getValues,
   } = useForm<CreateOwnerRequest>({ mode: 'onChange' });
 
-  const { onSubmit, handleClick, createInfo, back } = useCreateOwner(
-    setValue,
-    active,
-    reset,
-    setOpenModalConfirm
-  );
+  const { onSubmit, handleClick, createInfo, back, handleBack } =
+    useCreateOwner(setValue, active, reset, setOpenModalConfirm, getValues);
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={() => setOpenModalConfirm(true)}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'

@@ -37,12 +37,15 @@ const CreateAward = () => {
 
   const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
 
+  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
     reset,
+    getValues,
   } = useForm<CreateAwardRequest>({ mode: 'onChange' });
 
   const {
@@ -58,7 +61,14 @@ const CreateAward = () => {
     setImageGalleryInfo,
     setImageInfo,
     createAwardInfo,
-  } = useCreateAward(setValue, reset, arrChoiceUser);
+    handleBack,
+  } = useCreateAward(
+    setValue,
+    reset,
+    getValues,
+    setOpenModalConfirm,
+    arrChoiceUser
+  );
 
   const {
     page,
@@ -109,8 +119,6 @@ const CreateAward = () => {
     [dispatch]
   );
 
-  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
-
   //Закрытие модального окна нажатием вне его
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const ref = useRef(null);
@@ -123,7 +131,7 @@ const CreateAward = () => {
   return (
     <>
       <ButtonCircleIcon
-        onClick={() => setOpenModalConfirm(true)}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'

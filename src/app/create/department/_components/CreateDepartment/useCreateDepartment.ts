@@ -1,4 +1,9 @@
-import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormReset,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { CreateDeptRequest } from '@/api/dept/request/createDeptRequest';
@@ -20,7 +25,8 @@ import { GalleryItem } from '@/types/gallery/item';
 export const useCreateDepartment = (
   setValue: UseFormSetValue<CreateDeptRequest>,
   reset: UseFormReset<CreateDeptRequest>,
-  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
+  getValues: UseFormGetValues<CreateDeptRequest>
 ) => {
   const searchParams = useSearchParams();
   const { typeOfUser } = useAppSelector(
@@ -42,10 +48,19 @@ export const useCreateDepartment = (
     }
   }, [setValue, parentId, typeOfUser]);
 
+  const handleBack = () => {
+    const { name, email, phone, description } = getValues();
+    if (name || email || phone || description) {
+      setOpenModalConfirm(true);
+    } else {
+      back();
+    }
+  };
+
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      setOpenModalConfirm(true);
+      handleBack();
     },
     []
   );

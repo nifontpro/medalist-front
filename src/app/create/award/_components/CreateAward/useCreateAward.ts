@@ -1,7 +1,19 @@
-import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormReset,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -16,6 +28,8 @@ import { GalleryItem } from '@/types/gallery/item';
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,
   reset: UseFormReset<CreateAwardRequest>,
+  getValues: UseFormGetValues<CreateAwardRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
   arrChoiceUser?: string[]
 ) => {
   const dispatch = useAppDispatch();
@@ -54,12 +68,30 @@ export const useCreateAward = (
     }
   }, [setValue, deptId, typeOfUser, dispatch]);
 
+  const handleBack = () => {
+    const { name, description, type, endDate, startDate, score, criteria } =
+      getValues();
+    if (
+      name ||
+      description ||
+      type ||
+      endDate ||
+      startDate ||
+      score ||
+      criteria
+    ) {
+      setOpenModalConfirm(true);
+    } else {
+      back();
+    }
+  };
+
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      back();
+      handleBack();
     },
-    [back]
+    []
   );
 
   const onSubmitReward: SubmitHandler<CreateAwardRequest> = useCallback(
@@ -340,5 +372,6 @@ export const useCreateAward = (
     setImageGalleryInfo,
     setImageInfo,
     createAwardInfo,
+    handleBack,
   };
 };

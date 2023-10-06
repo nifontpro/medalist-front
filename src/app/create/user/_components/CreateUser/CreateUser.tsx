@@ -40,6 +40,7 @@ const CreateUser = () => {
     formState: { errors, isDirty, isValid },
     setValue,
     reset,
+    getValues,
   } = useForm<CreateUserRequest>({ mode: 'onChange' });
 
   const {
@@ -50,12 +51,13 @@ const CreateUser = () => {
     handleClick,
     createInfo,
     back,
-  } = useCreateUser(setValue, active, reset, setOpenModalConfirm);
+    handleBack,
+  } = useCreateUser(setValue, active, reset, setOpenModalConfirm, getValues);
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={() => setOpenModalConfirm(true)}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'

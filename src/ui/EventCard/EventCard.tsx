@@ -38,7 +38,12 @@ const EventCard = ({
 
   return (
     <>
-      <div className={styles.wrapper} {...props}>
+      <div
+        className={cn(styles.wrapper, {
+          [styles.wrapperWithoutImage]: remove !== 'FALSE',
+        })}
+        {...props}
+      >
         {instanceOfBaseEvent(event) && remove === 'FALSE' ? (
           <div className={styles.img}>
             <ImageDefault

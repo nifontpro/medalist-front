@@ -1,4 +1,9 @@
-import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormReset,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -12,7 +17,8 @@ export const useCreateOwner = (
   setValue: UseFormSetValue<CreateOwnerRequest>,
   active: Gender,
   reset: UseFormReset<CreateOwnerRequest>,
-  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
+  getValues: UseFormGetValues<CreateOwnerRequest>
 ) => {
   const { back, push } = useRouter();
   const [create, createInfo] = userApi.useCreateOwnerMutation();
@@ -23,12 +29,37 @@ export const useCreateOwner = (
     }
   }, [setValue, active]);
 
+  const handleBack = () => {
+    const {
+      firstname,
+      lastname,
+      patronymic,
+      address,
+      post,
+      phone,
+      description,
+    } = getValues();
+    if (
+      firstname ||
+      lastname ||
+      patronymic ||
+      address ||
+      post ||
+      phone ||
+      description
+    ) {
+      setOpenModalConfirm(true);
+    } else {
+      back();
+    }
+  };
+
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      setOpenModalConfirm(true);
+      handleBack();
     },
-    [setOpenModalConfirm]
+    []
   );
 
   const onSubmit: SubmitHandler<CreateOwnerRequest> = useCallback(
@@ -57,13 +88,12 @@ export const useCreateOwner = (
       if (!isError) {
         reset();
         toast.success('Профиль владельца успешно создан');
-        // back();
         localStorage.setItem('selectCompany', newDeptId);
         push(`/department/${newDeptId}/edit`);
       }
     },
-    [active, back, push, create, reset]
+    [active, push, create, reset]
   );
 
-  return { onSubmit, handleClick, createInfo, back };
+  return { onSubmit, handleClick, createInfo, back, handleBack };
 };

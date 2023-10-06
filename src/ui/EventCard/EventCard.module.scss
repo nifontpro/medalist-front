@@ -75,3 +75,11 @@
     }
   }
 }
+
+.wrapperWithoutImage {
+  grid-template-columns: [startInfo] 1fr [endInfo] 0px [startData] 130px [endData] 15px [startBtn] 56px [end];
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: [startInfo] 1fr [endInfo] 5px [startBtn] 56px [end];
+  }
+}

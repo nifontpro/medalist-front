@@ -149,7 +149,7 @@ const SingleUserTitle = ({
           )}
         </div>
         <div className={styles.buttonsWrapper}>
-          {typeOfUser?.id === user?.user.id ? (
+          <AuthComponent minRole={minRole}>
             <Button
               onClick={addEventVisible}
               size='l'
@@ -159,8 +159,7 @@ const SingleUserTitle = ({
             >
               Создать событие
             </Button>
-          ) : null}
-          <AuthComponent minRole={minRole}>
+
             <Button
               onClick={addAwardVisible}
               size='l'

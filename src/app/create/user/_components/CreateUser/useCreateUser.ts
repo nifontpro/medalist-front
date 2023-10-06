@@ -1,4 +1,9 @@
-import { SubmitHandler, UseFormReset, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormReset,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Dispatch,
@@ -22,7 +27,8 @@ export const useCreateUser = (
   setValue: UseFormSetValue<CreateUserRequest>,
   active: Gender,
   reset: UseFormReset<CreateUserRequest>,
-  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
+  getValues: UseFormGetValues<CreateUserRequest>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -48,10 +54,37 @@ export const useCreateUser = (
     }
   }, [setValue, active, deptId, typeOfUser]);
 
+  const handleBack = () => {
+    const {
+      firstname,
+      lastname,
+      patronymic,
+      post,
+      phone,
+      roles,
+      authEmail,
+      description,
+    } = getValues();
+    if (
+      firstname ||
+      lastname ||
+      patronymic ||
+      post ||
+      phone ||
+      roles ||
+      authEmail ||
+      description
+    ) {
+      setOpenModalConfirm(true);
+    } else {
+      back();
+    }
+  };
+
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      setOpenModalConfirm(true);
+      handleBack();
     },
     []
   );
@@ -120,5 +153,6 @@ export const useCreateUser = (
     imagesGallery,
     setImagesGallery,
     setImagesFile,
+    handleBack,
   };
 };

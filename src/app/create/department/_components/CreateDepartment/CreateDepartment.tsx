@@ -23,7 +23,10 @@ const CreateDepartment = () => {
     formState: { errors, isDirty, isValid },
     setValue,
     reset,
-  } = useForm<CreateDeptRequest>({ mode: 'onChange' });
+    getValues,
+  } = useForm<CreateDeptRequest>({
+    mode: 'onChange',
+  });
 
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
@@ -35,7 +38,7 @@ const CreateDepartment = () => {
     handleClick,
     back,
     createInfo,
-  } = useCreateDepartment(setValue, reset, setOpenModalConfirm);
+  } = useCreateDepartment(setValue, reset, setOpenModalConfirm, getValues);
 
   return (
     <>
