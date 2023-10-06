@@ -111,24 +111,16 @@ const TitleSingleDepartment = ({
           </P>
         </div> */}
 
-        {department.data?.description ? (
-          <P size='s' className={styles.description}>
-            {department.data.dept.level <= 2 ? 'О компании' : 'Об отделе'}:{' '}
-            {department.data?.description}
-          </P>
-        ) : null}
-
         {department.data?.phone || department.data?.email ? (
           <div className={styles.contacts}>
-            {department.data.phone ? (
-              <a href={`tel:${department.data.phone}`}>
-                Сотовый: {department.data?.phone}
-              </a>
-            ) : null}
-
             {department.data?.email ? (
               <a href={`mailto:${department.data?.email}`}>
-                Почта: {department.data?.email}
+                <P size='m'>{department.data?.email}</P>
+              </a>
+            ) : null}
+            {department.data.phone ? (
+              <a href={`tel:${department.data.phone}`} className='mt-[10px]'>
+                <P size='m'>{department.data?.phone}</P>
               </a>
             ) : null}
           </div>
@@ -174,6 +166,17 @@ const TitleSingleDepartment = ({
             </Button>
           </div>
         </AuthComponent>
+
+        {department.data?.description ? (
+          <>
+            <P size='s' className={styles.description}>
+              {department.data.dept.level <= 2 ? 'О компании' : 'Об отделе'}:{' '}
+            </P>
+            <P size='m' fontstyle='thin'>
+              {department.data?.description}
+            </P>
+          </>
+        ) : null}
       </div>
 
       <ModalWindowWithAddEvent

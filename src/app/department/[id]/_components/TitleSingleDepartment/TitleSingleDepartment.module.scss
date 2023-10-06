@@ -40,7 +40,7 @@
     }
 
     .countUsers {
-      margin-top: 30px;
+      margin-top: 55px;
       display: flex;
       align-items: center;
 
@@ -48,20 +48,18 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      @media screen and (max-width: 1280px) {
+        margin-top: 40px;
+      }
+      @media screen and (max-width: 768px) {
+        margin-top: 30px;
+      }
     }
 
     > .title {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 72px;
-
-      @media screen and (max-width: 1170px) {
-        margin-bottom: 60px;
-      }
-      @media screen and (max-width: 768px) {
-        margin-bottom: 40px;
-      }
     }
 
     > .address {
@@ -77,12 +75,14 @@
     }
 
     > .description {
-      margin-bottom: 30px;
-      @media screen and (max-width: 1170px) {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
+      padding-top: 55px;
+      border-top: 1px solid #00000016;
+      @media screen and (max-width: 1280px) {
+        padding-top: 40px;
       }
-      @media screen and (max-width: 768px) {
-        margin-bottom: 15px;
+      @media screen and (max-width: 930px) {
+        padding-top: 30px;
       }
     }
 
@@ -90,6 +90,13 @@
       display: flex;
       flex-direction: column;
       width: fit-content;
+      margin-top: 60px;
+      @media screen and (max-width: 1280px) {
+        margin-top: 40px;
+      }
+      @media screen and (max-width: 768px) {
+        margin-top: 30px;
+      }
     }
 
     > .colUsers {
@@ -114,8 +121,12 @@
       display: flex;
       align-items: center;
       margin-top: 30px;
-
+      margin-bottom: 55px;
+      @media screen and (max-width: 1280px) {
+        margin-bottom: 40px;
+      }
       @media screen and (max-width: 930px) {
+        margin-bottom: 30px;
         margin-top: 15px;
         flex-direction: column;
         width: 100%;

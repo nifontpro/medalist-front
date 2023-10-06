@@ -99,18 +99,20 @@ const SingleUserTitle = ({
         )}
       </div>
 
-      <div className={styles.contacts}>
-        {user?.user?.authEmail ? (
-          <P size='m' fontstyle='thin'>
-            Email: {user?.user?.authEmail}
-          </P>
-        ) : null}
-        {user?.phone ? (
-          <P size='m' fontstyle='thin'>
-            Сотовый: {user?.phone}
-          </P>
-        ) : null}
-      </div>
+      {user?.user?.authEmail || user?.phone ? (
+        <div className={styles.contacts}>
+          {user?.user?.authEmail ? (
+            <a href={`mailto:${user?.user?.authEmail}`}>
+              <P size='m'>{user?.user?.authEmail}</P>
+            </a>
+          ) : null}
+          {user?.phone ? (
+            <a href={`tel:${user?.phone}`} className='mt-[10px]'>
+              <P size='m'>{user?.phone}</P>
+            </a>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className={styles.awards}>
         <div className={styles.imagesAward}>
