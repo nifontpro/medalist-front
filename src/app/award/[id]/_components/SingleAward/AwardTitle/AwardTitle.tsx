@@ -88,7 +88,7 @@ const AwardTitle = ({
 
         {award?.award.state == 'NOMINEE' || award?.award.state == 'FUTURE' ? (
           <div className={styles.date}>
-            <P size='s' fontstyle='thin'>
+            <P size='s'>
               Осталось
               <ButtonIcon className='ml-[10px]' appearance='lime'>
                 {Math.floor(
