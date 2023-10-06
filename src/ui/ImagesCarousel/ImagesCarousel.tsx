@@ -67,6 +67,8 @@ const ImagesCarousel = ({
       <div>
         {data.length > 0 ? (
           <Carousel
+            navButtonsAlwaysInvisible={data.length == 1 ? true : false}
+            IndicatorIcon={data.length == 1 ? null : undefined}
             className={cn(styles.carousel, className)}
             swipe={true}
             autoPlay={true}
