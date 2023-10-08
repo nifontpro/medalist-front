@@ -1,8 +1,14 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import {
   ChangeEvent,
+  Dispatch,
   MouseEvent,
+  SetStateAction,
   useCallback,
   useEffect,
   useState,
@@ -21,7 +27,9 @@ import { deptApi } from '@/api/dept/dept.api';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
-  id: string
+  id: string,
+  getValues: UseFormGetValues<UpdateUserRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -85,7 +93,6 @@ export const useUserEdit = (
       setValue('address', singleUser.data?.address);
       setValue('phone', singleUser.data?.phone);
       setValue('description', singleUser.data?.description);
-      setValue('gender', singleUser.data?.user.gender);
       setValue('firstname', singleUser.data?.user.firstname);
       setValue('lastname', singleUser.data?.user.lastname);
       setValue('patronymic', singleUser.data?.user.patronymic);
@@ -97,13 +104,41 @@ export const useUserEdit = (
     }
   }, [setValue, setActive, typeOfUser, singleUser]);
 
-  const handleClick = useCallback(
-    (event: React.FormEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      back();
-    },
-    [back]
-  );
+  const handleBack = () => {
+    if (singleUser) {
+      const {
+        phone,
+        description,
+        firstname,
+        lastname,
+        patronymic,
+        post,
+        authEmail,
+        roles,
+        deptId,
+      } = getValues();
+      if (
+        phone != singleUser.data?.phone ||
+        description != singleUser.data?.description ||
+        firstname != singleUser.data?.user.firstname ||
+        lastname != singleUser.data?.user.lastname ||
+        patronymic != singleUser.data?.user.patronymic ||
+        post != singleUser.data?.user.post ||
+        authEmail != singleUser.data?.user.authEmail ||
+        JSON.stringify(roles) != JSON.stringify(singleUser.data?.user.roles) ||
+        deptId != singleUser.data?.user.dept.id
+      ) {
+        setOpenModalConfirm(true);
+      } else {
+        back();
+      }
+    }
+  };
+
+  const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    handleBack();
+  };
 
   const addPhoto = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -242,5 +277,6 @@ export const useUserEdit = (
     active,
     setActive,
     arrDeparts,
+    handleBack,
   };
 };

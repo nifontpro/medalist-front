@@ -1,8 +1,14 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import {
   ChangeEvent,
+  Dispatch,
   MouseEvent,
+  SetStateAction,
   useCallback,
   useEffect,
   useState,
@@ -19,7 +25,9 @@ import { GalleryItem } from '@/types/gallery/item';
 
 export const useAwardEdit = (
   setValue: UseFormSetValue<UpdateAwardRequest>,
-  id: string
+  id: string,
+  getValues: UseFormGetValues<UpdateAwardRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -69,12 +77,30 @@ export const useAwardEdit = (
     }
   }, [setValue, typeOfUser, singleAward]);
 
+  const handleBack = () => {
+    console.log(singleAward);
+    console.log(getValues());
+    if (singleAward) {
+      const { criteria, description, score, name } = getValues();
+      if (
+        criteria != singleAward.data?.criteria ||
+        description != singleAward.data?.description ||
+        score != singleAward.data?.award.score ||
+        name != singleAward.data?.award.name
+      ) {
+        setOpenModalConfirm(true);
+      } else {
+        back();
+      }
+    }
+  };
+
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      back();
+      handleBack();
     },
-    [back]
+    []
   );
 
   const addPhoto = useCallback(
@@ -197,5 +223,6 @@ export const useAwardEdit = (
     images,
     imagesGallery,
     setImagesGallery,
+    handleBack,
   };
 };

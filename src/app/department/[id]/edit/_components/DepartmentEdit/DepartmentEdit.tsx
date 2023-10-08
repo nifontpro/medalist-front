@@ -14,15 +14,19 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const DepartmentEdit = ({ id }: DepartmentEditProps) => {
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    getValues,
   } = useForm<UpdateDeptRequest>({ mode: 'onChange' });
 
   const {
@@ -35,7 +39,8 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
     imageNum,
     setImageNum,
     images,
-  } = useDepartmentEdit(setValue, id);
+    back,
+  } = useDepartmentEdit(setValue, id, getValues, setOpenModalConfirm);
 
   if (isLoadingByIdDept) return <Spinner />;
 
@@ -136,6 +141,15 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           </Button>
         </div>
       </form>
+
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
     </main>
   );
 };

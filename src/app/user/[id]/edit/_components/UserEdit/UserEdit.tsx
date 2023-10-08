@@ -13,18 +13,15 @@ import { useUserEdit } from './useUserEdit';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import cn from 'classnames';
-import InputPhotoAdd from '@/ui/InputPhotoAdd/InputPhotoAdd';
-import ButtonEdit from '@/ui/ButtonEdit/ButtonEdit';
-import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import SelectArtem from '@/ui/SelectArtem/SelectArtem';
 import AuthComponent from '@/store/providers/AuthComponent';
 import SelectRole from '@/ui/SelectRole/SelectRole';
 import { IOption } from '@/ui/SelectRole/SelectRole.interface';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const roles: IOption[] = [
   {
@@ -35,12 +32,15 @@ const roles: IOption[] = [
 ];
 
 export const UserEdit = ({ id }: UserEditProps) => {
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
     control,
+    getValues,
   } = useForm<UpdateUserRequest>({ mode: 'onChange' });
 
   const {
@@ -58,7 +58,8 @@ export const UserEdit = ({ id }: UserEditProps) => {
     active,
     setActive,
     arrDeparts,
-  } = useUserEdit(setValue, id);
+    handleBack,
+  } = useUserEdit(setValue, id, getValues, setOpenModalConfirm);
 
   if (isLoadingSingleUser) return <Spinner />;
 
@@ -67,7 +68,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
   return (
     <main>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -244,6 +245,14 @@ export const UserEdit = ({ id }: UserEditProps) => {
           </div>
         </form>
       </div>
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
     </main>
   );
 };

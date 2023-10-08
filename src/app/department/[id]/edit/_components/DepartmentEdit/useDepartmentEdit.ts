@@ -1,10 +1,16 @@
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { deptApi } from '@/api/dept/dept.api';
 import {
   ChangeEvent,
+  Dispatch,
   MouseEvent,
+  SetStateAction,
   useCallback,
   useEffect,
   useState,
@@ -18,7 +24,9 @@ import { RootState } from '@/store/storage/store';
 
 export const useDepartmentEdit = (
   setValue: UseFormSetValue<UpdateDeptRequest>,
-  id: string
+  id: string,
+  getValues: UseFormGetValues<UpdateDeptRequest>,
+  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
@@ -63,13 +71,26 @@ export const useDepartmentEdit = (
     }
   }, [id, setValue, singleDepartment, typeOfUser]);
 
-  const handleClick = useCallback(
-    (event: React.FormEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      back();
-    },
-    [back]
-  );
+  const handleBack = () => {
+    if (singleDepartment) {
+      const { name, phone, email, description } = getValues();
+      if (
+        name != singleDepartment.data?.dept.name ||
+        phone != singleDepartment.data?.phone ||
+        email != singleDepartment.data?.email ||
+        description != singleDepartment.data?.description
+      ) {
+        setOpenModalConfirm(true);
+      } else {
+        back();
+      }
+    }
+  };
+
+  const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    handleBack();
+  };
 
   const addPhoto = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {

@@ -32,8 +32,6 @@ const AwardTitle = ({
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
-  console.log('award', award);
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (

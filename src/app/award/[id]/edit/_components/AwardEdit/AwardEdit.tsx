@@ -14,15 +14,19 @@ import { useAwardEdit } from './useAwardEdit';
 import { UpdateAwardRequest } from '@/api/award/request/UpdateAwardRequest';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import ModalWindowGalleryAwards from '../ModalWindowGalleryAwards/ModalWindowGalleryAwards';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import P from '@/ui/P/P';
+import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
+    getValues,
   } = useForm<UpdateAwardRequest>({ mode: 'onChange' });
 
   const {
@@ -38,7 +42,8 @@ const AwardEdit = ({ id }: AwardEditProps) => {
     images,
     imagesGallery,
     setImagesGallery,
-  } = useAwardEdit(setValue, id);
+    handleBack,
+  } = useAwardEdit(setValue, id, getValues, setOpenModalConfirm);
 
   if (isLoadingSingleAward) return <Spinner />;
 
@@ -47,7 +52,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
   return (
     <main>
       <ButtonCircleIcon
-        onClick={back}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'
@@ -139,6 +144,14 @@ const AwardEdit = ({ id }: AwardEditProps) => {
           create={false}
         />
       </div>
+      <ModalConfirm
+        title={'Вы действительно хотите покинуть страницу?'}
+        textBtn={'Покинуть'}
+        text={`Введеные вами данные пропадут безвозвратно!`}
+        openModalConfirm={openModalConfirm}
+        setOpenModalConfirm={setOpenModalConfirm}
+        onConfirm={() => back()}
+      />
     </main>
   );
 };
