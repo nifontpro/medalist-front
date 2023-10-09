@@ -6,6 +6,12 @@
   margin-bottom: 50px;
   align-items: center;
   cursor: pointer;
+  padding: 5px 10px;
+  @apply duration-200;
+
+  &:hover {
+    background: var(--gray);
+  }
 
   @media screen and (max-width: 768px) {
     margin-bottom: 15px;

@@ -8,6 +8,12 @@
   align-items: center;
   position: relative;
 
+  &:hover {
+    .img {
+      transform: scale(0.9);
+    }
+  }
+
   @media screen and (max-width: 768px) {
     padding: 40px;
   }
@@ -23,6 +29,7 @@
     width: 175px;
     margin-bottom: 30px;
     cursor: pointer;
+    @apply duration-200;
 
     @media screen and (max-width: 1420px) {
       height: 160px;

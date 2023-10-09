@@ -6,13 +6,18 @@
   display: grid;
   grid-template-columns: 1fr 130px 30px;
   position: relative;
+  @apply duration-200;
+
+  &:hover {
+    background: var(--gray);
+  }
 
   &:last-child {
-    padding-bottom: 50px;
+    margin-bottom: 50px;
   }
 
   &:first-child {
-    padding-top: 50px;
+    margin-top: 50px;
   }
 
   @media screen and (max-width: 768px) {
@@ -54,6 +59,7 @@
         max-width: 200px;
       }
       @media screen and (max-width: 510px) {
+        text-wrap: wrap;
         max-width: 250px;
       }
     }
@@ -67,6 +73,11 @@
     height: fit-content;
     width: fit-content;
     align-self: center;
+    margin-left: -10px;
+
+    @media screen and (max-width: 510px) {
+      margin-left: 0px;
+    }
 
     .dateRewarded {
       display: flex;
@@ -80,10 +91,7 @@
 }
 
 .dots {
-  margin-left: 10px;
-
   @media screen and (max-width: 510px) {
-    margin-left: 0px;
     position: absolute;
     top: 0px;
     right: 20px;
