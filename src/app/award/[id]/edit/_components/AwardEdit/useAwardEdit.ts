@@ -122,7 +122,7 @@ export const useAwardEdit = (
         const fileImg = event.target.files[0];
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-        if (fileImg.size > 1024000) {
+        if (fileImg.size > 20971520) {
           toast.error('Размер фотографии должен быть меньше 1МБ');
         } else if (!allowedTypes.includes(fileImg.type)) {
           toast.error('Формат фотографии должен быть PNG, JPEG или JPG');
