@@ -2,7 +2,6 @@ import styles from './TabTitle.module.scss';
 import cn from 'classnames';
 import { TabTitleProps } from './TabTitle.props';
 import Htag from '@/ui/Htag/Htag';
-import P from '@/ui/P/P';
 import { memo } from 'react';
 
 const TabTitle = ({
@@ -31,7 +30,7 @@ const TabTitle = ({
       )}
     >
       {children}
-      {count && (
+      {/* {count && (
         <P
           size='s'
           color={active == onClickActive ? 'black' : 'gray96'}
@@ -39,7 +38,7 @@ const TabTitle = ({
         >
           {count}
         </P>
-      )}
+      )} */}
     </Htag>
   );
 };

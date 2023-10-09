@@ -18,7 +18,7 @@ export const useAwards = (id: string) => {
   const searchParams = useSearchParams();
   const activeDefault: AwardState | null = searchParams.get(
     'active'
-  ) as AwardState;
+  ) as AwardState | null;
   //______________________
 
   const [active, setActive] = useState<AwardState | undefined>(

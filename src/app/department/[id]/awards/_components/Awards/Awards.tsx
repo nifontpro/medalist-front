@@ -16,6 +16,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
+import cn from 'classnames';
 
 const Awards = ({ id, className, ...props }: AwardsProps) => {
   const {
@@ -57,6 +58,40 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
             </div>
           </AuthComponent>
         </div>
+
+        {/* {awardsOnDepartment.data ? (
+          <>
+            <Htag
+              tag='h3'
+              // color='gray'
+              onClick={() => {
+                setActive(undefined);
+                setPage(0);
+              }}
+              className={cn(styles.award, {
+                [styles.active]: active === undefined,
+              })}
+            >
+              ALL
+            </Htag>
+            <div
+              onClick={() => setActive('FINISH')}
+              className={cn({
+                ['text-red-400']: active === 'FINISH',
+              })}
+            >
+              FINISH
+            </div>
+            <div
+              onClick={() => setActive('NOMINEE')}
+              className={cn({
+                ['text-red-400']: active === 'NOMINEE',
+              })}
+            >
+              NOMINEE
+            </div>
+          </>
+        ) : null} */}
 
         {awardsOnDepartment.data ? (
           <div className={styles.header}>
