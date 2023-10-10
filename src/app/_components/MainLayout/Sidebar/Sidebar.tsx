@@ -103,7 +103,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                     width={40}
                     height={40}
                     alt='preview image'
-                    objectFit='cover'
+                    // objectFit='cover'
                     className='rounded-[10px]'
                     // priority={true}
                   />

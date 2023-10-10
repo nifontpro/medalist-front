@@ -80,7 +80,7 @@ const MainActivity = ({
                         width={64}
                         height={64}
                         alt='preview image'
-                        objectFit='cover'
+                        // // objectFit='cover'
                         className='rounded-[10px]'
                         // priority={true}
                       />

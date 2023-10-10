@@ -16,6 +16,7 @@ const ImageDefault: FC<ImageDefaultProps> = ({
   width,
   height,
   className,
+  ...props
 }) => {
   return src ? (
     <Image
@@ -26,6 +27,7 @@ const ImageDefault: FC<ImageDefaultProps> = ({
       height={height}
       draggable={draggable}
       priority={priority}
+      {...props}
     />
   ) : (
     <Image
@@ -36,6 +38,7 @@ const ImageDefault: FC<ImageDefaultProps> = ({
       height={height}
       draggable={draggable}
       priority={priority}
+      {...props}
     />
   );
 };

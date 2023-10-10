@@ -44,7 +44,7 @@ const CardUserAward = ({
           width={175}
           height={175}
           alt='award img'
-          objectFit='cover'
+          // objectFit='cover'
           className='rounded-[27px]'
           // priority={true}
         />

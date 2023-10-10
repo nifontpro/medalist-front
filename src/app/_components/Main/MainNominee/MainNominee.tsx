@@ -108,7 +108,7 @@ const MainNominee = ({
                 width={236}
                 height={236}
                 alt='preview image'
-                objectFit='cover'
+                // objectFit='cover'
                 className='rounded-[10px]'
                 priority={true}
               />
@@ -157,7 +157,7 @@ const MainNominee = ({
               width={236}
               height={236}
               alt='preview image'
-              objectFit='cover'
+              // objectFit='cover'
               className='rounded-[10px]'
               priority={true}
             />

@@ -66,7 +66,7 @@ const UserListRating = ({
                     width={100}
                     height={100}
                     alt='preview image'
-                    objectFit='cover'
+                    // objectFit='cover'
                     className='rounded-[10px]'
                   />
                 </div>
@@ -128,7 +128,7 @@ const UserListRating = ({
                                   width={50}
                                   height={50}
                                   alt='preview image'
-                                  objectFit='cover'
+                                  // objectFit='cover'
                                   className='rounded-full'
                                   // priority={true}
                                 />

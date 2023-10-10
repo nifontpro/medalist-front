@@ -20,7 +20,7 @@ const UserPreview = ({
           width={76}
           height={76}
           alt={user.firstname}
-          objectFit='cover'
+          // objectFit='cover'
           priority={true}
         />
       </div>

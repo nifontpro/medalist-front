@@ -129,7 +129,7 @@ const SingleUserTitle = ({
                         width={50}
                         height={50}
                         alt='preview image'
-                        objectFit='cover'
+                        // objectFit='cover'
                         className='rounded-full'
                         // priority={true}
                       />

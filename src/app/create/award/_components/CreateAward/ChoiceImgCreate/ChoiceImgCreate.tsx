@@ -38,7 +38,7 @@ const ChoiceImgCreate = ({
           width={400}
           height={400}
           alt='preview image'
-          objectFit='cover'
+          // objectFit='cover'
           priority={true}
         />
       </div>

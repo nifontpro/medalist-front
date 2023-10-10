@@ -42,7 +42,7 @@ const CountUsersPreview = ({
                         width={40}
                         height={40}
                         alt={item.firstname}
-                        objectFit='cover'
+                        // objectFit='cover'
                         className='rounded-full mr-4'
                         // priority={true}
                       />

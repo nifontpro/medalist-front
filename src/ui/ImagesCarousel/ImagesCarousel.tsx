@@ -6,8 +6,10 @@ import styles from './ImagesCarousel.module.scss';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { ImagesCarouselProps } from './ImagesCarousel.props.ts';
 import cn from 'classnames';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useWindowSize } from '@/hooks/useWindowSize';
+import ModalPrevierImg from '../ModalPrevierImg/ModalPreviewImg';
 
 const ImagesCarousel = ({
   data,
@@ -18,44 +20,69 @@ const ImagesCarousel = ({
   edit,
 }: ImagesCarouselProps) => {
   const pathname = usePathname();
+  const { windowSize } = useWindowSize();
+
+  // Модальное окно при нажатии на изображение
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
+  const [srcImg, setSrcImg] = useState<string | undefined>(undefined);
 
   if (edit == true) {
     return (
       <>
         {data && setImageNum && data.length > 0 ? (
-          <Carousel
-            navButtonsAlwaysInvisible={
-              pathname.split('/')[1] == 'award' ? true : false
-            }
-            IndicatorIcon={pathname.split('/')[1] == 'award' ? null : undefined}
-            swipe={true}
-            index={imageNum}
-            changeOnFirstRender={true}
-            onChange={(now?: number, previous?: number) => {
-              now && setImageNum(now);
-            }}
-            autoPlay={false}
-            indicatorContainerProps={{
-              style: {
-                marginTop: '0px', //
-              },
-            }}
-          >
-            {images?.map((item: BaseImage) => {
-              return (
-                <ImageDefault
-                  key={item.id}
-                  src={item.imageUrl}
-                  width={400}
-                  height={400}
-                  alt='preview image'
-                  objectFit='cover'
-                  // priority={true}
-                  // className='rounded-[10px]'
-                />
-              );
-            })}
-          </Carousel>
+          <>
+            <Carousel
+              navButtonsAlwaysInvisible={
+                pathname.split('/')[1] == 'award' ? true : false
+              }
+              className='width-[100%]'
+              IndicatorIcon={
+                pathname.split('/')[1] == 'award' ? null : undefined
+              }
+              swipe={true}
+              index={imageNum}
+              changeOnFirstRender={true}
+              onChange={(now?: number, previous?: number) => {
+                now && setImageNum(now);
+              }}
+              height={windowSize.winWidth < 1280 ? 250 : 400}
+              autoPlay={false}
+              indicatorContainerProps={{
+                style: {
+                  marginTop: '0px', //
+                },
+              }}
+            >
+              {images?.map((item: BaseImage) => {
+                return (
+                  // <div onClick={() => setOpenModalConfirm(true)} >
+                  <ImageDefault
+                    onClick={() => {
+                      setSrcImg(item.imageUrl);
+                      setOpenModalConfirm(true);
+                    }}
+                    key={item.id}
+                    src={item.imageUrl}
+                    width={400}
+                    height={400}
+                    alt='preview image'
+                    // objectFit='cover'
+                    // priority={true}
+                    // className='rounded-[10px]'
+                  />
+                  //   <div>
+
+                  //   </div>
+                  // </div>
+                );
+              })}
+            </Carousel>
+            <ModalPrevierImg
+              srcImg={srcImg}
+              openModalConfirm={openModalConfirm}
+              setOpenModalConfirm={setOpenModalConfirm}
+            />
+          </>
         ) : (
           <div className={styles.imageDefault}>
             <ImageDefault
@@ -63,7 +90,7 @@ const ImagesCarousel = ({
               width={400}
               height={400}
               alt='preview image'
-              objectFit='cover'
+              // objectFit='cover'
             />
           </div>
         )}

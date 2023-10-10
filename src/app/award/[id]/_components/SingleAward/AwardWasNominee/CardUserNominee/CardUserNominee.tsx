@@ -24,7 +24,7 @@ const CardUserNominee = ({
           width={64}
           height={64}
           alt='award img'
-          objectFit='cover'
+          // objectFit='cover'
           className='rounded-full'
           // priority={true}
         />

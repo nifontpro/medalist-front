@@ -17,7 +17,7 @@ const AwardPreview = ({
         width={76}
         height={76}
         alt={award.name}
-        objectFit='cover'
+        // objectFit='cover'
         className='rounded-full'
         // priority={true}
       />
