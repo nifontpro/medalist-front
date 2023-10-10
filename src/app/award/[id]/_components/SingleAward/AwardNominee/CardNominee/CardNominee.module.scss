@@ -5,15 +5,21 @@
   grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [starDate] auto [endDate] 70px [startButtons] auto [end];
   margin-bottom: 50px;
   align-items: center;
-  padding: 5px 10px;
+  padding: 20px 30px;
   @apply duration-200;
 
   &:hover {
-    background: var(--gray-light);
+    background: var(--graySilver);
   }
 
   @media screen and (max-width: 1450px) {
     grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [startButtons] auto [end];
+  }
+  @media screen and (max-width: 1280px) {
+    padding: 20px 20px;
+  }
+  @media screen and (max-width: 900px) {
+    padding: 20px 10px;
   }
   @media screen and (max-width: 768px) {
     grid-template-columns: [start] 76px [endLogo] 30px [startUser] 1fr [EndUser];

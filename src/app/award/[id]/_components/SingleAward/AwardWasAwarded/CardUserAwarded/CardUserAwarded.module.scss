@@ -1,15 +1,23 @@
 .wrapper {
   background: var(--white);
   border-radius: 27px;
-  padding: 10px 0px;
+  padding: 20px 30px;
   min-width: 300px;
   display: grid;
   grid-template-columns: 1fr 130px 30px;
   position: relative;
   @apply duration-200;
 
+  @media screen and (max-width: 1280px) {
+    padding: 20px 20px;
+  }
+
+  @media screen and (max-width: 900px) {
+    padding: 20px 10px;
+  }
+
   &:hover {
-    background: var(--gray);
+    background: var(--graySilver);
   }
 
   &:last-child {
@@ -57,9 +65,9 @@
 
       @media screen and (max-width: 768px) {
         max-width: 200px;
+        text-wrap: wrap;
       }
       @media screen and (max-width: 510px) {
-        text-wrap: wrap;
         max-width: 250px;
       }
     }

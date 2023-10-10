@@ -3,12 +3,26 @@
   grid-template-columns: 3fr 1fr auto;
   gap: 15px;
   align-items: center;
-  margin-top: 45px;
+  margin-top: 10px;
+  padding: 20px 30px;
+  border-radius: 27px;
+  @apply duration-200;
 
+  &:hover {
+    background: var(--graySilver);
+  }
+
+  @media screen and (max-width: 1280px) {
+    padding: 20px 20px;
+  }
+  @media screen and (max-width: 900px) {
+    padding: 20px 10px;
+  }
   @media screen and (max-width: 768px) {
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr 1fr;
     margin-top: 30px;
+    border-radius: 16px;
   }
 
   .user {

@@ -62,7 +62,7 @@ const EventCard = ({
               {event.entityName}
             </P>
           )}
-          <P size='xs' fontstyle='thin' className={styles.title}>
+          <P size='m' className={styles.title}>
             {event.eventName}
           </P>
         </div>
