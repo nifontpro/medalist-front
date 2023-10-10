@@ -7,6 +7,7 @@ import { BaseImage } from '@/types/base/image/baseImage';
 import { ImagesCarouselProps } from './ImagesCarousel.props.ts';
 import cn from 'classnames';
 import { memo } from 'react';
+import { usePathname } from 'next/navigation';
 
 const ImagesCarousel = ({
   data,
@@ -16,11 +17,17 @@ const ImagesCarousel = ({
   className,
   edit,
 }: ImagesCarouselProps) => {
+  const pathname = usePathname();
+
   if (edit == true) {
     return (
       <>
         {data && setImageNum && data.length > 0 ? (
           <Carousel
+            navButtonsAlwaysInvisible={
+              pathname.split('/')[1] == 'award' ? true : false
+            }
+            IndicatorIcon={pathname.split('/')[1] == 'award' ? null : undefined}
             swipe={true}
             index={imageNum}
             changeOnFirstRender={true}
