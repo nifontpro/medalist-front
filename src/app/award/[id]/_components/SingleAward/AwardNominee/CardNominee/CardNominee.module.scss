@@ -3,7 +3,7 @@
   border-radius: 27px;
   display: grid;
   grid-template-columns: [start] 76px [endLogo] 30px [startUser] auto [EndUser] 1fr [starDate] auto [endDate] 70px [startButtons] auto [end];
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   align-items: center;
   padding: 20px 30px;
   @apply duration-200;
@@ -82,5 +82,5 @@
 //   margin-bottom: 50px;
 // }
 .wrapper:first-child {
-  margin-top: 50px;
+  margin-top: 25px;
 }

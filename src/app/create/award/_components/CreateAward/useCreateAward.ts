@@ -14,13 +14,7 @@ import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
 import dayjs from 'dayjs';
 import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 import { awardApi } from '@/api/award/award.api';
-import {
-  clearEndDate,
-  clearStartDate,
-  resetDate,
-  setEndDate,
-  setStartDate,
-} from '@/store/features/awardCreateDate/awardCreateDate.slice';
+
 import { RootState } from '@/store/storage/store';
 import { GalleryItem } from '@/types/gallery/item';
 import useOutsideClick from '@/hooks/useOutsideClick';
@@ -56,18 +50,23 @@ export const useCreateAward = (
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const startDateSelect = useAppSelector(
-    (state: RootState) => state.dataCreateAward.startDate
-  );
-  const startDateValue = useAppSelector(
-    (state: RootState) => state.dataCreateAward.startValue
-  );
-  const endDateSelect = useAppSelector(
-    (state: RootState) => state.dataCreateAward.endDate
-  );
-  const endDateValue = useAppSelector(
-    (state: RootState) => state.dataCreateAward.endValue
-  );
+  const [startDateSelect, setStartDateSelect] = useState('');
+  const [endDateSelect, setEndDateSelect] = useState('');
+  const [startDateValue, setStartDateValue] = useState<string | null>(null);
+  const [endDateValue, setEndDateValue] = useState<string | null>(null);
+
+  // const startDateSelect = useAppSelector(
+  //   (state: RootState) => state.dataCreateAward.startDate
+  // );
+  // const startDateValue = useAppSelector(
+  //   (state: RootState) => state.dataCreateAward.startValue
+  // );
+  // const endDateSelect = useAppSelector(
+  //   (state: RootState) => state.dataCreateAward.endDate
+  // );
+  // const endDateValue = useAppSelector(
+  //   (state: RootState) => state.dataCreateAward.endValue
+  // );
 
   const {
     page,
@@ -105,17 +104,24 @@ export const useCreateAward = (
   const totalPage = useMemo(() => users?.pageInfo?.totalPages, [users]);
 
   const onChangeStart = useCallback((value: string | null) => {
-    console.log(value);
-    dispatch(setStartDate(value as unknown as Date));
+    setStartDateSelect(dayjs(value).format('DD.MM.YYYY'));
+    setStartDateValue(dayjs(value).toString());
+    // dispatch(setStartDate(value as unknown as Date));
   }, []);
   const onClearStart = useCallback(() => {
-    dispatch(clearStartDate());
+    setStartDateSelect('');
+    setStartDateValue(null);
+    // dispatch(clearStartDate());
   }, []);
   const onChangeEnd = useCallback((value: string | null) => {
-    dispatch(setEndDate(value as unknown as Date));
+    setEndDateSelect(dayjs(value).format('DD.MM.YYYY'));
+    setEndDateValue(dayjs(value).toString());
+    // dispatch(setEndDate(value as unknown as Date));
   }, []);
   const onClearEnd = useCallback(() => {
-    dispatch(clearEndDate());
+    setEndDateSelect('');
+    setEndDateValue(null);
+    // dispatch(clearEndDate());
   }, []);
 
   //Закрытие модального окна нажатием вне его
@@ -127,19 +133,18 @@ export const useCreateAward = (
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
 
-  //Сделано для того чтобы всегда очищать value в SelectCalendar, в противном случае он будет выдавать ошибку пока не очистишь value в кеше в персисте
-  useEffect(() => {
-    const reset = () => dispatch(resetDate());
-    window.addEventListener('beforeunload', reset);
+  // //Сделано для того чтобы всегда очищать value в SelectCalendar, в противном случае он будет выдавать ошибку пока не очистишь value в кеше в персисте
+  // useEffect(() => {
+  //   const reset = () => dispatch(resetDate());
+  //   window.addEventListener('beforeunload', reset);
 
-    return () => {
-      window.removeEventListener('beforeunload', reset);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', reset);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (deptId && typeOfUser && typeOfUser.id) {
-      dispatch(resetDate());
       setValue('deptId', deptId);
       setValue('authId', typeOfUser.id);
     }

@@ -22,12 +22,11 @@ import { deptApi } from '@/api/dept/dept.api';
 import { headerSlice } from '../features/header/header.slice';
 import { awardApi } from '@/api/award/award.api';
 import { themeSlice } from '../features/theme/theme.slice';
-import { dataCreateAwardSlice } from '../features/awardCreateDate/awardCreateDate.slice';
 import { galleryApi } from '@/api/gallery/gallery.api';
 import { visibleModalWindowGalleryAwardsSlice } from '../features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
 import { eventApi } from '@/api/event/event.api';
 import { messageApi } from '@/api/msg/message.api';
-import { setupListeners } from '@reduxjs/toolkit/dist/query';
+// import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { switchDepartmentOnCompanySlice } from '../features/switchDepartmentOnCompany/switchDepartmentOnCompany.slice';
 import { treeDeptsSlice } from '../features/treeDepts/treeDepts.slice';
 
@@ -86,7 +85,6 @@ const rootReducer = combineReducers({
   treeDepts: treeDeptsSlice.reducer,
   switcher: switchDepartmentOnCompanySlice.reducer,
   visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
-  dataCreateAward: dataCreateAwardSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [deptApi.reducerPath]: deptApi.reducer,

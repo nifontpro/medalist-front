@@ -10,7 +10,6 @@ import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { deleteCookie } from 'cookies-next';
 import { useHeader } from '../../useHeader';
 import { setIsOpenUserSelection } from '@/store/features/userSelection/userSelection.slice';
-import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
 
 function logoutWin(it: string) {
   const params = [
@@ -57,7 +56,6 @@ export const useUserPanelModalWindow = (
     if (it != undefined && !isExpired) {
       await logoutWin(it);
       dispatch(authActions.setIsAuth(false));
-      dispatch(resetDate());
       // await deleteCookie('exp'); // Для middleware
     }
     await dispatch(authActions.setNoAccess());
