@@ -28,27 +28,12 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
         <UserSelection />
       </>
     );
-  } else pathName.slice(0, 6) === '/login';
-  return <>{children}</>;
+  } else if (pathName.slice(0, 6) === '/login') {
+    return <>{children}</>;
+  } else {
+    deleteCookie('exp'); // Для middleware
+    return redirect('/login');
+  }
 };
-
-// if (isAuth && refresh) {
-//   return (
-//     <>
-//       <div className={styles.wrapperMainLayout} {...props}>
-//         <Header className={styles.header} />
-//         {typeOfUser && <Sidebar className={styles.sidebar} />}
-
-//         <div className={styles.content}>{children}</div>
-//       </div>
-//       <UserSelection />
-//     </>
-//   );
-// } else if (pathName.slice(0, 6) === '/login') {
-//   return <>{children}</>;
-// } else {
-//   deleteCookie('exp'); // Для middleware
-//   return redirect('/login');
-// }
 
 export default memo(MainLayout);
