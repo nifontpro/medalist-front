@@ -6,14 +6,7 @@ import {
 } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { toastError } from '@/utils/toast-error';
 import { errorMessageParse } from '@/utils/errorMessageParse';
@@ -21,16 +14,23 @@ import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
 import dayjs from 'dayjs';
 import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 import { awardApi } from '@/api/award/award.api';
-import { resetDate } from '@/store/features/awardCreateDate/awardCreateDate.slice';
+import {
+  clearEndDate,
+  clearStartDate,
+  resetDate,
+  setEndDate,
+  setStartDate,
+} from '@/store/features/awardCreateDate/awardCreateDate.slice';
 import { RootState } from '@/store/storage/store';
 import { GalleryItem } from '@/types/gallery/item';
+import useOutsideClick from '@/hooks/useOutsideClick';
+import { useFetchParams } from '@/hooks/useFetchParams';
+import { userApi } from '@/api/user/user.api';
 
 export const useCreateAward = (
   setValue: UseFormSetValue<CreateAwardRequest>,
   reset: UseFormReset<CreateAwardRequest>,
-  getValues: UseFormGetValues<CreateAwardRequest>,
-  setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
-  arrChoiceUser?: string[]
+  getValues: UseFormGetValues<CreateAwardRequest>
 ) => {
   const dispatch = useAppDispatch();
   const { back } = useRouter();
@@ -39,6 +39,9 @@ export const useCreateAward = (
     () => Number(searchParams.get('deptId')),
     [searchParams]
   );
+  const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
+  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
+
   const [createAward, createAwardInfo] = awardApi.useCreateMutation();
   const [rewardUser, rewardUserInfo] = awardApi.useSendActionMutation();
   const [setImageGallery, setImageGalleryInfo] =
@@ -56,9 +59,83 @@ export const useCreateAward = (
   const startDateSelect = useAppSelector(
     (state: RootState) => state.dataCreateAward.startDate
   );
+  const startDateValue = useAppSelector(
+    (state: RootState) => state.dataCreateAward.startValue
+  );
   const endDateSelect = useAppSelector(
     (state: RootState) => state.dataCreateAward.endDate
   );
+  const endDateValue = useAppSelector(
+    (state: RootState) => state.dataCreateAward.endValue
+  );
+
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
+
+  // Получить пользоветлей в отделе
+  const {
+    data: users,
+    isLoading: isLoadingUsersOnDepartment,
+    isFetching: isFetchingUsersOnDepartment,
+  } = userApi.useGetUsersByDeptQuery(
+    {
+      authId: typeOfUser?.id!,
+      deptId: deptId,
+      baseRequest: {
+        subdepts: true,
+        page: page,
+        pageSize: 100,
+        filter: searchValue,
+        orders: [{ field: 'lastname', direction: state }],
+      },
+    },
+    {
+      skip: !typeOfUser,
+    }
+  );
+
+  const totalPage = useMemo(() => users?.pageInfo?.totalPages, [users]);
+
+  const onChangeStart = useCallback((value: string | null) => {
+    console.log(value);
+    dispatch(setStartDate(value as unknown as Date));
+  }, []);
+  const onClearStart = useCallback(() => {
+    dispatch(clearStartDate());
+  }, []);
+  const onChangeEnd = useCallback((value: string | null) => {
+    dispatch(setEndDate(value as unknown as Date));
+  }, []);
+  const onClearEnd = useCallback(() => {
+    dispatch(clearEndDate());
+  }, []);
+
+  //Закрытие модального окна нажатием вне его
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
+  const ref = useRef(null);
+  const refOpen = useRef(null);
+  const handleClickOutside = useCallback(() => {
+    setVisibleModal(false);
+  }, []);
+  useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
+
+  //Сделано для того чтобы всегда очищать value в SelectCalendar, в противном случае он будет выдавать ошибку пока не очистишь value в кеше в персисте
+  useEffect(() => {
+    const reset = () => dispatch(resetDate());
+    window.addEventListener('beforeunload', reset);
+
+    return () => {
+      window.removeEventListener('beforeunload', reset);
+    };
+  }, []);
 
   useEffect(() => {
     if (deptId && typeOfUser && typeOfUser.id) {
@@ -373,5 +450,24 @@ export const useCreateAward = (
     setImageInfo,
     createAwardInfo,
     handleBack,
+    startDateSelect,
+    startDateValue,
+    endDateSelect,
+    endDateValue,
+    setVisibleModal,
+    onClearStart,
+    onChangeStart,
+    onClearEnd,
+    onChangeEnd,
+    users,
+    setSearchValue,
+    arrChoiceUser,
+    setArrChoiceUser,
+    page,
+    totalPage,
+    nextPage,
+    prevPage,
+    openModalConfirm,
+    setOpenModalConfirm,
   };
 };

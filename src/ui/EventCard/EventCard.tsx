@@ -34,8 +34,6 @@ const EventCard = ({
   const [openModalConfirmForUser, setOpenModalConfirmForUser] = useState(false);
   const [openModalConfirmForDept, setOpenModalConfirmForDept] = useState(false);
 
-  console.log(event);
-
   return (
     <>
       <div

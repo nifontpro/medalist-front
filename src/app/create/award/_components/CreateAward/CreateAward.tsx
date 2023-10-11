@@ -9,36 +9,18 @@ import TextArea from '@/ui/TextArea/TextArea';
 import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
-import dayjs from 'dayjs';
-import {
-  setEndDate,
-  setStartDate,
-} from '@/store/features/awardCreateDate/awardCreateDate.slice';
+import { memo } from 'react';
 import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
 import UsersPreviewCreateAward from './UsersPreviewCreateAward/UsersPreviewCreateAward';
-import { useFetchParams } from '@/hooks/useFetchParams';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import ChoiceImgCreate from './ChoiceImgCreate/ChoiceImgCreate';
 import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
-import { userApi } from '@/api/user/user.api';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
 
 const CreateAward = () => {
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
-  const [arrChoiceUser, setArrChoiceUser] = useState<string[]>([]);
-
-  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
-
   const {
     handleSubmit,
     register,
@@ -51,9 +33,7 @@ const CreateAward = () => {
   const {
     onSubmitReward,
     onSubmitNominee,
-    dispatch,
     back,
-    deptId,
     imagesGallery,
     setImagesGallery,
     setImagesFile,
@@ -62,71 +42,26 @@ const CreateAward = () => {
     setImageInfo,
     createAwardInfo,
     handleBack,
-  } = useCreateAward(
-    setValue,
-    reset,
-    getValues,
-    setOpenModalConfirm,
-    arrChoiceUser
-  );
-
-  const {
-    page,
-    setPage,
-    searchValue,
+    startDateSelect,
+    startDateValue,
+    endDateSelect,
+    endDateValue,
+    setVisibleModal,
+    onClearStart,
+    onChangeStart,
+    onClearEnd,
+    onChangeEnd,
+    users,
     setSearchValue,
-    state,
-    setState,
+    arrChoiceUser,
+    setArrChoiceUser,
+    page,
+    totalPage,
     nextPage,
     prevPage,
-  } = useFetchParams();
-
-  // Получить пользоветлей в отделе
-  const {
-    data: users,
-    isLoading: isLoadingUsersOnDepartment,
-    isFetching: isFetchingUsersOnDepartment,
-  } = userApi.useGetUsersByDeptQuery(
-    {
-      authId: typeOfUser?.id!,
-      deptId: deptId,
-      baseRequest: {
-        subdepts: true,
-        page: page,
-        pageSize: 100,
-        filter: searchValue,
-        orders: [{ field: 'lastname', direction: state }],
-      },
-    },
-    {
-      skip: !typeOfUser,
-    }
-  );
-
-  const totalPage = useMemo(() => users?.pageInfo?.totalPages, [users]);
-
-  const onChangeStart = useCallback(
-    (value: string | null) => {
-      dispatch(setStartDate(dayjs(value).format('DD.MM.YYYY')));
-    },
-    [dispatch]
-  );
-
-  const onChangeEnd = useCallback(
-    (value: string | null) => {
-      dispatch(setEndDate(dayjs(value).format('DD.MM.YYYY')));
-    },
-    [dispatch]
-  );
-
-  //Закрытие модального окна нажатием вне его
-  const [visibleModal, setVisibleModal] = useState<boolean>(false);
-  const ref = useRef(null);
-  const refOpen = useRef(null);
-  const handleClickOutside = useCallback(() => {
-    setVisibleModal(false);
-  }, []);
-  useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
+    openModalConfirm,
+    setOpenModalConfirm,
+  } = useCreateAward(setValue, reset, getValues);
 
   return (
     <>
@@ -194,14 +129,18 @@ const CreateAward = () => {
 
           <div className={styles.group}>
             <SelectCalendar
+              handleClearDate={onClearStart}
               handleChangeDate={onChangeStart}
               title='Начинается'
               error={errors.startDate}
+              value={startDateValue}
             />
             <SelectCalendar
+              handleClearDate={onClearEnd}
               handleChangeDate={onChangeEnd}
               title='Заканчивается'
               error={errors.endDate}
+              value={endDateValue}
             />
           </div>
 
@@ -237,23 +176,31 @@ const CreateAward = () => {
           ) : null}
 
           <div className={styles.buttons}>
-            <Button
-              onClick={handleSubmit(onSubmitReward)}
-              appearance='whiteBlack'
-              size='l'
-              disabled={!isDirty || !isValid}
-            >
-              Наградить сейчас
-            </Button>
-            <Button
-              onClick={handleSubmit(onSubmitNominee)}
-              appearance='blackWhite'
-              size='l'
-              className={styles.lastBtn}
-              disabled={!isDirty || !isValid}
-            >
-              Номинировать
-            </Button>
+            {startDateValue || endDateValue ? (
+              <Button
+                onClick={handleSubmit(onSubmitNominee)}
+                appearance='blackWhite'
+                size='l'
+                className={styles.lastBtn}
+                disabled={
+                  !isDirty ||
+                  !isValid ||
+                  arrChoiceUser.length === 0 ||
+                  endDateSelect === ''
+                }
+              >
+                Номинировать
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit(onSubmitReward)}
+                appearance='whiteBlack'
+                size='l'
+                disabled={!isDirty || !isValid || arrChoiceUser.length === 0}
+              >
+                Наградить сейчас
+              </Button>
+            )}
           </div>
         </div>
       </form>

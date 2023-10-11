@@ -71,12 +71,24 @@
       }
     }
 
+    // > .buttons {
+    //   margin-top: 100px;
+    //   display: grid;
+    //   grid-template-columns: 1fr 1fr;
+    //   gap: 20px;
+    //   align-items: center;
+
+    //   @media screen and (max-width: 768px) {
+    //     display: flex;
+    //     flex-direction: column;
+    //     gap: 15px;
+    //     margin-top: 60px;
+    //   }
+    // }
     > .buttons {
-      margin-top: 100px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: center;
+      margin-top: 80px;
+      display: flex;
+      justify-content: end;
 
       @media screen and (max-width: 768px) {
         display: flex;

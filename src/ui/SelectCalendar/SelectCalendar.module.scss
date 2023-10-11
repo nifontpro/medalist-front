@@ -1,6 +1,6 @@
 .calendar {
+  position: relative;
   border: none;
-  // background: var(--white);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -24,5 +24,24 @@
 
   .placeholder {
     margin-bottom: 20px;
+  }
+
+  .closeIcon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+    bottom: 18px;
+    right: 15px;
+
+    path {
+      @apply duration-200;
+    }
+
+    &:hover {
+      path {
+        stroke: var(--gray-dark);
+      }
+    }
   }
 }
