@@ -39,6 +39,7 @@ const CreateDepartment = () => {
     back,
     createInfo,
     handleBack,
+    company,
   } = useCreateDepartment(setValue, reset, setOpenModalConfirm, getValues);
 
   return (
@@ -60,7 +61,7 @@ const CreateDepartment = () => {
         />
         <form className={styles.form}>
           <Htag tag='h2' className={styles.title}>
-            Новый отдел
+            {company == 'true' ? 'Новая компания' : 'Новый отдел'}
           </Htag>
 
           <ChoiceImgCreate
@@ -73,7 +74,9 @@ const CreateDepartment = () => {
 
           <Field
             {...register('name', { required: 'Название необходимо!' })}
-            title='Название отдела*'
+            title={
+              company == 'true' ? 'Название компании*' : 'Название отдела*'
+            }
             placeholder='Название отдела'
             error={errors.name}
             className={styles.field}
@@ -113,7 +116,7 @@ const CreateDepartment = () => {
           <TextArea
             {...register('description')}
             title='Описание'
-            placeholder='Чем занимается отдел'
+            placeholder='Чем занимается...'
             error={errors.description}
           />
           <P className={styles.field} fontstyle='thin' color='gray' size='xs'>

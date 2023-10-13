@@ -38,6 +38,8 @@ export const useCreateDepartment = (
     [searchParams]
   );
 
+  const company = useMemo(() => searchParams.get('company'), [searchParams]);
+
   const { back } = useRouter();
   const [create, createInfo] = deptApi.useGetProfilesMutation();
 
@@ -130,5 +132,6 @@ export const useCreateDepartment = (
     setImagesGallery,
     setImagesFile,
     handleBack,
+    company,
   };
 };

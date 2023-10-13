@@ -124,7 +124,9 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                     className={styles.bottomContent}
                     onClick={() => {
                       if (ownerCompany)
-                        push(`create/department?id=${ownerCompany.id}`);
+                        push(
+                          `create/department?id=${ownerCompany.id}&company=true`
+                        );
                     }}
                   >
                     <ChangeRoleIcon className='@apply w-[24px] mr-[10px]' />
