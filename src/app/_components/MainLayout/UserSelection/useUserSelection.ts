@@ -31,6 +31,7 @@ export const useUserSelection = () => {
   const [subTree] = deptApi.useLazyGetAuthTopLevelTreeQuery();
 
   const handleChangeRole = async (role: User) => {
+    console.log(role);
     dispatch(setTypeOfUser_IsOpen(role));
     dispatch(setArrayIds(['0']));
     localStorage.removeItem('selectCompany');

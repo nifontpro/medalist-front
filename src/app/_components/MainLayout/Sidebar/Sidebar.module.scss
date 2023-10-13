@@ -13,40 +13,54 @@
     }
   }
 
-  .select {
-    background: var(--white) !important;
-    color: var(--gray-dark);
+  .formControl {
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 20px;
     border-radius: 16px;
-    cursor: pointer !important;
+    background: var(--white) !important;
 
-    fieldset {
-      outline: none !important;
-      border: none !important;
+    .open {
+      width: 60px;
+      padding: 20px 20px 20px 20px;
+      cursor: pointer;
+      @apply duration-200;
     }
 
-    > div {
-      display: flex !important;
-      align-items: center !important;
-
-      text-wrap: wrap !important;
-      max-width: 68% !important;
-
-      @media screen and (max-width: 768px) {
-        max-width: 72% !important;
-      }
-
-      img {
-        margin-right: 15px !important;
-        width: 40px !important;
-        height: 40px !important;
-      }
+    .openActive {
+      transform: rotate(180deg);
     }
 
-    > svg {
-      height: 15px;
-      width: 15px;
-      margin-right: 15px;
+    .select {
+      width: 100%;
+      color: var(--gray-dark);
+      cursor: pointer !important;
+
+      fieldset {
+        outline: none !important;
+        border: none !important;
+      }
+
+      > div {
+        display: flex !important;
+        align-items: center !important;
+        text-wrap: wrap !important;
+        // max-width: 68% !important;
+
+        // @media screen and (max-width: 768px) {
+        //   max-width: 72% !important;
+        // }
+
+        img {
+          margin-right: 15px !important;
+          width: 40px !important;
+          height: 40px !important;
+        }
+      }
+
+      > svg {
+        display: none !important;
+      }
     }
   }
 

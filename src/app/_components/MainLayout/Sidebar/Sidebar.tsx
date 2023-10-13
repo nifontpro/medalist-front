@@ -19,6 +19,7 @@ import P from '@/ui/P/P';
 import ChangeRoleIcon from '@/icons/ownerLogo.svg';
 import ArrowIcon from '@/icons/arrowDown.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import uniqid from 'uniqid';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -41,6 +42,32 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     ownerCompany,
   } = useSidebar();
 
+  const handleClink = () => {
+    if (tree) {
+      tree.length > 1
+        ? handleToggle
+        : typeOfUser?.roles.find((item) => item == 'OWNER')
+        ? handleToggle
+        : () => {
+            localStorage.setItem('selectCompany', tree[0].id.toString());
+            push(`/department/${tree[0].id}`);
+          };
+    }
+  };
+
+  const handleOpen = () => {
+    console.log(123);
+    if (tree) {
+      if (selectedCompany) {
+        push(`department/${selectedCompany}`);
+      } else {
+        localStorage.setItem('selectCompany', tree[0].id.toString());
+        push(`department/${treeData[0].id}`);
+      }
+    }
+  };
+  console.log(tree);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <ExitIcon />
@@ -48,7 +75,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
 
       {tree && tree[0] ? (
         <>
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.formControl}>
             <Select
               open={
                 tree.length > 1
@@ -57,31 +84,12 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                   ? open
                   : false
               }
-              onClick={
-                tree.length > 1
-                  ? handleToggle
-                  : typeOfUser?.roles.find((item) => item == 'OWNER')
-                  ? handleToggle
-                  : () => {
-                      localStorage.setItem(
-                        'selectCompany',
-                        tree[0].id.toString()
-                      );
-                      push(`/department/${tree[0].id}`);
-                    }
-              }
+              onClick={handleClink}
               onClose={handleToggle}
-              onOpen={handleToggle}
+              onOpen={handleOpen}
               value={selectedCompany ? selectedCompany : tree[0].id.toString()}
               onChange={handleChangeSelect}
               className={styles.select}
-              IconComponent={
-                tree.length > 1
-                  ? ArrowIcon
-                  : typeOfUser?.roles.find((item) => item == 'OWNER')
-                  ? ArrowIcon
-                  : ''
-              }
               MenuProps={{
                 classes: {
                   paper: styles.dropdown,
@@ -128,6 +136,22 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                 </div>
               ) : null}
             </Select>
+
+            {tree.length > 1 ? (
+              <div
+                className={cn(styles.open, { [styles.openActive]: open })}
+                onClick={handleToggle}
+              >
+                <ArrowIcon />
+              </div>
+            ) : typeOfUser?.roles.find((item) => item == 'OWNER') ? (
+              <div
+                className={cn(styles.open, { [styles.openActive]: open })}
+                onClick={handleToggle}
+              >
+                <ArrowIcon />
+              </div>
+            ) : null}
           </FormControl>
 
           <TreeView

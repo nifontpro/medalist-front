@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useLayoutEffect } from 'react';
 import { sortTree } from '@/utils/sortTree';
 import { useState } from 'react';
 import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
@@ -101,6 +101,10 @@ export const useSidebar = () => {
   const [selectedCompany, setSelectedCompany] = useState<string | null>(
     localStorage.getItem('selectCompany')
   );
+
+  useEffect(() => {
+    setSelectedCompany(localStorage.getItem('selectCompany'));
+  }, []);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setTree(treeData?.filter((item) => item.id === Number(event.target.value)));

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Main from './_components/Main/Main';
 import { redirect } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
@@ -13,6 +12,7 @@ export default function Home() {
   );
 
   const treeDepts = useAppSelector(SelectTreeDepts);
+  localStorage.removeItem('selectCompany');
 
   useEffect(() => {
     if (
