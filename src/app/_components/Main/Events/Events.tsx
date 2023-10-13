@@ -61,10 +61,6 @@ const Events = ({
         skip: !typeOfUser,
       }
     );
-
-  console.log(allEvent);
-  console.log(Number(deptId ? deptId : typeOfUser?.dept?.id));
-
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
   return (

@@ -3,10 +3,7 @@
 import styles from './UserSelection.module.scss';
 import cn from 'classnames';
 import { UserSelectionProps } from './UserSelection.props';
-import uniqid from 'uniqid';
 import { useUserSelection } from './useUserSelection';
-import { getOwnerCreateUrl } from '@/config/api.config';
-import ExitIcon from '@/icons/close.svg';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useCallback, useEffect, useRef } from 'react';
@@ -14,16 +11,9 @@ import {
   setTypeOfUser_IsOpen,
   setTypeOfUserUndefined,
 } from '@/store/features/userSelection/userSelection.slice';
-import {
-  setArrayIds,
-  // setSelectedTreeId,
-} from '@/store/features/sidebar/sidebarTree.slice';
-import P from '@/ui/P/P';
-import CreateOwnerIcon from '@/icons/ownerLogo.svg';
-import ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import { setArrayIds } from '@/store/features/sidebar/sidebarTree.slice';
 import { User } from '@/types/user/user';
 import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow/useUserPanelModalWindow';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
 import WindowWithoutRoles from './WindowWithoutRoles/WindowWithoutRoles';
 import WindowWithRoles from './WindowWithRoles/WindowWithRoles';

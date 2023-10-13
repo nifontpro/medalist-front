@@ -68,6 +68,7 @@ const UserListRating = ({
                     alt='preview image'
                     // objectFit='cover'
                     className='rounded-[10px]'
+                    forWhat='award'
                   />
                 </div>
                 <div className={styles.user}>
@@ -131,6 +132,7 @@ const UserListRating = ({
                                   // objectFit='cover'
                                   className='rounded-full'
                                   // priority={true}
+                                  forWhat='award'
                                 />
                               </div>
                             );

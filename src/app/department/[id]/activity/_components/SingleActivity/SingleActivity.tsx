@@ -30,6 +30,7 @@ const SingleActivity = ({
           // objectFit='cover'
           className='rounded-[10px]'
           // priority={true}
+          forWhat='user'
         />
       </div>
       <div className={styles.user}>
@@ -62,6 +63,7 @@ const SingleActivity = ({
             alt='preview image'
             // objectFit='cover'
             className='rounded-[10px]'
+            forWhat='award'
           />
         </div>
         <div className={styles.userAward}>

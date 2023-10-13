@@ -47,6 +47,7 @@ const CardUserAward = ({
           // objectFit='cover'
           className='rounded-[27px]'
           // priority={true}
+          forWhat='award'
         />
       </div>
       <div className={styles.info}>

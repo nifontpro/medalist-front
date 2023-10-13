@@ -113,6 +113,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
                     // objectFit='cover'
                     className='rounded-[10px]'
                     // priority={true}
+                    forWhat='company'
                   />
                   {item.name}
                 </MenuItem>

@@ -34,6 +34,7 @@ const UserLogo = ({
           alt='preview image'
           className='rounded-[10px]'
           priority={true}
+          forWhat='user'
         />
       </div>
 

@@ -132,6 +132,7 @@ const SingleUserTitle = ({
                         // objectFit='cover'
                         className='rounded-full'
                         // priority={true}
+                        forWhat='award'
                       />
                     </div>
                   );

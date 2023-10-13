@@ -25,6 +25,7 @@ const ModalPreviewImg = ({
           width={400}
           height={400}
           alt='preview image'
+          forWhat='user'
         />
       </div>
     </Modal>

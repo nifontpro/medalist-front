@@ -55,7 +55,6 @@ const ImagesCarousel = ({
             >
               {images?.map((item: BaseImage) => {
                 return (
-                  // <div onClick={() => setOpenModalConfirm(true)} >
                   <ImageDefault
                     onClick={() => {
                       setSrcImg(item.imageUrl);
@@ -66,14 +65,8 @@ const ImagesCarousel = ({
                     width={400}
                     height={400}
                     alt='preview image'
-                    // objectFit='cover'
-                    // priority={true}
-                    // className='rounded-[10px]'
+                    forWhat='user'
                   />
-                  //   <div>
-
-                  //   </div>
-                  // </div>
                 );
               })}
             </Carousel>
@@ -90,6 +83,7 @@ const ImagesCarousel = ({
               width={400}
               height={400}
               alt='preview image'
+              forWhat='user'
               // objectFit='cover'
             />
           </div>
@@ -121,6 +115,7 @@ const ImagesCarousel = ({
                   height={400}
                   alt='preview image'
                   className={styles.imageCard}
+                  forWhat='user'
                   // priority={true}
                 />
               );
@@ -134,6 +129,7 @@ const ImagesCarousel = ({
               height={250}
               alt='preview image'
               className='@apply w-[250px] h-[250px]'
+              forWhat='user'
             />
           </div>
         )}

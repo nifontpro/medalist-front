@@ -51,6 +51,7 @@ const WindowWithRoles = ({
                     height={40}
                     alt='preview image'
                     className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
+                    forWhat='user'
                   />
                   <P size='s' fontstyle='thin'>
                     {role.dept.name}
@@ -82,6 +83,7 @@ const WindowWithRoles = ({
                     height={40}
                     alt='preview image'
                     className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
+                    forWhat='user'
                   />
                   <P size='s' fontstyle='thin'>
                     {role.dept.name} / {role.post}

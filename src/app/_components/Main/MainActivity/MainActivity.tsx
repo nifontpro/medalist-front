@@ -83,6 +83,7 @@ const MainActivity = ({
                         // // objectFit='cover'
                         className='rounded-[10px]'
                         // priority={true}
+                        forWhat='user'
                       />
                     </div>
                     <div

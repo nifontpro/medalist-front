@@ -40,6 +40,7 @@ const ChoiceImgCreate = ({
           alt='preview image'
           // objectFit='cover'
           priority={true}
+          forWhat='award'
         />
       </div>
 

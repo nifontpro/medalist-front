@@ -50,6 +50,7 @@ const EventCard = ({
               height={64}
               alt='preview image'
               className='rounded-[10px]'
+              forWhat='user'
             />
           </div>
         ) : null}

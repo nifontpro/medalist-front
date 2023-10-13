@@ -22,6 +22,7 @@ const UserPreview = ({
           alt={user.firstname}
           // objectFit='cover'
           priority={true}
+          forWhat='user'
         />
       </div>
 

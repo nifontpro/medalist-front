@@ -91,6 +91,7 @@ const MainNominee = ({
               alt='preview image'
               className={styles.imgDefault}
               priority={true}
+              forWhat='award'
             />
           </div>
 
@@ -111,6 +112,7 @@ const MainNominee = ({
                 // objectFit='cover'
                 className='rounded-[10px]'
                 priority={true}
+                forWhat='award'
               />
             </div>
             <div className={styles.countEnd}>
@@ -160,6 +162,7 @@ const MainNominee = ({
               // objectFit='cover'
               className='rounded-[10px]'
               priority={true}
+              forWhat='award'
             />
           </div>
         </div>

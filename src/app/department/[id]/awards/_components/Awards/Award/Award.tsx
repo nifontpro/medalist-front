@@ -34,8 +34,9 @@ const Award = motion(
                 height={165}
                 alt={award.name}
                 // objectFit='cover'
-                className='rounded-full object-contain w-auto'
+                className='rounded-full object-contain w-[165px]'
                 // priority={true}
+                forWhat='award'
               />
             </div>
             <div>
@@ -66,6 +67,7 @@ const Award = motion(
                 alt={award.name}
                 className='rounded-full object-contain w-auto'
                 // priority={true}
+                forWhat='award'
               />
               Ï
             </div>

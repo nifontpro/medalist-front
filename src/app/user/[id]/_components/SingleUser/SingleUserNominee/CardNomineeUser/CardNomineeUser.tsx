@@ -43,6 +43,7 @@ const CardNomineeUser = ({
           // objectFit='cover'
           className='rounded-[27px]'
           // priority={true}
+          forWhat='award'
         />
       </div>
 

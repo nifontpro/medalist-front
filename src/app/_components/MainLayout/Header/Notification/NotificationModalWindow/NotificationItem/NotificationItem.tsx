@@ -29,6 +29,7 @@ const NotificationItem = ({
             height={64}
             alt='award img'
             className='rounded-[5px]'
+            forWhat='user'
           />
         </div>
         <div>

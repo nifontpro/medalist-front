@@ -35,6 +35,7 @@ const ChoiceItemImg = ({
           alt={itemImg.name}
           // objectFit='cover'
           priority={true}
+          forWhat='award'
         />
       </div>
       <CheckedIcon

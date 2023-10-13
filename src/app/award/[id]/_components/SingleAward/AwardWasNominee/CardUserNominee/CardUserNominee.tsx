@@ -27,6 +27,7 @@ const CardUserNominee = ({
           // objectFit='cover'
           className='rounded-full'
           // priority={true}
+          forWhat='user'
         />
       </div>
       <div className={styles.description}>
