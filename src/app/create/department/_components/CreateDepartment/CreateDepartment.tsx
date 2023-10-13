@@ -38,12 +38,13 @@ const CreateDepartment = () => {
     handleClick,
     back,
     createInfo,
+    handleBack,
   } = useCreateDepartment(setValue, reset, setOpenModalConfirm, getValues);
 
   return (
     <>
       <ButtonCircleIcon
-        onClick={() => setOpenModalConfirm(true)}
+        onClick={handleBack}
         classNameForIcon=''
         appearance='black'
         icon='down'

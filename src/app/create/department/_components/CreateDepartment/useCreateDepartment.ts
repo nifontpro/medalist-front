@@ -129,5 +129,6 @@ export const useCreateDepartment = (
     imagesGallery,
     setImagesGallery,
     setImagesFile,
+    handleBack,
   };
 };

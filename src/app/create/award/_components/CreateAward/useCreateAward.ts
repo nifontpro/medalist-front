@@ -55,19 +55,6 @@ export const useCreateAward = (
   const [startDateValue, setStartDateValue] = useState<string | null>(null);
   const [endDateValue, setEndDateValue] = useState<string | null>(null);
 
-  // const startDateSelect = useAppSelector(
-  //   (state: RootState) => state.dataCreateAward.startDate
-  // );
-  // const startDateValue = useAppSelector(
-  //   (state: RootState) => state.dataCreateAward.startValue
-  // );
-  // const endDateSelect = useAppSelector(
-  //   (state: RootState) => state.dataCreateAward.endDate
-  // );
-  // const endDateValue = useAppSelector(
-  //   (state: RootState) => state.dataCreateAward.endValue
-  // );
-
   const {
     page,
     setPage,
@@ -132,16 +119,6 @@ export const useCreateAward = (
     setVisibleModal(false);
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visibleModal); // добавить как разберусь с Selectom React
-
-  // //Сделано для того чтобы всегда очищать value в SelectCalendar, в противном случае он будет выдавать ошибку пока не очистишь value в кеше в персисте
-  // useEffect(() => {
-  //   const reset = () => dispatch(resetDate());
-  //   window.addEventListener('beforeunload', reset);
-
-  //   return () => {
-  //     window.removeEventListener('beforeunload', reset);
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (deptId && typeOfUser && typeOfUser.id) {
