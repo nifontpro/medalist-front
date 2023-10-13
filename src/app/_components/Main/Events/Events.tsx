@@ -19,6 +19,7 @@ const Events = ({
   className,
   ...props
 }: EventsProps): JSX.Element => {
+  console.log('Event mainPage');
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -60,6 +61,9 @@ const Events = ({
         skip: !typeOfUser,
       }
     );
+
+  console.log(allEvent);
+  console.log(Number(deptId ? deptId : typeOfUser?.dept?.id));
 
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
