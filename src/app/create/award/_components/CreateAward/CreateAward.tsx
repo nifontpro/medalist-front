@@ -182,23 +182,20 @@ const CreateAward = () => {
                 appearance='blackWhite'
                 size='l'
                 className={styles.lastBtn}
-                disabled={
-                  !isDirty ||
-                  !isValid ||
-                  arrChoiceUser.length === 0 ||
-                  endDateSelect === ''
-                }
+                disabled={!isDirty || !isValid}
               >
-                Номинировать
+                {arrChoiceUser.length === 0
+                  ? 'Сохранить номинацию'
+                  : 'Номинировать'}
               </Button>
             ) : (
               <Button
                 onClick={handleSubmit(onSubmitReward)}
                 appearance='whiteBlack'
                 size='l'
-                disabled={!isDirty || !isValid || arrChoiceUser.length === 0}
+                disabled={!isDirty || !isValid}
               >
-                Наградить сейчас
+                {arrChoiceUser.length === 0 ? 'Сохранить награду' : 'Наградить'}
               </Button>
             )}
           </div>

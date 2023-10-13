@@ -66,7 +66,6 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
       }
     }
   };
-  console.log(tree);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
