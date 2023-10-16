@@ -68,6 +68,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
           removePhoto={removePhoto}
           className={styles.desktop}
           gallery='true'
+          forWhat='award'
         />
         <form className={styles.form}>
           <Htag tag='h2' className={styles.title}>
@@ -82,6 +83,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
             removePhoto={removePhoto}
             className={styles.mobile}
             gallery='true'
+            forWhat='award'
           />
           <Field
             {...register('name', { required: 'Название необходимо!' })}

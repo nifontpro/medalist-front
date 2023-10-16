@@ -12,7 +12,6 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
-import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
 import { awardApi } from '@/api/award/award.api';
 
 const MainNominee = ({
@@ -78,13 +77,16 @@ const MainNominee = ({
       {isLoadingAwardsOnDept ? (
         <SpinnerSmall />
       ) : (
-        <div className={styles.content}>
+        <div
+          className={styles.content}
+          onClick={() => push(`/award/${minEndDateNominee?.id}`)}
+        >
           <div className={styles.img}>
             <ImageDefault
               src={
                 minEndDateNominee?.mainImg
                   ? minEndDateNominee?.mainImg
-                  : DefaultImgPNG
+                  : undefined
               }
               width={236}
               height={236}
@@ -104,7 +106,7 @@ const MainNominee = ({
                 src={
                   minEndDateNominee?.mainImg
                     ? minEndDateNominee?.mainImg
-                    : DefaultImgPNG
+                    : undefined
                 }
                 width={236}
                 height={236}
@@ -154,7 +156,7 @@ const MainNominee = ({
               src={
                 minEndDateNominee?.mainImg
                   ? minEndDateNominee?.mainImg
-                  : DefaultImgPNG
+                  : undefined
               }
               width={236}
               height={236}

@@ -47,6 +47,8 @@
     background: var(--gray-dark);
     padding: 30px;
     border-radius: 16px;
+    cursor: pointer;
+
     @media screen and (max-width: 1700px) {
       max-width: 100%;
       display: flex;

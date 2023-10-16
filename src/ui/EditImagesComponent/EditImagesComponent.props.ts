@@ -22,4 +22,5 @@ export type EditImagesComponentProps = DetailedHTMLProps<
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) => Promise<void>;
   gallery: 'true' | 'false';
+  forWhat: 'award' | 'user' | 'company' | 'dept';
 };

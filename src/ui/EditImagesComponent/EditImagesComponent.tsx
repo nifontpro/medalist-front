@@ -16,6 +16,7 @@ const EditImagesComponent = ({
   addPhoto,
   removePhoto,
   gallery,
+  forWhat,
   className,
   ...props
 }: EditImagesComponentProps) => {
@@ -31,6 +32,7 @@ const EditImagesComponent = ({
       >
         {images && (
           <ImagesCarousel
+            forWhat={forWhat}
             data={images}
             imageNum={imageNum}
             setImageNum={setImageNum}

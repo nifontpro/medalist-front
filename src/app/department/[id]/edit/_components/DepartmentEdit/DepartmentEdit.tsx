@@ -56,6 +56,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
         removePhoto={removePhoto}
         gallery='false'
         className={styles.desktop}
+        forWhat='dept'
       />
       <form className={styles.form}>
         <Htag tag='h2' className={styles.title}>
@@ -70,6 +71,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           removePhoto={removePhoto}
           className={styles.mobile}
           gallery='false'
+          forWhat='dept'
         />
 
         <Field

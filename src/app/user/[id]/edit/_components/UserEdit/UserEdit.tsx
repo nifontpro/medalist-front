@@ -84,6 +84,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
           removePhoto={removePhoto}
           className={styles.desktop}
           gallery='false'
+          forWhat='user'
         />
         <form className={styles.form}>
           <div className={styles.fields}>
@@ -99,6 +100,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
               removePhoto={removePhoto}
               className={styles.mobile}
               gallery='false'
+              forWhat='user'
             />
             <div className={styles.group}>
               <Field

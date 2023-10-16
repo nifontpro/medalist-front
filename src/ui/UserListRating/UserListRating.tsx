@@ -11,10 +11,10 @@ import ImageDefault from '../ImageDefault/ImageDefault';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Htag from '../Htag/Htag';
 import { memo, useState } from 'react';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 const UserListRating = ({
   currentRank,
-
   users,
   withoutCountAwards,
   page,
@@ -24,6 +24,8 @@ const UserListRating = ({
 }: UserListRatingProps): JSX.Element => {
   let previousAwardCount = 0;
   if (users) previousAwardCount = users[0].awardCount;
+
+  const { windowSize } = useWindowSize();
 
   return (
     <div
@@ -63,11 +65,15 @@ const UserListRating = ({
                 <div className={styles.img}>
                   <ImageDefault
                     src={user.mainImg}
-                    width={100}
-                    height={100}
+                    width={70}
+                    height={70}
                     alt='preview image'
                     // objectFit='cover'
-                    className='rounded-[10px]'
+                    className={`rounded-[10px] ${
+                      windowSize.winWidth < 500
+                        ? 'h-[40px] w-[40px]'
+                        : 'h-[70px] w-[70px]'
+                    }`}
                     forWhat='award'
                   />
                 </div>
@@ -126,11 +132,15 @@ const UserListRating = ({
                               >
                                 <ImageDefault
                                   src={award.mainImg}
-                                  width={50}
+                                  width={windowSize.winWidth < 500 ? 40 : 70}
                                   height={50}
                                   alt='preview image'
                                   // objectFit='cover'
-                                  className='rounded-full'
+                                  className={`rounded-full ${
+                                    windowSize.winWidth < 800
+                                      ? 'h-[40px] w-[40px]'
+                                      : 'h-[70px] w-[70px]'
+                                  }`}
                                   // priority={true}
                                   forWhat='award'
                                 />

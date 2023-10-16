@@ -17,6 +17,7 @@ const ImagesCarousel = ({
   setImageNum,
   images,
   className,
+  forWhat,
   edit,
 }: ImagesCarouselProps) => {
   const pathname = usePathname();
@@ -65,7 +66,7 @@ const ImagesCarousel = ({
                     width={400}
                     height={400}
                     alt='preview image'
-                    forWhat='user'
+                    forWhat={forWhat}
                   />
                 );
               })}
@@ -83,7 +84,7 @@ const ImagesCarousel = ({
               width={400}
               height={400}
               alt='preview image'
-              forWhat='user'
+              forWhat={forWhat}
               // objectFit='cover'
             />
           </div>
@@ -115,7 +116,7 @@ const ImagesCarousel = ({
                   height={400}
                   alt='preview image'
                   className={styles.imageCard}
-                  forWhat='user'
+                  forWhat={forWhat}
                   // priority={true}
                 />
               );
@@ -125,11 +126,11 @@ const ImagesCarousel = ({
           <div className={styles.imageDefault}>
             <ImageDefault
               src={undefined}
-              width={250}
-              height={250}
+              width={400}
+              height={400}
               alt='preview image'
-              className='@apply w-[250px] h-[250px]'
-              forWhat='user'
+              // className='@apply w-[250px] h-[250px]'
+              forWhat={forWhat}
             />
           </div>
         )}
