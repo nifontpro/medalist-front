@@ -269,7 +269,7 @@ export const userApi = createApi({
      */
     imageDelete: build.mutation<
       BaseResponse<BaseImage>,
-      { userId: number; imageId: number }
+      { userId: number; imageId: number; authId: number }
     >({
       query: (body) => ({
         method: 'POST',

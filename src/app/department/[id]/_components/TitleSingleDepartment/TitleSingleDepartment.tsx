@@ -87,6 +87,7 @@ const TitleSingleDepartment = ({
         data={department.data?.dept.images}
         edit={false}
         className={styles.img}
+        forWhat='dept'
       />
 
       <div className={styles.companyDescription}>

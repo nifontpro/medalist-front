@@ -39,6 +39,7 @@ const AwardTitle = ({
           data={award?.award.images}
           edit={false}
           className={styles.img}
+          forWhat='award'
         />
       )}
 

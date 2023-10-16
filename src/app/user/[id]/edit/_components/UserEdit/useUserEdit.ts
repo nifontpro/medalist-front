@@ -180,10 +180,11 @@ export const useUserEdit = (
     async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
       e.preventDefault();
       let isError = false;
-      if (singleUser && imageNum != undefined) {
+      if (singleUser && imageNum != undefined && typeOfUser?.id) {
         await removeImage({
           userId: singleUser.data?.user.id,
           imageId: singleUser?.data?.user.images[imageNum].id,
+          authId: typeOfUser?.id,
         })
           .unwrap()
           .then((res) => {

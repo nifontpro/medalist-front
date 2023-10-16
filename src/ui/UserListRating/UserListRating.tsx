@@ -74,7 +74,7 @@ const UserListRating = ({
                         ? 'h-[40px] w-[40px]'
                         : 'h-[70px] w-[70px]'
                     }`}
-                    forWhat='award'
+                    forWhat='user'
                   />
                 </div>
                 <div className={styles.user}>

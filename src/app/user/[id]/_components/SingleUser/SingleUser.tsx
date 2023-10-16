@@ -68,6 +68,7 @@ const SingleUser = ({
               data={user.data?.user.images}
               edit={false}
               className={styles.img}
+              forWhat='user'
             />
           )}
 
