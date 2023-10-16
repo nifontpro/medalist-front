@@ -19,7 +19,6 @@ const Events = ({
   className,
   ...props
 }: EventsProps): JSX.Element => {
-  console.log('Event mainPage');
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );

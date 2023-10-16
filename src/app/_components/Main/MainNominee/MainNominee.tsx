@@ -58,7 +58,22 @@ const MainNominee = ({
     [awardsOnDepartment]
   );
 
+  // Получить награду по id
+  const { data: nominee, isLoading: isLoadingSingleNominee } =
+    awardApi.useGetByIdQuery(
+      {
+        authId: typeOfUser?.id!,
+        awardId: Number(minEndDateNominee?.id),
+      },
+      {
+        skip: !minEndDateNominee || !typeOfUser,
+      }
+    );
+
+  let lastNominee = nominee?.data?.award;
+
   let currentDate = +new Date();
+  console.log(lastNominee);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -79,13 +94,13 @@ const MainNominee = ({
       ) : (
         <div
           className={styles.content}
-          onClick={() => push(`/award/${minEndDateNominee?.id}`)}
+          onClick={() => push(`/award/${lastNominee?.id}`)}
         >
           <div className={styles.img}>
             <ImageDefault
               src={
-                minEndDateNominee?.mainImg
-                  ? minEndDateNominee?.mainImg
+                lastNominee?.images[0].imageUrl
+                  ? lastNominee?.images[0].imageUrl
                   : undefined
               }
               width={236}
@@ -99,13 +114,13 @@ const MainNominee = ({
 
           <div className={styles.wrapper2}>
             <P size='m' color='white' className={styles.countAwardsTitle}>
-              {minEndDateNominee?.name}
+              {lastNominee?.name}
             </P>
             <div className={styles.imgCenter}>
               <ImageDefault
                 src={
-                  minEndDateNominee?.mainImg
-                    ? minEndDateNominee?.mainImg
+                  lastNominee?.images[0].imageUrl
+                    ? lastNominee?.images[0].imageUrl
                     : undefined
                 }
                 width={236}
@@ -118,22 +133,21 @@ const MainNominee = ({
               />
             </div>
             <div className={styles.countEnd}>
-              {minEndDateNominee?.endDate != undefined ? (
+              {lastNominee?.endDate != undefined ? (
                 <>
                   <P size='s' color='white' fontstyle='thin'>
                     Заканчивается
                   </P>
-                  {Math.floor(
-                    (minEndDateNominee.endDate - currentDate) / 86400000
-                  ) != 0 ? (
+                  {Math.floor((lastNominee.endDate - currentDate) / 86400000) !=
+                  0 ? (
                     <ButtonIcon className='ml-[10px]' appearance='whiteBlack'>
                       через{' '}
                       {Math.floor(
-                        (minEndDateNominee.endDate - currentDate) / 86400000
+                        (lastNominee.endDate - currentDate) / 86400000
                       )}{' '}
                       {declOfNum(
                         Math.floor(
-                          (minEndDateNominee.endDate - currentDate) / 86400000
+                          (lastNominee.endDate - currentDate) / 86400000
                         ),
                         ['день', 'дня', 'дней']
                       )}
@@ -154,8 +168,8 @@ const MainNominee = ({
           <div className={styles.imgEnd}>
             <ImageDefault
               src={
-                minEndDateNominee?.mainImg
-                  ? minEndDateNominee?.mainImg
+                lastNominee?.images[0].imageUrl
+                  ? lastNominee?.images[0].imageUrl
                   : undefined
               }
               width={236}
