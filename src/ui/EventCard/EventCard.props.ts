@@ -1,4 +1,4 @@
-import { BaseEvent, ShortEvent } from '@/types/event/BaseEvent';
+import { BaseEvent, EventType, ShortEvent } from '@/types/event/BaseEvent';
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type EventCardProps = DetailedHTMLProps<
@@ -8,5 +8,5 @@ export type EventCardProps = DetailedHTMLProps<
   children?: ReactNode;
   event: BaseEvent | ShortEvent;
   remove: 'FALSE' | 'DEPT' | 'USER';
-  eventType?: 'DEPT' | 'USER';
+  eventType?: EventType;
 };
