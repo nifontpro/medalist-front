@@ -10,14 +10,14 @@ import {
 import process from 'process';
 import { CLIENT_ID, IAuthResponse, KEYCLOAK_URI } from '../auth/auth.api';
 
-const API_SERVER_URL = process.env.API_SERVER_URL;
+// const API_SERVER_URL = process.env.API_SERVER_URL;
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: API_SERVER_URL,
+  baseUrl: process.env.API_SERVER_URL,
 });
 
 const accessQuery = fetchBaseQuery({
-  baseUrl: API_SERVER_URL,
+  baseUrl: process.env.API_SERVER_URL,
   prepareHeaders: (headers, { getState }) => {
     const accessToken = (getState() as TypeRootState).auth.accessToken;
     if (accessToken) {
