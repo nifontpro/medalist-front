@@ -60,6 +60,8 @@ const Events = ({
         skip: !typeOfUser,
       }
     );
+
+  console.log(allEvent);
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
   return (
@@ -73,7 +75,12 @@ const Events = ({
             {allEvent.data &&
               allEvent.data.map((event) => {
                 return (
-                  <EventCard key={uniqid()} event={event} remove={'FALSE'} />
+                  <EventCard
+                    key={uniqid()}
+                    event={event}
+                    remove={'FALSE'}
+                    eventType={event.eventType}
+                  />
                 );
               })}
 

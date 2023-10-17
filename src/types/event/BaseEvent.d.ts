@@ -12,4 +12,5 @@ export interface BaseEvent extends ShortEvent {
   deptId: number;
   deptName: string;
   deptClassname?: string;
+  eventType: 'DEPT' | 'USER';
 }

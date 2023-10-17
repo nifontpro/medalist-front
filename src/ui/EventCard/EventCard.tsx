@@ -17,6 +17,7 @@ const EventCard = ({
   event,
   remove,
   children,
+  eventType,
   className,
   ...props
 }: EventCardProps): JSX.Element => {
@@ -31,8 +32,12 @@ const EventCard = ({
     deleteUserEventAsync,
   } = useEventCard(event);
 
+  console.log(event);
+
   const [openModalConfirmForUser, setOpenModalConfirmForUser] = useState(false);
   const [openModalConfirmForDept, setOpenModalConfirmForDept] = useState(false);
+
+  const forWhat = eventType == 'DEPT' ? 'dept' : 'user';
 
   return (
     <>
@@ -50,7 +55,7 @@ const EventCard = ({
               height={64}
               alt='preview image'
               className='rounded-[10px]'
-              forWhat='user'
+              forWhat={forWhat}
             />
           </div>
         ) : null}

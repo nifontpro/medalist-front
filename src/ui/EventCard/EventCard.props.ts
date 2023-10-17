@@ -8,4 +8,5 @@ export type EventCardProps = DetailedHTMLProps<
   children?: ReactNode;
   event: BaseEvent | ShortEvent;
   remove: 'FALSE' | 'DEPT' | 'USER';
+  eventType?: 'DEPT' | 'USER';
 };
