@@ -5,7 +5,13 @@ export interface ShortEvent {
   eventName: string;
 }
 
-export type EventType = 'ROOT' | 'COMPANY' | 'USER' | 'DEPT' | 'ERROR';
+export type EventType =
+  | 'ROOT'
+  | 'COMPANY'
+  | 'USER'
+  | 'DEPT'
+  | 'OWNER'
+  | 'ERROR';
 
 export interface BaseEvent extends ShortEvent {
   entityName: string;

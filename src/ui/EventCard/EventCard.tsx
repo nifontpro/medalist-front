@@ -42,6 +42,7 @@ const EventCard = ({
     COMPANY: 'company',
     USER: 'user',
     DEPT: 'dept',
+    OWNER: 'company',
     ERROR: undefined,
   };
 
