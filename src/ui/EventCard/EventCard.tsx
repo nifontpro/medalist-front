@@ -2,7 +2,7 @@
 
 import styles from './EventCard.module.scss';
 import { EventCardProps } from './EventCard.props';
-import ImageDefault from '../ImageDefault/ImageDefault';
+import ImageDefault, { ForWhat } from '../ImageDefault/ImageDefault';
 import P from '../P/P';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
@@ -37,7 +37,13 @@ const EventCard = ({
   const [openModalConfirmForUser, setOpenModalConfirmForUser] = useState(false);
   const [openModalConfirmForDept, setOpenModalConfirmForDept] = useState(false);
 
-  const forWhat = eventType == 'DEPT' ? 'dept' : 'user';
+  const forWhat = {
+    ROOT: 'company',
+    COMPANY: 'company',
+    USER: 'user',
+    DEPT: 'dept',
+    ERROR: undefined,
+  };
 
   return (
     <>
@@ -55,7 +61,7 @@ const EventCard = ({
               height={64}
               alt='preview image'
               className='rounded-[10px]'
-              forWhat={forWhat}
+              forWhat={forWhat[event.eventType] as ForWhat}
             />
           </div>
         ) : null}

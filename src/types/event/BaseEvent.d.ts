@@ -5,6 +5,8 @@ export interface ShortEvent {
   eventName: string;
 }
 
+export type EventType = 'ROOT' | 'COMPANY' | 'USER' | 'DEPT' | 'ERROR';
+
 export interface BaseEvent extends ShortEvent {
   entityName: string;
   imageUrl?: string;
@@ -12,5 +14,6 @@ export interface BaseEvent extends ShortEvent {
   deptId: number;
   deptName: string;
   deptClassname?: string;
-  eventType: 'DEPT' | 'USER';
+  eventType: EventType;
+  deptLevel: number;
 }
