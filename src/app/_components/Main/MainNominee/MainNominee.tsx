@@ -13,6 +13,7 @@ import { RootState } from '@/store/storage/store';
 import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
 import { awardApi } from '@/api/award/award.api';
+import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
 
 const MainNominee = ({
   deptId,
@@ -58,6 +59,11 @@ const MainNominee = ({
     [awardsOnDepartment]
   );
 
+  const defaultColorImg =
+    awardsOnDepartment &&
+    awardsOnDepartment.data?.length &&
+    awardsOnDepartment.data?.length > 0;
+
   // Получить награду по id
   const { data: nominee, isLoading: isLoadingSingleNominee } =
     awardApi.useGetByIdQuery(
@@ -73,7 +79,6 @@ const MainNominee = ({
   let lastNominee = nominee?.data?.award;
 
   let currentDate = +new Date();
-  console.log(lastNominee);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -89,7 +94,7 @@ const MainNominee = ({
           <ArrowIcon />
         </div>
       </div>
-      {isLoadingAwardsOnDept ? (
+      {isLoadingSingleNominee && isLoadingSingleNominee ? (
         <SpinnerSmall />
       ) : (
         <div
@@ -99,9 +104,9 @@ const MainNominee = ({
           <div className={styles.img}>
             <ImageDefault
               src={
-                lastNominee?.images[0].imageUrl
-                  ? lastNominee?.images[0].imageUrl
-                  : undefined
+                defaultColorImg === true
+                  ? lastNominee?.images[0]?.imageUrl ?? undefined
+                  : DefaultImgPNG
               }
               width={236}
               height={236}
@@ -110,6 +115,7 @@ const MainNominee = ({
               priority={true}
               forWhat='award'
             />
+            <span className='text-white'>111111</span>
           </div>
 
           <div className={styles.wrapper2}>
@@ -119,9 +125,9 @@ const MainNominee = ({
             <div className={styles.imgCenter}>
               <ImageDefault
                 src={
-                  lastNominee?.images[0].imageUrl
-                    ? lastNominee?.images[0].imageUrl
-                    : undefined
+                  defaultColorImg === true
+                    ? lastNominee?.images[0]?.imageUrl ?? undefined
+                    : DefaultImgPNG
                 }
                 width={236}
                 height={236}
@@ -168,9 +174,9 @@ const MainNominee = ({
           <div className={styles.imgEnd}>
             <ImageDefault
               src={
-                lastNominee?.images[0].imageUrl
-                  ? lastNominee?.images[0].imageUrl
-                  : undefined
+                defaultColorImg === true
+                  ? lastNominee?.images[0]?.imageUrl ?? undefined
+                  : DefaultImgPNG
               }
               width={236}
               height={236}

@@ -53,14 +53,17 @@ export const useUserPanelModalWindow = (
   const handleLogoutClick = useCallback(async () => {
     const it = localStorage.getItem('it');
     localStorage.removeItem('selectCompany');
-    if (it != undefined && !isExpired) {
-      await logoutWin(it);
-      dispatch(authActions.setIsAuth(false));
+
+    setTimeout(async () => {
+      if (it != undefined && !isExpired) {
+        await logoutWin(it);
+        dispatch(authActions.setIsAuth(false));
+        // await deleteCookie('exp'); // Для middleware
+      }
+      await dispatch(authActions.setNoAccess());
       // await deleteCookie('exp'); // Для middleware
-    }
-    await dispatch(authActions.setNoAccess());
-    // await deleteCookie('exp'); // Для middleware
-    await logoutWin(it!);
+      await logoutWin(it!);
+    }, 0);
   }, [dispatch, isExpired]);
 
   // const handleLogoutClick = useCallback(() => {

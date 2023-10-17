@@ -191,7 +191,7 @@ const CreateAward = () => {
             ) : (
               <Button
                 onClick={handleSubmit(onSubmitReward)}
-                appearance='whiteBlack'
+                appearance='blackWhite'
                 size='l'
                 disabled={!isDirty || !isValid}
               >

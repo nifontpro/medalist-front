@@ -77,7 +77,9 @@ const CreateDepartment = () => {
             title={
               company == 'true' ? 'Название компании*' : 'Название отдела*'
             }
-            placeholder='Название отдела'
+            placeholder={
+              company == 'true' ? 'Название компании*' : 'Название отдела*'
+            }
             error={errors.name}
             className={styles.field}
           />
