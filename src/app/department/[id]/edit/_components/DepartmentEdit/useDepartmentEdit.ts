@@ -21,6 +21,7 @@ import { errorMessageParse } from '@/utils/errorMessageParse';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { RootState } from '@/store/storage/store';
+import { ForWhat } from '@/ui/ImageDefault/ImageDefault';
 
 export const useDepartmentEdit = (
   setValue: UseFormSetValue<UpdateDeptRequest>,
@@ -42,6 +43,11 @@ export const useDepartmentEdit = (
         skip: !id || !typeOfUser,
       }
     );
+
+  const forWhat: ForWhat =
+    singleDepartment?.data?.dept.level == 2
+      ? ('company' as ForWhat)
+      : ('dept' as ForWhat);
 
   const [imageNum, setImageNum] = useState<number>(0);
   const [images, setImages] = useState<BaseImage[]>();
@@ -243,5 +249,6 @@ export const useDepartmentEdit = (
     imageNum,
     setImageNum,
     images,
+    forWhat,
   };
 };

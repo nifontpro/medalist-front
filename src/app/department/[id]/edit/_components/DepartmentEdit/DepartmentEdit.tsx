@@ -40,6 +40,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
     setImageNum,
     images,
     back,
+    forWhat,
   } = useDepartmentEdit(setValue, id, getValues, setOpenModalConfirm);
 
   if (isLoadingByIdDept) return <Spinner />;
@@ -56,7 +57,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
         removePhoto={removePhoto}
         gallery='false'
         className={styles.desktop}
-        forWhat='dept'
+        forWhat={forWhat}
       />
       <form className={styles.form}>
         <Htag tag='h2' className={styles.title}>
@@ -71,7 +72,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           removePhoto={removePhoto}
           className={styles.mobile}
           gallery='false'
-          forWhat='dept'
+          forWhat={forWhat}
         />
 
         <Field

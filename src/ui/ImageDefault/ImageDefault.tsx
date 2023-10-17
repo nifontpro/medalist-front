@@ -7,6 +7,8 @@ import ImageDefaultCompany from './imageDefaultCompany.png';
 import ImageDefaultDept from './imageDefaultDept.png';
 import cn from 'classnames';
 
+export type ForWhat = 'user' | 'award' | 'company' | 'dept';
+
 const icons = {
   user: ImageDefaultUser,
   award: ImageDefaultAward,
@@ -16,7 +18,7 @@ const icons = {
 
 type ImageDefaultProps = Omit<ImageProps, 'src'> & {
   src?: string | StaticImageData;
-  forWhat: 'user' | 'award' | 'company' | 'dept';
+  forWhat: ForWhat;
 };
 
 const ImageDefault: FC<ImageDefaultProps> = ({

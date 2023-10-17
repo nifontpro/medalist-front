@@ -25,6 +25,7 @@ import { RootState } from '@/store/storage/store';
 import { userApi } from '@/api/user/user.api';
 import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
 import { declOfNum } from '@/utils/declOfNum';
+import { ForWhat } from '@/ui/ImageDefault/ImageDefault';
 
 const TitleSingleDepartment = ({
   id,
@@ -48,6 +49,12 @@ const TitleSingleDepartment = ({
         skip: !id || !typeOfUser,
       }
     );
+
+  const forWhat: ForWhat =
+    department?.data?.dept.level <= 2
+      ? ('company' as ForWhat)
+      : ('dept' as ForWhat);
+  console.log(forWhat);
 
   // Получить сотрудников отдела/подотделов
   const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =
@@ -87,7 +94,7 @@ const TitleSingleDepartment = ({
         data={department.data?.dept.images}
         edit={false}
         className={styles.img}
-        forWhat='dept'
+        forWhat={forWhat}
       />
 
       <div className={styles.companyDescription}>

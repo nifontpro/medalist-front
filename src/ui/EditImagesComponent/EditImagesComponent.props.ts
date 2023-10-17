@@ -8,6 +8,7 @@ import {
   ReactNode,
   SetStateAction,
 } from 'react';
+import { ForWhat } from '../ImageDefault/ImageDefault';
 
 export type EditImagesComponentProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -22,5 +23,5 @@ export type EditImagesComponentProps = DetailedHTMLProps<
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) => Promise<void>;
   gallery: 'true' | 'false';
-  forWhat: 'award' | 'user' | 'company' | 'dept';
+  forWhat: ForWhat;
 };

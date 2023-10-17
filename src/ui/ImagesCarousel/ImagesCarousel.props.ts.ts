@@ -5,6 +5,7 @@ import {
   HTMLAttributes,
   SetStateAction,
 } from 'react';
+import { ForWhat } from '../ImageDefault/ImageDefault';
 
 export type ImagesCarouselProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -15,5 +16,5 @@ export type ImagesCarouselProps = DetailedHTMLProps<
   setImageNum?: Dispatch<SetStateAction<number>>;
   images?: BaseImage[] | undefined;
   edit: boolean;
-  forWhat: 'award' | 'user' | 'company' | 'dept';
+  forWhat: ForWhat;
 };
