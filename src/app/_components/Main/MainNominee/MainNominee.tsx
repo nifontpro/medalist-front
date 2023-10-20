@@ -115,7 +115,6 @@ const MainNominee = ({
               priority={true}
               forWhat='award'
             />
-            <span className='text-white'>111111</span>
           </div>
 
           <div className={styles.wrapper2}>
