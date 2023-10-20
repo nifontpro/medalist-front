@@ -5,4 +5,3 @@ ssh -i nifont@nmedalist.ru << EOF
   docker pull 8881981/web:1.1
   docker compose up -d
 EOF
-

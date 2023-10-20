@@ -10,7 +10,6 @@ import { BaseImage } from '@/types/base/image/baseImage';
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
-import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 import { ActionType } from '@/types/award/Activity';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
@@ -73,6 +72,22 @@ export const userApi = createApi({
           body: request,
         };
       },
+      invalidatesTags: ['User'],
+    }),
+
+    /**
+     * Добавление изображения
+     * @param: formData: 
+     *  [file] - Excel file,
+     *  [authId]
+     *  [deptId]
+     */
+    addUsersFromExcel: build.mutation<BaseResponse<AddUserReport>, FormData>({
+      query: (body) => ({
+        method: 'POST',
+        url: userUrl('/excel_add'),
+        body: body,
+      }),
       invalidatesTags: ['User'],
     }),
 
