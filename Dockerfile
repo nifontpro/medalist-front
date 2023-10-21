@@ -10,7 +10,7 @@ COPY . /app
 
 ENV KEYCLOAK_URL https://md-auth.ru
 ENV APP_URL https://nmedalist.ru
-ENV API_SERVER_URL https://mmedalist.ru/api/v1
+ENV API_SERVER_URL https://nmedalist.ru/api/v1
 
 #EXPOSE 3000:3000
 # CMD ["npm", "run", "dev"]
