@@ -31,6 +31,7 @@
   .img,
   .imgNominee {
     height: 165px;
+    width: auto;
     display: flex;
     justify-content: center;
     @apply duration-200;
@@ -63,11 +64,18 @@
   }
 
   .name {
-    margin-bottom: 25px;
-
     @media screen and (max-width: 455px) {
       text-align: center;
     }
+  }
+
+  .description {
+    margin-bottom: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .nominee,

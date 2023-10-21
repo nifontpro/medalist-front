@@ -1,0 +1,27 @@
+.wrapper {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+
+  .imgList,
+  .imgSingle {
+    border-radius: 10px;
+    object-fit: contain;
+    width: 40px;
+    height: 40px;
+  }
+
+  .imgList {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .imgSingle {
+    margin-right: 10px;
+    width: 64px;
+    height: 64px;
+  }
+}

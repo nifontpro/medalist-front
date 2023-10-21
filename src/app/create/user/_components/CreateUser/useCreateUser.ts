@@ -111,12 +111,10 @@ export const useCreateUser = (
             isError = true;
           } else {
             if (imageFile && typeOfUser && typeOfUser.id) {
-              console.log(123);
               const file = new FormData();
               file.append('file', imageFile);
               file.append('authId', typeOfUser.id.toString());
               file.append('userId', res.data?.user.id.toString());
-              console.log(123);
               await addImage(file)
                 .unwrap()
                 .then((res) => {

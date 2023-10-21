@@ -78,8 +78,6 @@ export const useAwardEdit = (
   }, [setValue, typeOfUser, singleAward]);
 
   const handleBack = () => {
-    console.log(singleAward);
-    console.log(getValues());
     if (singleAward) {
       const { criteria, description, score, name } = getValues();
       if (

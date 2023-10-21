@@ -54,7 +54,6 @@ const TitleSingleDepartment = ({
     department?.data?.dept.level <= 2
       ? ('company' as ForWhat)
       : ('dept' as ForWhat);
-  console.log(forWhat);
 
   // Получить сотрудников отдела/подотделов
   const { data: usersOnDepartment, isLoading: isLoadingUsersOnDepartment } =

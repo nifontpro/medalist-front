@@ -56,7 +56,6 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   };
 
   const handleOpen = () => {
-    console.log(123);
     if (tree) {
       if (selectedCompany) {
         push(`department/${selectedCompany}`);

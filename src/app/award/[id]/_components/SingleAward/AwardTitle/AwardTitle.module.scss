@@ -67,8 +67,7 @@
       padding-top: 30px;
     }
 
-    > .date,
-    .dateAward {
+    > .date {
       margin-top: 65px;
       display: flex;
       align-items: center;
@@ -77,8 +76,10 @@
 
     > .dateAward {
       margin-top: 40px;
-      padding-bottom: 30px;
+      padding-top: 40px;
+      padding-bottom: 40px;
       border-bottom: 1px solid #0000001a;
+      border-top: 1px solid #0000001a;
     }
   }
 }

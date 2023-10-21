@@ -12,6 +12,7 @@ import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
+import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 
 const AwardTitle = ({
   award,
@@ -66,11 +67,10 @@ const AwardTitle = ({
         </div>
 
         <div className={styles.dateAward}>
-          {/* {award.state == 'AWARD' && ( */}
-          <P size='m' color='gray'>
-            Награда создана {convertDate}
+          <P size='s' fontstyle='thin'>
+            Принадлежит:
           </P>
-          {/* )} */}
+          {award?.award && <PreviewDept award={award?.award} list={false} />}
         </div>
 
         <P size='m' className={styles.criteriaTitle}>

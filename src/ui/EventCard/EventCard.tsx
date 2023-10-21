@@ -32,8 +32,6 @@ const EventCard = ({
     deleteUserEventAsync,
   } = useEventCard(event);
 
-  console.log(event);
-
   const [openModalConfirmForUser, setOpenModalConfirmForUser] = useState(false);
   const [openModalConfirmForDept, setOpenModalConfirmForDept] = useState(false);
 

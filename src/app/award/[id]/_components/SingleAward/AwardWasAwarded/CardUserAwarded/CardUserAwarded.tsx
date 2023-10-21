@@ -45,8 +45,7 @@ const CardUserAwarded = ({
               width={64}
               height={64}
               alt='award img'
-              // objectFit='cover'
-              className='rounded-[27px]'
+              className='rounded-[16px]'
               forWhat='user'
             />
           )}

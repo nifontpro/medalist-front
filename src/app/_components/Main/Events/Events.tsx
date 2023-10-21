@@ -61,7 +61,6 @@ const Events = ({
       }
     );
 
-  console.log(allEvent);
   const totalPage = useMemo(() => allEvent?.pageInfo?.totalPages, [allEvent]);
 
   return (

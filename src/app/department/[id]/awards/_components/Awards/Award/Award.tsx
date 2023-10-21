@@ -11,6 +11,7 @@ import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
+import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 
 const Award = motion(
   forwardRef(
@@ -43,12 +44,22 @@ const Award = motion(
               <P size='m' color='white' className={styles.name}>
                 {award.name}
               </P>
+              <P
+                size='xs'
+                fontstyle='thin'
+                color='white'
+                className={styles.description}
+              >
+                {/* {award.description ? award.description : ''} */}
+              </P>
               <CountUsersPreview
                 appearanceBtn='black'
                 users={award.users}
                 className={styles.default}
               />
             </div>
+
+            <PreviewDept award={award} list={true} />
           </div>
         );
       } else if (award.state == 'NOMINEE' || award.state == 'FUTURE') {
@@ -69,12 +80,19 @@ const Award = motion(
                 // priority={true}
                 forWhat='award'
               />
-              Ï
             </div>
             <div>
               <div className={styles.nomineeAdaptive}>Номинация</div>
               <P size='m' color='white' className={styles.name}>
                 {award.name}
+              </P>
+              <P
+                size='xs'
+                fontstyle='thin'
+                color='white'
+                className={styles.description}
+              >
+                {/* {award.description ? award.description : ''} */}
               </P>
               {award.state == 'NOMINEE' ? (
                 <P
@@ -124,6 +142,7 @@ const Award = motion(
                 </P>
               )}
             </div>
+            <PreviewDept award={award} list={true} />
           </div>
         );
       } else {
