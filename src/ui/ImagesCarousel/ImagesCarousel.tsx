@@ -36,7 +36,7 @@ const ImagesCarousel = ({
               navButtonsAlwaysInvisible={
                 pathname.split('/')[1] == 'award' ? true : false
               }
-              className='width-[100%]'
+              // className='width-[100%]'
               IndicatorIcon={
                 pathname.split('/')[1] == 'award' ? null : undefined
               }
@@ -46,7 +46,7 @@ const ImagesCarousel = ({
               onChange={(now?: number, previous?: number) => {
                 now && setImageNum(now);
               }}
-              height={windowSize.winWidth < 1280 ? 250 : 400}
+              height={windowSize.winWidth < 768 ? 250 : 400}
               autoPlay={false}
               indicatorContainerProps={{
                 style: {
@@ -67,6 +67,7 @@ const ImagesCarousel = ({
                     height={400}
                     alt='preview image'
                     forWhat={forWhat}
+                    className={styles.imageCard}
                   />
                 );
               })}
@@ -85,7 +86,6 @@ const ImagesCarousel = ({
               height={400}
               alt='preview image'
               forWhat={forWhat}
-              // objectFit='cover'
             />
           </div>
         )}
@@ -117,7 +117,6 @@ const ImagesCarousel = ({
                   alt='preview image'
                   className={styles.imageCard}
                   forWhat={forWhat}
-                  // priority={true}
                 />
               );
             })}
@@ -129,7 +128,6 @@ const ImagesCarousel = ({
               width={400}
               height={400}
               alt='preview image'
-              // className='@apply w-[250px] h-[250px]'
               forWhat={forWhat}
             />
           </div>

@@ -24,4 +24,5 @@ export type EditImagesComponentProps = DetailedHTMLProps<
   ) => Promise<void>;
   gallery: 'true' | 'false';
   forWhat: ForWhat;
+  id?: string;
 };

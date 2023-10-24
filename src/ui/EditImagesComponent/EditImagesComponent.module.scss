@@ -3,13 +3,15 @@
   width: 400px;
   height: fit-content;
   background: var(--white);
-  @media screen and (max-width: 1280px) {
+
+  @media screen and (max-width: 768px) {
     width: 250px;
+    border-radius: 16px;
   }
 
   .images {
     height: 400px;
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 768px) {
       width: 250px;
     }
   }
@@ -33,13 +35,5 @@
       margin-right: 10px;
       cursor: pointer;
     }
-  }
-}
-
-.field {
-  margin-bottom: 60px;
-
-  @media screen and (max-width: 768px) {
-    margin-bottom: 30px;
   }
 }
