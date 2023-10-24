@@ -13,6 +13,9 @@ import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import PreviewDept from '@/ui/PreviewDept/PreviewDept';
+import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+import { BaseImage } from '@/types/base/image/baseImage';
+import { awardApi } from '@/api/award/award.api';
 
 const AwardTitle = ({
   award,
@@ -36,12 +39,25 @@ const AwardTitle = ({
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (
-        <ImagesCarousel
-          data={award?.award.images}
-          edit={false}
-          className={styles.img}
-          forWhat='award'
-        />
+        <div className={styles.imagesWrapper}>
+          {/* <EditImagesComponent
+            imageNum={imageNum}
+            setImageNum={setImageNum}
+            images={images}
+            addPhoto={addPhoto}
+            removePhoto={removePhoto}
+            className={styles.img}
+            gallery='false'
+            forWhat='user'
+            editable={true}
+          /> */}
+        </div>
+        // <ImagesCarousel
+        //   data={award?.award.images}
+        //   edit={false}
+        //   className={styles.img}
+        //   forWhat='award'
+        // />
       )}
 
       <div className={styles.awardDescription}>

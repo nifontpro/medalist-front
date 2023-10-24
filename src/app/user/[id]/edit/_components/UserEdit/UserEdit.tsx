@@ -23,6 +23,7 @@ import SelectRole from '@/ui/SelectRole/SelectRole';
 import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import cn from 'classnames';
+import { useUserEditPhoto } from './useUserEditPhoto';
 
 const roles: IOption[] = [
   {
@@ -47,20 +48,17 @@ export const UserEdit = ({ id }: UserEditProps) => {
   const {
     onSubmit,
     handleClick,
-    addPhoto,
-    removePhoto,
-    refreshPhoto,
     isLoadingSingleUser,
     singleUser,
     back,
-    imageNum,
-    setImageNum,
-    images,
     active,
     setActive,
     arrDeparts,
     handleBack,
   } = useUserEdit(setValue, id, getValues, setOpenModalConfirm);
+
+  const { imageNum, setImageNum, images, addPhoto, removePhoto, refreshPhoto } =
+    useUserEditPhoto(singleUser);
 
   if (isLoadingSingleUser) return <Spinner />;
 

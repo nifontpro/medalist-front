@@ -44,10 +44,6 @@ const EditImagesComponent = ({
     edit = false;
   }
 
-  console.log('userId', userId);
-  console.log('editable', editable);
-  console.log('checkRole', checkRole(typeOfUser, 'ADMIN'));
-
   return (
     <div
       className={cn('@apply flex justify-center items-center', className)}

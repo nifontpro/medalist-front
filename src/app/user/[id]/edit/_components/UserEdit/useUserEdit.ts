@@ -5,9 +5,7 @@ import {
 } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import {
-  ChangeEvent,
   Dispatch,
-  MouseEvent,
   SetStateAction,
   useCallback,
   useEffect,
@@ -21,7 +19,6 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
-import { BaseImage } from '@/types/base/image/baseImage';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 import { deptApi } from '@/api/dept/dept.api';
 
@@ -66,22 +63,11 @@ export const useUserEdit = (
       value: depart?.id,
       level: depart.level,
     }));
-  //  ______
-
-  const [imageNum, setImageNum] = useState<number>(0);
-  const [images, setImages] = useState<BaseImage[]>();
-
-  useEffect(() => {
-    setImages(singleUser?.data?.user.images);
-  }, [singleUser]);
 
   const [active, setActive] = useState<Gender>('UNDEF');
 
   const { back } = useRouter();
   const [update] = userApi.useUpdateMutation();
-  const [addImage] = userApi.useImageAddMutation();
-  const [removeImage] = userApi.useImageDeleteMutation();
-  const [refreshImage] = userApi.useImageUpdateMutation();
 
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {
@@ -140,102 +126,6 @@ export const useUserEdit = (
     handleBack();
   };
 
-  const addPhoto = useCallback(
-    async (event: ChangeEvent<HTMLInputElement>) => {
-      let isError = false;
-
-      if (event.target.files !== null && singleUser) {
-        const file = new FormData();
-        file.append('file', event.target.files[0]);
-        file.append('userId', singleUser.data?.user.id);
-        typeOfUser &&
-          typeOfUser.id &&
-          file.append('authId', typeOfUser.id.toString());
-        if (event.target.files[0].size > 20971520) {
-          toast.error('Размер фотографии должен быть меньше 1МБ');
-        } else {
-          await addImage(file)
-            .unwrap()
-            .then((res) => {
-              if (res.success == false) {
-                errorMessageParse(res.errors);
-                isError = true;
-              }
-            })
-            .catch(() => {
-              isError = true;
-              toast.error('Ошибка добавления фотографии');
-            });
-          if (!isError) {
-            toast.success('Фото успешно добавлено');
-            setImageNum(0);
-          }
-        }
-      }
-    },
-    [addImage, singleUser, typeOfUser]
-  );
-
-  const removePhoto = useCallback(
-    async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-      e.preventDefault();
-      let isError = false;
-      if (singleUser && imageNum != undefined && typeOfUser?.id) {
-        await removeImage({
-          userId: singleUser.data?.user.id,
-          imageId: singleUser?.data?.user.images[imageNum].id,
-          authId: typeOfUser?.id,
-        })
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
-              isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка удаления фотографии');
-          });
-        if (!isError) {
-          toast.success('Фото успешно удалено');
-          setImageNum(0);
-        }
-      }
-    },
-    [imageNum, removeImage, singleUser]
-  );
-
-  const refreshPhoto = useCallback(
-    async (event: ChangeEvent<HTMLInputElement>) => {
-      let isError = false;
-
-      if (event.target.files !== null && singleUser && imageNum != undefined) {
-        const file = new FormData();
-        file.append('file', event.target.files[0]);
-        file.append('userId', singleUser.data?.user.id);
-        file.append('imageId', singleUser?.data?.user.images[imageNum].id);
-
-        await refreshImage(file)
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
-              isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка обновления фотографии');
-          });
-        if (!isError) {
-          toast.success('Фото успешно обновлено');
-        }
-      }
-    },
-    [imageNum, refreshImage, singleUser]
-  );
-
   const onSubmit: SubmitHandler<UpdateUserRequest> = useCallback(
     async (data) => {
       let isError = false;
@@ -266,15 +156,9 @@ export const useUserEdit = (
   return {
     onSubmit,
     handleClick,
-    addPhoto,
-    removePhoto,
-    refreshPhoto,
     isLoadingSingleUser,
     singleUser,
     back,
-    imageNum,
-    setImageNum,
-    images,
     active,
     setActive,
     arrDeparts,
