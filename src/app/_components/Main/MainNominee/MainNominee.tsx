@@ -14,6 +14,7 @@ import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo, useMemo } from 'react';
 import { awardApi } from '@/api/award/award.api';
 import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
+import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 
 const MainNominee = ({
   deptId,
@@ -101,6 +102,7 @@ const MainNominee = ({
           className={styles.content}
           onClick={() => push(`/award/${lastNominee?.id}`)}
         >
+          <MoneyPreview value={1000} currency={'₽'} />
           <div className={styles.img}>
             <ImageDefault
               src={

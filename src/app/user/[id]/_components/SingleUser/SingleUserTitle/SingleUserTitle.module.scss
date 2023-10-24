@@ -44,22 +44,30 @@
     margin-bottom: 55px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 
     @media screen and (max-width: 1280px) {
       margin-top: 40px;
       margin-bottom: 40px;
     }
     @media screen and (max-width: 930px) {
-      flex-direction: column;
       align-items: flex-start;
       margin-top: 30px;
       margin-bottom: 30px;
     }
 
+    .moneyWrapper {
+      margin-right: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      width: fit-content;
+      border: 1px solid var(--graySilver);
+    }
+
     .buttonsWrapper {
       display: flex;
       align-items: center;
+      margin-top: 40px;
 
       @media screen and (max-width: 1830px) {
         flex-direction: column;
@@ -81,9 +89,6 @@
           margin-bottom: 15px;
           margin-right: 0px;
           width: 100%;
-        }
-        @media screen and (max-width: 768px) {
-          margin-top: 15px;
         }
       }
     }
@@ -111,23 +116,34 @@
     .imagesAward {
       display: flex;
       align-items: center;
-      .imgAward {
-        margin-left: 10px;
-        width: 50px;
-        height: 50px;
 
-        @media screen and (max-width: 768px) {
-          width: 35px;
-          height: 35px;
-        }
-
-        &:nth-child(1) {
-          margin-left: 0;
-        }
+      @media screen and (max-width: 500px) {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
       }
 
-      .countIcon {
-        height: fit-content;
+      .imagesWrapper {
+        display: flex;
+        align-items: center;
+        .imgAward {
+          margin-left: 10px;
+          width: 50px;
+          height: 50px;
+
+          @media screen and (max-width: 768px) {
+            width: 35px;
+            height: 35px;
+          }
+
+          &:nth-child(1) {
+            margin-left: 0;
+          }
+        }
+
+        .countIcon {
+          height: fit-content;
+        }
       }
     }
   }

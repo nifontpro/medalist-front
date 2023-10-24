@@ -16,6 +16,7 @@ import { RoleUser } from '@/types/user/user';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { usePathname, useSearchParams } from 'next/navigation';
+import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 
 const SingleUserTitle = ({
   user,
@@ -116,38 +117,45 @@ const SingleUserTitle = ({
 
       <div className={styles.awards}>
         <div className={styles.imagesAward}>
-          {userActiv &&
-            userActiv
-              .filter((award) => award.actionType == 'AWARD')
-              .map((award, index) => {
-                if (index < 4) {
-                  return (
-                    // <div className={styles.circle} key={uniqid()}></div>
-                    <div className={styles.imgAward} key={uniqid()}>
-                      <ImageDefault
-                        src={award.award?.mainImg}
-                        width={50}
-                        height={50}
-                        alt='preview image'
-                        // objectFit='cover'
-                        className='rounded-full'
-                        // priority={true}
-                        forWhat='award'
-                      />
-                    </div>
-                  );
-                }
-              })}
-          {userActiv &&
-          userActiv.filter((item) => item.actionType == 'AWARD').length > 4 ? (
-            <ButtonIcon className={styles.countIcon} appearance={'black'}>
-              +
-              {userActiv.filter((item) => item.actionType == 'AWARD').length -
-                4}
-            </ButtonIcon>
-          ) : (
-            <div className={styles.countIcon}></div>
-          )}
+          <div className={styles.moneyWrapper}>
+            <MoneyPreview value={1000} currency={'₽'} color={'gray'} />
+          </div>
+
+          <div className={styles.imagesWrapper}>
+            {userActiv &&
+              userActiv
+                .filter((award) => award.actionType == 'AWARD')
+                .map((award, index) => {
+                  if (index < 4) {
+                    return (
+                      // <div className={styles.circle} key={uniqid()}></div>
+                      <div className={styles.imgAward} key={uniqid()}>
+                        <ImageDefault
+                          src={award.award?.mainImg}
+                          width={50}
+                          height={50}
+                          alt='preview image'
+                          // objectFit='cover'
+                          className='rounded-full'
+                          // priority={true}
+                          forWhat='award'
+                        />
+                      </div>
+                    );
+                  }
+                })}
+            {userActiv &&
+            userActiv.filter((item) => item.actionType == 'AWARD').length >
+              4 ? (
+              <ButtonIcon className={styles.countIcon} appearance={'black'}>
+                +
+                {userActiv.filter((item) => item.actionType == 'AWARD').length -
+                  4}
+              </ButtonIcon>
+            ) : (
+              <div className={styles.countIcon}></div>
+            )}
+          </div>
         </div>
         <div className={styles.buttonsWrapper}>
           <AuthComponent minRole={minRole}>

@@ -12,6 +12,7 @@ import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
 import PreviewDept from '@/ui/PreviewDept/PreviewDept';
+import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 
 const Award = motion(
   forwardRef(
@@ -28,6 +29,7 @@ const Award = motion(
             {...props}
             className={cn(styles.wrapper, styles.wrapperAward, className)}
           >
+            <MoneyPreview value={1000} currency={'₽'} />
             <div className={styles.img}>
               <ImageDefault
                 src={award.mainImg}
@@ -69,7 +71,11 @@ const Award = motion(
             {...props}
             className={cn(styles.wrapper, styles.wrapperNominee, className)}
           >
-            <div className={styles.nominee}>Номинация</div>
+            <div className='flex justify-between items-center mb-[36px]'>
+              <div className={styles.nominee}>Номинация</div>
+              <MoneyPreview value={1000} currency={'₽'} />
+            </div>
+
             <div className={styles.imgNominee}>
               <ImageDefault
                 src={award.mainImg}

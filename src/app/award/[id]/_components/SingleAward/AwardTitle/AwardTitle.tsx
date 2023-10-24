@@ -15,6 +15,7 @@ import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { useAwardEditPhoto } from '../../../edit/_components/AwardEdit/useAwardEditPhoto';
 import ModalWindowGalleryAwards from '../../../edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
+import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 
 const AwardTitle = ({
   award,
@@ -83,6 +84,10 @@ const AwardTitle = ({
           <P size='xs' className={styles.description} type='silverBtn'>
             {award?.description}
           </P>
+        </div>
+
+        <div className={styles.moneyWrapper}>
+          <MoneyPreview value={1000} currency={'₽'} color={'gray'} />
         </div>
 
         <div className={styles.dateAward}>

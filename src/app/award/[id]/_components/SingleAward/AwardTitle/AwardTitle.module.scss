@@ -56,6 +56,14 @@
       padding: 40px 15px;
     }
 
+    .moneyWrapper {
+      margin-top: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      width: fit-content;
+      border: 1px solid var(--graySilver);
+    }
+
     > .title {
       // position: relative;
       display: flex;

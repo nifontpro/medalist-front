@@ -129,8 +129,8 @@ const CreateAward = () => {
           />
           <Field
             {...register('score', { required: 'Вес необходить!' })}
-            title='Вес награды*'
-            placeholder='Введите вес награды'
+            title='Бонус за награду*'
+            placeholder='1000 ₽'
             error={errors.score}
             className={styles.field}
             type='number'
