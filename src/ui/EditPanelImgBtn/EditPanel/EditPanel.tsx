@@ -1,7 +1,6 @@
 import styles from './EditPanel.module.scss';
 import cn from 'classnames';
 import { EditPanelProps } from './EditPanel.props';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import P from '../../P/P';
 import { ForwardedRef, forwardRef } from 'react';
@@ -25,7 +24,6 @@ const EditPanel = forwardRef(
     const { typeOfUser } = useAppSelector(
       (state: RootState) => state.userSelection
     );
-    const { push } = useRouter();
     const dispatch = useAppDispatch();
 
     const option = {

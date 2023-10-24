@@ -9,7 +9,7 @@ import TextArea from '@/ui/TextArea/TextArea';
 import { useForm } from 'react-hook-form';
 import { useCreateAward } from './useCreateAward';
 import { CreateAwardRequest } from '@/api/award/request/CreateAwardRequest';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import ChoiceUsers from '@/ui/ChoiceUsers/ChoiceUsers';
 import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
 import UsersPreviewCreateAward from './UsersPreviewCreateAward/UsersPreviewCreateAward';
@@ -19,6 +19,9 @@ import ModalWindowGalleryAwards from '@/app/award/[id]/edit/_components/ModalWin
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+// import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+// import { BaseImage } from '@/types/base/image/baseImage';
+// import { awardApi } from '@/api/award/award.api';
 
 const CreateAward = () => {
   const {
@@ -63,6 +66,9 @@ const CreateAward = () => {
     setOpenModalConfirm,
   } = useCreateAward(setValue, reset, getValues);
 
+  // const [imageNum, setImageNum] = useState<number>(0);
+  // const [images, setImages] = useState<BaseImage[]>([]);
+
   return (
     <>
       <ButtonCircleIcon
@@ -80,6 +86,19 @@ const CreateAward = () => {
           setImagesGallery={setImagesGallery}
           setImagesFile={setImagesFile}
         />
+        {/* <div className={styles.imagesWrapper}>
+          <EditImagesComponent
+            imageNum={imageNum}
+            setImageNum={setImageNum}
+            images={images}
+            addPhoto={() => new Promise(() => console.log('add photo'))}
+            removePhoto={() => new Promise(() => console.log('remove photo'))}
+            className={styles.img}
+            gallery='true'
+            forWhat='award'
+            editable={true}
+          />
+        </div> */}
 
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>

@@ -9,6 +9,22 @@
     grid-template-columns: 1fr;
   }
 
+  .imagesWrapper {
+    display: flex;
+    justify-content: center;
+
+    .img {
+      border-radius: 27px;
+      width: 400px;
+      height: fit-content;
+
+      @media screen and (max-width: 768px) {
+        border-radius: 16px;
+        width: 100%;
+      }
+    }
+  }
+
   .field {
     margin-bottom: 60px;
 
