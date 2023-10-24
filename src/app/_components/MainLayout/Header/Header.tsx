@@ -16,6 +16,7 @@ import Notification from './Notification/Notification';
 import { memo } from 'react';
 import React from 'react';
 import { userApi } from '@/api/user/user.api';
+import Money from './Money/Money';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
@@ -56,6 +57,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
         {singleUser?.data?.user ? (
           <div className={styles.user}>
             <Notification />
+            <Money value={1000} currency={'₽'} />
             <UserLogo
               user={singleUser?.data?.user}
               className={styles.userImg}

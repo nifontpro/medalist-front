@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 19px;
+  border: 1px solid var(--gray-light05);
+  border-radius: 10px;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  svg {
+    path {
+      stroke: var(--white);
+    }
+  }
+}
