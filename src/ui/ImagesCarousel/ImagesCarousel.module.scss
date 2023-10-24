@@ -3,6 +3,7 @@
   height: 400px;
   object-fit: cover;
   border-radius: 27px;
+  background: var(--gray-dark);
 
   @media screen and (max-width: 1500px) {
     width: 100%;

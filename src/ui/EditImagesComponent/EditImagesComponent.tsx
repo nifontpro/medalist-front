@@ -36,8 +36,7 @@ const EditImagesComponent = ({
   if (editable) {
     if (userId && !checkRole(typeOfUser, 'ADMIN')) {
       edit = typeOfUser?.id === Number(userId);
-    }
-    if (userId && checkRole(typeOfUser, 'ADMIN')) {
+    } else {
       edit = checkRole(typeOfUser, 'ADMIN');
     }
   } else {

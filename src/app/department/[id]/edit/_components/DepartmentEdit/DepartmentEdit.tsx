@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/ui/Button/Button';
-import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Field from '@/ui/Field/Field';
 import Htag from '@/ui/Htag/Htag';
 import styles from './DepartmentEdit.module.scss';
@@ -17,6 +16,7 @@ import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import { useDepartmentEditPhoto } from './useDepartmentEditPhoto';
 
 const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
@@ -32,16 +32,14 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const {
     onSubmit,
     handleClick,
-    addPhoto,
-    removePhoto,
     isLoadingByIdDept,
     singleDepartment,
-    imageNum,
-    setImageNum,
-    images,
     back,
     forWhat,
   } = useDepartmentEdit(setValue, id, getValues, setOpenModalConfirm);
+
+  const { addPhoto, removePhoto, imageNum, setImageNum, images } =
+    useDepartmentEditPhoto(singleDepartment);
 
   if (isLoadingByIdDept) return <Spinner />;
 
@@ -58,6 +56,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
         gallery='false'
         className={styles.desktop}
         forWhat={forWhat}
+        editable={false}
       />
       <form className={styles.form}>
         <Htag tag='h2' className={styles.title}>
@@ -73,6 +72,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
           className={styles.mobile}
           gallery='false'
           forWhat={forWhat}
+          editable={false}
         />
 
         <Field

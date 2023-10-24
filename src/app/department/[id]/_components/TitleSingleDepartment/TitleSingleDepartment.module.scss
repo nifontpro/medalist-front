@@ -8,20 +8,19 @@
     gap: 15px;
   }
 
-  > .img {
-    background: var(--white);
-    border-radius: 27px;
-    width: 400px;
-    height: fit-content;
+  .imagesWrapper {
+    display: flex;
+    justify-content: center;
 
-    @media screen and (max-width: 1500px) {
+    .img {
+      border-radius: 27px;
       width: 400px;
+      height: fit-content;
 
-      justify-content: center;
-    }
-    @media screen and (max-width: 768px) {
-      border-radius: 16px;
-      width: auto;
+      @media screen and (max-width: 768px) {
+        border-radius: 16px;
+        width: 100%;
+      }
     }
   }
 

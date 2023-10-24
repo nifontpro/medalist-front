@@ -11,11 +11,10 @@ import { getAwardEditUrl } from '@/config/api.config';
 import P from '@/ui/P/P';
 import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
-import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
-import { BaseImage } from '@/types/base/image/baseImage';
-import { awardApi } from '@/api/award/award.api';
+import { useAwardEditPhoto } from '../../../edit/_components/AwardEdit/useAwardEditPhoto';
+import ModalWindowGalleryAwards from '../../../edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 
 const AwardTitle = ({
   award,
@@ -36,28 +35,32 @@ const AwardTitle = ({
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
+  const {
+    addPhoto,
+    removePhoto,
+    imageNum,
+    setImageNum,
+    images,
+    imagesGallery,
+    setImagesGallery,
+  } = useAwardEditPhoto(award);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (
         <div className={styles.imagesWrapper}>
-          {/* <EditImagesComponent
+          <EditImagesComponent
             imageNum={imageNum}
             setImageNum={setImageNum}
             images={images}
             addPhoto={addPhoto}
             removePhoto={removePhoto}
             className={styles.img}
-            gallery='false'
-            forWhat='user'
+            gallery='true'
+            forWhat='award'
             editable={true}
-          /> */}
+          />
         </div>
-        // <ImagesCarousel
-        //   data={award?.award.images}
-        //   edit={false}
-        //   className={styles.img}
-        //   forWhat='award'
-        // />
       )}
 
       <div className={styles.awardDescription}>
@@ -128,6 +131,12 @@ const AwardTitle = ({
           </div>
         ) : null}
       </div>
+      <ModalWindowGalleryAwards
+        img={imagesGallery}
+        setImg={setImagesGallery}
+        textBtn='Подтвердить'
+        create={false}
+      />
     </div>
   );
 };

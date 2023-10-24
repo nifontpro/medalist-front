@@ -26,6 +26,8 @@ import { userApi } from '@/api/user/user.api';
 import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
 import { declOfNum } from '@/utils/declOfNum';
 import { ForWhat } from '@/ui/ImageDefault/ImageDefault';
+import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+import { useDepartmentEditPhoto } from '../../edit/_components/DepartmentEdit/useDepartmentEditPhoto';
 
 const TitleSingleDepartment = ({
   id,
@@ -82,6 +84,9 @@ const TitleSingleDepartment = ({
     setVisibleModal(true);
   }, []);
 
+  const { addPhoto, removePhoto, imageNum, setImageNum, images } =
+    useDepartmentEditPhoto(department);
+
   if (isLoadingByIdDept) return <Spinner />;
   if (!department?.success) {
     return <NoAccess button={false} />;
@@ -89,12 +94,19 @@ const TitleSingleDepartment = ({
 
   return (
     <div className={styles.titleCompany} {...props}>
-      <ImagesCarousel
-        data={department.data?.dept.images}
-        edit={false}
-        className={styles.img}
-        forWhat={forWhat}
-      />
+      <div className={styles.imagesWrapper}>
+        <EditImagesComponent
+          imageNum={imageNum}
+          setImageNum={setImageNum}
+          images={images}
+          addPhoto={addPhoto}
+          removePhoto={removePhoto}
+          className={styles.img}
+          gallery='false'
+          forWhat={forWhat}
+          editable={true}
+        />
+      </div>
 
       <div className={styles.companyDescription}>
         <EditPanelAuthBtn

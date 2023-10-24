@@ -11,6 +11,7 @@
 
   .images {
     height: 400px;
+
     @media screen and (max-width: 768px) {
       width: 250px;
     }

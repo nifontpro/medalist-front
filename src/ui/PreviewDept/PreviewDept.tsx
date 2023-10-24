@@ -13,7 +13,6 @@ const PreviewDept = ({
   ...props
 }: PreviewDeptProps): JSX.Element => {
   let convertDate = useMemo(() => timeConverter(award?.endDate), [award]);
-  console.log(award);
   return (
     <div
       className={cn(

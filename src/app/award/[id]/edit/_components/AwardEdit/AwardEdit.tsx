@@ -17,6 +17,7 @@ import ModalWindowGalleryAwards from '../ModalWindowGalleryAwards/ModalWindowGal
 import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import { useAwardEditPhoto } from './useAwardEditPhoto';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
@@ -33,17 +34,15 @@ const AwardEdit = ({ id }: AwardEditProps) => {
     onSubmit,
     handleClick,
     back,
-    addPhoto,
-    removePhoto,
     isLoadingSingleAward,
     singleAward,
-    imageNum,
-    setImageNum,
-    images,
     imagesGallery,
     setImagesGallery,
     handleBack,
   } = useAwardEdit(setValue, id, getValues, setOpenModalConfirm);
+
+  const { addPhoto, removePhoto, imageNum, setImageNum, images } =
+    useAwardEditPhoto(singleAward?.data!);
 
   if (isLoadingSingleAward) return <Spinner />;
 
@@ -69,6 +68,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
           className={styles.desktop}
           gallery='true'
           forWhat='award'
+          editable={false}
         />
         <form className={styles.form}>
           <Htag tag='h2' className={styles.title}>
@@ -84,6 +84,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
             className={styles.mobile}
             gallery='true'
             forWhat='award'
+            editable={false}
           />
           <Field
             {...register('name', { required: 'Название необходимо!' })}
