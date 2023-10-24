@@ -6,11 +6,12 @@ import styles from './EditImagesComponent.module.scss';
 import cn from 'classnames';
 import { EditImagesComponentProps } from './EditImagesComponent.props';
 import EditPanelImgBtn from '../EditPanelImgBtn/EditPanelImgBtn';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import AuthComponent from '@/store/providers/AuthComponent';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { checkRole } from '@/utils/checkRole';
 
 const EditImagesComponent = ({
   imageNum,
@@ -20,17 +21,32 @@ const EditImagesComponent = ({
   removePhoto,
   gallery,
   forWhat,
-  id,
+  userId,
+  editable,
   className,
   ...props
 }: EditImagesComponentProps) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+  let edit = false;
 
   const pathname = usePathname();
 
-  const editable = typeOfUser?.id === id;
+  if (editable) {
+    if (userId && !checkRole(typeOfUser, 'ADMIN')) {
+      edit = typeOfUser?.id === Number(userId);
+    }
+    if (userId && checkRole(typeOfUser, 'ADMIN')) {
+      edit = checkRole(typeOfUser, 'ADMIN');
+    }
+  } else {
+    edit = false;
+  }
+
+  console.log('userId', userId);
+  console.log('editable', editable);
+  console.log('checkRole', checkRole(typeOfUser, 'ADMIN'));
 
   return (
     <div
@@ -51,7 +67,7 @@ const EditImagesComponent = ({
           />
         )}
 
-        <AuthComponent minRole={editable ? 'USER' : 'ADMIN'}>
+        {edit && (
           <div className={styles.editPanel}>
             {images &&
             images.length < 1 &&
@@ -68,7 +84,7 @@ const EditImagesComponent = ({
               />
             )}
           </div>
-        </AuthComponent>
+        )}
       </div>
     </div>
   );

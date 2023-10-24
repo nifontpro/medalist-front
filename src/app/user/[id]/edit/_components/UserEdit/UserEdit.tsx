@@ -22,6 +22,7 @@ import AuthComponent from '@/store/providers/AuthComponent';
 import SelectRole from '@/ui/SelectRole/SelectRole';
 import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
+import cn from 'classnames';
 
 const roles: IOption[] = [
   {
@@ -85,6 +86,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
           className={styles.desktop}
           gallery='false'
           forWhat='user'
+          editable={false}
         />
         <form className={styles.form}>
           <div className={styles.fields}>
@@ -101,8 +103,9 @@ export const UserEdit = ({ id }: UserEditProps) => {
               className={styles.mobile}
               gallery='false'
               forWhat='user'
+              editable={false}
             />
-            <div className={styles.group}>
+            <div className={cn(styles.group, styles.firstGroup)}>
               <Field
                 {...register('firstname', { required: 'Имя обязательно!' })}
                 title='Имя*'

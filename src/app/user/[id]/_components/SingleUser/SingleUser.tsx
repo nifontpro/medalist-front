@@ -170,7 +170,8 @@ const SingleUser = ({
                 className={styles.img}
                 gallery='false'
                 forWhat='user'
-                id={user.data?.user.id}
+                userId={user.data?.user.id}
+                editable={true}
               />
             </div>
           )}

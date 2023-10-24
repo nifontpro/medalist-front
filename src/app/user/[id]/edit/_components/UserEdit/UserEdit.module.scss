@@ -69,6 +69,13 @@
         }
       }
 
+      .firstGroup {
+        margin-top: 60px;
+        @media screen and (max-width: 768px) {
+          margin-top: 30px;
+        }
+      }
+
       .group {
         display: grid;
         grid-template-columns: 1fr 1fr;
