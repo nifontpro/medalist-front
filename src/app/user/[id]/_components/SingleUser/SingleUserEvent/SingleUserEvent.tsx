@@ -1,7 +1,7 @@
 'use client';
 
-import styles from './EventSingleUser.module.scss';
-import { EventSingleUserProps } from './EventSingleUser.props';
+import styles from './SingleUserEvent.module.scss';
+import { SingleUserEventProps } from './SingleUserEvent.props';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventCard from '@/ui/EventCard/EventCard';
@@ -13,12 +13,12 @@ import { eventApi } from '@/api/event/event.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 
-const EventSingleUser = ({
+const SingleUserEvent = ({
   id,
   children,
   className,
   ...props
-}: EventSingleUserProps): JSX.Element => {
+}: SingleUserEventProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -59,33 +59,12 @@ const EventSingleUser = ({
                       />
                     );
                   })}
-
-                {/* {totalPage && totalPage > 1 ? (
-                  <PrevNextPages
-                    startPage={page + 1}
-                    endPage={totalPage}
-                    handleNextClick={() => eventsUser && nextPage(eventsUser)}
-                    handlePrevClick={prevPage}
-                  />
-                ) : null} */}
               </div>
             </ScrollContainerWithSearchParams>
           </div>
-          {/* <div className={styles.eventContent}>
-            {eventsUser.data &&
-              eventsUser.data.map((eventsUser) => {
-                return (
-                  <EventCard
-                    key={eventsUser.id}
-                    event={eventsUser}
-                    remove={'USER'}
-                  />
-                );
-              })}
-          </div> */}
         </div>
       )}
     </>
   );
 };
-export default memo(EventSingleUser);
+export default memo(SingleUserEvent);

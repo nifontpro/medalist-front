@@ -5,32 +5,19 @@ import cn from 'classnames';
 import { SingleUserProps } from './SingleUser.props';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
-import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import SingleUserTitle from './SingleUserTitle/SingleUserTitle';
 import SingleUserAwards from './SingleUserAwards/SingleUserAwards';
 import SingleUserNominee from './SingleUserNominee/SingleUserNominee';
 import ModalWindowWithAddAwards from '../ModalWindowWithAddAwards/ModalWindowWithAddAwards';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import EventSingleUser from './EventSingleUser/EventSingleUser';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
-import {
-  ChangeEvent,
-  MouseEvent,
-  memo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { memo } from 'react';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
-import { BaseImage } from '@/types/base/image/baseImage';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
-import { toast } from 'react-toastify';
-import { userApi } from '@/api/user/user.api';
-import { errorMessageParse } from '@/utils/errorMessageParse';
 import { useUserEditPhoto } from '../../edit/_components/UserEdit/useUserEditPhoto';
+import SingleUserEvent from './SingleUserEvent/SingleUserEvent';
+import SingleUserGifts from './SingleUserGifts/SingleUserGifts';
 
 const SingleUser = ({
   id,
@@ -109,12 +96,14 @@ const SingleUser = ({
               />
             )}
 
+            <SingleUserGifts user={user.data} id={id} />
+
             <SingleUserAwards user={user.data} id={id} />
 
             <SingleUserNominee user={user.data} id={id} />
           </div>
         </div>
-        <EventSingleUser id={id} />
+        <SingleUserEvent id={id} />
         <ButtonScrollUp />
       </div>
 
