@@ -5,10 +5,20 @@
   padding: 19px;
   border: 1px solid var(--gray-light05);
   border-radius: 10px;
+  cursor: pointer;
+
+  @media screen and (max-width: 500px) {
+    padding: 9px 12px;
+  }
 
   .icon {
     width: 24px;
     height: 24px;
+
+    @media screen and (max-width: 500px) {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   svg {

@@ -1,0 +1,44 @@
+.wrapper {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 20px 0px;
+  min-width: 480px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+  background-color: var(--gray-light);
+  cursor: pointer;
+  @apply duration-200;
+
+  &:hover {
+    background-color: var(--graySilver);
+  }
+
+  @media screen and (max-width: 1490px) {
+    min-width: auto;
+    padding: 20px 0px;
+  }
+  @media screen and (max-width: 1280px) {
+    min-width: auto;
+    padding: 20px 0px;
+  }
+
+  > .img {
+    height: 64px;
+    width: 64px;
+    margin-right: 30px;
+
+    @media screen and (max-width: 1280px) {
+      margin-right: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-right: 10px;
+    }
+  }
+
+  > .description {
+    > .post {
+      margin-top: 5px;
+    }
+  }
+}

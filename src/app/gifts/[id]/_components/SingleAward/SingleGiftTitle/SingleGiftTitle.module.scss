@@ -1,0 +1,99 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  @apply animate-fade;
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .imagesWrapper {
+    display: flex;
+    justify-content: center;
+
+    .img {
+      border-radius: 27px;
+      width: 400px;
+      height: fit-content;
+
+      @media screen and (max-width: 768px) {
+        border-radius: 16px;
+        width: 100%;
+      }
+    }
+  }
+
+  .awardDescription {
+    position: relative;
+    background: var(--white);
+    border-radius: 27px;
+    padding: 75px;
+
+    @media screen and (max-width: 1280px) {
+      border-radius: 16px;
+      padding: 60px 40px;
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 40px 15px;
+    }
+
+    .businessWrapper {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      width: fit-content;
+      border: 1px solid var(--graySilver);
+
+      .available {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .dots {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+      }
+    }
+
+    .www {
+      margin-top: 20px !important;
+      text-decoration: underline;
+    }
+
+    .moreInformation {
+      margin-top: 40px;
+    }
+
+    .date {
+      margin-top: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .descriptionContent {
+      margin-top: 40px;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #0000001a;
+      border-top: 1px solid #0000001a;
+
+      .content {
+        margin-top: 20px;
+      }
+    }
+  }
+}

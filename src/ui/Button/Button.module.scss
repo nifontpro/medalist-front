@@ -7,10 +7,21 @@
 }
 
 .white {
-  border: 1px solid #000000;
-  color: var(--gray-dark);
+  border: 1px solid var(--graySilver);
+  color: var(--gray96);
   background: var(--white);
-  opacity: 0.3;
+  @apply duration-200;
+
+  &:hover {
+    border: 1px solid var(--black);
+    color: var(--black);
+  }
+
+  &:disabled {
+    border: 1px solid var(--gray);
+    color: var(--gray);
+    cursor: default;
+  }
 }
 
 .whiteBlack {
@@ -55,7 +66,7 @@
 .blackGray {
   color: var(--gray-light);
   background: var(--gray-dark);
-  border: 1px solid #F6F6F6;
+  border: 1px solid #f6f6f6;
 }
 
 .s {
@@ -70,7 +81,7 @@
   @apply px-[50px];
 
   @media screen and (max-width: 768px) {
-  @apply px-[20px];
+    @apply px-[20px];
   }
 }
 
