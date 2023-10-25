@@ -198,7 +198,9 @@ const CreateAward = () => {
             {startDateValue || endDateValue ? (
               <Button
                 onClick={handleSubmit(onSubmitNominee)}
-                appearance='whiteBlack'
+                appearance={
+                  arrChoiceUser.length === 0 ? 'whiteBlack' : 'blackWhite'
+                }
                 size='l'
                 className={styles.lastBtn}
                 disabled={!isDirty || !isValid}
@@ -210,7 +212,9 @@ const CreateAward = () => {
             ) : (
               <Button
                 onClick={handleSubmit(onSubmitReward)}
-                appearance='whiteBlack'
+                appearance={
+                  arrChoiceUser.length === 0 ? 'whiteBlack' : 'blackWhite'
+                }
                 size='l'
                 disabled={!isDirty || !isValid}
               >

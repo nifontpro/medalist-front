@@ -47,7 +47,7 @@ const CardNominee = ({
             height={76}
             alt='award img'
             // objectFit='cover'
-            className='rounded-[27px]'
+            className='rounded-[16px]'
             priority={true}
             forWhat='user'
           />

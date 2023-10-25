@@ -63,7 +63,11 @@ const EditImagesComponent = ({
         )}
 
         {edit && (
-          <div className={styles.editPanel}>
+          <div
+            className={cn(styles.editPanel, {
+              [styles.editPanelMt]: images && images.length == 0,
+            })}
+          >
             {images &&
             images.length < 1 &&
             pathname.split('/')[1] === 'award' ? (
