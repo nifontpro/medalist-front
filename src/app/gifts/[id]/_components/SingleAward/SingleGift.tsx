@@ -12,6 +12,7 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { awardApi } from '@/api/award/award.api';
+import SingleGiftGet from './SingleGiftGet/SingleGiftGet';
 
 const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   const { typeOfUser } = useAppSelector(
@@ -51,8 +52,8 @@ const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
         </ButtonCircleIcon>
 
         <SingleGiftTitle award={award.data!} />
-        {/* <AwardWasAwarded award={award.data!} id={id} /> */}
-        {/* <AwardWasNominee award={award.data!} id={id} className='mb-[50px]' /> */}
+        <SingleGiftGet award={award.data!} />
+
         <ButtonScrollUp />
       </div>
     );

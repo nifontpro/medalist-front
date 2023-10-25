@@ -1,0 +1,38 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  @apply animate-fade;
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .giftContent {
+    grid-column: 2/3;
+    position: relative;
+    background: var(--white);
+    border-radius: 27px;
+    padding: 75px;
+    margin-bottom: 50px;
+
+    @media screen and (max-width: 1500px) {
+      grid-column: auto;
+    }
+    @media screen and (max-width: 1280px) {
+      border-radius: 16px;
+      padding: 60px 40px;
+    }
+    @media screen and (max-width: 768px) {
+      padding: 40px 15px;
+    }
+
+    .content {
+      margin-top: 20px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--graySilver);
+    }
+  }
+}
