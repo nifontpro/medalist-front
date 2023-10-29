@@ -5,6 +5,7 @@ import {User} from "@/types/user/user";
 export interface Award {
   id: number;
   name: string;
+  shortDescription?: string
   mainImg?: string;
   type: AwardType;
   startDate: number;

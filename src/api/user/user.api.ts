@@ -266,19 +266,6 @@ export const userApi = createApi({
     }),
 
     /**
-     * Обновление изображения
-     * @param: formData: [file]:file, [userId], [imageId]
-     */
-    imageUpdate: build.mutation<BaseResponse<BaseImage>, FormData>({
-      query: (formData) => ({
-        method: 'POST',
-        url: userUrl('/img_update'),
-        body: formData,
-      }),
-      invalidatesTags: ['User'],
-    }),
-
-    /**
      * Удаление изображения
      * @param: userId, imageId
      */
