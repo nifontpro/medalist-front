@@ -1,17 +1,16 @@
 'use client';
 
-import ButtonEdit from '../ButtonEdit/ButtonEdit';
-import ImagesCarousel from '../ImagesCarousel/ImagesCarousel';
-import styles from './EditImagesComponent.module.scss';
-import cn from 'classnames';
-import { EditImagesComponentProps } from './EditImagesComponent.props';
-import EditPanelImgBtn from '../EditPanelImgBtn/EditPanelImgBtn';
-import { memo, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import AuthComponent from '@/store/providers/AuthComponent';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { checkRole } from '@/utils/checkRole';
+import cn from 'classnames';
+import { usePathname } from 'next/navigation';
+import { memo } from 'react';
+import ButtonEdit from '../ButtonEdit/ButtonEdit';
+import EditPanelImgBtn from '../EditPanelImgBtn/EditPanelImgBtn';
+import ImagesCarousel from '../ImagesCarousel/ImagesCarousel';
+import styles from './EditImagesComponent.module.scss';
+import { EditImagesComponentProps } from './EditImagesComponent.props';
 
 const EditImagesComponent = ({
   imageNum,

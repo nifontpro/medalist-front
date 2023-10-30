@@ -10,7 +10,6 @@ import {
   getDepartmentCreateUrl,
   getDepartmentEditUrl,
 } from '@/config/api.config';
-import ImagesCarousel from '@/ui/ImagesCarousel/ImagesCarousel';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { memo, useCallback, useState } from 'react';
