@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+product">
+      <change beforePath="$PROJECT_DIR$/src/api-shop/product/product.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-shop/product/product.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api-shop/product/request/CreateProductRequest.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-shop/product/request/CreateProductRequest.d.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop_Artme_with_NextAuth_without_api_page" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesSettings">
+    <option name="contextName" value="kind-kind" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2Vht8Hgv7IvQjhJkYPezZ6xVqGz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop__Artem&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nifont/prog/medalist-front&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="medalist-front" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="medalist-front" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="" />
+      <created>1695299978601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695299978601</updated>
+      <workItem from="1695299979779" duration="2295000" />
+      <workItem from="1695409323587" duration="504000" />
+      <workItem from="1695638058910" duration="333000" />
+      <workItem from="1695669200748" duration="85000" />
+      <workItem from="1695676311674" duration="116000" />
+      <workItem from="1695709829100" duration="229000" />
+      <workItem from="1695710742219" duration="1697000" />
+      <workItem from="1695720078703" duration="600000" />
+      <workItem from="1695724270891" duration="13000" />
+      <workItem from="1696016636980" duration="1543000" />
+      <workItem from="1696019566489" duration="735000" />
+      <workItem from="1696221192601" duration="955000" />
+      <workItem from="1696227362915" duration="17000" />
+      <workItem from="1696335501016" duration="654000" />
+      <workItem from="1696428812382" duration="2483000" />
+      <workItem from="1696682401691" duration="121000" />
+      <workItem from="1696799064590" duration="853000" />
+      <workItem from="1696842210225" duration="1265000" />
+      <workItem from="1696859522287" duration="4000" />
+      <workItem from="1697014598201" duration="2686000" />
+      <workItem from="1697037099976" duration="1213000" />
+      <workItem from="1697452436170" duration="1589000" />
+      <workItem from="1697475290762" duration="598000" />
+      <workItem from="1697476227303" duration="7000" />
+      <workItem from="1697533039727" duration="1372000" />
+      <workItem from="1697552865097" duration="4000" />
+      <workItem from="1697558738104" duration="5709000" />
+      <workItem from="1697571087631" duration="368000" />
+      <workItem from="1697647451696" duration="1214000" />
+      <workItem from="1697655672479" duration="8000" />
+      <workItem from="1697662045688" duration="580000" />
+      <workItem from="1697800561632" duration="876000" />
+      <workItem from="1697801587693" duration="670000" />
+      <workItem from="1697811669331" duration="598000" />
+      <workItem from="1697826807911" duration="15000" />
+      <workItem from="1698071189042" duration="13000" />
+      <workItem from="1698153375094" duration="1020000" />
+      <workItem from="1698590264818" duration="716000" />
+      <workItem from="1698599763108" duration="1718000" />
+      <workItem from="1698606118116" duration="103000" />
+      <workItem from="1698606240412" duration="319000" />
+      <workItem from="1698608142599" duration="1301000" />
+      <workItem from="1698650840782" duration="544000" />
+      <workItem from="1698743629038" duration="331000" />
+    </task>
+    <task id="LOCAL-00001" summary="return type CreateOwner fun api">
+      <option name="closed" value="true" />
+      <created>1695409796658</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695409796658</updated>
+    </task>
+    <task id="LOCAL-00002" summary="+deploy">
+      <option name="closed" value="true" />
+      <created>1696020216885</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1696020216885</updated>
+    </task>
+    <task id="LOCAL-00003" summary="+change keycloak url">
+      <option name="closed" value="true" />
+      <created>1697037734313</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697037734313</updated>
+    </task>
+    <task id="LOCAL-00004" summary="+change api url">
+      <option name="closed" value="true" />
+      <created>1697569987167</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697569987167</updated>
+    </task>
+    <task id="LOCAL-00005" summary="+change api url">
+      <option name="closed" value="true" />
+      <created>1697570849700</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697570849700</updated>
+    </task>
+    <task id="LOCAL-00006" summary="+change api url">
+      <option name="closed" value="true" />
+      <created>1697662107298</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697662107298</updated>
+    </task>
+    <task id="LOCAL-00007" summary="+change api url">
+      <option name="closed" value="true" />
+      <created>1697662171658</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697662171658</updated>
+    </task>
+    <task id="LOCAL-00008" summary="+change api url">
+      <option name="closed" value="true" />
+      <created>1697801427392</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697801427392</updated>
+    </task>
+    <task id="LOCAL-00009" summary="+product">
+      <option name="closed" value="true" />
+      <created>1698609005411</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698609005411</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="return type CreateOwner fun api" />
+    <MESSAGE value="+deploy" />
+    <MESSAGE value="+change keycloak url" />
+    <MESSAGE value="+change api url" />
+    <MESSAGE value="+product" />
+    <option name="LAST_COMMIT_MESSAGE" value="+product" />
+  </component>
+</project>
