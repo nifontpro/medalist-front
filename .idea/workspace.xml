@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+product">
-      <change beforePath="$PROJECT_DIR$/src/api-shop/product/product.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-shop/product/product.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api-shop/product/request/CreateProductRequest.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api-shop/product/request/CreateProductRequest.d.ts" afterDir="false" />
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+fix product">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +126,10 @@
       <workItem from="1698606240412" duration="319000" />
       <workItem from="1698608142599" duration="1301000" />
       <workItem from="1698650840782" duration="544000" />
-      <workItem from="1698743629038" duration="331000" />
+      <workItem from="1698743629038" duration="548000" />
+      <workItem from="1698772278874" duration="29000" />
+      <workItem from="1698776944180" duration="7000" />
+      <workItem from="1698955432327" duration="401000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -201,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698609005411</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="+fix product">
+      <option name="closed" value="true" />
+      <created>1698744064454</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698744064454</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +234,7 @@
     <MESSAGE value="+change keycloak url" />
     <MESSAGE value="+change api url" />
     <MESSAGE value="+product" />
-    <option name="LAST_COMMIT_MESSAGE" value="+product" />
+    <MESSAGE value="+fix product" />
+    <option name="LAST_COMMIT_MESSAGE" value="+fix product" />
   </component>
 </project>
