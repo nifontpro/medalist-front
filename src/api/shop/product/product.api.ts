@@ -77,6 +77,12 @@ export const productApi = createApi({
       providesTags: ['Product'],
     }),
 
+    /**
+     * Получение списка призов.
+     * [deptId] - необходимо заполнить для Владельца, для определения конкретной компании.
+     * Может быть указан любой отдел компании, бэк сам определит id компании.
+     * Для всех остальных пользователей поле игнорируется (определяется автоматически).
+     */
     getByDept: build.query<
         BaseResponse<Product[]>,
         {
@@ -87,7 +93,7 @@ export const productApi = createApi({
       query: (request) => {
         return {
           method: 'POST',
-          url: productUrl('/get_dept'),
+          url: productUrl('/get_company'),
           body: request,
         };
       },
