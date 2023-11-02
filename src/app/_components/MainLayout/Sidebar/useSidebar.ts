@@ -102,8 +102,13 @@ export const useSidebar = () => {
     localStorage.getItem('selectCompany')
   );
 
+  // useEffect(() => {
+  //   setSelectedCompany(localStorage.getItem('selectCompany'));
+  // }, []);
   useEffect(() => {
-    setSelectedCompany(localStorage.getItem('selectCompany'));
+    if (!selectedCompany && tree && tree[0]) {
+      setSelectedCompany(tree[0].id.toString());
+    }
   }, []);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
@@ -137,6 +142,7 @@ export const useSidebar = () => {
     push,
     dispatch,
     selectedCompany,
+    setSelectedCompany,
     handleChangeSelect,
     ownerCompany,
   };

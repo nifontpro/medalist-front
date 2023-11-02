@@ -7,13 +7,17 @@ import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
 import { useRouter } from 'next/navigation';
 import P from '../P/P';
 import { memo } from 'react';
+import { errorMessageParse } from '@/utils/errorMessageParse';
 
 const NoAccess = ({
   button = true,
+  errors,
   className,
   ...props
 }: NoAccessProps): JSX.Element => {
   const { back } = useRouter();
+
+  errorMessageParse(errors);
 
   return (
     <div className={cn(className, styles.wrapper)} {...props}>
@@ -27,11 +31,11 @@ const NoAccess = ({
           Вернуться назад
         </ButtonCircleIcon>
       )}
+
       <P fontstyle='thin' className={styles.text}>
-        Не достаточно прав доступа или такой страницы не существует. Уточните
-        информацию у администратора.
+        Произошла какая то ошибка. Попробуйте еще раз.
       </P>
     </div>
   );
 };
-export default memo(NoAccess)
+export default memo(NoAccess);

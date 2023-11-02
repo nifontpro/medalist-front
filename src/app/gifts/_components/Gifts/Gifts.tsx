@@ -19,8 +19,11 @@ import { memo } from 'react';
 const Gifts = ({ className, ...props }: GiftsProps) => {
   const { giftsOnCompany, isLoading, isFetching } = useGifts();
 
+  console.log(giftsOnCompany);
+
   if (isLoading) return <Spinner />;
-  if (!giftsOnCompany?.success) return <NoAccess button={false} />;
+  if (!giftsOnCompany?.success)
+    return <NoAccess errors={giftsOnCompany?.errors} />;
 
   if (giftsOnCompany && giftsOnCompany.data) {
     return (

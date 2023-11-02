@@ -38,6 +38,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     push,
     dispatch,
     selectedCompany,
+    setSelectedCompany,
     handleChangeSelect,
     ownerCompany,
   } = useSidebar();

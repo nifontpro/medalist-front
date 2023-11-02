@@ -7,6 +7,7 @@ export interface Award {
   name: string;
   description?: string;
   mainImg?: string;
+  normImg?: string;
   type: AwardType;
   startDate: number;
   endDate: number;

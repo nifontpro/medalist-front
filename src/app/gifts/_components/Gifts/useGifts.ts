@@ -13,7 +13,11 @@ export const useGifts = () => {
     (state: RootState) => state.userSelection
   );
 
-  // Получить награды в отделе
+  const selectCompany = Number(localStorage.getItem('selectCompany'));
+
+  // console.log(typeOfUser);
+
+  // Получить призы в компании
   const {
     data: giftsOnCompany,
     isLoading,
@@ -21,10 +25,10 @@ export const useGifts = () => {
   } = productApi.useGetByDeptQuery(
     {
       authId: typeOfUser?.id!,
-      deptId: typeOfUser?.dept.id!,
+      deptId: selectCompany,
     },
     {
-      skip: !typeOfUser,
+      skip: !typeOfUser || !selectCompany,
     }
   );
 

@@ -34,7 +34,7 @@ const Award = motion(
             <MoneyPreview value={award.score} currency={'₽'} />
             <div className={styles.img}>
               <ImageDefault
-                src={award.mainImg}
+                src={award.normImg}
                 width={165}
                 height={165}
                 alt={award.name}
@@ -54,7 +54,7 @@ const Award = motion(
                 color='white'
                 className={styles.description}
               >
-                {/* {award.description ? award.description : ''} */}
+                {award.description ? award.description : ''}
               </P>
               <CountUsersPreview
                 appearanceBtn='black'
@@ -80,7 +80,7 @@ const Award = motion(
 
             <div className={styles.imgNominee}>
               <ImageDefault
-                src={award.mainImg}
+                src={award.normImg}
                 width={165}
                 height={165}
                 alt={award.name}
@@ -100,7 +100,7 @@ const Award = motion(
                 color='white'
                 className={styles.description}
               >
-                {/* {award.description ? award.description : ''} */}
+                {award.description ? award.description : ''}
               </P>
               {award.state == 'NOMINEE' ? (
                 <P

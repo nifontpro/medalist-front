@@ -54,6 +54,27 @@ export const deptApi = createApi({
         };
       },
       providesTags: ['Dept'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          let selectCompany = localStorage.getItem('selectCompany');
+          const { data } = await queryFulfilled;
+          if (!selectCompany && data?.data && data.data[0]) {
+            if (data.data[0].parentId === 1) {
+              await localStorage.setItem(
+                'selectCompany',
+                data.data[1].id?.toString()!
+              );
+            } else {
+              await localStorage.setItem(
+                'selectCompany',
+                data.data[0].id?.toString()!
+              );
+            }
+          }
+        } catch (error) {
+          console.error(`ERROR SubdeptTree`, error);
+        }
+      },
     }),
 
     /**

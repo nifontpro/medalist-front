@@ -1,11 +1,11 @@
 export const productUrl = (string: string = '') => `/shop/product${string}`;
 
-import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {BaseResponse} from '@/types/base/BaseResponse';
-import {baseQueryWithReauth} from '@/api/base/base.api';
-import {ProductDetails} from '@/types/shop/product/ProductDetails';
-import {CreateProductRequest} from './request/CreateProductRequest';
-import {UpdateProductRequest} from './request/UpdateProductRequest';
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { baseQueryWithReauth } from '@/api/base/base.api';
+import { ProductDetails } from '@/types/shop/product/ProductDetails';
+import { CreateProductRequest } from './request/CreateProductRequest';
+import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
 
@@ -14,7 +14,6 @@ export const productApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Product'],
   endpoints: (build) => ({
-
     /**
      * Создание приза
      */
@@ -47,9 +46,9 @@ export const productApi = createApi({
      * Удаление приза
      */
     delete: build.mutation<
-        BaseResponse<ProductDetails>,
-        { authId: number, productId: number }>
-    ({
+      BaseResponse<ProductDetails>,
+      { authId: number; productId: number }
+    >({
       query: (request) => {
         return {
           method: 'POST',
@@ -61,11 +60,11 @@ export const productApi = createApi({
     }),
 
     getById: build.query<
-        BaseResponse<ProductDetails>,
-        {
-          authId: number;
-          productId: number;
-        }
+      BaseResponse<ProductDetails>,
+      {
+        authId: number;
+        productId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -84,11 +83,11 @@ export const productApi = createApi({
      * Для всех остальных пользователей поле игнорируется (определяется автоматически).
      */
     getByDept: build.query<
-        BaseResponse<Product[]>,
-        {
-          authId: number;
-          deptId: number;
-        }
+      BaseResponse<Product[]>,
+      {
+        authId: number;
+        deptId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -118,8 +117,8 @@ export const productApi = createApi({
      * @param: authId, userId, imageId
      */
     imageDelete: build.mutation<
-        BaseResponse<BaseImage>,
-        { authId: number; productId: number; imageId: number }
+      BaseResponse<BaseImage>,
+      { authId: number; productId: number; imageId: number }
     >({
       query: (body) => ({
         method: 'POST',
@@ -128,7 +127,5 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
-
-  })
-})
-  
+  }),
+});
