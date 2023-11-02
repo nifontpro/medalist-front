@@ -15,30 +15,14 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
-import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
-const Gifts = ({ id, className, ...props }: GiftsProps) => {
-  const {
-    active,
-    setActive,
-    state,
-    setState,
-    isLoadingAwardsOnDept,
-    awardsOnDepartment,
-    totalPage,
-    page,
-    setPage,
-    nextPage,
-    prevPage,
-    awardCreateLink,
-    handleSort,
-    awardLink,
-  } = useGifts(id);
+const Gifts = ({ className, ...props }: GiftsProps) => {
+  const { giftsOnCompany, isLoading, isFetching } = useGifts();
 
-  if (isLoadingAwardsOnDept) return <Spinner />;
-  if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
+  if (isLoading) return <Spinner />;
+  if (!giftsOnCompany?.success) return <NoAccess button={false} />;
 
-  if (awardsOnDepartment && awardsOnDepartment.data) {
+  if (giftsOnCompany && giftsOnCompany.data) {
     return (
       <div {...props} className={styles.wrapper}>
         <div className={styles.headerTitle}>
@@ -49,7 +33,7 @@ const Gifts = ({ id, className, ...props }: GiftsProps) => {
           <AuthComponent minRole={'ADMIN'}>
             <div className={styles.createGiftAdaptive}>
               <ButtonCircleIcon
-                onClick={awardCreateLink}
+                // onClick={awardCreateLink}
                 classNameForIcon='@apply w-[12px] h-[12px]'
                 appearance='black'
                 icon='plus'
@@ -60,8 +44,7 @@ const Gifts = ({ id, className, ...props }: GiftsProps) => {
           </AuthComponent>
         </div>
 
-        {awardsOnDepartment.data ? (
-          <div className={styles.header}>
+        {/* <div className={styles.header}>
             <TabTitle
               setPage={setPage}
               active={active}
@@ -111,20 +94,19 @@ const Gifts = ({ id, className, ...props }: GiftsProps) => {
                 </ButtonCircleIcon>
               </div>
             </AuthComponent>
-          </div>
-        ) : null}
+          </div> */}
 
-        <FilterAwards
+        {/* <FilterAwards
           state={state}
           setState={setState}
           active={active}
           setActive={setActive}
           awardsFull={awardsOnDepartment.data}
-        />
+        /> */}
 
         <div className={styles.cards}>
-          {awardsOnDepartment.data.length > 0 ? (
-            awardsOnDepartment.data?.map((item) => {
+          {giftsOnCompany.data.length > 0 ? (
+            giftsOnCompany.data?.map((item) => {
               return (
                 <Gift
                   key={uniqid()}
@@ -140,7 +122,7 @@ const Gifts = ({ id, className, ...props }: GiftsProps) => {
           )}
         </div>
 
-        {totalPage === page + 1 && <ButtonScrollUp />}
+        <ButtonScrollUp />
       </div>
     );
   } else {

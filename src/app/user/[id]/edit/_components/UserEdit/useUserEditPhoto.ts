@@ -30,7 +30,6 @@ export const useUserEditPhoto = (
 
   const [addImage] = userApi.useImageAddMutation();
   const [removeImage] = userApi.useImageDeleteMutation();
-  const [refreshImage] = userApi.useImageUpdateMutation();
 
   const addPhoto = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -98,40 +97,40 @@ export const useUserEditPhoto = (
     [imageNum, removeImage, singleUser, typeOfUser]
   );
 
-  const refreshPhoto = useCallback(
-    async (event: ChangeEvent<HTMLInputElement>) => {
-      let isError = false;
+  // const refreshPhoto = useCallback(
+  //   async (event: ChangeEvent<HTMLInputElement>) => {
+  //     let isError = false;
 
-      if (event.target.files !== null && singleUser && imageNum != undefined) {
-        const file = new FormData();
-        file.append('file', event.target.files[0]);
-        file.append('userId', singleUser.data?.user.id);
-        file.append('imageId', singleUser?.data?.user.images[imageNum].id);
+  //     if (event.target.files !== null && singleUser && imageNum != undefined) {
+  //       const file = new FormData();
+  //       file.append('file', event.target.files[0]);
+  //       file.append('userId', singleUser.data?.user.id);
+  //       file.append('imageId', singleUser?.data?.user.images[imageNum].id);
 
-        await refreshImage(file)
-          .unwrap()
-          .then((res) => {
-            if (res.success == false) {
-              errorMessageParse(res.errors);
-              isError = true;
-            }
-          })
-          .catch(() => {
-            isError = true;
-            toast.error('Ошибка обновления фотографии');
-          });
-        if (!isError) {
-          toast.success('Фото успешно обновлено');
-        }
-      }
-    },
-    [imageNum, refreshImage, singleUser]
-  );
+  //       await refreshImage(file)
+  //         .unwrap()
+  //         .then((res) => {
+  //           if (res.success == false) {
+  //             errorMessageParse(res.errors);
+  //             isError = true;
+  //           }
+  //         })
+  //         .catch(() => {
+  //           isError = true;
+  //           toast.error('Ошибка обновления фотографии');
+  //         });
+  //       if (!isError) {
+  //         toast.success('Фото успешно обновлено');
+  //       }
+  //     }
+  //   },
+  //   [imageNum, refreshImage, singleUser]
+  // );
 
   return {
     addPhoto,
     removePhoto,
-    refreshPhoto,
+    // refreshPhoto,
     imageNum,
     setImageNum,
     images,

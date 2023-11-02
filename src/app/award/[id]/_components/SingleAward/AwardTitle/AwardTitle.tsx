@@ -46,6 +46,8 @@ const AwardTitle = ({
     setImagesGallery,
   } = useAwardEditPhoto(award);
 
+  console.log('award', award);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (
@@ -80,14 +82,20 @@ const AwardTitle = ({
           )}
         </div>
 
-        <div className='flex items-center'>
-          <P size='xs' className={styles.description} type='silverBtn'>
-            {award?.description}
-          </P>
-        </div>
+        {award?.award.description && (
+          <div className='flex items-center'>
+            <P size='xs' className={styles.description} type='silverBtn'>
+              {award?.award.description}
+            </P>
+          </div>
+        )}
 
         <div className={styles.moneyWrapper}>
-          <MoneyPreview value={1000} currency={'₽'} color={'gray'} />
+          <MoneyPreview
+            value={award?.award.score!}
+            currency={'₽'}
+            color={'gray'}
+          />
         </div>
 
         <div className={styles.dateAward}>

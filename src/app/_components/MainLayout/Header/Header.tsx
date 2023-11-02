@@ -57,7 +57,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
         {singleUser?.data?.user ? (
           <div className={styles.user}>
             <Notification />
-            <Money value={1000} currency={'₽'} />
+            <Money value={singleUser.data.user.scores} currency={'₽'} />
             <UserLogo
               user={singleUser?.data?.user}
               className={styles.userImg}

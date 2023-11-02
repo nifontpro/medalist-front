@@ -29,6 +29,7 @@ import { messageApi } from '@/api/msg/message.api';
 // import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { switchDepartmentOnCompanySlice } from '../features/switchDepartmentOnCompany/switchDepartmentOnCompany.slice';
 import { treeDeptsSlice } from '../features/treeDepts/treeDepts.slice';
+import { productApi } from '@/api/shop/product/product.api';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -73,6 +74,7 @@ const persistConfig = {
     galleryApi.reducerPath,
     eventApi.reducerPath,
     messageApi.reducerPath,
+    productApi.reducerPath,
   ], // то что не хотим сохранять в localstorage
 };
 
@@ -92,6 +94,7 @@ const rootReducer = combineReducers({
   [galleryApi.reducerPath]: galleryApi.reducer,
   [eventApi.reducerPath]: eventApi.reducer,
   [messageApi.reducerPath]: messageApi.reducer,
+  [productApi.reducerPath]: productApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -111,7 +114,8 @@ export const store = configureStore({
       awardApi.middleware,
       galleryApi.middleware,
       eventApi.middleware,
-      messageApi.middleware
+      messageApi.middleware,
+      productApi.middleware
     ),
 });
 

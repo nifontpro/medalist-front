@@ -49,7 +49,7 @@ const SingleUser = ({
     totalPage,
   } = useSingleUser(id);
 
-  const { imageNum, setImageNum, images, addPhoto, removePhoto, refreshPhoto } =
+  const { imageNum, setImageNum, images, addPhoto, removePhoto } =
     useUserEditPhoto(user);
 
   if (isLoadingSingleUser) return <Spinner />;

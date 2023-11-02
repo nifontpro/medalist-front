@@ -22,6 +22,8 @@ const Award = motion(
     ): JSX.Element => {
       let currentDate = +new Date();
 
+      console.log(award);
+
       if (award.state == 'FINISH' || award.state == 'ERROR') {
         return (
           <div
@@ -29,7 +31,7 @@ const Award = motion(
             {...props}
             className={cn(styles.wrapper, styles.wrapperAward, className)}
           >
-            <MoneyPreview value={1000} currency={'₽'} />
+            <MoneyPreview value={award.score} currency={'₽'} />
             <div className={styles.img}>
               <ImageDefault
                 src={award.mainImg}
@@ -73,7 +75,7 @@ const Award = motion(
           >
             <div className='flex justify-between items-center mb-[36px]'>
               <div className={styles.nominee}>Номинация</div>
-              <MoneyPreview value={1000} currency={'₽'} />
+              <MoneyPreview value={award.score} currency={'₽'} />
             </div>
 
             <div className={styles.imgNominee}>

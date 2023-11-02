@@ -1,11 +1,11 @@
 import { Dept } from '@/types/dept/dept';
 import { BaseImage } from '@/types/base/image/baseImage';
-import {User} from "@/types/user/user";
+import { User } from '@/types/user/user';
 
 export interface Award {
   id: number;
   name: string;
-  shortDescription?: string
+  description?: string;
   mainImg?: string;
   type: AwardType;
   startDate: number;

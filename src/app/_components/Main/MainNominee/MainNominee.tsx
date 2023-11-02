@@ -78,7 +78,6 @@ const MainNominee = ({
     );
 
   let lastNominee = nominee?.data?.award;
-
   let currentDate = +new Date();
 
   return (
@@ -102,7 +101,9 @@ const MainNominee = ({
           className={styles.content}
           onClick={() => push(`/award/${lastNominee?.id}`)}
         >
-          <MoneyPreview value={1000} currency={'₽'} />
+          {lastNominee && (
+            <MoneyPreview value={lastNominee.score} currency={'₽'} />
+          )}
           <div className={styles.img}>
             <ImageDefault
               src={

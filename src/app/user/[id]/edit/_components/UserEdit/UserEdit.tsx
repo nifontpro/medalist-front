@@ -57,7 +57,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
     handleBack,
   } = useUserEdit(setValue, id, getValues, setOpenModalConfirm);
 
-  const { imageNum, setImageNum, images, addPhoto, removePhoto, refreshPhoto } =
+  const { imageNum, setImageNum, images, addPhoto, removePhoto } =
     useUserEditPhoto(singleUser);
 
   if (isLoadingSingleUser) return <Spinner />;
