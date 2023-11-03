@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+fix product">
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+product filters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/shop/product/product.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/shop/product/product.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/shop/product/Product.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/shop/product/Product.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/shop/product/ProductDetails.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/shop/product/ProductDetails.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +134,8 @@
       <workItem from="1698955432327" duration="401000" />
       <workItem from="1698957640500" duration="402000" />
       <workItem from="1698959037114" duration="19000" />
-      <workItem from="1699005044764" duration="772000" />
+      <workItem from="1699005044764" duration="1449000" />
+      <workItem from="1699038523847" duration="1931000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -223,7 +225,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698957995761</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="+product filters">
+      <option name="closed" value="true" />
+      <created>1699006220504</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1699006220504</updated>
+    </task>
+    <task id="LOCAL-00013" summary="+product filters">
+      <option name="closed" value="true" />
+      <created>1699006461634</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1699006461634</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,6 +265,7 @@
     <MESSAGE value="+change api url" />
     <MESSAGE value="+product" />
     <MESSAGE value="+fix product" />
-    <option name="LAST_COMMIT_MESSAGE" value="+fix product" />
+    <MESSAGE value="+product filters" />
+    <option name="LAST_COMMIT_MESSAGE" value="+product filters" />
   </component>
 </project>
