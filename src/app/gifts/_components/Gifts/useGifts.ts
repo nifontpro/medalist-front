@@ -25,19 +25,33 @@ export const useGifts = () => {
   } = useFetchParams();
   const selectCompany = Number(localStorage.getItem('selectCompany'));
 
+  const [available, setAvailable] = useState<boolean>(true);
+
   // Получить призы в компании
   const {
     data: giftsOnCompany,
     isLoading,
     isFetching,
-  } = productApi.useGetByDeptQuery(
+  } = productApi.useGetByCompanyQuery(
     {
       authId: typeOfUser?.id!,
       deptId: selectCompany,
+      maxPrice: available ? undefined : typeOfUser?.scores,
+      available: false,
+      baseRequest: {
+        page: page,
+        pageSize: 12,
+        orders: [{ field: 'price', direction: state }],
+      },
     },
     {
       skip: !typeOfUser || !selectCompany,
     }
+  );
+
+  const totalPage = useMemo(
+    () => giftsOnCompany?.pageInfo?.totalPages,
+    [giftsOnCompany]
   );
 
   const giftCreateLink = useCallback(() => {
@@ -84,5 +98,11 @@ export const useGifts = () => {
     giftLink,
     state,
     handleSort,
+    totalPage,
+    page,
+    prevPage,
+    nextPage,
+    setAvailable,
+    available,
   };
 };

@@ -1,13 +1,11 @@
 'use client';
 
-import uniqid from 'uniqid';
 import { GiftsProps } from './Gifts.props';
 import { useGifts } from './useGifts';
 import styles from './Gifts.module.scss';
 import Htag from '@/ui/Htag/Htag';
 import AuthComponent from '@/store/providers/AuthComponent';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
-import TabTitle from '@/ui/TabTitle/TabTitle';
 import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Gift from './Gift/Gift';
@@ -16,6 +14,9 @@ import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
 import { toast } from 'react-toastify';
+import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
+import TabTitleGifts from '@/ui/TabTitleGifts/TabTitleGifts';
+import uniqid from 'uniqid';
 
 const Gifts = ({ className, ...props }: GiftsProps) => {
   const {
@@ -26,9 +27,20 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
     giftLink,
     state,
     handleSort,
+    totalPage,
+    page,
+    prevPage,
+    nextPage,
+    setAvailable,
+    available,
   } = useGifts();
 
   console.log(giftsOnCompany);
+  console.log(available);
+
+  const as = () => {
+    setAvailable(true);
+  };
 
   if (isLoading) return <Spinner />;
   if (!giftsOnCompany?.success)
@@ -44,24 +56,24 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
         </div>
 
         <div className={styles.header}>
-          {/* <TabTitle
-            setPage={setPage}
-            active={active}
-            setActive={setActive}
-            onClickActive={undefined}
+          <TabTitleGifts
+            key={uniqid()}
+            onClickActive={true}
+            available={available}
+            setAvailable={setAvailable}
             className={styles.all}
           >
             Все
-          </TabTitle>
-          <TabTitle
-            setPage={setPage}
-            active={active}
-            setActive={setActive}
-            onClickActive={'FINISH'}
+          </TabTitleGifts>
+          <TabTitleGifts
+            key={uniqid()}
+            onClickActive={false}
+            available={available}
+            setAvailable={setAvailable}
             className={styles.award}
           >
             Только доступные
-          </TabTitle> */}
+          </TabTitleGifts>
 
           <SortButton
             state={state}
@@ -115,7 +127,16 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
           )}
         </div>
 
-        <ButtonScrollUp />
+        {totalPage && totalPage > 1 ? (
+          <PrevNextPages
+            startPage={page + 1}
+            endPage={totalPage}
+            handleNextClick={() => giftsOnCompany && nextPage(giftsOnCompany)}
+            handlePrevClick={prevPage}
+          />
+        ) : null}
+
+        {totalPage === page + 1 && <ButtonScrollUp />}
       </div>
     );
   } else {
