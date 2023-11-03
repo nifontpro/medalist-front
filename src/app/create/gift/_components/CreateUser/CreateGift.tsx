@@ -2,35 +2,20 @@
 
 import { memo, useState } from 'react';
 import styles from './CreateGift.module.scss';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useCreateGift } from './useCreateGift';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
-import InputRadio from '@/ui/InputRadio/InputRadio';
 import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
-import { Gender } from '@/types/user/user';
-import { withHookFormMask } from 'use-mask-input';
-import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
-import SelectRole from '@/ui/SelectRole/SelectRole';
-import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import ChoiceImgCreate from '@/app/create/award/_components/CreateAward/ChoiceImgCreate/ChoiceImgCreate';
-
-const roles: IOption[] = [
-  {
-    label: 'Администратор',
-    value: 'ADMIN',
-  },
-  { label: 'Пользователь', value: 'USER' },
-];
+import { CreateProductRequest } from '@/api/shop/product/request/CreateProductRequest';
 
 const CreateGift = () => {
-  const [active, setActive] = useState<Gender>('MALE');
-
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const {
@@ -41,7 +26,7 @@ const CreateGift = () => {
     setValue,
     reset,
     getValues,
-  } = useForm<CreateUserRequest>({ mode: 'onChange' });
+  } = useForm<CreateProductRequest>({ mode: 'onChange' });
 
   const {
     imagesGallery,
@@ -52,7 +37,7 @@ const CreateGift = () => {
     createInfo,
     back,
     handleBack,
-  } = useCreateGift(setValue, active, reset, setOpenModalConfirm, getValues);
+  } = useCreateGift(setValue, reset, setOpenModalConfirm, getValues);
 
   return (
     <>
@@ -75,7 +60,7 @@ const CreateGift = () => {
         <form className={styles.form}>
           <div className={styles.fields}>
             <Htag tag='h2' className={styles.title}>
-              Новый сотрудник
+              Новый приз
             </Htag>
             <ChoiceImgCreate
               className={styles.mediaVisible}
@@ -85,100 +70,63 @@ const CreateGift = () => {
               gallery={false}
             />
 
-            <div className={styles.group}>
-              <Field
-                {...register('firstname', { required: 'Имя обязательно!' })}
-                title='Имя*'
-                placeholder='Введите имя'
-                error={errors.firstname}
-              />
-              <div className={styles.groupGender}>
-                <Field
-                  {...register('lastname', { required: 'Фамилия необходима!' })}
-                  title='Фамилия*'
-                  placeholder='Введите Фамилию'
-                  error={errors.lastname}
-                />
-                <InputRadio
-                  active={active}
-                  setActive={setActive}
-                  className={styles.gender}
-                />
-              </div>
-            </div>
-
             <Field
-              {...register('patronymic')}
-              title='Отчество'
-              placeholder='Введите отчество'
-              error={errors.patronymic}
+              {...register('name', { required: 'Название обязательно!' })}
+              title='Название*'
+              placeholder='Введите название приза'
+              error={errors.name}
               className={styles.field}
             />
 
-            <div className={styles.group}>
-              <Field
-                {...register('post', { required: 'Должность обязательна!' })}
-                title='Должность*'
-                placeholder='Введите должность'
-                error={errors.post}
-              />
-              <Field
-                {...register('phone')}
-                title='Мобильный'
-                placeholder='Введите мобильный'
-                error={errors.phone}
-                type='tel'
-                className={styles.phone}
-                {...withHookFormMask(register('phone'), ['+7 (999) 999 99 99'])}
-              />
-            </div>
-
-            <div className={styles.group}>
-              <Controller
-                name='roles'
-                control={control}
-                rules={{
-                  required: 'Необходимо выбрать роль!',
-                }}
-                render={({ field, fieldState: { error } }) => (
-                  <SelectRole
-                    error={error}
-                    field={field}
-                    placeholder='Роль пользователя*'
-                    options={roles || []}
-                    isLoading={false}
-                    isMulti={true}
-                  />
-                )}
-              />
-              <Field
-                {...register('authEmail', {
-                  required: 'required',
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: 'Entered value does not match email format',
-                  },
-                })}
-                title='Email*'
-                placeholder='Введите свой email'
-                error={errors.authEmail}
-              />
-            </div>
-
-            {/* <Field
-            {...register('address', { required: 'Адрес необходим!' })}
-            title='Адрес'
-            placeholder='Напишите адрес'
-            error={errors.address}
-            className={styles.field}
-          /> */}
+            <Field
+              {...register('description')}
+              title='Краткое описание'
+              placeholder='Введите краткое описание'
+              error={errors.description}
+              className={styles.field}
+            />
 
             <TextArea
               {...register('description')}
-              title='О сотруднике'
-              placeholder='Введите информацию о владельце'
-              error={errors.description}
+              title='Подробное описание'
+              placeholder='Введите информацию о призе'
+              className={styles.field}
             />
+
+            <Field
+              {...register('siteUrl')}
+              title='Ссылка на подробное описание в интернете'
+              placeholder='Введите ссылку'
+              error={errors.siteUrl}
+              className={styles.field}
+            />
+
+            <div className={styles.groupGifts}>
+              <Field
+                {...register('price', { required: 'Стоимость обязательна!' })}
+                title='Цена*'
+                placeholder='Введите должность'
+                type='number'
+                error={errors.price}
+              />
+              <Field
+                {...register('price', { required: 'Количество обязательн!' })}
+                title='Количество*'
+                placeholder='Введите количество'
+                error={errors.price}
+                type='number'
+                className={styles.phone}
+              />
+            </div>
+
+            <Field
+              {...register('name')}
+              title='Где получить?'
+              placeholder='Напиши где получать приз'
+              error={errors.name}
+              className={styles.field}
+            />
+
             <P className={styles.field} fontstyle='thin' color='gray' size='xs'>
               * - обязательные поля
             </P>

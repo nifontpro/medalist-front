@@ -77,7 +77,7 @@ export const userApi = createApi({
 
     /**
      * Добавление изображения
-     * @param: formData: 
+     * @param: formData:
      *  [file] - Excel file,
      *  [authId]
      *  [deptId]

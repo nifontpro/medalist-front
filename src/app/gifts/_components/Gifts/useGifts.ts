@@ -1,7 +1,7 @@
 import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { getAwardCreateUrl } from '@/config/api.config';
+import { getAwardCreateUrl, getGiftCreateUrl } from '@/config/api.config';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
@@ -9,13 +9,21 @@ import { awardApi } from '@/api/award/award.api';
 import { productApi } from '@/api/shop/product/product.api';
 
 export const useGifts = () => {
+  const { push } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    state,
+    setState,
+    nextPage,
+    prevPage,
+  } = useFetchParams();
   const selectCompany = Number(localStorage.getItem('selectCompany'));
-
-  // console.log(typeOfUser);
 
   // Получить призы в компании
   const {
@@ -32,21 +40,21 @@ export const useGifts = () => {
     }
   );
 
-  // const awardCreateLink = useCallback(() => {
-  //   push(getAwardCreateUrl(`?deptId=${id}`));
-  // }, [id, push]);
+  const giftCreateLink = useCallback(() => {
+    push(getGiftCreateUrl());
+  }, []);
 
-  // const handleSort = useCallback(() => {
-  //   state == 'ASC' ? setState('DESC') : setState('ASC');
-  //   setPage(0);
-  // }, [setPage, setState, state]);
+  const handleSort = useCallback(() => {
+    state == 'ASC' ? setState('DESC') : setState('ASC');
+    setPage(0);
+  }, [setPage, setState, state]);
 
-  // const awardLink = useCallback(
-  //   (id: number) => {
-  //     push('/award/' + id);
-  //   },
-  //   [push]
-  // );
+  const giftLink = useCallback(
+    (id: number) => {
+      push('/gifts/' + id);
+    },
+    [push]
+  );
 
   // // //Для подгрузки данных при скролле с использованием IntersectionObserver
   // useEffect(() => {
@@ -72,5 +80,9 @@ export const useGifts = () => {
     giftsOnCompany,
     isLoading,
     isFetching,
+    giftCreateLink,
+    giftLink,
+    state,
+    handleSort,
   };
 };

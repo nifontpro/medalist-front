@@ -12,7 +12,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  // @apply animate-fade;
 
   @media screen and (max-width: 1280px) {
     grid-template-columns: 1fr;
@@ -85,7 +84,8 @@
       }
     }
 
-    .group {
+    .group,
+    .groupGifts {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
@@ -107,6 +107,16 @@
         font-family: var(--font-family);
         border: 1px solid #00000020;
         border-radius: 12px;
+      }
+    }
+
+    .groupGifts {
+      border-bottom: 2px solid var(--graySilver);
+      border-top: 2px solid var(--graySilver);
+      padding: 60px 0px;
+
+      @media screen and (max-width: 768px) {
+        padding: 30px 0px;
       }
     }
 

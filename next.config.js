@@ -14,6 +14,7 @@ const nextConfig = {
       'courses-top.ru',
       'md-c.storage.yandexcloud.net',
       'md-gal.storage.yandexcloud.net',
+      'md-shop.storage.yandexcloud.net',
     ],
   },
   async redirects() {
