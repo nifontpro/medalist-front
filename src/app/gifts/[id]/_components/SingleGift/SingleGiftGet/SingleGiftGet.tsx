@@ -19,35 +19,10 @@ import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
 
 const SingleGiftGet = ({
-  award,
+  gift,
   className,
   ...props
 }: SingleGiftGetProps): JSX.Element => {
-  const { push } = useRouter();
-  let convertDate = useMemo(() => timeConverter(award?.award.endDate), [award]);
-  let currentDateNumber = useMemo(() => +new Date(), []);
-
-  const { deleteAwardAsync } = useAwardAdmin(award?.award.id.toString());
-
-  //Закрытие модального окна нажатием вне его
-  const [visible, setVisible] = useState<boolean>(false);
-  const ref = useRef(null);
-  const refOpen = useRef(null);
-  const handleClickOutside = useCallback(() => {
-    setVisible(false);
-  }, []);
-  useOutsideClick(ref, refOpen, handleClickOutside, visible);
-
-  const {
-    addPhoto,
-    removePhoto,
-    imageNum,
-    setImageNum,
-    images,
-    imagesGallery,
-    setImagesGallery,
-  } = useAwardEditPhoto(award);
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.giftContent}>

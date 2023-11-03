@@ -13,6 +13,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { awardApi } from '@/api/award/award.api';
 import SingleGiftGet from './SingleGiftGet/SingleGiftGet';
+import { productApi } from '@/api/shop/product/product.api';
 
 const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   const { typeOfUser } = useAppSelector(
@@ -20,46 +21,38 @@ const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   );
 
   // Получить награду по id
-  const { data: award, isLoading: isLoadingSingleAward } =
-    awardApi.useGetByIdQuery(
-      {
-        authId: typeOfUser?.id!,
-        awardId: Number(id),
-      },
-      {
-        skip: !id || !typeOfUser,
-      }
-    );
+  const { data: gift, isLoading: isLoadingGift } = productApi.useGetByIdQuery(
+    {
+      authId: typeOfUser?.id!,
+      productId: Number(id),
+    },
+    {
+      skip: !id || !typeOfUser,
+    }
+  );
 
   const { push } = useRouter();
 
-  if (isLoadingSingleAward) return <Spinner />;
-  if (!award?.success) return <NoAccess errors={award?.errors} />;
+  if (isLoadingGift) return <Spinner />;
+  if (!gift?.success) return <NoAccess errors={gift?.errors} />;
 
-  if (
-    award?.data?.award.state == 'FINISH' ||
-    award?.data?.award.state == 'ERROR'
-  ) {
-    return (
-      <div {...props} className={cn(className)}>
-        <ButtonCircleIcon
-          onClick={() => push(`/gifts`)}
-          classNameForIcon=''
-          appearance='black'
-          icon='down'
-        >
-          В магазин призов
-        </ButtonCircleIcon>
+  return (
+    <div {...props} className={cn(className)}>
+      <ButtonCircleIcon
+        onClick={() => push(`/gifts`)}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        В магазин призов
+      </ButtonCircleIcon>
 
-        <SingleGiftTitle award={award.data!} />
-        <SingleGiftGet award={award.data!} />
+      <SingleGiftTitle gift={gift.data!} />
+      <SingleGiftGet gift={gift.data!} />
 
-        <ButtonScrollUp />
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+      <ButtonScrollUp />
+    </div>
+  );
 };
 
 export default memo(SingleGift);

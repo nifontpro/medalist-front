@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SingleGift from './_components/SingleAward/SingleGift';
+import SingleGift from './_components/SingleGift/SingleGift';
 
 export async function generateMetadata({
   params,

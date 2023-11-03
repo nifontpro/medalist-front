@@ -1,33 +1,26 @@
-import { timeConverter } from '@/utils/timeConverter';
 import styles from './SingleGiftTitle.module.scss';
 import { SingleGiftTitleProps } from './SingleGiftTitle.props';
 import cn from 'classnames';
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
+import { memo, useCallback, useRef, useState } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Htag from '@/ui/Htag/Htag';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
-import { getAwardEditUrl } from '@/config/api.config';
+import { getAwardEditUrl, getGiftEditUrl } from '@/config/api.config';
 import P from '@/ui/P/P';
-import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
-import { declOfNum } from '@/utils/declOfNum';
-import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
-import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
-import { useAwardEditPhoto } from '@/app/award/[id]/edit/_components/AwardEdit/useAwardEditPhoto';
 import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
+import { useShopAdmin } from '@/api/shop/useShopAdmin';
+import { useGiftEditPhoto } from '../../../edit/_components/UserEdit/useGiftEditPhoto';
 
 const SingleGiftTitle = ({
-  award,
+  gift,
   className,
   ...props
 }: SingleGiftTitleProps): JSX.Element => {
   const { push } = useRouter();
-  let convertDate = useMemo(() => timeConverter(award?.award.endDate), [award]);
-  let currentDateNumber = useMemo(() => +new Date(), []);
 
-  const { deleteAwardAsync } = useAwardAdmin(award?.award.id.toString());
+  const { deleteGiftAsync } = useShopAdmin(gift.product.id);
 
   //Закрытие модального окна нажатием вне его
   const [visible, setVisible] = useState<boolean>(false);
@@ -38,19 +31,12 @@ const SingleGiftTitle = ({
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
-  const {
-    addPhoto,
-    removePhoto,
-    imageNum,
-    setImageNum,
-    images,
-    imagesGallery,
-    setImagesGallery,
-  } = useAwardEditPhoto(award);
+  const { addPhoto, removePhoto, imageNum, setImageNum, images } =
+    useGiftEditPhoto(gift);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
-      {award && (
+      {gift && (
         <div className={styles.imagesWrapper}>
           <EditImagesComponent
             imageNum={imageNum}
@@ -59,8 +45,8 @@ const SingleGiftTitle = ({
             addPhoto={addPhoto}
             removePhoto={removePhoto}
             className={styles.img}
-            gallery='true'
-            forWhat='award'
+            gallery='false'
+            forWhat='gift'
             editable={true}
           />
         </div>
@@ -69,14 +55,14 @@ const SingleGiftTitle = ({
       <div className={styles.awardDescription}>
         <div className={styles.title}>
           <Htag tag='h1' className={styles.header}>
-            {award?.award.name}
+            {gift.product.name}
           </Htag>
-          {award && (
+          {gift && (
             <EditPanelAuthBtn
               onlyRemove={false}
-              handleRemove={deleteAwardAsync}
-              id={award?.award.id.toString()}
-              getUrlEdit={getAwardEditUrl}
+              handleRemove={deleteGiftAsync}
+              id={gift.product.id.toString()}
+              getUrlEdit={getGiftEditUrl}
               className={styles.dots}
             />
           )}
@@ -89,17 +75,17 @@ const SingleGiftTitle = ({
             color='gray'
             className={styles.description}
           >
-            {'Какое то описание'}
+            {gift.product.description}
           </P>
         </div>
 
         <div className={styles.businessWrapper}>
           <P size='xl' fontstyle='thin' className='flex gap-[5px] items-end'>
-            5000
+            {gift.product.price}
             <span className='text-[17px] leading-[21px]'>₽</span>
           </P>
           <P size='s' fontstyle='thin' className={styles.available}>
-            Наличие: {4}
+            Наличие: {gift.product.count}
           </P>
           <Button
             onClick={() => console.log('Купить')}
@@ -114,9 +100,7 @@ const SingleGiftTitle = ({
         <div className={styles.descriptionContent}>
           <P size='s'>Подробнее:</P>
           <P size='s' fontstyle='thin' className={styles.content}>
-            {
-              'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
-            }
+            {gift.product.description}
           </P>
         </div>
 
@@ -129,9 +113,9 @@ const SingleGiftTitle = ({
           fontstyle='thin'
           color='gray'
           className={styles.www}
-          onClick={() => push(`https://www.${award?.award.name}`)}
+          onClick={() => push(`${gift.siteUrl}`)}
         >
-          {'Адрес какого то сайта'}
+          {gift.place}
         </P>
       </div>
     </div>

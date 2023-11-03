@@ -24,13 +24,13 @@ const Gift = motion(
     ): JSX.Element => {
       const { push } = useRouter();
 
-      const { deleteUserAsync } = useShopAdmin();
+      const { deleteGiftAsync } = useShopAdmin();
 
       return (
         <div ref={ref} {...props} className={cn(styles.wrapper, className)}>
           <EditPanelAuthBtn
             onlyRemove={false}
-            handleRemove={deleteUserAsync}
+            handleRemove={deleteGiftAsync}
             id={gift.id.toString()}
             getUrlEdit={getGiftEditUrl}
             className={styles.dots}

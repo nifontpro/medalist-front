@@ -14,9 +14,7 @@ import { BaseResponse } from '@/types/base/BaseResponse';
 import { ProductDetails } from '@/types/shop/product/ProductDetails';
 import { productApi } from '@/api/shop/product/product.api';
 
-export const useGiftEditPhoto = (
-  gift: BaseResponse<ProductDetails> | undefined
-) => {
+export const useGiftEditPhoto = (gift: ProductDetails) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -25,7 +23,7 @@ export const useGiftEditPhoto = (
   const [images, setImages] = useState<BaseImage[]>();
 
   useEffect(() => {
-    setImages(gift?.data?.images);
+    setImages(gift?.images);
   }, [gift]);
 
   const [addImage] = productApi.useImageAddMutation();
@@ -38,7 +36,7 @@ export const useGiftEditPhoto = (
       if (event.target.files !== null && gift) {
         const file = new FormData();
         file.append('file', event.target.files[0]);
-        file.append('productId', gift.data?.product.id);
+        file.append('productId', gift?.product.id);
         typeOfUser &&
           typeOfUser.id &&
           file.append('authId', typeOfUser.id.toString());
@@ -73,8 +71,8 @@ export const useGiftEditPhoto = (
       let isError = false;
       if (gift && imageNum != undefined && typeOfUser?.id) {
         await removeImage({
-          productId: gift.data?.product.id,
-          imageId: gift?.data?.images[imageNum].id!,
+          productId: gift?.product.id,
+          imageId: gift?.images[imageNum].id!,
           authId: typeOfUser?.id,
         })
           .unwrap()

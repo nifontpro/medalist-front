@@ -21,7 +21,7 @@ export const useShopAdmin = (
 
   const [deleteGift] = productApi.useDeleteMutation();
 
-  const deleteUserAsync = useCallback(
+  const deleteGiftAsync = useCallback(
     async (id: number) => {
       let isError = false;
       if (typeOfUser && typeOfUser.id)
@@ -45,7 +45,7 @@ export const useShopAdmin = (
   );
 
   return {
-    deleteUserAsync,
+    deleteGiftAsync,
     // singleUser,
     // isLoadingSingleUser,
     // usersOnDepartment,

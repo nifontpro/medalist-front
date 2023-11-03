@@ -42,7 +42,7 @@ export const GiftEdit = ({ id }: GiftEditProps) => {
     useGiftEdit(setValue, id, getValues, setOpenModalConfirm);
 
   const { imageNum, setImageNum, images, addPhoto, removePhoto } =
-    useGiftEditPhoto(gift);
+    useGiftEditPhoto(gift?.data!);
 
   console.log(gift);
 
