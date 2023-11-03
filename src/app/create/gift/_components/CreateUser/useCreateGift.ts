@@ -4,75 +4,64 @@ import {
   UseFormReset,
   UseFormSetValue,
 } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   Dispatch,
   SetStateAction,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
 import { toastError } from '@/utils/toast-error';
-import { userApi } from '@/api/user/user.api';
-import { Gender } from '@/types/user/user';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { CreateUserRequest } from '@/api/user/request/CreateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { GalleryItem } from '@/types/gallery/item';
+import { CreateProductRequest } from '@/api/shop/product/request/CreateProductRequest';
+import { productApi } from '@/api/shop/product/product.api';
 
 export const useCreateGift = (
-  setValue: UseFormSetValue<CreateUserRequest>,
-  active: Gender,
-  reset: UseFormReset<CreateUserRequest>,
+  setValue: UseFormSetValue<CreateProductRequest>,
+  reset: UseFormReset<CreateProductRequest>,
   setOpenModalConfirm: Dispatch<SetStateAction<boolean>>,
-  getValues: UseFormGetValues<CreateUserRequest>
+  getValues: UseFormGetValues<CreateProductRequest>
 ) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
-  const searchParams = useSearchParams();
+  const selectCompany = Number(localStorage.getItem('selectCompany'));
 
-  const { back } = useRouter();
+  const { back, push } = useRouter();
 
-  const [create, createInfo] = userApi.useCreateUserMutation();
-
-  const deptId = useMemo(
-    () => Number(searchParams.get('deptId')),
-    [searchParams]
-  );
+  const [create, createInfo] = productApi.useCreateMutation();
 
   useEffect(() => {
-    if (active != undefined) {
-      setValue('gender', active);
-    }
-    if (deptId && typeOfUser && typeOfUser.id) {
-      setValue('deptId', deptId);
+    if (selectCompany && typeOfUser && typeOfUser.id) {
+      setValue('deptId', selectCompany);
       setValue('authId', typeOfUser.id);
     }
-  }, [setValue, active, deptId, typeOfUser]);
+  }, [setValue, typeOfUser, selectCompany]);
 
   const handleBack = () => {
     const {
-      firstname,
-      lastname,
-      patronymic,
-      post,
-      phone,
-      roles,
-      authEmail,
+      // firstname,
+      // lastname,
+      // patronymic,
+      // post,
+      // phone,
+      // roles,
+      // authEmail,
       description,
     } = getValues();
     if (
-      firstname ||
-      lastname ||
-      patronymic ||
-      post ||
-      phone ||
-      roles ||
-      authEmail ||
+      // firstname ||
+      // lastname ||
+      // patronymic ||
+      // post ||
+      // phone ||
+      // roles ||
+      // authEmail ||
       description
     ) {
       setOpenModalConfirm(true);
@@ -94,15 +83,14 @@ export const useCreateGift = (
     undefined
   ); // Для предпросмотра и выбора из галлереи
 
-  const [addImage] = userApi.useImageAddMutation();
+  const [addImage] = productApi.useImageAddMutation();
 
-  const onSubmit: SubmitHandler<CreateUserRequest> = useCallback(
+  const onSubmit: SubmitHandler<CreateProductRequest> = useCallback(
     async (data) => {
       let isError = false;
 
-      if (active != undefined) {
-        data.gender = active;
-      }
+      console.log(data);
+
       await create({ ...data })
         .unwrap()
         .then(async (res) => {
@@ -114,7 +102,7 @@ export const useCreateGift = (
               const file = new FormData();
               file.append('file', imageFile);
               file.append('authId', typeOfUser.id.toString());
-              file.append('userId', res.data?.user.id.toString());
+              file.append('productId', res.data?.product.id.toString());
               await addImage(file)
                 .unwrap()
                 .then((res) => {
@@ -132,15 +120,15 @@ export const useCreateGift = (
         })
         .catch((e) => {
           isError = true;
-          toastError(e, 'Ошибка создания профиля сотрудника');
+          toastError(e, 'Ошибка создания приза');
         });
       if (!isError) {
         reset();
-        toast.success('Профиль сотрудника успешно создан');
-        back();
+        toast.success('Приз успешно создан');
+        push('/gifts');
       }
     },
-    [active, back, create, reset, addImage, imageFile, typeOfUser]
+    [back, create, reset, addImage, imageFile, typeOfUser]
   );
 
   return {

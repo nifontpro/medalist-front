@@ -5,15 +5,17 @@ import ImageDefaultUser from './imageDefaultUser.png';
 import ImageDefaultAward from './imageDefaultAward.png';
 import ImageDefaultCompany from './imageDefaultCompany.png';
 import ImageDefaultDept from './imageDefaultDept.png';
+import ImageDefaultGift from './imageDefaultGift.png';
 import cn from 'classnames';
 
-export type ForWhat = 'user' | 'award' | 'company' | 'dept';
+export type ForWhat = 'user' | 'award' | 'company' | 'dept' | 'gift';
 
 const icons = {
   user: ImageDefaultUser,
   award: ImageDefaultAward,
   company: ImageDefaultCompany,
   dept: ImageDefaultDept,
+  gift: ImageDefaultGift,
 };
 
 type ImageDefaultProps = Omit<ImageProps, 'src'> & {

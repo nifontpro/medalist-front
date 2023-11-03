@@ -15,9 +15,18 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
+import { toast } from 'react-toastify';
 
 const Gifts = ({ className, ...props }: GiftsProps) => {
-  const { giftsOnCompany, isLoading, isFetching } = useGifts();
+  const {
+    giftsOnCompany,
+    isLoading,
+    isFetching,
+    giftCreateLink,
+    giftLink,
+    state,
+    handleSort,
+  } = useGifts();
 
   console.log(giftsOnCompany);
 
@@ -32,72 +41,59 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
           <Htag tag='h2' className={styles.headTitle}>
             Магазин призов
           </Htag>
-          {/* <SwitchDepartOnCompany /> */}
+        </div>
+
+        <div className={styles.header}>
+          {/* <TabTitle
+            setPage={setPage}
+            active={active}
+            setActive={setActive}
+            onClickActive={undefined}
+            className={styles.all}
+          >
+            Все
+          </TabTitle>
+          <TabTitle
+            setPage={setPage}
+            active={active}
+            setActive={setActive}
+            onClickActive={'FINISH'}
+            className={styles.award}
+          >
+            Только доступные
+          </TabTitle> */}
+
+          <SortButton
+            state={state}
+            onClick={handleSort}
+            className={styles.sort}
+          >
+            Сначала дешевле
+          </SortButton>
+
           <AuthComponent minRole={'ADMIN'}>
-            <div className={styles.createGiftAdaptive}>
+            <div className={styles.createGift}>
               <ButtonCircleIcon
-                // onClick={awardCreateLink}
+                onClick={giftCreateLink}
                 classNameForIcon='@apply w-[12px] h-[12px]'
                 appearance='black'
                 icon='plus'
               >
-                Создать
+                Добавить приз
+              </ButtonCircleIcon>
+            </div>
+            <div className={styles.settings}>
+              <ButtonCircleIcon
+                onClick={() => toast('Настроить приз')}
+                classNameForIcon='@apply w-[34px] h-[34px]'
+                appearance='transparent'
+                icon='settings'
+              >
+                Настроить
               </ButtonCircleIcon>
             </div>
           </AuthComponent>
         </div>
-
-        {/* <div className={styles.header}>
-            <TabTitle
-              setPage={setPage}
-              active={active}
-              setActive={setActive}
-              onClickActive={undefined}
-              className={styles.all}
-            >
-              Все
-            </TabTitle>
-            <TabTitle
-              setPage={setPage}
-              active={active}
-              setActive={setActive}
-              onClickActive={'FINISH'}
-              className={styles.award}
-            >
-              Только доступные
-            </TabTitle>
-
-            <SortButton
-              state={state}
-              onClick={handleSort}
-              className={styles.sort}
-            >
-              Сначала дешевле
-            </SortButton>
-
-            <AuthComponent minRole={'ADMIN'}>
-              <div className={styles.createGift}>
-                <ButtonCircleIcon
-                  onClick={awardCreateLink}
-                  classNameForIcon='@apply w-[12px] h-[12px]'
-                  appearance='black'
-                  icon='plus'
-                >
-                  Добавить приз
-                </ButtonCircleIcon>
-              </div>
-              <div className={styles.settings}>
-                <ButtonCircleIcon
-                  onClick={awardCreateLink}
-                  classNameForIcon='@apply w-[34px] h-[34px]'
-                  appearance='transparent'
-                  icon='settings'
-                >
-                  Настроить
-                </ButtonCircleIcon>
-              </div>
-            </AuthComponent>
-          </div> */}
 
         {/* <FilterAwards
           state={state}
@@ -109,15 +105,9 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
 
         <div className={styles.cards}>
           {giftsOnCompany.data.length > 0 ? (
-            giftsOnCompany.data?.map((item) => {
+            giftsOnCompany.data?.map((gift) => {
               return (
-                <Gift
-                  key={uniqid()}
-                  layout
-                  award={item}
-                  // onClick={() => awardLink(item.id)}
-                  className='awardCard'
-                />
+                <Gift key={uniqid()} layout gift={gift} className='awardCard' />
               );
             })
           ) : (

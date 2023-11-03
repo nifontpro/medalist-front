@@ -5,5 +5,5 @@ export type GiftProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  award: Product;
+  gift: Product;
 };
