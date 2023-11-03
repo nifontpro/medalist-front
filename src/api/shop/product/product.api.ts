@@ -8,6 +8,7 @@ import { CreateProductRequest } from './request/CreateProductRequest';
 import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
+import { BaseRequest } from '@/types/base/BaseRequest';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
@@ -81,12 +82,26 @@ export const productApi = createApi({
      * [deptId] - необходимо заполнить для Владельца, для определения конкретной компании.
      * Может быть указан любой отдел компании, бэк сам определит id компании.
      * Для всех остальных пользователей поле игнорируется (определяется автоматически).
+     *
+     * [maxPrice] - Фильтр по цене
+     * [available] - Фильтр по доступности (true- только в наличии, по умолчанию - false)
+     * [baseRequest]:
+     *  [filter] - фильтрация по имени приза (необязателен)
+     *  Параметры пагинации [page], [pageSize] - необязательны, по умолчанию 0 и 100 соответственно
+     *  Допустимые поля для сортировки:
+     *        "name",
+     *        "price",
+     *        "count",
+     *        "description",
      */
-    getByDept: build.query<
+    getByCompany: build.query<
       BaseResponse<Product[]>,
       {
         authId: number;
         deptId: number;
+        maxPrice?: number;
+        available: boolean;
+        baseRequest?: BaseRequest;
       }
     >({
       query: (request) => {
