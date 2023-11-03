@@ -46,7 +46,7 @@ const AwardEdit = ({ id }: AwardEditProps) => {
 
   if (isLoadingSingleAward) return <Spinner />;
 
-  if (!singleAward?.success) return <NoAccess />;
+  if (!singleAward?.success) return <NoAccess errors={singleAward?.errors} />;
 
   return (
     <main>

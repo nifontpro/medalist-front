@@ -53,7 +53,7 @@ const SingleUser = ({
     useUserEditPhoto(user);
 
   if (isLoadingSingleUser) return <Spinner />;
-  if (!user?.success) return <NoAccess />;
+  if (!user?.success) return <NoAccess errors={user?.errors} />;
 
   return (
     <>

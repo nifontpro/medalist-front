@@ -44,26 +44,8 @@ export const useCreateGift = (
   }, [setValue, typeOfUser, selectCompany]);
 
   const handleBack = () => {
-    const {
-      // firstname,
-      // lastname,
-      // patronymic,
-      // post,
-      // phone,
-      // roles,
-      // authEmail,
-      description,
-    } = getValues();
-    if (
-      // firstname ||
-      // lastname ||
-      // patronymic ||
-      // post ||
-      // phone ||
-      // roles ||
-      // authEmail ||
-      description
-    ) {
+    const { name, price, count, siteUrl, place, description } = getValues();
+    if (name || price || count || siteUrl || place || description) {
       setOpenModalConfirm(true);
     } else {
       back();
@@ -128,7 +110,7 @@ export const useCreateGift = (
         push('/gifts');
       }
     },
-    [back, create, reset, addImage, imageFile, typeOfUser]
+    [create, reset, addImage, imageFile, typeOfUser]
   );
 
   return {

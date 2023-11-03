@@ -59,7 +59,8 @@ const Users = ({ id, className, ...props }: UsersProps) => {
     );
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
-  if (!usersOnDepartment?.success) return <NoAccess button={false} />;
+  if (!usersOnDepartment?.success)
+    return <NoAccess errors={usersOnDepartment?.errors} />;
 
   if (usersOnDepartment && usersOnDepartment.data) {
     return (

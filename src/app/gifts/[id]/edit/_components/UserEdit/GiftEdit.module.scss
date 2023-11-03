@@ -1,0 +1,150 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr;
+    gap: 0px;
+  }
+  .form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+    // @apply animate-fade;
+
+    @media screen and (max-width: 1500px) {
+      grid-template-columns: 1fr;
+    }
+
+    .fields {
+      padding: 80px;
+      background: var(--white);
+      border-radius: 27px;
+      margin-bottom: 30px;
+
+      @media screen and (max-width: 1280px) {
+        padding: 60px 50px;
+      }
+      @media screen and (max-width: 768px) {
+        padding: 60px 40px;
+        border-radius: 16px;
+      }
+      @media screen and (max-width: 500px) {
+        padding: 30px 15px;
+      }
+
+      .field {
+        margin-bottom: 60px;
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 30px;
+        }
+      }
+
+      .title {
+        margin-bottom: 80px;
+
+        @media screen and (max-width: 768px) {
+          margin-bottom: 40px;
+        }
+      }
+
+      .firstGroup {
+        margin-top: 60px;
+        @media screen and (max-width: 768px) {
+          margin-top: 30px;
+        }
+      }
+
+      .group,
+      .groupGifts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 60px;
+        align-items: flex-end;
+
+        @media screen and (max-width: 768px) {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          margin-bottom: 30px;
+        }
+      }
+
+      .groupGifts {
+        border-bottom: 2px solid var(--graySilver);
+        border-top: 2px solid var(--graySilver);
+        padding: 60px 0px;
+
+        @media screen and (max-width: 768px) {
+          padding: 30px 0px;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          margin-top: 60px;
+        }
+
+        .confirm {
+          margin-left: 15px;
+
+          @media screen and (max-width: 768px) {
+            margin-left: 0px;
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.radioButton {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.radioButton input[type='radio'] {
+  // display: none;
+}
+
+.radioButton label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 15px;
+  line-height: 34px;
+  border: 1px solid #999;
+  border-radius: 6px;
+  user-select: none;
+}
+
+/* Checked */
+.radioButton input[type='radio']:checked + label {
+  background: #ffe0a6;
+}
+
+/* Hover */
+.radioButton label:hover {
+  color: red;
+}
+
+.desktop {
+  margin-top: 50px;
+  align-items: flex-start;
+
+  @media screen and (max-width: 1500px) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+  @media screen and (max-width: 1500px) {
+    display: flex;
+  }
+}

@@ -37,7 +37,8 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
   } = useAwards(id);
 
   if (isLoadingAwardsOnDept) return <Spinner />;
-  if (!awardsOnDepartment?.success) return <NoAccess button={false} />;
+  if (!awardsOnDepartment?.success)
+    return <NoAccess errors={awardsOnDepartment?.errors} />;
 
   if (awardsOnDepartment && awardsOnDepartment.data) {
     return (

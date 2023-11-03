@@ -43,7 +43,8 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
 
   if (isLoadingByIdDept) return <Spinner />;
 
-  if (!singleDepartment?.success) return <NoAccess />;
+  if (!singleDepartment?.success)
+    return <NoAccess errors={singleDepartment?.errors} />;
 
   return (
     <main className={styles.wrapper}>

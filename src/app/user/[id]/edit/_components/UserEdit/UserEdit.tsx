@@ -62,7 +62,7 @@ export const UserEdit = ({ id }: UserEditProps) => {
 
   if (isLoadingSingleUser) return <Spinner />;
 
-  if (!singleUser?.success) return <NoAccess />;
+  if (!singleUser?.success) return <NoAccess errors={singleUser?.errors} />;
 
   return (
     <main>

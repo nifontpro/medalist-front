@@ -36,7 +36,7 @@ const EventDepartment = ({
 
   if (isLoadingEventsDepartment) return <Spinner />;
   if (!eventsDepartment?.success) {
-    return <NoAccess button={false} />;
+    return <NoAccess errors={eventsDepartment?.errors} />;
   }
 
   return (

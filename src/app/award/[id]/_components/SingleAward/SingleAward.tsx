@@ -36,7 +36,7 @@ const SingleAward = ({ id, className, ...props }: SingleAwardProps) => {
   const { back } = useRouter();
 
   if (isLoadingSingleAward) return <Spinner />;
-  if (!award?.success) return <NoAccess />;
+  if (!award?.success) return <NoAccess errors={award?.errors} />;
 
   if (
     award?.data?.award.state == 'FINISH' ||

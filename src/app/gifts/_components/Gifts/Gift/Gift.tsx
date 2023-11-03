@@ -14,6 +14,7 @@ import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getGiftEditUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useShopAdmin } from '@/api/shop/useShopAdmin';
 
 const Gift = motion(
   forwardRef(
@@ -23,11 +24,13 @@ const Gift = motion(
     ): JSX.Element => {
       const { push } = useRouter();
 
+      const { deleteUserAsync } = useShopAdmin();
+
       return (
         <div ref={ref} {...props} className={cn(styles.wrapper, className)}>
           <EditPanelAuthBtn
             onlyRemove={false}
-            handleRemove={() => new Promise(() => toast('Удалить'))}
+            handleRemove={deleteUserAsync}
             id={gift.id.toString()}
             getUrlEdit={getGiftEditUrl}
             className={styles.dots}
@@ -55,9 +58,7 @@ const Gift = motion(
               color='gray'
               className={styles.description}
             >
-              Какое то описание супер длинное и непонятное Какое то описание
-              супер длинное и непонятное Какое то описание супер длинное и
-              непонятное Какое то описание супер длинное и непонятное
+              {gift.description}
             </P>
             <div className='flex gap-[20px] items-center'>
               <P
@@ -71,7 +72,7 @@ const Gift = motion(
               </P>
               <ButtonIcon appearance={'grayGifts'}>
                 <P size='s' color='gray'>
-                  4 шт
+                  {gift.count} шт
                 </P>
               </ButtonIcon>
             </div>

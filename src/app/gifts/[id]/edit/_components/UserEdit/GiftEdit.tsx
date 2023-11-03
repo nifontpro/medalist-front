@@ -1,46 +1,57 @@
 'use client';
 
-import { memo, useState } from 'react';
-import styles from './CreateGift.module.scss';
-import { useForm } from 'react-hook-form';
-import { useCreateGift } from './useCreateGift';
+import styles from './GiftEdit.module.scss';
+import { useForm, Controller } from 'react-hook-form';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
+import InputRadio from '@/ui/InputRadio/InputRadio';
 import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
-import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
+import { withHookFormMask } from 'use-mask-input';
+import { useGiftEdit } from './useGiftEdit';
+import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
+import Spinner from '@/ui/Spinner/Spinner';
+import NoAccess from '@/ui/NoAccess/NoAccess';
+import { GiftEditProps } from './GiftEdit.props';
+import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
+import { memo, useState } from 'react';
 import P from '@/ui/P/P';
+import SelectArtem from '@/ui/SelectArtem/SelectArtem';
+import AuthComponent from '@/store/providers/AuthComponent';
+import SelectRole from '@/ui/SelectRole/SelectRole';
+import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
-import ChoiceImgCreate from '@/app/create/award/_components/CreateAward/ChoiceImgCreate/ChoiceImgCreate';
-import { CreateProductRequest } from '@/api/shop/product/request/CreateProductRequest';
+import cn from 'classnames';
+import { useGiftEditPhoto } from './useGiftEditPhoto';
+import { UpdateProductRequest } from '@/api/shop/product/request/UpdateProductRequest';
 
-const CreateGift = () => {
+export const GiftEdit = ({ id }: GiftEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isDirty, isValid },
     setValue,
-    reset,
+    control,
     getValues,
-  } = useForm<CreateProductRequest>({ mode: 'onChange' });
+  } = useForm<UpdateProductRequest>({ mode: 'onChange' });
 
-  const {
-    imagesGallery,
-    setImagesGallery,
-    setImagesFile,
-    onSubmit,
-    handleClick,
-    createInfo,
-    back,
-    handleBack,
-  } = useCreateGift(setValue, reset, setOpenModalConfirm, getValues);
+  const { onSubmit, handleClick, isLoadingGift, gift, back, handleBack } =
+    useGiftEdit(setValue, id, getValues, setOpenModalConfirm);
+
+  const { imageNum, setImageNum, images, addPhoto, removePhoto } =
+    useGiftEditPhoto(gift);
+
+  console.log(gift);
+
+  if (isLoadingGift) return <Spinner />;
+
+  if (!gift?.success) return <NoAccess errors={gift?.errors} />;
 
   return (
-    <>
+    <main>
       <ButtonCircleIcon
         onClick={handleBack}
         classNameForIcon=''
@@ -49,25 +60,34 @@ const CreateGift = () => {
       >
         Вернуться назад
       </ButtonCircleIcon>
-
       <div className={styles.wrapper}>
-        <ChoiceImgCreate
-          images={imagesGallery}
-          setImagesGallery={setImagesGallery}
-          setImagesFile={setImagesFile}
-          gallery={false}
+        <EditImagesComponent
+          imageNum={imageNum}
+          setImageNum={setImageNum}
+          images={images}
+          addPhoto={addPhoto}
+          removePhoto={removePhoto}
+          className={styles.desktop}
+          gallery='false'
+          forWhat='user'
+          editable={false}
         />
         <form className={styles.form}>
           <div className={styles.fields}>
             <Htag tag='h2' className={styles.title}>
-              Новый приз
+              Редактирование
             </Htag>
-            <ChoiceImgCreate
-              className={styles.mediaVisible}
-              images={imagesGallery}
-              setImagesGallery={setImagesGallery}
-              setImagesFile={setImagesFile}
-              gallery={false}
+
+            <EditImagesComponent
+              imageNum={imageNum}
+              setImageNum={setImageNum}
+              images={images}
+              addPhoto={addPhoto}
+              removePhoto={removePhoto}
+              className={styles.mobile}
+              gallery='false'
+              forWhat='user'
+              editable={false}
             />
 
             <Field
@@ -133,27 +153,26 @@ const CreateGift = () => {
 
             <div className={styles.buttons}>
               <Button
-                onClick={handleSubmit(onSubmit)}
-                appearance='blackWhite'
-                size='l'
-                className={styles.cancel}
-                disabled={!isDirty || !isValid}
-              >
-                Создать
-              </Button>
-              <Button
                 onClick={handleClick}
                 appearance='whiteBlack'
                 size='l'
-                className={styles.confirm}
+                className={styles.cancel}
               >
-                Отменить
+                Назад
+              </Button>
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                appearance='blackWhite'
+                size='l'
+                className={styles.confirm}
+                // disabled={!isDirty || !isValid}
+              >
+                Сохранить
               </Button>
             </div>
           </div>
         </form>
       </div>
-
       <ModalConfirm
         title={'Вы действительно хотите покинуть страницу?'}
         textBtn={'Покинуть'}
@@ -162,10 +181,8 @@ const CreateGift = () => {
         setOpenModalConfirm={setOpenModalConfirm}
         onConfirm={() => back()}
       />
-
-      {createInfo.status == 'pending' ? <SpinnerFetching /> : null}
-    </>
+    </main>
   );
 };
 
-export default memo(CreateGift);
+export default memo(GiftEdit);

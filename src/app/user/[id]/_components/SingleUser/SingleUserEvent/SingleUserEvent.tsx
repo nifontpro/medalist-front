@@ -36,7 +36,7 @@ const SingleUserEvent = ({
 
   if (isLoadingEventsUser) return <Spinner />;
   if (!eventsUser?.success) {
-    return <NoAccess button={false} />;
+    return <NoAccess errors={eventsUser?.errors} />;
   }
 
   return (

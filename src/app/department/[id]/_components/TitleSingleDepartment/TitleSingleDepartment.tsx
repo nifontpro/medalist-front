@@ -88,7 +88,7 @@ const TitleSingleDepartment = ({
 
   if (isLoadingByIdDept) return <Spinner />;
   if (!department?.success) {
-    return <NoAccess button={false} />;
+    return <NoAccess errors={department?.errors} />;
   }
 
   return (
