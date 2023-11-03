@@ -8,6 +8,7 @@ import { CreateProductRequest } from './request/CreateProductRequest';
 import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
+import { BaseRequest } from '@/types/base/BaseRequest';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
@@ -93,11 +94,14 @@ export const productApi = createApi({
      *        "count",
      *        "description",
      */
-    getByDept: build.query<
+    getByCompany: build.query<
       BaseResponse<Product[]>,
       {
         authId: number;
         deptId: number;
+        maxPrice?: number;
+        available: boolean;
+        baseRequest?: BaseRequest;
       }
     >({
       query: (request) => {
