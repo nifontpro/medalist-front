@@ -48,6 +48,7 @@ export const useGiftEdit = (
       setValue('siteUrl', gift.data?.siteUrl);
       setValue('place', gift.data?.place);
       setValue('description', gift.data?.product.description);
+      setValue('shortDescription', gift.data?.product.shortDescription);
       setValue('productId', gift.data?.product.id);
     }
   }, [setValue, typeOfUser, gift]);

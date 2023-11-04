@@ -75,7 +75,7 @@ const SingleGiftTitle = ({
             color='gray'
             className={styles.description}
           >
-            {gift.product.description}
+            {gift.product.shortDescription}
           </P>
         </div>
 
@@ -100,7 +100,7 @@ const SingleGiftTitle = ({
         <div className={styles.descriptionContent}>
           <P size='s'>Подробнее:</P>
           <P size='s' fontstyle='thin' className={styles.content}>
-            {gift.product.description}
+            {gift.description}
           </P>
         </div>
 

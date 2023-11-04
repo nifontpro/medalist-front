@@ -58,7 +58,7 @@ const Gift = motion(
               color='gray'
               className={styles.description}
             >
-              {gift.description}
+              {gift.shortDescription}
             </P>
             <div className='flex gap-[20px] items-center'>
               <P
