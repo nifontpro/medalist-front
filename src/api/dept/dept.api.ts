@@ -12,7 +12,7 @@ export const deptUrl = (string: string = '') => `/client/dept${string}`;
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['Dept'],
   endpoints: (build) => ({
     /**

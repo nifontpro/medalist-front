@@ -17,7 +17,7 @@ export const userUrl = (string: string = '') => `/client/user${string}`;
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['User', 'Settings', 'Action', 'None'],
   endpoints: (build) => ({
     getTestData: build.query<{ res: string }, void>({

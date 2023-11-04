@@ -11,7 +11,7 @@ export const itemUrl = (string: string = '') => `/gallery/item${string}`;
 
 export const galleryApi = createApi({
   reducerPath: 'GalleryApi',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['Folder', 'Item'],
   endpoints: (build) => ({
     /**

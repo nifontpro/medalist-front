@@ -14,18 +14,13 @@ export const useUserSelection = () => {
   const dispatch = useAppDispatch();
   const pathName = usePathname();
 
-  const { isAuth } = useAppSelector((state) => state.auth);
   const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
   const { expandedIds, selectedIds } = useAppSelector(
     (state) => state.sidebarTree
   );
 
-  const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
-    undefined,
-    {
-      skip: !isAuth,
-    }
-  );
+  const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(undefined);
+  console.log(rolesUser);
 
   // //Получаем отделы возможные для просмотра
   const [subTree] = deptApi.useLazyGetAuthTopLevelTreeQuery();
@@ -68,7 +63,6 @@ export const useUserSelection = () => {
   };
 
   return {
-    isAuth,
     typeOfUser,
     isOpen,
     pathName,

@@ -20,12 +20,19 @@ export const AUTH_CODE_REDIRECT_URI = APP_URI + '/login/redirect';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.API_SERVER_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const accessToken = (getState() as TypeRootState).auth.access_token;
+    if (accessToken) {
+      headers.set('authorization', `Bearer ${accessToken}`);
+    }
+    return headers;
+  },
 });
 
 const accessQuery = fetchBaseQuery({
   baseUrl: process.env.API_SERVER_URL,
   prepareHeaders: (headers, { getState }) => {
-    const accessToken = (getState() as TypeRootState).auth.accessToken;
+    const accessToken = (getState() as TypeRootState).auth.access_token;
     if (accessToken) {
       headers.set('authorization', `Bearer ${accessToken}`);
     }

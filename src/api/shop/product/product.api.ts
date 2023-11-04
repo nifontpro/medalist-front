@@ -13,7 +13,7 @@ import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   tagTypes: ['Product'],
   endpoints: (build) => ({
     /**

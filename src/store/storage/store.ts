@@ -29,6 +29,7 @@ import { messageApi } from '@/api/msg/message.api';
 import { switchDepartmentOnCompanySlice } from '../features/switchDepartmentOnCompany/switchDepartmentOnCompany.slice';
 import { treeDeptsSlice } from '../features/treeDepts/treeDepts.slice';
 import { productApi } from '@/api/shop/product/product.api';
+import { authMiddleware } from './auth-middleware';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -111,7 +112,8 @@ export const store = configureStore({
       galleryApi.middleware,
       eventApi.middleware,
       messageApi.middleware,
-      productApi.middleware
+      productApi.middleware,
+      authMiddleware
     ),
 });
 

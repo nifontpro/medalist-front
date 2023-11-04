@@ -33,13 +33,8 @@ const UserPanelModalWindow = forwardRef(
       handleChangeCompany,
     } = useUserPanelModalWindow(setVisibleModal, user);
 
-    const { isAuth } = useAppSelector((state) => state.auth);
-    const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(
-      undefined,
-      {
-        skip: !isAuth,
-      }
-    );
+    const { data: rolesUser, isLoading } =
+      userApi.useGetProfilesQuery(undefined);
 
     const { windowSize } = useWindowSize();
 

@@ -1,15 +1,14 @@
+import { decodeToken } from '@/fetch-token';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IAuthState {
-  isAuth: boolean;
-  accessToken: string | undefined;
+  access_token: string | undefined;
   idToken: string | undefined;
   loading: boolean;
 }
 
 const initialState: IAuthState = {
-  isAuth: false,
-  accessToken: undefined,
+  access_token: undefined,
   idToken: undefined,
   loading: false,
 };
@@ -19,7 +18,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
-      console.log('payload', action.payload);
+      // console.log('action.payload', action.payload);
+      state.access_token = action.payload;
     },
   },
 });

@@ -22,7 +22,6 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
 
   const {
-    isAuth,
     typeOfUser,
     isOpen,
     pathName,
@@ -95,7 +94,7 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
 
   return (
     <>
-      {(isAuth && typeOfUser != undefined && !isOpen) ||
+      {(typeOfUser != undefined && !isOpen) ||
       pathName == '/login' ||
       pathName == '/create/owner' ? null : (
         <div className={cn(styles.wrapper, className)} {...props}>
