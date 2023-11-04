@@ -25,7 +25,7 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
       'client_id=' + CLIENT_ID,
     ];
     const url = KEYCLOAK_URI + '/logout' + '?' + params.join('&');
-    deleteCookie('exp');
+    deleteCookie('access_token');
     window.open(url, '_self');
   }
 
