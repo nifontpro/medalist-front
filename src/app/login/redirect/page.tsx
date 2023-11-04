@@ -5,13 +5,17 @@ import React, { useEffect, useState } from 'react';
 import { authApi } from '@/api/auth/auth.api';
 import { usePathname } from 'next/navigation';
 import Spinner from '@/ui/Spinner/Spinner';
-import { setCookie } from 'cookies-next';
+import { setCookie, getCookie } from 'cookies-next';
 import { isExpired, decodeToken } from 'react-jwt';
+import { cookies } from 'next/dist/client/components/headers';
 
 const RedirectPage = () => {
   const { push, back } = useRouter();
   const query = useSearchParams();
   const pathname = usePathname();
+
+  console.log(getCookie('codeVerifier'));
+  console.log(getCookie('codeChallenge'));
 
   const [getLoginData, { isLoading }] = authApi.useGetLoginDataMutation();
 

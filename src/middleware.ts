@@ -1,61 +1,83 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import pkceChallenge from 'pkce-challenge';
-// import {
-//   AUTH_CODE_REDIRECT_URI,
-//   CLIENT_ID,
-//   KEYCLOAK_URI,
-// } from './api/auth/auth.api';
+import {
+  completeAuth,
+  // decodeToken,
+  fetchAccessToken,
+  // handleExpiredToken,
+  redirectToKeycloakAuth,
+} from './fetch-token';
+import { Url } from 'url';
 
-export async function middleware(req: NextRequest, res: NextResponse) {
-  //   const generateState = (length: number) => {
-  //     let state = '';
-  //     // noinspection SpellCheckingInspection
-  //     let alphaNumericCharacters =
-  //       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //     let alphaNumericCharactersLength = alphaNumericCharacters.length;
-  //     for (let i = 0; i < length; i++) {
-  //       state += alphaNumericCharacters.charAt(
-  //         Math.floor(Math.random() * alphaNumericCharactersLength)
-  //       );
-  //     }
- 
-  //     return state;
-  //   };
+// export async function middleware(req: NextRequest, res: NextResponse) {
+//   const { pathname, origin } = req.nextUrl;
 
-  //   function requestAuthCode(state: string, codeChallenge: string): string {
-  //     const params = [
-  //       'response_type=code',
-  //       'state=' + state,
-  //       'client_id=' + CLIENT_ID,
-  //       'scope=openid',
-  //       'code_challenge=' + codeChallenge,
-  //       'code_challenge_method=S256',
-  //       'redirect_uri=' + AUTH_CODE_REDIRECT_URI,
-  //     ];
+//   const exp = req.cookies.get('exp')?.value; // жизнь токена полученного
+//   const currentDate = +new Date();
 
-  //     return KEYCLOAK_URI + '/auth' + '?' + params.join('&');
-  //   }
-  const { pathname, origin } = req.nextUrl;
+//   if (
+//     pathname == '/' ||
+//     pathname.startsWith('/award') ||
+//     pathname.startsWith('/department') ||
+//     pathname.startsWith('/user') ||
+//     pathname.startsWith('/create') ||
+//     pathname.startsWith('/gifts')
+//   ) {
+//     if (!exp || Number(exp) * 1000 < currentDate)
+//       return NextResponse.redirect(
+//         `${process.env.APP_URL}/login?redirect=${pathname}`
+//       );
+//   }
+//   if (pathname == '/login' && exp) {
+//     return NextResponse.redirect(`${origin}`);
+//   }
+// }
 
-  const exp = req.cookies.get('exp')?.value; // жизнь токена полученного
-  const currentDate = +new Date();
+export async function middleware(request: NextRequest, res: NextResponse) {
+  const { pathname, origin } = request.nextUrl;
 
-  //   let tmpState = generateState(30);
-  //   const challenge = pkceChallenge(128);
-  //   let url = requestAuthCode(tmpState, challenge.code_challenge);
+  const isAuthPage = pathname.startsWith('/');
+  // const isAnotherPage =
+  //   pathname == '/' ||
+  //   pathname.startsWith('/award') ||
+  //   pathname.startsWith('/department') ||
+  //   pathname.startsWith('/user') ||
+  //   pathname.startsWith('/create') ||
+  //   pathname.startsWith('/gifts');
 
-  if (
-    pathname == '/' ||
-    pathname.startsWith('/award') ||
-    pathname.startsWith('/department') ||
-    pathname.startsWith('/user') ||
-    pathname.startsWith('/create')
-  ) {
-    if (!exp || Number(exp) * 1000 < currentDate)
-      return NextResponse.redirect(`${process.env.APP_URL}/login?redirect=${pathname}`);
-    //   return NextResponse.redirect(`${url}`);
+  if (isAuthPage) {
+    console.log('isAuthPage');
+    return handleAuthPage(request);
   }
-  if (pathname == '/login' && exp) {
-    return NextResponse.redirect(`${origin}`);
-  }
+
+  // const accessToken = request.cookies.get('access_token');
+  // if (!accessToken) return redirectToKeycloakAuth(request);
+
+  // const decoded = decodeToken(accessToken.value);
+  // if (!decoded) return redirectToKeycloakAuth(request);
+
+  // if (isAnotherPage && !decoded.groups.includes('GenDoc_Admin')) {
+  //   return NextResponse.error(); // Admin-only access
+  // }
+
+  // if (decoded.exp < Date.now() / 1000) {
+  //   return handleExpiredToken(request);
+  // }
+
+  return NextResponse.next();
+}
+
+async function handleAuthPage(request: NextRequest) {
+  const code = request.nextUrl.searchParams.get('code');
+  const codeVerifier = request.cookies.get('codeVerifier');
+
+  // console.log('Code', code);
+  // console.log('codeVerifier', codeVerifier);
+  // console.log(request.url);
+
+  if (!code) return redirectToKeycloakAuth(request, request.url);
+  console.log('code', code);
+
+  const token = await fetchAccessToken(code, codeVerifier?.value!);
+  console.log('token', token);
+  // return token ? completeAuth(request, token) : NextResponse.error();
 }
