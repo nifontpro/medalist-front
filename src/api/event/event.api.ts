@@ -1,10 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
+
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { BaseEvent, ShortEvent } from '@/types/event/BaseEvent';
 import { AddUserEventRequest } from '@/api/event/request/AddUserEventRequest';
 import { GetAllEventsRequest } from '@/api/event/request/GetAllEventsRequest';
 import { AddDeptEventRequest } from './request/AddDeptEventRequest';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 
 export const eventUrl = (string: string = '') => `/client/event${string}`;
 

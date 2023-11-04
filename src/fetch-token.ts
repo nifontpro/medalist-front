@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateState } from './app/_login/generateState';
-import { AUTH_CODE_REDIRECT_URI } from './api/auth/auth.api';
+import { generateState } from './utils/generateState';
 
 export type Token = {
   access_token: string;

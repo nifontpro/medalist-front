@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { UserMsg } from '@/types/msg/UserMsg';
 

@@ -2,14 +2,15 @@ import { User } from '@/types/user/user';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+
 import { useJwt } from 'react-jwt';
 import { RootState } from '@/store/storage/store';
-import { authActions } from '@/store/features/auth/auth.slice';
+
 import { getUserEditUrl, getUserUrl } from '@/config/api.config';
 import { deleteCookie } from 'cookies-next';
 import { useHeader } from '../../useHeader';
 import { setIsOpenUserSelection } from '@/store/features/userSelection/userSelection.slice';
+import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/base/base.api';
 
 function logoutWin(it: string) {
   const params = [
@@ -18,7 +19,7 @@ function logoutWin(it: string) {
     'client_id=' + CLIENT_ID,
   ];
   const url = KEYCLOAK_URI + '/logout' + '?' + params.join('&');
-  deleteCookie('exp');
+  deleteCookie('access_token');
   window.open(url, '_self');
 }
 
@@ -57,14 +58,14 @@ export const useUserPanelModalWindow = (
     setTimeout(async () => {
       if (it != undefined && !isExpired) {
         await logoutWin(it);
-        dispatch(authActions.setIsAuth(false));
+        // dispatch(authActions.setIsAuth(false));
         // await deleteCookie('exp'); // Для middleware
       }
-      await dispatch(authActions.setNoAccess());
+      // await dispatch(authActions.setNoAccess());
       // await deleteCookie('exp'); // Для middleware
       await logoutWin(it!);
     }, 0);
-  }, [dispatch, isExpired]);
+  }, [isExpired]);
 
   // const handleLogoutClick = useCallback(() => {
   //   const it = localStorage.getItem('it');

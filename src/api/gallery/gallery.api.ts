@@ -1,9 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '@/api/base/base.api';
+
 import { BaseRequest } from '@/types/base/BaseRequest';
 import { Folder } from '@/types/gallery/folder';
 import { GalleryItem } from '@/types/gallery/item';
 import { BaseResponse } from '@/types/base/BaseResponse';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 
 export const folderUrl = (string: string = '') => `/gallery/folder${string}`;
 export const itemUrl = (string: string = '') => `/gallery/item${string}`;
@@ -21,7 +22,10 @@ export const galleryApi = createApi({
      *          "name",
      *          "createdAt",
      */
-    getAllFolder: build.query<BaseResponse<Folder[]>, { baseRequest: BaseRequest | undefined }>({
+    getAllFolder: build.query<
+      BaseResponse<Folder[]>,
+      { baseRequest: BaseRequest | undefined }
+    >({
       query: (request) => {
         return {
           method: 'POST',
@@ -41,7 +45,7 @@ export const galleryApi = createApi({
      *            "createdAt",
      */
     getItemsByFolder: build.query<
-    BaseResponse<GalleryItem[]>,
+      BaseResponse<GalleryItem[]>,
       { folderId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (request) => {

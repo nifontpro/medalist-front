@@ -56,6 +56,7 @@ export async function middleware(request: NextRequest, res: NextResponse) {
   const decoded = decodeToken(accessToken.value);
   // console.log('decoded', decoded);
   if (!decoded) return redirectToKeycloakAuth(request, request.url);
+  console.log('decoded', decoded);
 
   // if (isAnotherPage && !decoded.groups.includes('GenDoc_Admin')) {
   //   return NextResponse.error(); // Admin-only access

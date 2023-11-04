@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 import { Dept } from '@/types/dept/dept';
 import { DeptDetails } from '@/types/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';

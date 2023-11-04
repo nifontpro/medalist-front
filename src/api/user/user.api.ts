@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
+
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { User } from '@/types/user/user';
 import { UserDetails } from '@/types/user/userDetails';
@@ -11,6 +11,7 @@ import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 

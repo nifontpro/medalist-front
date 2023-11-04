@@ -8,7 +8,7 @@ import { redirect, usePathname } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { memo } from 'react';
 import React from 'react';
-import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/auth/auth.api';
+import { APP_URI, CLIENT_ID, KEYCLOAK_URI } from '@/api/base/base.api';
 
 const MainLayout = ({ children, ...props }: MainLayoutProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -41,7 +41,7 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
 
         <div className={styles.content}>{children}</div>
       </div>
-      {/* <UserSelection /> */}
+      <UserSelection />
     </>
   );
   // } else if (pathName.slice(0, 6) === '/login') {

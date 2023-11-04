@@ -1,4 +1,5 @@
-import { authActions } from '@/store/features/auth/auth.slice';
+// import { authActions } from '@/store/features/auth/auth.slice';
+// import { KEYCLOAK_URI } from '@/app/_components/MainLayout/MainLayout';
 import { TypeRootState } from '@/store/storage/store';
 import {
   BaseQueryFn,
@@ -8,9 +9,14 @@ import {
 } from '@reduxjs/toolkit/query';
 
 import process from 'process';
-import { CLIENT_ID, IAuthResponse, KEYCLOAK_URI } from '../auth/auth.api';
+// import { CLIENT_ID, IAuthResponse, KEYCLOAK_URI } from '../auth/auth.api';
 
 // const API_SERVER_URL = process.env.API_SERVER_URL;
+
+export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/protocol/openid-connect`;
+export const CLIENT_ID = 'medalist-client';
+export const APP_URI = process.env.APP_URL;
+export const AUTH_CODE_REDIRECT_URI = APP_URI + '/login/redirect';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: process.env.API_SERVER_URL,
@@ -38,39 +44,39 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await accessQuery(args, api, extraOptions);
 
-  if (result.error && result.error.status === 401) {
-    const refreshToken = localStorage.getItem('refresh');
-    // const refreshTokenSlice = (api.getState() as TypeRootState).auth.refreshToken
+  // if (result.error && result.error.status === 401) {
+  //   const refreshToken = localStorage.getItem('refresh');
+  //   // const refreshTokenSlice = (api.getState() as TypeRootState).auth.refreshToken
 
-    if (refreshToken == null) {
-      api.dispatch(authActions.setNoAuth());
-      return result;
-    }
+  //   if (refreshToken == null) {
+  //     api.dispatch(authActions.setNoAuth());
+  //     return result;
+  //   }
 
-    const formData = new URLSearchParams();
-    formData.append('grant_type', 'refresh_token');
-    formData.append('client_id', CLIENT_ID);
-    formData.append('refresh_token', refreshToken);
+  //   const formData = new URLSearchParams();
+  //   formData.append('grant_type', 'refresh_token');
+  //   formData.append('client_id', CLIENT_ID);
+  //   formData.append('refresh_token', refreshToken);
 
-    const refreshResult = await refreshQuery(
-      { method: 'POST', url: '/token', body: formData },
-      api,
-      extraOptions
-    );
+  //   const refreshResult = await refreshQuery(
+  //     { method: 'POST', url: '/token', body: formData },
+  //     api,
+  //     extraOptions
+  //   );
 
-    if (refreshResult?.error != undefined) {
-      api.dispatch(authActions.setNoAuth());
-    } else {
-      if (refreshResult?.data) {
-        const refreshResponse = refreshResult.data as IAuthResponse;
-        api.dispatch(authActions.setAuthData(refreshResponse));
-        // retry the original query with new access token
-        result = await accessQuery(args, api, extraOptions);
-      } else {
-        api.dispatch(authActions.setNoAuth());
-      }
-    }
-  }
+  //   if (refreshResult?.error != undefined) {
+  //     api.dispatch(authActions.setNoAuth());
+  //   } else {
+  //     if (refreshResult?.data) {
+  //       const refreshResponse = refreshResult.data as IAuthResponse;
+  //       api.dispatch(authActions.setAuthData(refreshResponse));
+  //       // retry the original query with new access token
+  //       result = await accessQuery(args, api, extraOptions);
+  //     } else {
+  //       api.dispatch(authActions.setNoAuth());
+  //     }
+  //   }
+  // }
 
   return result;
 };

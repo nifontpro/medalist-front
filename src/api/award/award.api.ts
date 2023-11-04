@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQueryWithReauth } from '../base/base.api';
+
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { CreateAwardRequest } from './request/CreateAwardRequest';
@@ -15,6 +15,7 @@ import { WWAwardCount } from '@/types/award/WWAwardCount';
 import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 import { userApi } from '../user/user.api';
 import { messageApi } from '../msg/message.api';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 

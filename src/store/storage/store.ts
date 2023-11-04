@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { authApi } from '@/api/auth/auth.api';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 // import storage from 'redux-persist/lib/storage'
 import {
@@ -67,7 +66,6 @@ const persistConfig = {
     'visibleModalWindowGalleryAwards',
   ], // только это хотим сохрать в localstorage, остальное нам не нужно сохранять
   blacklist: [
-    authApi.reducerPath,
     userApi.reducerPath,
     deptApi.reducerPath,
     awardApi.reducerPath,
@@ -87,7 +85,6 @@ const rootReducer = combineReducers({
   treeDepts: treeDeptsSlice.reducer,
   switcher: switchDepartmentOnCompanySlice.reducer,
   visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
-  [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [deptApi.reducerPath]: deptApi.reducer,
   [awardApi.reducerPath]: awardApi.reducer,
@@ -108,7 +105,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(
-      authApi.middleware,
       userApi.middleware,
       deptApi.middleware,
       awardApi.middleware,

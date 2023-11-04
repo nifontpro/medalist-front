@@ -2,13 +2,14 @@ export const productUrl = (string: string = '') => `/shop/product${string}`;
 
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { BaseResponse } from '@/types/base/BaseResponse';
-import { baseQueryWithReauth } from '@/api/base/base.api';
+
 import { ProductDetails } from '@/types/shop/product/ProductDetails';
 import { CreateProductRequest } from './request/CreateProductRequest';
 import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { BaseRequest } from '@/types/base/BaseRequest';
+import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
