@@ -7,8 +7,9 @@ export const treeDeptsSlice = createSlice({
   reducers: {
     setTreeDepts: (state, action: PayloadAction<Dept[]>) =>
       (state = action.payload),
+    resetTreeDepts: (state) => (state = null),
   },
 });
 
-export const { setTreeDepts } = treeDeptsSlice.actions;
+export const { setTreeDepts, resetTreeDepts } = treeDeptsSlice.actions;
 export default treeDeptsSlice.reducer;

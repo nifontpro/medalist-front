@@ -21,9 +21,12 @@ export const authSlice = createSlice({
       // console.log('action.payload', action.payload);
       state.access_token = action.payload;
     },
+    removeToken: (state) => {
+      state.access_token = undefined;
+    },
   },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, removeToken } = authSlice.actions;
 
 export default authSlice.reducer;

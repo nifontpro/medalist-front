@@ -15,12 +15,11 @@ export const useUserSelection = () => {
   const pathName = usePathname();
 
   const { typeOfUser, isOpen } = useAppSelector((state) => state.userSelection);
-  const { expandedIds, selectedIds } = useAppSelector(
-    (state) => state.sidebarTree
-  );
+  // const { expandedIds, selectedIds } = useAppSelector(
+  //   (state) => state.sidebarTree
+  // );
 
-  const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(undefined);
-  // console.log(rolesUser);
+  // const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(undefined);
 
   // //Получаем отделы возможные для просмотра
   const [subTree] = deptApi.useLazyGetAuthTopLevelTreeQuery();
@@ -66,13 +65,13 @@ export const useUserSelection = () => {
     typeOfUser,
     isOpen,
     pathName,
-    rolesUser,
+    // rolesUser,
     handleChangeRole,
-    isLoading,
+    // isLoading,
     dispatch,
     push,
     setIsOpenUserSelection,
-    expandedIds,
-    selectedIds,
+    // expandedIds,
+    // selectedIds,
   };
 };

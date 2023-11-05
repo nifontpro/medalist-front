@@ -18,21 +18,28 @@ import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
 import WindowWithoutRoles from './WindowWithoutRoles/WindowWithoutRoles';
 import WindowWithRoles from './WindowWithRoles/WindowWithRoles';
 
-const UserSelection = ({ className, ...props }: UserSelectionProps) => {
+const UserSelection = ({
+  rolesUser,
+  isLoading,
+  expandedIds,
+  selectedIds,
+  className,
+  ...props
+}: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
 
   const {
     typeOfUser,
     isOpen,
+    // rolesUser,
+    // isLoading,
+    // expandedIds,
+    // selectedIds,
     pathName,
-    rolesUser,
     handleChangeRole,
-    isLoading,
     push,
     dispatch,
     setIsOpenUserSelection,
-    expandedIds,
-    selectedIds,
   } = useUserSelection();
 
   let reversedRolesUser: User[] = [];
@@ -66,24 +73,24 @@ const UserSelection = ({ className, ...props }: UserSelectionProps) => {
     }
   };
 
-  useEffect(() => {
-    if (rolesUser?.data?.length && rolesUser?.data?.length > 0) {
-      if (
-        typeOfUser &&
-        rolesUser?.data.filter((role) => role.id == typeOfUser.id).length > 0
-      ) {
-        dispatch(setArrayIds(expandedIds));
-        // dispatch(setSelectedTreeId(selectedIds));
-      } else {
-        dispatch(setTypeOfUserUndefined());
-      }
-      if (rolesUser?.data?.length == 1) {
-        dispatch(setTypeOfUser_IsOpen(rolesUser?.data[0]));
-      }
-    } else if (rolesUser?.data?.length == 0) {
-      dispatch(setTypeOfUserUndefined());
-    }
-  });
+  // useEffect(() => {
+  //   if (rolesUser?.data?.length && rolesUser?.data?.length > 0) {
+  //     if (
+  //       typeOfUser &&
+  //       rolesUser?.data.filter((role) => role.id == typeOfUser.id).length > 0
+  //     ) {
+  //       dispatch(setArrayIds(expandedIds));
+  //       // dispatch(setSelectedTreeId(selectedIds));
+  //     } else {
+  //       dispatch(setTypeOfUserUndefined());
+  //     }
+  //     if (rolesUser?.data?.length == 1) {
+  //       dispatch(setTypeOfUser_IsOpen(rolesUser?.data[0]));
+  //     }
+  //   } else if (rolesUser?.data?.length == 0) {
+  //     dispatch(setTypeOfUserUndefined());
+  //   }
+  // });
 
   //Закрытие модального окна уведомлений нажатием вне
   const ref = useRef(null);

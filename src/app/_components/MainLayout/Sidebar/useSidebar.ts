@@ -10,7 +10,7 @@ import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 import { Dept } from '@/types/dept/dept';
 import { setTreeDepts } from '@/store/features/treeDepts/treeDepts.slice';
 import { SelectChangeEvent } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();

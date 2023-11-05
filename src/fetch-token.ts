@@ -147,10 +147,12 @@ export function completeAuth(request: NextRequest, token: Token) {
   // Delete existing tokens if they exist
   response.cookies.delete('access_token');
   response.cookies.delete('refresh_token');
+  response.cookies.delete('id_token');
 
   // // Set new tokens
   response.cookies.set('access_token', token.access_token);
   response.cookies.set('refresh_token', token.refresh_token);
+  response.cookies.set('id_token', token.id_token);
 
   return response;
 }
