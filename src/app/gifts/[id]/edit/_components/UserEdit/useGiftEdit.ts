@@ -79,7 +79,7 @@ export const useGiftEdit = (
     async (data) => {
       let isError = false;
 
-      console.log(data);
+      // console.log(data);
 
       await update({ ...data })
         .unwrap()

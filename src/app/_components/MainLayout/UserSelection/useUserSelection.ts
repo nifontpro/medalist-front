@@ -20,7 +20,7 @@ export const useUserSelection = () => {
   );
 
   const { data: rolesUser, isLoading } = userApi.useGetProfilesQuery(undefined);
-  console.log(rolesUser);
+  // console.log(rolesUser);
 
   // //Получаем отделы возможные для просмотра
   const [subTree] = deptApi.useLazyGetAuthTopLevelTreeQuery();

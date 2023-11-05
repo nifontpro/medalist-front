@@ -71,7 +71,7 @@ export const useCreateGift = (
     async (data) => {
       let isError = false;
 
-      console.log(data);
+      // console.log(data);
 
       await create({ ...data })
         .unwrap()
