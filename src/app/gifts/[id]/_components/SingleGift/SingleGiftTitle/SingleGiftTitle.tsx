@@ -115,7 +115,7 @@ const SingleGiftTitle = ({
           className={styles.www}
           onClick={() => push(`${gift.siteUrl}`)}
         >
-          {gift.place}
+          {gift.siteUrl}
         </P>
       </div>
     </div>

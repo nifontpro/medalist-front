@@ -47,7 +47,7 @@ export const useGiftEdit = (
       setValue('count', gift.data?.product.count);
       setValue('siteUrl', gift.data?.siteUrl);
       setValue('place', gift.data?.place);
-      setValue('description', gift.data?.product.description);
+      setValue('description', gift.data?.description);
       setValue('shortDescription', gift.data?.product.shortDescription);
       setValue('productId', gift.data?.product.id);
     }
