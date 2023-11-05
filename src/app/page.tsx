@@ -1,25 +1,20 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
+import Button from '@/ui/Button/Button';
 
 export default function Home() {
+  const { push } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
 
   const treeDepts = useAppSelector(SelectTreeDepts);
   const selectedCompany = localStorage.getItem('selectCompany');
-  console.log('treeDepts', treeDepts);
-  console.log('selectedCompany', selectedCompany);
-  console.log('typeOfUser', typeOfUser);
-
-  // useEffect(() => {
-  //   if (selectedCompany) redirect(`department/${selectedCompany}`);
-  // }, [treeDepts, selectedCompany]);
 
   useEffect(() => {
     if (selectedCompany) redirect(`department/${selectedCompany}`);
@@ -47,5 +42,18 @@ export default function Home() {
     }
   }, [treeDepts, typeOfUser]);
 
-  return <main></main>;
+  return (
+    <main>
+      <div>Добро пожаловать назад</div>
+      <Button
+        size={'m'}
+        appearance={'blackWhite'}
+        onClick={() => {
+          push(`department/${localStorage.getItem('selectCompany')}`);
+        }}
+      >
+        Вернутся к работе
+      </Button>
+    </main>
+  );
 }
