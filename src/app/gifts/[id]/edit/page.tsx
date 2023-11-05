@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import GiftEdit from './_components/UserEdit/GiftEdit';
+import GiftEdit from './_components/GiftEdit/GiftEdit';
 
 export async function generateMetadata({
   params,

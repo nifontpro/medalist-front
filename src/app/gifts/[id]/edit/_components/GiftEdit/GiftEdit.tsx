@@ -99,10 +99,10 @@ export const GiftEdit = ({ id }: GiftEditProps) => {
             />
 
             <Field
-              {...register('description')}
+              {...register('shortDescription')}
               title='Краткое описание'
               placeholder='Введите краткое описание'
-              error={errors.description}
+              error={errors.shortDescription}
               className={styles.field}
             />
 

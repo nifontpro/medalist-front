@@ -11,7 +11,7 @@ import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import Button from '@/ui/Button/Button';
 import { useRouter } from 'next/navigation';
 import { useShopAdmin } from '@/api/shop/useShopAdmin';
-import { useGiftEditPhoto } from '../../../edit/_components/UserEdit/useGiftEditPhoto';
+import { useGiftEditPhoto } from '../../../edit/_components/GiftEdit/useGiftEditPhoto';
 
 const SingleGiftTitle = ({
   gift,
@@ -75,7 +75,7 @@ const SingleGiftTitle = ({
             color='gray'
             className={styles.description}
           >
-            {gift.product.description}
+            {gift.product.shortDescription}
           </P>
         </div>
 
@@ -100,7 +100,7 @@ const SingleGiftTitle = ({
         <div className={styles.descriptionContent}>
           <P size='s'>Подробнее:</P>
           <P size='s' fontstyle='thin' className={styles.content}>
-            {gift.product.description}
+            {gift.description}
           </P>
         </div>
 
