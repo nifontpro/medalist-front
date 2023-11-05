@@ -47,7 +47,9 @@ const tmpState = generateState(30);
 
 const keycloakUrl = process.env.KEYCLOAK_URL || 'https://md-auth.ru';
 const client_id = process.env.KEYCLOAK_CLIENT_ID || 'medalist-client';
-const redirect_uri = process.env.APP_URL ? process.env.APP_URL : '/';
+const redirect_uri = process.env.APP_URL
+  ? process.env.APP_URL
+  : 'https://nmedalist.ru';
 const client_secret = process.env.KEYCLOAK_CLIENT_SECRET || '';
 const realm = process.env.KEYCLOAK_REALM || 'medalist-realm';
 const grant_type = 'authorization_code';
@@ -73,7 +75,8 @@ export const fetchAccessToken = async (
           code,
           grant_type,
           client_id,
-          redirect_uri: origin,
+          // redirect_uri: origin,
+          redirect_uri: redirect_uri,
           code_verifier: codeVerifier,
         }),
       }
@@ -168,7 +171,8 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
     'scope=openid',
     'code_challenge=' + challenge.code_challenge,
     'code_challenge_method=S256',
-    'redirect_uri=' + origin,
+    // 'redirect_uri=' + origin,
+    'redirect_uri=' + redirect_uri,
   ];
   const response = NextResponse.redirect(
     new URL(`${authUrl}?${params.join('&')}`)

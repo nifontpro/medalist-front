@@ -40,6 +40,7 @@ async function handleAuthPage(request: NextRequest) {
   const code = request.nextUrl.searchParams.get('code');
   const codeVerifier = request.cookies.get('codeVerifier');
   const origin = request.cookies.get('origin');
+  console.log(request);
 
   if (!code) return redirectToKeycloakAuth(request, request.url);
 
