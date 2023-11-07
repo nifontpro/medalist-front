@@ -1,4 +1,5 @@
 import {Dept} from "@/app/domain/model/dept/dept";
+import {BaseImage} from "@/types/base/image/baseImage";
 
 export interface DeptDetails {
     dept: Dept
@@ -7,4 +8,5 @@ export interface DeptDetails {
     phone?: string
     description?: string
     createdAt?: number
+    images: BaseImage[]
 }

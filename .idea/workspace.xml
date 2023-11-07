@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+shortDescription - product">
-      <change afterPath="$PROJECT_DIR$/.idea/medalist-front.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/shop/pay/pay.api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/shop/pay/PayData.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/shop/pay/UserPay.d.ts" afterDir="false" />
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+return product from user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,6 +127,8 @@
       <workItem from="1699193244957" duration="729000" />
       <workItem from="1699215419301" duration="734000" />
       <workItem from="1699293863247" duration="4038000" />
+      <workItem from="1699347571676" duration="226000" />
+      <workItem from="1699348579166" duration="33000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -245,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699043172728</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="+return product from user">
+      <option name="closed" value="true" />
+      <created>1699347791834</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1699347791834</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +276,7 @@
     <MESSAGE value="+fix product" />
     <MESSAGE value="+product filters" />
     <MESSAGE value="+shortDescription - product" />
-    <option name="LAST_COMMIT_MESSAGE" value="+shortDescription - product" />
+    <MESSAGE value="+return product from user" />
+    <option name="LAST_COMMIT_MESSAGE" value="+return product from user" />
   </component>
 </project>
