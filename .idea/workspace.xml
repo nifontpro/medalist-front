@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+product filters">
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+shortDescription - product">
+      <change afterPath="$PROJECT_DIR$/.idea/medalist-front.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/shop/pay/pay.api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/shop/pay/PayData.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/shop/pay/UserPay.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/shop/product/Product.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/shop/product/Product.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/shop/product/ProductDetails.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/shop/product/ProductDetails.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop_Artme_with_NextAuth_without_api_page" />
+        <entry key="$PROJECT_DIR$" value="develop_Artem" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,42 +43,30 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop__Artem&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nifont/prog/medalist-front&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop__keycloak__Artem&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nifont/prog/medalist-front/src/api/shop/pay&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/nifont/prog/medalist-front/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/api/shop/pay" />
       <recent name="$PROJECT_DIR$/src/test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="medalist-front" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="medalist-front" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -136,6 +127,11 @@
       <workItem from="1698959037114" duration="19000" />
       <workItem from="1699005044764" duration="1449000" />
       <workItem from="1699038523847" duration="1931000" />
+      <workItem from="1699042986279" duration="793000" />
+      <workItem from="1699099885877" duration="600000" />
+      <workItem from="1699193244957" duration="729000" />
+      <workItem from="1699215419301" duration="734000" />
+      <workItem from="1699293863247" duration="4038000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -241,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699006461634</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="+shortDescription - product">
+      <option name="closed" value="true" />
+      <created>1699043172728</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1699043172728</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,6 +270,7 @@
     <MESSAGE value="+product" />
     <MESSAGE value="+fix product" />
     <MESSAGE value="+product filters" />
-    <option name="LAST_COMMIT_MESSAGE" value="+product filters" />
+    <MESSAGE value="+shortDescription - product" />
+    <option name="LAST_COMMIT_MESSAGE" value="+shortDescription - product" />
   </component>
 </project>
