@@ -7,6 +7,7 @@ import { memo } from 'react';
 const TabTitleGifts = ({
   available,
   setAvailable,
+  setAvailableCount,
   onClickActive,
   className,
   children,
@@ -16,7 +17,10 @@ const TabTitleGifts = ({
     <Htag
       tag='h3'
       color='gray'
-      onClick={() => setAvailable(onClickActive)}
+      onClick={() => {
+        setAvailableCount(onClickActive);
+        setAvailable(onClickActive);
+      }}
       className={cn(
         styles.award,
         {

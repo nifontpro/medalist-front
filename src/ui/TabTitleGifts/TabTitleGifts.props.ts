@@ -12,4 +12,5 @@ export type TabTitleGiftsProps = DetailedHTMLProps<
   available: boolean;
   onClickActive: boolean;
   setAvailable: Dispatch<SetStateAction<boolean>>;
+  setAvailableCount: Dispatch<SetStateAction<boolean>>;
 };

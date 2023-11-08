@@ -26,6 +26,7 @@ export const useGifts = () => {
   const selectCompany = Number(localStorage.getItem('selectCompany'));
 
   const [available, setAvailable] = useState<boolean>(true);
+  const [availableCount, setAvailableCount] = useState<boolean>(true);
 
   // Получить призы в компании
   const {
@@ -37,7 +38,7 @@ export const useGifts = () => {
       authId: typeOfUser?.id!,
       deptId: selectCompany,
       maxPrice: available ? undefined : typeOfUser?.scores,
-      available: false,
+      available: !availableCount,
       baseRequest: {
         page: page,
         pageSize: 12,
@@ -105,5 +106,7 @@ export const useGifts = () => {
     nextPage,
     setAvailable,
     available,
+    setAvailableCount,
+    availableCount,
   };
 };

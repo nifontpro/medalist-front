@@ -35,6 +35,8 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
     nextPage,
     setAvailable,
     available,
+    setAvailableCount,
+    availableCount,
   } = useGifts();
 
   // console.log(giftsOnCompany);
@@ -63,6 +65,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
             onClickActive={true}
             available={available}
             setAvailable={setAvailable}
+            setAvailableCount={setAvailableCount}
             className={styles.all}
           >
             Все
@@ -72,6 +75,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
             onClickActive={false}
             available={available}
             setAvailable={setAvailable}
+            setAvailableCount={setAvailableCount}
             className={styles.award}
           >
             Только доступные

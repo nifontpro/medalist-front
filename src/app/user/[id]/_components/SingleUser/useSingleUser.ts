@@ -1,4 +1,6 @@
 import { awardApi } from '@/api/award/award.api';
+import { payApi } from '@/api/shop/pay/pay.api';
+import { productApi } from '@/api/shop/product/product.api';
 import { userApi } from '@/api/user/user.api';
 import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
@@ -11,6 +13,7 @@ export const useSingleUser = (id: string) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+  const selectCompany = Number(localStorage.getItem('selectCompany'));
 
   const { back } = useRouter();
   const {
@@ -50,6 +53,20 @@ export const useSingleUser = (id: string) => {
         skip: !id || !typeOfUser,
       }
     );
+
+  const { data: gifts, isLoading: isLoadingGifts } =
+    payApi.useGetByCompanyQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+        deptId: selectCompany,
+      },
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
+
+  console.log(gifts);
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 
