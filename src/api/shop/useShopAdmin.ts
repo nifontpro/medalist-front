@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { ActionType } from '@/types/award/Activity';
 import { productApi } from './product/product.api';
 import { payApi } from './pay/pay.api';
+import { useRouter } from 'next/navigation';
 
 export const useShopAdmin = (
   id?: string,
@@ -19,6 +20,7 @@ export const useShopAdmin = (
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+  const { push } = useRouter();
 
   const [deleteGift] = productApi.useDeleteMutation();
 
@@ -50,6 +52,7 @@ export const useShopAdmin = (
   const buyGift = useCallback(
     async (id: number) => {
       let isError = false;
+
       if (typeOfUser && typeOfUser.id)
         await buy({ authId: typeOfUser?.id, productId: id })
           .unwrap()
@@ -65,6 +68,7 @@ export const useShopAdmin = (
           });
       if (!isError) {
         toast.success('Приз успешно куплен');
+        push(`/gifts/${id}/bought`);
       }
     },
     [buy, typeOfUser]

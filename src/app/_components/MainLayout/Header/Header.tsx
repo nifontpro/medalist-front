@@ -46,8 +46,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
       }
     );
 
-  console.log(typeOfUser);
-
   const { windowSize } = useWindowSize();
   const { navigationVisible } = useHeader();
 

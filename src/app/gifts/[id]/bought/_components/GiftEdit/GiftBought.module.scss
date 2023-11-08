@@ -1,0 +1,51 @@
+.wrapper {
+  margin-top: 50px;
+  background: var(--white);
+  border-radius: 27px;
+  padding: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  @media screen and (max-width: 1280px) {
+    border-radius: 16px;
+    padding: 60px 40px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 40px 15px;
+  }
+
+  .image {
+    width: 600px;
+    height: 600px;
+
+    @media screen and (max-width: 800px) {
+      width: 400px;
+      height: 400px;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .place {
+    align-self: baseline;
+    padding-top: 40px;
+    border-top: 1px solid var(--graySilver);
+    width: 100%;
+
+    .placeText {
+      margin-top: 10px;
+    }
+  }
+}

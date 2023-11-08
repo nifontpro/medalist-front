@@ -90,20 +90,21 @@ const Gift = motion(
                   </P>
                 </ButtonIcon>
               </div>
-              <Button
-                onClick={() => setOpenModalConfirm(true)}
-                appearance={'white'}
-                size='l'
-                disabled={
-                  typeOfUser?.scores &&
-                  (typeOfUser?.scores < gift.price || gift.count <= 0)
-                    ? true
-                    : false
-                }
-              >
-                Купить
-              </Button>
             </div>
+            <Button
+              onClick={() => setOpenModalConfirm(true)}
+              className='mt-auto'
+              appearance={'white'}
+              size='l'
+              disabled={
+                typeOfUser?.scores &&
+                (typeOfUser?.scores < gift.price || gift.count <= 0)
+                  ? true
+                  : false
+              }
+            >
+              Купить
+            </Button>
           </div>
 
           <ModalConfirm
