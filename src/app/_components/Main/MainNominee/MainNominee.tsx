@@ -2,7 +2,7 @@ import styles from './MainNominee.module.scss';
 import { MainNomineeProps } from './MainNominee.props';
 import cn from 'classnames';
 import ArrowIconSvg from '@/icons/arrowRight.svg';
-import { useRouter } from 'next/navigation';
+
 import Htag from '@/ui/Htag/Htag';
 import P from '@/ui/P/P';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
@@ -10,75 +10,26 @@ import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import { declOfNum } from '@/utils/declOfNum';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
-import { memo, useMemo } from 'react';
 import { awardApi } from '@/api/award/award.api';
+import { useRouter } from 'next/navigation';
+import { memo, useMemo } from 'react';
+import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
+import { useMainNominee } from './useMainNominee';
 
 const MainNominee = ({
   deptId,
   className,
   ...props
 }: MainNomineeProps): JSX.Element => {
-  const { push } = useRouter();
-
-  const switcher = useAppSelector((state) => state.switcher);
-
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
-  // Получить награды в отделе
   const {
-    data: awardsOnDepartment,
-    isLoading: isLoadingAwardsOnDept,
-    isFetching: isFetchingUsersOnDepartment,
-  } = awardApi.useGetByDeptQuery(
-    {
-      authId: typeOfUser?.id!,
-      deptId: Number(deptId ? deptId : typeOfUser?.dept.id),
-      withUsers: false,
-      state: 'NOMINEE',
-      baseRequest: {
-        // subdepts: switcher,
-        subdepts: true,
-        orders: [{ field: 'endDate', direction: 'ASC' }],
-      },
-    },
-    {
-      skip: !typeOfUser,
-      refetchOnFocus: true,
-    }
-  );
-
-  let minEndDateNominee = useMemo(
-    () =>
-      awardsOnDepartment &&
-      awardsOnDepartment.data &&
-      awardsOnDepartment?.data[0],
-    [awardsOnDepartment]
-  );
-
-  const defaultColorImg =
-    awardsOnDepartment &&
-    awardsOnDepartment.data?.length &&
-    awardsOnDepartment.data?.length > 0;
-
-  // Получить награду по id
-  const { data: nominee, isLoading: isLoadingSingleNominee } =
-    awardApi.useGetByIdQuery(
-      {
-        authId: typeOfUser?.id!,
-        awardId: Number(minEndDateNominee?.id),
-      },
-      {
-        skip: !minEndDateNominee || !typeOfUser,
-      }
-    );
-
-  let lastNominee = nominee?.data?.award;
-  let currentDate = +new Date();
+    push,
+    isLoadingSingleNominee,
+    lastNominee,
+    defaultColorImg,
+    currentDate,
+  } = useMainNominee(deptId);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -102,7 +53,11 @@ const MainNominee = ({
           onClick={() => push(`/award/${lastNominee?.id}`)}
         >
           {lastNominee && (
-            <MoneyPreview value={lastNominee.score} currency={'₽'} />
+            <MoneyPreview
+              value={lastNominee.score}
+              className={styles.score}
+              currency={'₽'}
+            />
           )}
           <div className={styles.img}>
             <ImageDefault
@@ -113,7 +68,7 @@ const MainNominee = ({
               }
               width={236}
               height={236}
-              alt='preview image'
+              alt='preview image '
               className={styles.imgDefault}
               priority={true}
               forWhat='award'
@@ -124,6 +79,13 @@ const MainNominee = ({
             <P size='m' color='white' className={styles.countAwardsTitle}>
               {lastNominee?.name}
             </P>
+            {lastNominee && (
+              <MoneyPreview
+                value={lastNominee.score}
+                className={styles.scoreMedia}
+                currency={'₽'}
+              />
+            )}
             <div className={styles.imgCenter}>
               <ImageDefault
                 src={
@@ -146,6 +108,7 @@ const MainNominee = ({
                   <P size='s' color='white' fontstyle='thin'>
                     Заканчивается
                   </P>
+
                   {Math.floor((lastNominee.endDate - currentDate) / 86400000) !=
                   0 ? (
                     <ButtonIcon className='ml-[10px]' appearance='whiteBlack'>

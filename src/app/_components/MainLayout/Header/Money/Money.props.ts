@@ -4,6 +4,6 @@ export type MoneyProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  value: number;
+  value?: number;
   currency: string;
 };

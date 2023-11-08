@@ -97,6 +97,7 @@ export const useGifts = () => {
     giftCreateLink,
     giftLink,
     state,
+    setState,
     handleSort,
     totalPage,
     page,

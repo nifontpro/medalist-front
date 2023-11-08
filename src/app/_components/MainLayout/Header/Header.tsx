@@ -17,6 +17,7 @@ import { memo } from 'react';
 import React from 'react';
 import { userApi } from '@/api/user/user.api';
 import Money from './Money/Money';
+import { payApi } from '@/api/shop/pay/pay.api';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
@@ -33,6 +34,19 @@ const Header = ({ className, ...props }: HeaderProps) => {
         skip: !typeOfUser,
       }
     );
+
+  const { data: moneyUser, isLoading: isLoadingMoneyUser } =
+    payApi.useGetUserPayQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: typeOfUser?.id!,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  console.log(typeOfUser);
 
   const { windowSize } = useWindowSize();
   const { navigationVisible } = useHeader();
@@ -57,7 +71,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
         {singleUser?.data?.user ? (
           <div className={styles.user}>
             <Notification />
-            <Money value={singleUser.data.user.scores} currency={'₽'} />
+            <Money value={moneyUser?.data?.balance} currency={'₽'} />
             <UserLogo
               user={singleUser?.data?.user}
               className={styles.userImg}

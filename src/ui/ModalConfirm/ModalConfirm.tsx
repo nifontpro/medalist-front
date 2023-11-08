@@ -11,6 +11,7 @@ const ModalConfirm = ({
   openModalConfirm,
   setOpenModalConfirm,
   onConfirm,
+  children,
 }: ModalConfirmProps) => {
   const handleClose = () => {
     setOpenModalConfirm(false);
@@ -27,9 +28,13 @@ const ModalConfirm = ({
         <P size='xl' className={styles.text}>
           {title}
         </P>
-        <P size='xs' fontstyle='thin' className={styles.text}>
-          {text}
-        </P>
+        <div>{children}</div>
+        {text && (
+          <P size='xs' fontstyle='thin' className={styles.text}>
+            {text}
+          </P>
+        )}
+
         <div className={styles.buttons}>
           <Button
             onClick={onConfirm}

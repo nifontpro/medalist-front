@@ -4,7 +4,7 @@ export type MoneyPreviewProps = DetailedHTMLProps<
   HTMLAttributes<HTMLParagraphElement>,
   HTMLParagraphElement
 > & {
-  value: number;
+  value?: number;
   currency: string;
   color?: 'gray' | 'white' | 'gray96' | 'black' | 'graySilver';
 };

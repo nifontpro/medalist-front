@@ -8,6 +8,7 @@ import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { ActionType } from '@/types/award/Activity';
 import { productApi } from './product/product.api';
+import { payApi } from './pay/pay.api';
 
 export const useShopAdmin = (
   id?: string,
@@ -44,8 +45,34 @@ export const useShopAdmin = (
     [deleteGift, typeOfUser]
   );
 
+  const [buy] = payApi.usePayProductMutation();
+
+  const buyGift = useCallback(
+    async (id: number) => {
+      let isError = false;
+      if (typeOfUser && typeOfUser.id)
+        await buy({ authId: typeOfUser?.id, productId: id })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              isError = true;
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка при покупке приза');
+          });
+      if (!isError) {
+        toast.success('Приз успешно куплен');
+      }
+    },
+    [buy, typeOfUser]
+  );
+
   return {
     deleteGiftAsync,
+    buyGift,
     // singleUser,
     // isLoadingSingleUser,
     // usersOnDepartment,

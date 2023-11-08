@@ -10,7 +10,7 @@ const MoneyPreview = ({
 }: MoneyPreviewProps): JSX.Element => {
   return (
     <P size='m' color={color} className={cn('text-end', className)}>
-      {value}&nbsp;{currency}
+      {value ? value : 0}&nbsp;{currency}
     </P>
   );
 };

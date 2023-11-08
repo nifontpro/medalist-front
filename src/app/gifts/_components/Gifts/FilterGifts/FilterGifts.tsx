@@ -1,6 +1,6 @@
-import styles from './FilterAwards.module.scss';
+import styles from './FilterGifts.module.scss';
 import cn from 'classnames';
-import { FilterAwardsProps } from './FilterAwards.props';
+import { FilterGiftsProps } from './FilterGifts.props';
 import { useRef, useState } from 'react';
 import { AnimatePresence, motion, PanInfo } from 'framer-motion';
 import CheckedIcon from '@/icons/checked.svg';
@@ -9,17 +9,14 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '@/ui/Button/Button';
 import P from '@/ui/P/P';
 
-const FilterAwards = ({
+const FilterGifts = ({
   state,
   setState,
-  active,
-  setActive,
-  // allNominee,
-  // allAwards,
-  awardsFull,
+  available,
+  setAvailable,
   className,
   ...props
-}: FilterAwardsProps): JSX.Element => {
+}: FilterGiftsProps): JSX.Element => {
   const [visibleFilter, setVisibleFilter] = useState<boolean>(false);
 
   const variants = {
@@ -102,42 +99,42 @@ const FilterAwards = ({
                 <ul className={styles.list}>
                   <li
                     className={styles.listItem}
-                    onClick={() => setActive(undefined)}
+                    onClick={() => setAvailable(true)}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: active == undefined,
-                        [styles.hidden]: active != undefined,
+                        [styles.visible]: available,
+                        [styles.hidden]: !available,
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: active != undefined,
+                        [styles.disabled]: !available,
                       })}
                     >
-                      Все награды
+                      Все
                       {/* <span className={styles.count}>{awardsFull?.length}</span> */}
                     </P>
                   </li>
                   <li
                     className={styles.listItem}
-                    onClick={() => setActive('FINISH')}
+                    onClick={() => setAvailable(false)}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: active == 'FINISH',
-                        [styles.hidden]: active != 'FINISH',
+                        [styles.visible]: !available,
+                        [styles.hidden]: available,
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: active != 'FINISH',
+                        [styles.disabled]: available,
                       })}
                     >
                       Только доступные
@@ -210,4 +207,4 @@ const FilterAwards = ({
   );
 };
 
-export default FilterAwards;
+export default FilterGifts;

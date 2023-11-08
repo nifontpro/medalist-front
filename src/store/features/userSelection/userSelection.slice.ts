@@ -29,6 +29,13 @@ export const userSelectionSlice = createSlice({
     setTypeOfUserUndefined: (state) => {
       state.typeOfUser = undefined;
     },
+    setMoneyUser: (state, action: PayloadAction<number | undefined>) => {
+      if (action.payload === undefined) {
+        state.typeOfUser!.scores = 0;
+      } else {
+        state.typeOfUser!.scores = action.payload;
+      }
+    },
   },
 });
 
@@ -37,6 +44,7 @@ export const {
   setTypeOfUser_IsOpen,
   setIsOpenUserSelection,
   setTypeOfUserUndefined,
+  setMoneyUser,
 } = userSelectionSlice.actions;
 
 export default userSelectionSlice.reducer;

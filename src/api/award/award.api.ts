@@ -16,6 +16,7 @@ import { checkSameIdInArrays } from '@/utils/checkSameIdInArrays';
 import { userApi } from '../user/user.api';
 import { messageApi } from '../msg/message.api';
 import { baseQuery, baseQueryWithReauth } from '../base/base.api';
+import { payApi } from '../shop/pay/pay.api';
 
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
@@ -212,6 +213,7 @@ export const awardApi = createApi({
           await queryFulfilled;
           await dispatch(userApi.util.invalidateTags(['Action']));
           await dispatch(messageApi.util.invalidateTags(['Message']));
+          await dispatch(payApi.util.invalidateTags(['UserPay']));
         } catch (error) {
           console.error(`Error award user!`, error);
         }

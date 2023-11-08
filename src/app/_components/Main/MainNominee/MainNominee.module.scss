@@ -55,6 +55,13 @@
       justify-content: space-around;
     }
 
+    .score {
+      margin-bottom: 5px;
+      @media screen and (max-width: 1700px) {
+        display: none;
+      }
+    }
+
     .img {
       display: flex;
       justify-content: center;
@@ -71,6 +78,15 @@
       }
       @media screen and (max-width: 600px) {
         align-items: center;
+      }
+
+      .scoreMedia {
+        display: none;
+        @media screen and (max-width: 1700px) {
+          display: block;
+          text-align: left;
+          margin-bottom: 10px;
+        }
       }
 
       .imgCenter {
@@ -116,6 +132,6 @@
 }
 
 .imgDefault {
-  @apply rounded-[10px] max-h-[300px];
+  @apply rounded-[10px] max-h-[300px] max-w-[300px];
   object-fit: contain !important;
 }

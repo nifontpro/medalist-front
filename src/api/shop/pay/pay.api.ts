@@ -1,10 +1,14 @@
-import {UserPay} from "@/types/shop/pay/UserPay";
-import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {BaseResponse} from '@/types/base/BaseResponse';
-import {Product} from '@/types/shop/product/Product';
-import {BaseRequest} from '@/types/base/BaseRequest';
-import {baseQuery} from '@/api/base/base.api';
-import {PayCode, PayData} from "@/types/shop/pay/PayData";
+import { UserPay } from '@/types/shop/pay/UserPay';
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { Product } from '@/types/shop/product/Product';
+import { BaseRequest } from '@/types/base/BaseRequest';
+import { baseQuery } from '@/api/base/base.api';
+import { PayCode, PayData } from '@/types/shop/pay/PayData';
+import userSelectionSlice, {
+  setMoneyUser,
+} from '@/store/features/userSelection/userSelection.slice';
+import { productApi } from '../product/product.api';
 
 export const payUrl = (string: string = '') => `/shop/pay${string}`;
 
@@ -13,7 +17,6 @@ export const payApi = createApi({
   baseQuery: baseQuery,
   tagTypes: ['PayData', 'UserPay', 'Product'],
   endpoints: (build) => ({
-
     /**
      * Получение данных счета Сотрудника
      * [userId] - необходимо указать Администратору, счет какого Сотрудника нужно получить,
@@ -21,11 +24,11 @@ export const payApi = createApi({
      *
      */
     getUserPay: build.query<
-        BaseResponse<UserPay>,
-        {
-          authId: number;
-          userId?: number;
-        }
+      BaseResponse<UserPay>,
+      {
+        authId: number;
+        userId?: number;
+      }
     >({
       query: (request) => {
         return {
@@ -35,16 +38,25 @@ export const payApi = createApi({
         };
       },
       providesTags: ['UserPay'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          await dispatch(setMoneyUser(data.data?.balance));
+        } catch (error) {
+          console.error(`Error!`, error);
+        }
+      },
     }),
 
     /**
      * Покупка приза
      */
-    payProduct: build.mutation<BaseResponse<PayData>,
-        {
-          authId: number;
-          productId: number;
-        }
+    payProduct: build.mutation<
+      BaseResponse<PayData>,
+      {
+        authId: number;
+        productId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -54,17 +66,26 @@ export const payApi = createApi({
         };
       },
       invalidatesTags: ['PayData', 'UserPay', 'Product'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          await dispatch(productApi.util.invalidateTags(['Product']));
+        } catch (error) {
+          console.error(`Error award user!`, error);
+        }
+      },
     }),
 
     /**
      * Выдать приз Сотруднику со склада Администратором.
      * [payDataId] - номер платежной операции при покупке приза
      */
-    giveProductFromAdmin: build.mutation<BaseResponse<PayData>,
-        {
-          authId: number;
-          payDataId: number;
-        }
+    giveProductFromAdmin: build.mutation<
+      BaseResponse<PayData>,
+      {
+        authId: number;
+        payDataId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -81,11 +102,12 @@ export const payApi = createApi({
      * Операцию выполняет Администратор.
      * [payDataId] - номер платежной операции при выдаче приза
      */
-    returnProductAdmin: build.mutation<BaseResponse<PayData>,
-        {
-          authId: number;
-          payDataId: number;
-        }
+    returnProductAdmin: build.mutation<
+      BaseResponse<PayData>,
+      {
+        authId: number;
+        payDataId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -102,11 +124,12 @@ export const payApi = createApi({
      * Операцию выполняет сам Сотрудник.
      * [payDataId] - номер платежной операции при покупке приза
      */
-    returnProductUser: build.mutation<BaseResponse<PayData>,
-        {
-          authId: number;
-          payDataId: number;
-        }
+    returnProductUser: build.mutation<
+      BaseResponse<PayData>,
+      {
+        authId: number;
+        payDataId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -145,15 +168,15 @@ export const payApi = createApi({
      *      "productEntity.count",
      */
     getByCompany: build.query<
-        BaseResponse<Product[]>,
-        {
-          authId: number;
-          userId?: number;
-          deptId?: number;
-          payCode?: PayCode
-          isActive?: boolean
-          baseRequest?: BaseRequest;
-        }
+      BaseResponse<Product[]>,
+      {
+        authId: number;
+        userId?: number;
+        deptId?: number;
+        payCode?: PayCode;
+        isActive?: boolean;
+        baseRequest?: BaseRequest;
+      }
     >({
       query: (request) => {
         return {
@@ -164,6 +187,5 @@ export const payApi = createApi({
       },
       providesTags: ['PayData'],
     }),
-
   }),
 });

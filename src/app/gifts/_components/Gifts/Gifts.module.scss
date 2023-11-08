@@ -15,13 +15,6 @@
     }
   }
 
-  .createGift,
-  .settings {
-    @media screen and (max-width: 1015px) {
-      display: none;
-    }
-  }
-
   .settings {
     span {
       @apply duration-200;

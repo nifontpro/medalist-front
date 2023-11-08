@@ -11,12 +11,13 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Gift from './Gift/Gift';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import FilterAwards from './FilterAwards/FilterAwards';
+import FilterAwards from './FilterGifts/FilterGifts';
 import { memo } from 'react';
 import { toast } from 'react-toastify';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import TabTitleGifts from '@/ui/TabTitleGifts/TabTitleGifts';
 import uniqid from 'uniqid';
+import FilterGifts from './FilterGifts/FilterGifts';
 
 const Gifts = ({ className, ...props }: GiftsProps) => {
   const {
@@ -26,6 +27,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
     giftCreateLink,
     giftLink,
     state,
+    setState,
     handleSort,
     totalPage,
     page,
@@ -107,13 +109,12 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
           </AuthComponent>
         </div>
 
-        {/* <FilterAwards
+        <FilterGifts
           state={state}
           setState={setState}
-          active={active}
-          setActive={setActive}
-          awardsFull={awardsOnDepartment.data}
-        /> */}
+          available={available}
+          setAvailable={setAvailable}
+        />
 
         <div className={styles.cards}>
           {giftsOnCompany.data.length > 0 ? (
