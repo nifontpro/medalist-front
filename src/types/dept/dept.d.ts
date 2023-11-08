@@ -18,7 +18,7 @@ export interface Dept {
    *  в дальнейшем этот флаг можно обновлять в true для более низких уровней 
    *  (ограничивать верхнюю видимость отделов)
    */
-  level: number;  
+  level: number;
   type: DeptType;
   mainImg?: string;
 }
