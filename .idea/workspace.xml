@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+return product from user">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+images on deptDetails" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,6 +127,7 @@
       <workItem from="1699293863247" duration="4038000" />
       <workItem from="1699347571676" duration="226000" />
       <workItem from="1699348579166" duration="33000" />
+      <workItem from="1699385734351" duration="265000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -250,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699347791834</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="+images on deptDetails">
+      <option name="closed" value="true" />
+      <created>1699385983339</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699385983339</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +284,7 @@
     <MESSAGE value="+product filters" />
     <MESSAGE value="+shortDescription - product" />
     <MESSAGE value="+return product from user" />
-    <option name="LAST_COMMIT_MESSAGE" value="+return product from user" />
+    <MESSAGE value="+images on deptDetails" />
+    <option name="LAST_COMMIT_MESSAGE" value="+images on deptDetails" />
   </component>
 </project>

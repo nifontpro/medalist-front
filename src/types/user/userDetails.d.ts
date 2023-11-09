@@ -1,4 +1,5 @@
 import {User} from "@/app/domain/model/user/user";
+import {BaseImage} from "@/types/base/image/baseImage";
 
 export interface UserDetails {
     user: User
@@ -6,4 +7,5 @@ export interface UserDetails {
     address?: string
     description?: string
     createdAt?: number
+    images: BaseImage[];
 }

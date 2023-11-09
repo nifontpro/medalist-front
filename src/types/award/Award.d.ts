@@ -1,6 +1,6 @@
-import { Dept } from '@/types/dept/dept';
-import { BaseImage } from '@/types/base/image/baseImage';
-import { User } from '@/types/user/user';
+import {Dept} from '@/types/dept/dept';
+import {BaseImage} from '@/types/base/image/baseImage';
+import {User} from '@/types/user/user';
 
 export interface Award {
   id: number;
@@ -14,6 +14,11 @@ export interface Award {
   score: number;
   state: AwardState;
   dept: Dept;
+
+  /**
+   * Перенесено в awardDetails
+   * Здесь удалить!!!
+   */
   images: BaseImage[];
   users: User[];
 }

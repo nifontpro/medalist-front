@@ -16,7 +16,13 @@ export interface User {
   awardCount: number;
   scores: number;
   roles: RoleUser[];
+
+  /**
+   * Перенесено в userDetails
+   * Здесь удалить!!!
+   */
   images: BaseImage[];
+
   awards?: Award[];
   activities?: Activity[];
 }
