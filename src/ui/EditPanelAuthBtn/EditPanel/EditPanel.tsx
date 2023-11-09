@@ -19,6 +19,7 @@ const EditPanel = forwardRef(
       visible,
       className,
       onlyRemove,
+      gift,
       ...props
     }: EditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
@@ -85,7 +86,7 @@ const EditPanel = forwardRef(
                 onClick={() => setOpenModalConfirm(true)}
                 className={styles.item}
               >
-                Удалить
+                {gift ? 'Получить' : 'Удалить'}
               </P>
             ) : null}
           </motion.div>

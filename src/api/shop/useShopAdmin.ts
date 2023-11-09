@@ -23,7 +23,6 @@ export const useShopAdmin = (
   const { push } = useRouter();
 
   const [deleteGift] = productApi.useDeleteMutation();
-
   const deleteGiftAsync = useCallback(
     async (id: number) => {
       let isError = false;
@@ -48,7 +47,6 @@ export const useShopAdmin = (
   );
 
   const [buy] = payApi.usePayProductMutation();
-
   const buyGift = useCallback(
     async (id: number) => {
       let isError = false;
@@ -74,9 +72,35 @@ export const useShopAdmin = (
     [buy, typeOfUser]
   );
 
+  const [get] = payApi.useGiveProductFromAdminMutation();
+  const getGift = useCallback(
+    async (payDataId: number) => {
+      let isError = false;
+
+      if (typeOfUser && typeOfUser.id)
+        await get({ authId: typeOfUser?.id, payDataId })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              isError = true;
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка при получении приза');
+          });
+      if (!isError) {
+        toast.success('Приз успешно получен');
+      }
+    },
+    [get, typeOfUser]
+  );
+
   return {
     deleteGiftAsync,
     buyGift,
+    getGift,
     // singleUser,
     // isLoadingSingleUser,
     // usersOnDepartment,

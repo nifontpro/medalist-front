@@ -20,6 +20,7 @@ const FilterEditPanel = forwardRef(
       setVisible,
       className,
       onlyRemove,
+      gift,
       ...props
     }: FilterEditPanelProps,
     ref: ForwardedRef<HTMLDivElement>
@@ -89,7 +90,7 @@ const FilterEditPanel = forwardRef(
                   onClick={() => setOpenModalConfirm(true)}
                   className={styles.item}
                 >
-                  Удалить
+                  {gift ? 'Получить' : 'Удалить'}
                 </P>
               ) : null}
             </div>

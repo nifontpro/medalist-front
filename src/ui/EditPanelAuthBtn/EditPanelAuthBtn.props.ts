@@ -18,4 +18,5 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<
     getUrlEdit: (string?: string) => string;
     onlyRemove: boolean;
     color?: 'white' | 'transparent';
+    gift?: boolean;
   };

@@ -54,20 +54,6 @@ export const useSingleUser = (id: string) => {
       }
     );
 
-  const { data: gifts, isLoading: isLoadingGifts } =
-    payApi.useGetByCompanyQuery(
-      {
-        authId: typeOfUser?.id!,
-        userId: Number(id),
-        deptId: selectCompany,
-      },
-      {
-        skip: !id || !typeOfUser,
-      }
-    );
-
-  console.log(gifts);
-
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 
   //Закрытие модального окна нажатием вне его

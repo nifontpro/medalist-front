@@ -4,14 +4,13 @@ import { SingleUserGiftsProps } from './SingleUserGifts.props';
 import cn from 'classnames';
 import uniqid from 'uniqid';
 import P from '@/ui/P/P';
-import CardUserAward from './CardUserGift/CardUserGift';
 import { useFetchParams } from '@/hooks/useFetchParams';
-import { useAwardAdmin } from '@/api/award/useAwardAdmin';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { memo, useMemo } from 'react';
-import { awardApi } from '@/api/award/award.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import { payApi } from '@/api/shop/pay/pay.api';
+import CardUserGift from './CardUserGift/CardUserGift';
 
 const SingleUserGifts = ({
   user,
@@ -23,101 +22,70 @@ const SingleUserGifts = ({
     (state: RootState) => state.userSelection
   );
 
-  const {
-    page,
-    setPage,
-    searchValue,
-    setSearchValue,
-    searchHandleChange,
-    nextPage,
-    prevPage,
-    setEndDateChange,
-    endDate,
-    setStartDateChange,
-    startDate,
-    state,
-    setState,
-  } = useFetchParams();
+  const { page, nextPage, prevPage } = useFetchParams();
 
-  const { userRewardAsync } = useAwardAdmin();
+  const selectCompany = Number(localStorage.getItem('selectCompany'));
 
-  // Получить Актив награды по id пользователя
-  const {
-    data: singleActivAwardUser,
-    isLoading: isLoadingSingleActivAwardUser,
-  } = awardApi.useGetActivAwardByUserQuery(
-    {
-      authId: typeOfUser?.id!,
-      userId: Number(id),
-      baseRequest: {
-        page: page,
-        pageSize: 4,
-        filter: searchValue,
-        maxDate: endDate,
-        minDate: startDate,
-        orders: [{ field: 'award.name', direction: state }],
+  const { data: gifts, isLoading: isLoadingGifts } =
+    payApi.useGetByCompanyQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id),
+        deptId: selectCompany,
+        baseRequest: {
+          page: page,
+          pageSize: 4,
+        },
       },
-      awardType: 'SIMPLE',
-    },
-    {
-      skip: !id || !typeOfUser,
-    }
-  );
+      {
+        skip: !id || !typeOfUser,
+      }
+    );
 
-  const totalPage = useMemo(
-    () => singleActivAwardUser?.pageInfo?.totalPages,
-    [singleActivAwardUser]
-  );
+  console.log(gifts);
 
-  const totalElements = useMemo(
-    () => singleActivAwardUser?.pageInfo?.totalElements,
-    [singleActivAwardUser]
-  );
+  const totalPage = useMemo(() => gifts?.pageInfo?.totalPages, [gifts]);
+
+  const totalElements = useMemo(() => gifts?.pageInfo?.totalElements, [gifts]);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
         <Htag tag='h3'>Призы</Htag>
         {totalElements && (
-          <P size='s' fontstyle='thin' className={styles.countAwards}>
+          <P size='s' fontstyle='thin' className={styles.countGifts}>
             {totalElements}
           </P>
         )}
       </div>
 
-      {singleActivAwardUser &&
-      singleActivAwardUser.data &&
-      singleActivAwardUser.data.filter((award) => award.award?.type == 'SIMPLE')
-        .length > 0 ? (
+      {gifts && gifts.data && gifts.data.length > 0 ? (
         <>
           <div className={styles.content}>
-            {singleActivAwardUser?.data!.map((award) => {
-              if (award.award?.type == 'SIMPLE') {
+            {gifts?.data &&
+              gifts.data.map((gift) => {
                 return (
-                  <CardUserAward
+                  <CardUserGift
                     key={uniqid()}
-                    award={award}
+                    gift={gift.product}
                     user={user}
-                    userRewardAsync={userRewardAsync}
                   />
                 );
-              }
-            })}
+              })}
           </div>
+
           {totalPage && totalPage > 1 ? (
             <PrevNextPages
               startPage={page + 1}
               endPage={totalPage}
-              handleNextClick={() =>
-                singleActivAwardUser && nextPage(singleActivAwardUser)
-              }
+              handleNextClick={() => gifts && nextPage(gifts)}
               handlePrevClick={prevPage}
             />
           ) : null}
         </>
       ) : (
-        <P size='s' fontstyle='thin' className={styles.none}>
-          У вас пока нет призов
+        <P size='s' fontstyle='thin'>
+          Пока нет призов
         </P>
       )}
     </div>

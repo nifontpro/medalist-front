@@ -168,7 +168,7 @@ export const payApi = createApi({
      *      "productEntity.count",
      */
     getByCompany: build.query<
-      BaseResponse<Product[]>,
+      BaseResponse<PayData[]>,
       {
         authId: number;
         userId?: number;

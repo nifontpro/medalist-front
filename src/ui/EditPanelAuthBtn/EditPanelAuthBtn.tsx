@@ -13,6 +13,7 @@ const EditPanelAuthBtn = ({
   onlyRemove,
   getUrlEdit,
   className,
+  gift,
   id,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
@@ -43,6 +44,7 @@ const EditPanelAuthBtn = ({
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
+        gift={gift}
       />
       <FilterEditPanel
         getUrlEdit={getUrlEdit}
@@ -52,6 +54,7 @@ const EditPanelAuthBtn = ({
         visible={visible}
         ref={ref}
         onlyRemove={onlyRemove}
+        gift={gift}
       />
     </AuthComponent>
   );
