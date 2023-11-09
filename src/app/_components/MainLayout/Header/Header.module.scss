@@ -72,20 +72,21 @@
       }
     }
   }
-
-  // .sign {
-  //   justify-self: flex-end;
-  // }
 }
 
 .navigation {
-  padding-top: 175px;
-  background-color: var(--gray-dark);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 375px;
-  height: 100%;
+  display: none;
+
+  @media screen and (max-width: 1140px) {
+    display: block;
+    padding-top: 175px;
+    background-color: var(--gray-dark);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 375px;
+    height: 100%;
+  }
   @media screen and (max-width: 500px) {
     width: 320px;
   }
