@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+images on deptDetails" />
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+images -&gt; userDetails, awardDetails" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,6 +128,7 @@
       <workItem from="1699347571676" duration="226000" />
       <workItem from="1699348579166" duration="33000" />
       <workItem from="1699385734351" duration="265000" />
+      <workItem from="1699553786352" duration="465000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -257,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699385983339</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="+images -&gt; userDetails, awardDetails">
+      <option name="closed" value="true" />
+      <created>1699553977780</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1699553977780</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,6 +294,7 @@
     <MESSAGE value="+shortDescription - product" />
     <MESSAGE value="+return product from user" />
     <MESSAGE value="+images on deptDetails" />
-    <option name="LAST_COMMIT_MESSAGE" value="+images on deptDetails" />
+    <MESSAGE value="+images -&gt; userDetails, awardDetails" />
+    <option name="LAST_COMMIT_MESSAGE" value="+images -&gt; userDetails, awardDetails" />
   </component>
 </project>

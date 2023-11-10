@@ -21,6 +21,7 @@ export interface Dept {
   level: number;
   type: DeptType;
   mainImg?: string;
+  companyName?: string
 }
 
 export type DeptType = 'ROOT' | 'USER_OWNER' | 'SIMPLE' | 'UNDEF';
