@@ -98,7 +98,7 @@ const FilterEditPanel = forwardRef(
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={'Удалить'}
+            textBtn={gift ? 'Вернуть' : 'Удалить'}
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
