@@ -135,7 +135,7 @@ const SingleUserTitle = ({
                       // <div className={styles.circle} key={uniqid()}></div>
                       <div className={styles.imgAward} key={uniqid()}>
                         <ImageDefault
-                          src={award.award?.mainImg}
+                          src={award.award?.normImg}
                           width={50}
                           height={50}
                           alt='preview image'
