@@ -90,7 +90,7 @@ const FilterEditPanel = forwardRef(
                   onClick={() => setOpenModalConfirm(true)}
                   className={styles.item}
                 >
-                  {gift ? 'Получить' : 'Удалить'}
+                  {gift ? 'Вернуть' : 'Удалить'}
                 </P>
               ) : null}
             </div>

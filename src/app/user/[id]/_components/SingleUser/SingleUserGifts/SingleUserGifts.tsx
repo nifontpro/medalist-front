@@ -64,13 +64,7 @@ const SingleUserGifts = ({
           <div className={styles.content}>
             {gifts?.data &&
               gifts.data.map((gift) => {
-                return (
-                  <CardUserGift
-                    key={uniqid()}
-                    gift={gift.product}
-                    user={user}
-                  />
-                );
+                return <CardUserGift key={uniqid()} gift={gift} user={user} />;
               })}
           </div>
 

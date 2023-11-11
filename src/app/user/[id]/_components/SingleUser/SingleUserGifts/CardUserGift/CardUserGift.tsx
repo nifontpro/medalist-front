@@ -16,14 +16,14 @@ const CardUserGift = ({
   ...props
 }: CardUserGiftProps): JSX.Element => {
   const { push } = useRouter();
-  const { getGift } = useShopAdmin();
+  const { returnUserAsync } = useShopAdmin();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <EditPanelAuthBtn
         onlyRemove={true}
         gift={true}
-        handleRemove={() => getGift(123)}
+        handleRemove={() => returnUserAsync(gift.id)}
         id={gift.id.toString()}
         getUrlEdit={getGiftEditUrl}
         className={styles.dots}
@@ -31,7 +31,7 @@ const CardUserGift = ({
 
       <div className={styles.img} onClick={() => push(`/gifts/${gift.id}`)}>
         <ImageDefault
-          src={gift.normImg}
+          src={gift.product.normImg}
           width={300}
           height={300}
           alt='gift preview'
@@ -40,9 +40,9 @@ const CardUserGift = ({
         />
       </div>
       <div className={styles.info}>
-        <P size='l'>{gift.name}</P>
+        <P size='l'>{gift.product.name}</P>
         <P size='s' fontstyle='thin' color='gray' className={styles.date}>
-          {gift.shortDescription}
+          {gift.product.shortDescription}
         </P>
       </div>
     </div>

@@ -72,13 +72,13 @@ export const useShopAdmin = (
     [buy, typeOfUser]
   );
 
-  const [get] = payApi.useGiveProductFromAdminMutation();
-  const getGift = useCallback(
+  const [give] = payApi.useGiveProductFromAdminMutation();
+  const giveGiftAdmin = useCallback(
     async (payDataId: number) => {
       let isError = false;
 
       if (typeOfUser && typeOfUser.id)
-        await get({ authId: typeOfUser?.id, payDataId })
+        await give({ authId: typeOfUser?.id, payDataId })
           .unwrap()
           .then((res) => {
             if (res.success == false) {
@@ -94,13 +94,39 @@ export const useShopAdmin = (
         toast.success('Приз успешно получен');
       }
     },
-    [get, typeOfUser]
+    [give, typeOfUser]
+  );
+
+  const [returnUser] = payApi.useReturnProductUserMutation();
+  const returnUserAsync = useCallback(
+    async (payDataId: number) => {
+      let isError = false;
+
+      if (typeOfUser && typeOfUser.id)
+        await returnUser({ authId: typeOfUser?.id, payDataId })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              isError = true;
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка возврата приза');
+          });
+      if (!isError) {
+        toast.success('Приз успешно возвращен');
+      }
+    },
+    [returnUser, typeOfUser]
   );
 
   return {
     deleteGiftAsync,
     buyGift,
-    getGift,
+    giveGiftAdmin,
+    returnUserAsync,
     // singleUser,
     // isLoadingSingleUser,
     // usersOnDepartment,

@@ -118,7 +118,11 @@ const SingleUserTitle = ({
       <div className={styles.awards}>
         <div className={styles.imagesAward}>
           <div className={styles.moneyWrapper}>
-            <MoneyPreview value={1000} currency={'₽'} color={'gray'} />
+            <MoneyPreview
+              value={typeOfUser?.scores}
+              currency={'₽'}
+              color={'gray'}
+            />
           </div>
 
           <div className={styles.imagesWrapper}>
