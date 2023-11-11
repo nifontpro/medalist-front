@@ -27,7 +27,7 @@ export const useAwardEditPhoto = (singleAward: AwardDetails | null) => {
   const [images, setImages] = useState<BaseImage[]>();
 
   useEffect(() => {
-    setImages(singleAward?.award.images);
+    setImages(singleAward?.images);
   }, [singleAward]);
 
   const [addImage] = awardApi.useImageAddMutation();
@@ -86,7 +86,7 @@ export const useAwardEditPhoto = (singleAward: AwardDetails | null) => {
       if (singleAward && typeOfUser && typeOfUser.id && imageNum != undefined) {
         await removeImage({
           awardId: singleAward.award.id,
-          imageId: singleAward.award.images[imageNum].id,
+          imageId: singleAward.images[imageNum].id,
           authId: typeOfUser.id,
         })
           .unwrap()

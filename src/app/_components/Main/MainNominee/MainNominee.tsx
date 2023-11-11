@@ -63,7 +63,7 @@ const MainNominee = ({
             <ImageDefault
               src={
                 defaultColorImg === true
-                  ? lastNominee?.images[0]?.imageUrl ?? undefined
+                  ? lastNominee?.normImg ?? undefined
                   : DefaultImgPNG
               }
               width={236}
@@ -90,7 +90,7 @@ const MainNominee = ({
               <ImageDefault
                 src={
                   defaultColorImg === true
-                    ? lastNominee?.images[0]?.imageUrl ?? undefined
+                    ? lastNominee?.normImg ?? undefined
                     : DefaultImgPNG
                 }
                 width={236}
@@ -140,7 +140,7 @@ const MainNominee = ({
             <ImageDefault
               src={
                 defaultColorImg === true
-                  ? lastNominee?.images[0]?.imageUrl ?? undefined
+                  ? lastNominee?.normImg ?? undefined
                   : DefaultImgPNG
               }
               width={236}
