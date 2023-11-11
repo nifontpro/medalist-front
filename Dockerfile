@@ -13,7 +13,6 @@ ENV APP_URL https://nmedalist.ru
 ENV API_SERVER_URL https://nmedalist.ru/api/v1
 
 ENV KEYCLOAK_CLIENT_ID medalist-client
-ENV KEYCLOAK_CLIENT_SECRET IZKzOS2P6MqGJL5CQikvSPhCnZdju0fM
 ENV KEYCLOAK_REALM medalist-realm
 ENV KEYCLOAK_LOGOUT_URL https://md-auth.ru/realms/medalist-realm/protocol/openid-connect/logout
 
