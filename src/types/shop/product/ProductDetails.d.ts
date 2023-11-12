@@ -7,4 +7,5 @@ interface ProductDetails {
   place?: string
   createdAt: number
   images: BaseImage[]
+  secondImages: BaseImage[]
 }
