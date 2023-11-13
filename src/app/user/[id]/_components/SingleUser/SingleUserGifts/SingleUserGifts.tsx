@@ -42,8 +42,6 @@ const SingleUserGifts = ({
       }
     );
 
-  console.log(gifts);
-
   const totalPage = useMemo(() => gifts?.pageInfo?.totalPages, [gifts]);
 
   const totalElements = useMemo(() => gifts?.pageInfo?.totalElements, [gifts]);

@@ -52,7 +52,7 @@ const WindowWithRoles = ({
                     forWhat='company'
                   />
                   <P size='s' fontstyle='thin'>
-                    {role.dept.name} / {role.post}
+                    {role.dept?.name} / {role?.post}
                   </P>
                 </div>
               );
@@ -84,7 +84,7 @@ const WindowWithRoles = ({
                     forWhat='dept'
                   />
                   <P size='s' fontstyle='thin' className={styles.roleContent}>
-                    {role.dept.companyName} / {role.dept.name} / {role.post}
+                    {role.dept?.companyName} / {role.dept?.name} / {role?.post}
                   </P>
                 </div>
               );

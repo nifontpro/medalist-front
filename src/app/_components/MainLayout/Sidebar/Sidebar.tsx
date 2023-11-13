@@ -19,26 +19,19 @@ import P from '@/ui/P/P';
 import ChangeRoleIcon from '@/icons/ownerLogo.svg';
 import ArrowIcon from '@/icons/arrowDown.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
-import uniqid from 'uniqid';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
-    expandedIds,
     selectedIds,
     toggleTreeNode,
     treeData,
-    expandedIdsState,
-    selectedIdsState,
     parentIds,
-    subTree,
     typeOfUser,
     tree,
     open,
     handleToggle,
     push,
-    dispatch,
     selectedCompany,
-    setSelectedCompany,
     handleChangeSelect,
     ownerCompany,
   } = useSidebar();

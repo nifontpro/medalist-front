@@ -28,8 +28,6 @@ const UserSelection = ({
 }: UserSelectionProps) => {
   const { handleLogoutClick } = useUserPanelModalWindow();
 
-  console.log('rolesUser', rolesUser);
-
   const {
     typeOfUser,
     isOpen,
