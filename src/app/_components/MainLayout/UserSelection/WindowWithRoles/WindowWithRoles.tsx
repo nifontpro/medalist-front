@@ -15,10 +15,8 @@ const WindowWithRoles = ({
   ...props
 }: WindowWithRolesProps) => {
   const { push } = useRouter();
-  const ownerRole = rolesUser?.filter((role) => role.roles.includes('OWNER'));
-  const anotherRoles = rolesUser?.filter(
-    (role) => !role.roles.includes('OWNER')
-  );
+  const ownerRole = rolesUser?.filter((role) => !role.dept.companyName);
+  const anotherRoles = rolesUser?.filter((role) => role.dept.companyName);
 
   return (
     <div className={styles.wrapper} {...props}>
@@ -51,10 +49,10 @@ const WindowWithRoles = ({
                     height={40}
                     alt='preview image'
                     className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
-                    forWhat='user'
+                    forWhat='company'
                   />
                   <P size='s' fontstyle='thin'>
-                    {role.dept.name}
+                    {role.dept.name} / {role.post}
                   </P>
                 </div>
               );
@@ -78,15 +76,15 @@ const WindowWithRoles = ({
                 >
                   <ImageDefault
                     key={role.id}
-                    src={role.mainImg ? role.mainImg : undefined}
+                    src={role.dept.normImg ? role.dept.normImg : undefined}
                     width={40}
                     height={40}
                     alt='preview image'
                     className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
-                    forWhat='user'
+                    forWhat='dept'
                   />
-                  <P size='s' fontstyle='thin'>
-                    {role.dept.name} / {role.post}
+                  <P size='s' fontstyle='thin' className={styles.roleContent}>
+                    {role.dept.companyName} / {role.dept.name} / {role.post}
                   </P>
                 </div>
               );
