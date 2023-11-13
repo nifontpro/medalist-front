@@ -19,7 +19,7 @@ export interface Activity {
   activ: boolean;
 
   deptId: number;
-  authId: number;
+  authId?: number;
 }
 
 /**
