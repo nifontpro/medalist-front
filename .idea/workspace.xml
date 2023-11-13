@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+dept: companyName">
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+product second image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +26,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -134,6 +137,8 @@
       <workItem from="1699553786352" duration="465000" />
       <workItem from="1699607081623" duration="79000" />
       <workItem from="1699687447467" duration="1302000" />
+      <workItem from="1699803390983" duration="977000" />
+      <workItem from="1699874101589" duration="86000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -279,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699607149488</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="+product second image">
+      <option name="closed" value="true" />
+      <created>1699803951887</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1699803951887</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,6 +322,7 @@
     <MESSAGE value="+images on deptDetails" />
     <MESSAGE value="+images -&gt; userDetails, awardDetails" />
     <MESSAGE value="+dept: companyName" />
-    <option name="LAST_COMMIT_MESSAGE" value="+dept: companyName" />
+    <MESSAGE value="+product second image" />
+    <option name="LAST_COMMIT_MESSAGE" value="+product second image" />
   </component>
 </project>
