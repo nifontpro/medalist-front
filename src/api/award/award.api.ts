@@ -236,6 +236,7 @@ export const awardApi = createApi({
         userId: number;
         baseRequest: BaseRequest | undefined;
         awardType: AwardType | undefined;
+        awardState: AwardState | undefined;
       }
     >({
       query: (body) => ({

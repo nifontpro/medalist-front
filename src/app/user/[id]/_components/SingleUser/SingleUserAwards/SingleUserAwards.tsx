@@ -58,7 +58,8 @@ const SingleUserAwards = ({
         minDate: startDate,
         orders: [{ field: 'award.name', direction: state }],
       },
-      awardType: 'SIMPLE',
+      awardType: undefined,
+      awardState: 'FINISH',
     },
     {
       skip: !id || !typeOfUser,
@@ -104,16 +105,16 @@ const SingleUserAwards = ({
           <>
             <div className={styles.content}>
               {singleActivAwardUser?.data!.map((award) => {
-                if (award.award?.type == 'SIMPLE') {
-                  return (
-                    <CardUserAward
-                      key={uniqid()}
-                      award={award}
-                      user={user}
-                      userRewardAsync={userRewardAsync}
-                    />
-                  );
-                }
+                // if (award.award?.type == 'SIMPLE') {
+                return (
+                  <CardUserAward
+                    key={uniqid()}
+                    award={award}
+                    user={user}
+                    userRewardAsync={userRewardAsync}
+                  />
+                );
+                // }
               })}
             </div>
             {totalPage && totalPage > 1 ? (

@@ -48,6 +48,7 @@ export const useSingleUser = (id: string) => {
         userId: Number(id),
         baseRequest: undefined,
         awardType: undefined,
+        awardState: undefined,
       },
       {
         skip: !id || !typeOfUser,

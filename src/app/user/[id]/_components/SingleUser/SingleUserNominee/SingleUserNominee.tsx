@@ -58,7 +58,8 @@ const SingleUserNominee = ({
         minDate: startDate,
         orders: [{ field: 'award.name', direction: state }],
       },
-      awardType: 'PERIOD',
+      awardType: undefined,
+      awardState: 'NOMINEE',
     },
     {
       skip: !id || !typeOfUser,
