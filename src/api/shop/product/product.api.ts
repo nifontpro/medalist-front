@@ -9,7 +9,7 @@ import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { BaseRequest } from '@/types/base/BaseRequest';
-import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
+import { baseQuery} from '@/api/base/base.api';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
@@ -143,5 +143,35 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
+
+    /**
+     * Добавление вторичного изображения
+     * @param: formData: [file]:file, [authId], [productId]
+     */
+    secondImageAdd: build.mutation<BaseResponse<BaseImage>, FormData>({
+      query: (body) => ({
+        method: 'POST',
+        url: productUrl('/img_sec_add'),
+        body: body,
+      }),
+      invalidatesTags: ['Product'],
+    }),
+
+    /**
+     * Удаление вторичного изображения
+     * @param: authId, userId, imageId
+     */
+    secondImageDelete: build.mutation<
+        BaseResponse<BaseImage>,
+        { authId: number; productId: number; imageId: number }
+    >({
+      query: (body) => ({
+        method: 'POST',
+        url: productUrl('/img_sec_del'),
+        body: body,
+      }),
+      invalidatesTags: ['Product'],
+    }),
+
   }),
 });
