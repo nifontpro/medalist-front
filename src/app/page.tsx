@@ -1,14 +1,12 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
-import Button from '@/ui/Button/Button';
 
 export default function Home() {
-  const { push } = useRouter();
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
