@@ -12,7 +12,14 @@ const PreviewDept = ({
   className,
   ...props
 }: PreviewDeptProps): JSX.Element => {
-  let convertDate = useMemo(() => timeConverter(award?.endDate), [award]);
+  let convertDateCreate = useMemo(
+    () => timeConverter(award?.startDate),
+    [award]
+  );
+  let convertDateNominee = useMemo(
+    () => timeConverter(award?.endDate),
+    [award]
+  );
   return (
     <div
       className={cn(
@@ -30,9 +37,14 @@ const PreviewDept = ({
         </P>
         {!list ? (
           <P size='xs' fontstyle='thin' color={list ? 'white' : 'gray'}>
-            Cоздана {convertDate}
+            Cоздана {convertDateCreate}
           </P>
         ) : null}
+        {award.type === 'PERIOD' && (
+          <P size='xs' fontstyle='thin' color={list ? 'white' : 'gray'}>
+            Награждение {convertDateNominee}
+          </P>
+        )}
       </div>
 
       <ImageDefault
