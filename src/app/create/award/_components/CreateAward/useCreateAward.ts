@@ -303,6 +303,10 @@ export const useCreateAward = (
           isError = true;
           toast.error('Дата начала больше чем дата окончания');
         }
+        //Проверка для того, чтобы если выбраны одинаковые даты - не было ошибки при награждении выбранных пользователей
+        if (data.endDate === data.startDate) {
+          data.endDate += 3600000 * 24;
+        }
       }
 
       if (

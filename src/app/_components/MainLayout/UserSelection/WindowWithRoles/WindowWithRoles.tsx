@@ -15,8 +15,11 @@ const WindowWithRoles = ({
   ...props
 }: WindowWithRolesProps) => {
   const { push } = useRouter();
-  const ownerRole = rolesUser?.filter((role) => !role.dept.companyName);
-  const anotherRoles = rolesUser?.filter((role) => role.dept.companyName);
+  const ownerRole = rolesUser?.filter((role) => role.roles.includes('OWNER'));
+  const anotherRoles = rolesUser?.filter(
+    (role) => !role.roles.includes('OWNER')
+  );
+  console.log(ownerRole);
 
   return (
     <div className={styles.wrapper} {...props}>
@@ -37,24 +40,33 @@ const WindowWithRoles = ({
           <div>
             {ownerRole!.map((role) => {
               return (
-                <div
+                <Button
                   key={uniqid()}
-                  className={styles.ownerRole}
                   onClick={() => handleChangeRole(role)}
+                  appearance='blackWhite'
+                  size='l'
+                  className='w-full'
                 >
-                  <ImageDefault
-                    key={role.id}
-                    src={role.mainImg ? role.mainImg : undefined}
-                    width={40}
-                    height={40}
-                    alt='preview image'
-                    className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
-                    forWhat='company'
-                  />
-                  <P size='s' fontstyle='thin'>
-                    {role.dept?.name} / {role?.post}
-                  </P>
-                </div>
+                  Войти как владелец
+                </Button>
+                // <div
+                //   key={uniqid()}
+                //   className={styles.ownerRole}
+                //   onClick={() => handleChangeRole(role)}
+                // >
+                //   <ImageDefault
+                //     key={role.id}
+                //     src={role.mainImg ? role.mainImg : undefined}
+                //     width={40}
+                //     height={40}
+                //     alt='preview image'
+                //     className='rounded-[10px] mr-[15px] w-[40px] h-[40px]'
+                //     forWhat='company'
+                //   />
+                //   <P size='s' fontstyle='thin'>
+                //     {role.dept?.name} / {role?.post}
+                //   </P>
+                // </div>
               );
             })}
           </div>
