@@ -26,7 +26,7 @@ export default function Home() {
     ) {
       localStorage.setItem('selectCompany', treeDepts[1].id.toString());
       console.log('первый редирект', treeDepts[1].id);
-      // redirect(`department/${treeDepts[1].id}`);
+      redirect(`department/${treeDepts[1].id}`);
     }
     if (
       typeOfUser?.roles.find((r) => r == 'OWNER') &&
@@ -34,7 +34,7 @@ export default function Home() {
       treeDepts.length == 1
     ) {
       console.log('второй редирект');
-      // redirect(`department/${treeDepts[0].id}`);
+      redirect(`department/${treeDepts[0].id}`);
     }
     if (!typeOfUser?.roles.find((r) => r == 'OWNER')) {
       console.log('третий редирект');
@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <main>
-      <div>Добро пожаловать назад</div>
+      {/* <div>Добро пожаловать назад</div>
       <Button
         size={'m'}
         appearance={'blackWhite'}
@@ -53,7 +53,7 @@ export default function Home() {
         }}
       >
         Вернутся к работе
-      </Button>
+      </Button> */}
     </main>
   );
 }

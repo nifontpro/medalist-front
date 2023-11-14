@@ -34,6 +34,7 @@ export const useMainLayout = () => {
       dispatch(setTypeOfUserUndefined());
     }
   });
+
   return {
     typeOfUser,
     rolesUser,
