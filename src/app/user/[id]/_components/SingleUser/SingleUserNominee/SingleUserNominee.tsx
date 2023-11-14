@@ -59,7 +59,7 @@ const SingleUserNominee = ({
         filter: searchValue,
         maxDate: endDate,
         minDate: startDate,
-        orders: [{ field: 'date', direction: state }],
+        orders: [{ field: 'date', direction: state == 'ASC' ? 'DESC' : 'ASC' }], // проверка direction такая потому что с бэка приходит не в том порядке
       },
       awardType: 'PERIOD',
       awardState: undefined,

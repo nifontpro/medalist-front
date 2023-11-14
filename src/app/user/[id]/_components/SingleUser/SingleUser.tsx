@@ -49,6 +49,8 @@ const SingleUser = ({
     totalPage,
   } = useSingleUser(id);
 
+  console.log('user', user);
+
   const { imageNum, setImageNum, images, addPhoto, removePhoto } =
     useUserEditPhoto(user);
 

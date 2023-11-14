@@ -12,8 +12,6 @@ import { RootState } from '@/store/storage/store';
 import { payApi } from '@/api/shop/pay/pay.api';
 import CardUserGift from './CardUserGift/CardUserGift';
 import { useRouter } from 'next/navigation';
-import AuthComponent from '@/store/providers/AuthComponent';
-import { RoleUser } from '@/types/user/user';
 
 const SingleUserGifts = ({
   user,

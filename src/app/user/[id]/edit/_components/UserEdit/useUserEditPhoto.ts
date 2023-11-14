@@ -25,7 +25,7 @@ export const useUserEditPhoto = (
   const [images, setImages] = useState<BaseImage[]>();
 
   useEffect(() => {
-    setImages(singleUser?.data?.user.images);
+    setImages(singleUser?.data?.images);
   }, [singleUser]);
 
   const [addImage] = userApi.useImageAddMutation();

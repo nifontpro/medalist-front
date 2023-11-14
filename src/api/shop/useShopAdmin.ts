@@ -122,11 +122,37 @@ export const useShopAdmin = (
     [returnUser, typeOfUser]
   );
 
+  const [returnAdmin] = payApi.useReturnProductAdminMutation();
+  const returnAdminAsync = useCallback(
+    async (payDataId: number) => {
+      let isError = false;
+
+      if (typeOfUser && typeOfUser.id)
+        await returnAdmin({ authId: typeOfUser?.id, payDataId })
+          .unwrap()
+          .then((res) => {
+            if (res.success == false) {
+              isError = true;
+              errorMessageParse(res.errors);
+            }
+          })
+          .catch((e) => {
+            isError = true;
+            toastError(e, 'Ошибка возврата приза');
+          });
+      if (!isError) {
+        toast.success('Приз успешно возвращен');
+      }
+    },
+    [returnAdmin, typeOfUser]
+  );
+
   return {
     deleteGiftAsync,
     buyGift,
     giveGiftAdmin,
     returnUserAsync,
+    returnAdminAsync,
     // singleUser,
     // isLoadingSingleUser,
     // usersOnDepartment,

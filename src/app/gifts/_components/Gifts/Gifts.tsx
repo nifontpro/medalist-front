@@ -11,7 +11,6 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Gift from './Gift/Gift';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
-import FilterAwards from './FilterGifts/FilterGifts';
 import { memo } from 'react';
 import { toast } from 'react-toastify';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';

@@ -89,9 +89,22 @@
   color: var(--white);
 }
 
+.grayBtn,
+.limeBtn,
 .silverBtn {
-  background: var(--graySilver);
   width: fit-content;
   padding: 3px 12px;
   border-radius: 30px;
+}
+
+.silverBtn {
+  background: var(--graySilver);
+}
+
+.limeBtn {
+  background: var(--lime);
+}
+
+.grayBtn {
+  background: var(--gray-light);
 }

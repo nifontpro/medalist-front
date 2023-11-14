@@ -1,0 +1,24 @@
+.active {
+  cursor: pointer;
+  color: var(--gray-dark) !important;
+}
+
+.award {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  @apply duration-200;
+
+  &:hover {
+    color: var(--gray-dark);
+
+    .awardsCount {
+      color: var(--gray-dark);
+    }
+  }
+
+  .awardsCount {
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+}

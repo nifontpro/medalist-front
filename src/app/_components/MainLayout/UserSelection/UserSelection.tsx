@@ -48,8 +48,6 @@ const UserSelection = ({
     reversedRolesUser = rolesUser.data.toReversed();
   }
 
-  console.log(reversedRolesUser);
-
   const { windowSize } = useWindowSize();
 
   const variants = {
