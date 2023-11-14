@@ -221,13 +221,19 @@ export const awardApi = createApi({
     }),
 
     /**
-     * Получить активные награждения сотрудника [userId]
-     * [baseRequest]:
-     * Допустимые поля для сортировки:
-     *      "date",
-     * 			"actionType",
-     * 			"award.name",
-     * 			"award.type"
+     * Получить активные награждения сотрудника userId
+     * фильтры: awardType, awardState
+     * 	baseRequest:
+     * 	Пагинация,
+     * 	minDate, maxDate - фильтрация по дате
+     * 	filter - фильтрация по названию наград
+     * 	Допустимые поля для сортировки:
+     * 	     	"date",
+     * 				"actionType",
+     * 				"award.name",
+     * 				"award.type",
+     * 				"award.startDate",
+     * 				"award.endDate",
      */
     getActivAwardByUser: build.query<
       BaseResponse<Activity[]>,
