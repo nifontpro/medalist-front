@@ -35,6 +35,7 @@ const SingleUserGifts = ({
         authId: typeOfUser?.id!,
         userId: Number(id),
         deptId: selectCompany,
+        payCode: 'PAY',
         baseRequest: {
           page: page,
           pageSize: 4,

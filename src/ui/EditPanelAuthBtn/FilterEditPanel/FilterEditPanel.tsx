@@ -128,7 +128,7 @@ const FilterEditPanel = forwardRef(
                   onClick={() => push(getUrlEdit(`${id}`))}
                   className={styles.item}
                 >
-                  Редактировать
+                  {gift ? 'Выдать' : 'Редактировать'}
                 </P>
               ) : null}
               {id ? (
@@ -138,7 +138,7 @@ const FilterEditPanel = forwardRef(
                   onClick={() => setOpenModalConfirm(true)}
                   className={styles.item}
                 >
-                  Удалить
+                  {gift ? 'Вернуть' : 'Удалить'}
                 </P>
               ) : null}
             </div>
@@ -146,7 +146,7 @@ const FilterEditPanel = forwardRef(
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={'Удалить'}
+            textBtn={gift ? 'Вернуть' : 'Удалить'}
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}

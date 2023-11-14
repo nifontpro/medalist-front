@@ -23,19 +23,27 @@ const PurchaseHistoryCard = motion(
     ): JSX.Element => {
       const { push } = useRouter();
 
-      const { returnAdminAsync } = useShopAdmin();
+      const { returnAdminAsync, giveAdminAsync } = useShopAdmin();
 
       return (
         <>
           <div ref={ref} {...props} className={cn(styles.wrapper, className)}>
-            <EditPanelAuthBtn
-              onlyRemove={true}
-              gift={true}
-              handleRemove={() => returnAdminAsync(gift.id)}
-              id={gift.id.toString()}
-              getUrlEdit={getGiftEditUrl}
-              className={styles.dots}
-            />
+            {gift.payCode !== 'RETURN' && (
+              <EditPanelAuthBtn
+                onlyRemove={
+                  gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
+                    ? true
+                    : false
+                }
+                gift={true}
+                handleRemove={() => giveAdminAsync(gift.id)}
+                id={gift.id.toString()}
+                getUrlEdit={getGiftEditUrl}
+                className={styles.dots}
+                handleReturn={() => returnAdminAsync(gift.id)}
+                payCode={gift.payCode}
+              />
+            )}
             <div
               className={styles.img}
               onClick={() => push(`gifts/${gift.id}`)}

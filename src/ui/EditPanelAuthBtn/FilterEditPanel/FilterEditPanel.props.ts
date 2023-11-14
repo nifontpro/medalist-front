@@ -1,3 +1,4 @@
+import { PayCode } from '@/types/shop/pay/PayData';
 import { MotionProps } from 'framer-motion';
 import {
   DetailedHTMLProps,
@@ -17,8 +18,10 @@ export type FilterEditPanelProps = DetailedHTMLProps<
     children?: ReactNode;
     visible: boolean;
     deleteAsync: (id: number) => Promise<void>;
+    handleReturn?: (id: number) => Promise<void>;
     getUrlEdit: (string?: string) => string;
     onlyRemove?: boolean;
     setVisible: Dispatch<SetStateAction<boolean>>;
     gift?: boolean;
+    payCode?: PayCode;
   };

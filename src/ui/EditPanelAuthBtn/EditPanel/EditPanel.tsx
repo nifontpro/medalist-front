@@ -15,6 +15,8 @@ const EditPanel = forwardRef(
       getUrlEdit,
       id,
       deleteAsync,
+      handleReturn,
+      payCode,
       children,
       visible,
       className,
@@ -67,6 +69,10 @@ const EditPanel = forwardRef(
       }
     };
 
+    const handleReturnAdmin = () => {
+      if (handleReturn) handleReturn(Number(id));
+    };
+
     if (onlyRemove) {
       return (
         <>
@@ -86,18 +92,18 @@ const EditPanel = forwardRef(
                 onClick={() => setOpenModalConfirm(true)}
                 className={styles.item}
               >
-                {gift ? 'Вернуть' : 'Удалить'}
+                {payCode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
               </P>
             ) : null}
           </motion.div>
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={gift ? 'Вернуть' : 'Удалить'}
+            textBtn={payCode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={handleDelete}
+            onConfirm={payCode == 'GIVEN' ? handleReturnAdmin : handleDelete}
           />
         </>
       );
@@ -117,10 +123,12 @@ const EditPanel = forwardRef(
               <P
                 size='xs'
                 fontstyle='thin'
-                onClick={() => push(getUrlEdit(`${id}`))}
+                onClick={() => {
+                  gift ? handleReturn : push(getUrlEdit(`${id}`));
+                }}
                 className={styles.item}
               >
-                Редактировать
+                {gift ? 'Выдать' : 'Редактировать'}
               </P>
             )}
             {id ? (
@@ -130,14 +138,14 @@ const EditPanel = forwardRef(
                 onClick={() => setOpenModalConfirm(true)}
                 className={styles.item}
               >
-                Удалить
+                {gift ? 'Вернуть' : 'Удалить'}
               </P>
             ) : null}
           </motion.div>
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={'Удалить'}
+            textBtn={gift ? 'Вернуть' : 'Удалить'}
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}

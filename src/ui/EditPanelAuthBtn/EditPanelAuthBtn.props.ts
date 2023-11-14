@@ -1,3 +1,4 @@
+import { PayCode } from '@/types/shop/pay/PayData';
 import { MotionProps } from 'framer-motion';
 import {
   DetailedHTMLProps,
@@ -19,4 +20,6 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<
     onlyRemove: boolean;
     color?: 'white' | 'transparent';
     gift?: boolean;
+    handleReturn?: (id: number) => Promise<void>;
+    payCode?: PayCode;
   };
