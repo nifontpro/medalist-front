@@ -31,6 +31,7 @@ import { treeDeptsSlice } from '../features/treeDepts/treeDepts.slice';
 import { productApi } from '@/api/shop/product/product.api';
 import { authMiddleware } from './auth-middleware';
 import { payApi } from '@/api/shop/pay/pay.api';
+import { globalErrorHandler } from './globalErrorHandler';
 
 // Ниже код для исправления ошибки "redux-persist failed to create sync storage. falling back to noop storage"
 const createNoopStorage = () => {
@@ -117,7 +118,8 @@ export const store = configureStore({
       messageApi.middleware,
       productApi.middleware,
       payApi.middleware,
-      authMiddleware
+      authMiddleware,
+      globalErrorHandler
     ),
 });
 

@@ -11,6 +11,9 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { payApi } from '@/api/shop/pay/pay.api';
 import CardUserGift from './CardUserGift/CardUserGift';
+import { useRouter } from 'next/navigation';
+import AuthComponent from '@/store/providers/AuthComponent';
+import { RoleUser } from '@/types/user/user';
 
 const SingleUserGifts = ({
   user,
@@ -21,6 +24,8 @@ const SingleUserGifts = ({
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
+  const { push } = useRouter();
 
   const { page, nextPage, prevPage } = useFetchParams();
 
@@ -46,6 +51,14 @@ const SingleUserGifts = ({
 
   const totalElements = useMemo(() => gifts?.pageInfo?.totalElements, [gifts]);
 
+  let availablePurchaseHistoryPage = false;
+  if (typeOfUser?.id === Number(id)) {
+    availablePurchaseHistoryPage = true;
+  }
+  if (typeOfUser?.roles.includes('ADMIN')) {
+    availablePurchaseHistoryPage = true;
+  }
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
@@ -54,6 +67,16 @@ const SingleUserGifts = ({
           <P size='s' fontstyle='thin' className={styles.countGifts}>
             {totalElements}
           </P>
+        )}
+
+        {availablePurchaseHistoryPage && (
+          <Htag
+            className={styles.titleHistory}
+            tag='h3'
+            onClick={() => push(`/user/${id}/purchaseHistory`)}
+          >
+            История покупок
+          </Htag>
         )}
       </div>
 
