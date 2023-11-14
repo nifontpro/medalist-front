@@ -58,8 +58,8 @@ const SingleUserAwards = ({
         minDate: startDate,
         orders: [{ field: 'award.name', direction: state }],
       },
-      awardType: undefined,
-      awardState: 'FINISH',
+      awardType: 'SIMPLE',
+      awardState: undefined,
     },
     {
       skip: !id || !typeOfUser,

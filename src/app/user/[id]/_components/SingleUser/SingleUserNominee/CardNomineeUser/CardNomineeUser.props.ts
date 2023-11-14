@@ -7,5 +7,10 @@ export type CardNomineeUserProps = DetailedHTMLProps<
 > & {
   userId: string;
   award: Activity;
-  userRewardAsync: (awardId: number, actionType: ActionType, userId: number) => Promise<void>
+  userRewardAsync: (
+    awardId: number,
+    actionType: ActionType,
+    userId: number
+  ) => Promise<void>;
+  disabled?: boolean;
 };

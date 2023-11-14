@@ -13,6 +13,7 @@ import { memo, useMemo } from 'react';
 import { awardApi } from '@/api/award/award.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import dayjs from 'dayjs';
 
 const SingleUserNominee = ({
   user,
@@ -42,6 +43,8 @@ const SingleUserNominee = ({
 
   const { userRewardAsync } = useAwardAdmin();
 
+  let currentDate = dayjs().valueOf();
+
   // Получить Актив награды по id пользователя
   const {
     data: singleActivAwardUser,
@@ -56,10 +59,10 @@ const SingleUserNominee = ({
         filter: searchValue,
         maxDate: endDate,
         minDate: startDate,
-        orders: [{ field: 'award.name', direction: state }],
+        orders: [{ field: 'date', direction: state }],
       },
-      awardType: undefined,
-      awardState: 'NOMINEE',
+      awardType: 'PERIOD',
+      awardState: undefined,
     },
     {
       skip: !id || !typeOfUser,
@@ -105,16 +108,15 @@ const SingleUserNominee = ({
           <>
             <div className={styles.content}>
               {singleActivAwardUser.data!.map((award) => {
-                if (award.award?.type == 'PERIOD') {
-                  return (
-                    <CardNomineeUser
-                      key={uniqid()}
-                      userId={user?.user.id}
-                      award={award}
-                      userRewardAsync={userRewardAsync}
-                    />
-                  );
-                }
+                return (
+                  <CardNomineeUser
+                    key={uniqid()}
+                    userId={user?.user.id}
+                    award={award}
+                    userRewardAsync={userRewardAsync}
+                    disabled={currentDate > award?.award?.endDate!}
+                  />
+                );
               })}
             </div>
             {totalPage && totalPage > 1 ? (

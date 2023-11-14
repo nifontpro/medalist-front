@@ -11,13 +11,6 @@ export async function middleware(request: NextRequest, res: NextResponse) {
   const { pathname } = request.nextUrl;
 
   const isAuthPage = pathname.startsWith('/');
-  // const isAnotherPage =
-  //   pathname == '/' ||
-  //   pathname.startsWith('/award') ||
-  //   pathname.startsWith('/department') ||
-  //   pathname.startsWith('/user') ||
-  //   pathname.startsWith('/create') ||
-  //   pathname.startsWith('/gifts');
   const accessToken = request.cookies.get('access_token');
 
   if (isAuthPage && !accessToken) {

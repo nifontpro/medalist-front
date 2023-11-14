@@ -15,6 +15,7 @@ const CardNomineeUser = ({
   userId,
   award,
   userRewardAsync,
+  disabled,
   className,
   ...props
 }: CardNomineeUserProps): JSX.Element => {
@@ -34,7 +35,11 @@ const CardNomineeUser = ({
       {...props}
       onClick={() => push(`/award/${award.award?.id}`)}
     >
-      <div className={styles.img}>
+      <div
+        className={cn(styles.img, {
+          [styles.disabled]: disabled,
+        })}
+      >
         <ImageDefault
           src={award.award?.mainImg}
           width={76}
@@ -47,7 +52,11 @@ const CardNomineeUser = ({
         />
       </div>
 
-      <div className={styles.user}>
+      <div
+        className={cn(styles.user, {
+          [styles.disabled]: disabled,
+        })}
+      >
         <P size='l'>{award.award?.name}</P>
       </div>
 
