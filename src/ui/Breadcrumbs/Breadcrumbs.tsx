@@ -5,8 +5,7 @@ import P from '../P/P';
 import { checkSegments, convertString } from './utils';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectTreeDepts } from '@/store/features/treeDepts/treeDepts-selectors';
-import { Dept } from '@/types/dept/dept';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 function Breadcrumbs(): JSX.Element {
   const pathName = usePathname();
@@ -37,6 +36,7 @@ function Breadcrumbs(): JSX.Element {
   }, []);
 
   const selectedCompany = localStorage.getItem('selectCompany');
+
   if (!selectedCompany) {
     return <div></div>;
   } else {

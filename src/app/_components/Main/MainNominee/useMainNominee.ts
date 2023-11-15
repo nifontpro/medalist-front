@@ -32,7 +32,7 @@ export const useMainNominee = (deptId?: string) => {
     },
     {
       skip: !typeOfUser,
-      refetchOnFocus: true,
+      // refetchOnFocus: true,
     }
   );
 

@@ -21,7 +21,7 @@ import { payApi } from '../shop/pay/pay.api';
 export const awardUrl = (string: string = '') => `/client/award${string}`;
 
 export const awardApi = createApi({
-  refetchOnFocus: true,
+  // refetchOnFocus: true,
   reducerPath: 'AwardApi',
   baseQuery: baseQuery,
   tagTypes: ['Award', 'Action'],
