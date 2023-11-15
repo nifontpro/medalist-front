@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+sort" />
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+dept settings">
+      <change afterPath="$PROJECT_DIR$/dep.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +20,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="KubernetesSettings">
     <option name="contextName" value="kind-kind" />
@@ -142,6 +144,11 @@
       <workItem from="1699885809505" duration="19000" />
       <workItem from="1699908414390" duration="80000" />
       <workItem from="1699961333095" duration="227000" />
+      <workItem from="1699969940578" duration="989000" />
+      <workItem from="1699978790821" duration="168000" />
+      <workItem from="1699978969601" duration="33000" />
+      <workItem from="1700034456307" duration="387000" />
+      <workItem from="1700037854963" duration="293000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -319,7 +326,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699961517487</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="+dept settings">
+      <option name="closed" value="true" />
+      <created>1699970841339</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1699970841339</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,6 +368,7 @@
     <MESSAGE value="+deploy.sh" />
     <MESSAGE value="+authId in Activity -&gt; null" />
     <MESSAGE value="+sort" />
-    <option name="LAST_COMMIT_MESSAGE" value="+sort" />
+    <MESSAGE value="+dept settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="+dept settings" />
   </component>
 </project>
