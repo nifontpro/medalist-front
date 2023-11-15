@@ -4,6 +4,7 @@ import down from './down.svg';
 import dots from './dots.svg';
 import right from './right.svg';
 import settings from './setting.svg';
+import cup from './cup.svg';
 
 export const icons = {
   plus,
@@ -11,6 +12,7 @@ export const icons = {
   dots,
   right,
   settings,
+  cup,
 };
 
 export type IconName = keyof typeof icons;

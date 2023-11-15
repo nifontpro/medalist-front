@@ -9,7 +9,7 @@
   }
   .title {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 30px;
 
     @media screen and (max-width: 768px) {
@@ -18,11 +18,18 @@
 
     .countGifts {
       margin-left: 10px;
+      margin-top: -15px;
     }
 
     .titleHistory {
       margin-left: auto;
       cursor: pointer;
+
+      svg {
+        path {
+          stroke: var(--white);
+        }
+      }
     }
   }
 

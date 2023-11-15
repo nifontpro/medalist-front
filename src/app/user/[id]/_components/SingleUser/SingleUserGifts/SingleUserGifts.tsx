@@ -12,6 +12,7 @@ import { RootState } from '@/store/storage/store';
 import { payApi } from '@/api/shop/pay/pay.api';
 import CardUserGift from './CardUserGift/CardUserGift';
 import { useRouter } from 'next/navigation';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 
 const SingleUserGifts = ({
   user,
@@ -46,6 +47,8 @@ const SingleUserGifts = ({
       }
     );
 
+  console.log('gifts', gifts);
+
   const totalPage = useMemo(() => gifts?.pageInfo?.totalPages, [gifts]);
 
   const totalElements = useMemo(() => gifts?.pageInfo?.totalElements, [gifts]);
@@ -69,13 +72,26 @@ const SingleUserGifts = ({
         )}
 
         {availablePurchaseHistoryPage && (
-          <Htag
-            className={styles.titleHistory}
-            tag='h3'
-            onClick={() => push(`/user/${id}/purchaseHistory`)}
-          >
-            История покупок
-          </Htag>
+          <div className={styles.titleHistory}>
+            <ButtonCircleIcon
+              onClick={() => push(`/user/${id}/purchaseHistory`)}
+              classNameForIcon='@apply w-[18px] h-[18px]'
+              appearance='black'
+              icon='cup'
+              className={styles.titleHistory}
+            >
+              История покупок
+            </ButtonCircleIcon>
+          </div>
+          // <div className={styles.titleHistory}>
+          //   <P
+          //     size='s'
+          //     fontstyle='thin'
+          //     onClick={() => push(`/user/${id}/purchaseHistory`)}
+          //   >
+          //     История покупок
+          //   </P>
+          // </div>
         )}
       </div>
 
