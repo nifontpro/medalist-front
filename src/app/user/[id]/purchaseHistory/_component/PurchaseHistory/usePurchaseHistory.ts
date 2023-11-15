@@ -39,7 +39,7 @@ export const usePurchaseHistory = (id: string) => {
       userId: Number(id),
       deptId: Number(selectedCompany),
       payCode, // Необязательный фильтр по типу операции
-      isActive: undefined, // Необязательный фильтр по активному состоянию операции
+      isActive: true, // Необязательный фильтр по активному состоянию операции
       baseRequest: {
         minDate: startDate,
         maxDate: endDate,

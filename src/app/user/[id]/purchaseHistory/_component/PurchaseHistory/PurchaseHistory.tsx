@@ -34,7 +34,7 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
     nextPage,
     setState,
   } = usePurchaseHistory(id);
-  console.log(gifts);
+  console.log('gifts', gifts);
 
   if (isLoadingGifts) return <Spinner />;
   if (!gifts?.success) return <NoAccess errors={gifts?.errors} />;

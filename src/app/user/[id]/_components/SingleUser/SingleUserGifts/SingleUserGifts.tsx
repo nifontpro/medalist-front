@@ -26,7 +26,7 @@ const SingleUserGifts = ({
 
   const { push } = useRouter();
 
-  const { page, nextPage, prevPage } = useFetchParams();
+  const { page, nextPage, prevPage, state } = useFetchParams();
 
   const selectCompany = Number(localStorage.getItem('selectCompany'));
 
@@ -37,9 +37,13 @@ const SingleUserGifts = ({
         userId: Number(id),
         deptId: selectCompany,
         payCode: 'PAY',
+        isActive: true,
         baseRequest: {
           page: page,
           pageSize: 4,
+          orders: [
+            { field: 'dateOp', direction: state === 'ASC' ? 'DESC' : 'ASC' },
+          ],
         },
       },
       {

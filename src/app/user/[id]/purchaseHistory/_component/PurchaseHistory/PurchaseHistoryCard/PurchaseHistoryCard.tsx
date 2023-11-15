@@ -84,11 +84,11 @@ const PurchaseHistoryCard = motion(
                 {gift.product.price}
                 <span className='text-[17px] leading-[21px]'>₽</span>
               </P>
-              <ButtonIcon appearance={'grayGifts'}>
+              {/* <ButtonIcon appearance={'grayGifts'}>
                 <P size='s' color='gray'>
                   {gift.product.count} шт
                 </P>
-              </ButtonIcon>
+              </ButtonIcon> */}
             </div>
             <PayCodeBtn gift={gift} />
           </div>

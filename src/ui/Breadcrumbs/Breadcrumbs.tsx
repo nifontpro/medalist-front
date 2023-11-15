@@ -37,77 +37,83 @@ function Breadcrumbs(): JSX.Element {
   }, []);
 
   const selectedCompany = localStorage.getItem('selectCompany');
-
-  return (
-    <nav>
-      <ol className={styles.wrapper}>
-        <>
-          <li className={styles.link}>
+  if (!selectedCompany) {
+    return <div></div>;
+  } else {
+    return (
+      <nav>
+        <ol className={styles.wrapper}>
+          <>
+            <li className={styles.link}>
+              {selectedCompany &&
+              selectedCompany ==
+                pathName.split('/')[2] ? null : selectedCompany ? (
+                <Link href={`/department/${selectedCompany}`}>
+                  {
+                    treeDepts?.filter(
+                      (item) => item.id === Number(selectedCompany)
+                    )[0].name
+                  }
+                </Link>
+              ) : (
+                <Link
+                  href={`/department/${
+                    treeDepts?.filter((item) => item.level == 2)[0].id
+                  }`}
+                >
+                  {treeDepts?.filter((item) => item.level == 2)[0].name}
+                </Link>
+              )}
+            </li>
             {selectedCompany &&
             selectedCompany ==
               pathName.split('/')[2] ? null : selectedCompany ? (
-              <Link href={`/department/${selectedCompany}`}>
-                {
-                  treeDepts?.filter(
-                    (item) => item.id === Number(selectedCompany)
-                  )[0].name
-                }
-              </Link>
+              <P fontstyle='thin' className={styles.br}>
+                /
+              </P>
             ) : (
-              <Link
-                href={`/department/${
-                  treeDepts?.filter((item) => item.level == 2)[0].id
-                }`}
-              >
-                {treeDepts?.filter((item) => item.level == 2)[0].name}
-              </Link>
+              <P fontstyle='thin' className={styles.br}>
+                /
+              </P>
             )}
-          </li>
-          {selectedCompany &&
-          selectedCompany == pathName.split('/')[2] ? null : selectedCompany ? (
-            <P fontstyle='thin' className={styles.br}>
-              /
-            </P>
-          ) : (
-            <P fontstyle='thin' className={styles.br}>
-              /
-            </P>
-          )}
-        </>
+          </>
 
-        {segments.map((segment, index) => {
-          let href = '';
+          {segments.map((segment, index) => {
+            let href = '';
 
-          if (index === 0) {
-            href = convertString(segment);
-          } else {
-            href = `/${segments.slice(0, index + 1).join('/')}`;
-          }
+            if (index === 0) {
+              href = convertString(segment);
+            } else {
+              href = `/${segments.slice(0, index + 1).join('/')}`;
+            }
 
-          const isLast = index === segments.length - 1;
+            const isLast = index === segments.length - 1;
 
-          return (
-            <li key={segment}>
-              {isLast ? (
-                <div className={styles.linkDefault}>
-                  {checkSegments(segment, treeDepts)}
-                </div>
-              ) : (
-                <div className='flex'>
-                  <div className={styles.link}>
-                    <Link href={href}>{checkSegments(segment, treeDepts)}</Link>
+            return (
+              <li key={segment}>
+                {isLast ? (
+                  <div className={styles.linkDefault}>
+                    {checkSegments(segment, treeDepts)}
                   </div>
-                  <P fontstyle='thin' className={styles.br}>
-                    /
-                  </P>
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
-  );
+                ) : (
+                  <div className='flex'>
+                    <div className={styles.link}>
+                      <Link href={href}>
+                        {checkSegments(segment, treeDepts)}
+                      </Link>
+                    </div>
+                    <P fontstyle='thin' className={styles.br}>
+                      /
+                    </P>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    );
+  }
 }
 
 export default Breadcrumbs;
