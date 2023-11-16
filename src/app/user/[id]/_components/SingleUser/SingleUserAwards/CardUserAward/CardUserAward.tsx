@@ -40,13 +40,11 @@ const CardUserAward = ({
         onClick={() => push(`/award/${award.award?.id}`)}
       >
         <ImageDefault
-          src={award.award?.mainImg}
+          src={award.award?.normImg ? award.award?.normImg : undefined}
           width={175}
           height={175}
           alt='award img'
-          // objectFit='cover'
           className='rounded-[27px]'
-          // priority={true}
           forWhat='award'
         />
       </div>
