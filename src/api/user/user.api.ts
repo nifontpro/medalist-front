@@ -12,7 +12,7 @@ import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
 import { baseQuery} from '../base/base.api';
-import {AddUserReport} from "@/types/user/addUserReport";
+import {LoadReport} from "@/types/user/addUserReport";
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -84,10 +84,10 @@ export const userApi = createApi({
      *  [authId]
      *  [deptId]
      *  [key] - по какому ключу идентифицируется Сотрудник при обновлении
-     *          - "FIO" - по ФИО
-     *          - "TAB_N" - по Табельному номеру (по умолчанию)
+     *          - "FIO" - по ФИО (по умолчанию)
+     *          - "TAB" - по Табельному номеру
      */
-    addUsersFromExcel: build.mutation<BaseResponse<AddUserReport>, FormData>({
+    addUsersFromExcel: build.mutation<BaseResponse<LoadReport>, FormData>({
       query: (body) => ({
         method: 'POST',
         url: userUrl('/excel_add'),

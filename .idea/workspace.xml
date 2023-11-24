@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+Artem deploy">
-      <change afterPath="$PROJECT_DIR$/src/types/user/userEvent.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/user/user.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/user/user.api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/user/addUserReport.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/user/addUserReport.d.ts" afterDir="false" />
-    </list>
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+add user event for excel" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,7 +147,7 @@
       <workItem from="1700034456307" duration="387000" />
       <workItem from="1700037854963" duration="604000" />
       <workItem from="1700047508967" duration="129000" />
-      <workItem from="1700473012632" duration="820000" />
+      <workItem from="1700473012632" duration="884000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -346,7 +341,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700038199575</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="+add user event for excel">
+      <option name="closed" value="true" />
+      <created>1700473889574</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1700473889574</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,6 +385,7 @@
     <MESSAGE value="+sort" />
     <MESSAGE value="+dept settings" />
     <MESSAGE value="+Artem deploy" />
-    <option name="LAST_COMMIT_MESSAGE" value="+Artem deploy" />
+    <MESSAGE value="+add user event for excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="+add user event for excel" />
   </component>
 </project>
