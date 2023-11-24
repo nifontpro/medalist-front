@@ -58,7 +58,7 @@ const persistConfig = {
   storage,
   // Если используем RTK-query нужно обзяательно включить в blacklist ! ! !
   whitelist: [
-    'auth',
+    // 'auth',
     'sidebarTree',
     'userSelection',
     'header',
@@ -77,6 +77,7 @@ const persistConfig = {
     messageApi.reducerPath,
     productApi.reducerPath,
     payApi.reducerPath,
+    'auth',
   ], // то что не хотим сохранять в localstorage
 };
 
