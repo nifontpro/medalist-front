@@ -19,6 +19,8 @@ import P from '@/ui/P/P';
 import ChangeRoleIcon from '@/icons/ownerLogo.svg';
 import ArrowIcon from '@/icons/arrowDown.svg';
 import ImageDefault from '@/ui/ImageDefault/ImageDefault';
+import Button from '@/ui/Button/Button';
+import CupIcon from '@/icons/cup.svg';
 
 const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
   const {
@@ -160,18 +162,30 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
             sx={{
               flexGrow: 1,
               maxWidth: 300,
-              height: '100%',
+              // height: '100%',
               overflowY: 'auto',
             }}
+            className='flex flex-col gap-[50px]'
           >
-            <Tree
-              treeData={
-                selectedCompany
-                  ? tree.find((item) => item.id == Number(selectedCompany))
-                      ?.children
-                  : tree[0]?.children
-              }
-            />
+            <div>
+              <Tree
+                treeData={
+                  selectedCompany
+                    ? tree.find((item) => item.id == Number(selectedCompany))
+                        ?.children
+                    : tree[0]?.children
+                }
+              />
+            </div>
+
+            <Button
+              onClick={() => push('/gifts')}
+              appearance={'blackWhite'}
+              size='l'
+              className={styles.buttonGifts}
+            >
+              <CupIcon className={styles.icon} /> Магазин&nbsp;призов
+            </Button>
           </TreeView>
         </>
       ) : null}

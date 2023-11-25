@@ -182,3 +182,30 @@
 .menuItem:hover {
   /* Add your custom styles for the hovered item here */
 }
+
+.buttonGifts {
+  display: flex !important;
+  align-items: center !important;
+  padding: 10px 40px !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  border: 1.5px solid var(--gray-light) !important;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+
+    @media screen and (max-width: 500px) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  svg {
+    path {
+      stroke: var(--white);
+    }
+  }
+}
