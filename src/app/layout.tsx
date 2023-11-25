@@ -1,6 +1,5 @@
 import MainProvider from '@/store/providers/MainProvider';
 import '@/styles/globals.scss';
-import { getCookie } from 'cookies-next';
 import React from 'react';
 
 // const getRoles = async () => {

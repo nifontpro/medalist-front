@@ -26,7 +26,7 @@ export const usePurchaseHistory = (id: string) => {
     setEndDateChange,
   } = useFetchParams();
 
-  const [payCode, setPayCode] = useState<PayCode>('UNDEF');
+  const [paycode, setPaycode] = useState<PayCode>('UNDEF');
 
   // Получить призы
   const {
@@ -38,7 +38,7 @@ export const usePurchaseHistory = (id: string) => {
       authId: typeOfUser?.id!,
       userId: Number(id),
       deptId: Number(selectedCompany),
-      payCode, // Необязательный фильтр по типу операции
+      payCode: paycode, // Необязательный фильтр по типу операции
       isActive: true, // Необязательный фильтр по активному состоянию операции
       baseRequest: {
         minDate: startDate,
@@ -83,8 +83,8 @@ export const usePurchaseHistory = (id: string) => {
   return {
     gifts,
     isLoadingGifts,
-    setPayCode,
-    payCode,
+    setPaycode,
+    paycode,
     handleSort,
     state,
     setStartDateChange,

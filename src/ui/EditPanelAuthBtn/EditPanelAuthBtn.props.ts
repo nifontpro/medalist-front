@@ -20,6 +20,6 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<
     onlyRemove: boolean;
     color?: 'white' | 'transparent';
     gift?: boolean;
-    handleReturn?: (id: number) => Promise<void>;
-    payCode?: PayCode;
+    handlereturn?: (id: number) => Promise<void>;
+    paycode?: PayCode;
   };

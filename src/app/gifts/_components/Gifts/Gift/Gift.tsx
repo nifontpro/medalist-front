@@ -56,7 +56,7 @@ const Gift = motion(
                 alt={gift.name}
                 className={
                   gift.normImg
-                    ? 'rounded-full object-contain'
+                    ? 'rounded-[44px] object-contain'
                     : 'object-contain'
                 }
                 forWhat='gift'

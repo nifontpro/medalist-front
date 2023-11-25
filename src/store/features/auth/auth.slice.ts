@@ -21,12 +21,19 @@ export const authSlice = createSlice({
       // console.log('action.payload', action.payload);
       state.access_token = action.payload;
     },
+    setTokenAndIdToken: (
+      state,
+      action: PayloadAction<{ token: string; idToken: string }>
+    ) => {
+      state.access_token = action.payload.token;
+      state.idToken = action.payload.idToken;
+    },
     removeToken: (state) => {
       state.access_token = undefined;
     },
   },
 });
 
-export const { setToken, removeToken } = authSlice.actions;
+export const { setToken, removeToken, setTokenAndIdToken } = authSlice.actions;
 
 export default authSlice.reducer;

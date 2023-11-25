@@ -22,8 +22,8 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
   const {
     gifts,
     isLoadingGifts,
-    setPayCode,
-    payCode,
+    setPaycode,
+    paycode,
     handleSort,
     state,
     setStartDateChange,
@@ -52,32 +52,32 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
         <TabTitleHistory
           key={uniqid()}
           onClickActive={'UNDEF'}
-          setPayCode={setPayCode}
-          payCode={payCode}
+          setPaycode={setPaycode}
+          paycode={paycode}
         >
           Все
         </TabTitleHistory>
         <TabTitleHistory
           key={uniqid()}
           onClickActive={'PAY'}
-          setPayCode={setPayCode}
-          payCode={payCode}
+          setPaycode={setPaycode}
+          paycode={paycode}
         >
           Еще не выданы
         </TabTitleHistory>
         <TabTitleHistory
           key={uniqid()}
           onClickActive={'GIVEN'}
-          setPayCode={setPayCode}
-          payCode={payCode}
+          setPaycode={setPaycode}
+          paycode={paycode}
         >
           Получены
         </TabTitleHistory>
         <TabTitleHistory
           key={uniqid()}
           onClickActive={'RETURN'}
-          setPayCode={setPayCode}
-          payCode={payCode}
+          setPaycode={setPaycode}
+          paycode={paycode}
         >
           Возвращены
         </TabTitleHistory>
@@ -93,8 +93,8 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
       </div>
 
       <FilterHistory
-        setPayCode={setPayCode}
-        payCode={payCode}
+        setPaycode={setPaycode}
+        paycode={paycode}
         state={state}
         setState={setState}
         setStartDateChange={setStartDateChange}

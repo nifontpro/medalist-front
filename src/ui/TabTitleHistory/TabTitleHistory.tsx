@@ -5,8 +5,8 @@ import Htag from '@/ui/Htag/Htag';
 import { memo } from 'react';
 
 const TabTitleHistory = ({
-  setPayCode,
-  payCode,
+  setPaycode,
+  paycode,
   onClickActive,
   className,
   children,
@@ -17,12 +17,12 @@ const TabTitleHistory = ({
       tag='h3'
       color='gray'
       onClick={() => {
-        setPayCode(onClickActive);
+        setPaycode(onClickActive);
       }}
       className={cn(
         styles.award,
         {
-          [styles.active]: payCode === onClickActive,
+          [styles.active]: paycode === onClickActive,
         },
         className
       )}

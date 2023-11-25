@@ -16,9 +16,9 @@ export type EditPanelProps = DetailedHTMLProps<
     children?: ReactNode;
     visible: boolean;
     deleteAsync: (id: number) => Promise<void>;
-    handleReturn?: (id: number) => Promise<void>;
+    handlereturn?: (id: number) => Promise<void>;
     getUrlEdit: (string?: string) => string;
     onlyRemove?: boolean;
     gift?: boolean;
-    payCode?: PayCode;
+    paycode?: PayCode;
   };

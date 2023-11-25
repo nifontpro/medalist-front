@@ -41,7 +41,7 @@ const PurchaseHistoryCard = motion(
                 getUrlEdit={getGiftEditUrl}
                 className={styles.dots}
                 handleReturn={() => returnAdminAsync(gift.id)}
-                payCode={gift.payCode}
+                paycode={gift.payCode}
               />
             )}
             <div

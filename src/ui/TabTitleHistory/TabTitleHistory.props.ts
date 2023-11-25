@@ -11,6 +11,6 @@ export type TabTitleHistoryProps = DetailedHTMLProps<
   HTMLHeadingElement
 > & {
   onClickActive: PayCode;
-  setPayCode: Dispatch<SetStateAction<PayCode>>;
-  payCode: PayCode;
+  setPaycode: Dispatch<SetStateAction<PayCode>>;
+  paycode: PayCode;
 };

@@ -18,6 +18,7 @@ import React from 'react';
 import { userApi } from '@/api/user/user.api';
 import Money from './Money/Money';
 import { payApi } from '@/api/shop/pay/pay.api';
+import { deptApi } from '@/api/dept/dept.api';
 
 const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
@@ -35,6 +36,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
       }
     );
 
+  // Получить баланс пользователя
   const { data: moneyUser, isLoading: isLoadingMoneyUser } =
     payApi.useGetUserPayQuery(
       {
@@ -45,6 +47,20 @@ const Header = ({ className, ...props }: HeaderProps) => {
         skip: !typeOfUser,
       }
     );
+
+  // Получить название валюты
+  const { data: payName, isLoading: isLoadingPayName } =
+    deptApi.useGetSettingsQuery(
+      {
+        authId: typeOfUser?.id!,
+        deptId: typeOfUser?.dept.id,
+      },
+      {
+        skip: !typeOfUser,
+      }
+    );
+
+  console.log(payName);
 
   const { windowSize } = useWindowSize();
   const { navigationVisible } = useHeader();

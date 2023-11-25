@@ -10,10 +10,10 @@ import AuthComponent from '@/store/providers/AuthComponent';
 
 const EditPanelAuthBtn = ({
   handleRemove,
-  handleReturn,
+  handlereturn,
   onlyRemove,
   getUrlEdit,
-  payCode,
+  paycode,
   className,
   gift,
   id,
@@ -47,8 +47,8 @@ const EditPanelAuthBtn = ({
         ref={ref}
         onlyRemove={onlyRemove}
         gift={gift}
-        handleReturn={handleReturn}
-        payCode={payCode}
+        handlereturn={handlereturn}
+        paycode={paycode}
       />
       <FilterEditPanel
         getUrlEdit={getUrlEdit}
@@ -59,8 +59,8 @@ const EditPanelAuthBtn = ({
         ref={ref}
         onlyRemove={onlyRemove}
         gift={gift}
-        handleReturn={handleReturn}
-        payCode={payCode}
+        handlereturn={handlereturn}
+        paycode={paycode}
       />
     </AuthComponent>
   );

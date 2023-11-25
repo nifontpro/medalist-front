@@ -13,8 +13,8 @@ import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 const FilterHistory = ({
   state,
   setState,
-  payCode,
-  setPayCode,
+  paycode,
+  setPaycode,
   setStartDateChange,
   setEndDateChange,
   className,
@@ -90,20 +90,20 @@ const FilterHistory = ({
                 <ul className={styles.list}>
                   <li
                     className={styles.listItem}
-                    onClick={() => setPayCode('UNDEF')}
+                    onClick={() => setPaycode('UNDEF')}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: payCode == 'UNDEF',
-                        [styles.hidden]: payCode != 'UNDEF',
+                        [styles.visible]: paycode == 'UNDEF',
+                        [styles.hidden]: paycode != 'UNDEF',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: payCode != 'UNDEF',
+                        [styles.disabled]: paycode != 'UNDEF',
                       })}
                     >
                       Всe
@@ -112,20 +112,20 @@ const FilterHistory = ({
                   </li>
                   <li
                     className={styles.listItem}
-                    onClick={() => setPayCode('PAY')}
+                    onClick={() => setPaycode('PAY')}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: payCode == 'PAY',
-                        [styles.hidden]: payCode != 'PAY',
+                        [styles.visible]: paycode == 'PAY',
+                        [styles.hidden]: paycode != 'PAY',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: payCode != 'PAY',
+                        [styles.disabled]: paycode != 'PAY',
                       })}
                     >
                       Еще не выданы
@@ -134,20 +134,20 @@ const FilterHistory = ({
                   </li>
                   <li
                     className={styles.listItem}
-                    onClick={() => setPayCode('GIVEN')}
+                    onClick={() => setPaycode('GIVEN')}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: payCode == 'GIVEN',
-                        [styles.hidden]: payCode != 'GIVEN',
+                        [styles.visible]: paycode == 'GIVEN',
+                        [styles.hidden]: paycode != 'GIVEN',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: payCode != 'GIVEN',
+                        [styles.disabled]: paycode != 'GIVEN',
                       })}
                     >
                       Получены
@@ -156,20 +156,20 @@ const FilterHistory = ({
                   </li>
                   <li
                     className={styles.listItem}
-                    onClick={() => setPayCode('RETURN')}
+                    onClick={() => setPaycode('RETURN')}
                   >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
-                        [styles.visible]: payCode == 'RETURN',
-                        [styles.hidden]: payCode != 'RETURN',
+                        [styles.visible]: paycode == 'RETURN',
+                        [styles.hidden]: paycode != 'RETURN',
                       })}
                     />
                     <P
                       size='s'
                       fontstyle='thin'
                       className={cn({
-                        [styles.disabled]: payCode != 'RETURN',
+                        [styles.disabled]: paycode != 'RETURN',
                       })}
                     >
                       Возвращены

@@ -12,8 +12,8 @@ export type FilterHistoryProps = DetailedHTMLProps<
 > & {
   state: 'ASC' | 'DESC';
   setState: Dispatch<SetStateAction<'ASC' | 'DESC'>>;
-  setPayCode: Dispatch<SetStateAction<PayCode>>;
-  payCode: PayCode;
+  setPaycode: Dispatch<SetStateAction<PayCode>>;
+  paycode: PayCode;
   setStartDateChange: (data: number) => void;
   setEndDateChange: (data: number) => void;
 };

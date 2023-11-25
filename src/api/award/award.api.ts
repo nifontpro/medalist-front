@@ -24,6 +24,7 @@ export const awardApi = createApi({
   // refetchOnFocus: true,
   reducerPath: 'AwardApi',
   baseQuery: baseQuery,
+  // baseQuery: baseQueryWithReauth,
   tagTypes: ['Award', 'Action'],
   endpoints: (build) => ({
     /**

@@ -105,7 +105,7 @@ const CreateGift = () => {
               <Field
                 {...register('price', { required: 'Стоимость обязательна!' })}
                 title='Цена*'
-                placeholder='Введите должность'
+                placeholder='Введите цену'
                 type='number'
                 error={errors.price}
               />

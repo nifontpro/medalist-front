@@ -15,8 +15,8 @@ const EditPanel = forwardRef(
       getUrlEdit,
       id,
       deleteAsync,
-      handleReturn,
-      payCode,
+      handlereturn,
+      paycode,
       children,
       visible,
       className,
@@ -70,7 +70,7 @@ const EditPanel = forwardRef(
     };
 
     const handleReturnAdmin = () => {
-      if (handleReturn) handleReturn(Number(id));
+      if (handlereturn) handlereturn(Number(id));
     };
 
     if (onlyRemove) {
@@ -92,18 +92,18 @@ const EditPanel = forwardRef(
                 onClick={() => setOpenModalConfirm(true)}
                 className={styles.item}
               >
-                {payCode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
+                {paycode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
               </P>
             ) : null}
           </motion.div>
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={payCode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
+            textBtn={paycode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={payCode == 'GIVEN' ? handleReturnAdmin : handleDelete}
+            onConfirm={paycode == 'GIVEN' ? handleReturnAdmin : handleDelete}
           />
         </>
       );
@@ -124,7 +124,7 @@ const EditPanel = forwardRef(
                 size='xs'
                 fontstyle='thin'
                 onClick={() => {
-                  gift ? handleReturn : push(getUrlEdit(`${id}`));
+                  gift ? handlereturn : push(getUrlEdit(`${id}`));
                 }}
                 className={styles.item}
               >
