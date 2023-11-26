@@ -19,7 +19,6 @@ const WindowWithRoles = ({
   const anotherRoles = rolesUser?.filter(
     (role) => !role.roles.includes('OWNER')
   );
-  console.log(ownerRole);
 
   return (
     <div className={styles.wrapper} {...props}>

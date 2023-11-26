@@ -19,6 +19,7 @@ const ImagesCarousel = ({
   className,
   forWhat,
   edit,
+  forSecondImg = false,
 }: ImagesCarouselProps) => {
   const pathname = usePathname();
   const { windowSize } = useWindowSize();
@@ -46,8 +47,10 @@ const ImagesCarousel = ({
               onChange={(now?: number, previous?: number) => {
                 now && setImageNum(now);
               }}
-              height={windowSize.winWidth < 768 ? 250 : 400}
-              autoPlay={false}
+              height={
+                forSecondImg ? undefined : windowSize.winWidth < 768 ? 250 : 400
+              }
+              autoPlay={true}
               indicatorContainerProps={{
                 style: {
                   marginTop: '0px', //
@@ -67,7 +70,10 @@ const ImagesCarousel = ({
                     height={400}
                     alt='preview image'
                     forWhat={forWhat}
-                    className={styles.imageCard}
+                    className={cn({
+                      [styles.imageCard]: !forSecondImg,
+                      [styles.imageCardSecond]: forSecondImg,
+                    })}
                   />
                 );
               })}
@@ -79,7 +85,12 @@ const ImagesCarousel = ({
             />
           </>
         ) : (
-          <div className={styles.imageDefault}>
+          <div
+            className={cn({
+              [styles.imageDefault]: !forSecondImg,
+              [styles.imageDefaultSecond]: forSecondImg,
+            })}
+          >
             <ImageDefault
               src={undefined}
               width={400}

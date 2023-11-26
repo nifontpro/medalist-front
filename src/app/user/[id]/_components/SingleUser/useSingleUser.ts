@@ -6,7 +6,7 @@ import { useFetchParams } from '@/hooks/useFetchParams';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 export const useSingleUser = (id: string) => {
@@ -54,6 +54,20 @@ export const useSingleUser = (id: string) => {
         skip: !id || !typeOfUser,
       }
     );
+
+  // Получить баланс пользователя
+  const { data: moneyUser, isLoading: isLoadingMoneyUser } =
+    payApi.useGetUserPayQuery(
+      {
+        authId: typeOfUser?.id!,
+        userId: Number(id) === typeOfUser?.id! ? typeOfUser?.id! : Number(id),
+      },
+      {
+        skip: !typeOfUser || !id,
+      }
+    );
+  // console.log('id и typeOfUser.id', id, typeOfUser?.id);
+  // console.log('Баланс пользователя', moneyUser);
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 
@@ -113,5 +127,6 @@ export const useSingleUser = (id: string) => {
     setArrChoiceAward,
     totalPage,
     awardsAvailableForRewardUserSimple,
+    moneyUser,
   };
 };

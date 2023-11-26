@@ -1,4 +1,6 @@
 import { Activity } from '@/types/award/Activity';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { UserPay } from '@/types/shop/pay/UserPay';
 import { UserDetails } from '@/types/user/userDetails';
 import {
   ButtonHTMLAttributes,
@@ -18,4 +20,5 @@ export type SingleUserTitleProps = DetailedHTMLProps<
   setVisibleModal: Dispatch<SetStateAction<boolean>>;
   refOpen: MutableRefObject<null>;
   setVisibleModalEvent: Dispatch<SetStateAction<boolean>>;
+  moneyUser: BaseResponse<UserPay> | undefined;
 };

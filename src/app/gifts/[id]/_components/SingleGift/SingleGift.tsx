@@ -14,6 +14,7 @@ import { RootState } from '@/store/storage/store';
 import { awardApi } from '@/api/award/award.api';
 import SingleGiftGet from './SingleGiftGet/SingleGiftGet';
 import { productApi } from '@/api/shop/product/product.api';
+import SingleGiftImages from './SingleGiftImages/SingleGiftImages';
 
 const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   const { typeOfUser } = useAppSelector(
@@ -48,6 +49,7 @@ const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
       </ButtonCircleIcon>
 
       <SingleGiftTitle gift={gift.data!} />
+      <SingleGiftImages gift={gift.data!} />
       <SingleGiftGet gift={gift.data!} />
 
       <ButtonScrollUp />

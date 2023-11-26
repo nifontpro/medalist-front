@@ -25,6 +25,7 @@ const SingleUserTitle = ({
   setVisibleModalEvent,
   refOpen,
   className,
+  moneyUser,
   ...props
 }: SingleUserTitleProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
@@ -119,7 +120,7 @@ const SingleUserTitle = ({
         <div className={styles.imagesAward}>
           <div className={styles.moneyWrapper}>
             <MoneyPreview
-              value={typeOfUser?.scores}
+              value={moneyUser?.data?.balance}
               currency={'₽'}
               color={'gray'}
             />

@@ -5,7 +5,7 @@ export type PProps = DetailedHTMLProps<
   HTMLParagraphElement
 > & {
   children?: ReactNode;
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
+  size?: 'xs' | 's' | 'm' | 'l' | 'll' | 'xl';
   fontstyle?: 'thin' | 'bold';
   color?: 'gray' | 'white' | 'gray96' | 'black' | 'graySilver';
   type?: 'silverBtn' | 'limeBtn' | 'grayBtn';

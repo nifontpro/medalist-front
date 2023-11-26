@@ -23,6 +23,7 @@ const EditImagesComponent = ({
   userId,
   editable,
   className,
+  forSecondImg = false,
   ...props
 }: EditImagesComponentProps) => {
   const { typeOfUser } = useAppSelector(
@@ -48,7 +49,9 @@ const EditImagesComponent = ({
       {...props}
     >
       <div
-        className={cn(styles.field, styles.uploadField, styles.mediaVisible)}
+        className={cn(styles.field, styles.uploadField, styles.mediaVisible, {
+          [styles.wrapperSecondImages]: forSecondImg,
+        })}
       >
         {images && (
           <ImagesCarousel
@@ -58,6 +61,7 @@ const EditImagesComponent = ({
             setImageNum={setImageNum}
             images={images}
             edit={true}
+            forSecondImg={forSecondImg}
           />
         )}
 

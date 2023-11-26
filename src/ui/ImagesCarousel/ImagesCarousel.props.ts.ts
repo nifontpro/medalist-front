@@ -17,4 +17,5 @@ export type ImagesCarouselProps = DetailedHTMLProps<
   images?: BaseImage[] | undefined;
   edit: boolean;
   forWhat: ForWhat;
+  forSecondImg?: boolean;
 };

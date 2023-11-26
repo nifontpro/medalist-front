@@ -38,9 +38,6 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
     availableCount,
   } = useGifts();
 
-  // console.log(giftsOnCompany);
-  // console.log(available);
-
   const as = () => {
     setAvailable(true);
   };

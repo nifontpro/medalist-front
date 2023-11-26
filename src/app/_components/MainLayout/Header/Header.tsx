@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from '../Sidebar/Sidebar';
 import Logo from '@/ui/Logo/Logo';
 import Notification from './Notification/Notification';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import React from 'react';
 import { userApi } from '@/api/user/user.api';
 import Money from './Money/Money';
@@ -24,6 +24,8 @@ const Header = ({ className, ...props }: HeaderProps) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+  const selectCompany = localStorage.getItem('selectCompany');
+
   // Получить пользоветля по id
   const { data: singleUser, isLoading: isLoadingSingleUser } =
     userApi.useGetByIdQuery(
@@ -48,19 +50,25 @@ const Header = ({ className, ...props }: HeaderProps) => {
       }
     );
 
+  // console.log('Мой баланс', moneyUser);
+
   // Получить название валюты
   const { data: payName, isLoading: isLoadingPayName } =
     deptApi.useGetSettingsQuery(
       {
         authId: typeOfUser?.id!,
-        deptId: typeOfUser?.dept.id,
+        deptId: typeOfUser?.roles.includes('OWNER')
+          ? selectCompany
+          : typeOfUser?.dept?.id,
       },
       {
-        skip: !typeOfUser,
+        skip: !typeOfUser || !selectCompany,
       }
     );
 
-  console.log(payName);
+  useEffect(() => {
+    localStorage.setItem('payName', payName?.data?.payName!);
+  }, [payName]);
 
   const { windowSize } = useWindowSize();
   const { navigationVisible } = useHeader();
@@ -85,7 +93,10 @@ const Header = ({ className, ...props }: HeaderProps) => {
         {singleUser?.data?.user ? (
           <div className={styles.user}>
             <Notification />
-            <Money value={moneyUser?.data?.balance} currency={'₽'} />
+            <Money
+              value={moneyUser?.data?.balance}
+              currency={payName?.data?.payName!}
+            />
             <UserLogo
               user={singleUser?.data?.user}
               className={styles.userImg}

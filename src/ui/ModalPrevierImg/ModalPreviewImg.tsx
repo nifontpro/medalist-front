@@ -22,8 +22,8 @@ const ModalPreviewImg = ({
       <div className={styles.wrapper}>
         <ImageDefault
           src={srcImg}
-          width={400}
-          height={400}
+          width={800}
+          height={800}
           alt='preview image'
           forWhat='user'
         />

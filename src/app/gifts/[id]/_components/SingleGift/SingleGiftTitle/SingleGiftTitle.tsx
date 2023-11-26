@@ -120,7 +120,7 @@ const SingleGiftTitle = ({
             </P>
           </div>
 
-          <P size='m' fontstyle='thin' className={styles.moreInformation}>
+          <P size='m' className={styles.moreInformation}>
             Больше информации на сайте:
           </P>
 

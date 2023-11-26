@@ -19,7 +19,6 @@ const PayCodeBtn = ({
   ...props
 }: PayCodeBtnProps): JSX.Element => {
   let convertDate = useMemo(() => timeConverter(gift.dateOp), [gift]);
-  console.log(convertDate);
 
   return (
     // <div className={cn(styles.wrapper, className)} {...props}>

@@ -43,15 +43,6 @@ export const useCreateGift = (
     }
   }, [setValue, typeOfUser, selectCompany]);
 
-  const handleBack = () => {
-    const { name, price, count, siteUrl, place, description } = getValues();
-    if (name || price || count || siteUrl || place || description) {
-      setOpenModalConfirm(true);
-    } else {
-      back();
-    }
-  };
-
   const handleClick = useCallback(
     (event: React.FormEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -70,8 +61,6 @@ export const useCreateGift = (
   const onSubmit: SubmitHandler<CreateProductRequest> = useCallback(
     async (data) => {
       let isError = false;
-
-      // console.log(data);
 
       await create({ ...data })
         .unwrap()
@@ -112,6 +101,23 @@ export const useCreateGift = (
     },
     [create, reset, addImage, imageFile, typeOfUser]
   );
+
+  const handleBack = () => {
+    const { name, price, count, siteUrl, place, description } = getValues();
+    if (
+      name ||
+      price ||
+      count ||
+      siteUrl ||
+      place ||
+      description ||
+      imagesGallery
+    ) {
+      setOpenModalConfirm(true);
+    } else {
+      back();
+    }
+  };
 
   return {
     onSubmit,

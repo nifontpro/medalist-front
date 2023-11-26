@@ -26,4 +26,5 @@ export type EditImagesComponentProps = DetailedHTMLProps<
   forWhat: ForWhat;
   userId?: string;
   editable?: boolean;
+  forSecondImg?: boolean;
 };

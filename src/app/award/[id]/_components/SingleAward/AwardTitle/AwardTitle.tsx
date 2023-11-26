@@ -46,8 +46,6 @@ const AwardTitle = ({
     setImagesGallery,
   } = useAwardEditPhoto(award);
 
-  // console.log('award', award);
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       {award && (

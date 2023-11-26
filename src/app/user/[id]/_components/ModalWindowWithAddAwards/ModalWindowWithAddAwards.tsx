@@ -110,7 +110,7 @@ const ModalWindowWithAddAwards = forwardRef(
             <div className={styles.module} ref={ref}>
               <ExitIcon onClick={handleCancel} className={styles.exit} />
               <Htag tag='h2' className={styles.title}>
-                Добавить награду
+                {awardState === 'AWARD' ? 'Наградить' : 'Номинировать'}
               </Htag>
               <ChoiceAwards
                 setSearchValue={setSearchValue}

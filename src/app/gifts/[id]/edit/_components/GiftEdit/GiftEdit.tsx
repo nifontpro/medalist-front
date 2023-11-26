@@ -44,8 +44,6 @@ export const GiftEdit = ({ id }: GiftEditProps) => {
   const { imageNum, setImageNum, images, addPhoto, removePhoto } =
     useGiftEditPhoto(gift?.data!);
 
-  // console.log(gift);
-
   if (isLoadingGift) return <Spinner />;
 
   if (!gift?.success) return <NoAccess errors={gift?.errors} />;

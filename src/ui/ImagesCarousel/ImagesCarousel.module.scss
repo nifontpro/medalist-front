@@ -1,9 +1,14 @@
-.imageCard {
-  width: 400px;
-  height: 400px;
+.imageCard,
+.imageCardSecond {
   object-fit: cover;
   border-radius: 27px;
   background: var(--gray-dark);
+  cursor: pointer;
+}
+
+.imageCard {
+  width: 400px;
+  height: 400px;
 
   @media screen and (max-width: 1500px) {
     width: 100%;
@@ -15,12 +20,19 @@
   }
 }
 
-.imageDefault {
+.imageCardSecond {
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 16px;
+  }
+}
+
+.imageDefault,
+.imageDefaultSecond {
   padding: 30px;
   border-radius: 27px;
   background: var(--gray-dark);
-  width: 400px;
-  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,4 +45,13 @@
   @media screen and (max-width: 768px) {
     border-radius: 16px;
   }
+}
+
+.imageDefault {
+  width: 400px;
+  height: 400px;
+}
+
+.imageDefaultSecond {
+  width: 100%;
 }

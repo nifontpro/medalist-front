@@ -22,8 +22,6 @@ const Award = motion(
     ): JSX.Element => {
       let currentDate = +new Date();
 
-      // console.log(award);
-
       if (award.state == 'FINISH' || award.state == 'ERROR') {
         return (
           <div

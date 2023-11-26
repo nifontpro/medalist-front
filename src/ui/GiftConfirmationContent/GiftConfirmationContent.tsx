@@ -21,7 +21,7 @@ const GiftConfirmationContent = ({
       <P size='l' fontstyle='thin' className={styles.text}>
         на
       </P>
-      <P size='xl' className={styles.text}>
+      <P size='xl' className={styles.textName}>
         {gift.name}
       </P>
       <P size='l' fontstyle='thin' className={styles.text}>

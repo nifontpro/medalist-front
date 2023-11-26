@@ -86,19 +86,6 @@ const CreateAward = () => {
           setImagesGallery={setImagesGallery}
           setImagesFile={setImagesFile}
         />
-        {/* <div className={styles.imagesWrapper}>
-          <EditImagesComponent
-            imageNum={imageNum}
-            setImageNum={setImageNum}
-            images={images}
-            addPhoto={() => new Promise(() => console.log('add photo'))}
-            removePhoto={() => new Promise(() => console.log('remove photo'))}
-            className={styles.img}
-            gallery='true'
-            forWhat='award'
-            editable={true}
-          />
-        </div> */}
 
         <div className={styles.fields}>
           <Htag tag='h2' className={styles.title}>

@@ -69,8 +69,6 @@ const SingleUserNominee = ({
     }
   );
 
-  console.log('nominee', singleActivAwardUser);
-
   const totalPage = useMemo(
     () => singleActivAwardUser?.pageInfo?.totalPages,
     [singleActivAwardUser]

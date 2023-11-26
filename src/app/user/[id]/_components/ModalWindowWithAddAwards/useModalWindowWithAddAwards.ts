@@ -36,7 +36,11 @@ export const useModalWindowWithAddAwards = (
     let isError: boolean = false;
 
     if (arrChoiceAward.length == 0) {
-      toast.error(`Выберите сотрудников для номинации`);
+      toast.error(
+        awardState === 'AWARD'
+          ? `Выберите медаль для награждения`
+          : `Выберите медаль для номинации`
+      );
     }
 
     if (arrChoiceAward != undefined && arrChoiceAward?.length > 0) {

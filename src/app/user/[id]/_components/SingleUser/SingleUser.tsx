@@ -47,9 +47,8 @@ const SingleUser = ({
     setArrChoiceAward,
     awardsAvailableForRewardUserSimple,
     totalPage,
+    moneyUser,
   } = useSingleUser(id);
-
-  console.log('user', user);
 
   const { imageNum, setImageNum, images, addPhoto, removePhoto } =
     useUserEditPhoto(user);
@@ -95,6 +94,7 @@ const SingleUser = ({
                 setVisibleModal={setVisibleModal}
                 setVisibleModalEvent={setVisibleModalEvent}
                 refOpen={refOpen}
+                moneyUser={moneyUser}
               />
             )}
 

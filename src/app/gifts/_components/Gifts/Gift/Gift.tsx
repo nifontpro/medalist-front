@@ -44,53 +44,55 @@ const Gift = motion(
               getUrlEdit={getGiftEditUrl}
               className={styles.dots}
             />
-
             <div
-              className={styles.img}
+              className='cursor-pointer'
               onClick={() => push(`gifts/${gift.id}`)}
             >
-              <ImageDefault
-                src={gift.normImg ? gift.normImg : undefined}
-                width={300}
-                height={300}
-                alt={gift.name}
-                className={
-                  gift.normImg
-                    ? 'rounded-[44px] object-contain'
-                    : 'object-contain'
-                }
-                forWhat='gift'
-              />
-            </div>
-            <div className={styles.content}>
-              <P size='m' color='black' className={styles.name}>
-                {gift.name}
-              </P>
-              <P
-                size='xs'
-                fontstyle='thin'
-                color='gray'
-                className={styles.description}
-              >
-                {gift.shortDescription}
-              </P>
-              <div className='flex gap-[20px] items-center'>
+              <div className={styles.img}>
+                <ImageDefault
+                  src={gift.normImg ? gift.normImg : undefined}
+                  width={300}
+                  height={300}
+                  alt={gift.name}
+                  className={
+                    gift.normImg
+                      ? 'rounded-[44px] object-contain'
+                      : 'object-contain'
+                  }
+                  forWhat='gift'
+                />
+              </div>
+              <div className={styles.content}>
+                <P size='m' color='black' className={styles.name}>
+                  {gift.name}
+                </P>
                 <P
-                  size='xl'
+                  size='xs'
                   fontstyle='thin'
                   color='gray'
-                  className='flex gap-[5px] items-end'
+                  className={styles.description}
                 >
-                  {gift.price}
-                  <span className='text-[17px] leading-[21px]'>₽</span>
+                  {gift.shortDescription}
                 </P>
-                <ButtonIcon appearance={'grayGifts'}>
-                  <P size='s' color='gray'>
-                    {gift.count} шт
+                <div className='flex gap-[20px] items-center'>
+                  <P
+                    size='xl'
+                    fontstyle='thin'
+                    color='gray'
+                    className='flex gap-[5px] items-end'
+                  >
+                    {gift.price}
+                    <span className='text-[17px] leading-[21px]'>₽</span>
                   </P>
-                </ButtonIcon>
+                  <ButtonIcon appearance={'grayGifts'}>
+                    <P size='s' color='gray'>
+                      {gift.count} шт
+                    </P>
+                  </ButtonIcon>
+                </div>
               </div>
             </div>
+
             <Button
               onClick={() => setOpenModalConfirm(true)}
               className='mt-auto'

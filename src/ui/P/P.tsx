@@ -21,6 +21,7 @@ const P = ({
           [styles.s]: size == 's',
           [styles.m]: size == 'm',
           [styles.l]: size == 'l',
+          [styles.ll]: size == 'll',
           [styles.xl]: size == 'xl',
           [styles.thin]: fontstyle == 'thin',
           [styles.bold]: fontstyle == 'bold',
