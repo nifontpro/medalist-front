@@ -17,6 +17,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { usePathname, useSearchParams } from 'next/navigation';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const SingleUserTitle = ({
   user,
@@ -31,6 +32,8 @@ const SingleUserTitle = ({
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
+
+  const settings = useAppSelector(SelectGetGiftSettings);
 
   const { deleteUserAsync } = useUserAdmin();
 
@@ -121,7 +124,7 @@ const SingleUserTitle = ({
           <div className={styles.moneyWrapper}>
             <MoneyPreview
               value={moneyUser?.data?.balance}
-              currency={'₽'}
+              currency={settings?.payName || ''}
               color={'gray'}
             />
           </div>

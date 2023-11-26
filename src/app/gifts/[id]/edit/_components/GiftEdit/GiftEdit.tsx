@@ -1,28 +1,20 @@
 'use client';
 
 import styles from './GiftEdit.module.scss';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import Htag from '@/ui/Htag/Htag';
 import Field from '@/ui/Field/Field';
-import InputRadio from '@/ui/InputRadio/InputRadio';
 import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
-import { withHookFormMask } from 'use-mask-input';
 import { useGiftEdit } from './useGiftEdit';
-import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { GiftEditProps } from './GiftEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo, useState } from 'react';
 import P from '@/ui/P/P';
-import SelectArtem from '@/ui/SelectArtem/SelectArtem';
-import AuthComponent from '@/store/providers/AuthComponent';
-import SelectRole from '@/ui/SelectRole/SelectRole';
-import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
-import cn from 'classnames';
 import { useGiftEditPhoto } from './useGiftEditPhoto';
 import { UpdateProductRequest } from '@/api/shop/product/request/UpdateProductRequest';
 

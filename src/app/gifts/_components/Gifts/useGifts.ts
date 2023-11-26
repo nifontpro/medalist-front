@@ -1,11 +1,9 @@
-import { AwardState } from '@/types/award/Award';
 import { useFetchParams } from '@/hooks/useFetchParams';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { getAwardCreateUrl, getGiftCreateUrl } from '@/config/api.config';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo, useState } from 'react';
+import { getGiftCreateUrl } from '@/config/api.config';
+import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { awardApi } from '@/api/award/award.api';
 import { productApi } from '@/api/shop/product/product.api';
 
 export const useGifts = () => {
@@ -71,26 +69,6 @@ export const useGifts = () => {
     [push]
   );
 
-  // // //Для подгрузки данных при скролле с использованием IntersectionObserver
-  // useEffect(() => {
-  //   const infinityObserver = new IntersectionObserver(
-  //     ([entry], observer) => {
-  //       if (entry.isIntersecting && totalPage && page < totalPage) {
-  //         nextPage(awardsOnDepartment!);
-  //         observer.unobserve(entry.target);
-  //       }
-  //     },
-  //     { threshold: 0.5 }
-  //   );
-
-  //   const lastUser = document.querySelector('.awardCard:last-child');
-
-  //   if (lastUser) {
-  //     infinityObserver.observe(lastUser);
-  //   }
-  // });
-  // //_______________________
-
   return {
     giftsOnCompany,
     isLoading,
@@ -108,5 +86,6 @@ export const useGifts = () => {
     available,
     setAvailableCount,
     availableCount,
+    push,
   };
 };

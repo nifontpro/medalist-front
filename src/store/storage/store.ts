@@ -21,6 +21,7 @@ import { deptApi } from '@/api/dept/dept.api';
 import { headerSlice } from '../features/header/header.slice';
 import { awardApi } from '@/api/award/award.api';
 import { themeSlice } from '../features/theme/theme.slice';
+import { giftSettings } from '../features/giftSettings/giftSettings.slice';
 import { galleryApi } from '@/api/gallery/gallery.api';
 import { visibleModalWindowGalleryAwardsSlice } from '../features/visibleModalWindowGalleryAwards/visibleModalWindowGalleryAwards.slice';
 import { eventApi } from '@/api/event/event.api';
@@ -63,6 +64,7 @@ const persistConfig = {
     'userSelection',
     'header',
     'theme',
+    'giftSettings',
     'treeDepts',
     'switcher',
     'dataCreateAward',
@@ -90,6 +92,7 @@ const rootReducer = combineReducers({
   treeDepts: treeDeptsSlice.reducer,
   switcher: switchDepartmentOnCompanySlice.reducer,
   visibleModalWindowGalleryAwards: visibleModalWindowGalleryAwardsSlice.reducer,
+  giftSettings: giftSettings.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [deptApi.reducerPath]: deptApi.reducer,
   [awardApi.reducerPath]: awardApi.reducer,

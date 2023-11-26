@@ -17,6 +17,7 @@ import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import DefaultImgPNG from '@/icons/medalistDefaultImg.png';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 import { useMainNominee } from './useMainNominee';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const MainNominee = ({
   deptId,
@@ -30,6 +31,8 @@ const MainNominee = ({
     defaultColorImg,
     currentDate,
   } = useMainNominee(deptId);
+
+  const settings = useAppSelector(SelectGetGiftSettings);
 
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
@@ -56,7 +59,7 @@ const MainNominee = ({
             <MoneyPreview
               value={lastNominee.score}
               className={styles.score}
-              currency={'₽'}
+              currency={settings?.payName || ''}
             />
           )}
           <div className={styles.img}>
@@ -83,7 +86,7 @@ const MainNominee = ({
               <MoneyPreview
                 value={lastNominee.score}
                 className={styles.scoreMedia}
-                currency={'₽'}
+                currency={settings?.payName || ''}
               />
             )}
             <div className={styles.imgCenter}>

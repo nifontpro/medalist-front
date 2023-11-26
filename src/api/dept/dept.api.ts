@@ -1,13 +1,14 @@
-import {createApi} from '@reduxjs/toolkit/dist/query/react';
-import {baseQuery} from '../base/base.api';
-import {Dept} from '@/types/dept/dept';
-import {DeptDetails} from '@/types/dept/deptDetails';
-import {CreateDeptRequest} from './request/createDeptRequest';
-import {BaseResponse} from '@/types/base/BaseResponse';
-import {BaseImage} from '@/types/base/image/baseImage';
-import {UpdateDeptRequest} from './request/updateDeptRequest';
-import {BaseRequest} from '@/types/base/BaseRequest';
-import {DeptSettings} from "@/types/dept/DeptSettings";
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { baseQuery } from '../base/base.api';
+import { Dept } from '@/types/dept/dept';
+import { DeptDetails } from '@/types/dept/deptDetails';
+import { CreateDeptRequest } from './request/createDeptRequest';
+import { BaseResponse } from '@/types/base/BaseResponse';
+import { BaseImage } from '@/types/base/image/baseImage';
+import { UpdateDeptRequest } from './request/updateDeptRequest';
+import { BaseRequest } from '@/types/base/BaseRequest';
+import { DeptSettings } from '@/types/dept/DeptSettings';
+import { setGiftsSettings } from '@/store/features/giftSettings/giftSettings.slice';
 
 export const deptUrl = (string: string = '') => `/client/dept${string}`;
 
@@ -23,8 +24,8 @@ export const deptApi = createApi({
      * допустимые поля для сортировки: "parentId", "name", "classname"
      */
     getAuthSubtree: build.query<
-        BaseResponse<Dept[]>,
-        { authId: number; baseRequest: BaseRequest | undefined }
+      BaseResponse<Dept[]>,
+      { authId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (authId) => {
         return {
@@ -44,8 +45,8 @@ export const deptApi = createApi({
      * допустимые поля для сортировки: "parentId", "name", "classname"
      */
     getAuthTopLevelTree: build.query<
-        BaseResponse<Dept[]>,
-        { authId: number; baseRequest: BaseRequest | undefined }
+      BaseResponse<Dept[]>,
+      { authId: number; baseRequest: BaseRequest | undefined }
     >({
       query: (authId) => {
         return {
@@ -55,20 +56,20 @@ export const deptApi = createApi({
         };
       },
       providesTags: ['Dept'],
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           let selectCompany = localStorage.getItem('selectCompany');
-          const {data} = await queryFulfilled;
+          const { data } = await queryFulfilled;
           if (!selectCompany && data?.data && data.data[0]) {
             if (data.data[0].parentId === 1) {
               localStorage.setItem(
-                  'selectCompany',
-                  data.data[1].id?.toString()!
+                'selectCompany',
+                data.data[1].id?.toString()!
               );
             } else {
               localStorage.setItem(
-                  'selectCompany',
-                  data.data[0].id?.toString()!
+                'selectCompany',
+                data.data[0].id?.toString()!
               );
             }
           }
@@ -114,8 +115,8 @@ export const deptApi = createApi({
      * Получение отдела по id
      */
     getById: build.query<
-        BaseResponse<DeptDetails>,
-        { authId: number; deptId: number }
+      BaseResponse<DeptDetails>,
+      { authId: number; deptId: number }
     >({
       query: (request) => {
         return {
@@ -131,8 +132,8 @@ export const deptApi = createApi({
      * Удаление отдела по id
      */
     delete: build.mutation<
-        BaseResponse<DeptDetails>,
-        { authId: number; deptId: number }
+      BaseResponse<DeptDetails>,
+      { authId: number; deptId: number }
     >({
       query: (request) => {
         return {
@@ -175,8 +176,8 @@ export const deptApi = createApi({
      * @param: authId, deptId, imageId
      */
     imageDelete: build.mutation<
-        BaseResponse<BaseImage>,
-        { authId: number; deptId: number; imageId: number }
+      BaseResponse<BaseImage>,
+      { authId: number; deptId: number; imageId: number }
     >({
       query: (body) => ({
         method: 'POST',
@@ -194,12 +195,12 @@ export const deptApi = createApi({
      * [payName] - Наименование валюты компании (может быть не заполнено)
      */
     saveSettings: build.mutation<
-        BaseResponse<DeptSettings>,
-        {
-          authId: number;
-          deptId: number;
-          payName: string;
-        }
+      BaseResponse<DeptSettings>,
+      {
+        authId: number;
+        deptId: number;
+        payName: string;
+      }
     >({
       query: (request) => {
         return {
@@ -218,11 +219,11 @@ export const deptApi = createApi({
      *    Для всех остальных пользователей поле игнорируется (определяется автоматически).
      */
     getSettings: build.query<
-        BaseResponse<DeptSettings>,
-        {
-          authId: number;
-          deptId: number;
-        }
+      BaseResponse<DeptSettings>,
+      {
+        authId: number;
+        deptId: number;
+      }
     >({
       query: (request) => {
         return {
@@ -232,7 +233,16 @@ export const deptApi = createApi({
         };
       },
       providesTags: ['Settings'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.data) {
+            dispatch(setGiftsSettings(data.data));
+          }
+        } catch (error) {
+          console.error(`ERROR GiftSettings`, error);
+        }
+      },
     }),
-
   }),
 });

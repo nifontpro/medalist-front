@@ -1,0 +1,31 @@
+.wrapper {
+  margin-top: 50px;
+  background: var(--white);
+  border-radius: 27px;
+  padding: 75px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 50px;
+
+  @media screen and (max-width: 1280px) {
+    border-radius: 16px;
+    padding: 60px 40px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 40px 15px;
+  }
+
+  .field {
+    width: fit-content;
+    margin-bottom: 60px;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .confirm {
+    align-self: flex-end;
+  }
+}

@@ -13,6 +13,8 @@ import { declOfNum } from '@/utils/declOfNum';
 import CountUsersPreview from '@/ui/CountUsersPreview/CountUsersPreview';
 import PreviewDept from '@/ui/PreviewDept/PreviewDept';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const Award = motion(
   forwardRef(
@@ -22,6 +24,8 @@ const Award = motion(
     ): JSX.Element => {
       let currentDate = +new Date();
 
+      const settings = useAppSelector(SelectGetGiftSettings);
+
       if (award.state == 'FINISH' || award.state == 'ERROR') {
         return (
           <div
@@ -29,7 +33,10 @@ const Award = motion(
             {...props}
             className={cn(styles.wrapper, styles.wrapperAward, className)}
           >
-            <MoneyPreview value={award.score} currency={'₽'} />
+            <MoneyPreview
+              value={award.score}
+              currency={settings?.payName || ''}
+            />
             <div className={styles.img}>
               <ImageDefault
                 src={award.normImg}
@@ -73,7 +80,10 @@ const Award = motion(
           >
             <div className='flex justify-between items-center mb-[36px]'>
               <div className={styles.nominee}>Номинация</div>
-              <MoneyPreview value={award.score} currency={'₽'} />
+              <MoneyPreview
+                value={award.score}
+                currency={settings?.payName || ''}
+              />
             </div>
 
             <div className={styles.imgNominee}>

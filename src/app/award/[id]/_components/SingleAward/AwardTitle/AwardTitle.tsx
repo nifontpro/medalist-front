@@ -16,6 +16,8 @@ import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { useAwardEditPhoto } from '../../../edit/_components/AwardEdit/useAwardEditPhoto';
 import ModalWindowGalleryAwards from '../../../edit/_components/ModalWindowGalleryAwards/ModalWindowGalleryAwards';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const AwardTitle = ({
   award,
@@ -35,6 +37,8 @@ const AwardTitle = ({
     setVisible(false);
   }, []);
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
+
+  const settings = useAppSelector(SelectGetGiftSettings);
 
   const {
     addPhoto,
@@ -91,7 +95,7 @@ const AwardTitle = ({
         <div className={styles.moneyWrapper}>
           <MoneyPreview
             value={award?.award.score!}
-            currency={'₽'}
+            currency={settings?.payName || ''}
             color={'gray'}
           />
         </div>

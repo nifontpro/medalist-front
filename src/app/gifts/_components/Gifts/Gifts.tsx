@@ -12,7 +12,6 @@ import Gift from './Gift/Gift';
 import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import { memo } from 'react';
-import { toast } from 'react-toastify';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import TabTitleGifts from '@/ui/TabTitleGifts/TabTitleGifts';
 import uniqid from 'uniqid';
@@ -22,9 +21,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
   const {
     giftsOnCompany,
     isLoading,
-    isFetching,
     giftCreateLink,
-    giftLink,
     state,
     setState,
     handleSort,
@@ -35,12 +32,8 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
     setAvailable,
     available,
     setAvailableCount,
-    availableCount,
+    push,
   } = useGifts();
-
-  const as = () => {
-    setAvailable(true);
-  };
 
   if (isLoading) return <Spinner />;
   if (!giftsOnCompany?.success)
@@ -98,7 +91,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
             </div>
             <div className={styles.settings}>
               <ButtonCircleIcon
-                onClick={() => toast('Настроить приз')}
+                onClick={() => push('/gifts/settings')}
                 classNameForIcon='@apply w-[34px] h-[34px]'
                 appearance='transparent'
                 icon='settings'

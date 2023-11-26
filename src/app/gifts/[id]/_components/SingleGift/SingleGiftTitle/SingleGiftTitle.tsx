@@ -16,6 +16,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import GiftConfirmationContent from '@/ui/GiftConfirmationContent/GiftConfirmationContent';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const SingleGiftTitle = ({
   gift,
@@ -42,6 +43,8 @@ const SingleGiftTitle = ({
     useGiftEditPhoto(gift);
 
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+  const settings = useAppSelector(SelectGetGiftSettings);
 
   return (
     <>
@@ -92,7 +95,9 @@ const SingleGiftTitle = ({
           <div className={styles.businessWrapper}>
             <P size='xl' fontstyle='thin' className='flex gap-[5px] items-end'>
               {gift.product.price}
-              <span className='text-[17px] leading-[21px]'>₽</span>
+              <span className='text-[17px] leading-[21px]'>
+                {settings?.payName || ''}
+              </span>
             </P>
             <P size='s' fontstyle='thin' className={styles.available}>
               Наличие: {gift.product.count}

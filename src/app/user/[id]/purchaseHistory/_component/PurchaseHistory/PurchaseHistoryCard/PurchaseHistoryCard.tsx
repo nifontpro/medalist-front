@@ -14,6 +14,8 @@ import { getGiftEditUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
 import { useShopAdmin } from '@/api/shop/useShopAdmin';
 import PayCodeBtn from '@/ui/PayCodeBtn/PayCodeBtn';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 
 const PurchaseHistoryCard = motion(
   forwardRef(
@@ -24,6 +26,8 @@ const PurchaseHistoryCard = motion(
       const { push } = useRouter();
 
       const { returnAdminAsync, giveAdminAsync } = useShopAdmin();
+
+      const settings = useAppSelector(SelectGetGiftSettings);
 
       return (
         <>
@@ -40,7 +44,7 @@ const PurchaseHistoryCard = motion(
                 id={gift.id.toString()}
                 getUrlEdit={getGiftEditUrl}
                 className={styles.dots}
-                handleReturn={() => returnAdminAsync(gift.id)}
+                handlereturn={() => returnAdminAsync(gift.id)}
                 paycode={gift.payCode}
               />
             )}
@@ -82,7 +86,9 @@ const PurchaseHistoryCard = motion(
                 className='flex gap-[5px] items-end'
               >
                 {gift.product.price}
-                <span className='text-[17px] leading-[21px]'>₽</span>
+                <span className='text-[17px] leading-[21px]'>
+                  {settings?.payName || ''}
+                </span>
               </P>
               {/* <ButtonIcon appearance={'grayGifts'}>
                 <P size='s' color='gray'>
