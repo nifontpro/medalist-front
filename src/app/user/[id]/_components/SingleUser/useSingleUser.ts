@@ -60,14 +60,14 @@ export const useSingleUser = (id: string) => {
     payApi.useGetUserPayQuery(
       {
         authId: typeOfUser?.id!,
-        userId: Number(id) === typeOfUser?.id! ? typeOfUser?.id! : Number(id),
+        userId: Number(id) === typeOfUser?.id! ? undefined : Number(id),
       },
       {
         skip: !typeOfUser || !id,
       }
     );
-  // console.log('id и typeOfUser.id', id, typeOfUser?.id);
-  // console.log('Баланс пользователя', moneyUser);
+  console.log('id и typeOfUser.id', id, typeOfUser?.id);
+  console.log('Баланс пользователя', moneyUser);
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 

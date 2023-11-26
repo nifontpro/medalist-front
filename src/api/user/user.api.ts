@@ -11,8 +11,8 @@ import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
-import { baseQuery} from '../base/base.api';
-import {LoadReport} from "@/types/user/addUserReport";
+import { baseQuery } from '../base/base.api';
+import { LoadReport } from '@/types/user/addUserReport';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -78,7 +78,7 @@ export const userApi = createApi({
     }),
 
     /**
-     * Добавление изображения
+     * Добавление сотрудников через Excel файл
      * @param: formData:
      *  [file] - Excel file,
      *  [authId]

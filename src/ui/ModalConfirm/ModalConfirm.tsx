@@ -3,6 +3,7 @@ import styles from './ModalConfirm.module.scss';
 import { ModalConfirmProps } from './ModalConfirm.props';
 import Button from '../Button/Button';
 import P from '../P/P';
+import cn from 'classnames';
 
 const ModalConfirm = ({
   title,
@@ -11,10 +12,13 @@ const ModalConfirm = ({
   openModalConfirm,
   setOpenModalConfirm,
   onConfirm,
+  confirmOnly = false,
+  onClose,
   children,
 }: ModalConfirmProps) => {
   const handleClose = () => {
     setOpenModalConfirm(false);
+    if (onClose) onClose();
   };
 
   return (
@@ -25,9 +29,11 @@ const ModalConfirm = ({
       aria-describedby='modal-modal-description'
     >
       <div className={styles.wrapper}>
-        <P size='xl' className={styles.text}>
-          {title}
-        </P>
+        {title && (
+          <P size='xl' className={styles.text}>
+            {title}
+          </P>
+        )}
         <div>{children}</div>
         {text && (
           <P size='m' fontstyle='thin' className={styles.text}>
@@ -40,18 +46,23 @@ const ModalConfirm = ({
             onClick={onConfirm}
             appearance='blackWhite'
             size='l'
-            className={styles.cancel}
+            className={cn(styles.cancel, {
+              [styles.onlyConfirmBtn]: confirmOnly,
+            })}
           >
             {textBtn}
           </Button>
-          <Button
-            onClick={handleClose}
-            appearance='whiteBlack'
-            size='l'
-            className={styles.confirm}
-          >
-            Отменить
-          </Button>
+
+          {!confirmOnly && (
+            <Button
+              onClick={handleClose}
+              appearance='whiteBlack'
+              size='l'
+              className={styles.confirm}
+            >
+              Отменить
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

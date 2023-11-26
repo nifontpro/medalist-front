@@ -11,10 +11,8 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Search from '@/ui/Search/Search';
 import SingleActivity from './SingleActivity/SingleActivity';
 import FilterActivity from './FilterActivity/FilterActivity';
-import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import SelectCalendarRange from '@/ui/SelectCalendarRange/SelectCalendarRange';
 import cn from 'classnames';
-import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 
 const Activity = ({
   deptId,
