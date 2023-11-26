@@ -105,7 +105,7 @@ const Gift = motion(
               appearance={'white'}
               size='l'
               disabled={
-                typeOfUser?.scores &&
+                typeOfUser &&
                 (typeOfUser?.scores < gift.price || gift.count <= 0)
                   ? true
                   : false

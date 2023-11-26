@@ -77,5 +77,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-height: 48px;
+
+    @media screen and (max-width: 768px) {
+      min-height: auto;
+    }
   }
 }
