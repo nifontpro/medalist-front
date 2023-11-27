@@ -55,7 +55,6 @@ const ImagesCarousel = ({
               <Carousel
                 selectedItem={imageNum}
                 swipeable={true}
-                dynamicHeight={true}
                 showStatus={false}
                 showThumbs={false}
                 showIndicators={pathname.split('/')[1] !== 'award'}
@@ -189,7 +188,6 @@ const ImagesCarousel = ({
             <Carousel
               selectedItem={imageNum}
               swipeable={true}
-              dynamicHeight={true}
               showStatus={false}
               showThumbs={false}
               useKeyboardArrows={true}
