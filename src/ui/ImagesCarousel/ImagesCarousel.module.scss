@@ -61,24 +61,22 @@
 
 .myIndicator,
 .myIndicatorSelected {
+  background: var(--white);
   list-style: none;
-  width: 7.5px;
-  height: 7.5px;
-  border-radius: 50%;
+  width: 15px;
+  height: 5px;
+  border-radius: 3px;
   display: inline-block;
   margin: 0 5px;
   transform: translateY(10px);
+  @apply duration-200;
 }
 
 .myIndicator {
-  background: var(--white);
-  border: 1px solid var(--gray-dark);
   cursor: pointer;
 }
 
 .myIndicatorSelected {
-  background: var(--gray-dark);
   margin: 0 5px;
-
-  border: 1px solid var(--white);
+  transform: translateY(10px) scaleX(1.67);
 }
