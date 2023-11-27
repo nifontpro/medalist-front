@@ -7,7 +7,8 @@ export const msgUrl = (string: string = '') => `/client/msg${string}`;
 
 export const messageApi = createApi({
   reducerPath: 'MessageApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Message'],
   endpoints: (build) => ({
     /**

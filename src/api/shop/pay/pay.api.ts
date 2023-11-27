@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { Product } from '@/types/shop/product/Product';
 import { BaseRequest } from '@/types/base/BaseRequest';
-import { baseQuery } from '@/api/base/base.api';
+import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
 import { PayCode, PayData } from '@/types/shop/pay/PayData';
 import userSelectionSlice, {
   setMoneyUser,
@@ -14,7 +14,8 @@ export const payUrl = (string: string = '') => `/shop/pay${string}`;
 
 export const payApi = createApi({
   reducerPath: 'PayApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['PayData', 'UserPay', 'Product'],
   endpoints: (build) => ({
     /**

@@ -23,8 +23,8 @@ export const awardUrl = (string: string = '') => `/client/award${string}`;
 export const awardApi = createApi({
   // refetchOnFocus: true,
   reducerPath: 'AwardApi',
-  baseQuery: baseQuery,
-  // baseQuery: baseQueryWithReauth,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Award', 'Action'],
   endpoints: (build) => ({
     /**

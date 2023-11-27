@@ -9,11 +9,12 @@ import { UpdateProductRequest } from './request/UpdateProductRequest';
 import { Product } from '@/types/shop/product/Product';
 import { BaseImage } from '@/types/base/image/baseImage';
 import { BaseRequest } from '@/types/base/BaseRequest';
-import { baseQuery} from '@/api/base/base.api';
+import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
 
 export const productApi = createApi({
   reducerPath: 'ProductApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Product'],
   endpoints: (build) => ({
     /**
@@ -162,8 +163,8 @@ export const productApi = createApi({
      * @param: authId, userId, imageId
      */
     secondImageDelete: build.mutation<
-        BaseResponse<BaseImage>,
-        { authId: number; productId: number; imageId: number }
+      BaseResponse<BaseImage>,
+      { authId: number; productId: number; imageId: number }
     >({
       query: (body) => ({
         method: 'POST',
@@ -172,6 +173,5 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Product'],
     }),
-
   }),
 });

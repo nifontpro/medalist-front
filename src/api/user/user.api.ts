@@ -11,14 +11,15 @@ import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
-import { baseQuery } from '../base/base.api';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 import { LoadReport } from '@/types/user/addUserReport';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
 export const userApi = createApi({
   reducerPath: 'UserApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['User', 'Settings', 'Action', 'None'],
   endpoints: (build) => ({
     getTestData: build.query<{ res: string }, void>({

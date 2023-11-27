@@ -11,7 +11,8 @@ export const eventUrl = (string: string = '') => `/client/event${string}`;
 
 export const eventApi = createApi({
   reducerPath: 'EventApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Event'],
   endpoints: (build) => ({
     /**

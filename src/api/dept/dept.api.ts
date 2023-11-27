@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseQuery } from '../base/base.api';
+import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 import { Dept } from '@/types/dept/dept';
 import { DeptDetails } from '@/types/dept/deptDetails';
 import { CreateDeptRequest } from './request/createDeptRequest';
@@ -14,7 +14,8 @@ export const deptUrl = (string: string = '') => `/client/dept${string}`;
 
 export const deptApi = createApi({
   reducerPath: 'DeptApi',
-  baseQuery: baseQuery,
+  // baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Dept', 'Settings'],
   endpoints: (build) => ({
     /**
