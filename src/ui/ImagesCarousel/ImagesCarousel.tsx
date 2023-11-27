@@ -1,6 +1,6 @@
 'use client';
 
-import Carousel from 'react-material-ui-carousel';
+// import Carousel from 'react-material-ui-carousel';
 import ImageDefault from '../ImageDefault/ImageDefault';
 import styles from './ImagesCarousel.module.scss';
 import { BaseImage } from '@/types/base/image/baseImage';
@@ -10,6 +10,8 @@ import { memo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import ModalPrevierImg from '../ModalPrevierImg/ModalPreviewImg';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 const ImagesCarousel = ({
   data,
@@ -34,6 +36,62 @@ const ImagesCarousel = ({
         {data && setImageNum && data.length > 0 ? (
           <>
             <Carousel
+              swipeable={true}
+              dynamicHeight={true}
+              showStatus={false}
+              showThumbs={false}
+              showIndicators={pathname.split('/')[1] !== 'award'}
+              useKeyboardArrows={true}
+              autoPlay={true}
+              emulateTouch={true}
+              renderIndicator={(onClickHandler, isSelected, index, label) => {
+                if (isSelected) {
+                  return (
+                    <li
+                      className={styles.myIndicatorSelected}
+                      aria-label={`Selected: ${label} ${index + 1}`}
+                      title={`Selected: ${label} ${index + 1}`}
+                    />
+                  );
+                }
+                return (
+                  <li
+                    className={styles.myIndicator}
+                    onClick={onClickHandler}
+                    onKeyDown={onClickHandler}
+                    value={index}
+                    key={index}
+                    role='button'
+                    tabIndex={0}
+                    title={`${label} ${index + 1}`}
+                    aria-label={`${label} ${index + 1}`}
+                  />
+                );
+              }}
+            >
+              {images?.map((item: BaseImage) => (
+                <div
+                  onClick={() => {
+                    setSrcImg(item.imageUrl);
+                    setOpenModalConfirm(true);
+                  }}
+                  key={item.id}
+                >
+                  <ImageDefault
+                    src={item.imageUrl}
+                    alt='preview image'
+                    width={400}
+                    height={400}
+                    className={cn({
+                      [styles.imageCard]: !forSecondImg,
+                      [styles.imageCardSecond]: forSecondImg,
+                    })}
+                    forWhat={forWhat}
+                  />
+                </div>
+              ))}
+            </Carousel>
+            {/* <Carousel
               navButtonsAlwaysInvisible={
                 pathname.split('/')[1] == 'award' ? true : false
               }
@@ -77,7 +135,7 @@ const ImagesCarousel = ({
                   />
                 );
               })}
-            </Carousel>
+            </Carousel> */}
             <ModalPrevierImg
               srcImg={srcImg}
               openModalConfirm={openModalConfirm}
@@ -107,21 +165,43 @@ const ImagesCarousel = ({
       <div>
         {data.length > 0 ? (
           <Carousel
-            navButtonsAlwaysInvisible={data.length == 1 ? true : false}
-            IndicatorIcon={data.length == 1 ? null : undefined}
-            className={cn(styles.carousel, className)}
-            swipe={true}
+            swipeable={true}
+            showStatus={false}
+            showThumbs={false}
+            showIndicators={data.length !== 1}
+            useKeyboardArrows={true}
             autoPlay={true}
-            indicatorContainerProps={{
-              style: {
-                marginTop: '0px',
-              },
+            emulateTouch={true}
+            dynamicHeight={true}
+            className={cn(styles.carousel, className)}
+            renderIndicator={(onClickHandler, isSelected, index, label) => {
+              if (isSelected) {
+                return (
+                  <li
+                    className={styles.myIndicatorSelected}
+                    aria-label={`Selected: ${label} ${index + 1}`}
+                    title={`Selected: ${label} ${index + 1}`}
+                  />
+                );
+              }
+              return (
+                <li
+                  className={styles.myIndicator}
+                  onClick={onClickHandler}
+                  onKeyDown={onClickHandler}
+                  value={index}
+                  key={index}
+                  role='button'
+                  tabIndex={0}
+                  title={`${label} ${index + 1}`}
+                  aria-label={`${label} ${index + 1}`}
+                />
+              );
             }}
           >
-            {data?.map((item: BaseImage) => {
-              return (
+            {data?.map((item: BaseImage) => (
+              <div key={item.id}>
                 <ImageDefault
-                  key={item.id}
                   src={item.imageUrl}
                   width={400}
                   height={400}
@@ -129,10 +209,36 @@ const ImagesCarousel = ({
                   className={styles.imageCard}
                   forWhat={forWhat}
                 />
-              );
-            })}
+              </div>
+            ))}
           </Carousel>
         ) : (
+          // <Carousel
+          //   navButtonsAlwaysInvisible={data.length == 1 ? true : false}
+          //   IndicatorIcon={data.length == 1 ? null : undefined}
+          //   className={cn(styles.carousel, className)}
+          //   swipe={true}
+          //   autoPlay={true}
+          //   indicatorContainerProps={{
+          //     style: {
+          //       marginTop: '0px',
+          //     },
+          //   }}
+          // >
+          //   {data?.map((item: BaseImage) => {
+          //     return (
+          //       <ImageDefault
+          //         key={item.id}
+          //         src={item.imageUrl}
+          //         width={400}
+          //         height={400}
+          //         alt='preview image'
+          //         className={styles.imageCard}
+          //         forWhat={forWhat}
+          //       />
+          //     );
+          //   })}
+          // </Carousel>
           <div className={styles.imageDefault}>
             <ImageDefault
               src={undefined}
