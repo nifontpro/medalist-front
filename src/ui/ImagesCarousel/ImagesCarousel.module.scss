@@ -59,8 +59,8 @@
 .myIndicator,
 .myIndicatorSelected {
   list-style: none;
-  width: 10px;
-  height: 10px;
+  width: 7.5px;
+  height: 7.5px;
   border-radius: 50%;
   display: inline-block;
   margin: 0 5px;
@@ -69,10 +69,13 @@
 
 .myIndicator {
   background: var(--white);
+  border: 1px solid var(--gray-dark);
   cursor: pointer;
 }
 
 .myIndicatorSelected {
   background: var(--gray-dark);
   margin: 0 5px;
+
+  border: 1px solid var(--white);
 }

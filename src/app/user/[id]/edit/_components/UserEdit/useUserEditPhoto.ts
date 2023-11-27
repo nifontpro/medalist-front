@@ -66,15 +66,21 @@ export const useUserEditPhoto = (
     },
     [addImage, singleUser, typeOfUser]
   );
+  console.log(singleUser);
 
   const removePhoto = useCallback(
     async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
       e.preventDefault();
       let isError = false;
-      if (singleUser && imageNum != undefined && typeOfUser?.id) {
+      if (
+        singleUser &&
+        singleUser?.data &&
+        imageNum != undefined &&
+        typeOfUser?.id
+      ) {
         await removeImage({
           userId: singleUser.data?.user.id,
-          imageId: singleUser?.data?.user.images[imageNum].id,
+          imageId: singleUser?.data?.images[imageNum].id,
           authId: typeOfUser?.id,
         })
           .unwrap()
