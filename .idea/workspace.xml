@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+add user event for excel" />
+    <list default="true" id="29eb7f5b-1bd9-403c-97da-5e7b1702b817" name="Changes" comment="+full load report for excel">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,6 +151,16 @@
       <workItem from="1700037854963" duration="604000" />
       <workItem from="1700047508967" duration="129000" />
       <workItem from="1700473012632" duration="884000" />
+      <workItem from="1700815885185" duration="313000" />
+      <workItem from="1700839684813" duration="261000" />
+      <workItem from="1700933106723" duration="160000" />
+      <workItem from="1701021263316" duration="241000" />
+      <workItem from="1701094257339" duration="4766000" />
+      <workItem from="1701100586153" duration="879000" />
+      <workItem from="1701102911119" duration="5000" />
+      <workItem from="1701104387345" duration="858000" />
+      <workItem from="1701105443337" duration="1309000" />
+      <workItem from="1701116366096" duration="2771000" />
     </task>
     <task id="LOCAL-00001" summary="return type CreateOwner fun api">
       <option name="closed" value="true" />
@@ -349,7 +362,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700473889574</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="+full load report for excel">
+      <option name="closed" value="true" />
+      <created>1700816170207</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1700816170207</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,6 +407,7 @@
     <MESSAGE value="+dept settings" />
     <MESSAGE value="+Artem deploy" />
     <MESSAGE value="+add user event for excel" />
-    <option name="LAST_COMMIT_MESSAGE" value="+add user event for excel" />
+    <MESSAGE value="+full load report for excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="+full load report for excel" />
   </component>
 </project>
