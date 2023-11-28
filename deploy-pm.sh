@@ -8,4 +8,5 @@ ssh web@83.147.244.213 << EOF
   npm i
   npm run build
   pm2 restart medals
+  pm2 save
 EOF
