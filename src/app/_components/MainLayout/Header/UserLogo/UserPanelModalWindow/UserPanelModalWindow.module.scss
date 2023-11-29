@@ -9,6 +9,7 @@
   overflow: hidden;
   padding: 45px 40px;
   @apply animate-fade;
+
   @media screen and (max-width: 768px) {
     overflow-y: auto;
     padding: 60px 40px 100px 40px;
