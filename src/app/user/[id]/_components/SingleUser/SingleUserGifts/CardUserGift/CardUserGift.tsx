@@ -29,7 +29,10 @@ const CardUserGift = ({
         className={styles.dots}
       />
 
-      <div className={styles.img} onClick={() => push(`/gifts/${gift.id}`)}>
+      <div
+        className={styles.img}
+        onClick={() => push(`/gifts/${gift.product.id}`)}
+      >
         <ImageDefault
           src={gift.product.normImg}
           width={300}
