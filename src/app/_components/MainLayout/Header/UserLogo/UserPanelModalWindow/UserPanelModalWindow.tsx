@@ -73,8 +73,8 @@ const UserPanelModalWindow = forwardRef(
             variants={variants}
             transition={{ duration: 0.4 }}
             className={cn(styles.userModalWindow, className)}
-            drag={windowSize.winWidth < 768 ? 'y' : undefined}
-            onDragEnd={(event, info) => handleDrag(event, info)}
+            // drag={windowSize.winWidth < 768 ? 'y' : undefined}
+            // onDragEnd={(event, info) => handleDrag(event, info)}
             dragSnapToOrigin={true}
             dragConstraints={{ top: 0 }}
             dragElastic={0.5}
