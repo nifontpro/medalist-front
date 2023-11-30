@@ -36,7 +36,7 @@ const ModalConfirm = ({
         )}
         <div>{children}</div>
         {text && (
-          <P size='m' fontstyle='thin' className={styles.text}>
+          <P size='ll' fontstyle='thin' className={styles.text}>
             {text}
           </P>
         )}

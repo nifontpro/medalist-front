@@ -75,8 +75,8 @@ export const fetchAccessToken = async (
           code,
           grant_type,
           client_id,
-          redirect_uri: origin,
-          // redirect_uri: redirect_uri,
+          // redirect_uri: origin,
+          redirect_uri: redirect_uri,
           code_verifier: codeVerifier,
         }),
       }
@@ -171,8 +171,8 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
     'scope=openid',
     'code_challenge=' + challenge.code_challenge,
     'code_challenge_method=S256',
-    'redirect_uri=' + origin,
-    // 'redirect_uri=' + redirect_uri,
+    // 'redirect_uri=' + origin,
+    'redirect_uri=' + redirect_uri,
   ];
   const response = NextResponse.redirect(
     new URL(`${authUrl}?${params.join('&')}`)

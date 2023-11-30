@@ -42,6 +42,8 @@ export const useAwardEdit = (
       }
     );
 
+  console.log(singleAward);
+
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
     undefined
   ); // Для выбора из галлереи
@@ -59,7 +61,7 @@ export const useAwardEdit = (
       setValue('endDate', singleAward.data.award.endDate);
       setValue('type', singleAward.data.award.type);
       setValue('name', singleAward.data.award.name);
-      setValue('description', singleAward.data.description);
+      setValue('description', singleAward.data.award.description);
       setValue('criteria', singleAward.data.criteria);
       setValue('score', singleAward.data.award.score);
     }

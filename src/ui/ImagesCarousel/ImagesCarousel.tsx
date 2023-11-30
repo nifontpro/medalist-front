@@ -93,6 +93,7 @@ const ImagesCarousel = ({
                       setOpenModalConfirm(true);
                     }}
                     key={item.id}
+                    className='cursor-pointer'
                   >
                     <ImageDefault
                       src={item.imageUrl}

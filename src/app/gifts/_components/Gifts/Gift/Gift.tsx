@@ -49,7 +49,7 @@ const Gift = motion(
               className={styles.dots}
             />
             <div
-              className='cursor-pointer'
+              className='cursor-pointer flex flex-col items-center'
               onClick={() => push(`gifts/${gift.id}`)}
             >
               <div className={styles.img}>
@@ -82,7 +82,7 @@ const Gift = motion(
                   <P
                     size='xl'
                     fontstyle='thin'
-                    color='gray'
+                    color='black'
                     className='flex gap-[5px] items-end'
                   >
                     {gift.price}
