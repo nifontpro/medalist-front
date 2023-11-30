@@ -25,6 +25,13 @@
     position: sticky;
     top: 0;
 
+    position: -webkit-sticky;
+    position: sticky;
+    height: calc(
+      100vh - 100px
+    ); /* Высота равна 100% видимой области экрана минус 100 пикселей */
+    // overflow-y: auto; /* Добавляет прокрутку, если содержимое элемента превышает его высоту */
+
     @media screen and (max-width: 1140px) {
       display: none;
     }

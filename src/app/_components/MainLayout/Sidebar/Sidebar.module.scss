@@ -186,11 +186,15 @@
 .buttonGifts {
   display: flex !important;
   align-items: center !important;
-  padding: 10px 40px !important;
+  padding: 20px 40px !important;
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   border: 1.5px solid var(--gray-light) !important;
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
 
   .icon {
     width: 24px;
@@ -207,5 +211,19 @@
     path {
       stroke: var(--white);
     }
+  }
+}
+
+.treeWrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 250px);
+
+  @media screen and (max-width: 1140px) {
+    height: calc(100vh - 300px);
+  }
+
+  > ul {
+    margin-bottom: 20px;
   }
 }

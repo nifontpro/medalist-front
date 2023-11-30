@@ -151,33 +151,34 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
             ) : null}
           </FormControl>
 
-          <TreeView
-            aria-label='file system navigator'
-            defaultCollapseIcon={<ExpandMoreIcon />}
-            defaultExpandIcon={<ChevronRightIcon />}
-            // expanded={expandedIds} // Сразу открытый путь
-            expanded={parentIds} // Полностью раскрытое дерево всегда
-            selected={selectedIds}
-            onNodeToggle={toggleTreeNode} // Когда открываешь
-            sx={{
-              flexGrow: 1,
-              maxWidth: 300,
-              // height: '100%',
-              overflowY: 'auto',
-            }}
-            className='flex flex-col gap-[50px]'
-          >
-            <div>
-              <Tree
-                treeData={
-                  selectedCompany
-                    ? tree.find((item) => item.id == Number(selectedCompany))
-                        ?.children
-                    : tree[0]?.children
-                }
-              />
-            </div>
-
+          <div className={styles.treeWrapper}>
+            <TreeView
+              aria-label='file system navigator'
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              // expanded={expandedIds} // Сразу открытый путь
+              expanded={parentIds} // Полностью раскрытое дерево всегда
+              selected={selectedIds}
+              onNodeToggle={toggleTreeNode} // Когда открываешь
+              sx={{
+                flexGrow: 1,
+                maxWidth: 300,
+                // height: '100%',
+                overflowY: 'auto',
+              }}
+              className='flex flex-col gap-[50px]'
+            >
+              <div>
+                <Tree
+                  treeData={
+                    selectedCompany
+                      ? tree.find((item) => item.id == Number(selectedCompany))
+                          ?.children
+                      : tree[0]?.children
+                  }
+                />
+              </div>
+            </TreeView>
             <Button
               onClick={() => push('/gifts')}
               appearance={'blackWhite'}
@@ -186,7 +187,7 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
             >
               <CupIcon className={styles.icon} /> Магазин&nbsp;призов
             </Button>
-          </TreeView>
+          </div>
         </>
       ) : null}
     </div>

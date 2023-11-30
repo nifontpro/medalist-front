@@ -130,7 +130,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
             <AuthComponent minRole='ADMIN'>
               <a
                 className={styles.link}
-                href='https://storage.yandexcloud.net/medalist/doc/users.xlsx'
+                href='https://storage.yandexcloud.net/md-c/doc/users.xlsx'
               >
                 Скачать шаблон
               </a>
