@@ -81,9 +81,6 @@ export const baseQueryWithReauth: BaseQueryFn<
       extraOptions
     );
 
-    // if (refreshResult?.error != undefined) {
-    //   console.log(refreshResult?.error);
-    // } else {
     if (refreshResult.data) {
       const refreshResponse = refreshResult.data as IAuthResponse;
       api.dispatch(
