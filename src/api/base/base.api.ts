@@ -1,5 +1,3 @@
-// import { authActions } from '@/store/features/auth/auth.slice';
-// import { KEYCLOAK_URI } from '@/app/_components/MainLayout/MainLayout';
 import { authSlice } from '@/store/features/auth/auth.slice';
 import { TypeRootState } from '@/store/storage/store';
 import {
@@ -9,11 +7,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { getCookie, setCookie } from 'cookies-next';
-
 import process from 'process';
-// import { CLIENT_ID, IAuthResponse, KEYCLOAK_URI } from '../auth/auth.api';
-
-// const API_SERVER_URL = process.env.API_SERVER_URL;
 
 export const KEYCLOAK_URI = `${process.env.KEYCLOAK_URL}/realms/medalist-realm/protocol/openid-connect`;
 export const CLIENT_ID = 'medalist-client';
@@ -66,10 +60,13 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result.error.status === 401) {
     const refreshToken = getCookie('refresh_token');
-    // const refreshToken = localStorage.getItem('refresh');
-    // const refreshTokenSlice = (api.getState() as TypeRootState).auth.refreshToken
 
-    if (refreshToken == null) {
+    // Если refresh токен отсутствует, перенаправляем пользователя на страницу входа
+    if (!refreshToken) {
+      // Здесь должен быть ваш код для перенаправления на страницу входа
+      if (typeof window !== 'undefined') {
+        window.location.reload();
+      }
       return result;
     }
 
@@ -84,62 +81,31 @@ export const baseQueryWithReauth: BaseQueryFn<
       extraOptions
     );
 
-    if (refreshResult?.error != undefined) {
-      console.log(refreshResult?.error);
+    // if (refreshResult?.error != undefined) {
+    //   console.log(refreshResult?.error);
+    // } else {
+    if (refreshResult.data) {
+      const refreshResponse = refreshResult.data as IAuthResponse;
+      api.dispatch(
+        authSlice.actions.setTokenAndIdToken({
+          token: refreshResponse.access_token,
+          idToken: refreshResponse.id_token,
+        })
+      );
+      setCookie('refresh_token', refreshResponse.refresh_token);
+      setCookie('id_token', refreshResponse.id_token);
+      setCookie('access_token', refreshResponse.access_token);
+
+      // После обновления токена делаем повторный запрос
+      result = await accessQuery(args, api, extraOptions);
     } else {
-      if (refreshResult?.data) {
-        const refreshResponse = refreshResult.data as IAuthResponse;
-        api.dispatch(
-          authSlice.actions.setTokenAndIdToken({
-            token: refreshResponse.access_token,
-            idToken: refreshResponse.id_token,
-          })
-        );
-        setCookie('refresh_token', refreshResponse.refresh_token);
-        setCookie('id_token', refreshResponse.id_token);
-        setCookie('access_token', refreshResponse.access_token);
-        // api.dispatch(authSlice.setToken(refreshResponse));
-        // retry the original query with new access token
-        result = await accessQuery(args, api, extraOptions);
-      } else {
-        console.log('no data');
+      console.log('no data');
+      if (typeof window !== 'undefined') {
+        window.location.reload();
       }
+      // Здесь тоже может быть перенаправление на страницу входа
     }
   }
-
-  // if (result.error && result.error.status === 401) {
-  //   const refreshToken = localStorage.getItem('refresh');
-  //   // const refreshTokenSlice = (api.getState() as TypeRootState).auth.refreshToken
-
-  //   if (refreshToken == null) {
-  //     api.dispatch(authActions.setNoAuth());
-  //     return result;
-  //   }
-
-  //   const formData = new URLSearchParams();
-  //   formData.append('grant_type', 'refresh_token');
-  //   formData.append('client_id', CLIENT_ID);
-  //   formData.append('refresh_token', refreshToken);
-
-  //   const refreshResult = await refreshQuery(
-  //     { method: 'POST', url: '/token', body: formData },
-  //     api,
-  //     extraOptions
-  //   );
-
-  //   if (refreshResult?.error != undefined) {
-  //     api.dispatch(authActions.setNoAuth());
-  //   } else {
-  //     if (refreshResult?.data) {
-  //       const refreshResponse = refreshResult.data as IAuthResponse;
-  //       api.dispatch(authActions.setAuthData(refreshResponse));
-  //       // retry the original query with new access token
-  //       result = await accessQuery(args, api, extraOptions);
-  //     } else {
-  //       api.dispatch(authActions.setNoAuth());
-  //     }
-  //   }
-  // }
 
   return result;
 };
