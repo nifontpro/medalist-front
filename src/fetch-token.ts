@@ -59,10 +59,8 @@ export const fetchAccessToken = async (
   codeVerifier: string,
   origin: string
 ) => {
-  // console.log('fetchAccessToken');
-  // console.log('fetchAccessToken redirect_uri', redirect_uri);
-  // console.log('fetchAccessToken codeVerifier', codeVerifier);
-  // console.log('fetchAccessToken code', code);
+  console.log('redirect_uri', redirect_uri);
+  console.log('origin', origin);
   try {
     const response = await fetch(
       `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
@@ -75,8 +73,8 @@ export const fetchAccessToken = async (
           code,
           grant_type,
           client_id,
-          // redirect_uri: origin,
-          redirect_uri: redirect_uri,
+          redirect_uri: origin,
+          // redirect_uri: redirect_uri,
           code_verifier: codeVerifier,
         }),
       }
@@ -109,14 +107,12 @@ export const refreshAccessToken = async (refresh_token: string) => {
     const data: Token = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
+    console.log('error refreshAccessToken', error);
     return null;
   }
 };
 
 export async function handleExpiredToken(request: NextRequest) {
-  // console.log('handleExpiredToken');
-
   const refreshToken = request.cookies.get('refresh_token');
   if (!refreshToken) return redirectToKeycloakAuth(request, request.url);
 
@@ -171,8 +167,8 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
     'scope=openid',
     'code_challenge=' + challenge.code_challenge,
     'code_challenge_method=S256',
-    // 'redirect_uri=' + origin,
-    'redirect_uri=' + redirect_uri,
+    'redirect_uri=' + origin,
+    // 'redirect_uri=' + redirect_uri,
   ];
   const response = NextResponse.redirect(
     new URL(`${authUrl}?${params.join('&')}`)
@@ -184,5 +180,3 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
 
   return response;
 }
-
-// https://md-auth.ru/realms/medalist-realm/protocol/openid-connect/auth?response_type=code&state=jC80SmcbuVl5s3rr8ddRL5k5JKHhiy&client_id=medalist-client&scope=openid&code_challenge=C0W_GEfvc0Ej9Jm2gsRfWoUdKoLqemqJcIjz3Y0aNj8&code_challenge_method=S256&redirect_uri=http://localhost:3000/

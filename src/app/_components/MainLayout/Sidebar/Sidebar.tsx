@@ -38,6 +38,8 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
     ownerCompany,
   } = useSidebar();
 
+  const { close } = useHeader();
+
   const handleClink = () => {
     if (tree) {
       tree.length > 1
@@ -180,7 +182,10 @@ const Sidebar = ({ className, ...props }: SidebarProps): JSX.Element => {
               </div>
             </TreeView>
             <Button
-              onClick={() => push('/gifts')}
+              onClick={() => {
+                close();
+                push('/gifts');
+              }}
               appearance={'blackWhite'}
               size='l'
               className={styles.buttonGifts}
