@@ -59,8 +59,6 @@ export const fetchAccessToken = async (
   codeVerifier: string,
   origin: string
 ) => {
-  // console.log('redirect_uri', redirect_uri);
-  // console.log('origin', origin);
   try {
     const response = await fetch(
       `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
@@ -73,8 +71,8 @@ export const fetchAccessToken = async (
           code,
           grant_type,
           client_id,
-          redirect_uri: origin,
-          // redirect_uri: redirect_uri,
+          // redirect_uri: origin,
+          redirect_uri: redirect_uri,
           code_verifier: codeVerifier,
         }),
       }
@@ -138,10 +136,6 @@ export function completeAuth(request: NextRequest, token: Token) {
   // console.log('completeAuth');
   const url = request.cookies.get('origin');
 
-  // const state = request.nextUrl.searchParams.get('state');
-  // const url = `${request.nextUrl.origin}${state || request.nextUrl}`;
-  // console.log('completeAuth url', url);
-
   const response = NextResponse.redirect(url?.value!);
   // Delete existing tokens if they exist
   response.cookies.delete('access_token');
@@ -167,8 +161,8 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
     'scope=openid',
     'code_challenge=' + challenge.code_challenge,
     'code_challenge_method=S256',
-    'redirect_uri=' + origin,
-    // 'redirect_uri=' + redirect_uri,
+    // 'redirect_uri=' + origin,
+    'redirect_uri=' + redirect_uri,
   ];
   const response = NextResponse.redirect(
     new URL(`${authUrl}?${params.join('&')}`)
