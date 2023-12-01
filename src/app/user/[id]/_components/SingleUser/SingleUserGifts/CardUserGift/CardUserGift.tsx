@@ -27,6 +27,7 @@ const CardUserGift = ({
         id={gift.id.toString()}
         getUrlEdit={getGiftEditUrl}
         className={styles.dots}
+        forMyself={true}
       />
 
       <div

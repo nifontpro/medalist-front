@@ -13,6 +13,7 @@ import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
 import { baseQuery, baseQueryWithReauth } from '../base/base.api';
 import { LoadReport } from '@/types/user/addUserReport';
+import { deptApi } from '../dept/dept.api';
 
 export const userUrl = (string: string = '') => `/client/user${string}`;
 
@@ -95,6 +96,14 @@ export const userApi = createApi({
         body: body,
       }),
       invalidatesTags: ['User'],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          await dispatch(deptApi.util.invalidateTags(['Dept']));
+        } catch (error) {
+          console.error(`Error award user!`, error);
+        }
+      },
     }),
 
     /**

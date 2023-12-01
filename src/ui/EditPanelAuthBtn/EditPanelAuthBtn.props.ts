@@ -22,4 +22,5 @@ export type EditPanelAuthBtnProps = DetailedHTMLProps<
     gift?: boolean;
     handlereturn?: (id: number) => Promise<void>;
     paycode?: PayCode;
+    forMyself?: boolean;
   };

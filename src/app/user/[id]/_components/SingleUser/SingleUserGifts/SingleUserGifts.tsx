@@ -63,6 +63,8 @@ const SingleUserGifts = ({
     availablePurchaseHistoryPage = true;
   }
 
+  console.log(typeOfUser?.roles);
+
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
@@ -85,15 +87,6 @@ const SingleUserGifts = ({
               История покупок
             </ButtonCircleIcon>
           </div>
-          // <div className={styles.titleHistory}>
-          //   <P
-          //     size='s'
-          //     fontstyle='thin'
-          //     onClick={() => push(`/user/${id}/purchaseHistory`)}
-          //   >
-          //     История покупок
-          //   </P>
-          // </div>
         )}
       </div>
 

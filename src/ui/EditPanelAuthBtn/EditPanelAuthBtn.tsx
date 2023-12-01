@@ -17,6 +17,7 @@ const EditPanelAuthBtn = ({
   className,
   gift,
   id,
+  forMyself = false,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const EditPanelAuthBtn = ({
   useOutsideClick(ref, refOpen, handleClickOutside, visible);
 
   return (
-    <AuthComponent minRole={'ADMIN'}>
+    <AuthComponent minRole={'ADMIN'} access={forMyself}>
       <ButtonCircleIcon
         onClick={() => setVisible(!visible)}
         icon='dots'
