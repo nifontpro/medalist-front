@@ -69,11 +69,10 @@ const SingleUserGifts = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
         <Htag tag='h3'>Призы</Htag>
-        {totalElements && (
-          <P size='s' fontstyle='thin' className={styles.countGifts}>
-            {totalElements}
-          </P>
-        )}
+
+        <P size='s' fontstyle='thin' className={styles.countGifts}>
+          {totalElements ? totalElements : 0}
+        </P>
 
         {availablePurchaseHistoryPage && (
           <div className={styles.titleHistory}>

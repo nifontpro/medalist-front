@@ -80,11 +80,9 @@ const SingleUserAwards = ({
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>
         <Htag tag='h3'>Награды</Htag>
-        {totalElements && (
-          <P size='s' fontstyle='thin' className={styles.countAwards}>
-            {totalElements}
-          </P>
-        )}
+        <P size='s' fontstyle='thin' className={styles.countAwards}>
+          {totalElements ? totalElements : 0}
+        </P>
       </div>
 
       <ScrollContainerWithSearchParams
