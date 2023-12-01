@@ -67,7 +67,7 @@ const ImagesCarousel = ({
                       <li
                         className={styles.myIndicatorSelected}
                         aria-label={`Selected: ${label} ${index + 1}`}
-                        title={`Selected: ${label} ${index + 1}`}
+                        // title={`Selected: ${label} ${index + 1}`} // Появляется tooltip при наведении индикатора
                       />
                     );
                   }

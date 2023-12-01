@@ -59,8 +59,8 @@ export const fetchAccessToken = async (
   codeVerifier: string,
   origin: string
 ) => {
-  console.log('redirect_uri', redirect_uri);
-  console.log('origin', origin);
+  // console.log('redirect_uri', redirect_uri);
+  // console.log('origin', origin);
   try {
     const response = await fetch(
       `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
