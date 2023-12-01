@@ -98,14 +98,6 @@ const CreateOwner = () => {
             />
           </div>
 
-          {/* <Field
-            {...register('address', { required: 'Адрес необходим!' })}
-            title='Адрес'
-            placeholder='Напишите адрес'
-            error={errors.address}
-            className={styles.field}
-          /> */}
-
           <TextArea
             {...register('description')}
             title='О сотруднике'

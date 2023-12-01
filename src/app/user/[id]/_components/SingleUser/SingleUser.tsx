@@ -56,6 +56,8 @@ const SingleUser = ({
   if (isLoadingSingleUser) return <Spinner />;
   if (!user?.success) return <NoAccess errors={user?.errors} />;
 
+  console.log(user);
+
   return (
     <>
       <div className={cn(className)} {...props}>
