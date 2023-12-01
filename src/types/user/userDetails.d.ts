@@ -6,6 +6,7 @@ export interface UserDetails {
     phone?: string
     address?: string
     description?: string
+    schedule?: string; // Режим работы
     createdAt?: number
     images: BaseImage[];
 }
