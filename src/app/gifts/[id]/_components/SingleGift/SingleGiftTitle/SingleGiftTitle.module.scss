@@ -71,6 +71,18 @@
     .www {
       margin-top: 20px !important;
       text-decoration: underline;
+      max-width: 500px;
+      white-space: nowrap; /* Предотвращает перенос текста на новую строку */
+      overflow: hidden; /* Обрезает содержимое, выходящее за рамки элемента */
+      text-overflow: ellipsis;
+
+      @media screen and (max-width: 768px) {
+        max-width: 300px;
+      }
+
+      @media screen and (max-width: 400px) {
+        max-width: 200px;
+      }
     }
 
     .moreInformation {

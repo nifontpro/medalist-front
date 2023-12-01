@@ -10,8 +10,8 @@ import { memo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import ModalPrevierImg from '../ModalPrevierImg/ModalPreviewImg';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
 const ImagesCarousel = ({
   data,
@@ -93,7 +93,7 @@ const ImagesCarousel = ({
                       setOpenModalConfirm(true);
                     }}
                     key={item.id}
-                    className='cursor-pointer'
+                    className={styles.ImagesWrapper}
                   >
                     <ImageDefault
                       src={item.imageUrl}
@@ -111,52 +111,6 @@ const ImagesCarousel = ({
               </Carousel>
             </div>
 
-            {/* <Carousel
-              navButtonsAlwaysInvisible={
-                pathname.split('/')[1] == 'award' ? true : false
-              }
-              // className='width-[100%]'
-              IndicatorIcon={
-                pathname.split('/')[1] == 'award' ? null : undefined
-              }
-              swipe={true}
-              index={imageNum}
-              changeOnFirstRender={true}
-              onChange={(now?: number, previous?: number) => {
-                console.log(now);
-                now && setImageNum(now);
-              }}
-              height={
-                forSecondImg ? undefined : windowSize.winWidth < 768 ? 250 : 400
-              }
-              autoPlay={true}
-              indicatorContainerProps={{
-                style: {
-                  marginTop: '0px', //
-                },
-              }}
-            >
-              {images?.map((item: BaseImage) => {
-                return (
-                  <ImageDefault
-                    onClick={() => {
-                      setSrcImg(item.imageUrl);
-                      setOpenModalConfirm(true);
-                    }}
-                    key={item.id}
-                    src={item.imageUrl}
-                    width={400}
-                    height={400}
-                    alt='preview image'
-                    forWhat={forWhat}
-                    className={cn({
-                      [styles.imageCard]: !forSecondImg,
-                      [styles.imageCardSecond]: forSecondImg,
-                    })}
-                  />
-                );
-              })}
-            </Carousel> */}
             <ModalPrevierImg
               srcImg={srcImg}
               openModalConfirm={openModalConfirm}
@@ -236,32 +190,6 @@ const ImagesCarousel = ({
             </Carousel>
           </div>
         ) : (
-          // <Carousel
-          //   navButtonsAlwaysInvisible={data.length == 1 ? true : false}
-          //   IndicatorIcon={data.length == 1 ? null : undefined}
-          //   className={cn(styles.carousel, className)}
-          //   swipe={true}
-          //   autoPlay={true}
-          //   indicatorContainerProps={{
-          //     style: {
-          //       marginTop: '0px',
-          //     },
-          //   }}
-          // >
-          //   {data?.map((item: BaseImage) => {
-          //     return (
-          //       <ImageDefault
-          //         key={item.id}
-          //         src={item.imageUrl}
-          //         width={400}
-          //         height={400}
-          //         alt='preview image'
-          //         className={styles.imageCard}
-          //         forWhat={forWhat}
-          //       />
-          //     );
-          //   })}
-          // </Carousel>
           <div className={styles.imageDefault}>
             <ImageDefault
               src={undefined}

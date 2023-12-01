@@ -50,7 +50,7 @@ const PurchaseHistoryCard = motion(
             )}
             <div
               className={styles.img}
-              onClick={() => push(`gifts/${gift.id}`)}
+              onClick={() => push(`gifts/${gift.product.id}`)}
             >
               <ImageDefault
                 src={gift.product.normImg ? gift.product.normImg : undefined}
@@ -59,7 +59,7 @@ const PurchaseHistoryCard = motion(
                 alt={gift.product.name}
                 className={
                   gift.product.normImg
-                    ? 'rounded-full object-contain'
+                    ? 'rounded-[44px] object-contain'
                     : 'object-contain'
                 }
                 forWhat='gift'

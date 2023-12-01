@@ -39,8 +39,8 @@ async function handleAuthPage(request: NextRequest) {
   const token = await fetchAccessToken(
     code,
     codeVerifier?.value!,
-    // origin?.value!
-    request.url
+    origin?.value!
+    // request.url
   );
 
   return token ? completeAuth(request, token) : NextResponse.error();

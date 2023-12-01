@@ -49,7 +49,10 @@ const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
       </ButtonCircleIcon>
 
       <SingleGiftTitle gift={gift.data!} />
-      <SingleGiftImages gift={gift.data!} />
+      {typeOfUser?.roles.includes('ADMIN') ||
+      gift.data?.secondImages?.length! > 0 ? (
+        <SingleGiftImages gift={gift.data!} />
+      ) : null}
       <SingleGiftGet gift={gift.data!} />
 
       <ButtonScrollUp />
