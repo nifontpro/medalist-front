@@ -217,10 +217,10 @@
 .treeWrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 250px);
+  height: calc(100dvh - 250px);
 
   @media screen and (max-width: 1140px) {
-    height: calc(100vh - 300px);
+    height: calc(100dvh - 300px);
   }
 
   > ul {
