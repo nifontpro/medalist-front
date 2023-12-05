@@ -15,7 +15,7 @@ const EditPanel = forwardRef(
       getUrlEdit,
       id,
       deleteAsync,
-      handlereturn,
+      handlereturn1,
       paycode,
       children,
       visible,
@@ -70,7 +70,7 @@ const EditPanel = forwardRef(
     };
 
     const handleReturnAdmin = () => {
-      if (handlereturn) handlereturn(Number(id));
+      if (handlereturn1) handlereturn1(Number(id));
     };
 
     if (onlyRemove) {
@@ -146,7 +146,7 @@ const EditPanel = forwardRef(
                 size='xs'
                 fontstyle='thin'
                 onClick={() => {
-                  gift ? handlereturn : push(getUrlEdit(`${id}`));
+                  gift ? handlereturn1 : push(getUrlEdit(`${id}`));
                 }}
                 className={styles.item}
               >

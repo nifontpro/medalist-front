@@ -48,7 +48,7 @@ const EditPanelAuthBtn = ({
         ref={ref}
         onlyRemove={onlyRemove}
         gift={gift}
-        handlereturn={handlereturn}
+        handlereturn1={handlereturn}
         paycode={paycode}
       />
       <FilterEditPanel
@@ -60,7 +60,7 @@ const EditPanelAuthBtn = ({
         ref={ref}
         onlyRemove={onlyRemove}
         gift={gift}
-        handlereturn={handlereturn}
+        handlereturn1={handlereturn}
         paycode={paycode}
       />
     </AuthComponent>

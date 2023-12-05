@@ -13,6 +13,8 @@ const FilterEditPanel = forwardRef(
   (
     {
       deleteAsync,
+      handlereturn1,
+      paycode,
       getUrlEdit,
       id,
       children,
@@ -64,6 +66,10 @@ const FilterEditPanel = forwardRef(
       }
     };
 
+    const handleReturnAdmin = () => {
+      if (handlereturn1) handlereturn1(Number(id));
+    };
+
     if (onlyRemove) {
       return (
         <>
@@ -90,7 +96,13 @@ const FilterEditPanel = forwardRef(
                   onClick={() => setOpenModalConfirm(true)}
                   className={styles.item}
                 >
-                  {gift ? 'Вернуть' : 'Удалить'}
+                  {paycode == 'PAY'
+                    ? 'Выдать'
+                    : paycode == 'GIVEN'
+                    ? 'Принять возврат'
+                    : gift
+                    ? 'Отказаться от приза'
+                    : 'Удалить'}
                 </P>
               ) : null}
             </div>
@@ -98,11 +110,27 @@ const FilterEditPanel = forwardRef(
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={gift ? 'Вернуть' : 'Удалить'}
-            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить ?`}
+            textBtn={
+              paycode == 'PAY'
+                ? 'Выдать'
+                : paycode == 'GIVEN'
+                ? 'Принять'
+                : gift
+                ? 'Отказаться'
+                : 'Удалить'
+            }
+            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите ${
+              paycode == 'PAY'
+                ? 'Выдать'
+                : paycode == 'GIVEN'
+                ? 'Принять возврат'
+                : gift
+                ? 'Отказаться от приза'
+                : 'Удалить'
+            }?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
-            onConfirm={handleDelete}
+            onConfirm={paycode == 'GIVEN' ? handleReturnAdmin : handleDelete}
           />
         </>
       );
@@ -125,7 +153,9 @@ const FilterEditPanel = forwardRef(
                 <P
                   size='xs'
                   fontstyle='thin'
-                  onClick={() => push(getUrlEdit(`${id}`))}
+                  onClick={() => {
+                    gift ? handlereturn1 : push(getUrlEdit(`${id}`));
+                  }}
                   className={styles.item}
                 >
                   {gift ? 'Выдать' : 'Редактировать'}
