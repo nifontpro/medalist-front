@@ -10,7 +10,7 @@ import {
 export async function middleware(request: NextRequest, res: NextResponse) {
   const { pathname } = request.nextUrl;
 
-  const isAuthPage = pathname.startsWith('/');
+  const isAuthPage = pathname.startsWith('/') && pathname !== '/error-page';
   const accessToken = request.cookies.get('access_token');
 
   if (isAuthPage && !accessToken) {
