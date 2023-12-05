@@ -54,15 +54,18 @@ export const useGiftEdit = (
   }, [setValue, typeOfUser, gift]);
 
   const handleBack = () => {
+    console.log('gift', gift);
+    console.log('getValues', getValues());
+
     if (gift) {
       const { price, name, count, siteUrl, place, description } = getValues();
       if (
         price != gift.data?.product.price ||
         name != gift.data?.product.name ||
         count != gift.data?.product.count ||
-        siteUrl != gift.data?.product.siteUrl ||
-        place != gift.data?.product.place ||
-        description != gift.data?.product.description
+        siteUrl != gift.data?.siteUrl ||
+        place != gift.data?.place ||
+        description != gift.data?.description
       ) {
         setOpenModalConfirm(true);
       } else {

@@ -371,3 +371,34 @@ body[data-theme='dark'] {
     @apply animate-scaleIn;
   }
 }
+
+/* Скрывает стрелки скролла */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Стиль трека (дорожки) скролла */
+::-webkit-scrollbar-track {
+  background: transparent; /* Сделать фон трека прозрачным */
+}
+
+/* Стиль самого скроллбара (ползунка) */
+::-webkit-scrollbar-thumb {
+  background: gray; /* Задать цвет ползунка */
+  border-radius: 10px; /* Если нужны скругленные углы */
+}
+
+/* Стили для ползунка в состоянии :hover и :active */
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray; /* Цвет ползунка при наведении */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #686868; /* Цвет ползунка при нажатии */
+}
+
+/* Размеры скроллбара */
+::-webkit-scrollbar {
+  width: 8px; /* Ширина для вертикального скролла */
+  height: 8px; /* Высота для горизонтального скролла */
+}
