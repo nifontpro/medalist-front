@@ -92,15 +92,37 @@ const EditPanel = forwardRef(
                 onClick={() => setOpenModalConfirm(true)}
                 className={styles.item}
               >
-                {paycode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
+                {paycode == 'PAY'
+                  ? 'Выдать'
+                  : paycode == 'GIVEN'
+                  ? 'Принять возврат'
+                  : gift
+                  ? 'Отказаться от приза'
+                  : 'Удалить'}
               </P>
             ) : null}
           </motion.div>
 
           <ModalConfirm
             title={'Требуется подтверждение!'}
-            textBtn={paycode == 'PAY' ? 'Выдать' : gift ? 'Вернуть' : 'Удалить'}
-            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите удалить?`}
+            textBtn={
+              paycode == 'PAY'
+                ? 'Выдать'
+                : paycode == 'GIVEN'
+                ? 'Принять'
+                : gift
+                ? 'Отказаться'
+                : 'Удалить'
+            }
+            text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите ${
+              paycode == 'PAY'
+                ? 'Выдать'
+                : paycode == 'GIVEN'
+                ? 'Принять возврат'
+                : gift
+                ? 'Отказаться от приза'
+                : 'Удалить'
+            }?`}
             openModalConfirm={openModalConfirm}
             setOpenModalConfirm={setOpenModalConfirm}
             onConfirm={paycode == 'GIVEN' ? handleReturnAdmin : handleDelete}

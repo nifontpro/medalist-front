@@ -86,7 +86,6 @@ export const fetchAccessToken = async (
 };
 
 export const refreshAccessToken = async (refresh_token: string) => {
-  // console.log('refreshAccessToken');
   try {
     const response = await fetch(
       `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
@@ -123,7 +122,6 @@ export async function handleExpiredToken(request: NextRequest) {
 }
 
 export function decodeToken(token: string): AccessTokenDecoded | null {
-  // console.log('decodeToken', token);
   try {
     const payload = token.split('.')[1];
     return payload ? JSON.parse(atob(payload)) : null;
@@ -133,7 +131,6 @@ export function decodeToken(token: string): AccessTokenDecoded | null {
 }
 
 export function completeAuth(request: NextRequest, token: Token) {
-  // console.log('completeAuth');
   const url = request.cookies.get('origin');
 
   const response = NextResponse.redirect(url?.value!);
@@ -151,7 +148,6 @@ export function completeAuth(request: NextRequest, token: Token) {
 }
 
 export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
-  // console.log('redirectToKeycloakAuth');
   const authUrl = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth`;
 
   const params = [

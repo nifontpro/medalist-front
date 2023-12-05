@@ -80,7 +80,7 @@ const ImagesCarousel = ({
                       key={index}
                       role='button'
                       tabIndex={0}
-                      title={`${label} ${index + 1}`}
+                      // title={`${label} ${index + 1}`}
                       aria-label={`${label} ${index + 1}`}
                     />
                   );
@@ -156,7 +156,7 @@ const ImagesCarousel = ({
                     <li
                       className={styles.myIndicatorSelected}
                       aria-label={`Selected: ${label} ${index + 1}`}
-                      title={`Selected: ${label} ${index + 1}`}
+                      // title={`Selected: ${label} ${index + 1}`}
                     />
                   );
                 }
@@ -169,7 +169,7 @@ const ImagesCarousel = ({
                     key={index}
                     role='button'
                     tabIndex={0}
-                    title={`${label} ${index + 1}`}
+                    // title={`${label} ${index + 1}`}
                     aria-label={`${label} ${index + 1}`}
                   />
                 );
