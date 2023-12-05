@@ -66,7 +66,6 @@ export const useUserEditPhoto = (
     },
     [addImage, singleUser, typeOfUser]
   );
-  console.log(singleUser);
 
   const removePhoto = useCallback(
     async (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {

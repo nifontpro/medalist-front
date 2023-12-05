@@ -50,8 +50,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
       }
     );
 
-  // console.log('Мой баланс', moneyUser);
-
   // Получить название валюты
   const { data: payName, isLoading: isLoadingPayName } =
     deptApi.useGetSettingsQuery(

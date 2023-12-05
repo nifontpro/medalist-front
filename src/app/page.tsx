@@ -23,7 +23,7 @@ export default function Home() {
       treeDepts[1].id
     ) {
       localStorage.setItem('selectCompany', treeDepts[1].id.toString());
-      console.log('первый редирект', treeDepts[1].id);
+
       redirect(`department/${treeDepts[1].id}`);
     }
     if (
@@ -31,11 +31,9 @@ export default function Home() {
       treeDepts &&
       treeDepts.length == 1
     ) {
-      console.log('второй редирект');
       redirect(`department/${treeDepts[0].id}`);
     }
     if (!typeOfUser?.roles.find((r) => r == 'OWNER')) {
-      console.log('третий редирект');
       // redirect(`department/${typeOfUser?.dept.id}`);
     }
   }, [treeDepts, typeOfUser]);

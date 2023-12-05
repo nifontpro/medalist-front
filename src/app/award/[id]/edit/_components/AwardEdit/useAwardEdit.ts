@@ -42,8 +42,6 @@ export const useAwardEdit = (
       }
     );
 
-  console.log(singleAward);
-
   const [imagesGallery, setImagesGallery] = useState<GalleryItem | undefined>(
     undefined
   ); // Для выбора из галлереи
@@ -68,9 +66,6 @@ export const useAwardEdit = (
   }, [setValue, typeOfUser, singleAward]);
 
   const handleBack = () => {
-    console.log('singleAward', singleAward);
-    console.log('getValues', getValues());
-
     if (singleAward) {
       const { criteria, description, score, name } = getValues();
       if (

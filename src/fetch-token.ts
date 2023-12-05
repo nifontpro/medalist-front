@@ -110,29 +110,31 @@ export const refreshAccessToken = async (refresh_token: string) => {
 };
 
 export async function handleExpiredToken(request: NextRequest) {
-  const refreshToken = request.cookies.get('refresh_token');
-  if (!refreshToken) return redirectToKeycloakAuth(request, request.url);
+  return redirectToKeycloakAuth(request, request.url);
 
-  const decoded = decodeToken(refreshToken.value);
-  if (!decoded || decoded.exp < Date.now() / 1000) {
-    // Проверить счётчик редиректов
-    const redirectCountCookie = request.cookies.get('redirect_count');
-    const redirectCount = parseInt(
-      redirectCountCookie ? redirectCountCookie.value : '0'
-    );
-    if (redirectCount > 5) {
-      // Сообщить пользователю об ошибке, возможно через пользовательский интерфейс
-      return NextResponse.error();
-    } else {
-      // Увеличить счётчик редиректов и перенаправить пользователя
-      const response = redirectToKeycloakAuth(request, request.url);
-      response.cookies.set('redirect_count', (redirectCount + 1).toString());
-      return response;
-    }
-  }
+  // const refreshToken = request.cookies.get('refresh_token');
+  // if (!refreshToken) return redirectToKeycloakAuth(request, request.url);
 
-  const newToken = await refreshAccessToken(refreshToken.value);
-  return newToken ? completeAuth(request, newToken) : NextResponse.error();
+  // const decoded = decodeToken(refreshToken.value);
+  // if (!decoded || decoded.exp < Date.now() / 1000) {
+  //   // Проверить счётчик редиректов
+  //   const redirectCountCookie = request.cookies.get('redirect_count');
+  //   const redirectCount = parseInt(
+  //     redirectCountCookie ? redirectCountCookie.value : '0'
+  //   );
+  //   if (redirectCount > 5) {
+  //     // Сообщить пользователю об ошибке, возможно через пользовательский интерфейс
+  //     return NextResponse.error();
+  //   } else {
+  //     // Увеличить счётчик редиректов и перенаправить пользователя
+  //     const response = redirectToKeycloakAuth(request, request.url);
+  //     response.cookies.set('redirect_count', (redirectCount + 1).toString());
+  //     return response;
+  //   }
+  // }
+
+  // const newToken = await refreshAccessToken(refreshToken.value);
+  // return newToken ? completeAuth(request, newToken) : NextResponse.error();
 }
 
 export function decodeToken(token: string): AccessTokenDecoded | null {

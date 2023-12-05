@@ -28,9 +28,6 @@ export const usePurchaseHistory = (id: string) => {
 
   const [paycode, setPaycode] = useState<PayCode>('UNDEF');
 
-  console.log('startDate', startDate);
-  console.log('endDate', endDate);
-
   // Получить призы
   const {
     data: gifts,

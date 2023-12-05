@@ -63,8 +63,6 @@ const SingleUserGifts = ({
     availablePurchaseHistoryPage = true;
   }
 
-  console.log(typeOfUser?.roles);
-
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
       <div className={styles.title}>

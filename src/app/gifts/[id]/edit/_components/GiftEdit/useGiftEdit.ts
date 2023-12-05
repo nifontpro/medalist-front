@@ -54,9 +54,6 @@ export const useGiftEdit = (
   }, [setValue, typeOfUser, gift]);
 
   const handleBack = () => {
-    console.log('gift', gift);
-    console.log('getValues', getValues());
-
     if (gift) {
       const { price, name, count, siteUrl, place, description } = getValues();
       if (

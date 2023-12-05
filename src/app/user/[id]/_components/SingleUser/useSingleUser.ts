@@ -66,8 +66,6 @@ export const useSingleUser = (id: string) => {
         skip: !typeOfUser || !id,
       }
     );
-  console.log('id и typeOfUser.id', id, typeOfUser?.id);
-  console.log('Баланс пользователя', moneyUser);
 
   const [arrChoiceAward, setArrChoiceAward] = useState<string[]>([]);
 

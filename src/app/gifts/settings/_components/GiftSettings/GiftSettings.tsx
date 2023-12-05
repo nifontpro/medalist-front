@@ -81,8 +81,6 @@ export const GiftSettings = ({}: GiftSettingsProps) => {
     }
   }, []);
 
-  console.log(settings);
-
   return (
     <main>
       <ButtonCircleIcon

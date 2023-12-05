@@ -12,8 +12,6 @@ const FileExcelUsersModalContent = ({
   data,
   ...props
 }: FileExcelUsersModalContentProps): JSX.Element => {
-  console.log(data);
-
   if (!data?.success) {
     return (
       <div className={styles.wrapper} {...props}>
