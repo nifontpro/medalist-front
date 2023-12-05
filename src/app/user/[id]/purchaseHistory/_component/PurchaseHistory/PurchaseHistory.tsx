@@ -33,6 +33,8 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
     page,
     nextPage,
     setState,
+    startDate,
+    endDate,
   } = usePurchaseHistory(id);
 
   if (isLoadingGifts) return <Spinner />;
@@ -88,6 +90,8 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
         <SelectCalendarRange
           setStartDateChange={setStartDateChange}
           setEndDateChange={setEndDateChange}
+          startDate={startDate}
+          endDate={endDate}
         />
       </div>
 
@@ -98,6 +102,8 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
         setState={setState}
         setStartDateChange={setStartDateChange}
         setEndDateChange={setEndDateChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       <div className={styles.cards}>

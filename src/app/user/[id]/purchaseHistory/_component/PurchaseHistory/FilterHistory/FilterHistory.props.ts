@@ -16,4 +16,6 @@ export type FilterHistoryProps = DetailedHTMLProps<
   paycode: PayCode;
   setStartDateChange: (data: number) => void;
   setEndDateChange: (data: number) => void;
+  startDate?: number;
+  endDate?: number;
 };

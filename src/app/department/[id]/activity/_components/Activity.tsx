@@ -39,6 +39,8 @@ const Activity = ({
     setStartDateChange,
     setEndDateChange,
     sortChange,
+    startDate,
+    endDate,
   } = useActivity(deptId);
 
   return (
@@ -56,6 +58,8 @@ const Activity = ({
         setState={setState}
         setStartDateChange={setStartDateChange}
         setEndDateChange={setEndDateChange}
+        startDate={startDate}
+        endDate={endDate}
       />
 
       <div className={styles.header}>
@@ -103,6 +107,8 @@ const Activity = ({
         <SelectCalendarRange
           setStartDateChange={setStartDateChange}
           setEndDateChange={setEndDateChange}
+          startDate={startDate}
+          endDate={endDate}
         />
       </div>
 

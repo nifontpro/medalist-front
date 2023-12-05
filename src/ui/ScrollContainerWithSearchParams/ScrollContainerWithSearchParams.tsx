@@ -12,6 +12,8 @@ const ScrollContainerWithSearchParams = ({
   search = true,
   setEndDateChange,
   setStartDateChange,
+  startDate,
+  endDate,
   state,
   setState,
   children,
@@ -47,6 +49,8 @@ const ScrollContainerWithSearchParams = ({
             <SelectCalendarRange
               setStartDateChange={setStartDateChange}
               setEndDateChange={setEndDateChange}
+              startDate={startDate}
+              endDate={endDate}
             />
           </div>
         )}

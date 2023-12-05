@@ -18,6 +18,8 @@ const FilterHistory = ({
   setStartDateChange,
   setEndDateChange,
   className,
+  startDate,
+  endDate,
   ...props
 }: FilterHistoryProps): JSX.Element => {
   const [visibleFilter, setVisibleFilter] = useState<boolean>(false);
@@ -248,6 +250,8 @@ const FilterHistory = ({
                 <SelectCalendarRange
                   setStartDateChange={setStartDateChange}
                   setEndDateChange={setEndDateChange}
+                  startDate={startDate}
+                  endDate={endDate}
                 />
               </div>
             </div>

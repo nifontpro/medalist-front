@@ -8,6 +8,8 @@ import P from '../P/P';
 import { memo } from 'react';
 
 const SelectCalendarRange = ({
+  startDate,
+  endDate,
   setStartDateChange,
   setEndDateChange,
   className,
@@ -16,11 +18,30 @@ const SelectCalendarRange = ({
   const dateFormat = 'DD.MM.YYYY';
 
   const onChangeStart = (value: string | null) => {
-    setStartDateChange(dayjs(value).unix() * 1000);
+    if (!endDate) {
+      setStartDateChange(dayjs(value).unix() * 1000);
+    } else {
+      if (endDate === dayjs(value).unix() * 1000) {
+        setStartDateChange(dayjs(value).unix() * 1000);
+        setEndDateChange(dayjs(value).unix() * 1000 + 86400000);
+      } else {
+        setStartDateChange(dayjs(value).unix() * 1000);
+      }
+    }
   };
 
   const onChangeEnd = (value: string | null) => {
-    setEndDateChange(dayjs(value).unix() * 1000);
+    if (!startDate) {
+      setEndDateChange(dayjs(value).unix() * 1000);
+    } else {
+      if (startDate === dayjs(value).unix() * 1000) {
+        setStartDateChange(dayjs(value).unix() * 1000);
+        setEndDateChange(dayjs(value).unix() * 1000 + 86400000);
+      } else {
+        setEndDateChange(dayjs(value).unix() * 1000);
+      }
+    }
+    // setEndDateChange(dayjs(value).unix() * 1000);
   };
 
   return (

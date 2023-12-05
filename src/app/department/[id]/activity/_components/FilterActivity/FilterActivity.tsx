@@ -17,6 +17,8 @@ const FilterActivity = ({
   setActive,
   setStartDateChange,
   setEndDateChange,
+  startDate,
+  endDate,
   className,
   ...props
 }: FilterActivityProps): JSX.Element => {
@@ -248,6 +250,8 @@ const FilterActivity = ({
                 <SelectCalendarRange
                   setStartDateChange={setStartDateChange}
                   setEndDateChange={setEndDateChange}
+                  startDate={startDate}
+                  endDate={endDate}
                 />
               </div>
             </div>

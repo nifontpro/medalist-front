@@ -6,4 +6,6 @@ export type SelectCalendarRangeProps = DetailedHTMLProps<
 > & {
   setStartDateChange: (data: number) => void;
   setEndDateChange: (data: number) => void;
+  startDate?: number;
+  endDate?: number;
 };

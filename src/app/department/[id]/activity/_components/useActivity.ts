@@ -129,5 +129,7 @@ export const useActivity = (deptId: string | undefined) => {
     setStartDateChange,
     setEndDateChange,
     sortChange,
+    startDate,
+    endDate,
   };
 };

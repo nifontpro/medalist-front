@@ -9,6 +9,22 @@
   cursor: pointer;
   @apply duration-200;
 
+  @media screen and (max-width: 1550px) {
+    font-size: 22px;
+  }
+  @media screen and (max-width: 1350px) {
+    font-size: 18px;
+  }
+  @media screen and (max-width: 1350px) {
+    font-size: 16px;
+  }
+  @media screen and (max-width: 1153px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 1140px) {
+    font-size: 22px;
+  }
+
   &:hover {
     color: var(--gray-dark);
 

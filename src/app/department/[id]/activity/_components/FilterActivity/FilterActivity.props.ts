@@ -16,4 +16,6 @@ export type FilterActivityProps = DetailedHTMLProps<
   setActive: Dispatch<SetStateAction<AwardState | undefined>>;
   setStartDateChange: (data: number) => void;
   setEndDateChange: (data: number) => void;
+  startDate?: number;
+  endDate?: number;
 };

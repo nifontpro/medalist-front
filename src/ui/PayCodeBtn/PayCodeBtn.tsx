@@ -7,7 +7,7 @@ import ImageDefault from '../ImageDefault/ImageDefault';
 import { timeConverter } from '@/utils/timeConverter';
 
 let PayCodeStatus = {
-  PAY: 'Ожидает выдачи',
+  PAY: 'Ожидает выдачи с',
   GIVEN: 'Получен',
   RETURN: 'Возвращен',
   UNDEF: '',

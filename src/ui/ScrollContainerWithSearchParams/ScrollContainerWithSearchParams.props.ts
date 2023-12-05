@@ -17,4 +17,6 @@ export type ScrollContainerWithSearchParamsProps = DetailedHTMLProps<
   setStartDateChange?: (data: number) => void;
   state?: 'ASC' | 'DESC';
   setState?: Dispatch<SetStateAction<'ASC' | 'DESC'>>;
+  startDate?: number;
+  endDate?: number;
 };

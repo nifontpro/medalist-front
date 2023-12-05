@@ -92,6 +92,8 @@ const SingleUserAwards = ({
         state={state}
         setState={setState}
         searchHandleChange={searchHandleChange}
+        startDate={startDate}
+        endDate={endDate}
       >
         {singleActivAwardUser &&
         singleActivAwardUser.data &&

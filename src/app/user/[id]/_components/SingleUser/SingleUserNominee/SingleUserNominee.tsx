@@ -97,6 +97,8 @@ const SingleUserNominee = ({
         setStartDateChange={setStartDateChange}
         state={state}
         setState={setState}
+        startDate={startDate}
+        endDate={endDate}
       >
         {singleActivAwardUser &&
         singleActivAwardUser.data &&
