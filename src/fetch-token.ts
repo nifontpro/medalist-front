@@ -122,7 +122,7 @@ export async function handleExpiredToken(request: NextRequest) {
     );
     if (redirectCount > 5) {
       // Сообщить пользователю об ошибке, возможно через пользовательский интерфейс
-      return NextResponse.error();
+      return NextResponse.redirect('/error-page');
     } else {
       // Увеличить счётчик редиректов и перенаправить пользователя
       const response = redirectToKeycloakAuth(request, request.url);
