@@ -7,22 +7,31 @@ import {
   redirectToKeycloakAuth,
 } from './fetch-token';
 
-export async function middleware(request: NextRequest, res: NextResponse) {
+export async function middleware(request: NextRequest, response: NextResponse) {
+  console.log('middleware');
   const { pathname } = request.nextUrl;
 
   const isAuthPage = pathname.startsWith('/') && pathname !== '/error-page';
   const accessToken = request.cookies.get('access_token');
 
   if (isAuthPage && !accessToken) {
+    console.log('Страница с правами и нет accessToken');
     return handleAuthPage(request);
   }
 
-  if (!accessToken) return redirectToKeycloakAuth(request, request.url);
+  if (!accessToken) {
+    console.log('Нет accessToken');
+    return redirectToKeycloakAuth(request, request.url);
+  }
 
   const decoded = decodeToken(accessToken.value);
-  if (!decoded) return redirectToKeycloakAuth(request, request.url);
+  if (!decoded) {
+    console.log('Нет decoded');
+    return redirectToKeycloakAuth(request, request.url);
+  }
 
   if (decoded.exp < Date.now() / 1000) {
+    console.log('Есть accessToken но он просрочен');
     return handleExpiredToken(request);
   }
 

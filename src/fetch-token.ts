@@ -41,9 +41,9 @@ export type AccessTokenDecoded = {
   userPrincipalName: string;
 };
 
-const pkceChallenge = require('pkce-challenge').default;
-const challenge = pkceChallenge(128);
-const tmpState = generateState(30);
+// const pkceChallenge = require('pkce-challenge').default;
+// const challenge = pkceChallenge(128);
+// const tmpState = generateState(30);
 
 const keycloakUrl = process.env.KEYCLOAK_URL || 'https://md-auth.ru';
 const client_id = process.env.KEYCLOAK_CLIENT_ID || 'medalist-client';
@@ -86,6 +86,7 @@ export const fetchAccessToken = async (
 };
 
 export const refreshAccessToken = async (refresh_token: string) => {
+  console.log('refreshAccessToken');
   try {
     const response = await fetch(
       `${keycloakUrl}/realms/${realm}/protocol/openid-connect/token`,
@@ -110,28 +111,23 @@ export const refreshAccessToken = async (refresh_token: string) => {
 };
 
 export async function handleExpiredToken(request: NextRequest) {
+  console.log('handleExpiredToken');
+
   const refreshToken = request.cookies.get('refresh_token');
-  if (!refreshToken) return redirectToKeycloakAuth(request, request.url);
+  if (!refreshToken) {
+    console.log('Нет рефреш токена');
+    return redirectToKeycloakAuth(request, request.url);
+  }
 
   const decoded = decodeToken(refreshToken.value);
   if (!decoded || decoded.exp < Date.now() / 1000) {
-    // Проверить счётчик редиректов
-    const redirectCountCookie = request.cookies.get('redirect_count');
-    const redirectCount = parseInt(
-      redirectCountCookie ? redirectCountCookie.value : '0'
-    );
-    if (redirectCount > 5) {
-      // Сообщить пользователю об ошибке, возможно через пользовательский интерфейс
-      return NextResponse.redirect('/error-page');
-    } else {
-      // Увеличить счётчик редиректов и перенаправить пользователя
-      const response = redirectToKeycloakAuth(request, request.url);
-      response.cookies.set('redirect_count', (redirectCount + 1).toString());
-      return response;
-    }
+    console.log('Есть рефреш токен, но он просрочен');
+
+    return redirectToKeycloakAuth(request, request.url);
   }
 
   const newToken = await refreshAccessToken(refreshToken.value);
+  console.log('Есть рефреш токен, получили новый AccessToken');
   return newToken ? completeAuth(request, newToken) : NextResponse.error();
 }
 
@@ -162,6 +158,11 @@ export function completeAuth(request: NextRequest, token: Token) {
 }
 
 export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
+  const pkceChallenge = require('pkce-challenge').default;
+  const challenge = pkceChallenge(128);
+  const tmpState = generateState(30);
+
+  console.log('Авторизация через Keycloak');
   const authUrl = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth`;
 
   const params = [
@@ -181,6 +182,12 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
   response.cookies.set('codeVerifier', challenge.code_verifier);
   response.cookies.set('codeChallenge', challenge.code_challenge);
   response.cookies.set('origin', origin);
+
+  response.cookies.delete('access_token');
+  response.cookies.delete('refresh_token');
+  response.cookies.delete('id_token');
+
+  console.log('Установили куки');
 
   return response;
 }
