@@ -71,8 +71,8 @@ export const fetchAccessToken = async (
           code,
           grant_type,
           client_id,
-          redirect_uri: origin,
-          // redirect_uri: redirect_uri,
+          // redirect_uri: origin,
+          redirect_uri: redirect_uri,
           code_verifier: codeVerifier,
         }),
       }
