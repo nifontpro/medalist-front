@@ -1,5 +1,5 @@
 branch=develop_keycloak_Artem
-ssh web@92.53.119.253 << EOF
+ssh web@5.23.49.42 << EOF
   cd ~/front;
   git pull
   git checkout $branch
