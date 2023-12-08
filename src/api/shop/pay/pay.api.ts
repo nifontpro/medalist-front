@@ -1,11 +1,10 @@
 import { UserPay } from '@/types/shop/pay/UserPay';
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { BaseResponse } from '@/types/base/BaseResponse';
-import { Product } from '@/types/shop/product/Product';
 import { BaseRequest } from '@/types/base/BaseRequest';
-import { baseQuery, baseQueryWithReauth } from '@/api/base/base.api';
+import { baseQueryWithReauth } from '@/api/base/base.api';
 import { PayCode, PayData } from '@/types/shop/pay/PayData';
-import userSelectionSlice, {
+import {
   setMoneyUser,
 } from '@/store/features/userSelection/userSelection.slice';
 import { productApi } from '../product/product.api';
@@ -99,9 +98,32 @@ export const payApi = createApi({
     }),
 
     /**
-     * Возврат уже выданного приза Сотрудником с возвратом ему средств на счет.
-     * Операцию выполняет Администратор.
-     * [payDataId] - номер платежной операции при выдаче приза
+     * Возврат приза Сотрудником или Администратором.
+     * Для Сотрудника приз должен быть куплен и не выдан.
+     * Для Админа приз может быть как в состоянии куплен, так и выдан.
+     * [payDataId] - номер платежной операции при покупке приза
+     */
+    returnProduct: build.mutation<
+        BaseResponse<PayData>,
+        {
+          authId: number;
+          payDataId: number;
+        }
+    >({
+      query: (request) => {
+        return {
+          method: 'POST',
+          url: payUrl('/return'),
+          body: request,
+        };
+      },
+      invalidatesTags: ['PayData', 'UserPay', 'Product'],
+    }),
+
+    /**
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * Удалить - Заменить ссылки на returnProduct
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     returnProductAdmin: build.mutation<
       BaseResponse<PayData>,
@@ -121,9 +143,9 @@ export const payApi = createApi({
     }),
 
     /**
-     * Возврат еще не выданного приза Сотрудником с возвратом ему средств на счет.
-     * Операцию выполняет сам Сотрудник.
-     * [payDataId] - номер платежной операции при покупке приза
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * Удалить - Заменить ссылки на returnProduct
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     returnProductUser: build.mutation<
       BaseResponse<PayData>,
