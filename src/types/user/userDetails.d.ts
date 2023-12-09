@@ -8,5 +8,7 @@ export interface UserDetails {
     description?: string
     schedule?: string; // Режим работы
     createdAt?: number
+    birthDate?: number
+    jobDate?: number
     images: BaseImage[];
 }
