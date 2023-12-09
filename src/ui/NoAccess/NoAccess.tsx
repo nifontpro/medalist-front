@@ -8,6 +8,10 @@ import { useRouter } from 'next/navigation';
 import P from '../P/P';
 import { memo } from 'react';
 import { errorMessageParse } from '@/utils/errorMessageParse';
+import QuestionIcon from '@/icons/question.svg';
+import RefreshIcon from '@/icons/replay.svg';
+import Htag from '../Htag/Htag';
+import Button from '../Button/Button';
 
 const NoAccess = ({
   button = true,
@@ -15,26 +19,35 @@ const NoAccess = ({
   className,
   ...props
 }: NoAccessProps): JSX.Element => {
-  const { back } = useRouter();
+  const { back, refresh } = useRouter();
 
   errorMessageParse(errors);
 
   return (
     <div className={cn(className, styles.wrapper)} {...props}>
-      {button && (
-        <ButtonCircleIcon
-          onClick={back}
-          classNameForIcon=''
-          appearance='black'
-          icon='down'
-        >
-          Вернуться назад
-        </ButtonCircleIcon>
-      )}
-
-      <P fontstyle='thin' className={styles.text}>
-        Произошла какая то ошибка. Попробуйте еще раз.
-      </P>
+      <div className={styles.contentWrapper}>
+        <div className={styles.icon}>
+          <QuestionIcon />
+        </div>
+        <div className={styles.textContent}>
+          <Htag tag='h1'>Произошла ошибка</Htag>
+          <P size='m' fontstyle='thin'>
+            К сожалению, произошел сбой. Возможные причины: <br />
+            - Ваши действия привели к сбою в работе сервиса <br />
+            - На нашем сервисе ведутся технические работы <br />
+            Мы уже работаем над устранением данной проблемы.
+          </P>
+          <Button
+            size='m'
+            appearance='blackWhite'
+            className={styles.button}
+            onClick={refresh}
+          >
+            <RefreshIcon className='w-[24px] h-[24px]' />
+            Пожалуйста, обновите страницу
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

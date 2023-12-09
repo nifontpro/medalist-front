@@ -44,6 +44,8 @@ export const useUserEdit = (
       }
     );
 
+  console.log(singleUser);
+
   const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
     deptApi.useGetAuthTopLevelTreeQuery(
       {

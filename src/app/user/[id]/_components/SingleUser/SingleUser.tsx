@@ -13,7 +13,7 @@ import Spinner from '@/ui/Spinner/Spinner';
 import NoAccess from '@/ui/NoAccess/NoAccess';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
-import { memo } from 'react';
+import { memo, use } from 'react';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { useUserEditPhoto } from '../../edit/_components/UserEdit/useUserEditPhoto';
 import SingleUserEvent from './SingleUserEvent/SingleUserEvent';
@@ -55,6 +55,8 @@ const SingleUser = ({
 
   if (isLoadingSingleUser) return <Spinner />;
   if (!user?.success) return <NoAccess errors={user?.errors} />;
+
+  console.log(user);
 
   return (
     <>

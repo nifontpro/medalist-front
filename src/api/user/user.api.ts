@@ -11,7 +11,7 @@ import { BaseRequest } from '@/types/base/BaseRequest';
 import { GenderCount } from '@/types/user/genderCount';
 import { UserSettings, UserSettingsRequest } from '@/types/user/userSettings';
 import { ActionType } from '@/types/award/Activity';
-import { baseQuery, baseQueryWithReauth } from '../base/base.api';
+import { baseQueryWithReauth } from '../base/base.api';
 import { LoadReport } from '@/types/user/addUserReport';
 import { deptApi } from '../dept/dept.api';
 
