@@ -11,7 +11,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { payApi } from '@/api/shop/pay/pay.api';
 import CardUserGift from './CardUserGift/CardUserGift';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 
 const SingleUserGifts = ({

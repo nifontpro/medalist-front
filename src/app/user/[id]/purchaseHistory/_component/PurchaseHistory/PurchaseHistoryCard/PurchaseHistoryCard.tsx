@@ -16,6 +16,7 @@ import { useShopAdmin } from '@/api/shop/useShopAdmin';
 import PayCodeBtn from '@/ui/PayCodeBtn/PayCodeBtn';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
+import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
 
 const PurchaseHistoryCard = motion(
   forwardRef(
@@ -28,6 +29,8 @@ const PurchaseHistoryCard = motion(
       const { returnAdminAsync, giveAdminAsync } = useShopAdmin();
 
       const settings = useAppSelector(SelectGetGiftSettings);
+
+      console.log('gift', gift);
 
       return (
         <>
@@ -85,7 +88,7 @@ const PurchaseHistoryCard = motion(
                 color='gray'
                 className='flex gap-[5px] items-end'
               >
-                {gift.product.price}
+                {formatNumberWithSpaces(gift.product.price)}
                 <span className='text-[17px] leading-[21px]'>
                   {settings?.payName || ''}
                 </span>
