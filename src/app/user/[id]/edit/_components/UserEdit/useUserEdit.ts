@@ -21,6 +21,8 @@ import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 import { deptApi } from '@/api/dept/dept.api';
+import dayjs from 'dayjs';
+import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
@@ -44,7 +46,7 @@ export const useUserEdit = (
       }
     );
 
-  console.log(singleUser);
+  console.log('singleUser', singleUser);
 
   const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
     deptApi.useGetAuthTopLevelTreeQuery(
@@ -89,6 +91,16 @@ export const useUserEdit = (
       setValue('userId', singleUser.data?.user.id);
       setValue('roles', singleUser.data?.user.roles);
       setValue('deptId', singleUser.data?.user.dept.id);
+      if (singleUser.data?.birthDate) {
+        setValue('birthDate', String(singleUser.data?.birthDate));
+      } else {
+        setValue('birthDate', '');
+      }
+      if (singleUser.data?.jobDate) {
+        setValue('jobDate', String(singleUser.data?.jobDate));
+      } else {
+        setValue('jobDate', '');
+      }
     }
   }, [setValue, setActive, typeOfUser, singleUser]);
 
@@ -130,6 +142,9 @@ export const useUserEdit = (
 
   const onSubmit: SubmitHandler<UpdateUserRequest> = useCallback(
     async (data) => {
+      data.birthDate = String(data.birthDate?.valueOf());
+      data.jobDate = String(data.jobDate?.valueOf());
+
       let isError = false;
 
       if (active != undefined) {

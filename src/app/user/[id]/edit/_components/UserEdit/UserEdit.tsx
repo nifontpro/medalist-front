@@ -24,6 +24,9 @@ import { IOption } from '@/ui/SelectRole/SelectRole.interface';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import cn from 'classnames';
 import { useUserEditPhoto } from './useUserEditPhoto';
+import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
+import dayjs from 'dayjs';
+import SelectCalendarForm from '@/ui/SelectCalendarForm/SelectCalendarForm';
 
 const roles: IOption[] = [
   {
@@ -214,6 +217,48 @@ export const UserEdit = ({ id }: UserEditProps) => {
                   )}
                 />
               </AuthComponent>
+
+              <Controller
+                control={control}
+                name='birthDate'
+                render={({
+                  field: { name, value, onChange, onBlur, ref },
+                  fieldState: { invalid, error },
+                }) => {
+                  value = dayjs(Number(value)).format('DD.MM.YYYY');
+                  return (
+                    <SelectCalendarForm
+                      handleClearDate={() => onChange(null)}
+                      handleChangeDate={onChange}
+                      title='Дата рождения'
+                      error={errors.birthDate}
+                      value={dayjs(value, 'DD.MM.YYYY')}
+                    />
+                  );
+                }}
+              />
+            </div>
+
+            <div className={styles.group}>
+              <Controller
+                control={control}
+                name='jobDate'
+                render={({
+                  field: { name, value, onChange, onBlur, ref },
+                  fieldState: { invalid, error },
+                }) => {
+                  value = dayjs(Number(value)).format('DD.MM.YYYY');
+                  return (
+                    <SelectCalendarForm
+                      handleClearDate={() => onChange(null)}
+                      handleChangeDate={onChange}
+                      title='Начало работы'
+                      error={errors.birthDate}
+                      value={dayjs(value, 'DD.MM.YYYY')}
+                    />
+                  );
+                }}
+              />
             </div>
 
             <TextArea
