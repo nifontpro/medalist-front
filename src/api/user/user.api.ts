@@ -100,6 +100,7 @@ export const userApi = createApi({
         try {
           await queryFulfilled;
           await dispatch(deptApi.util.invalidateTags(['Dept']));
+          await dispatch(userApi.util.invalidateTags(['User']));
         } catch (error) {
           console.error(`Error award user!`, error);
         }

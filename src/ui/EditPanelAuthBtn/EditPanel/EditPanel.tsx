@@ -93,7 +93,7 @@ const EditPanel = forwardRef(
                 className={styles.item}
               >
                 {paycode == 'PAY'
-                  ? 'Выдать'
+                  ? 'Выдать приз'
                   : paycode == 'GIVEN'
                   ? 'Принять возврат'
                   : gift
@@ -107,7 +107,7 @@ const EditPanel = forwardRef(
             title={'Требуется подтверждение!'}
             textBtn={
               paycode == 'PAY'
-                ? 'Выдать'
+                ? 'Выдать приз'
                 : paycode == 'GIVEN'
                 ? 'Принять'
                 : gift
@@ -116,7 +116,7 @@ const EditPanel = forwardRef(
             }
             text={`Ваше действие уже нельзя будет отменить. Вы действительно хотите ${
               paycode == 'PAY'
-                ? 'Выдать'
+                ? 'Выдать приз'
                 : paycode == 'GIVEN'
                 ? 'Принять возврат'
                 : gift

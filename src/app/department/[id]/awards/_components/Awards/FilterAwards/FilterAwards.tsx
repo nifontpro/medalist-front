@@ -100,7 +100,10 @@ const FilterAwards = ({
                   Показать
                 </P>
                 <ul className={styles.list}>
-                  <li className={styles.listItem} onClick={() => setActive(undefined)}>
+                  <li
+                    className={styles.listItem}
+                    onClick={() => setActive(undefined)}
+                  >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
@@ -177,7 +180,10 @@ const FilterAwards = ({
                   Сортировать
                 </P>
                 <ul className={styles.list}>
-                  <li className={styles.listItem} onClick={() => setState('ASC')}>
+                  <li
+                    className={styles.listItem}
+                    onClick={() => setState('ASC')}
+                  >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {
@@ -195,7 +201,10 @@ const FilterAwards = ({
                       Cначала новые
                     </P>
                   </li>
-                  <li className={styles.listItem} onClick={() => setState('DESC')}>
+                  <li
+                    className={styles.listItem}
+                    onClick={() => setState('DESC')}
+                  >
                     <div className={styles.circle}></div>
                     <CheckedIcon
                       className={cn(styles.checked, {

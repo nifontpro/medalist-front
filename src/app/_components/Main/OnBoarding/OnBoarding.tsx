@@ -59,4 +59,4 @@ const OnBoarding = ({
   );
 };
 
-export default memo(OnBoarding)
+export default memo(OnBoarding);
