@@ -25,7 +25,6 @@ const SingleUserGifts = ({
   );
 
   const { push } = useRouter();
-
   const { page, nextPage, prevPage, state } = useFetchParams();
 
   const selectCompany = Number(localStorage.getItem('selectCompany'));
