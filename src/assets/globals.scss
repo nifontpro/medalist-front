@@ -402,3 +402,8 @@ body[data-theme='dark'] {
   width: 8px; /* Ширина для вертикального скролла */
   height: 8px; /* Высота для горизонтального скролла */
 }
+
+/* Убирает скроллбар-угол */
+::-webkit-scrollbar-corner {
+  display: none;
+}
