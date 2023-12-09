@@ -1,6 +1,7 @@
 import { MoneyPreviewProps } from './MoneyPreview.props';
 import P from '../P/P';
 import cn from 'classnames';
+import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
 
 const MoneyPreview = ({
   value,
@@ -10,7 +11,7 @@ const MoneyPreview = ({
 }: MoneyPreviewProps): JSX.Element => {
   return (
     <P size='m' color={color} className={cn('text-end', className)}>
-      {value ? value : 0}&nbsp;{currency}
+      {value ? formatNumberWithSpaces(value) : 0}&nbsp;{currency}
     </P>
   );
 };

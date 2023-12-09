@@ -49,6 +49,8 @@ export const useAwardEdit = (
   const { back } = useRouter();
   const [update] = awardApi.useUpdateMutation();
 
+  console.log(singleAward);
+
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {
       setValue('authId', typeOfUser.id);
@@ -91,6 +93,10 @@ export const useAwardEdit = (
 
   const onSubmit: SubmitHandler<UpdateAwardRequest> = useCallback(
     async (data) => {
+      if (data.score && data.score > 0) {
+        data.score = Number(data.score);
+      }
+
       let isError = false;
 
       await update({ ...data })

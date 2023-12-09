@@ -19,6 +19,7 @@ import { RootState } from '@/store/storage/store';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import GiftConfirmationContent from '@/ui/GiftConfirmationContent/GiftConfirmationContent';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
+import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
 
 const Gift = motion(
   forwardRef(
@@ -85,14 +86,14 @@ const Gift = motion(
                     color='black'
                     className='flex gap-[5px] items-end'
                   >
-                    {gift.price}
+                    {formatNumberWithSpaces(gift.price)}
                     <span className='text-[17px] leading-[21px]'>
                       {settings?.payName || ''}
                     </span>
                   </P>
                   <ButtonIcon appearance={'grayGifts'}>
                     <P size='s' color='gray'>
-                      {gift.count} шт
+                      {formatNumberWithSpaces(gift.count)} шт
                     </P>
                   </ButtonIcon>
                 </div>

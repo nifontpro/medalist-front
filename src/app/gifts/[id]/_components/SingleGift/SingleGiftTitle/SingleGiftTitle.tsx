@@ -17,6 +17,7 @@ import { RootState } from '@/store/storage/store';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import GiftConfirmationContent from '@/ui/GiftConfirmationContent/GiftConfirmationContent';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
+import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
 
 const SingleGiftTitle = ({
   gift,
@@ -94,13 +95,13 @@ const SingleGiftTitle = ({
 
           <div className={styles.businessWrapper}>
             <P size='xl' fontstyle='thin' className='flex gap-[5px] items-end'>
-              {gift.product.price}
+              {formatNumberWithSpaces(gift.product.price)}
               <span className='text-[17px] leading-[21px]'>
                 {settings?.payName || ''}
               </span>
             </P>
             <P size='s' fontstyle='thin' className={styles.available}>
-              Наличие: {gift.product.count}
+              Наличие: {formatNumberWithSpaces(gift.product.count)}
             </P>
             <Button
               onClick={() => setOpenModalConfirm(true)}
