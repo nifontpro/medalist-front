@@ -18,6 +18,9 @@ import { RootState } from '@/store/storage/store';
 import { usePathname, useSearchParams } from 'next/navigation';
 import MoneyPreview from '@/ui/MoneyPreview/MoneyPreview';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
+import { formatDateAndDaysUntil } from '@/utils/formatDateAndDaysUntil';
+import { declOfNum } from '@/utils/declOfNum';
+import { calculateWorkExperience } from '@/utils/calculateWorkExperience';
 
 const SingleUserTitle = ({
   user,
@@ -46,6 +49,13 @@ const SingleUserTitle = ({
   }, [setVisibleModal]);
 
   const minRole: RoleUser = useMemo(() => 'ADMIN', []);
+
+  const { formattedBirthDate, daysUntil } = formatDateAndDaysUntil(
+    user?.birthDate!
+  );
+
+  const { experience, nextAnniversaryString, years, daysUntilNextYear } =
+    calculateWorkExperience(user?.jobDate!);
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
@@ -190,17 +200,53 @@ const SingleUserTitle = ({
         </div>
       </div>
 
-      {user?.description ? (
-        <>
-          <P size='l' className={styles.aboutUser}>
-            О сотруднике
-          </P>
+      <div className={styles.about}>
+        {user?.birthDate ? (
+          <div className={styles.aboutUser}>
+            <P size='l'>День прождения</P>
 
-          <P size='m' fontstyle='thin'>
-            {user?.description}
-          </P>
-        </>
-      ) : null}
+            <P size='m' fontstyle='thin' className='flex items-center'>
+              {formattedBirthDate}{' '}
+              <ButtonIcon className='ml-[10px]' appearance='lime'>
+                {`через ${daysUntil} ${declOfNum(daysUntil, [
+                  'день',
+                  'дня',
+                  'дней',
+                ])}`}
+              </ButtonIcon>
+            </P>
+          </div>
+        ) : null}
+
+        {user?.jobDate ? (
+          <div className={styles.aboutUser}>
+            <P size='l'>Стаж работы</P>
+
+            <P size='m' fontstyle='thin' className='flex items-center'>
+              {experience}{' '}
+              <ButtonIcon className='ml-[10px]' appearance='lime'>
+                {`${years + 1} ${declOfNum(years, ['год', 'года', 'лет'])}`}{' '}
+                через{' '}
+                {`${daysUntilNextYear} ${declOfNum(daysUntilNextYear, [
+                  'день',
+                  'дня',
+                  'дней',
+                ])}`}
+              </ButtonIcon>
+            </P>
+          </div>
+        ) : null}
+
+        {user?.description ? (
+          <div className={styles.aboutUser}>
+            <P size='l'>О сотруднике</P>
+
+            <P size='m' fontstyle='thin'>
+              {user?.description}
+            </P>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };
