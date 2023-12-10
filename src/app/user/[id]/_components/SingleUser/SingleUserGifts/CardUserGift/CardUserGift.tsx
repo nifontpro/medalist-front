@@ -8,6 +8,8 @@ import P from '@/ui/P/P';
 import { memo, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useShopAdmin } from '@/api/shop/useShopAdmin';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { RootState } from '@/store/storage/store';
 
 const CardUserGift = ({
   user,
@@ -15,20 +17,26 @@ const CardUserGift = ({
   className,
   ...props
 }: CardUserGiftProps): JSX.Element => {
+  const { typeOfUser } = useAppSelector(
+    (state: RootState) => state.userSelection
+  );
+
   const { push } = useRouter();
   const { returnUserAsync } = useShopAdmin();
 
   return (
     <div className={cn(styles.wrapper, className)} {...props}>
-      <EditPanelAuthBtn
-        onlyRemove={true}
-        gift={true}
-        handleRemove={() => returnUserAsync(gift.id)}
-        id={gift.id.toString()}
-        getUrlEdit={getGiftEditUrl}
-        className={styles.dots}
-        forMyself={true}
-      />
+      {typeOfUser?.id === user?.user.id && (
+        <EditPanelAuthBtn
+          onlyRemove={true}
+          gift={true}
+          handleRemove={() => returnUserAsync(gift.id)}
+          id={gift.id.toString()}
+          getUrlEdit={getGiftEditUrl}
+          className={styles.dots}
+          forMyself={true}
+        />
+      )}
 
       <div
         className={styles.img}

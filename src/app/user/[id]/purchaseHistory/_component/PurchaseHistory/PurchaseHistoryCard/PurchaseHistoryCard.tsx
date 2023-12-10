@@ -8,7 +8,6 @@ import cn from 'classnames';
 import { motion } from 'framer-motion';
 import React, { ForwardedRef, forwardRef, memo } from 'react';
 import P from '@/ui/P/P';
-import ButtonIcon from '@/ui/ButtonIcon/ButtonIcon';
 import EditPanelAuthBtn from '@/ui/EditPanelAuthBtn/EditPanelAuthBtn';
 import { getGiftEditUrl } from '@/config/api.config';
 import { useRouter } from 'next/navigation';
@@ -17,6 +16,7 @@ import PayCodeBtn from '@/ui/PayCodeBtn/PayCodeBtn';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
+import { RootState } from '@/store/storage/store';
 
 const PurchaseHistoryCard = motion(
   forwardRef(
@@ -24,9 +24,13 @@ const PurchaseHistoryCard = motion(
       { gift, className, ...props }: PurchaseHistoryCardProps,
       ref: ForwardedRef<HTMLDivElement>
     ): JSX.Element => {
+      const { typeOfUser } = useAppSelector(
+        (state: RootState) => state.userSelection
+      );
       const { push } = useRouter();
 
-      const { returnAdminAsync, giveAdminAsync } = useShopAdmin();
+      const { returnAdminAsync, giveAdminAsync, returnUserAsync } =
+        useShopAdmin();
 
       const settings = useAppSelector(SelectGetGiftSettings);
 
@@ -35,22 +39,37 @@ const PurchaseHistoryCard = motion(
       return (
         <>
           <div ref={ref} {...props} className={cn(styles.wrapper, className)}>
-            {gift.payCode !== 'RETURN' && (
-              <EditPanelAuthBtn
-                onlyRemove={
-                  gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
-                    ? true
-                    : false
-                }
-                gift={true}
-                handleRemove={() => giveAdminAsync(gift.id)}
-                id={gift.id.toString()}
-                getUrlEdit={getGiftEditUrl}
-                className={styles.dots}
-                handlereturn={() => returnAdminAsync(gift.id)}
-                paycode={gift.payCode}
-              />
-            )}
+            {gift.payCode !== 'RETURN' &&
+              typeOfUser?.roles.includes('ADMIN') && (
+                <EditPanelAuthBtn
+                  onlyRemove={
+                    gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
+                      ? true
+                      : false
+                  }
+                  gift={true}
+                  handleRemove={() => giveAdminAsync(gift.id)}
+                  id={gift.id.toString()}
+                  getUrlEdit={getGiftEditUrl}
+                  className={styles.dots}
+                  handlereturn={() => returnAdminAsync(gift.id)}
+                  paycode={gift.payCode}
+                />
+              )}
+            {typeOfUser?.id === gift?.user.id &&
+              typeOfUser?.roles.length == 1 &&
+              typeOfUser?.roles[0] === 'USER' &&
+              gift.payCode === 'PAY' && (
+                <EditPanelAuthBtn
+                  onlyRemove={true}
+                  gift={true}
+                  handleRemove={() => returnUserAsync(gift.id)}
+                  id={gift.id.toString()}
+                  getUrlEdit={getGiftEditUrl}
+                  className={styles.dots}
+                  forMyself={true}
+                />
+              )}
             <div
               className={styles.img}
               onClick={() => push(`gifts/${gift.product.id}`)}
@@ -93,11 +112,6 @@ const PurchaseHistoryCard = motion(
                   {settings?.payName || ''}
                 </span>
               </P>
-              {/* <ButtonIcon appearance={'grayGifts'}>
-                <P size='s' color='gray'>
-                  {gift.product.count} шт
-                </P>
-              </ButtonIcon> */}
             </div>
             <PayCodeBtn gift={gift} />
           </div>
