@@ -30,6 +30,7 @@ const SingleUserTitle = ({
   refOpen,
   className,
   moneyUser,
+  id,
   ...props
 }: SingleUserTitleProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
@@ -131,13 +132,16 @@ const SingleUserTitle = ({
 
       <div className={styles.awards}>
         <div className={styles.imagesAward}>
-          <div className={styles.moneyWrapper}>
-            <MoneyPreview
-              value={moneyUser?.data?.balance}
-              currency={settings?.payName || ''}
-              color={'gray'}
-            />
-          </div>
+          {typeOfUser?.id === Number(id) ||
+          typeOfUser?.roles.includes('ADMIN') ? (
+            <div className={styles.moneyWrapper}>
+              <MoneyPreview
+                value={moneyUser?.data?.balance}
+                currency={settings?.payName || ''}
+                color={'gray'}
+              />
+            </div>
+          ) : null}
 
           <div className={styles.imagesWrapper}>
             {userActiv &&

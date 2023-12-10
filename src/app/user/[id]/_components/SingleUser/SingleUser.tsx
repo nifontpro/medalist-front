@@ -48,6 +48,7 @@ const SingleUser = ({
     awardsAvailableForRewardUserSimple,
     totalPage,
     moneyUser,
+    typeOfUser,
   } = useSingleUser(id);
 
   const { imageNum, setImageNum, images, addPhoto, removePhoto } =
@@ -97,10 +98,14 @@ const SingleUser = ({
                 setVisibleModalEvent={setVisibleModalEvent}
                 refOpen={refOpen}
                 moneyUser={moneyUser}
+                id={id}
               />
             )}
 
-            <SingleUserGifts user={user.data} id={id} />
+            {typeOfUser?.id === Number(id) ||
+            typeOfUser?.roles.includes('ADMIN') ? (
+              <SingleUserGifts user={user.data} id={id} />
+            ) : null}
 
             <SingleUserAwards user={user.data} id={id} />
 
