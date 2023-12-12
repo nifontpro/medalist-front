@@ -3,7 +3,6 @@
 import styles from './EventDepartment.module.scss';
 import { EventDepartmentProps } from './EventDepartment.props';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventCard from '@/ui/EventCard/EventCard';
 import ScrollContainerWithSearchParams from '@/ui/ScrollContainerWithSearchParams/ScrollContainerWithSearchParams';
 import Htag from '@/ui/Htag/Htag';
@@ -35,13 +34,13 @@ const EventDepartment = ({
     );
 
   if (isLoadingEventsDepartment) return <Spinner />;
-  if (!eventsDepartment?.success) {
-    return <NoAccess errors={eventsDepartment?.errors} />;
-  }
+  // if (!eventsDepartment?.success) {
+  //   return <NoAccessError errors={eventsDepartment?.errors} />;
+  // }
 
   return (
     <>
-      {eventsDepartment.data && eventsDepartment.data?.length > 0 ? (
+      {eventsDepartment?.data && eventsDepartment.data?.length > 0 ? (
         <div className={styles.eventWrapper} {...props}>
           <div></div>
           <div>

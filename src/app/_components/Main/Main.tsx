@@ -15,6 +15,7 @@ import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
 import { memo } from 'react';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
   const {
@@ -30,7 +31,11 @@ const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
     isLoadingColAwardsActivRoot,
     isLoadingUsersOnDepartmentWithAwards,
     isLoadingColAwardsOnDept,
-  } = useMainLoading();
+    isSuccess,
+  } = useMainLoading(deptId);
+
+  if (!isSuccess) return <NoAccessError />;
+  console.log(isSuccess);
 
   if (
     !isLoadingColAwardsActivRoot &&
@@ -68,6 +73,7 @@ const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
           </div>
           <Events deptId={deptId} className={styles.events} />
           <ButtonScrollUp />
+
           {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
           Сбросить Onboarding
         </div> */}

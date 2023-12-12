@@ -17,6 +17,7 @@ import { useUserPanelModalWindow } from '../Header/UserLogo/UserPanelModalWindow
 import useOutsideClickWithoutBtn from '@/hooks/useOutsideClickWithoutBtn';
 import WindowWithoutRoles from './WindowWithoutRoles/WindowWithoutRoles';
 import WindowWithRoles from './WindowWithRoles/WindowWithRoles';
+import { useHandleLogout } from '../Header/UserLogo/UserPanelModalWindow/useHandleLogout';
 
 const UserSelection = ({
   rolesUser,
@@ -26,15 +27,11 @@ const UserSelection = ({
   className,
   ...props
 }: UserSelectionProps) => {
-  const { handleLogoutClick } = useUserPanelModalWindow();
+  const { handleLogoutClick } = useHandleLogout();
 
   const {
     typeOfUser,
     isOpen,
-    // rolesUser,
-    // isLoading,
-    // expandedIds,
-    // selectedIds,
     pathName,
     handleChangeRole,
     push,

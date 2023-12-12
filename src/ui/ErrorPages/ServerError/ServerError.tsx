@@ -1,33 +1,31 @@
 'use client';
 
-import styles from './NoAccess.module.scss';
+import styles from './ServerError.module.scss';
 import cn from 'classnames';
-import { NoAccessProps } from './NoAccess.props';
-import ButtonCircleIcon from '../ButtonCircleIcon/ButtonCircleIcon';
+import { ServerErrorProps } from './ServerError.props';
 import { useRouter } from 'next/navigation';
-import P from '../P/P';
+import P from '@/ui/P/P';
 import { memo } from 'react';
-import { errorMessageParse } from '@/utils/errorMessageParse';
-import QuestionIcon from '@/icons/question.svg';
-import RefreshIcon from '@/icons/replay.svg';
-import Htag from '../Htag/Htag';
-import Button from '../Button/Button';
+import ErrorIcon from '@/icons/errorNotFoundPageIcon.svg';
+import RefreshIcon from '@/icons/errorRefreshIcon.svg';
+import Htag from '@/ui/Htag/Htag';
+import Button from '@/ui/Button/Button';
+import { toast } from 'react-toastify';
 
-const NoAccess = ({
-  button = true,
-  errors,
+const ServerError = ({
+  error,
   className,
   ...props
-}: NoAccessProps): JSX.Element => {
-  const { back, refresh } = useRouter();
+}: ServerErrorProps): JSX.Element => {
+  const { refresh } = useRouter();
 
-  errorMessageParse(errors);
+  toast.error(error);
 
   return (
     <div className={cn(className, styles.wrapper)} {...props}>
       <div className={styles.contentWrapper}>
         <div className={styles.icon}>
-          <QuestionIcon />
+          <ErrorIcon />
         </div>
         <div className={styles.textContent}>
           <Htag tag='h1'>Произошла ошибка</Htag>
@@ -51,4 +49,4 @@ const NoAccess = ({
     </div>
   );
 };
-export default memo(NoAccess);
+export default memo(ServerError);

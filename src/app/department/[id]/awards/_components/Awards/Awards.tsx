@@ -12,11 +12,11 @@ import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Award from './Award/Award';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import FilterAwards from './FilterAwards/FilterAwards';
 import { memo } from 'react';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
 import cn from 'classnames';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const Awards = ({ id, className, ...props }: AwardsProps) => {
   const {
@@ -38,7 +38,7 @@ const Awards = ({ id, className, ...props }: AwardsProps) => {
 
   if (isLoadingAwardsOnDept) return <Spinner />;
   if (!awardsOnDepartment?.success)
-    return <NoAccess errors={awardsOnDepartment?.errors} />;
+    return <NoAccessError errors={awardsOnDepartment?.errors} />;
 
   if (awardsOnDepartment && awardsOnDepartment.data) {
     return (

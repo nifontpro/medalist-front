@@ -12,7 +12,6 @@ import { withHookFormMask } from 'use-mask-input';
 import { useUserEdit } from './useUserEdit';
 import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { UserEditProps } from './UserEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo, useState } from 'react';
@@ -27,6 +26,7 @@ import { useUserEditPhoto } from './useUserEditPhoto';
 import SelectCalendar from '@/ui/SelectCalendar/SelectCalendar';
 import dayjs from 'dayjs';
 import SelectCalendarForm from '@/ui/SelectCalendarForm/SelectCalendarForm';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const roles: IOption[] = [
   {
@@ -65,7 +65,8 @@ export const UserEdit = ({ id }: UserEditProps) => {
 
   if (isLoadingSingleUser) return <Spinner />;
 
-  if (!singleUser?.success) return <NoAccess errors={singleUser?.errors} />;
+  if (!singleUser?.success)
+    return <NoAccessError errors={singleUser?.errors} />;
 
   return (
     <main>

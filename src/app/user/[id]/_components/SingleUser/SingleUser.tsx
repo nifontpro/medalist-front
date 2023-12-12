@@ -10,7 +10,6 @@ import SingleUserAwards from './SingleUserAwards/SingleUserAwards';
 import SingleUserNominee from './SingleUserNominee/SingleUserNominee';
 import ModalWindowWithAddAwards from '../ModalWindowWithAddAwards/ModalWindowWithAddAwards';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import { useSingleUser } from './useSingleUser';
 import { memo, use } from 'react';
@@ -18,6 +17,7 @@ import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { useUserEditPhoto } from '../../edit/_components/UserEdit/useUserEditPhoto';
 import SingleUserEvent from './SingleUserEvent/SingleUserEvent';
 import SingleUserGifts from './SingleUserGifts/SingleUserGifts';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const SingleUser = ({
   id,
@@ -55,7 +55,7 @@ const SingleUser = ({
     useUserEditPhoto(user);
 
   if (isLoadingSingleUser) return <Spinner />;
-  if (!user?.success) return <NoAccess errors={user?.errors} />;
+  if (!user?.success) return <NoAccessError errors={user?.errors} />;
 
   console.log(user);
 

@@ -14,6 +14,7 @@ import P from '@/ui/P/P';
 import ThemeSwitcher from '@/ui/ThemeSwitcher/ThemeSwitcher';
 import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
+import { useHandleLogout } from './useHandleLogout';
 
 const UserPanelModalWindow = forwardRef(
   (
@@ -26,12 +27,10 @@ const UserPanelModalWindow = forwardRef(
     }: UserPanelModalWindowProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
-    const {
-      handleClickProfile,
-      handleClickEditProfile,
-      handleLogoutClick,
-      handleChangeCompany,
-    } = useUserPanelModalWindow(setVisibleModal, user);
+    const { handleClickProfile, handleClickEditProfile, handleChangeCompany } =
+      useUserPanelModalWindow(setVisibleModal, user);
+
+    const { handleLogoutClick } = useHandleLogout();
 
     const { data: rolesUser, isLoading } =
       userApi.useGetProfilesQuery(undefined);
