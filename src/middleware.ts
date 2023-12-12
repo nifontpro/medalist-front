@@ -8,8 +8,6 @@ import {
 } from './fetch-token';
 
 export async function middleware(request: NextRequest, response: NextResponse) {
-  request.cookies.set('origin', request.url); // походу вообще ни на что не влияет
-
   console.log('middleware');
   const { pathname } = request.nextUrl;
 
@@ -23,6 +21,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   if (!accessToken) {
     console.log('Нет accessToken');
+    // Здесь сохраняем origin только если пользователь идет на аутентификацию
+    request.cookies.set('origin', request.nextUrl.clone().toString());
     return redirectToKeycloakAuth(request, request.url);
   }
 
