@@ -17,6 +17,8 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import FilterHistory from './FilterHistory/FilterHistory';
 import PurchaseHistoryCard from './PurchaseHistoryCard/PurchaseHistoryCard';
 import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
+import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
+import { useRouter } from 'next/navigation';
 
 export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
   const {
@@ -37,11 +39,22 @@ export const PurchaseHistory = ({ id }: PurchaseHistoryProps) => {
     endDate,
   } = usePurchaseHistory(id);
 
+  const { push } = useRouter();
+
   if (isLoadingGifts) return <Spinner />;
   if (!gifts?.success) return <NoAccessError errors={gifts?.errors} />;
 
   return (
     <main>
+      <ButtonCircleIcon
+        onClick={() => push(`/user/${id}`)}
+        classNameForIcon=''
+        appearance='black'
+        icon='down'
+      >
+        Вернуться назад
+      </ButtonCircleIcon>
+
       <PurchaseHistoryTitle id={id} />
       <div className={styles.headerTitle}>
         <Htag tag='h2' className={styles.headTitle}>

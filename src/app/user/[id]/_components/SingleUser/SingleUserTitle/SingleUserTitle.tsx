@@ -72,6 +72,7 @@ const SingleUserTitle = ({
         id={user?.user.id}
         getUrlEdit={getUserEditUrl}
         className={styles.dots}
+        forMyself={typeOfUser?.id === user?.user.id}
       />
 
       <div className={styles.position}>
