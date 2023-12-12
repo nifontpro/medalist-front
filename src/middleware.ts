@@ -8,6 +8,8 @@ import {
 } from './fetch-token';
 
 export async function middleware(request: NextRequest, response: NextResponse) {
+  request.cookies.set('origin', request.url); // походу вообще ни на что не влияет
+
   console.log('middleware');
   const { pathname } = request.nextUrl;
 

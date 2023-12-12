@@ -21,8 +21,6 @@ import { UpdateUserRequest } from '@/api/user/request/UpdateUserRequest';
 import { errorMessageParse } from '@/utils/errorMessageParse';
 import { IOption } from '@/ui/SelectArtem/SelectArtem.interface';
 import { deptApi } from '@/api/dept/dept.api';
-import dayjs from 'dayjs';
-import { convertCorrectDataForUnix } from '@/utils/convertCorrectDataForUnix';
 
 export const useUserEdit = (
   setValue: UseFormSetValue<UpdateUserRequest>,
@@ -140,7 +138,8 @@ export const useUserEdit = (
 
   const onSubmit: SubmitHandler<UpdateUserRequest> = useCallback(
     async (data) => {
-      data.birthDate = data.birthDate ? data.birthDate?.valueOf() : undefined;
+      data.birthDate =
+        data.birthDate !== 0 ? data.birthDate?.valueOf() : undefined;
       data.jobDate = data.jobDate !== 0 ? data.jobDate?.valueOf() : undefined;
 
       let isError = false;
