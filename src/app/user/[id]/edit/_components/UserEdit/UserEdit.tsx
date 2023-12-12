@@ -226,14 +226,14 @@ export const UserEdit = ({ id }: UserEditProps) => {
                   field: { name, value, onChange, onBlur, ref },
                   fieldState: { invalid, error },
                 }) => {
-                  value = dayjs(Number(value)).format('DD.MM.YYYY');
+                  let v = dayjs(Number(value)).format('DD.MM.YYYY');
                   return (
                     <SelectCalendarForm
                       handleClearDate={() => onChange(null)}
                       handleChangeDate={onChange}
                       title='Дата рождения'
                       error={errors.birthDate}
-                      value={dayjs(value, 'DD.MM.YYYY')}
+                      value={dayjs(v, 'DD.MM.YYYY')}
                     />
                   );
                 }}
@@ -248,14 +248,15 @@ export const UserEdit = ({ id }: UserEditProps) => {
                   field: { name, value, onChange, onBlur, ref },
                   fieldState: { invalid, error },
                 }) => {
-                  value = dayjs(Number(value)).format('DD.MM.YYYY');
+                  let v = dayjs(Number(value)).format('DD.MM.YYYY');
+
                   return (
                     <SelectCalendarForm
                       handleClearDate={() => onChange(null)}
                       handleChangeDate={onChange}
                       title='Начало работы'
                       error={errors.birthDate}
-                      value={dayjs(value, 'DD.MM.YYYY')}
+                      value={dayjs(v, 'DD.MM.YYYY')}
                     />
                   );
                 }}

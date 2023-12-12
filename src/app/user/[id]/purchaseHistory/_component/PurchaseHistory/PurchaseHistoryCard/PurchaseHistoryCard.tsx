@@ -34,8 +34,6 @@ const PurchaseHistoryCard = motion(
 
       const settings = useAppSelector(SelectGetGiftSettings);
 
-      console.log('gift', gift);
-
       return (
         <>
           <div ref={ref} {...props} className={cn(styles.wrapper, className)}>

@@ -46,8 +46,6 @@ export const useUserEdit = (
       }
     );
 
-  console.log('singleUser', singleUser);
-
   const { data: deptsForRelocation, isLoading: isLoadingDeptsForRelocation } =
     deptApi.useGetAuthTopLevelTreeQuery(
       {
@@ -92,14 +90,14 @@ export const useUserEdit = (
       setValue('roles', singleUser.data?.user.roles);
       setValue('deptId', singleUser.data?.user.dept.id);
       if (singleUser.data?.birthDate) {
-        setValue('birthDate', String(singleUser.data?.birthDate));
+        setValue('birthDate', singleUser.data?.birthDate);
       } else {
-        setValue('birthDate', '');
+        setValue('birthDate', 0);
       }
       if (singleUser.data?.jobDate) {
-        setValue('jobDate', String(singleUser.data?.jobDate));
+        setValue('jobDate', singleUser.data?.jobDate);
       } else {
-        setValue('jobDate', '');
+        setValue('jobDate', 0);
       }
     }
   }, [setValue, setActive, typeOfUser, singleUser]);
@@ -142,8 +140,8 @@ export const useUserEdit = (
 
   const onSubmit: SubmitHandler<UpdateUserRequest> = useCallback(
     async (data) => {
-      data.birthDate = String(data.birthDate?.valueOf());
-      data.jobDate = String(data.jobDate?.valueOf());
+      data.birthDate = data.birthDate ? data.birthDate?.valueOf() : undefined;
+      data.jobDate = data.jobDate !== 0 ? data.jobDate?.valueOf() : undefined;
 
       let isError = false;
 

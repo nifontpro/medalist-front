@@ -48,9 +48,6 @@ export const useMainLoading = (deptId?: string) => {
       skip: !typeOfUser,
     }
   );
-  console.log(colAwardsOnDepartment);
-  console.log(colAwardsActivRoot);
-  console.log(usersOnDepartmentWithAwards);
 
   let isSuccess =
     colAwardsOnDepartment?.success &&
