@@ -40,7 +40,7 @@ const EditPanelDeptBtn = ({
       <EditPanel
         getUrlEdit={getUrlEdit}
         getUrlCreate={getUrlCreate}
-        onMouseLeave={() => setVisible(!visible)}
+        // onMouseLeave={() => setVisible(!visible)}
         id={id}
         deleteAsync={handleRemove}
         visible={visible}
