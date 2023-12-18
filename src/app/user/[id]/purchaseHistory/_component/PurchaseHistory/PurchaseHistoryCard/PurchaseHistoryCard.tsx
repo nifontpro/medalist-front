@@ -17,6 +17,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { SelectGetGiftSettings } from '@/store/features/giftSettings/giftSettings-selectors';
 import { formatNumberWithSpaces } from '@/utils/formatNumberWithSpace';
 import { RootState } from '@/store/storage/store';
+import EditPanelPurchaseHistory from '@/ui/EditPanelPurchaseHistory/EditPanelPurchaseHistory';
 
 const PurchaseHistoryCard = motion(
   forwardRef(
@@ -39,12 +40,13 @@ const PurchaseHistoryCard = motion(
           <div ref={ref} {...props} className={cn(styles.wrapper, className)}>
             {gift.payCode !== 'RETURN' &&
               typeOfUser?.roles.includes('ADMIN') && (
-                <EditPanelAuthBtn
-                  onlyRemove={
-                    gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
-                      ? true
-                      : false
-                  }
+                <EditPanelPurchaseHistory
+                  onlyRemove={false}
+                  // onlyRemove={
+                  //   gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
+                  //     ? true
+                  //     : false
+                  // }
                   gift={true}
                   handleRemove={() => giveAdminAsync(gift.id)}
                   id={gift.id.toString()}
