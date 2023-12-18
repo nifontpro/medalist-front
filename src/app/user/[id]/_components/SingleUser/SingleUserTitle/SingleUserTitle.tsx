@@ -119,12 +119,15 @@ const SingleUserTitle = ({
       {user?.user?.authEmail || user?.phone ? (
         <div className={styles.contacts}>
           {user?.user?.authEmail ? (
-            <a href={`mailto:${user?.user?.authEmail}`}>
+            <a href={`mailto:${user?.user?.authEmail}`} className={styles.link}>
               <P size='m'>{user?.user?.authEmail}</P>
             </a>
           ) : null}
           {user?.phone ? (
-            <a href={`tel:${user?.phone}`} className='mt-[10px]'>
+            <a
+              href={`tel:${user?.phone}`}
+              className={cn(styles.link, '@apply mt-[10px]')}
+            >
               <P size='m'>{user?.phone}</P>
             </a>
           ) : null}
