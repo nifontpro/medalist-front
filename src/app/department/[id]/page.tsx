@@ -34,7 +34,7 @@ export default async function SingleDepartment({
   params: { id: string };
 }) {
   return (
-    <main>
+    <main className='h-full'>
       <Main deptId={params.id} />
     </main>
   );

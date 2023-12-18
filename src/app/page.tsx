@@ -42,18 +42,5 @@ export default function Home() {
     }
   }, [treeDepts, typeOfUser]);
 
-  return (
-    <main>
-      {/* <div>Добро пожаловать назад</div>
-      <Button
-        size={'m'}
-        appearance={'blackWhite'}
-        onClick={() => {
-          push(`department/${localStorage.getItem('selectCompany')}`);
-        }}
-      >
-        Вернутся к работе
-      </Button> */}
-    </main>
-  );
+  return <main></main>;
 }
