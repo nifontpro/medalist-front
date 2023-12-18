@@ -1,14 +1,15 @@
 import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { errorMessageParse } from '@/utils/errorMessageParse';
-import { toast } from 'react-toastify';
 import { BaseResponse } from '@/types/base/BaseResponse';
 import { LoadReport } from '@/types/user/addUserReport';
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { DeptDetails } from '@/types/dept/deptDetails';
+import { useRouter } from 'next/navigation';
 
 export const useInputFileExcelUsersBtns = (department: DeptDetails) => {
+  const router = useRouter();
+
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -57,6 +58,7 @@ export const useInputFileExcelUsersBtns = (department: DeptDetails) => {
     setVisibleModal(false);
     setData(undefined);
     handleClearInput();
+    router.refresh();
   };
   //__________
 

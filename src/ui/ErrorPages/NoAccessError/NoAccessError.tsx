@@ -28,10 +28,11 @@ const NoAccessError = ({
           <LocedIcon />
         </div>
         <div className={styles.textContent}>
-          <Htag tag='h1'>Ошбика доступа</Htag>
+          <Htag tag='h1'>Ошибка доступа</Htag>
           <P size='m' fontstyle='thin'>
-            Вы не можете просмотреть содержимое этой страницы. Возможные
-            причины:
+            Вы не можете просмотреть содержимое этой страницы.
+            <br />
+            Возможные причины:
             <br />
             - Вы не являетесь администратором
             <br />
