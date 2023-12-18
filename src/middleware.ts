@@ -15,6 +15,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const accessToken = request.cookies.get('access_token');
 
   if (isAuthPage && !accessToken) {
+    request.cookies.set('origin', request.nextUrl.clone().toString());
     console.log('Страница с правами и нет accessToken');
     return handleAuthPage(request);
   }
@@ -29,10 +30,12 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   const decoded = decodeToken(accessToken.value);
   if (!decoded) {
     console.log('Нет decoded');
+    request.cookies.set('origin', request.nextUrl.clone().toString());
     return redirectToKeycloakAuth(request, request.url);
   }
 
   if (decoded.exp < Date.now() / 1000) {
+    request.cookies.set('origin', request.nextUrl.clone().toString());
     console.log('Есть accessToken но он просрочен');
     return handleExpiredToken(request);
   }

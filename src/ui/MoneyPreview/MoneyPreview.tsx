@@ -12,8 +12,8 @@ const MoneyPreview = ({
 }: MoneyPreviewProps): JSX.Element => {
   return (
     <P size='m' color={color} className={cn('text-end', className)}>
-      {value ? formatNumberWithSpaces(value) : 0}&nbsp;
-      <span className={styles.currency}>{currency}</span>
+      {value ? formatNumberWithSpaces(value) : 0}
+      <span className={styles.currency}>&nbsp;{currency}</span>
     </P>
   );
 };

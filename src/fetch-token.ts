@@ -184,7 +184,6 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
   response.cookies.set('state', tmpState);
   response.cookies.set('codeVerifier', challenge.code_verifier);
   response.cookies.set('codeChallenge', challenge.code_challenge);
-  // response.cookies.set('origin', origin);
 
   response.cookies.delete('access_token');
   response.cookies.delete('refresh_token');
