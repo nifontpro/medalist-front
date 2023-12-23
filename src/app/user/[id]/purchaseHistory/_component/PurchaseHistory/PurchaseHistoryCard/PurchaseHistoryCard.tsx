@@ -41,12 +41,7 @@ const PurchaseHistoryCard = motion(
             {gift.payCode !== 'RETURN' &&
               typeOfUser?.roles.includes('ADMIN') && (
                 <EditPanelPurchaseHistory
-                  onlyRemove={false}
-                  // onlyRemove={
-                  //   gift.payCode === 'PAY' || gift.payCode === 'GIVEN'
-                  //     ? true
-                  //     : false
-                  // }
+                  onlyRemove={gift.payCode === 'GIVEN' ? true : false}
                   gift={true}
                   handleRemove={() => giveAdminAsync(gift.id)}
                   id={gift.id.toString()}
