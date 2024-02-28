@@ -8,13 +8,12 @@ import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import SingleGiftTitle from './SingleGiftTitle/SingleGiftTitle';
 import { memo } from 'react';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
-import { awardApi } from '@/api/award/award.api';
 import SingleGiftGet from './SingleGiftGet/SingleGiftGet';
 import { productApi } from '@/api/shop/product/product.api';
 import SingleGiftImages from './SingleGiftImages/SingleGiftImages';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   const { typeOfUser } = useAppSelector(
@@ -35,7 +34,7 @@ const SingleGift = ({ id, className, ...props }: SingleGiftProps) => {
   const { push } = useRouter();
 
   if (isLoadingGift) return <Spinner />;
-  if (!gift?.success) return <NoAccess errors={gift?.errors} />;
+  if (!gift?.success) return <NoAccessError errors={gift?.errors} />;
 
   return (
     <div {...props} className={cn(className)}>

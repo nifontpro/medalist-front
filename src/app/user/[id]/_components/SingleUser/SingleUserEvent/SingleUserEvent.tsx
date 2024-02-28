@@ -3,7 +3,6 @@
 import styles from './SingleUserEvent.module.scss';
 import { SingleUserEventProps } from './SingleUserEvent.props';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import EventCard from '@/ui/EventCard/EventCard';
 import cn from 'classnames';
 import Htag from '@/ui/Htag/Htag';
@@ -12,6 +11,7 @@ import { memo } from 'react';
 import { eventApi } from '@/api/event/event.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const SingleUserEvent = ({
   id,
@@ -36,7 +36,7 @@ const SingleUserEvent = ({
 
   if (isLoadingEventsUser) return <Spinner />;
   if (!eventsUser?.success) {
-    return <NoAccess errors={eventsUser?.errors} />;
+    return <NoAccessError errors={eventsUser?.errors} />;
   }
 
   return (

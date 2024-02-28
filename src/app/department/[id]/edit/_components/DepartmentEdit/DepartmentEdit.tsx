@@ -10,13 +10,13 @@ import { useForm } from 'react-hook-form';
 import { useDepartmentEdit } from './useDepartmentEdit';
 import { DepartmentEditProps } from './DepartmentEdit.props';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { UpdateDeptRequest } from '@/api/dept/request/updateDeptRequest';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import { useDepartmentEditPhoto } from './useDepartmentEditPhoto';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
@@ -44,7 +44,7 @@ const DepartmentEdit = ({ id }: DepartmentEditProps) => {
   if (isLoadingByIdDept) return <Spinner />;
 
   if (!singleDepartment?.success)
-    return <NoAccess errors={singleDepartment?.errors} />;
+    return <NoAccessError errors={singleDepartment?.errors} />;
 
   return (
     <main className={styles.wrapper}>

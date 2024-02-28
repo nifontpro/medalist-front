@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
-import { userApi } from '@/api/user/user.api';
 import {
   setTypeOfUser_IsOpen,
   setIsOpenUserSelection,

@@ -15,6 +15,7 @@ import Spinner from '@/ui/Spinner/Spinner';
 import Events from './Events/Events';
 import { memo } from 'react';
 import SwitchDepartOnCompany from '@/ui/SwitchDepartOnCompany/SwitchDepartOnCompany';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
   const {
@@ -30,57 +31,63 @@ const Main = ({ deptId, className, ...props }: MainProps): JSX.Element => {
     isLoadingColAwardsActivRoot,
     isLoadingUsersOnDepartmentWithAwards,
     isLoadingColAwardsOnDept,
-  } = useMainLoading();
+    isSuccess,
+  } = useMainLoading(deptId);
 
   if (
     !isLoadingColAwardsActivRoot &&
     !isLoadingUsersOnDepartmentWithAwards &&
     !isLoadingColAwardsOnDept
   ) {
-    return (
-      <>
-        {/* <SwitchDepartOnCompany /> */}
-        <div {...props} className={styles.wrapper}>
-          <MainAwards
-            deptId={deptId}
-            className={cn(styles.awards, {
-              [styles.index30]: onBoarding == 1,
-            })}
-          />
-          <MainUsers deptId={deptId} className={styles.users} />
-          <div
-            className={cn(styles.nominee, {
-              [styles.index30]: onBoarding >= 2 && !state,
-            })}
-          >
-            <MainNominee
+    if (!isSuccess) {
+      return <NoAccessError />;
+    } else {
+      return (
+        <>
+          {/* <SwitchDepartOnCompany /> */}
+          <div {...props} className={styles.wrapper}>
+            <MainAwards
               deptId={deptId}
-              className={cn({
-                [styles.index0]: onBoarding == 3 && !state,
+              className={cn(styles.awards, {
+                [styles.index30]: onBoarding == 1,
               })}
             />
-            <MainActivity
-              deptId={deptId}
-              className={cn({
-                [styles.index0]: onBoarding == 2,
+            <MainUsers deptId={deptId} className={styles.users} />
+            <div
+              className={cn(styles.nominee, {
+                [styles.index30]: onBoarding >= 2 && !state,
               })}
-            />
+            >
+              <MainNominee
+                deptId={deptId}
+                className={cn({
+                  [styles.index0]: onBoarding == 3 && !state,
+                })}
+              />
+              <MainActivity
+                deptId={deptId}
+                className={cn({
+                  [styles.index0]: onBoarding == 2,
+                })}
+              />
+            </div>
+            <Events deptId={deptId} className={styles.events} />
+            <ButtonScrollUp />
+
+            {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
+            Сбросить Onboarding
+          </div> */}
+            {/* <OnBoarding
+              state={state}
+              onBoarding={onBoarding}
+              onBoardingText={onBoardingText}
+              onBoardingText3={onBoardingText3}
+              handleClick={saveUserSettingsAsync}
+            /> */}
           </div>
-          <Events deptId={deptId} className={styles.events} />
-          <ButtonScrollUp />
-          {/* <div className='cursor-pointer' onClick={onBoardingFalse}>
-          Сбросить Onboarding
-        </div> */}
-          {/* <OnBoarding
-            state={state}
-            onBoarding={onBoarding}
-            onBoardingText={onBoardingText}
-            onBoardingText3={onBoardingText3}
-            handleClick={saveUserSettingsAsync}
-          /> */}
-        </div>
-      </>
-    );
+        </>
+      );
+    }
   }
   return <Spinner />;
 };

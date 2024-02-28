@@ -21,4 +21,5 @@ export type SingleUserTitleProps = DetailedHTMLProps<
   refOpen: MutableRefObject<null>;
   setVisibleModalEvent: Dispatch<SetStateAction<boolean>>;
   moneyUser: BaseResponse<UserPay> | undefined;
+  id: string;
 };

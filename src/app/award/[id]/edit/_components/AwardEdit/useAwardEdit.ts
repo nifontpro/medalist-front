@@ -49,8 +49,6 @@ export const useAwardEdit = (
   const { back } = useRouter();
   const [update] = awardApi.useUpdateMutation();
 
-  console.log(singleAward);
-
   useEffect(() => {
     if (typeOfUser && typeOfUser.id) {
       setValue('authId', typeOfUser.id);

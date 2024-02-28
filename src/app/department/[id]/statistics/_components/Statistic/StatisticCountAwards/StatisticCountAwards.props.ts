@@ -1,3 +1,5 @@
+import { AwardStateCount } from '@/types/award/AwardStateCount';
+import { BaseResponse } from '@/types/base/BaseResponse';
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
 export type StatisticCountAwardsProps = DetailedHTMLProps<
@@ -5,5 +7,5 @@ export type StatisticCountAwardsProps = DetailedHTMLProps<
   HTMLDivElement
 > & {
   children?: ReactNode;
-  departId: string;
+  colAwardsOnDepartment?: BaseResponse<AwardStateCount>;
 };

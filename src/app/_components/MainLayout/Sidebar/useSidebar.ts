@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { sortTree } from '@/utils/sortTree';
 import { useState } from 'react';
 import { NewTree } from '@/app/_components/MainLayout/Sidebar/newTree';
@@ -10,7 +10,7 @@ import { findMinParentIdOnTree } from '@/utils/findMinParentIdOnTree';
 import { Dept } from '@/types/dept/dept';
 import { setTreeDepts } from '@/store/features/treeDepts/treeDepts.slice';
 import { SelectChangeEvent } from '@mui/material';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const useSidebar = () => {
   const dispatch = useAppDispatch();
@@ -102,9 +102,6 @@ export const useSidebar = () => {
     localStorage.getItem('selectCompany')
   );
 
-  // useEffect(() => {
-  //   setSelectedCompany(localStorage.getItem('selectCompany'));
-  // }, []);
   useEffect(() => {
     if (!selectedCompany && tree && tree[0]) {
       setSelectedCompany(tree[0].id.toString());

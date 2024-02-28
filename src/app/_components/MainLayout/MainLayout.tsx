@@ -13,6 +13,7 @@ const MainLayout = ({ children, ...props }: MainLayoutProps) => {
     useMainLayout();
 
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(isLoading);
   }, [isLoading]);

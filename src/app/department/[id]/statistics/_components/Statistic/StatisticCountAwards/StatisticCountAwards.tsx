@@ -4,39 +4,13 @@ import cn from 'classnames';
 import ArrowIconSvg from '@/icons/arrowRight.svg';
 import CupIconSvg from '@/icons/cup.svg';
 import P from '@/ui/P/P';
-import SpinnerSmall from '@/ui/SpinnerSmall/SpinnerSmall';
 import { memo } from 'react';
-import { useAppSelector } from '@/store/hooks/hooks';
-import { RootState } from '@/store/storage/store';
-import { awardApi } from '@/api/award/award.api';
 
 const StatisticCountAwards = ({
-  departId,
+  colAwardsOnDepartment,
   className,
   ...props
 }: StatisticCountAwardsProps): JSX.Element => {
-  const { typeOfUser } = useAppSelector(
-    (state: RootState) => state.userSelection
-  );
-
-  const switcher = useAppSelector((state) => state.switcher);
-
-  // Получить колличество наград в отделе
-  const { data: colAwardsOnDepartment, isLoading: isLoadingColAwardsOnDept } =
-    awardApi.useGetAwardCountQuery(
-      {
-        authId: typeOfUser?.id!,
-        deptId: Number(departId),
-        baseRequest: {
-          // subdepts: switcher
-          subdepts: true,
-        },
-      },
-      {
-        skip: !departId || !typeOfUser,
-      }
-    );
-
   return (
     <div {...props} className={cn(styles.wrapper, className)}>
       <div className={cn(styles.allAwards, styles.card)}>
@@ -46,11 +20,7 @@ const StatisticCountAwards = ({
             <P size='s' className={styles.descriptionTitle}>
               Награды
             </P>
-            {isLoadingColAwardsOnDept ? (
-              <SpinnerSmall position='start' />
-            ) : (
-              <P size='xl'>{colAwardsOnDepartment?.data?.finish}</P>
-            )}
+            <P size='xl'>{colAwardsOnDepartment?.data?.finish}</P>
           </div>
         </div>
         <ArrowIcon />

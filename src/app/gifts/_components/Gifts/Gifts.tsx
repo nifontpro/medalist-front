@@ -10,12 +10,12 @@ import SortButton from '@/ui/SortButton/SortButton';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import Gift from './Gift/Gift';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { memo } from 'react';
 import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import TabTitleGifts from '@/ui/TabTitleGifts/TabTitleGifts';
 import uniqid from 'uniqid';
 import FilterGifts from './FilterGifts/FilterGifts';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const Gifts = ({ className, ...props }: GiftsProps) => {
   const {
@@ -37,7 +37,7 @@ const Gifts = ({ className, ...props }: GiftsProps) => {
 
   if (isLoading) return <Spinner />;
   if (!giftsOnCompany?.success)
-    return <NoAccess errors={giftsOnCompany?.errors} />;
+    return <NoAccessError errors={giftsOnCompany?.errors} />;
 
   if (giftsOnCompany && giftsOnCompany.data) {
     return (

@@ -141,9 +141,12 @@ export function decodeToken(token: string): AccessTokenDecoded | null {
 }
 
 export function completeAuth(request: NextRequest, token: Token) {
-  const url = request.cookies.get('origin');
+  // Пытаемся получить URL из cookie 'origin', если он там есть
+  const urlFromCookie = request.cookies.get('origin')?.value || '/'; // Используйте здесь ваш URL по умолчанию
+  const url = new URL(urlFromCookie, request.url).toString();
 
-  const response = NextResponse.redirect(url?.value!);
+  const response = NextResponse.redirect(url);
+  response.cookies.delete('origin');
   // Delete existing tokens if they exist
   response.cookies.delete('access_token');
   response.cookies.delete('refresh_token');
@@ -181,7 +184,6 @@ export function redirectToKeycloakAuth(request: NextRequest, origin: string) {
   response.cookies.set('state', tmpState);
   response.cookies.set('codeVerifier', challenge.code_verifier);
   response.cookies.set('codeChallenge', challenge.code_challenge);
-  response.cookies.set('origin', origin);
 
   response.cookies.delete('access_token');
   response.cookies.delete('refresh_token');

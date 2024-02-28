@@ -11,7 +11,6 @@ import UserList from '@/ui/UserList/UserList';
 import ButtonCircleIcon from '@/ui/ButtonCircleIcon/ButtonCircleIcon';
 import AuthComponent from '@/store/providers/AuthComponent';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useUsers } from './useUsers';
 import ButtonScrollUp from '@/ui/ButtonScrollUp/ButtonScrollUp';
 import { memo } from 'react';
@@ -20,6 +19,7 @@ import PrevNextPages from '@/ui/PrevNextPages/PrevNextPages';
 import { deptApi } from '@/api/dept/dept.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const Users = ({ id, className, ...props }: UsersProps) => {
   const { typeOfUser } = useAppSelector(
@@ -60,7 +60,7 @@ const Users = ({ id, className, ...props }: UsersProps) => {
 
   if (isLoadingUsersOnDepartment) return <Spinner />;
   if (!usersOnDepartment?.success)
-    return <NoAccess errors={usersOnDepartment?.errors} />;
+    return <NoAccessError errors={usersOnDepartment?.errors} />;
 
   if (usersOnDepartment && usersOnDepartment.data) {
     return (

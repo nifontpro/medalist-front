@@ -12,6 +12,10 @@ export default function Home() {
   );
 
   const treeDepts = useAppSelector(SelectTreeDepts);
+
+  // Удаляю специально чтобы не было ошибки. Когда долго не пользуешься - выходит в окно авторизации а в локалсторэдж сохранена предыдущая компания. Если вдруг защел уже другим пользователем - может быть ошибка
+  localStorage.removeItem('selectCompany');
+
   const selectedCompany = localStorage.getItem('selectCompany');
 
   useEffect(() => {
@@ -38,18 +42,5 @@ export default function Home() {
     }
   }, [treeDepts, typeOfUser]);
 
-  return (
-    <main>
-      {/* <div>Добро пожаловать назад</div>
-      <Button
-        size={'m'}
-        appearance={'blackWhite'}
-        onClick={() => {
-          push(`department/${localStorage.getItem('selectCompany')}`);
-        }}
-      >
-        Вернутся к работе
-      </Button> */}
-    </main>
-  );
+  return <main></main>;
 }

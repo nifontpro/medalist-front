@@ -19,6 +19,8 @@ import SpinnerFetching from '@/ui/SpinnerFetching/SpinnerFetching';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import ChoiceImgCreate from '@/app/create/award/_components/CreateAward/ChoiceImgCreate/ChoiceImgCreate';
+import SelectCalendarForm from '@/ui/SelectCalendarForm/SelectCalendarForm';
+import dayjs from 'dayjs';
 
 const roles: IOption[] = [
   {
@@ -162,6 +164,49 @@ const CreateUser = () => {
                 title='Email*'
                 placeholder='Введите свой email'
                 error={errors.authEmail}
+              />
+            </div>
+
+            <div className={styles.group}>
+              <Controller
+                control={control}
+                name='birthDate'
+                render={({
+                  field: { name, value, onChange, onBlur, ref },
+                  fieldState: { invalid, error },
+                }) => {
+                  let v = dayjs(Number(value ? value : 0)).format('DD.MM.YYYY');
+
+                  return (
+                    <SelectCalendarForm
+                      handleClearDate={() => onChange(null)}
+                      handleChangeDate={onChange}
+                      title='Дата рождения'
+                      error={errors.birthDate}
+                      value={dayjs(v, 'DD.MM.YYYY')}
+                    />
+                  );
+                }}
+              />
+              <Controller
+                control={control}
+                name='jobDate'
+                render={({
+                  field: { name, value, onChange, onBlur, ref },
+                  fieldState: { invalid, error },
+                }) => {
+                  let v = dayjs(Number(value ? value : 0)).format('DD.MM.YYYY');
+
+                  return (
+                    <SelectCalendarForm
+                      handleClearDate={() => onChange(null)}
+                      handleChangeDate={onChange}
+                      title='Начало работы'
+                      error={errors.birthDate}
+                      value={dayjs(v, 'DD.MM.YYYY')}
+                    />
+                  );
+                }}
               />
             </div>
 

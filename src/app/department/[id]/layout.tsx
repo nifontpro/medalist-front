@@ -13,9 +13,9 @@ export default function DepartmentLayout({
   params: { id: string };
 }) {
   return (
-    <section>
+    <section className='h-full'>
       <HeaderLayout id={params.id} />
-      <div>{children}</div>
+      <div className='h-full'>{children}</div>
     </section>
   );
 }

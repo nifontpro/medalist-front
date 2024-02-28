@@ -20,8 +20,8 @@ const EditPanelAuthBtn = ({
   forMyself = false,
   color = 'transparent',
 }: EditPanelAuthBtnProps): JSX.Element => {
-  const [visible, setVisible] = useState<boolean>(false);
   //Закрытие модального окна нажатием вне его
+  const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef(null);
   const refOpen = useRef(null);
   const handleClickOutside = () => {
@@ -41,7 +41,7 @@ const EditPanelAuthBtn = ({
       />
       <EditPanel
         getUrlEdit={getUrlEdit}
-        onMouseLeave={() => setVisible(!visible)}
+        // onMouseLeave={() => setVisible(!visible)}
         id={id}
         deleteAsync={handleRemove}
         visible={visible}

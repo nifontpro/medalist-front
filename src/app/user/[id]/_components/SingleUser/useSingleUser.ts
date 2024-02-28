@@ -126,5 +126,6 @@ export const useSingleUser = (id: string) => {
     totalPage,
     awardsAvailableForRewardUserSimple,
     moneyUser,
+    typeOfUser,
   };
 };

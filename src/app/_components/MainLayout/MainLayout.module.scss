@@ -27,10 +27,7 @@
 
     position: -webkit-sticky;
     position: sticky;
-    height: calc(
-      100dvh - 100px
-    ); /* Высота равна 100% видимой области экрана минус 100 пикселей */
-    // overflow-y: auto; /* Добавляет прокрутку, если содержимое элемента превышает его высоту */
+    height: calc(100dvh - 100px);
 
     @media screen and (max-width: 1140px) {
       display: none;
@@ -38,25 +35,25 @@
   }
   .content {
     grid-area: content;
-    padding: 50px 50px 0px 50px;
+    padding: 50px 50px 50px 50px;
     background: var(--backgroundMain);
     border-radius: 15px 0px 0px 0px;
     overflow: hidden;
-    min-height: 100vh;
+    // min-height: 100vh;
 
     @media screen and (max-width: 1140px) {
       border-radius: 0px;
       margin-top: 100px;
     }
     @media screen and (max-width: 1280px) {
-      padding: 40px 40px 0px 40px;
+      padding: 40px 40px 40px 40px;
     }
     @media screen and (max-width: 768px) {
       margin-top: 75px;
-      padding: 30px 20px 0px 20px;
+      padding: 30px 20px 30px 20px;
     }
     @media screen and (max-width: 400px) {
-      padding: 30px 10px 0px 10px;
+      padding: 30px 10px 30px 10px;
     }
   }
 }

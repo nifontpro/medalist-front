@@ -9,7 +9,6 @@ import TextArea from '@/ui/TextArea/TextArea';
 import Button from '@/ui/Button/Button';
 import { useGiftEdit } from './useGiftEdit';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { GiftEditProps } from './GiftEdit.props';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { memo, useState } from 'react';
@@ -17,6 +16,7 @@ import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import { useGiftEditPhoto } from './useGiftEditPhoto';
 import { UpdateProductRequest } from '@/api/shop/product/request/UpdateProductRequest';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 export const GiftEdit = ({ id }: GiftEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
@@ -38,7 +38,7 @@ export const GiftEdit = ({ id }: GiftEditProps) => {
 
   if (isLoadingGift) return <Spinner />;
 
-  if (!gift?.success) return <NoAccess errors={gift?.errors} />;
+  if (!gift?.success) return <NoAccessError errors={gift?.errors} />;
 
   return (
     <main>

@@ -10,12 +10,15 @@ import Htag from '@/ui/Htag/Htag';
 import { useMainAwards } from './useMainAwards';
 import { memo } from 'react';
 import { deptApi } from '@/api/dept/dept.api';
+import { useAppDispatch } from '@/store/hooks/hooks';
+import { setSuccess } from '@/store/features/dashboardLoading/dashboardLoading.slice';
 
 const MainAwards = ({
   deptId,
   className,
   ...props
 }: MainAwardsProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const {
     push,
     countUserWithAwardPercent,

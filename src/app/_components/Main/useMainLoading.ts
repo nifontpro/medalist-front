@@ -3,7 +3,7 @@ import { userApi } from '@/api/user/user.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 
-export const useMainLoading = () => {
+export const useMainLoading = (deptId?: string) => {
   const { typeOfUser } = useAppSelector(
     (state: RootState) => state.userSelection
   );
@@ -13,7 +13,7 @@ export const useMainLoading = () => {
     awardApi.useGetAwardCountQuery(
       {
         authId: typeOfUser?.id!,
-        deptId: typeOfUser?.dept.id,
+        deptId: Number(deptId),
         baseRequest: { subdepts: true },
       },
       {
@@ -26,7 +26,7 @@ export const useMainLoading = () => {
     awardApi.useGetActivCountRootQuery(
       {
         authId: typeOfUser?.id!,
-        deptId: typeOfUser?.dept.id,
+        deptId: Number(deptId),
         baseRequest: { subdepts: true },
       },
       {
@@ -41,7 +41,7 @@ export const useMainLoading = () => {
   } = userApi.useGetUsersWithAwardCountQuery(
     {
       authId: typeOfUser?.id!,
-      deptId: typeOfUser?.dept.id,
+      deptId: Number(deptId),
       baseRequest: { subdepts: true },
     },
     {
@@ -49,9 +49,15 @@ export const useMainLoading = () => {
     }
   );
 
+  let isSuccess =
+    colAwardsOnDepartment?.success &&
+    colAwardsActivRoot?.success &&
+    usersOnDepartmentWithAwards?.success;
+
   return {
     isLoadingColAwardsActivRoot,
     isLoadingUsersOnDepartmentWithAwards,
     isLoadingColAwardsOnDept,
+    isSuccess,
   };
 };

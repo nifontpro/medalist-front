@@ -35,7 +35,7 @@ export const useCreateUser = (
   );
   const searchParams = useSearchParams();
 
-  const { back } = useRouter();
+  const { back, push } = useRouter();
 
   const [create, createInfo] = userApi.useCreateUserMutation();
 
@@ -100,6 +100,10 @@ export const useCreateUser = (
     async (data) => {
       let isError = false;
 
+      data.birthDate =
+        data.birthDate !== 0 ? data.birthDate?.valueOf() : undefined;
+      data.jobDate = data.jobDate !== 0 ? data.jobDate?.valueOf() : undefined;
+
       if (active != undefined) {
         data.gender = active;
       }
@@ -137,10 +141,10 @@ export const useCreateUser = (
       if (!isError) {
         reset();
         toast.success('Профиль сотрудника успешно создан');
-        back();
+        push(`/department/${deptId}/users`);
       }
     },
-    [active, back, create, reset, addImage, imageFile, typeOfUser]
+    [active, push, create, reset, addImage, imageFile, typeOfUser, deptId]
   );
 
   return {

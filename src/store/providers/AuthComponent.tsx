@@ -11,7 +11,7 @@ const AuthComponent: FC<
     (state: RootState) => state.userSelection
   );
 
-  return checkRole(typeOfUser, minRole) || access ? <>{children}</> : null;
+  return access || checkRole(typeOfUser, minRole) ? <>{children}</> : null;
 };
 
 export default memo(AuthComponent);

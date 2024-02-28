@@ -7,7 +7,7 @@ export interface UpdateUserRequest extends CreateOwnerRequest {
   deptId?: number;
   authEmail?: string; // Почта по которой будет входить новый сотрудник
   schedule?: string; // Режим работы
-  birthDate?: string;
-  jobDate?: string;
+  birthDate?: number;
+  jobDate?: number;
   roles: RoleUser[]; // допустимые роли: ADMIN, USER
 }

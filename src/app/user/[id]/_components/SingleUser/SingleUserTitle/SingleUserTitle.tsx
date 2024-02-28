@@ -30,6 +30,7 @@ const SingleUserTitle = ({
   refOpen,
   className,
   moneyUser,
+  id,
   ...props
 }: SingleUserTitleProps): JSX.Element => {
   const { typeOfUser } = useAppSelector(
@@ -71,6 +72,7 @@ const SingleUserTitle = ({
         id={user?.user.id}
         getUrlEdit={getUserEditUrl}
         className={styles.dots}
+        forMyself={typeOfUser?.id === user?.user.id}
       />
 
       <div className={styles.position}>
@@ -117,12 +119,15 @@ const SingleUserTitle = ({
       {user?.user?.authEmail || user?.phone ? (
         <div className={styles.contacts}>
           {user?.user?.authEmail ? (
-            <a href={`mailto:${user?.user?.authEmail}`}>
+            <a href={`mailto:${user?.user?.authEmail}`} className={styles.link}>
               <P size='m'>{user?.user?.authEmail}</P>
             </a>
           ) : null}
           {user?.phone ? (
-            <a href={`tel:${user?.phone}`} className='mt-[10px]'>
+            <a
+              href={`tel:${user?.phone}`}
+              className={cn(styles.link, '@apply mt-[10px]')}
+            >
               <P size='m'>{user?.phone}</P>
             </a>
           ) : null}
@@ -131,13 +136,16 @@ const SingleUserTitle = ({
 
       <div className={styles.awards}>
         <div className={styles.imagesAward}>
-          <div className={styles.moneyWrapper}>
-            <MoneyPreview
-              value={moneyUser?.data?.balance}
-              currency={settings?.payName || ''}
-              color={'gray'}
-            />
-          </div>
+          {typeOfUser?.id === Number(id) ||
+          typeOfUser?.roles.includes('ADMIN') ? (
+            <div className={styles.moneyWrapper}>
+              <MoneyPreview
+                value={moneyUser?.data?.balance}
+                currency={settings?.payName || ''}
+                color={'gray'}
+              />
+            </div>
+          ) : null}
 
           <div className={styles.imagesWrapper}>
             {userActiv &&

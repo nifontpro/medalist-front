@@ -31,7 +31,7 @@ const EditPanelImgBtn = ({
         ref={refOpen}
       />
       <EditPanel
-        onMouseLeave={() => setVisible(!visible)}
+        // onMouseLeave={() => setVisible(!visible)}
         visible={visible}
         ref={ref}
         gallery={gallery}

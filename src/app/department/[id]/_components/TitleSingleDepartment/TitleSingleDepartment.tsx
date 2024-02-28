@@ -11,7 +11,6 @@ import {
   getDepartmentEditUrl,
 } from '@/config/api.config';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { memo, useCallback, useState } from 'react';
 import ModalWindowWithAddEvent from '@/ui/ModalWindowWithAddEvent/ModalWindowWithAddEvent';
 import Button from '@/ui/Button/Button';
@@ -27,6 +26,7 @@ import { declOfNum } from '@/utils/declOfNum';
 import { ForWhat } from '@/ui/ImageDefault/ImageDefault';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { useDepartmentEditPhoto } from '../../edit/_components/DepartmentEdit/useDepartmentEditPhoto';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const TitleSingleDepartment = ({
   id,
@@ -88,7 +88,7 @@ const TitleSingleDepartment = ({
 
   if (isLoadingByIdDept) return <Spinner />;
   if (!department?.success) {
-    return <NoAccess errors={department?.errors} />;
+    return <NoAccessError errors={department?.errors} />;
   }
 
   return (

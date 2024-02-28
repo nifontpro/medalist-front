@@ -7,7 +7,6 @@ import styles from './AwardEdit.module.scss';
 import TextArea from '@/ui/TextArea/TextArea';
 import { useForm } from 'react-hook-form';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import EditImagesComponent from '@/ui/EditImagesComponent/EditImagesComponent';
 import { AwardEditProps } from './AwardEdit.props';
 import { useAwardEdit } from './useAwardEdit';
@@ -18,6 +17,7 @@ import { memo, useState } from 'react';
 import P from '@/ui/P/P';
 import ModalConfirm from '@/ui/ModalConfirm/ModalConfirm';
 import { useAwardEditPhoto } from './useAwardEditPhoto';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const AwardEdit = ({ id }: AwardEditProps) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
@@ -46,7 +46,8 @@ const AwardEdit = ({ id }: AwardEditProps) => {
 
   if (isLoadingSingleAward) return <Spinner />;
 
-  if (!singleAward?.success) return <NoAccess errors={singleAward?.errors} />;
+  if (!singleAward?.success)
+    return <NoAccessError errors={singleAward?.errors} />;
 
   return (
     <main>

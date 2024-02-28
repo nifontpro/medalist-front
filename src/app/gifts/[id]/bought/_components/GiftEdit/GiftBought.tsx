@@ -11,7 +11,7 @@ import { productApi } from '@/api/shop/product/product.api';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 export const GiftBought = ({ id }: GiftBoughtProps) => {
   const { push } = useRouter();
@@ -31,7 +31,7 @@ export const GiftBought = ({ id }: GiftBoughtProps) => {
   );
 
   if (isLoadingGift) return <Spinner />;
-  if (!gift?.success) return <NoAccess errors={gift?.errors} />;
+  if (!gift?.success) return <NoAccessError errors={gift?.errors} />;
 
   return (
     <main>

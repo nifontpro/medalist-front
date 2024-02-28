@@ -11,10 +11,10 @@ import AwardWasNominee from './AwardWasNominee/AwardWasNominee';
 import AwardNominee from './AwardNominee/AwardNominee';
 import { memo } from 'react';
 import Spinner from '@/ui/Spinner/Spinner';
-import NoAccess from '@/ui/NoAccess/NoAccess';
 import { useAppSelector } from '@/store/hooks/hooks';
 import { RootState } from '@/store/storage/store';
 import { awardApi } from '@/api/award/award.api';
+import NoAccessError from '@/ui/ErrorPages/NoAccessError/NoAccessError';
 
 const SingleAward = ({ id, className, ...props }: SingleAwardProps) => {
   const { typeOfUser } = useAppSelector(
@@ -36,7 +36,7 @@ const SingleAward = ({ id, className, ...props }: SingleAwardProps) => {
   const { back } = useRouter();
 
   if (isLoadingSingleAward) return <Spinner />;
-  if (!award?.success) return <NoAccess errors={award?.errors} />;
+  if (!award?.success) return <NoAccessError errors={award?.errors} />;
 
   if (
     award?.data?.award.state == 'FINISH' ||
